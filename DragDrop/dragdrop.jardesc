@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jardesc>
 <jar path="C:/fred/java/lib/dragdrop.jar"/>
-<options buildIfNeeded="true" compress="false" descriptionLocation="/DragDrop/dragdrop.jardesc" exportErrors="false" exportWarnings="false" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+<options buildIfNeeded="true" compress="false" descriptionLocation="/DragDrop/dragdrop.jardesc" exportErrors="false" exportWarnings="false" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
 <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
 <selectedProjects/>
-<selectedElements exportClassFiles="false" exportJavaFiles="true" exportOutputFolder="false">
+<selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
 <javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dragdrop"/>
+<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dragdrop.client.drop"/>
 <javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dragdrop.client.temp"/>
 <javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dragdrop.client.util"/>
 <javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dragdrop.client"/>
