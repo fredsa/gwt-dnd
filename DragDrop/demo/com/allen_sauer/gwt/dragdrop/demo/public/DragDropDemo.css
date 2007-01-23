@@ -1,0 +1,75 @@
+@CHARSET "ISO-8859-1";
+
+body {
+  margin: 10px; /* leave for testing of positions */
+}
+
+code {
+  font-style: normal;
+}
+  
+.red-box-draggable-panel {
+  background-color: #EE0000; /* red */
+  border: 2px solid #AA0000;
+  text-align: center;
+  color: #FFCCCC;
+}
+
+.trashbin {
+  text-align: center;
+  background-color: #AAAAAA; /* grey */
+  border: 1px solid black;
+  border-top: 4px solid black;
+}
+
+.pre-trashbin-drop {
+  filter: alpha(opacity =   10);
+  opacity: 0.1;
+  -moz-opacity: 0.1;
+}
+
+.flow-label {
+  font-size: 1.2em;
+}
+
+.gwt-StackPanel td {
+  padding: 0.5em 0em 1em 0em;
+}
+
+.gwt-StackPanel td.gwt-StackPanelItem {
+  xborder: 1px solid orange;
+  padding: 0.5em;
+  margin: 3em;
+  color: #888888;
+}
+
+.gwt-StackPanel td.gwt-StackPanelItem:hover {
+  cursor: pointer;
+  background-color: orange;
+  color: black;
+}
+
+.example1 ,
+.gwt-StackPanel td.gwt-StackPanelItem-selected ,
+.gwt-StackPanel td.gwt-StackPanelItem-selected:hover {
+  cursor: auto;
+  background-color: orange;
+  color: black;
+}
+
+.dragdrop-boundry {
+  background: #F8F8F8; /* light grey */
+  border: 1px solid blue;
+}
+
+.dragdrop-drop-target {
+  background: #ABCDEF; /* light blue */
+}
+
+.dragdrop-drop-target .pre-drop {
+  background: #BCDEFF; /* lighter blue */
+}
+
+.dragdrop-flow-panel-drop-target div {
+  
+}
