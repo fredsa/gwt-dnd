@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.StackPanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
@@ -38,63 +37,70 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
  */
 public class DragDropDemo implements EntryPoint {
 
-  private int counter;
+  private final int draggableSize = 65;
 
   public void onModuleLoad() {
+    RedBoxDraggablePanel draggable;
     AbsolutePanel boundryPanel = new AbsolutePanel();
     boundryPanel.setPixelSize(750, 500);
-    RootPanel.get().add(new HTML("<h1>Drag-and-Drop Examples</h1>"));
+    RootPanel.get().add(new HTML("<h3>Drag-and-Drop Examples</h3>"));
     RootPanel.get().add(
         new HTML(
             "<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action. "
                 + "You will find each of the included <code>DropContoller</code>s demonstrated.</p>"));
 
-    HTML example1 = new HTML(describe("BoundryDropController",
-        "All our example drag operations are constrained to this panel."));
-    example1.addStyleName("example1");
-    RootPanel.get().add(example1);
+    HTML boundryDescription = ExampleTabPanel.describe("BoundryDropController",
+        "All our example drag operations are constrained to the panel below.");
+    boundryDescription.addStyleName("boundry");
+    RootPanel.get().add(boundryDescription);
     RootPanel.get().add(boundryPanel);
 
-    boundryPanel.add(new RedBoxDraggablePanel(boundryPanel, 60, 60), 20, 20);
-    boundryPanel.add(new RedBoxDraggablePanel(boundryPanel, 60, 60), 20, 100);
-    boundryPanel.add(new RedBoxDraggablePanel(boundryPanel, 60, 60), 20, 180);
-    boundryPanel.add(new RedBoxDraggablePanel(boundryPanel, 60, 60), 20, 200);
-    boundryPanel.add(new RedBoxDraggablePanel(boundryPanel, 60, 60), 20, 220);
-    boundryPanel.add(new RedBoxDraggablePanel(boundryPanel, 60, 60), 20, 240);
-    boundryPanel.add(new RedBoxDraggablePanel(boundryPanel, 60, 60), 20, 260);
-    boundryPanel.add(new RedBoxDraggablePanel(boundryPanel, 60, 60), 20, 280);
-    boundryPanel.add(new RedBoxDraggablePanel(boundryPanel, 60, 60), 20, 300);
+    draggable = createDraggable(boundryPanel);
+    RootPanel.get().add(draggable);
+    boundryPanel.add(draggable, 20, 20);
+    int draggableOffsetWidth = draggable.getOffsetWidth();
+    int draggableOffsetHeight = draggable.getOffsetHeight();
+    boundryPanel.add(createDraggable(boundryPanel), 20, 100);
+    boundryPanel.add(createDraggable(boundryPanel), 20, 200);
+    boundryPanel.add(createDraggable(boundryPanel), 40, 240);
+    boundryPanel.add(createDraggable(boundryPanel), 60, 280);
 
-    StackPanel dropTargetsStackPanel = new StackPanel();
+    ExampleTabPanel dropTargets = new ExampleTabPanel();
 
-    SimplePanel simpleDropTarget = new SimplePanel();
+    // Example 1: TrashBinDropController
+    TrashBinPanel simpleDropTarget = new TrashBinPanel(120, 120);
     new TrashBinDropController(simpleDropTarget);
-    simpleDropTarget.addStyleName("trashbin");
-    simpleDropTarget.setPixelSize(50, 50);
-    simpleDropTarget.add(new Label("Trash bin"));
-    dropTargetsStackPanel.add(
+    dropTargets.add(
         simpleDropTarget,
-        describe(
-            "TrashBinDropController",
-            "Classic drop target which simply recognizes when a draggable widget is dropped on it."),
-        true);
+        "TrashBinDropController",
+        "Classic drop target which simply recognizes when a draggable widget is dropped on it.");
 
+    // Example 2: AbsolutePositionDropController
     AbsolutePanel positioningDropTarget = new AbsolutePanel();
     new AbsolutePositionDropController(positioningDropTarget);
-    positioningDropTarget.setPixelSize(400, 100);
-    dropTargetsStackPanel.add(positioningDropTarget, describe(
-        "AbsolutePositionDropController",
-        "Draggable widget can be placed anywhere on this drop target."), true);
+    positioningDropTarget.setPixelSize(400, 150);
+    dropTargets.add(positioningDropTarget, "AbsolutePositionDropController",
+        "Draggable widgets can be placed anywhere on the grey drop target.");
+    positioningDropTarget.add(createDraggable(boundryPanel), 10, 40);
+    positioningDropTarget.add(createDraggable(boundryPanel), 60, 8);
+    positioningDropTarget.add(createDraggable(boundryPanel), 190, 70);
 
-    int gridX = 40;
-    int gridY = 40;
+    // Example 3: GridConstrainedDropController
+    draggable = createDraggable(boundryPanel);
     AbsolutePanel gridConstrainedDropTarget = new AbsolutePanel();
-    new GridConstrainedDropController(gridConstrainedDropTarget, gridX, gridY);
-    gridConstrainedDropTarget.setPixelSize(400, 105);
-    dropTargetsStackPanel.add(gridConstrainedDropTarget, describe(
-        "GridConstrainedDropController", "Drops are constrained to a (" + gridX
-            + ", " + gridY + ") grid on this drop target."), true);
+    dropTargets.add(gridConstrainedDropTarget, "GridConstrainedDropController",
+        "Drops (moves) are constrained to a (" + draggableOffsetWidth + ", "
+            + draggableOffsetHeight + ") grid on the grey drop target.");
+    gridConstrainedDropTarget.add(draggable);
+    draggable = createDraggable(boundryPanel);
+    gridConstrainedDropTarget.add(draggable, draggableOffsetWidth,
+        draggableOffsetHeight);
+    new GridConstrainedDropController(gridConstrainedDropTarget,
+        draggableOffsetWidth, draggableOffsetHeight);
+    gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 6,
+        draggableOffsetHeight * 2);
 
+    // Example 4: IndexedDropController
     IndexedFlowPanel flowPanelDropTarget = new IndexedFlowPanel();
     new IndexedDropController(flowPanelDropTarget);
     for (int i = 1; i <= 5; i++) {
@@ -103,14 +109,11 @@ public class DragDropDemo implements EntryPoint {
       flowPanelDropTarget.add(label);
       new DragAndDropController(label, boundryPanel);
     }
-    dropTargetsStackPanel.add(
+    dropTargets.add(
         flowPanelDropTarget,
-        describe(
-            "IndexedDropController",
-            "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>."),
-        true);
-
-    boundryPanel.add(dropTargetsStackPanel, 170, 10);
+        "IndexedDropController",
+        "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.");
+    flowPanelDropTarget.add(createDraggable(boundryPanel));
 
     // Widget.addDragAndDropListener(new DragAndDropListener() {
     //
@@ -140,10 +143,13 @@ public class DragDropDemo implements EntryPoint {
         return true;
       }
     });
+
+    dropTargets.selectTab(1);
+    boundryPanel.add(dropTargets, 170, 10);
   }
 
-  private String describe(String controllerClassName, String description) {
-    return "Example " + ++counter + ": <code>" + controllerClassName
-        + "</code><br>\n" + "<i>" + description + "</i>";
+  private RedBoxDraggablePanel createDraggable(AbsolutePanel boundryPanel) {
+    return new RedBoxDraggablePanel(boundryPanel, draggableSize, draggableSize);
   }
+
 }
