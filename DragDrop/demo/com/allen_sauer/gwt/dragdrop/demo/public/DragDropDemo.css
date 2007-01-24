@@ -37,7 +37,6 @@ code {
 }
 
 .gwt-StackPanel td.gwt-StackPanelItem {
-  xborder: 1px solid orange;
   padding: 0.5em;
   margin: 3em;
   color: #888888;
