@@ -10,7 +10,7 @@ code {
   
 .red-box-draggable-panel {
   background-color: #EE0000; /* red */
-  border: 2px solid #AA0000;
+  border: 2px solid #AA0000; /* dark red */
   text-align: center;
   color: #FFCCCC;
   font-size: 0.9em;
@@ -18,20 +18,14 @@ code {
 
 .example-description.boundry {
   border-top: 1px solid #87B3FF;
+  border-left: 1px solid #87B3FF;
+  border-right: 1px solid #87B3FF;
 }
 
 .example-description {
   font-size: 0.9em;
-  background-color: #E8EEF7;
-  border-left: 1px solid #87B3FF;
-  border-right: 1px solid #87B3FF;
   border-bottom: 1px solid #E8EEF7;
   padding: 0.5em 0.3em;
-}
-
-.example-panel {
-  margin: 2em 1em;
-  border: 1px solid #87B3FF;
 }
 
 .dragdrop-drop-target.trashbin {
@@ -57,7 +51,8 @@ code {
 
 .dragdrop-drop-target {
   background-color: #CCCCCC; /* grey */
-  xbackground: #ABCDEF; /* light blue */
+  border: 1px solid black;
+  margin: 2em 1em;
 }
 
 .dragdrop-drop-target .pre-drop {
@@ -65,11 +60,14 @@ code {
 }
 
 .gwt-TabPanel {
-  border: 1px solid #87B3FF;
+  xborder: 1px solid #87B3FF;
 }
 
 .gwt-TabPanelBottom {
   border-left: 1px solid #87B3FF;
+  border-right: 1px solid #87B3FF;
+  border-bottom: 1px solid #87B3FF;
+  background-color: #E8EEF7;
 }
 
 .gwt-TabBar {

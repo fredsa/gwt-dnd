@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HTML;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
@@ -34,7 +34,7 @@ public class RedBoxDraggablePanel extends FocusPanel {
   public RedBoxDraggablePanel(AbsolutePanel boundryPanel, int width, int height) {
     this.boundryPanel = boundryPanel;
     setPixelSize(width, height);
-    setWidget(new Label("drag me! draggable widget #" + ++counter));
+    setWidget(new HTML("<i>drag me!</i> draggable widget #" + ++counter, true));
   }
 
   protected void onLoad() {

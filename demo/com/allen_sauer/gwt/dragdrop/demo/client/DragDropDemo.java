@@ -89,7 +89,7 @@ public class DragDropDemo implements EntryPoint {
     draggable = createDraggable(boundryPanel);
     AbsolutePanel gridConstrainedDropTarget = new AbsolutePanel();
     dropTargets.add(gridConstrainedDropTarget, "GridConstrainedDropController",
-        "Drops (moves) are constrained to a (" + draggableOffsetWidth + ", "
+        "Drops (moves) are constrained to a (" + draggableOffsetWidth + " x "
             + draggableOffsetHeight + ") grid on the grey drop target.");
     gridConstrainedDropTarget.add(draggable);
     draggable = createDraggable(boundryPanel);
