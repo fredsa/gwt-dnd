@@ -13,11 +13,29 @@ code {
   border: 2px solid #AA0000;
   text-align: center;
   color: #FFCCCC;
+  font-size: 0.9em;
 }
 
-.trashbin {
+.example-description.boundry {
+  border-top: 1px solid #87B3FF;
+}
+
+.example-description {
+  font-size: 0.9em;
+  background-color: #E8EEF7;
+  border-left: 1px solid #87B3FF;
+  border-right: 1px solid #87B3FF;
+  border-bottom: 1px solid #E8EEF7;
+  padding: 0.5em 0.3em;
+}
+
+.example-panel {
+  margin: 2em 1em;
+  border: 1px solid #87B3FF;
+}
+
+.dragdrop-drop-target.trashbin {
   text-align: center;
-  background-color: #AAAAAA; /* grey */
   border: 1px solid black;
   border-top: 4px solid black;
 }
@@ -32,43 +50,58 @@ code {
   font-size: 1.2em;
 }
 
-.gwt-StackPanel td {
-  padding: 0.5em 0em 1em 0em;
-}
-
-.gwt-StackPanel td.gwt-StackPanelItem {
-  padding: 0.5em;
-  margin: 3em;
-  color: #888888;
-}
-
-.gwt-StackPanel td.gwt-StackPanelItem:hover {
-  cursor: pointer;
-  background-color: orange;
-  color: black;
-}
-
-.example1 ,
-.gwt-StackPanel td.gwt-StackPanelItem-selected ,
-.gwt-StackPanel td.gwt-StackPanelItem-selected:hover {
-  cursor: auto;
-  background-color: orange;
-  color: black;
-}
-
 .dragdrop-boundry {
   background: #F8F8F8; /* light grey */
   border: 1px solid blue;
 }
 
 .dragdrop-drop-target {
-  background: #ABCDEF; /* light blue */
+  background-color: #CCCCCC; /* grey */
+  xbackground: #ABCDEF; /* light blue */
 }
 
 .dragdrop-drop-target .pre-drop {
   background: #BCDEFF; /* lighter blue */
 }
 
-.dragdrop-flow-panel-drop-target div {
-  
+.gwt-TabPanel {
+  border: 1px solid #87B3FF;
 }
+
+.gwt-TabPanelBottom {
+  border-left: 1px solid #87B3FF;
+}
+
+.gwt-TabBar {
+  background-color: #C3D9FF;
+}
+
+.gwt-TabBar .gwt-TabBarFirst {
+  height: 100%;
+  border-bottom: 1px solid #87B3FF;
+  padding-left: 3px;
+}
+
+.gwt-TabBar .gwt-TabBarRest {
+  border-bottom: 1px solid #87B3FF;
+  padding-right: 3px;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+  border-top: 1px solid #C3D9FF;
+  border-bottom: 1px solid #87B3FF;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.gwt-TabBar .gwt-TabBarItem-selected {
+  font-weight: bold;
+  background-color: #E8EEF7;
+  border-top: 1px solid #87B3FF;
+  border-left: 1px solid #87B3FF;
+  border-right: 1px solid #87B3FF;
+  border-bottom: 1px solid #E8EEF7;
+  padding: 2px;
+  cursor: default;
+}
+
