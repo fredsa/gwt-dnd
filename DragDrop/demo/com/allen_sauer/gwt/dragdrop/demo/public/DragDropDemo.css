@@ -60,7 +60,6 @@ code {
 }
 
 .gwt-TabPanel {
-  xborder: 1px solid #87B3FF;
 }
 
 .gwt-TabPanelBottom {
@@ -102,4 +101,3 @@ code {
   padding: 2px;
   cursor: default;
 }
-

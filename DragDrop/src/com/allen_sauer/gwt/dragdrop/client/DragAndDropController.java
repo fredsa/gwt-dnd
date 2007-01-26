@@ -15,15 +15,19 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
+
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
 /**
  * Control basic drag-and-drop capabilities, although each drop target utilizes
@@ -52,11 +56,11 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
       }
 
       Widget draggable = DragAndDropController.this.draggableWidget;
-      int desiredLeft = x - this.initialMouseX + sender.getAbsoluteLeft()
-          - DragAndDropController.this.boundryPanel.getAbsoluteLeft();
-      int desiredTop = y - this.initialMouseY + sender.getAbsoluteTop()
-          - DragAndDropController.this.boundryPanel.getAbsoluteTop();
+      Location senderLocation = new Location(sender,  DragAndDropController.this.boundryPanel);
 
+      int desiredLeft = (x - this.initialMouseX) + senderLocation.getLeft();
+      int desiredTop = (y - this.initialMouseY) + senderLocation.getTop();
+      
       DragAndDropController.this.boundryPanel.setWidgetPosition(draggable,
           desiredLeft, desiredTop);
 
@@ -79,12 +83,11 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
         DragAndDropController.this.dragAndDropListeners.fireDragStart(draggable);
       }
       draggable.addStyleName("dragdrop-dragging");
-      this.initialDraggableX = draggable.getAbsoluteLeft()
-          - DragAndDropController.this.boundryPanel.getAbsoluteLeft();
-      this.initialDraggableY = draggable.getAbsoluteTop()
-          - DragAndDropController.this.boundryPanel.getAbsoluteTop();
+      
+      Location draggableLocation = new Location(draggable,  DragAndDropController.this.boundryPanel);
       DragAndDropController.this.boundryPanel.add(draggable,
-          this.initialDraggableX, this.initialDraggableY);
+          draggableLocation.getLeft(), draggableLocation.getTop());
+      
       DOM.setCapture(sender.getElement());
 
       // assume 1px border on four sides

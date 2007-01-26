@@ -109,6 +109,7 @@ public class AbsolutePanel extends ComplexPanel {
     }
   }
 
+  // --BEGIN CHANGES--
   protected void disown(Widget w) {
     super.disown(w);
     Element h = w.getElement();
@@ -116,6 +117,7 @@ public class AbsolutePanel extends ComplexPanel {
     DOM.setStyleAttribute(h, "top", "");
     DOM.setStyleAttribute(h, "position", "static");
   }
+  // --END CHANGES--
 
   private void checkWidgetParent(Widget w) {
     if (w.getParent() != this) {

@@ -32,4 +32,22 @@ public class UIUtil {
     DOM.setStyleAttribute(element, "position", "static");
   }
 
+  public static native int getBorderLeft(Element elem) /*-{
+    if (elem.clientLeft) {
+      return elem.clientLeft;
+    } else {
+      var borderLeftWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-left-width");
+      return borderLeftWidth.indexOf("px") == -1 ? 0 :  parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
+    }
+  }-*/;
+
+  public static native int getBorderTop(Element elem) /*-{
+    if (elem.clientTop) {
+      return elem.clientTop;
+    } else {
+      var borderTopWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-top-width");
+      return borderTopWidth.indexOf("px") == -1 ? 0 :  parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
+    }
+  }-*/;
+
 }
