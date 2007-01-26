@@ -32,10 +32,14 @@ public class Location {
   }
 
   public Location(Widget widget, AbsolutePanel boundryPanel) {
-    this.left = widget.getAbsoluteLeft()
-        - (boundryPanel == null ? 0 : boundryPanel.getAbsoluteLeft());
-    this.top = widget.getAbsoluteTop()
-        - (boundryPanel == null ? 0 : boundryPanel.getAbsoluteTop());
+    this.left = widget.getAbsoluteLeft();
+    this.top = widget.getAbsoluteTop();
+    if (boundryPanel != null) {
+      this.left -= boundryPanel.getAbsoluteLeft();
+      this.left -= UIUtil.getBorderLeft(boundryPanel.getElement());
+      this.top -= boundryPanel.getAbsoluteTop();
+      this.top -= UIUtil.getBorderTop(boundryPanel.getElement());
+    }
   }
 
   public int getLeft() {

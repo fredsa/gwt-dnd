@@ -60,13 +60,25 @@ class DOMImplMozilla extends DOMImplStandard {
       parent = parent.parentNode;
     }
  
-  // --BEGIN CHANGES--
-  var borderLeftWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-left-width");
-  if (borderLeftWidth.indexOf("px") != -1) {
-    left = left - parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
-  }
-  // --END CHANGES--
+    // --BEGIN CHANGES--
+    var borderLeftWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-left-width");
+    if (borderLeftWidth.indexOf("px") != -1) {
+      left = left - parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
+    }
 
+    parent = elem.parentNode;
+    while (parent && parent.nodeName != '#document') {
+      var overflow = $doc.defaultView.getComputedStyle(parent, null).getPropertyValue("overflow");
+      if (overflow != "visible") {
+        var borderLeftWidth = $doc.defaultView.getComputedStyle(parent, null).getPropertyValue("border-left-width");
+        if (borderLeftWidth.indexOf("px") != -1) {
+          left = left + parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
+        }
+      }
+      parent = parent.parentNode;
+    }
+    // --END CHANGES--
+  
   // Must cover both Standard and Quirks mode. 
     return left + $doc.body.scrollLeft + $doc.documentElement.scrollLeft;
   }-*/;
@@ -82,12 +94,24 @@ class DOMImplMozilla extends DOMImplStandard {
       parent = parent.parentNode;
     }
    
-  // --BEGIN CHANGES--
-  var borderTopWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-top-width");
-  if (borderTopWidth.indexOf("px") != -1) {
-    top = top - parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
-  }
-  // --END CHANGES--
+    // --BEGIN CHANGES--
+    var borderTopWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-top-width");
+    if (borderTopWidth.indexOf("px") != -1) {
+      top = top - parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
+    }
+
+    parent = elem.parentNode;
+    while (parent && parent.nodeName != '#document') {
+      var overflow = $doc.defaultView.getComputedStyle(parent, null).getPropertyValue("overflow");
+      if (overflow != "visible") {
+        var borderTopWidth = $doc.defaultView.getComputedStyle(parent, null).getPropertyValue("border-top-width");
+        if (borderTopWidth.indexOf("px") != -1) {
+          top = top + parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
+        }
+      }
+      parent = parent.parentNode;
+    }
+    // --END CHANGES--
 
   // Must cover both Standard and Quirks mode.
     return top + $doc.body.scrollTop + $doc.documentElement.scrollTop;
