@@ -5,6 +5,9 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 
+/**
+ * Minimal implementation of a DropController.
+ */
 public class SimpleDropController extends DropController {
 
   public SimpleDropController(Panel dropTargetPanel) {
@@ -12,7 +15,7 @@ public class SimpleDropController extends DropController {
   }
 
   public String getDropTargetStyleName() {
-    return "dragdrop-drop-target dragdrop-simple-drop-target";
+    return "dragdrop-drop-target";
   }
 
   public void onDrop(DragAndDropController dragAndDropController,

@@ -39,7 +39,7 @@ public abstract class DropController {
     return this.dropTargetPanel;
   }
 
-  abstract public String getDropTargetStyleName();
+  public abstract String getDropTargetStyleName();
 
   public void onDrop(DragAndDropController dragAndDropController,
       Widget draggable) {

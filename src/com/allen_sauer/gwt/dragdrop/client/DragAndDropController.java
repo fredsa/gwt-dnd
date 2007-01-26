@@ -15,19 +15,16 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
-import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
-
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
  * Control basic drag-and-drop capabilities, although each drop target utilizes
