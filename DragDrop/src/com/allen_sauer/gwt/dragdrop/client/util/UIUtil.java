@@ -23,15 +23,6 @@ import com.google.gwt.user.client.Element;
  */
 public class UIUtil {
 
-  // TODO enhancement request to remove absolute position when child element
-  // is orphaned
-  // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
-  public static void positionStatic(Element element) {
-    DOM.setStyleAttribute(element, "left", "");
-    DOM.setStyleAttribute(element, "top", "");
-    DOM.setStyleAttribute(element, "position", "static");
-  }
-
   public static native int getBorderLeft(Element elem) /*-{
     if (elem.clientLeft) {
       return elem.clientLeft;
@@ -49,5 +40,14 @@ public class UIUtil {
       return borderTopWidth.indexOf("px") == -1 ? 0 :  parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
     }
   }-*/;
+
+  // TODO enhancement request to remove absolute position when child element
+  // is orphaned
+  // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+  public static void positionStatic(Element element) {
+    DOM.setStyleAttribute(element, "left", "");
+    DOM.setStyleAttribute(element, "top", "");
+    DOM.setStyleAttribute(element, "position", "static");
+  }
 
 }

@@ -4,6 +4,9 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * Panel which updates its label to display the number of items in trash.
+ */
 public class TrashBinPanel extends SimplePanel {
 
   private int count;
@@ -19,6 +22,11 @@ public class TrashBinPanel extends SimplePanel {
     updateText();
   }
 
+  protected void onLoad() {
+    super.onLoad();
+    addStyleName("trashbin");
+  }
+
   private void updateText() {
     String text;
     if (count == 0) {
@@ -30,8 +38,4 @@ public class TrashBinPanel extends SimplePanel {
         + "<i>try dropping something on me</i>", true));
   }
 
-  protected void onLoad() {
-    super.onLoad();
-    addStyleName("trashbin");
-  }
 }
