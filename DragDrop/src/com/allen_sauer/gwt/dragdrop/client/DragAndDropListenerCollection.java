@@ -25,8 +25,7 @@ import java.util.Vector;
  * A helper class for implementers of the
  * {@link com.allen_sauer.gwt.dragdrop.client.SourcesDragAndDropEvents}
  * interface. This subclass of Vector assumes that all objects added to it will
- * be of type
- * {@link com.allen_sauer.gwt.dragdrop.client.DragAndDropListener}.
+ * be of type {@link com.allen_sauer.gwt.dragdrop.client.DragAndDropListener}.
  */
 public class DragAndDropListenerCollection extends Vector {
 

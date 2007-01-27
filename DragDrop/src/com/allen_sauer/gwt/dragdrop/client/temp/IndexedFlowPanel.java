@@ -22,8 +22,10 @@ import com.google.gwt.user.client.ui.Widget;
 /**
  * Temporary class which extends {@link com.google.gwt.user.client.ui.FlowPanel}
  * to allow for inserts at a specified index. To be removed once GWT implements
- * this functionality natively. See gwt 
- * <a href="http://code.google.com/p/google-web-toolkit/issues/detail?id=616">issue #616</a>.
+ * this functionality natively.
+ * 
+ * TODO remove after enhancement for issue 616
+ * http://code.google.com/p/google-web-toolkit/issues/detail?id=616
  */
 public class IndexedFlowPanel extends FlowPanel {
 

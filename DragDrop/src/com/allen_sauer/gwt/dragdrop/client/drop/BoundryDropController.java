@@ -65,10 +65,10 @@ public class BoundryDropController extends AbstractPositioningDropController {
     Area widgetArea = new Area(widget, boundryPanel);
     Location location = new Location(draggable,
         (AbsolutePanel) getDropTargetPanel());
-    location.constrain(0, 0,
-        dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight()
-            - widgetArea.getHeight());
-    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(), location.getTop());
+    location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(),
+        dropArea.getHeight() - widgetArea.getHeight());
+    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(),
+        location.getTop());
   }
 
 }
