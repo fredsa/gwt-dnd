@@ -24,7 +24,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
+ * A
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
  * for the {@link com.google.gwt.user.client.ui.Panel} which contains a given
  * draggable widget.
  */
@@ -62,13 +63,12 @@ public class BoundryDropController extends AbstractPositioningDropController {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
-    Location desiredLocation = new Location(draggable,
+    Location location = new Location(draggable,
         (AbsolutePanel) getDropTargetPanel());
-    int left = Math.max(0, Math.min(desiredLocation.getLeft(),
-        dropArea.getWidth() - widgetArea.getWidth()));
-    int top = Math.max(0, Math.min(desiredLocation.getTop(),
-        dropArea.getHeight() - widgetArea.getHeight()));
-    ((AbsolutePanel) getDropTargetPanel()).add(widget, left, top);
+    location.constrain(0, 0,
+        dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight()
+            - widgetArea.getHeight());
+    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(), location.getTop());
   }
 
 }

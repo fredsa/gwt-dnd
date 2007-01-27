@@ -42,6 +42,11 @@ public class Location {
     }
   }
 
+  public void constrain(int minLeft, int minTop, int maxLeft, int maxTop) {
+    this.left = Math.min(maxLeft, Math.max(this.left, minLeft));
+    this.top = Math.min(maxTop, Math.max(this.top, minTop));
+  }
+
   public int getLeft() {
     return this.left;
   }
@@ -50,8 +55,12 @@ public class Location {
     return this.top;
   }
 
+  public void snapToGrid(int gridX, int gridY) {
+    this.left = Math.round((float) this.left / gridX) * gridX;
+    this.top = Math.round((float) this.top / gridY) * gridY;
+  }
+
   public String toString() {
     return "(" + this.left + ", " + this.top + ")";
   }
-
 }

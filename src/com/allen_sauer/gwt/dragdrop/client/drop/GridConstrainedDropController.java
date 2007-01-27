@@ -24,11 +24,13 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
+ * A
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
  * which constrains the placement of draggable widgets the grid specified in the
  * constructor.
  */
-public class GridConstrainedDropController extends AbstractPositioningDropController {
+public class GridConstrainedDropController extends
+    AbstractPositioningDropController {
 
   private int gridX;
   private int gridY;
@@ -68,16 +70,12 @@ public class GridConstrainedDropController extends AbstractPositioningDropContro
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
-    Location desiredLocation = new Location(draggable,
+    Location location = new Location(draggable,
         (AbsolutePanel) getDropTargetPanel());
-    int left = Math.max(0, Math.min(desiredLocation.getLeft(),
-        dropArea.getWidth() - widgetArea.getWidth()));
-    int top = Math.max(0, Math.min(desiredLocation.getTop(),
-        dropArea.getHeight() - widgetArea.getHeight()));
-    // TODO better stickiness to closest grid using grid half-way points
-    left = Math.round(left / this.gridX) * this.gridX;
-    top = Math.round(top / this.gridY) * this.gridY;
-    ((AbsolutePanel) getDropTargetPanel()).add(widget, left, top);
+    location.constrain(0, 0,
+        dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight()
+            - widgetArea.getHeight());
+    location.snapToGrid(this.gridX, this.gridY);
+    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(), location.getTop());
   }
-
 }
