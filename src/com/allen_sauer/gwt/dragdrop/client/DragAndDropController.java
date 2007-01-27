@@ -58,16 +58,16 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
           DragAndDropController.this.boundryPanel);
       if (this.dropController == newDropController) {
         if (this.dropController != null) {
-          this.dropController.onPreDropMove(DragAndDropController.this, draggable);
+          this.dropController.onMove(DragAndDropController.this, draggable);
         }
       } else {
         if (this.dropController != null) {
-          this.dropController.onPreDropLeave(DragAndDropController.this, draggable);
+          this.dropController.onLeave(DragAndDropController.this, draggable);
         }
         this.dropController = newDropController;
         if (this.dropController != null) {
-          this.dropController.onPreDropEnter(DragAndDropController.this, draggable);
-          this.dropController.onPreDropMove(DragAndDropController.this, draggable);
+          this.dropController.onEnter(DragAndDropController.this, draggable);
+          this.dropController.onMove(DragAndDropController.this, draggable);
         }
       }
     }
@@ -120,7 +120,7 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
             DragAndDropController.this.boundryPanel);
         if (this.dropController != newDropController) {
           if (this.dropController != null) {
-            this.dropController.onPreDropLeave(DragAndDropController.this, sender);
+            this.dropController.onLeave(DragAndDropController.this, sender);
           }
           this.dropController = newDropController;
         }

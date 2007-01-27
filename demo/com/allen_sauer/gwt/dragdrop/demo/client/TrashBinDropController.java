@@ -20,16 +20,17 @@ public class TrashBinDropController extends SimpleDropController {
 
   public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
     super.onDrop(dragAndDropController, draggable);
+    draggable.removeStyleName("pre-trashbin-drop");
     this.dropTargetPanel.eatWidget(draggable);
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropEnter(dragAndDropController, draggable);
+  public void onEnter(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onEnter(dragAndDropController, draggable);
     draggable.addStyleName("pre-trashbin-drop");
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropLeave(dragAndDropController, draggable);
+  public void onLeave(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onLeave(dragAndDropController, draggable);
     draggable.removeStyleName("pre-trashbin-drop");
   }
 

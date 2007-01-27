@@ -36,13 +36,13 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     dragAndDropController.getPostioningBox().removeFromParent();
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropEnter(dragAndDropController, draggable);
+  public void onEnter(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onEnter(dragAndDropController, draggable);
     dragAndDropController.getBoundryPanel().add(dragAndDropController.getPostioningBox());
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropLeave(dragAndDropController, draggable);
+  public void onLeave(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onLeave(dragAndDropController, draggable);
     dragAndDropController.getPostioningBox().removeFromParent();
   }
 

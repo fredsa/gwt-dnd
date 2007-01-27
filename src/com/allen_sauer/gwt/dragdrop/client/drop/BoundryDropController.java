@@ -43,16 +43,16 @@ public class BoundryDropController extends AbstractPositioningDropController {
     constrainedWidgetMove(dragAndDropController, draggable, draggable);
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropEnter(dragAndDropController, draggable);
+  public void onEnter(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onEnter(dragAndDropController, draggable);
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropLeave(dragAndDropController, draggable);
+  public void onLeave(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onLeave(dragAndDropController, draggable);
   }
 
-  public void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropMove(dragAndDropController, draggable);
+  public void onMove(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onMove(dragAndDropController, draggable);
     constrainedWidgetMove(dragAndDropController, draggable, dragAndDropController.getPostioningBox());
   }
 
