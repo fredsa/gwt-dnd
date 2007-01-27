@@ -72,10 +72,10 @@ public class GridConstrainedDropController extends
     Area widgetArea = new Area(widget, boundryPanel);
     Location location = new Location(draggable,
         (AbsolutePanel) getDropTargetPanel());
-    location.constrain(0, 0,
-        dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight()
-            - widgetArea.getHeight());
+    location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(),
+        dropArea.getHeight() - widgetArea.getHeight());
     location.snapToGrid(this.gridX, this.gridY);
-    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(), location.getTop());
+    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(),
+        location.getTop());
   }
 }

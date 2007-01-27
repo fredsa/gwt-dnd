@@ -27,7 +27,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 import java.util.Iterator;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
+ * A
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
  * for instances of
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.IndexedFlowPanel}.
  */

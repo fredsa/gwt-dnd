@@ -67,16 +67,16 @@ public class Area {
   }
 
   public boolean intersects(Area targetArea) {
-    if (this.right < targetArea.left || this.left > targetArea.right
-        || this.bottom < targetArea.top || this.top > targetArea.bottom) {
+    if ((this.right < targetArea.left) || (this.left > targetArea.right)
+        || (this.bottom < targetArea.top) || (this.top > targetArea.bottom)) {
       return false;
     }
     return true;
   }
 
   public boolean intersects(Location location) {
-    return (this.left <= location.getLeft() && location.getLeft() <= this.right)
-        && (this.top <= location.getTop() && location.getTop() <= this.bottom);
+    return ((this.left <= location.getLeft()) && (location.getLeft() <= this.right))
+        && ((this.top <= location.getTop()) && (location.getTop() <= this.bottom));
   }
 
   // public int overlapPixels(Area targetArea) {

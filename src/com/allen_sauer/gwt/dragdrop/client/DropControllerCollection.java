@@ -58,10 +58,9 @@ public class DropControllerCollection {
       AbstractDropController dropController = (AbstractDropController) iterator.next();
       Panel target = dropController.getDropTargetPanel();
       Area targetArea = new Area(target, null);
-      if (dropController instanceof BoundryDropController
-          || targetArea.intersects(boundryArea)
-          && widgetArea.intersects(targetArea)) {
-        if (result == null
+      if ((dropController instanceof BoundryDropController)
+          || (widgetArea.intersects(targetArea) && targetArea.intersects(boundryArea))) {
+        if ((result == null)
             || DOM.isOrHasChild(result.getDropTargetPanel().getElement(),
                 target.getElement())) {
           result = dropController;
