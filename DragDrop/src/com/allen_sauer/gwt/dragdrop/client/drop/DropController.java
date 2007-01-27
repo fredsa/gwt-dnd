@@ -13,10 +13,10 @@ public interface DropController {
 
   public abstract void onDrop(DragAndDropController dragAndDropController, Widget draggable);
 
-  public abstract void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable);
+  public abstract void onEnter(DragAndDropController dragAndDropController, Widget draggable);
 
-  public abstract void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable);
+  public abstract void onLeave(DragAndDropController dragAndDropController, Widget draggable);
 
-  public abstract void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable);
+  public abstract void onMove(DragAndDropController dragAndDropController, Widget draggable);
 
 }

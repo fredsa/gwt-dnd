@@ -15,6 +15,7 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -45,22 +46,22 @@ public class IndexedDropController extends AbstractPositioningDropController {
   }
 
   public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
+    int index = this.dropTargetPanel.getWidgetIndex(dragAndDropController.getPostioningBox());
     super.onDrop(dragAndDropController, draggable);
-    indexedAdd(draggable, draggable);
+    this.dropTargetPanel.insert(draggable, index);
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropEnter(dragAndDropController, draggable);
+  public void onEnter(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onEnter(dragAndDropController, draggable);
     UIUtil.resetStylePositionStatic(dragAndDropController.getPostioningBox().getElement());
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropLeave(dragAndDropController, draggable);
-    getDropTargetPanel().remove(dragAndDropController.getPostioningBox());
+  public void onLeave(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onLeave(dragAndDropController, draggable);
   }
 
-  public void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onPreDropMove(dragAndDropController, draggable);
+  public void onMove(DragAndDropController dragAndDropController, Widget draggable) {
+    super.onMove(dragAndDropController, draggable);
     indexedAdd(draggable, dragAndDropController.getPostioningBox());
   }
 
