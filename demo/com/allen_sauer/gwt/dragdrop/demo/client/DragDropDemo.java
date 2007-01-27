@@ -136,18 +136,6 @@ public class DragDropDemo implements EntryPoint {
     //
     // });
 
-    // TODO be more intelligent about what to prevent
-    DOM.addEventPreview(new EventPreview() {
-      public boolean onEventPreview(Event event) {
-        switch (DOM.eventGetType(event)) {
-          case Event.ONMOUSEDOWN:
-            DOM.eventPreventDefault(event);
-        }
-
-        return true;
-      }
-    });
-
     dropTargets.selectTab(1);
     boundryPanel.add(dropTargets, 170, 10);
   }

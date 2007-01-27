@@ -43,7 +43,7 @@ public class UIUtil {
 
   // TODO remove after fix for issue 626
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=626
-  public static void positionStatic(Element element) {
+  public static void resetStylePositionStatic(Element element) {
     DOM.setStyleAttribute(element, "left", "");
     DOM.setStyleAttribute(element, "top", "");
     DOM.setStyleAttribute(element, "position", "static");

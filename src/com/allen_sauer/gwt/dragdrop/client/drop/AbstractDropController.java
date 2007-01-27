@@ -43,6 +43,7 @@ public abstract class AbstractDropController {
 
   public void onDrop(DragAndDropController dragAndDropController,
       Widget draggable) {
+    this.dropTargetPanel.removeStyleName("pre-drop");
   }
 
   public void onPreDropEnter(DragAndDropController dragAndDropController,
@@ -53,6 +54,9 @@ public abstract class AbstractDropController {
   public void onPreDropLeave(DragAndDropController dragAndDropController,
       Widget draggable) {
     this.dropTargetPanel.removeStyleName("pre-drop");
+  }
+
+  public void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable) {
   }
 
   protected Location getDesiredLocation(

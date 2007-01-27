@@ -41,12 +41,14 @@ public abstract class AbstractPositioningDropController extends
   public void onPreDropEnter(DragAndDropController dragAndDropController,
       Widget draggable) {
     super.onPreDropEnter(dragAndDropController, draggable);
+    // TODO add positioning box to DOM instead
     dragAndDropController.getPostioningBox().removeStyleName("dragdrop-hidden");
   }
 
   public void onPreDropLeave(DragAndDropController dragAndDropController,
       Widget draggable) {
     super.onPreDropLeave(dragAndDropController, draggable);
+    // TODO remove positioning box from DOM instead
     dragAndDropController.getPostioningBox().addStyleName("dragdrop-hidden");
   }
 
