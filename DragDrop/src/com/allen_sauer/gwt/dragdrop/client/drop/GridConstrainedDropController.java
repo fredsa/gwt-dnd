@@ -24,11 +24,11 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
  * which constrains the placement of draggable widgets the grid specified in the
  * constructor.
  */
-public class GridConstrainedDropController extends PositioningDropController {
+public class GridConstrainedDropController extends AbstractPositioningDropController {
 
   private int gridX;
   private int gridY;

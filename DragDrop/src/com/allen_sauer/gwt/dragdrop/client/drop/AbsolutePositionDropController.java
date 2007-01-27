@@ -24,11 +24,11 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
  * which allows a draggable widget to be placed anywhere on an
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
-public class AbsolutePositionDropController extends PositioningDropController {
+public class AbsolutePositionDropController extends AbstractPositioningDropController {
 
   public AbsolutePositionDropController(Panel dropTargetPanel) {
     super(dropTargetPanel);

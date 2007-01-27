@@ -24,11 +24,11 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
  * for the {@link com.google.gwt.user.client.ui.Panel} which contains a given
  * draggable widget.
  */
-public class BoundryDropController extends PositioningDropController {
+public class BoundryDropController extends AbstractPositioningDropController {
 
   public BoundryDropController(Panel boundryPanel) {
     super(boundryPanel);
