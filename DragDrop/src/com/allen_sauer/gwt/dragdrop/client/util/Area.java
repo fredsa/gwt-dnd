@@ -90,13 +90,46 @@ public class Area {
   // public int pixels() {
   // return getWidth() * getHeight();
   // }
-  //
-  // public boolean topOrLeftOf(Area targetArea) {
-  // return (this.left + this.getWidth() / 2) < (targetArea.left +
-  // targetArea.getWidth() / 2)
-  // || (this.top + this.getHeight() / 2) < (targetArea.top +
-  // targetArea.getHeight() / 2);
-  // }
+
+  /**
+   * Determine if the area to the right and/or below is more than the area to
+   * the left and above.
+   * 
+   * <pre>
+   *                            +----+
+   * +--------------------------+-+  |
+   * |Our area                  | |  |
+   * |                          +-+--+
+   * |                            |
+   * +----------------------------+
+   * </pre>
+   */
+  public boolean toBottomRight(Area otherArea) {
+    // TODO implement
+    return false;
+  }
+
+  /**
+   * See if location is to the bottom-right of 45 degree line
+   * 
+   * <pre>
+   *             y  45
+   *             | /
+   *             |/   
+   *        -----+----- x
+   *            /|
+   *           / |
+   * 
+   * </pre>
+   */
+  public boolean inBottomRight(Location location) {
+    Location center = getCenter();
+    float distanceX = (float) (location.getLeft() - center.getLeft())
+        / getWidth();
+    float distanceY = (float) (location.getTop() - center.getTop())
+        / getHeight();
+    return (distanceX + distanceY) > 0;
+  }
 
   public String toString() {
     return "[ (" + this.left + ", " + this.top + ") - (" + this.right + ", "

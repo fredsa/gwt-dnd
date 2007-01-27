@@ -15,6 +15,7 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.MouseListener;
@@ -52,12 +53,8 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
     }
 
     private void move(Widget sender, int x, int y) {
-      if (this.dropController != null) {
-        this.dropController.onPreDropLeave(DragAndDropController.this, sender);
-      }
-
       Widget draggable = DragAndDropController.this.draggableWidget;
-      Location senderLocation = new Location(sender,
+      Location senderLocation = new Location(draggable,
           DragAndDropController.this.boundryPanel);
 
       int desiredLeft = (x - this.initialMouseX) + senderLocation.getLeft();
@@ -66,10 +63,21 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
       DragAndDropController.this.boundryPanel.setWidgetPosition(draggable,
           desiredLeft, desiredTop);
 
-      this.dropController = DropControllerCollection.singleton().getIntersectDropController(
-          sender, DragAndDropController.this.boundryPanel);
-      if (this.dropController != null) {
-        this.dropController.onPreDropEnter(DragAndDropController.this, sender);
+      AbstractDropController newDropController = DropControllerCollection.singleton().getIntersectDropController(
+          draggable, DragAndDropController.this.boundryPanel);
+      if (this.dropController == newDropController) {
+        if (this.dropController != null) {
+          this.dropController.onPreDropMove(DragAndDropController.this, draggable);
+        }
+      } else {
+        if (this.dropController != null) {
+          this.dropController.onPreDropLeave(DragAndDropController.this, draggable);
+        }
+        this.dropController = newDropController;
+        if (this.dropController != null) {
+          this.dropController.onPreDropEnter(DragAndDropController.this, draggable);
+          this.dropController.onPreDropMove(DragAndDropController.this, draggable);
+        }
       }
     }
 
@@ -93,7 +101,7 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
 
       DOM.setCapture(sender.getElement());
 
-      // assume 1px border on four sides
+      // TODO calculate actual borders of positioningBox
       DragAndDropController.this.postioningBox.setPixelSize(
           sender.getOffsetWidth() - 2, sender.getOffsetHeight() - 2);
 
@@ -129,6 +137,7 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
                 DragAndDropController.this.draggableWidget,
                 this.dropController.getDropTargetPanel());
           }
+          this.dropController = null;
         } else {
           DragAndDropController.this.boundryPanel.add(
               DragAndDropController.this.draggableWidget,

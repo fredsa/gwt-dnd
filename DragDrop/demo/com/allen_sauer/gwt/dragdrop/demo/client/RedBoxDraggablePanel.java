@@ -15,6 +15,8 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -47,4 +49,11 @@ public class RedBoxDraggablePanel extends FocusPanel {
     }
   }
 
+  public void onBrowserEvent(Event event) {
+    if ((DOM.eventGetType(event) & Event.MOUSEEVENTS) != 0) {
+      // TODO handle this in library instead of demo application code
+      DOM.eventPreventDefault(event);
+    }
+    super.onBrowserEvent(event);
+  }
 }

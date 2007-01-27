@@ -15,7 +15,10 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
@@ -49,14 +52,12 @@ public class IndexedDropController extends AbstractPositioningDropController {
       Widget draggable) {
     super.onDrop(dragAndDropController, draggable);
     indexedAdd(draggable, draggable);
-    UIUtil.positionStatic(draggable.getElement());
   }
 
   public void onPreDropEnter(DragAndDropController dragAndDropController,
       Widget draggable) {
     super.onPreDropEnter(dragAndDropController, draggable);
-    UIUtil.positionStatic(dragAndDropController.getPostioningBox().getElement());
-    indexedAdd(draggable, dragAndDropController.getPostioningBox());
+    UIUtil.resetStylePositionStatic(dragAndDropController.getPostioningBox().getElement());
   }
 
   public void onPreDropLeave(DragAndDropController dragAndDropController,
@@ -65,14 +66,33 @@ public class IndexedDropController extends AbstractPositioningDropController {
     getDropTargetPanel().remove(dragAndDropController.getPostioningBox());
   }
 
+  public void onPreDropMove(DragAndDropController dragAndDropController,
+      Widget draggable) {
+    super.onPreDropMove(dragAndDropController, draggable);
+    indexedAdd(draggable, dragAndDropController.getPostioningBox());
+  }
+
   private void indexedAdd(Widget draggable, Widget widget) {
     Location draggableCenter = new Area(draggable, null).getCenter();
     for (Iterator iterator = this.dropTargetPanel.iterator(); iterator.hasNext();) {
-      Widget element = (Widget) iterator.next();
-      Area elementArea = new Area(element, null);
-      if (elementArea.intersects(draggableCenter)) {
-        this.dropTargetPanel.insert(widget,
-            this.dropTargetPanel.getWidgetIndex(element));
+      Widget child = (Widget) iterator.next();
+      Area childArea = new Area(child, null);
+      if (childArea.intersects(draggableCenter)) {
+        int childIndex = this.dropTargetPanel.getWidgetIndex(child);
+        if (childArea.inBottomRight(draggableCenter)) {
+          // place the draggable after the intersecting child
+          childIndex++;
+        }
+        int widgetIndex = this.dropTargetPanel.getWidgetIndex(widget);
+        if (widgetIndex == -1
+            || (widgetIndex != childIndex && widgetIndex != childIndex - 1)) {
+          if (childIndex > widgetIndex) {
+            //adjust index for removal of widget
+            this.dropTargetPanel.insert(widget, childIndex - 1);
+          } else {
+            this.dropTargetPanel.insert(widget, childIndex);
+          }
+        }
         return;
       }
     }

@@ -38,8 +38,9 @@ public class IndexedFlowPanel extends FlowPanel {
    *           range
    */
   public void insert(Widget w, int beforeIndex) {
-    super.insert(w, null, beforeIndex);
-    DOM.insertChild(getElement(), w.getElement(), beforeIndex);
+      w.removeFromParent();
+      super.insert(w, null, beforeIndex);
+      DOM.insertChild(getElement(), w.getElement(), beforeIndex);
   }
 
 }

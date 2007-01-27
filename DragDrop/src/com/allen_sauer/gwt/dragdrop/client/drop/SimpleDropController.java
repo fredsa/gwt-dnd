@@ -33,4 +33,9 @@ public class SimpleDropController extends AbstractDropController {
     super.onPreDropLeave(dragAndDropController, draggable);
   }
 
+  public void onPreDropMove(DragAndDropController dragAndDropController,
+      Widget draggable) {
+    super.onPreDropMove(dragAndDropController, draggable);
+  }
+
 }
