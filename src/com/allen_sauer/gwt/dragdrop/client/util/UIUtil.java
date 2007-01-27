@@ -24,26 +24,25 @@ import com.google.gwt.user.client.Element;
 public class UIUtil {
 
   public static native int getBorderLeft(Element elem) /*-{
-    if (elem.clientLeft) {
-      return elem.clientLeft;
-    } else {
-      var borderLeftWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-left-width");
-      return borderLeftWidth.indexOf("px") == -1 ? 0 :  parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
-    }
-  }-*/;
+   if (elem.clientLeft) {
+   return elem.clientLeft;
+   } else {
+   var borderLeftWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-left-width");
+   return borderLeftWidth.indexOf("px") == -1 ? 0 :  parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
+   }
+   }-*/;
 
   public static native int getBorderTop(Element elem) /*-{
-    if (elem.clientTop) {
-      return elem.clientTop;
-    } else {
-      var borderTopWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-top-width");
-      return borderTopWidth.indexOf("px") == -1 ? 0 :  parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
-    }
-  }-*/;
+   if (elem.clientTop) {
+   return elem.clientTop;
+   } else {
+   var borderTopWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-top-width");
+   return borderTopWidth.indexOf("px") == -1 ? 0 :  parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
+   }
+   }-*/;
 
-  // TODO enhancement request to remove absolute position when child element
-  // is orphaned
-  // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+  // TODO remove after fix for issue 626
+  // http://code.google.com/p/google-web-toolkit/issues/detail?id=626
   public static void positionStatic(Element element) {
     DOM.setStyleAttribute(element, "left", "");
     DOM.setStyleAttribute(element, "top", "");

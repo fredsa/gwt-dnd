@@ -55,7 +55,7 @@ code {
   margin: 2em 1em;
 }
 
-.dragdrop-drop-target .pre-drop {
+.dragdrop-drop-target.pre-drop {
   background: #BCDEFF; /* lighter blue */
 }
 

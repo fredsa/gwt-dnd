@@ -6,8 +6,8 @@ import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 
 /**
- * Sample SimpleDropController which discards draggable widgets
- * which are dropped on it.
+ * Sample SimpleDropController which discards draggable widgets which are
+ * dropped on it.
  */
 public class TrashBinDropController extends SimpleDropController {
 
