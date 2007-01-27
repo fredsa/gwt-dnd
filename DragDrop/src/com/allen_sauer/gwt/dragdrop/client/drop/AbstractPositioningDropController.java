@@ -22,7 +22,7 @@ import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 
 /**
  * A
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
  * which allows a draggable widget to be placed anywhere on an
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */

@@ -25,7 +25,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 /**
  * Base class for all drop controllers with basic functionality.
  */
-public abstract class AbstractDropController {
+public abstract class AbstractDropController implements DropController {
 
   private Panel dropTargetPanel;
 
