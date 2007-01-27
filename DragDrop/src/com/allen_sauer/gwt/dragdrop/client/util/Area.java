@@ -29,10 +29,8 @@ public class Area {
   private int top;
 
   public Area(Widget widget, AbsolutePanel boundryPanel) {
-    this.left = widget.getAbsoluteLeft()
-        - (boundryPanel == null ? 0 : boundryPanel.getAbsoluteLeft());
-    this.top = widget.getAbsoluteTop()
-        - (boundryPanel == null ? 0 : boundryPanel.getAbsoluteTop());
+    this.left = widget.getAbsoluteLeft() - (boundryPanel == null ? 0 : boundryPanel.getAbsoluteLeft());
+    this.top = widget.getAbsoluteTop() - (boundryPanel == null ? 0 : boundryPanel.getAbsoluteTop());
     this.right = this.left + widget.getOffsetWidth();
     this.bottom = this.top + widget.getOffsetHeight();
   }
@@ -42,8 +40,7 @@ public class Area {
   }
 
   public Location getCenter() {
-    return new Location(this.left + this.getWidth() / 2, this.top
-        + this.getHeight() / 2);
+    return new Location(this.left + this.getWidth() / 2, this.top + this.getHeight() / 2);
   }
 
   public int getHeight() {
@@ -67,8 +64,8 @@ public class Area {
   }
 
   public boolean intersects(Area targetArea) {
-    if ((this.right < targetArea.left) || (this.left > targetArea.right)
-        || (this.bottom < targetArea.top) || (this.top > targetArea.bottom)) {
+    if ((this.right < targetArea.left) || (this.left > targetArea.right) || (this.bottom < targetArea.top)
+        || (this.top > targetArea.bottom)) {
       return false;
     }
     return true;
@@ -124,16 +121,13 @@ public class Area {
    */
   public boolean inBottomRight(Location location) {
     Location center = getCenter();
-    float distanceX = (float) (location.getLeft() - center.getLeft())
-        / getWidth();
-    float distanceY = (float) (location.getTop() - center.getTop())
-        / getHeight();
+    float distanceX = (float) (location.getLeft() - center.getLeft()) / getWidth();
+    float distanceY = (float) (location.getTop() - center.getTop()) / getHeight();
     return (distanceX + distanceY) > 0;
   }
 
   public String toString() {
-    return "[ (" + this.left + ", " + this.top + ") - (" + this.right + ", "
-        + this.bottom + ") ]";
+    return "[ (" + this.left + ", " + this.top + ") - (" + this.right + ", " + this.bottom + ") ]";
   }
 
 }

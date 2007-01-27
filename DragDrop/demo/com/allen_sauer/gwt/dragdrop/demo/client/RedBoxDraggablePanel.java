@@ -43,12 +43,12 @@ public class RedBoxDraggablePanel extends FocusPanel {
     super.onLoad();
     addStyleName("red-box-draggable-panel");
     if (this.dragAndDropController == null) {
-      this.dragAndDropController = new DragAndDropController(this,
-          this.boundryPanel);
+      this.dragAndDropController = new DragAndDropController(this, this.boundryPanel);
       new BoundryDropController(this.boundryPanel);
     }
   }
 
+  // TODO cancel text selection operation in Firefox
   public void onBrowserEvent(Event event) {
     if ((DOM.eventGetType(event) & Event.MOUSEEVENTS) != 0) {
       // TODO handle this in library instead of demo application code

@@ -18,23 +18,19 @@ public class SimpleDropController extends AbstractDropController {
     return "dragdrop-drop-target";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
     super.onDrop(dragAndDropController, draggable);
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropEnter(dragAndDropController, draggable);
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropLeave(dragAndDropController, draggable);
   }
 
-  public void onPreDropMove(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropMove(dragAndDropController, draggable);
   }
 

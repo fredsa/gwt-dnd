@@ -49,8 +49,7 @@ public class DropControllerCollection {
     this.dropTargetCollection.add(dropTargetPanel);
   }
 
-  public DropController getIntersectDropController(Widget widget,
-      Panel boundryPanel) {
+  public DropController getIntersectDropController(Widget widget, Panel boundryPanel) {
     Area widgetArea = new Area(widget, null);
     Area boundryArea = new Area(boundryPanel, null);
     DropController result = null;
@@ -60,9 +59,7 @@ public class DropControllerCollection {
       Area targetArea = new Area(target, null);
       if ((dropController instanceof BoundryDropController)
           || (widgetArea.intersects(targetArea) && targetArea.intersects(boundryArea))) {
-        if ((result == null)
-            || DOM.isOrHasChild(result.getDropTargetPanel().getElement(),
-                target.getElement())) {
+        if ((result == null) || DOM.isOrHasChild(result.getDropTargetPanel().getElement(), target.getElement())) {
           result = dropController;
         }
       }

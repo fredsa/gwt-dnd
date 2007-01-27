@@ -27,9 +27,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 import java.util.Iterator;
 
 /**
- * A
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
- * for instances of
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} for
+ * instances of
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.IndexedFlowPanel}.
  */
 public class IndexedDropController extends AbstractPositioningDropController {
@@ -45,26 +44,22 @@ public class IndexedDropController extends AbstractPositioningDropController {
     return "dragdrop-drop-target dragdrop-flow-panel-drop-target";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
     super.onDrop(dragAndDropController, draggable);
     indexedAdd(draggable, draggable);
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropEnter(dragAndDropController, draggable);
     UIUtil.resetStylePositionStatic(dragAndDropController.getPostioningBox().getElement());
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropLeave(dragAndDropController, draggable);
     getDropTargetPanel().remove(dragAndDropController.getPostioningBox());
   }
 
-  public void onPreDropMove(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropMove(dragAndDropController, draggable);
     indexedAdd(draggable, dragAndDropController.getPostioningBox());
   }
@@ -81,10 +76,9 @@ public class IndexedDropController extends AbstractPositioningDropController {
           childIndex++;
         }
         int widgetIndex = this.dropTargetPanel.getWidgetIndex(widget);
-        if (widgetIndex == -1
-            || (widgetIndex != childIndex && widgetIndex != childIndex - 1)) {
+        if ((widgetIndex == -1) || ((widgetIndex != childIndex) && (widgetIndex != childIndex - 1))) {
           if (childIndex > widgetIndex) {
-            //adjust index for removal of widget
+            // adjust index for removal of widget
             this.dropTargetPanel.insert(widget, childIndex - 1);
           } else {
             this.dropTargetPanel.insert(widget, childIndex);

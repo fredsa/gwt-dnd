@@ -34,8 +34,7 @@ public class TrashBinPanel extends SimplePanel {
     } else {
       text = "contains " + this.count + " item" + (this.count == 1 ? "" : "s");
     }
-    setWidget(new HTML("<b>Trash Bin</b><br>\n" + "(" + text + ")<br>\n<br>\n"
-        + "<i>try dropping something on me</i>", true));
+    setWidget(new HTML("<b>Trash Bin</b><br>\n" + "(" + text + ")<br>\n<br>\n" + "<i>try dropping something on me</i>", true));
   }
 
 }

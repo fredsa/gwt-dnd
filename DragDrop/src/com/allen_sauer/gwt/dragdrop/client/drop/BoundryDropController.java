@@ -24,9 +24,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
- * for the {@link com.google.gwt.user.client.ui.Panel} which contains a given
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} for
+ * the {@link com.google.gwt.user.client.ui.Panel} which contains a given
  * draggable widget.
  */
 public class BoundryDropController extends AbstractPositioningDropController {
@@ -39,40 +38,31 @@ public class BoundryDropController extends AbstractPositioningDropController {
     return "dragdrop-boundry";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
     super.onDrop(dragAndDropController, draggable);
     constrainedWidgetMove(dragAndDropController, draggable, draggable);
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropEnter(dragAndDropController, draggable);
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropLeave(dragAndDropController, draggable);
   }
 
   public void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropMove(dragAndDropController, draggable);
-    constrainedWidgetMove(dragAndDropController, draggable,
-        dragAndDropController.getPostioningBox());
+    constrainedWidgetMove(dragAndDropController, draggable, dragAndDropController.getPostioningBox());
   }
 
-  private void constrainedWidgetMove(
-      DragAndDropController dragAndDropController, Widget draggable,
-      Widget widget) {
+  private void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget draggable, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
-    Location location = new Location(draggable,
-        (AbsolutePanel) getDropTargetPanel());
-    location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(),
-        dropArea.getHeight() - widgetArea.getHeight());
-    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(),
-        location.getTop());
+    Location location = new Location(draggable, (AbsolutePanel) getDropTargetPanel());
+    location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight() - widgetArea.getHeight());
+    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(), location.getTop());
   }
 
 }
