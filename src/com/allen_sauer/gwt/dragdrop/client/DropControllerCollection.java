@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.AbstractDropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 
 import java.util.ArrayList;
@@ -29,15 +29,15 @@ import java.util.Iterator;
 
 /**
  * A helper class to track all instances of
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}.
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}.
  * 
  */
 public class DropControllerCollection {
 
-  private static final DropControllerCollection singleton = new DropControllerCollection();
+  private static final DropControllerCollection SINGLETON = new DropControllerCollection();
 
   public static DropControllerCollection singleton() {
-    return singleton;
+    return SINGLETON;
   }
 
   private Collection dropTargetCollection = new ArrayList();
@@ -45,17 +45,17 @@ public class DropControllerCollection {
   private DropControllerCollection() {
   }
 
-  public void add(DropController dropTargetPanel) {
+  public void add(AbstractDropController dropTargetPanel) {
     this.dropTargetCollection.add(dropTargetPanel);
   }
 
-  public DropController getIntersectDropController(Widget widget,
+  public AbstractDropController getIntersectDropController(Widget widget,
       Panel boundryPanel) {
     Area widgetArea = new Area(widget, null);
     Area boundryArea = new Area(boundryPanel, null);
-    DropController result = null;
+    AbstractDropController result = null;
     for (Iterator iterator = this.dropTargetCollection.iterator(); iterator.hasNext();) {
-      DropController dropController = (DropController) iterator.next();
+      AbstractDropController dropController = (AbstractDropController) iterator.next();
       Panel target = dropController.getDropTargetPanel();
       Area targetArea = new Area(target, null);
       if (dropController instanceof BoundryDropController

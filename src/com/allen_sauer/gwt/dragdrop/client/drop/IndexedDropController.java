@@ -27,11 +27,11 @@ import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 import java.util.Iterator;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
  * for instances of
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.IndexedFlowPanel}.
  */
-public class IndexedDropController extends PositioningDropController {
+public class IndexedDropController extends AbstractPositioningDropController {
 
   IndexedFlowPanel dropTargetPanel;
 

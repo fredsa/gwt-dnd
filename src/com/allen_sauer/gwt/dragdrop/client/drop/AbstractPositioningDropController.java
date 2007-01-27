@@ -19,45 +19,33 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
-import com.allen_sauer.gwt.dragdrop.client.DropControllerCollection;
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * Base class for all drop controllers with basic functionality.
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController} which
+ * allows a draggable widget to be placed anywhere on an
+ * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
-public abstract class DropController {
+public abstract class AbstractPositioningDropController extends AbstractDropController {
 
-  private Panel dropTargetPanel;
-
-  public DropController(Panel dropTargetPanel) {
-    this.dropTargetPanel = dropTargetPanel;
-    DropControllerCollection.singleton().add(this);
-    dropTargetPanel.addStyleName(getDropTargetStyleName());
+  public AbstractPositioningDropController(Panel dropTargetPanel) {
+    super(dropTargetPanel);
   }
-
-  public Panel getDropTargetPanel() {
-    return this.dropTargetPanel;
-  }
-
-  public abstract String getDropTargetStyleName();
 
   public void onDrop(DragAndDropController dragAndDropController,
       Widget draggable) {
+    super.onDrop(dragAndDropController, draggable);
   }
 
   public void onPreDropEnter(DragAndDropController dragAndDropController,
       Widget draggable) {
-    this.dropTargetPanel.addStyleName("pre-drop");
+    super.onPreDropEnter(dragAndDropController, draggable);
+    dragAndDropController.getPostioningBox().removeStyleName("dragdrop-hidden");
   }
 
   public void onPreDropLeave(DragAndDropController dragAndDropController,
       Widget draggable) {
-    this.dropTargetPanel.removeStyleName("pre-drop");
-  }
-
-  protected Location getDesiredLocation(
-      DragAndDropController dragAndDropController, Widget draggable) {
-    return new Location(draggable, dragAndDropController.getBoundryPanel());
+    super.onPreDropLeave(dragAndDropController, draggable);
+    dragAndDropController.getPostioningBox().addStyleName("dragdrop-hidden");
   }
 
 }

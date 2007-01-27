@@ -19,33 +19,45 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DropControllerCollection;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
- * allows a draggable widget to be placed anywhere on an
- * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
+ * Base class for all drop controllers with basic functionality.
  */
-public abstract class PositioningDropController extends DropController {
+public abstract class AbstractDropController {
 
-  public PositioningDropController(Panel dropTargetPanel) {
-    super(dropTargetPanel);
+  private Panel dropTargetPanel;
+
+  public AbstractDropController(Panel dropTargetPanel) {
+    this.dropTargetPanel = dropTargetPanel;
+    DropControllerCollection.singleton().add(this);
+    dropTargetPanel.addStyleName(getDropTargetStyleName());
   }
+
+  public Panel getDropTargetPanel() {
+    return this.dropTargetPanel;
+  }
+
+  public abstract String getDropTargetStyleName();
 
   public void onDrop(DragAndDropController dragAndDropController,
       Widget draggable) {
-    super.onDrop(dragAndDropController, draggable);
   }
 
   public void onPreDropEnter(DragAndDropController dragAndDropController,
       Widget draggable) {
-    super.onPreDropEnter(dragAndDropController, draggable);
-    dragAndDropController.getPostioningBox().removeStyleName("dragdrop-hidden");
+    this.dropTargetPanel.addStyleName("pre-drop");
   }
 
   public void onPreDropLeave(DragAndDropController dragAndDropController,
       Widget draggable) {
-    super.onPreDropLeave(dragAndDropController, draggable);
-    dragAndDropController.getPostioningBox().addStyleName("dragdrop-hidden");
+    this.dropTargetPanel.removeStyleName("pre-drop");
+  }
+
+  protected Location getDesiredLocation(
+      DragAndDropController dragAndDropController, Widget draggable) {
+    return new Location(draggable, dragAndDropController.getBoundryPanel());
   }
 
 }

@@ -8,7 +8,7 @@ import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 /**
  * Minimal implementation of a DropController.
  */
-public class SimpleDropController extends DropController {
+public class SimpleDropController extends AbstractDropController {
 
   public SimpleDropController(Panel dropTargetPanel) {
     super(dropTargetPanel);
