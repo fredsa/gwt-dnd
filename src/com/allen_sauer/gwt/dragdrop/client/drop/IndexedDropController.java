@@ -31,7 +31,7 @@ import java.util.Iterator;
 
 /**
  * A
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
  * for instances of
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.IndexedFlowPanel}.
  */

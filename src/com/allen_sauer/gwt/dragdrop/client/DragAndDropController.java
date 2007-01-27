@@ -24,13 +24,13 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.drop.AbstractDropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
  * Control basic drag-and-drop capabilities, although each drop target utilizes
  * a
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
  * to address specific target requirements.
  */
 public class DragAndDropController implements SourcesDragAndDropEvents {
@@ -40,7 +40,7 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
    */
   private class MouseHandler implements MouseListener {
 
-    private AbstractDropController dropController;
+    private DropController dropController;
     private boolean inDrag;
     private int initialMouseX;
     private int initialMouseY;
@@ -63,7 +63,7 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
       DragAndDropController.this.boundryPanel.setWidgetPosition(draggable,
           desiredLeft, desiredTop);
 
-      AbstractDropController newDropController = DropControllerCollection.singleton().getIntersectDropController(
+      DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(
           draggable, DragAndDropController.this.boundryPanel);
       if (this.dropController == newDropController) {
         if (this.dropController != null) {

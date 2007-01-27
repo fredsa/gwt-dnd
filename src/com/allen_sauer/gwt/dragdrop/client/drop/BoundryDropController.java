@@ -25,7 +25,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
  * A
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
  * for the {@link com.google.gwt.user.client.ui.Panel} which contains a given
  * draggable widget.
  */
