@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.MouseListener;
