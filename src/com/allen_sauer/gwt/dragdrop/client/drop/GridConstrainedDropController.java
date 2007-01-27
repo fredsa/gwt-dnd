@@ -24,19 +24,16 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
- * which constrains the placement of draggable widgets the grid specified in the
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
+ * constrains the placement of draggable widgets the grid specified in the
  * constructor.
  */
-public class GridConstrainedDropController extends
-    AbstractPositioningDropController {
+public class GridConstrainedDropController extends AbstractPositioningDropController {
 
   private int gridX;
   private int gridY;
 
-  public GridConstrainedDropController(Panel dropTargetPanel, int gridX,
-      int gridY) {
+  public GridConstrainedDropController(Panel dropTargetPanel, int gridX, int gridY) {
     super(dropTargetPanel);
     this.gridX = gridX;
     this.gridY = gridY;
@@ -46,41 +43,31 @@ public class GridConstrainedDropController extends
     return "dragdrop-drop-target dragdrop-grid-constrained-drop-target";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
     super.onDrop(dragAndDropController, draggable);
     constrainedWidgetMove(dragAndDropController, draggable, draggable);
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropEnter(dragAndDropController, draggable);
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropLeave(dragAndDropController, draggable);
   }
 
-  public void onPreDropMove(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropMove(dragAndDropController, draggable);
-    constrainedWidgetMove(dragAndDropController, draggable,
-        dragAndDropController.getPostioningBox());
+    constrainedWidgetMove(dragAndDropController, draggable, dragAndDropController.getPostioningBox());
   }
 
-  private void constrainedWidgetMove(
-      DragAndDropController dragAndDropController, Widget draggable,
-      Widget widget) {
+  private void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget draggable, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
-    Location location = new Location(draggable,
-        (AbsolutePanel) getDropTargetPanel());
-    location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(),
-        dropArea.getHeight() - widgetArea.getHeight());
+    Location location = new Location(draggable, (AbsolutePanel) getDropTargetPanel());
+    location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight() - widgetArea.getHeight());
     location.snapToGrid(this.gridX, this.gridY);
-    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(),
-        location.getTop());
+    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(), location.getTop());
   }
 }

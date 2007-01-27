@@ -21,35 +21,29 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 
 /**
- * A
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
- * which allows a draggable widget to be placed anywhere on an
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
+ * allows a draggable widget to be placed anywhere on an
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
-public abstract class AbstractPositioningDropController extends
-    AbstractDropController {
+public abstract class AbstractPositioningDropController extends AbstractDropController {
 
   public AbstractPositioningDropController(Panel dropTargetPanel) {
     super(dropTargetPanel);
   }
 
-  public void onDrop(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
     super.onDrop(dragAndDropController, draggable);
+    dragAndDropController.getPostioningBox().removeFromParent();
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropEnter(dragAndDropController, draggable);
-    // TODO add positioning box to DOM instead
-    dragAndDropController.getPostioningBox().removeStyleName("dragdrop-hidden");
+    dragAndDropController.getBoundryPanel().add(dragAndDropController.getPostioningBox());
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
     super.onPreDropLeave(dragAndDropController, draggable);
-    // TODO remove positioning box from DOM instead
-    dragAndDropController.getPostioningBox().addStyleName("dragdrop-hidden");
+    dragAndDropController.getPostioningBox().removeFromParent();
   }
 
 }

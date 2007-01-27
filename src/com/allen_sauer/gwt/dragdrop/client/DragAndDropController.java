@@ -28,9 +28,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
  * Control basic drag-and-drop capabilities, although each drop target utilizes
- * a
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}
- * to address specific target requirements.
+ * a {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} to
+ * address specific target requirements.
  */
 public class DragAndDropController implements SourcesDragAndDropEvents {
 
@@ -46,24 +45,17 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
     private int initialDraggableX;
     private int initialDraggableY;
 
-    public MouseHandler() {
-      DragAndDropController.this.postioningBox.addStyleName("dragdrop-positioning-box dragdrop-hidden");
-      DragAndDropController.this.boundryPanel.add(DragAndDropController.this.postioningBox);
-    }
-
     private void move(Widget sender, int x, int y) {
       Widget draggable = DragAndDropController.this.draggableWidget;
-      Location senderLocation = new Location(draggable,
-          DragAndDropController.this.boundryPanel);
+      Location senderLocation = new Location(draggable, DragAndDropController.this.boundryPanel);
 
       int desiredLeft = (x - this.initialMouseX) + senderLocation.getLeft();
       int desiredTop = (y - this.initialMouseY) + senderLocation.getTop();
 
-      DragAndDropController.this.boundryPanel.setWidgetPosition(draggable,
-          desiredLeft, desiredTop);
+      DragAndDropController.this.boundryPanel.setWidgetPosition(draggable, desiredLeft, desiredTop);
 
-      DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(
-          draggable, DragAndDropController.this.boundryPanel);
+      DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(draggable,
+          DragAndDropController.this.boundryPanel);
       if (this.dropController == newDropController) {
         if (this.dropController != null) {
           this.dropController.onPreDropMove(DragAndDropController.this, draggable);
@@ -93,16 +85,13 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
       }
       draggable.addStyleName("dragdrop-dragging");
 
-      Location draggableLocation = new Location(draggable,
-          DragAndDropController.this.boundryPanel);
-      DragAndDropController.this.boundryPanel.add(draggable,
-          draggableLocation.getLeft(), draggableLocation.getTop());
+      Location draggableLocation = new Location(draggable, DragAndDropController.this.boundryPanel);
+      DragAndDropController.this.boundryPanel.add(draggable, draggableLocation.getLeft(), draggableLocation.getTop());
 
       DOM.setCapture(sender.getElement());
 
       // TODO calculate actual borders of positioningBox
-      DragAndDropController.this.postioningBox.setPixelSize(
-          sender.getOffsetWidth() - 2, sender.getOffsetHeight() - 2);
+      DragAndDropController.this.postioningBox.setPixelSize(sender.getOffsetWidth() - 2, sender.getOffsetHeight() - 2);
 
       this.inDrag = true;
       move(sender, x, y);
@@ -115,7 +104,6 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
     }
 
     public void onMouseMove(Widget sender, int x, int y) {
-      // UIUtil.debug(x + ", " + y);
       if (this.inDrag) {
         move(sender, x, y);
       }
@@ -124,29 +112,30 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
     public void onMouseUp(Widget sender, int x, int y) {
       if (this.inDrag) {
         move(sender, x, y);
-        if (this.dropController != null) {
-          this.dropController.onPreDropLeave(DragAndDropController.this, sender);
+        DOM.releaseCapture(sender.getElement());
+        this.inDrag = false;
+        DragAndDropController.this.draggableWidget.removeStyleName("dragdrop-dragging");
+
+        DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(sender,
+            DragAndDropController.this.boundryPanel);
+        if (this.dropController != newDropController) {
+          if (this.dropController != null) {
+            this.dropController.onPreDropLeave(DragAndDropController.this, sender);
+          }
+          this.dropController = newDropController;
         }
-        this.dropController = DropControllerCollection.singleton().getIntersectDropController(
-            sender, DragAndDropController.this.boundryPanel);
         if (this.dropController != null) {
           this.dropController.onDrop(DragAndDropController.this, sender);
           if (DragAndDropController.this.dragAndDropListeners != null) {
-            DragAndDropController.this.dragAndDropListeners.fireDrop(
-                DragAndDropController.this.draggableWidget,
+            DragAndDropController.this.dragAndDropListeners.fireDrop(DragAndDropController.this.draggableWidget,
                 this.dropController.getDropTargetPanel());
+            this.dropController = null;
           }
-          this.dropController = null;
         } else {
-          DragAndDropController.this.boundryPanel.add(
-              DragAndDropController.this.draggableWidget,
-              this.initialDraggableX, this.initialDraggableY);
+          DragAndDropController.this.boundryPanel.add(DragAndDropController.this.draggableWidget, this.initialDraggableX,
+              this.initialDraggableY);
         }
       }
-      DOM.releaseCapture(sender.getElement());
-      this.inDrag = false;
-      DragAndDropController.this.postioningBox.addStyleName("dragdrop-hidden");
-      DragAndDropController.this.draggableWidget.removeStyleName("dragdrop-dragging");
     }
   }
 
@@ -155,17 +144,16 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
   private DragAndDropListenerCollection dragAndDropListeners;
   private SimplePanel postioningBox = new SimplePanel();
 
-  public DragAndDropController(Widget draggableWidget,
-      AbsolutePanel boundryPanel) {
+  public DragAndDropController(Widget draggableWidget, AbsolutePanel boundryPanel) {
     this.draggableWidget = draggableWidget;
     this.boundryPanel = boundryPanel != null ? boundryPanel : RootPanel.get();
     if (draggableWidget instanceof SourcesMouseEvents) {
       ((SourcesMouseEvents) draggableWidget).addMouseListener(new MouseHandler());
     } else {
-      throw new RuntimeException(
-          "draggableWidget must implement SourcesMouseEvents");
+      throw new RuntimeException("draggableWidget must implement SourcesMouseEvents");
     }
     draggableWidget.addStyleName("dragdrop-draggable");
+    this.postioningBox.addStyleName("dragdrop-positioning-box");
   }
 
   public void addDragAndDropListener(DragAndDropListener listener) {

@@ -41,26 +41,22 @@ public abstract class AbstractDropController implements DropController {
 
   public abstract String getDropTargetStyleName();
 
-  public void onDrop(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
     this.dropTargetPanel.removeStyleName("pre-drop");
   }
 
-  public void onPreDropEnter(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable) {
     this.dropTargetPanel.addStyleName("pre-drop");
   }
 
-  public void onPreDropLeave(DragAndDropController dragAndDropController,
-      Widget draggable) {
+  public void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable) {
     this.dropTargetPanel.removeStyleName("pre-drop");
   }
 
   public void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable) {
   }
 
-  protected Location getDesiredLocation(
-      DragAndDropController dragAndDropController, Widget draggable) {
+  protected Location getDesiredLocation(DragAndDropController dragAndDropController, Widget draggable) {
     return new Location(draggable, dragAndDropController.getBoundryPanel());
   }
 

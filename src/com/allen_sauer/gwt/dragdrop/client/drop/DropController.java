@@ -11,16 +11,12 @@ public interface DropController {
 
   public abstract String getDropTargetStyleName();
 
-  public abstract void onDrop(DragAndDropController dragAndDropController,
-      Widget draggable);
+  public abstract void onDrop(DragAndDropController dragAndDropController, Widget draggable);
 
-  public abstract void onPreDropEnter(
-      DragAndDropController dragAndDropController, Widget draggable);
+  public abstract void onPreDropEnter(DragAndDropController dragAndDropController, Widget draggable);
 
-  public abstract void onPreDropLeave(
-      DragAndDropController dragAndDropController, Widget draggable);
+  public abstract void onPreDropLeave(DragAndDropController dragAndDropController, Widget draggable);
 
-  public abstract void onPreDropMove(
-      DragAndDropController dragAndDropController, Widget draggable);
+  public abstract void onPreDropMove(DragAndDropController dragAndDropController, Widget draggable);
 
 }
