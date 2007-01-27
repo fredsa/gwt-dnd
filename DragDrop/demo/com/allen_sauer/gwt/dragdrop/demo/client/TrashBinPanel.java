@@ -18,7 +18,7 @@ public class TrashBinPanel extends SimplePanel {
 
   public void eatWidget(Widget widget) {
     widget.removeFromParent();
-    count++;
+    this.count++;
     updateText();
   }
 
@@ -29,10 +29,10 @@ public class TrashBinPanel extends SimplePanel {
 
   private void updateText() {
     String text;
-    if (count == 0) {
+    if (this.count == 0) {
       text = "currently empty";
     } else {
-      text = "contains " + count + " item" + (count == 1 ? "" : "s");
+      text = "contains " + this.count + " item" + (this.count == 1 ? "" : "s");
     }
     setWidget(new HTML("<b>Trash Bin</b><br>\n" + "(" + text + ")<br>\n<br>\n"
         + "<i>try dropping something on me</i>", true));

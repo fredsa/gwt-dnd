@@ -21,7 +21,7 @@ public class TrashBinDropController extends SimpleDropController {
   public void onDrop(DragAndDropController dragAndDropController,
       Widget draggable) {
     super.onDrop(dragAndDropController, draggable);
-    dropTargetPanel.eatWidget(draggable);
+    this.dropTargetPanel.eatWidget(draggable);
   }
 
   public void onPreDropEnter(DragAndDropController dragAndDropController,

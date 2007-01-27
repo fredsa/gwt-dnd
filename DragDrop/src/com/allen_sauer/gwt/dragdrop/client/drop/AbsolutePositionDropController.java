@@ -24,11 +24,13 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
+ * A
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.AbstractDropController}
  * which allows a draggable widget to be placed anywhere on an
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
-public class AbsolutePositionDropController extends AbstractPositioningDropController {
+public class AbsolutePositionDropController extends
+    AbstractPositioningDropController {
 
   public AbsolutePositionDropController(Panel dropTargetPanel) {
     super(dropTargetPanel);
@@ -62,13 +64,12 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
-    Location desiredLocation = new Location(draggable,
+    Location location = new Location(draggable,
         (AbsolutePanel) getDropTargetPanel());
-    int left = Math.max(0, Math.min(desiredLocation.getLeft(),
-        dropArea.getWidth() - widgetArea.getWidth()));
-    int top = Math.max(0, Math.min(desiredLocation.getTop(),
-        dropArea.getHeight() - widgetArea.getHeight()));
-    ((AbsolutePanel) getDropTargetPanel()).add(widget, left, top);
+    location.constrain(0, 0,
+        dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight()
+            - widgetArea.getHeight());
+    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(), location.getTop());
   }
 
 }

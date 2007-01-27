@@ -103,7 +103,7 @@ public class DragDropDemo implements EntryPoint {
     IndexedFlowPanel flowPanelDropTarget = new IndexedFlowPanel();
     new IndexedDropController(flowPanelDropTarget);
     for (int i = 1; i <= 5; i++) {
-      Label label = new Label("child #" + i);
+      Label label = new Label("draggable child #" + i);
       label.addStyleName("flow-label");
       flowPanelDropTarget.add(label);
       new DragAndDropController(label, boundryPanel);
@@ -148,7 +148,8 @@ public class DragDropDemo implements EntryPoint {
   }
 
   private RedBoxDraggablePanel createDraggable(AbsolutePanel boundryPanel) {
-    return new RedBoxDraggablePanel(boundryPanel, draggableSize, draggableSize);
+    return new RedBoxDraggablePanel(boundryPanel, this.draggableSize,
+        this.draggableSize);
   }
 
 }
