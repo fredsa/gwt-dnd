@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 import com.allen_sauer.gwt.dragdrop.client.DropControllerCollection;
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
  * Base class for all drop controllers with basic functionality.
@@ -54,10 +53,6 @@ public abstract class AbstractDropController implements DropController {
   }
 
   public void onMove(DragAndDropController dragAndDropController, Widget draggable) {
-  }
-
-  protected Location getDesiredLocation(DragAndDropController dragAndDropController, Widget draggable) {
-    return new Location(draggable, dragAndDropController.getBoundryPanel());
   }
 
 }

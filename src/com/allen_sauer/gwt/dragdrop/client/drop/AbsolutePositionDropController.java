@@ -56,7 +56,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     constrainedWidgetMove(dragAndDropController, draggable, dragAndDropController.getPostioningBox());
   }
 
-  private void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget draggable, Widget widget) {
+  protected void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget draggable, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
