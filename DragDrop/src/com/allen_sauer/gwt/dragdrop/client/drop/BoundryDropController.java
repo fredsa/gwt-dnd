@@ -28,7 +28,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  * the {@link com.google.gwt.user.client.ui.Panel} which contains a given
  * draggable widget.
  */
-public class BoundryDropController extends AbstractPositioningDropController {
+public class BoundryDropController extends AbsolutePositionDropController {
 
   public BoundryDropController(Panel boundryPanel) {
     super(boundryPanel);
@@ -38,25 +38,7 @@ public class BoundryDropController extends AbstractPositioningDropController {
     return "dragdrop-boundry";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onDrop(dragAndDropController, draggable);
-    constrainedWidgetMove(dragAndDropController, draggable, draggable);
-  }
-
-  public void onEnter(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onEnter(dragAndDropController, draggable);
-  }
-
-  public void onLeave(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onLeave(dragAndDropController, draggable);
-  }
-
-  public void onMove(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onMove(dragAndDropController, draggable);
-    constrainedWidgetMove(dragAndDropController, draggable, dragAndDropController.getPostioningBox());
-  }
-
-  private void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget draggable, Widget widget) {
+  protected void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget draggable, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);

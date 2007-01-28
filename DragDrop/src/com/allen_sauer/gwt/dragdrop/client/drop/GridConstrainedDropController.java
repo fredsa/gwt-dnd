@@ -28,7 +28,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  * constrains the placement of draggable widgets the grid specified in the
  * constructor.
  */
-public class GridConstrainedDropController extends AbstractPositioningDropController {
+public class GridConstrainedDropController extends AbsolutePositionDropController {
 
   private int gridX;
   private int gridY;
@@ -43,25 +43,7 @@ public class GridConstrainedDropController extends AbstractPositioningDropContro
     return "dragdrop-drop-target dragdrop-grid-constrained-drop-target";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onDrop(dragAndDropController, draggable);
-    constrainedWidgetMove(dragAndDropController, draggable, draggable);
-  }
-
-  public void onEnter(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onEnter(dragAndDropController, draggable);
-  }
-
-  public void onLeave(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onLeave(dragAndDropController, draggable);
-  }
-
-  public void onMove(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onMove(dragAndDropController, draggable);
-    constrainedWidgetMove(dragAndDropController, draggable, dragAndDropController.getPostioningBox());
-  }
-
-  private void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget draggable, Widget widget) {
+  protected void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget draggable, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
