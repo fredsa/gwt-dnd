@@ -16,7 +16,6 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
@@ -29,13 +28,15 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
+  private AbsolutePanel dropTargetPanel;
 
-  public AbsolutePositionDropController(Panel dropTargetPanel) {
+  public AbsolutePositionDropController(AbsolutePanel dropTargetPanel) {
     super(dropTargetPanel);
+    this.dropTargetPanel = dropTargetPanel;
   }
 
   public void drop(DragAndDropController dragAndDropController, int left, int top) {
-    Location location = new Location(getDropTargetPanel(), dragAndDropController.getBoundryPanel());
+    Location location = new Location(this.dropTargetPanel, dragAndDropController.getBoundryPanel());
     dragAndDropController.getBoundryPanel().add(dragAndDropController.getDraggable(), location.getLeft() + left,
         location.getTop() + top);
     constrainedWidgetMove(dragAndDropController, dragAndDropController.getDraggable());
@@ -65,11 +66,11 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   protected void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
-    Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
+    Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
-    Location location = new Location(dragAndDropController.getDraggable(), (AbsolutePanel) getDropTargetPanel());
+    Location location = new Location(dragAndDropController.getDraggable(), this.dropTargetPanel);
     location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight() - widgetArea.getHeight());
-    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(), location.getTop());
+    this.dropTargetPanel.add(widget, location.getLeft(), location.getTop());
   }
 
 }

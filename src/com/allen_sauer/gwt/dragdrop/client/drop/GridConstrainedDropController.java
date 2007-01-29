@@ -46,11 +46,11 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
 
   protected void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
-    Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
+    Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
-    Location location = new Location(dragAndDropController.getDraggable(), (AbsolutePanel) getDropTargetPanel());
+    Location location = new Location(dragAndDropController.getDraggable(), this.dropTargetPanel);
     location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight() - widgetArea.getHeight());
     location.snapToGrid(this.gridX, this.gridY);
-    dropTargetPanel.add(widget, location.getLeft(), location.getTop());
+    this.dropTargetPanel.add(widget, location.getLeft(), location.getTop());
   }
 }

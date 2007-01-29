@@ -111,15 +111,17 @@ public class DragDropDemo implements EntryPoint {
     }
     indexedDropController.drop(createDraggable(boundryPanel));
 
-    // Example 5: NoOverlapDropController
-    AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
-    dropTargets.add(noOverlapDropTarget, "NoOverlapDropController",
-        "Widgets cannot be dropped on top of (overlapping) other dropped widgets");
-    NoOverlapDropController noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
-    noOverlapDropTarget.setPixelSize(400, 150);
-    noOverlapDropController.drop(createDraggable(boundryPanel), 10, 20);
-    noOverlapDropController.drop(createDraggable(boundryPanel), 60, 60);
-    noOverlapDropController.drop(createDraggable(boundryPanel), 190, 50);
+    // // Example 5: NoOverlapDropController
+    // AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
+    // dropTargets.add(noOverlapDropTarget, "NoOverlapDropController",
+    // "Widgets cannot be dropped on top of (overlapping) other dropped
+    // widgets");
+    // NoOverlapDropController noOverlapDropController = new
+    // NoOverlapDropController(noOverlapDropTarget);
+    // noOverlapDropTarget.setPixelSize(400, 150);
+    // noOverlapDropController.drop(createDraggable(boundryPanel), 10, 20);
+    // noOverlapDropController.drop(createDraggable(boundryPanel), 90, 60);
+    // noOverlapDropController.drop(createDraggable(boundryPanel), 190, 50);
 
     // Widget.addDragAndDropListener(new DragAndDropListener() {
     //
@@ -148,7 +150,7 @@ public class DragDropDemo implements EntryPoint {
 
   private void determineRedBoxDimensions() {
     RedBoxDraggablePanel redBox = new RedBoxDraggablePanel();
-    RootPanel.get().add(redBox,0,0);
+    RootPanel.get().add(redBox, 0, 0);
     draggableOffsetWidth = redBox.getOffsetWidth();
     draggableOffsetHeight = redBox.getOffsetHeight();
     redBox.removeFromParent();
