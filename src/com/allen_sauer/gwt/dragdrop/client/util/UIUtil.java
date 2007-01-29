@@ -23,23 +23,29 @@ import com.google.gwt.user.client.Element;
  */
 public class UIUtil {
 
-  public static native int getBorderLeft(Element elem) /*-{
-   if (elem.clientLeft) {
-   return elem.clientLeft;
-   } else {
-   var borderLeftWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-left-width");
-   return borderLeftWidth.indexOf("px") == -1 ? 0 :  parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
-   }
-   }-*/;
-
-  public static native int getBorderTop(Element elem) /*-{
-   if (elem.clientTop) {
-   return elem.clientTop;
-   } else {
-   var borderTopWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-top-width");
-   return borderTopWidth.indexOf("px") == -1 ? 0 :  parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
-   }
-   }-*/;
+//  public static native int getBorderLeft(Element elem) /*-{
+//     // Compare to null since undefined not always JavaScript keyword
+//     if (elem.clientLeft != null) {
+//       return elem.clientLeft;
+//     } else if ($doc.defaultView != null) {
+//       var borderLeftWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-left-width");
+//       return borderLeftWidth.indexOf("px") == -1 ? 0 : parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
+//     } else {
+//       throw "Unable to determine border-left-width";
+//     }
+//   }-*/;
+//
+//  public static native int getBorderTop(Element elem) /*-{
+//     // Compare to null since undefined not always JavaScript keyword
+//     if (elem.clientTop != null) {
+//       return elem.clientTop;
+//     } else if ($doc.defaultView != null) {
+//       var borderTopWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-top-width");
+//       return borderTopWidth.indexOf("px") == -1 ? 0 : parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
+//     } else {
+//       throw "Unable to determine border-top-width";
+//     }
+//   }-*/;
 
   // TODO remove after fix for issue 626
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=626

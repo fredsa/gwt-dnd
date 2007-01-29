@@ -36,9 +36,9 @@ public class Location {
     this.top = widget.getAbsoluteTop();
     if (boundryPanel != null) {
       this.left -= boundryPanel.getAbsoluteLeft();
-      this.left -= UIUtil.getBorderLeft(boundryPanel.getElement());
+      // this.left -= UIUtil.getBorderLeft(boundryPanel.getElement());
       this.top -= boundryPanel.getAbsoluteTop();
-      this.top -= UIUtil.getBorderTop(boundryPanel.getElement());
+      // this.top -= UIUtil.getBorderTop(boundryPanel.getElement());
     }
   }
 

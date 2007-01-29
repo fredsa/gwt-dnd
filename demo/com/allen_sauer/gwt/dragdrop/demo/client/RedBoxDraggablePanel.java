@@ -17,12 +17,8 @@ package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
-
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 
 /**
  * Demonstrate a draggable panel.
@@ -30,22 +26,11 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 public class RedBoxDraggablePanel extends FocusPanel {
 
   private static int counter;
-  private AbsolutePanel boundryPanel;
-  private DragAndDropController dragAndDropController;
+  public static final int draggableSize = 65;
 
-  public RedBoxDraggablePanel(AbsolutePanel boundryPanel, int width, int height) {
-    this.boundryPanel = boundryPanel;
-    setPixelSize(width, height);
+  public RedBoxDraggablePanel() {
+    setPixelSize(draggableSize, draggableSize);
     setWidget(new HTML("<i>drag me!</i> draggable widget #" + ++counter, true));
-  }
-
-  protected void onLoad() {
-    super.onLoad();
-    addStyleName("red-box-draggable-panel");
-    if (this.dragAndDropController == null) {
-      this.dragAndDropController = new DragAndDropController(this, this.boundryPanel);
-      new BoundryDropController(this.boundryPanel);
-    }
   }
 
   // TODO cancel text selection operation in Firefox
@@ -55,5 +40,10 @@ public class RedBoxDraggablePanel extends FocusPanel {
       DOM.eventPreventDefault(event);
     }
     super.onBrowserEvent(event);
+  }
+
+  protected void onLoad() {
+    super.onLoad();
+    addStyleName("red-box-draggable-panel");
   }
 }

@@ -63,49 +63,6 @@ public class Area {
     return this.right - this.left;
   }
 
-  public boolean intersects(Area targetArea) {
-    if ((this.right < targetArea.left) || (this.left > targetArea.right) || (this.bottom < targetArea.top)
-        || (this.top > targetArea.bottom)) {
-      return false;
-    }
-    return true;
-  }
-
-  public boolean intersects(Location location) {
-    return ((this.left <= location.getLeft()) && (location.getLeft() <= this.right))
-        && ((this.top <= location.getTop()) && (location.getTop() <= this.bottom));
-  }
-
-  // public int overlapPixels(Area targetArea) {
-  // int horizontalPixels = Math.max(0, Math.min(this.right, targetArea.right) -
-  // Math.max(this.left, targetArea.left));
-  // int verticalPixels = Math.max(0, Math.min(this.bottom, targetArea.bottom) -
-  // Math.max(this.top, targetArea.top));
-  // return horizontalPixels * verticalPixels;
-  // }
-  //
-  // public int pixels() {
-  // return getWidth() * getHeight();
-  // }
-
-  /**
-   * Determine if the area to the right and/or below is more than the area to
-   * the left and above.
-   * 
-   * <pre>
-   *                            +----+
-   * +--------------------------+-+  |
-   * |Our area                  | |  |
-   * |                          +-+--+
-   * |                            |
-   * +----------------------------+
-   * </pre>
-   */
-  public boolean toBottomRight(Area otherArea) {
-    // TODO implement
-    return false;
-  }
-
   /**
    * See if location is to the bottom-right of 45 degree line
    * 
@@ -124,6 +81,58 @@ public class Area {
     float distanceX = (float) (location.getLeft() - center.getLeft()) / getWidth();
     float distanceY = (float) (location.getTop() - center.getTop()) / getHeight();
     return (distanceX + distanceY) > 0;
+  }
+
+  public boolean intersects(Area targetArea) {
+    if ((this.right < targetArea.left) || (this.left > targetArea.right) || (this.bottom < targetArea.top)
+        || (this.top > targetArea.bottom)) {
+      return false;
+    }
+    return true;
+  }
+
+  // public int overlapPixels(Area targetArea) {
+  // int horizontalPixels = Math.max(0, Math.min(this.right, targetArea.right) -
+  // Math.max(this.left, targetArea.left));
+  // int verticalPixels = Math.max(0, Math.min(this.bottom, targetArea.bottom) -
+  // Math.max(this.top, targetArea.top));
+  // return horizontalPixels * verticalPixels;
+  // }
+  //
+  // public int pixels() {
+  // return getWidth() * getHeight();
+  // }
+
+  public boolean intersects(Location location) {
+    return ((this.left <= location.getLeft()) && (location.getLeft() <= this.right))
+        && ((this.top <= location.getTop()) && (location.getTop() <= this.bottom));
+  }
+
+  public void moveTo(Location location) {
+    int deltaX = location.getLeft() - this.left;
+    int deltaY = location.getTop() - this.top;
+    this.left += deltaX;
+    this.right += deltaX;
+    this.top += deltaY;
+    this.bottom += deltaY;
+  }
+
+  /**
+   * Determine if the area to the right and/or below is more than the area to
+   * the left and above.
+   * 
+   * <pre>
+   *                            +----+
+   * +--------------------------+-+  |
+   * |Our area                  | |  |
+   * |                          +-+--+
+   * |                            |
+   * +----------------------------+
+   * </pre>
+   */
+  public boolean toBottomRight(Area otherArea) {
+    // TODO implement
+    return false;
   }
 
   public String toString() {

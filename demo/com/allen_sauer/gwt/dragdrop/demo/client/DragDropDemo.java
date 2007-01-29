@@ -19,12 +19,15 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.NoOverlapDropController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 
 /**
@@ -33,10 +36,11 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
  */
 public class DragDropDemo implements EntryPoint {
 
-  private final int draggableSize = 65;
+  private int draggableOffsetHeight;
+  private int draggableOffsetWidth;
 
   public void onModuleLoad() {
-    RedBoxDraggablePanel draggable;
+    determineRedBoxDimensions();
     AbsolutePanel boundryPanel = new AbsolutePanel();
     boundryPanel.setPixelSize(750, 500);
     RootPanel.get().add(new HTML("<h3>Drag-and-Drop Examples</h3>"));
@@ -50,17 +54,18 @@ public class DragDropDemo implements EntryPoint {
     RootPanel.get().add(boundryDescription);
     RootPanel.get().add(boundryPanel);
 
-    draggable = createDraggable(boundryPanel);
-    RootPanel.get().add(draggable);
-    boundryPanel.add(draggable, 20, 20);
-    int draggableOffsetWidth = draggable.getOffsetWidth();
-    int draggableOffsetHeight = draggable.getOffsetHeight();
-    boundryPanel.add(createDraggable(boundryPanel), 20, 100);
-    boundryPanel.add(createDraggable(boundryPanel), 20, 200);
-    boundryPanel.add(createDraggable(boundryPanel), 40, 240);
-    boundryPanel.add(createDraggable(boundryPanel), 60, 280);
+    // Contrains all example drag operations to boundry panel
+    BoundryDropController boundryDropController = new BoundryDropController(boundryPanel);
 
+    // Create some draggable widgets to play with
+    boundryDropController.drop(createDraggable(boundryPanel), 20, 100);
+    boundryDropController.drop(createDraggable(boundryPanel), 20, 200);
+    boundryDropController.drop(createDraggable(boundryPanel), 40, 240);
+    boundryDropController.drop(createDraggable(boundryPanel), 60, 280);
+
+    // TabPanel to hold our examples
     ExampleTabPanel dropTargets = new ExampleTabPanel();
+    boundryPanel.add(dropTargets, 170, 10);
 
     // Example 1: TrashBinDropController
     AbsolutePanel containingPanel = new AbsolutePanel();
@@ -69,43 +74,52 @@ public class DragDropDemo implements EntryPoint {
     new TrashBinDropController(simpleDropTarget);
     dropTargets.add(containingPanel, "TrashBinDropController",
         "Classic drop target which simply recognizes when a draggable widget is dropped on it.");
-    containingPanel.add(createDraggable(boundryPanel), 200, 20);
-    containingPanel.add(createDraggable(boundryPanel), 240, 50);
-    containingPanel.add(createDraggable(boundryPanel), 190, 100);
+    AbsolutePositionDropController controller = new AbsolutePositionDropController(containingPanel);
+    controller.drop(createDraggable(boundryPanel), 200, 20);
+    controller.drop(createDraggable(boundryPanel), 240, 50);
+    controller.drop(createDraggable(boundryPanel), 190, 100);
 
     // Example 2: AbsolutePositionDropController
     AbsolutePanel positioningDropTarget = new AbsolutePanel();
-    new AbsolutePositionDropController(positioningDropTarget);
+    AbsolutePositionDropController absolutePositionDropController = new AbsolutePositionDropController(positioningDropTarget);
     positioningDropTarget.setPixelSize(400, 150);
     dropTargets.add(positioningDropTarget, "AbsolutePositionDropController",
         "Draggable widgets can be placed anywhere on the grey drop target.");
-    positioningDropTarget.add(createDraggable(boundryPanel), 10, 40);
-    positioningDropTarget.add(createDraggable(boundryPanel), 60, 8);
-    positioningDropTarget.add(createDraggable(boundryPanel), 190, 70);
+    absolutePositionDropController.drop(createDraggable(boundryPanel), 10, 30);
+    absolutePositionDropController.drop(createDraggable(boundryPanel), 60, 8);
+    absolutePositionDropController.drop(createDraggable(boundryPanel), 190, 60);
 
     // Example 3: GridConstrainedDropController
-    draggable = createDraggable(boundryPanel);
     AbsolutePanel gridConstrainedDropTarget = new AbsolutePanel();
     dropTargets.add(gridConstrainedDropTarget, "GridConstrainedDropController", "Drops (moves) are constrained to a ("
         + draggableOffsetWidth + " x " + draggableOffsetHeight + ") grid on the grey drop target.");
-    gridConstrainedDropTarget.add(draggable);
-    draggable = createDraggable(boundryPanel);
-    gridConstrainedDropTarget.add(draggable, draggableOffsetWidth, draggableOffsetHeight);
-    new GridConstrainedDropController(gridConstrainedDropTarget, draggableOffsetWidth, draggableOffsetHeight);
+    GridConstrainedDropController gridConstrainedDropController = new GridConstrainedDropController(gridConstrainedDropTarget,
+        draggableOffsetWidth, draggableOffsetHeight);
     gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 6, draggableOffsetHeight * 2);
+    gridConstrainedDropController.drop(createDraggable(boundryPanel), 0, 0);
+    gridConstrainedDropController.drop(createDraggable(boundryPanel), draggableOffsetWidth, draggableOffsetHeight);
 
     // Example 4: IndexedDropController
     IndexedFlowPanel flowPanelDropTarget = new IndexedFlowPanel();
-    new IndexedDropController(flowPanelDropTarget);
-    for (int i = 1; i <= 5; i++) {
-      Label label = new Label("draggable child #" + i);
-      label.addStyleName("flow-label");
-      flowPanelDropTarget.add(label);
-      new DragAndDropController(label, boundryPanel);
-    }
     dropTargets.add(flowPanelDropTarget, "IndexedDropController",
         "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.");
-    flowPanelDropTarget.add(createDraggable(boundryPanel));
+    IndexedDropController indexedDropController = new IndexedDropController(flowPanelDropTarget);
+    for (int i = 1; i <= 5; i++) {
+      Label label = new Label("Draggable child #" + i);
+      label.addStyleName("flow-label");
+      indexedDropController.drop(new DragAndDropController(label, boundryPanel));
+    }
+    indexedDropController.drop(createDraggable(boundryPanel));
+
+    // Example 5: NoOverlapDropController
+    AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
+    dropTargets.add(noOverlapDropTarget, "NoOverlapDropController",
+        "Widgets cannot be dropped on top of (overlapping) other dropped widgets");
+    NoOverlapDropController noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
+    noOverlapDropTarget.setPixelSize(400, 150);
+    noOverlapDropController.drop(createDraggable(boundryPanel), 10, 20);
+    noOverlapDropController.drop(createDraggable(boundryPanel), 60, 60);
+    noOverlapDropController.drop(createDraggable(boundryPanel), 190, 50);
 
     // Widget.addDragAndDropListener(new DragAndDropListener() {
     //
@@ -125,11 +139,19 @@ public class DragDropDemo implements EntryPoint {
     // });
 
     dropTargets.selectTab(1);
-    boundryPanel.add(dropTargets, 170, 10);
   }
 
-  private RedBoxDraggablePanel createDraggable(AbsolutePanel boundryPanel) {
-    return new RedBoxDraggablePanel(boundryPanel, this.draggableSize, this.draggableSize);
+  private DragAndDropController createDraggable(AbsolutePanel boundryPanel) {
+    Panel panel = new RedBoxDraggablePanel();
+    return new DragAndDropController(panel, boundryPanel);
+  }
+
+  private void determineRedBoxDimensions() {
+    RedBoxDraggablePanel redBox = new RedBoxDraggablePanel();
+    RootPanel.get().add(redBox,0,0);
+    draggableOffsetWidth = redBox.getOffsetWidth();
+    draggableOffsetHeight = redBox.getOffsetHeight();
+    redBox.removeFromParent();
   }
 
 }
