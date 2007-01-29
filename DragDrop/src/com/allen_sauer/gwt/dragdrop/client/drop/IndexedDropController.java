@@ -16,7 +16,11 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
@@ -25,8 +29,6 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 
-import java.util.Iterator;
-
 /**
  * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} for
  * instances of
@@ -34,41 +36,46 @@ import java.util.Iterator;
  */
 public class IndexedDropController extends AbstractPositioningDropController {
 
-  IndexedFlowPanel dropTargetPanel;
+  private IndexedPanel dropTargetPanel;
 
-  public IndexedDropController(Panel dropTargetPanel) {
-    super(dropTargetPanel);
-    this.dropTargetPanel = (IndexedFlowPanel) dropTargetPanel;
+  public IndexedDropController(IndexedPanel dropTargetPanel) {
+    super((Panel) dropTargetPanel);
+    this.dropTargetPanel = dropTargetPanel;
+  }
+
+  public void drop(DragAndDropController dragAndDropController) {
+    super.drop(dragAndDropController);
+    insert(dragAndDropController.getDraggable(), dropTargetPanel.getWidgetCount());
   }
 
   public String getDropTargetStyleName() {
     return "dragdrop-drop-target dragdrop-flow-panel-drop-target";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController, Widget draggable) {
+  public void onDrop(DragAndDropController dragAndDropController) {
     int index = this.dropTargetPanel.getWidgetIndex(dragAndDropController.getPostioningBox());
-    super.onDrop(dragAndDropController, draggable);
-    this.dropTargetPanel.insert(draggable, index);
+    super.onDrop(dragAndDropController);
+    insert(dragAndDropController.getDraggable(), index);
   }
 
-  public void onEnter(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onEnter(dragAndDropController, draggable);
+  public void onEnter(DragAndDropController dragAndDropController) {
+    super.onEnter(dragAndDropController);
     UIUtil.resetStylePositionStatic(dragAndDropController.getPostioningBox().getElement());
   }
 
-  public void onLeave(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onLeave(dragAndDropController, draggable);
+  public void onLeave(DragAndDropController dragAndDropController) {
+    super.onLeave(dragAndDropController);
   }
 
-  public void onMove(DragAndDropController dragAndDropController, Widget draggable) {
-    super.onMove(dragAndDropController, draggable);
-    indexedAdd(draggable, dragAndDropController.getPostioningBox());
+  public void onMove(DragAndDropController dragAndDropController) {
+    super.onMove(dragAndDropController);
+    indexedAdd(dragAndDropController.getDraggable(), dragAndDropController.getPostioningBox());
   }
 
   private void indexedAdd(Widget draggable, Widget widget) {
     Location draggableCenter = new Area(draggable, null).getCenter();
-    for (Iterator iterator = this.dropTargetPanel.iterator(); iterator.hasNext();) {
-      Widget child = (Widget) iterator.next();
+    for (int i = 0; i < this.dropTargetPanel.getWidgetCount(); i++) {
+      Widget child = this.dropTargetPanel.getWidget(i);
       Area childArea = new Area(child, null);
       if (childArea.intersects(draggableCenter)) {
         int childIndex = this.dropTargetPanel.getWidgetIndex(child);
@@ -80,15 +87,32 @@ public class IndexedDropController extends AbstractPositioningDropController {
         if ((widgetIndex == -1) || ((widgetIndex != childIndex) && (widgetIndex != childIndex - 1))) {
           if (childIndex > widgetIndex) {
             // adjust index for removal of widget
-            this.dropTargetPanel.insert(widget, childIndex - 1);
+            insert(widget, childIndex - 1);
           } else {
-            this.dropTargetPanel.insert(widget, childIndex);
+            insert(widget, childIndex);
           }
         }
         return;
       }
     }
-    this.dropTargetPanel.add(widget);
+    ((Panel) this.dropTargetPanel).add(widget);
+  }
+
+  // TODO remove after enhancement for issue 616
+  // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+  private void insert(Widget widget, int beforeIndex) {
+    if (this.dropTargetPanel instanceof DeckPanel) {
+      ((DeckPanel) this.dropTargetPanel).insert(widget, beforeIndex);
+    } else if (this.dropTargetPanel instanceof HorizontalPanel) {
+      ((HorizontalPanel) this.dropTargetPanel).insert(widget, beforeIndex);
+    } else if (this.dropTargetPanel instanceof VerticalPanel) {
+      ((VerticalPanel) this.dropTargetPanel).insert(widget, beforeIndex);
+    } else if (this.dropTargetPanel instanceof IndexedFlowPanel) {
+      ((IndexedFlowPanel) this.dropTargetPanel).insert(widget, beforeIndex);
+    } else {
+      throw new RuntimeException("Method insert(Widget widget, int beforeIndex) not supported by "
+          + GWT.getTypeName(this.dropTargetPanel));
+    }
   }
 
 }

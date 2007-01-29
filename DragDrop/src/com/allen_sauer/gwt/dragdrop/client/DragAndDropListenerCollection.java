@@ -45,14 +45,24 @@ public class DragAndDropListenerCollection extends Vector {
     }
   }
 
-  public boolean firePreDragStart(Widget draggable) {
+  public boolean firePreventDragStart(Widget draggable) {
     for (Iterator it = iterator(); it.hasNext();) {
       DragAndDropListener listener = (DragAndDropListener) it.next();
-      if (!listener.onPreDragStart(draggable)) {
-        return false;
+      if (listener.onPreventDragStart(draggable)) {
+        return true;
       }
     }
-    return true;
+    return false;
+  }
+
+  public boolean firePreventDrop(Widget draggable, Panel dropTargetPanel) {
+    for (Iterator it = iterator(); it.hasNext();) {
+      DragAndDropListener listener = (DragAndDropListener) it.next();
+      if (listener.onPreventDrop(draggable)) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
