@@ -45,7 +45,7 @@ public class IndexedDropController extends AbstractPositioningDropController {
 
   public void drop(DragAndDropController dragAndDropController) {
     super.drop(dragAndDropController);
-    insert(dragAndDropController.getDraggable(), dropTargetPanel.getWidgetCount());
+    insert(dragAndDropController.getDraggable(), this.dropTargetPanel.getWidgetCount());
   }
 
   public String getDropTargetStyleName() {

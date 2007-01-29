@@ -16,7 +16,6 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
@@ -30,8 +29,11 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  */
 public class BoundryDropController extends AbsolutePositionDropController {
 
-  public BoundryDropController(Panel boundryPanel) {
-    super(boundryPanel);
+  private AbsolutePanel dropTargetPanel;
+
+  public BoundryDropController(AbsolutePanel dropTargetPanel) {
+    super(dropTargetPanel);
+    this.dropTargetPanel = dropTargetPanel;
   }
 
   public String getDropTargetStyleName() {
@@ -40,11 +42,11 @@ public class BoundryDropController extends AbsolutePositionDropController {
 
   protected void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
-    Area dropArea = new Area(getDropTargetPanel(), boundryPanel);
+    Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
     Area widgetArea = new Area(widget, boundryPanel);
-    Location location = new Location(dragAndDropController.getDraggable(), (AbsolutePanel) getDropTargetPanel());
+    Location location = new Location(dragAndDropController.getDraggable(), this.dropTargetPanel);
     location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight() - widgetArea.getHeight());
-    ((AbsolutePanel) getDropTargetPanel()).add(widget, location.getLeft(), location.getTop());
+    this.dropTargetPanel.add(widget, location.getLeft(), location.getTop());
   }
 
 }

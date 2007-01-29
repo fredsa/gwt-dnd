@@ -57,8 +57,8 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
       }
       draggable.addStyleName("dragdrop-dragging");
 
-      initialDraggableLocation = new Location(draggable, DragAndDropController.this.boundryPanel);
-      DragAndDropController.this.boundryPanel.add(draggable, initialDraggableLocation.getLeft(), initialDraggableLocation.getTop());
+      this.initialDraggableLocation = new Location(draggable, DragAndDropController.this.boundryPanel);
+      DragAndDropController.this.boundryPanel.add(draggable, this.initialDraggableLocation.getLeft(), this.initialDraggableLocation.getTop());
 
       // TODO calculate actual borders of positioningBox
       DragAndDropController.this.postioningBox.setPixelSize(sender.getOffsetWidth() - 2, sender.getOffsetHeight() - 2);
