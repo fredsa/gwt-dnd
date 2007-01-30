@@ -92,12 +92,12 @@ public class DragDropDemo implements EntryPoint {
     // Example 3: GridConstrainedDropController
     AbsolutePanel gridConstrainedDropTarget = new AbsolutePanel();
     dropTargets.add(gridConstrainedDropTarget, "GridConstrainedDropController", "Drops (moves) are constrained to a ("
-        + draggableOffsetWidth + " x " + draggableOffsetHeight + ") grid on the grey drop target.");
+        + this.draggableOffsetWidth + " x " + this.draggableOffsetHeight + ") grid on the grey drop target.");
     GridConstrainedDropController gridConstrainedDropController = new GridConstrainedDropController(gridConstrainedDropTarget,
-        draggableOffsetWidth, draggableOffsetHeight);
-    gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 6, draggableOffsetHeight * 2);
+        this.draggableOffsetWidth, this.draggableOffsetHeight);
+    gridConstrainedDropTarget.setPixelSize(this.draggableOffsetWidth * 6, this.draggableOffsetHeight * 2);
     gridConstrainedDropController.drop(createDraggable(boundryPanel), 0, 0);
-    gridConstrainedDropController.drop(createDraggable(boundryPanel), draggableOffsetWidth, draggableOffsetHeight);
+    gridConstrainedDropController.drop(createDraggable(boundryPanel), this.draggableOffsetWidth, this.draggableOffsetHeight);
 
     // Example 4: IndexedDropController
     IndexedFlowPanel flowPanelDropTarget = new IndexedFlowPanel();
@@ -111,17 +111,16 @@ public class DragDropDemo implements EntryPoint {
     }
     indexedDropController.drop(createDraggable(boundryPanel));
 
-    // // Example 5: NoOverlapDropController
-    // AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
-    // dropTargets.add(noOverlapDropTarget, "NoOverlapDropController",
-    // "Widgets cannot be dropped on top of (overlapping) other dropped
-    // widgets");
-    // NoOverlapDropController noOverlapDropController = new
-    // NoOverlapDropController(noOverlapDropTarget);
-    // noOverlapDropTarget.setPixelSize(400, 150);
-    // noOverlapDropController.drop(createDraggable(boundryPanel), 10, 20);
-    // noOverlapDropController.drop(createDraggable(boundryPanel), 90, 60);
-    // noOverlapDropController.drop(createDraggable(boundryPanel), 190, 50);
+    // Example 5: NoOverlapDropController
+    AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
+    dropTargets.add(noOverlapDropTarget, "NoOverlapDropController",
+        "Widgets cannot be dropped on top of (overlapping) other dropped widgets");
+    NoOverlapDropController noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
+    noOverlapDropTarget.setPixelSize(400, 150);
+    noOverlapDropController.drop(createDraggable(boundryPanel), 10, 10);
+    noOverlapDropController.drop(createDraggable(boundryPanel), 10, 20);
+    noOverlapDropController.drop(createDraggable(boundryPanel), 90, 60);
+    noOverlapDropController.drop(createDraggable(boundryPanel), 190, 50);
 
     // Widget.addDragAndDropListener(new DragAndDropListener() {
     //
@@ -140,7 +139,7 @@ public class DragDropDemo implements EntryPoint {
     //
     // });
 
-    dropTargets.selectTab(1);
+     dropTargets.selectTab(1);
   }
 
   private DragAndDropController createDraggable(AbsolutePanel boundryPanel) {
@@ -151,8 +150,8 @@ public class DragDropDemo implements EntryPoint {
   private void determineRedBoxDimensions() {
     RedBoxDraggablePanel redBox = new RedBoxDraggablePanel();
     RootPanel.get().add(redBox, 0, 0);
-    draggableOffsetWidth = redBox.getOffsetWidth();
-    draggableOffsetHeight = redBox.getOffsetHeight();
+    this.draggableOffsetWidth = redBox.getOffsetWidth();
+    this.draggableOffsetHeight = redBox.getOffsetHeight();
     redBox.removeFromParent();
   }
 

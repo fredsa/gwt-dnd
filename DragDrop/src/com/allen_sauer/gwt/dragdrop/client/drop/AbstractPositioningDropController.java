@@ -21,8 +21,10 @@ import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
 
 /**
  * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
- * allows a draggable widget to be placed anywhere on an
- * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
+ * allows a draggable widget to be placed at valid positions (locations) on the
+ * drop target, e.g. {@link com.google.gwt.user.client.ui.AbsolutePanel} or
+ * {@link com.google.gwt.user.client.ui.IndexedPanel}. Which positions are
+ * valid is determined by the implementing subclass.
  */
 public abstract class AbstractPositioningDropController extends AbstractDropController {
 
@@ -30,14 +32,18 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     super(dropTargetPanel);
   }
 
-  public void onDrop(DragAndDropController dragAndDropController) {
-    super.onDrop(dragAndDropController);
+  public void drop(DragAndDropController dragAndDropController, int left, int top) {
+  }
+
+  public boolean onDrop(DragAndDropController dragAndDropController) {
+    boolean result = super.onDrop(dragAndDropController);
     dragAndDropController.getPostioningBox().removeFromParent();
+    return result;
   }
 
   public void onEnter(DragAndDropController dragAndDropController) {
     super.onEnter(dragAndDropController);
-    dragAndDropController.getBoundryPanel().add(dragAndDropController.getPostioningBox());
+//    dragAndDropController.getBoundryPanel().add(dragAndDropController.getPostioningBox());
   }
 
   public void onLeave(DragAndDropController dragAndDropController) {

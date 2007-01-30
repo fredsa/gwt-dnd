@@ -39,8 +39,46 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     this.dropTargetPanel = dropTargetPanel;
   }
 
+  public void drop(DragAndDropController dragAndDropController, int left, int top) {
+    // allow any programatic drop location; disregard overlapping
+    this.dropTargetPanel.add(dragAndDropController.getDraggable(), left, top);
+  }
+
   public String getDropTargetStyleName() {
     return "dragdrop-drop-target dragdrop-no-overlap-drop-target";
+  }
+
+  public void onEnter(DragAndDropController dragAndDropController) {
+    // TODO Auto-generated method stub
+    super.onEnter(dragAndDropController);
+  }
+
+  // TODO attempt to move as close to desired location as possible rather than
+  // simply try current desired location
+  protected boolean constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
+    AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
+    Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
+
+    Area draggableArea = new Area(dragAndDropController.getDraggable(), boundryPanel);
+    Location location = new Location(dragAndDropController.getDraggable(), this.dropTargetPanel);
+    location.constrain(0, 0, dropArea.getWidth() - draggableArea.getWidth(), dropArea.getHeight() - draggableArea.getHeight());
+    // Determine where draggableArea would be if it were constrained the dropArea
+    // Also causes draggableArea to become relative to dropTargetPanel
+    draggableArea.moveTo(location);
+    if (!collision(dragAndDropController, dragAndDropController.getDraggable(), draggableArea)) {
+      this.dropTargetPanel.add(widget, location.getLeft(), location.getTop());
+      return true;
+    }
+    if (widget != dragAndDropController.getPostioningBox()) {
+      Area dropTargetArea = new Area(this.dropTargetPanel, boundryPanel);
+      Area positioningBoxArea = new Area(dragAndDropController.getPostioningBox(), boundryPanel);
+      if (dropTargetArea.contains(positioningBoxArea)) {
+        location = new Location(dragAndDropController.getPostioningBox(), this.dropTargetPanel);
+        this.dropTargetPanel.add(widget, location.getLeft(), location.getTop());
+        return true;
+      }
+    }
+    return false;
   }
 
   private boolean collision(DragAndDropController dragAndDropController, Widget widget, Area area) {
@@ -54,20 +92,6 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       }
     }
     return false;
-  }
-
-  // TODO attempt to move as close to desired location as possible rather than
-  // simply try current desired location
-  protected void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
-    AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
-    Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
-    Area widgetArea = new Area(widget, boundryPanel);
-    Location location = new Location(dragAndDropController.getDraggable(), this.dropTargetPanel);
-    location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight() - widgetArea.getHeight());
-    widgetArea.moveTo(location);
-    if (!collision(dragAndDropController, dragAndDropController.getDraggable(), widgetArea)) {
-      this.dropTargetPanel.add(widget, location.getLeft(), location.getTop());
-    }
   }
 
 }

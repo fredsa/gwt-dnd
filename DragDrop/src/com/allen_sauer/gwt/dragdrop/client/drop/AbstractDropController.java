@@ -43,8 +43,9 @@ public abstract class AbstractDropController implements DropController {
 
   public abstract String getDropTargetStyleName();
 
-  public void onDrop(DragAndDropController dragAndDropController) {
+  public boolean onDrop(DragAndDropController dragAndDropController) {
     this.dropTargetPanel.removeStyleName("pre-drop");
+    return true;
   }
 
   public void onEnter(DragAndDropController dragAndDropController) {

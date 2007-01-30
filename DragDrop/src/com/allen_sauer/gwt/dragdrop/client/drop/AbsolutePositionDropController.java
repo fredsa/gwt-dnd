@@ -24,7 +24,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
  * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
- * allows a draggable widget to be placed anywhere on an
+ * allows a draggable widget to be placed at specific (absolute) locations on an
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
@@ -35,7 +35,12 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     this.dropTargetPanel = dropTargetPanel;
   }
 
+  public final void drop(DragAndDropController dragAndDropController) {
+    throw new RuntimeException("single argument drop() not supported");
+  }
+
   public void drop(DragAndDropController dragAndDropController, int left, int top) {
+    super.drop(dragAndDropController, left, top);
     Location location = new Location(this.dropTargetPanel, dragAndDropController.getBoundryPanel());
     dragAndDropController.getBoundryPanel().add(dragAndDropController.getDraggable(), location.getLeft() + left,
         location.getTop() + top);
@@ -46,13 +51,10 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     return "dragdrop-drop-target dragdrop-absolute-positioning-drop-target";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController) {
+  public boolean onDrop(DragAndDropController dragAndDropController) {
+    boolean result = constrainedWidgetMove(dragAndDropController, dragAndDropController.getDraggable());
     super.onDrop(dragAndDropController);
-    constrainedWidgetMove(dragAndDropController, dragAndDropController.getDraggable());
-  }
-
-  public void onEnter(DragAndDropController dragAndDropController) {
-    super.onEnter(dragAndDropController);
+    return result;
   }
 
   public void onLeave(DragAndDropController dragAndDropController) {
@@ -64,13 +66,14 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     constrainedWidgetMove(dragAndDropController, dragAndDropController.getPostioningBox());
   }
 
-  protected void constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
+  protected boolean constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
-    Area widgetArea = new Area(widget, boundryPanel);
+    Area draggableArea = new Area(dragAndDropController.getDraggable(), boundryPanel);
     Location location = new Location(dragAndDropController.getDraggable(), this.dropTargetPanel);
-    location.constrain(0, 0, dropArea.getWidth() - widgetArea.getWidth(), dropArea.getHeight() - widgetArea.getHeight());
+    location.constrain(0, 0, dropArea.getWidth() - draggableArea.getWidth(), dropArea.getHeight() - draggableArea.getHeight());
     this.dropTargetPanel.add(widget, location.getLeft(), location.getTop());
+    return true;
   }
 
 }
