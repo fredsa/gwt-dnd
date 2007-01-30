@@ -22,10 +22,11 @@ public class TrashBinDropController extends SimpleDropController {
     this.dropTargetPanel.eatWidget(dragAndDropController.getDraggable());
   }
 
-  public void onDrop(DragAndDropController dragAndDropController) {
+  public boolean onDrop(DragAndDropController dragAndDropController) {
     super.onDrop(dragAndDropController);
     dragAndDropController.getDraggable().removeStyleName("pre-trashbin-drop");
     this.dropTargetPanel.eatWidget(dragAndDropController.getDraggable());
+    return true;
   }
 
   public void onEnter(DragAndDropController dragAndDropController) {

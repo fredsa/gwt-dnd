@@ -52,10 +52,11 @@ public class IndexedDropController extends AbstractPositioningDropController {
     return "dragdrop-drop-target dragdrop-flow-panel-drop-target";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController) {
+  public boolean onDrop(DragAndDropController dragAndDropController) {
     int index = this.dropTargetPanel.getWidgetIndex(dragAndDropController.getPostioningBox());
-    super.onDrop(dragAndDropController);
+    boolean result = super.onDrop(dragAndDropController);
     insert(dragAndDropController.getDraggable(), index);
+    return result;
   }
 
   public void onEnter(DragAndDropController dragAndDropController) {

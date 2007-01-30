@@ -41,6 +41,7 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
     private DropController dropController;
     private boolean inDrag;
     private Location initialDraggableLocation;
+    private Widget initialDraggableParent;
     private int initialMouseX;
     private int initialMouseY;
 
@@ -57,8 +58,11 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
       }
       draggable.addStyleName("dragdrop-dragging");
 
+      // Store initial draggable parent and coordinates in case we have to abort
+      this.initialDraggableParent = draggable.getParent();
       this.initialDraggableLocation = new Location(draggable, DragAndDropController.this.boundryPanel);
-      DragAndDropController.this.boundryPanel.add(draggable, this.initialDraggableLocation.getLeft(), this.initialDraggableLocation.getTop());
+      DragAndDropController.this.boundryPanel.add(draggable, this.initialDraggableLocation.getLeft(),
+          this.initialDraggableLocation.getTop());
 
       // TODO calculate actual borders of positioningBox
       DragAndDropController.this.postioningBox.setPixelSize(sender.getOffsetWidth() - 2, sender.getOffsetHeight() - 2);
@@ -103,32 +107,51 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
         this.inDrag = false;
         DragAndDropController.this.draggableWidget.removeStyleName("dragdrop-dragging");
 
+        // Determine the interested controller at our present location
         DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(sender,
             DragAndDropController.this.boundryPanel);
+
+        // Is the controller at this location different than the last one?
         if (this.dropController != newDropController) {
           if (this.dropController != null) {
             this.dropController.onLeave(DragAndDropController.this);
           }
           this.dropController = newDropController;
         }
-        if (this.dropController != null) {
-          if (DragAndDropController.this.dragAndDropListeners != null) {
-            if (DragAndDropController.this.dragAndDropListeners.firePreventDrop(DragAndDropController.this.draggableWidget,
-                this.dropController.getDropTargetPanel())) {
-              this.dropController = null;
-              return;
-            }
-            DragAndDropController.this.dragAndDropListeners.fireDrop(DragAndDropController.this.draggableWidget,
-                this.dropController.getDropTargetPanel());
-            this.dropController = null;
-          }
-          this.dropController.onDrop(DragAndDropController.this);
-        } else {
+
+        // Is there a controller willing to handle our request?
+        if (this.dropController == null) {
           cancelDrag();
+          return;
         }
+
+        // Does anyone wish to veto this request?
+        if (DragAndDropController.this.dragAndDropListeners != null) {
+          if (DragAndDropController.this.dragAndDropListeners.firePreventDrop(DragAndDropController.this.draggableWidget,
+              this.dropController.getDropTargetPanel())) {
+            cancelDrag();
+            return;
+          }
+        }
+
+        // Does the controller allow the drop?
+        if (!this.dropController.onDrop(DragAndDropController.this)) {
+          cancelDrag();
+          return;
+        }
+
+        // Notify listeners that drop occurred
+        if (DragAndDropController.this.dragAndDropListeners != null) {
+          DragAndDropController.this.dragAndDropListeners.fireDrop(DragAndDropController.this.draggableWidget,
+              this.dropController.getDropTargetPanel());
+        }
+
       } catch (RuntimeException ex) {
+        // cleanup in case anything goes wrong
         cancelDrag();
         throw ex;
+      } finally {
+        this.dropController = null;
       }
     }
 
@@ -141,8 +164,15 @@ public class DragAndDropController implements SourcesDragAndDropEvents {
       }
 
       this.inDrag = false;
-      DragAndDropController.this.boundryPanel.add(DragAndDropController.this.draggableWidget,
-          this.initialDraggableLocation.getLeft(), this.initialDraggableLocation.getTop());
+      if (this.initialDraggableParent instanceof AbsolutePanel) {
+        Location parentLocation = new Location(this.initialDraggableParent, DragAndDropController.this.boundryPanel);
+        ((AbsolutePanel) this.initialDraggableParent).add(DragAndDropController.this.draggableWidget,
+            this.initialDraggableLocation.getLeft() - parentLocation.getLeft(), this.initialDraggableLocation.getTop()
+                - parentLocation.getTop());
+      } else {
+        DragAndDropController.this.boundryPanel.add(DragAndDropController.this.draggableWidget,
+            this.initialDraggableLocation.getLeft(), this.initialDraggableLocation.getTop());
+      }
       this.dropController = null;
     }
 

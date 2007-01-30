@@ -21,8 +21,8 @@ public class SimpleDropController extends AbstractDropController {
     return "dragdrop-drop-target";
   }
 
-  public void onDrop(DragAndDropController dragAndDropController) {
-    super.onDrop(dragAndDropController);
+  public boolean onDrop(DragAndDropController dragAndDropController) {
+    return super.onDrop(dragAndDropController);
   }
 
   public void onEnter(DragAndDropController dragAndDropController) {

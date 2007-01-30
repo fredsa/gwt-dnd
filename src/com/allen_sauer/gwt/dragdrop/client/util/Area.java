@@ -35,6 +35,10 @@ public class Area {
     this.bottom = this.top + widget.getOffsetHeight();
   }
 
+  public boolean contains(Area area) {
+    return (area.left >= this.left) && (area.right <= this.right) && (area.top >= this.top) && (area.bottom <= this.bottom);
+  }
+
   public int getBottom() {
     return this.bottom;
   }
@@ -64,7 +68,7 @@ public class Area {
   }
 
   /**
-   * See if location is to the bottom-right of 45 degree line
+   * See if location is to the bottom-right of 45 degree line.
    * 
    * <pre>
    *             y  45
@@ -83,14 +87,6 @@ public class Area {
     return (distanceX + distanceY) > 0;
   }
 
-  public boolean intersects(Area targetArea) {
-    if ((this.right < targetArea.left) || (this.left > targetArea.right) || (this.bottom < targetArea.top)
-        || (this.top > targetArea.bottom)) {
-      return false;
-    }
-    return true;
-  }
-
   // public int overlapPixels(Area targetArea) {
   // int horizontalPixels = Math.max(0, Math.min(this.right, targetArea.right) -
   // Math.max(this.left, targetArea.left));
@@ -102,6 +98,14 @@ public class Area {
   // public int pixels() {
   // return getWidth() * getHeight();
   // }
+
+  public boolean intersects(Area targetArea) {
+    if ((this.right < targetArea.left) || (this.left > targetArea.right) || (this.bottom < targetArea.top)
+        || (this.top > targetArea.bottom)) {
+      return false;
+    }
+    return true;
+  }
 
   public boolean intersects(Location location) {
     return ((this.left <= location.getLeft()) && (location.getLeft() <= this.right))
