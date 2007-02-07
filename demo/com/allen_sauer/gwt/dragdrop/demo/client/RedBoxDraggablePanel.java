@@ -26,10 +26,10 @@ import com.google.gwt.user.client.ui.HTML;
 public class RedBoxDraggablePanel extends FocusPanel {
 
   private static int counter;
-  public static final int draggableSize = 65;
+  public static final int DRAGGABLE_SIZE = 65;
 
   public RedBoxDraggablePanel() {
-    setPixelSize(draggableSize, draggableSize);
+    setPixelSize(DRAGGABLE_SIZE, DRAGGABLE_SIZE);
     setWidget(new HTML("<i>drag me!</i> draggable widget #" + ++counter, true));
   }
 
