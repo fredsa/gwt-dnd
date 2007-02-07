@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
@@ -43,7 +43,7 @@ public class IndexedDropController extends AbstractPositioningDropController {
     this.dropTargetPanel = dropTargetPanel;
   }
 
-  public void drop(DragAndDropController dragAndDropController) {
+  public void drop(DragContext dragAndDropController) {
     super.drop(dragAndDropController);
     insert(dragAndDropController.getDraggable(), this.dropTargetPanel.getWidgetCount());
   }
@@ -52,23 +52,23 @@ public class IndexedDropController extends AbstractPositioningDropController {
     return "dragdrop-drop-target dragdrop-flow-panel-drop-target";
   }
 
-  public boolean onDrop(DragAndDropController dragAndDropController) {
+  public boolean onDrop(DragContext dragAndDropController) {
     int index = this.dropTargetPanel.getWidgetIndex(dragAndDropController.getPostioningBox());
     boolean result = super.onDrop(dragAndDropController);
     insert(dragAndDropController.getDraggable(), index);
     return result;
   }
 
-  public void onEnter(DragAndDropController dragAndDropController) {
+  public void onEnter(DragContext dragAndDropController) {
     super.onEnter(dragAndDropController);
     UIUtil.resetStylePositionStatic(dragAndDropController.getPostioningBox().getElement());
   }
 
-  public void onLeave(DragAndDropController dragAndDropController) {
+  public void onLeave(DragContext dragAndDropController) {
     super.onLeave(dragAndDropController);
   }
 
-  public void onMove(DragAndDropController dragAndDropController) {
+  public void onMove(DragContext dragAndDropController) {
     super.onMove(dragAndDropController);
     indexedAdd(dragAndDropController.getDraggable(), dragAndDropController.getPostioningBox());
   }

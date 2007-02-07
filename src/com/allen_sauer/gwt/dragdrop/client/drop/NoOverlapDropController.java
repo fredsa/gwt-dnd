@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
@@ -39,7 +39,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     this.dropTargetPanel = dropTargetPanel;
   }
 
-  public void drop(DragAndDropController dragAndDropController, int left, int top) {
+  public void drop(DragContext dragAndDropController, int left, int top) {
     // allow any programatic drop location; disregard overlapping
     this.dropTargetPanel.add(dragAndDropController.getDraggable(), left, top);
   }
@@ -48,14 +48,14 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     return "dragdrop-drop-target dragdrop-no-overlap-drop-target";
   }
 
-  public void onEnter(DragAndDropController dragAndDropController) {
+  public void onEnter(DragContext dragAndDropController) {
     // TODO Auto-generated method stub
     super.onEnter(dragAndDropController);
   }
 
   // TODO attempt to move as close to desired location as possible rather than
   // simply try current desired location
-  protected boolean constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
+  protected boolean constrainedWidgetMove(DragContext dragAndDropController, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
 
@@ -81,7 +81,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     return false;
   }
 
-  private boolean collision(DragAndDropController dragAndDropController, Widget widget, Area area) {
+  private boolean collision(DragContext dragAndDropController, Widget widget, Area area) {
     for (Iterator iterator = this.dropTargetPanel.iterator(); iterator.hasNext();) {
       Widget w = (Widget) iterator.next();
       if ((w == widget) || (w == dragAndDropController.getPostioningBox())) {

@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
@@ -40,7 +40,7 @@ public class BoundryDropController extends AbsolutePositionDropController {
     return "dragdrop-boundry";
   }
 
-  protected boolean constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
+  protected boolean constrainedWidgetMove(DragContext dragAndDropController, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
     Area draggableArea = new Area(dragAndDropController.getDraggable(), boundryPanel);

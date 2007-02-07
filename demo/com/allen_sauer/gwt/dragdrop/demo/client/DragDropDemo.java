@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController;
@@ -107,7 +107,7 @@ public class DragDropDemo implements EntryPoint {
     for (int i = 1; i <= 5; i++) {
       Label label = new Label("Draggable child #" + i);
       label.addStyleName("flow-label");
-      indexedDropController.drop(new DragAndDropController(label, boundryPanel));
+      indexedDropController.drop(new DragContext(label, boundryPanel));
     }
     indexedDropController.drop(createDraggable(boundryPanel));
 
@@ -142,9 +142,9 @@ public class DragDropDemo implements EntryPoint {
      dropTargets.selectTab(1);
   }
 
-  private DragAndDropController createDraggable(AbsolutePanel boundryPanel) {
+  private DragContext createDraggable(AbsolutePanel boundryPanel) {
     Panel panel = new RedBoxDraggablePanel();
-    return new DragAndDropController(panel, boundryPanel);
+    return new DragContext(panel, boundryPanel);
   }
 
   private void determineRedBoxDimensions() {

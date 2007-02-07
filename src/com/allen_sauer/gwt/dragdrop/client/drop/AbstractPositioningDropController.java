@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.Panel;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 
 /**
  * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
@@ -32,21 +32,21 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     super(dropTargetPanel);
   }
 
-  public void drop(DragAndDropController dragAndDropController, int left, int top) {
+  public void drop(DragContext dragAndDropController, int left, int top) {
   }
 
-  public boolean onDrop(DragAndDropController dragAndDropController) {
+  public boolean onDrop(DragContext dragAndDropController) {
     boolean result = super.onDrop(dragAndDropController);
     dragAndDropController.getPostioningBox().removeFromParent();
     return result;
   }
 
-  public void onEnter(DragAndDropController dragAndDropController) {
+  public void onEnter(DragContext dragAndDropController) {
     super.onEnter(dragAndDropController);
 //    dragAndDropController.getBoundryPanel().add(dragAndDropController.getPostioningBox());
   }
 
-  public void onLeave(DragAndDropController dragAndDropController) {
+  public void onLeave(DragContext dragAndDropController) {
     super.onLeave(dragAndDropController);
     dragAndDropController.getPostioningBox().removeFromParent();
   }

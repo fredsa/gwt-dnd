@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
@@ -35,11 +35,11 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     this.dropTargetPanel = dropTargetPanel;
   }
 
-  public final void drop(DragAndDropController dragAndDropController) {
+  public final void drop(DragContext dragAndDropController) {
     throw new RuntimeException("single argument drop() not supported");
   }
 
-  public void drop(DragAndDropController dragAndDropController, int left, int top) {
+  public void drop(DragContext dragAndDropController, int left, int top) {
     super.drop(dragAndDropController, left, top);
     Location location = new Location(this.dropTargetPanel, dragAndDropController.getBoundryPanel());
     dragAndDropController.getBoundryPanel().add(dragAndDropController.getDraggable(), location.getLeft() + left,
@@ -51,22 +51,22 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     return "dragdrop-drop-target dragdrop-absolute-positioning-drop-target";
   }
 
-  public boolean onDrop(DragAndDropController dragAndDropController) {
+  public boolean onDrop(DragContext dragAndDropController) {
     boolean result = constrainedWidgetMove(dragAndDropController, dragAndDropController.getDraggable());
     super.onDrop(dragAndDropController);
     return result;
   }
 
-  public void onLeave(DragAndDropController dragAndDropController) {
+  public void onLeave(DragContext dragAndDropController) {
     super.onLeave(dragAndDropController);
   }
 
-  public void onMove(DragAndDropController dragAndDropController) {
+  public void onMove(DragContext dragAndDropController) {
     super.onMove(dragAndDropController);
     constrainedWidgetMove(dragAndDropController, dragAndDropController.getPostioningBox());
   }
 
-  protected boolean constrainedWidgetMove(DragAndDropController dragAndDropController, Widget widget) {
+  protected boolean constrainedWidgetMove(DragContext dragAndDropController, Widget widget) {
     AbsolutePanel boundryPanel = dragAndDropController.getBoundryPanel();
     Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
     Area draggableArea = new Area(dragAndDropController.getDraggable(), boundryPanel);

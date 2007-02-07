@@ -1,6 +1,6 @@
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 
 /**
@@ -16,25 +16,25 @@ public class TrashBinDropController extends SimpleDropController {
     this.dropTargetPanel = dropTargetPanel;
   }
 
-  public void drop(DragAndDropController dragAndDropController) {
+  public void drop(DragContext dragAndDropController) {
     super.drop(dragAndDropController);
     dragAndDropController.getDraggable().removeStyleName("pre-trashbin-drop");
     this.dropTargetPanel.eatWidget(dragAndDropController.getDraggable());
   }
 
-  public boolean onDrop(DragAndDropController dragAndDropController) {
+  public boolean onDrop(DragContext dragAndDropController) {
     super.onDrop(dragAndDropController);
     dragAndDropController.getDraggable().removeStyleName("pre-trashbin-drop");
     this.dropTargetPanel.eatWidget(dragAndDropController.getDraggable());
     return true;
   }
 
-  public void onEnter(DragAndDropController dragAndDropController) {
+  public void onEnter(DragContext dragAndDropController) {
     super.onEnter(dragAndDropController);
     dragAndDropController.getDraggable().addStyleName("pre-trashbin-drop");
   }
 
-  public void onLeave(DragAndDropController dragAndDropController) {
+  public void onLeave(DragContext dragAndDropController) {
     super.onLeave(dragAndDropController);
     dragAndDropController.getDraggable().removeStyleName("pre-trashbin-drop");
   }
