@@ -15,49 +15,53 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DropControllerCollection;
 
 /**
- * Base class for all drop controllers with basic functionality.
+ * Base class for typical drop controllers.
+ * Contains some basic functionalty like adjust widget styles.
  */
 public abstract class AbstractDropController implements DropController {
 
-  private Panel dropTargetPanel;
+  private static final String STLE_ENGAGE = "dragdrop-engage";
 
-  public AbstractDropController(Panel dropTargetPanel) {
-    this.dropTargetPanel = dropTargetPanel;
+  private Widget dropTarget;
+
+  public AbstractDropController(Widget dropTargetPanel) {
+    this.dropTarget = dropTargetPanel;
     DropControllerCollection.singleton().add(this);
     dropTargetPanel.addStyleName(getDropTargetStyleName());
   }
 
   public void drop(Widget widget) {
-    this.dropTargetPanel.removeStyleName("pre-drop");
+    this.dropTarget.removeStyleName(STLE_ENGAGE);
   }
 
-  public Panel getDropTargetPanel() {
-    return this.dropTargetPanel;
+  public Widget getDropTarget() {
+    return this.dropTarget;
   }
 
-  public abstract String getDropTargetStyleName();
+  public String getDropTargetStyleName() {
+    return "dragdrop-dropTarget";
+  }
 
-  public boolean onDrop(DragContext dragContext) {
-    this.dropTargetPanel.removeStyleName("pre-drop");
+  public boolean onDrop(Widget draggable, DragController dragController) {
+    this.dropTarget.removeStyleName(STLE_ENGAGE);
     return true;
   }
 
-  public void onEnter(DragContext dragContext) {
-    this.dropTargetPanel.addStyleName("pre-drop");
+  public void onEnter(Widget draggable, DragController dragController) {
+    this.dropTarget.addStyleName(STLE_ENGAGE);
   }
 
-  public void onLeave(DragContext dragContext) {
-    this.dropTargetPanel.removeStyleName("pre-drop");
+  public void onLeave(Widget draggable, DragController dragController) {
+    this.dropTarget.removeStyleName(STLE_ENGAGE);
   }
 
-  public void onMove(DragContext dragContext) {
+  public void onMove(Widget draggable, DragController dragController) {
   }
 
 }

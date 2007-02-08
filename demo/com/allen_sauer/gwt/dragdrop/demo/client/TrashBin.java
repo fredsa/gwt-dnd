@@ -1,17 +1,18 @@
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Panel which updates its label to display the number of items in trash.
  */
-public class TrashBinPanel extends SimplePanel {
+public class TrashBin extends HTML {
+
+  private static final String STYLE_TRASHBIN = "trashbin";
 
   private int count;
 
-  public TrashBinPanel(int width, int height) {
+  public TrashBin(int width, int height) {
     setPixelSize(width, height);
     updateText();
   }
@@ -24,7 +25,7 @@ public class TrashBinPanel extends SimplePanel {
 
   protected void onLoad() {
     super.onLoad();
-    addStyleName("trashbin");
+    addStyleName(STYLE_TRASHBIN);
   }
 
   private void updateText() {
@@ -34,7 +35,7 @@ public class TrashBinPanel extends SimplePanel {
     } else {
       text = "contains " + this.count + " item" + (this.count == 1 ? "" : "s");
     }
-    setWidget(new HTML("<b>Trash Bin</b><br>\n" + "(" + text + ")<br>\n<br>\n" + "<i>try dropping something on me</i>", true));
+    setHTML("<b>Trash Bin</b><br>\n" + "(" + text + ")<br>\n<br>\n" + "<i>try dropping something on me</i>");
   }
 
 }

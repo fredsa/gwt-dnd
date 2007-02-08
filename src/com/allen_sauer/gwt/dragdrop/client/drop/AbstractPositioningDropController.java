@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.DragController;
 
 /**
  * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
@@ -28,42 +28,37 @@ import com.allen_sauer.gwt.dragdrop.client.DragContext;
  * {@link com.google.gwt.user.client.ui.IndexedPanel}. Which positions are
  * valid is determined by the implementing subclass.
  */
-public abstract class AbstractPositioningDropController extends
-    AbstractDropController {
+public abstract class AbstractPositioningDropController extends AbstractDropController {
 
   private SimplePanel postioner = new SimplePanel();
 
   public AbstractPositioningDropController(Panel dropTargetPanel) {
     super(dropTargetPanel);
-    this.postioner.addStyleName("dragdrop-positioning-box");
+    this.postioner.addStyleName("dragdrop-positioner");
   }
 
   public void drop(Widget widget, int left, int top) {
   }
 
   public Widget getPositionerWidget() {
-    return postioner;
+    return this.postioner;
   }
 
-  public boolean onDrop(DragContext dragContext) {
-    boolean result = super.onDrop(dragContext);
+  public boolean onDrop(Widget draggable, DragController dragController) {
+    boolean result = super.onDrop(draggable, dragController);
     removePositioner();
     return result;
   }
 
-  public void onEnter(DragContext dragContext) {
-    super.onEnter(dragContext);
-
+  public void onEnter(Widget draggable, DragController dragController) {
+    super.onEnter(draggable, dragController);
     Widget positioner = getPositionerWidget();
     // TODO calculate actual borders of positioningBox
-    positioner.setPixelSize(dragContext.getDraggable().getOffsetWidth() - 2,
-        dragContext.getDraggable().getOffsetHeight() - 2);
-
-    // dragContext.getBoundryPanel().add(dragContext.getPostioningBox());
+    positioner.setPixelSize(draggable.getOffsetWidth() - 2, draggable.getOffsetHeight() - 2);
   }
 
-  public void onLeave(DragContext dragContext) {
-    super.onLeave(dragContext);
+  public void onLeave(Widget draggable, DragController dragController) {
+    super.onLeave(draggable, dragController);
     removePositioner();
   }
 

@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -26,7 +25,7 @@ public interface DragAndDropListener {
   void onDragStart(Widget draggable);
 
   // TODO use event object instead so we can pass more info in the future
-  void onDrop(Widget draggable, Panel dropTargetPanel);
+  void onDrop(Widget draggable, Widget dropTarget);
 
   boolean onPreventDragStart(Widget draggable);
 

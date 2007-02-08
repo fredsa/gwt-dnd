@@ -17,20 +17,20 @@ package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 
 /**
  * Demonstrate a draggable panel.
  */
-public class RedBoxDraggablePanel extends FocusPanel {
+public class RedBoxDraggableWidget extends HTML {
 
   private static int counter;
-  public static final int DRAGGABLE_SIZE = 65;
+  private static final int DRAGGABLE_SIZE = 65;
+  private static final String STYLE_RED_BOX_DRAGGABLE_WIDGET = "red-box-draggable-widget";
 
-  public RedBoxDraggablePanel() {
+  public RedBoxDraggableWidget() {
     setPixelSize(DRAGGABLE_SIZE, DRAGGABLE_SIZE);
-    setWidget(new HTML("<i>drag me!</i> draggable widget #" + ++counter, true));
+    setHTML("<i>drag me!</i> draggable widget #" + ++counter);
   }
 
   // TODO cancel text selection operation in Firefox
@@ -44,6 +44,6 @@ public class RedBoxDraggablePanel extends FocusPanel {
 
   protected void onLoad() {
     super.onLoad();
-    addStyleName("red-box-draggable-panel");
+    addStyleName(STYLE_RED_BOX_DRAGGABLE_WIDGET);
   }
 }

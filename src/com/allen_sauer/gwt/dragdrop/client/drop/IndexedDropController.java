@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
@@ -49,28 +49,28 @@ public class IndexedDropController extends AbstractPositioningDropController {
   }
 
   public String getDropTargetStyleName() {
-    return "dragdrop-drop-target dragdrop-flow-panel-drop-target";
+    return super.getDropTargetStyleName() + " dragdrop-flow-panel-drop-target";
   }
 
-  public boolean onDrop(DragContext dragContext) {
+  public boolean onDrop(Widget draggable, DragController dragController) {
     int index = this.dropTargetPanel.getWidgetIndex(getPositionerWidget());
-    boolean result = super.onDrop(dragContext);
-    insert(dragContext.getDraggable(), index);
+    boolean result = super.onDrop(draggable, dragController);
+    insert(draggable, index);
     return result;
   }
 
-  public void onEnter(DragContext dragContext) {
-    super.onEnter(dragContext);
+  public void onEnter(Widget draggable, DragController dragController) {
+    super.onEnter(draggable, dragController);
     UIUtil.resetStylePositionStatic(getPositionerWidget().getElement());
   }
 
-  public void onLeave(DragContext dragContext) {
-    super.onLeave(dragContext);
+  public void onLeave(Widget draggable, DragController dragController) {
+    super.onLeave(draggable, dragController);
   }
 
-  public void onMove(DragContext dragContext) {
-    super.onMove(dragContext);
-    indexedAdd(dragContext.getDraggable(), getPositionerWidget());
+  public void onMove(Widget draggable, DragController dragController) {
+    super.onMove(draggable, dragController);
+    indexedAdd(draggable, getPositionerWidget());
   }
 
   private void indexedAdd(Widget draggable, Widget widget) {

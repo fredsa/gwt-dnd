@@ -40,7 +40,7 @@ public class DragContext {
   }
 
   public DragController getDragController() {
-    return dragController;
+    return this.dragController;
   }
 
   public Widget getDraggable() {

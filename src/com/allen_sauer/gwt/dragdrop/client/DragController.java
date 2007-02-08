@@ -16,6 +16,7 @@ import java.util.HashMap;
  */
 public class DragController implements SourcesDragAndDropEvents {
 
+  private static final String STYLE_DRAGGABLE = "dragdrop-draggable";
   private static HashMap widgetControllers = new HashMap();
 
   public static DragController getDragController(Widget widget) {
@@ -37,24 +38,23 @@ public class DragController implements SourcesDragAndDropEvents {
   }
 
   public AbsolutePanel getBoundryPanel() {
-    return boundryPanel;
+    return this.boundryPanel;
   }
 
   public DragAndDropListenerCollection getDragAndDropListeners() {
     if (this.dragAndDropListeners == null) {
       this.dragAndDropListeners = new DragAndDropListenerCollection();
     }
-    return dragAndDropListeners;
+    return this.dragAndDropListeners;
   }
 
   public void makeDraggable(Widget widget) {
     if (widget instanceof SourcesMouseEvents) {
       ((SourcesMouseEvents) widget).addMouseListener(new MouseHandler(widget, this));
     } else {
-      throw new RuntimeException(
-          "draggableWidget must implement SourcesMouseEvents");
+      throw new RuntimeException("draggableWidget must implement SourcesMouseEvents");
     }
-    widget.addStyleName("dragdrop-draggable");
+    widget.addStyleName(STYLE_DRAGGABLE);
     widgetControllers.put(widget, this);
   }
 

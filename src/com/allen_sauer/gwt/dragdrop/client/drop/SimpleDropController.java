@@ -1,41 +1,36 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.DragController;
 
 /**
  * Minimal implementation of a DropController.
  */
 public class SimpleDropController extends AbstractDropController {
 
-  public SimpleDropController(Panel dropTargetPanel) {
+  public SimpleDropController(Widget dropTargetPanel) {
     super(dropTargetPanel);
   }
 
-  public void drop(Widget dragAndDropController) {
-    super.drop(dragAndDropController);
+  public void drop(Widget draggable) {
+    super.drop(draggable);
   }
 
-  public String getDropTargetStyleName() {
-    return "dragdrop-drop-target";
+  public boolean onDrop(Widget draggable, DragController dragController) {
+    return super.onDrop(draggable, dragController);
   }
 
-  public boolean onDrop(DragContext dragAndDropController) {
-    return super.onDrop(dragAndDropController);
+  public void onEnter(Widget draggable, DragController dragController) {
+    super.onEnter(draggable, dragController);
   }
 
-  public void onEnter(DragContext dragAndDropController) {
-    super.onEnter(dragAndDropController);
+  public void onLeave(Widget draggable, DragController dragController) {
+    super.onLeave(draggable, dragController);
   }
 
-  public void onLeave(DragContext dragAndDropController) {
-    super.onLeave(dragAndDropController);
-  }
-
-  public void onMove(DragContext dragAndDropController) {
-    super.onMove(dragAndDropController);
+  public void onMove(Widget draggable, DragController dragController) {
+    super.onMove(draggable, dragController);
   }
 
 }
