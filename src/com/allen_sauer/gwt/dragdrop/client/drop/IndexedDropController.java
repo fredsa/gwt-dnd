@@ -43,34 +43,34 @@ public class IndexedDropController extends AbstractPositioningDropController {
     this.dropTargetPanel = dropTargetPanel;
   }
 
-  public void drop(DragContext dragAndDropController) {
-    super.drop(dragAndDropController);
-    insert(dragAndDropController.getDraggable(), this.dropTargetPanel.getWidgetCount());
+  public void drop(Widget widget) {
+    super.drop(widget);
+    insert(widget, this.dropTargetPanel.getWidgetCount());
   }
 
   public String getDropTargetStyleName() {
     return "dragdrop-drop-target dragdrop-flow-panel-drop-target";
   }
 
-  public boolean onDrop(DragContext dragAndDropController) {
-    int index = this.dropTargetPanel.getWidgetIndex(dragAndDropController.getPostioningBox());
-    boolean result = super.onDrop(dragAndDropController);
-    insert(dragAndDropController.getDraggable(), index);
+  public boolean onDrop(DragContext dragContext) {
+    int index = this.dropTargetPanel.getWidgetIndex(getPositionerWidget());
+    boolean result = super.onDrop(dragContext);
+    insert(dragContext.getDraggable(), index);
     return result;
   }
 
-  public void onEnter(DragContext dragAndDropController) {
-    super.onEnter(dragAndDropController);
-    UIUtil.resetStylePositionStatic(dragAndDropController.getPostioningBox().getElement());
+  public void onEnter(DragContext dragContext) {
+    super.onEnter(dragContext);
+    UIUtil.resetStylePositionStatic(getPositionerWidget().getElement());
   }
 
-  public void onLeave(DragContext dragAndDropController) {
-    super.onLeave(dragAndDropController);
+  public void onLeave(DragContext dragContext) {
+    super.onLeave(dragContext);
   }
 
-  public void onMove(DragContext dragAndDropController) {
-    super.onMove(dragAndDropController);
-    indexedAdd(dragAndDropController.getDraggable(), dragAndDropController.getPostioningBox());
+  public void onMove(DragContext dragContext) {
+    super.onMove(dragContext);
+    indexedAdd(dragContext.getDraggable(), getPositionerWidget());
   }
 
   private void indexedAdd(Widget draggable, Widget widget) {

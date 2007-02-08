@@ -15,9 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -26,45 +23,27 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DragContext {
 
-  private AbsolutePanel boundryPanel;
-  private DragAndDropController dragAndDropController;
+  private DragController dragController;
   private Widget draggableWidget;
-  private SimplePanel postioningBox = new SimplePanel();
 
-  public DragContext(DragAndDropController dragAndDropController,
-      Widget draggableWidget) {
-    this.dragAndDropController = dragAndDropController;
+  public DragContext(Widget draggableWidget, DragController dragController) {
+    this.dragController = dragController;
     this.draggableWidget = draggableWidget;
-    if (draggableWidget instanceof SourcesMouseEvents) {
-      ((SourcesMouseEvents) draggableWidget).addMouseListener(new MouseHandler(
-          this));
-    } else {
-      throw new RuntimeException(
-          "draggableWidget must implement SourcesMouseEvents");
-    }
-    draggableWidget.addStyleName("dragdrop-draggable");
-    this.postioningBox.addStyleName("dragdrop-positioning-box");
+    //    if (draggableWidget instanceof SourcesMouseEvents) {
+    //      ((SourcesMouseEvents) draggableWidget).addMouseListener(new MouseHandler(
+    //          this));
+    //    } else {
+    //      throw new RuntimeException(
+    //          "draggableWidget must implement SourcesMouseEvents");
+    //    }
+    //    draggableWidget.addStyleName("dragdrop-draggable");
   }
 
-  public AbsolutePanel getBoundryPanel() {
-    // TODO need this convenience method?
-    return this.dragAndDropController.getBoundryPanel();
-  }
-
-  public DragAndDropController getDragAndDropController() {
-    return dragAndDropController;
+  public DragController getDragController() {
+    return dragController;
   }
 
   public Widget getDraggable() {
     return this.draggableWidget;
   }
-
-  public Widget getDraggableWidget() {
-    return draggableWidget;
-  }
-
-  public SimplePanel getPostioningBox() {
-    return this.postioningBox;
-  }
-
 }

@@ -1,6 +1,7 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
 
@@ -13,7 +14,7 @@ public class SimpleDropController extends AbstractDropController {
     super(dropTargetPanel);
   }
 
-  public void drop(DragContext dragAndDropController) {
+  public void drop(Widget dragAndDropController) {
     super.drop(dragAndDropController);
   }
 

@@ -16,6 +16,7 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DropControllerCollection;
@@ -33,7 +34,7 @@ public abstract class AbstractDropController implements DropController {
     dropTargetPanel.addStyleName(getDropTargetStyleName());
   }
 
-  public void drop(DragContext dragAndDropController) {
+  public void drop(Widget widget) {
     this.dropTargetPanel.removeStyleName("pre-drop");
   }
 
@@ -43,20 +44,20 @@ public abstract class AbstractDropController implements DropController {
 
   public abstract String getDropTargetStyleName();
 
-  public boolean onDrop(DragContext dragAndDropController) {
+  public boolean onDrop(DragContext dragContext) {
     this.dropTargetPanel.removeStyleName("pre-drop");
     return true;
   }
 
-  public void onEnter(DragContext dragAndDropController) {
+  public void onEnter(DragContext dragContext) {
     this.dropTargetPanel.addStyleName("pre-drop");
   }
 
-  public void onLeave(DragContext dragAndDropController) {
+  public void onLeave(DragContext dragContext) {
     this.dropTargetPanel.removeStyleName("pre-drop");
   }
 
-  public void onMove(DragContext dragAndDropController) {
+  public void onMove(DragContext dragContext) {
   }
 
 }
