@@ -37,6 +37,7 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 public class DragDropDemo implements EntryPoint {
 
   private static final String STYLE_BOUNDRY = "boundry";
+  private static final String STYLE_DEMO_LABEL = "flow-label";
 
   private DragController dragController;
   private int draggableOffsetHeight;
@@ -111,7 +112,7 @@ public class DragDropDemo implements EntryPoint {
     IndexedDropController indexedDropController = new IndexedDropController(flowPanelDropTarget);
     for (int i = 1; i <= 5; i++) {
       Label label = new Label("Draggable child #" + i);
-      label.addStyleName("flow-label");
+      label.addStyleName(STYLE_DEMO_LABEL);
       dragController.makeDraggable(label);
       indexedDropController.drop(label);
     }
