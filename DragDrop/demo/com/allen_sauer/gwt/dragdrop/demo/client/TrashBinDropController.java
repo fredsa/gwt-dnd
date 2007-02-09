@@ -1,6 +1,8 @@
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 
 /**
@@ -9,34 +11,36 @@ import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
  */
 public class TrashBinDropController extends SimpleDropController {
 
-  TrashBinPanel dropTargetPanel;
+  private static final String STYLE_TRASHBIN_ENGAGE = "trashbin-engage";
 
-  public TrashBinDropController(TrashBinPanel dropTargetPanel) {
+  private TrashBin trashBin;
+
+  public TrashBinDropController(TrashBin dropTargetPanel) {
     super(dropTargetPanel);
-    this.dropTargetPanel = dropTargetPanel;
+    this.trashBin = dropTargetPanel;
   }
 
-  public void drop(DragAndDropController dragAndDropController) {
-    super.drop(dragAndDropController);
-    dragAndDropController.getDraggable().removeStyleName("pre-trashbin-drop");
-    this.dropTargetPanel.eatWidget(dragAndDropController.getDraggable());
+  public void drop(Widget draggable) {
+    super.drop(draggable);
+    draggable.removeStyleName(STYLE_TRASHBIN_ENGAGE);
+    this.trashBin.eatWidget(draggable);
   }
 
-  public boolean onDrop(DragAndDropController dragAndDropController) {
-    super.onDrop(dragAndDropController);
-    dragAndDropController.getDraggable().removeStyleName("pre-trashbin-drop");
-    this.dropTargetPanel.eatWidget(dragAndDropController.getDraggable());
+  public boolean onDrop(Widget draggable, DragController dragController) {
+    super.onDrop(draggable, dragController);
+    draggable.removeStyleName(STYLE_TRASHBIN_ENGAGE);
+    this.trashBin.eatWidget(draggable);
     return true;
   }
 
-  public void onEnter(DragAndDropController dragAndDropController) {
-    super.onEnter(dragAndDropController);
-    dragAndDropController.getDraggable().addStyleName("pre-trashbin-drop");
+  public void onEnter(Widget draggable, DragController dragController) {
+    super.onEnter(draggable, dragController);
+    draggable.addStyleName(STYLE_TRASHBIN_ENGAGE);
   }
 
-  public void onLeave(DragAndDropController dragAndDropController) {
-    super.onLeave(dragAndDropController);
-    dragAndDropController.getDraggable().removeStyleName("pre-trashbin-drop");
+  public void onLeave(Widget draggable, DragController dragController) {
+    super.onLeave(draggable, dragController);
+    draggable.removeStyleName(STYLE_TRASHBIN_ENGAGE);
   }
 
 }

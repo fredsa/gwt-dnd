@@ -55,11 +55,11 @@ public class DropControllerCollection {
     DropController result = null;
     for (Iterator iterator = this.dropTargetCollection.iterator(); iterator.hasNext();) {
       DropController dropController = (DropController) iterator.next();
-      Panel target = dropController.getDropTargetPanel();
+      Widget target = dropController.getDropTarget();
       Area targetArea = new Area(target, null);
       if ((dropController instanceof BoundryDropController)
           || (widgetArea.intersects(targetArea) && targetArea.intersects(boundryArea))) {
-        if ((result == null) || DOM.isOrHasChild(result.getDropTargetPanel().getElement(), target.getElement())) {
+        if ((result == null) || DOM.isOrHasChild(result.getDropTarget().getElement(), target.getElement())) {
           result = dropController;
         }
       }

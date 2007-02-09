@@ -16,8 +16,10 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragController;
 
 /**
  * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
@@ -28,27 +30,42 @@ import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
  */
 public abstract class AbstractPositioningDropController extends AbstractDropController {
 
+  private SimplePanel postioner = new SimplePanel();
+
   public AbstractPositioningDropController(Panel dropTargetPanel) {
     super(dropTargetPanel);
+    this.postioner.addStyleName("dragdrop-positioner");
   }
 
-  public void drop(DragAndDropController dragAndDropController, int left, int top) {
+  public void drop(Widget widget, int left, int top) {
   }
 
-  public boolean onDrop(DragAndDropController dragAndDropController) {
-    boolean result = super.onDrop(dragAndDropController);
-    dragAndDropController.getPostioningBox().removeFromParent();
+  public Widget getPositionerWidget() {
+    return this.postioner;
+  }
+
+  public boolean onDrop(Widget draggable, DragController dragController) {
+    boolean result = super.onDrop(draggable, dragController);
+    removePositioner();
     return result;
   }
 
-  public void onEnter(DragAndDropController dragAndDropController) {
-    super.onEnter(dragAndDropController);
-//    dragAndDropController.getBoundryPanel().add(dragAndDropController.getPostioningBox());
+  public void onEnter(Widget draggable, DragController dragController) {
+    super.onEnter(draggable, dragController);
+    Widget positioner = getPositionerWidget();
+    // TODO calculate actual borders of positioningBox
+    positioner.setPixelSize(draggable.getOffsetWidth() - 2, draggable.getOffsetHeight() - 2);
   }
 
-  public void onLeave(DragAndDropController dragAndDropController) {
-    super.onLeave(dragAndDropController);
-    dragAndDropController.getPostioningBox().removeFromParent();
+  public void onLeave(Widget draggable, DragController dragController) {
+    super.onLeave(draggable, dragController);
+    removePositioner();
   }
 
+  private void removePositioner() {
+    Widget positioner = getPositionerWidget();
+    if (positioner != null) {
+      positioner.removeFromParent();
+    }
+  }
 }
