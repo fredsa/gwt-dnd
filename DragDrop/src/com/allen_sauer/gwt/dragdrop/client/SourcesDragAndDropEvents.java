@@ -20,6 +20,7 @@ package com.allen_sauer.gwt.dragdrop.client;
  * {@link com.allen_sauer.gwt.dragdrop.client.DragAndDropListener} interface.
  */
 public interface SourcesDragAndDropEvents {
+  
   void addDragAndDropListener(DragAndDropListener listener);
 
   void removeDragAndDropListener(DragAndDropListener listener);

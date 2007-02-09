@@ -39,12 +39,6 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     this.dropTargetPanel = dropTargetPanel;
   }
 
-  public void drop(Widget widget, int left, int top) {
-    // TODO no longer allow any programatic drop location; enforce overlapping
-    // TODO utilize super.drop() instead
-    this.dropTargetPanel.add(widget, left, top);
-  }
-
   public String getDropTargetStyleName() {
     return super.getDropTargetStyleName() + " dragdrop-no-overlap-drop-target";
   }
@@ -70,7 +64,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       this.dropTargetPanel.add(widget, location.getLeft(), location.getTop());
       return true;
     }
-    if (widget != getPositionerWidget()) {
+    if (widget != getPositionerWidget() && getPositionerWidget().isAttached()) {
       Area dropTargetArea = new Area(this.dropTargetPanel, boundryPanel);
       Area positioningBoxArea = new Area(getPositionerWidget(), boundryPanel);
       if (dropTargetArea.contains(positioningBoxArea)) {
