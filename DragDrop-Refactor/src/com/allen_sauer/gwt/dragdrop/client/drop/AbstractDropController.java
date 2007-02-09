@@ -27,6 +27,7 @@ import com.allen_sauer.gwt.dragdrop.client.DropControllerCollection;
 public abstract class AbstractDropController implements DropController {
 
   private static final String STLE_ENGAGE = "dragdrop-engage";
+  private static final String STYLE_DROP_TARGET = "dragdrop-dropTarget";
 
   private Widget dropTarget;
 
@@ -45,7 +46,7 @@ public abstract class AbstractDropController implements DropController {
   }
 
   public String getDropTargetStyleName() {
-    return "dragdrop-dropTarget";
+    return STYLE_DROP_TARGET;
   }
 
   public boolean onDrop(Widget draggable, DragController dragController) {
