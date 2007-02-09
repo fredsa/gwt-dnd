@@ -64,7 +64,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   public void onMove(Widget draggable, DragController dragController) {
     super.onMove(draggable, dragController);
-    constrainedWidgetMove(dragController, draggable, getPositionerWidget());
+    constrainedWidgetMove(dragController, draggable, getPositioner());
   }
 
   protected boolean constrainedWidgetMove(DragController dragController, Widget draggable, Widget widget) {

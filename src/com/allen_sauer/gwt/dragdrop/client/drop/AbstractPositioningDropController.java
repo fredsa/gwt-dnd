@@ -40,7 +40,7 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
   public void drop(Widget widget, int left, int top) {
   }
 
-  public Widget getPositionerWidget() {
+  public Widget getPositioner() {
     return this.postioner;
   }
 
@@ -52,7 +52,7 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
 
   public void onEnter(Widget draggable, DragController dragController) {
     super.onEnter(draggable, dragController);
-    Widget positioner = getPositionerWidget();
+    Widget positioner = getPositioner();
     // TODO calculate actual borders of positioningBox
     positioner.setPixelSize(draggable.getOffsetWidth() - 2, draggable.getOffsetHeight() - 2);
   }
@@ -63,7 +63,7 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
   }
 
   private void removePositioner() {
-    Widget positioner = getPositionerWidget();
+    Widget positioner = getPositioner();
     if (positioner != null) {
       positioner.removeFromParent();
     }
