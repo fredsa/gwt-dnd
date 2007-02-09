@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
@@ -43,34 +43,34 @@ public class IndexedDropController extends AbstractPositioningDropController {
     this.dropTargetPanel = dropTargetPanel;
   }
 
-  public void drop(DragAndDropController dragAndDropController) {
-    super.drop(dragAndDropController);
-    insert(dragAndDropController.getDraggable(), this.dropTargetPanel.getWidgetCount());
+  public void drop(Widget widget) {
+    super.drop(widget);
+    insert(widget, this.dropTargetPanel.getWidgetCount());
   }
 
   public String getDropTargetStyleName() {
-    return "dragdrop-drop-target dragdrop-flow-panel-drop-target";
+    return super.getDropTargetStyleName() + " dragdrop-flow-panel-drop-target";
   }
 
-  public boolean onDrop(DragAndDropController dragAndDropController) {
-    int index = this.dropTargetPanel.getWidgetIndex(dragAndDropController.getPostioningBox());
-    boolean result = super.onDrop(dragAndDropController);
-    insert(dragAndDropController.getDraggable(), index);
+  public boolean onDrop(Widget draggable, DragController dragController) {
+    int index = this.dropTargetPanel.getWidgetIndex(getPositionerWidget());
+    boolean result = super.onDrop(draggable, dragController);
+    insert(draggable, index);
     return result;
   }
 
-  public void onEnter(DragAndDropController dragAndDropController) {
-    super.onEnter(dragAndDropController);
-    UIUtil.resetStylePositionStatic(dragAndDropController.getPostioningBox().getElement());
+  public void onEnter(Widget draggable, DragController dragController) {
+    super.onEnter(draggable, dragController);
+    UIUtil.resetStylePositionStatic(getPositionerWidget().getElement());
   }
 
-  public void onLeave(DragAndDropController dragAndDropController) {
-    super.onLeave(dragAndDropController);
+  public void onLeave(Widget draggable, DragController dragController) {
+    super.onLeave(draggable, dragController);
   }
 
-  public void onMove(DragAndDropController dragAndDropController) {
-    super.onMove(dragAndDropController);
-    indexedAdd(dragAndDropController.getDraggable(), dragAndDropController.getPostioningBox());
+  public void onMove(Widget draggable, DragController dragController) {
+    super.onMove(draggable, dragController);
+    indexedAdd(draggable, getPositionerWidget());
   }
 
   private void indexedAdd(Widget draggable, Widget widget) {

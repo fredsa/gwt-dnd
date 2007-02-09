@@ -1,8 +1,8 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
-import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragController;
 
 /**
  * Interface to support drop behavior for drop targets. Each drop target is
@@ -10,16 +10,16 @@ import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
  */
 public interface DropController {
 
-  public abstract Panel getDropTargetPanel();
+  public abstract Widget getDropTarget();
 
   public abstract String getDropTargetStyleName();
 
-  public abstract boolean onDrop(DragAndDropController dragAndDropController);
+  public abstract boolean onDrop(Widget draggable, DragController dragController);
 
-  public abstract void onEnter(DragAndDropController dragAndDropController);
+  public abstract void onEnter(Widget draggable, DragController dragController);
 
-  public abstract void onLeave(DragAndDropController dragAndDropController);
+  public abstract void onLeave(Widget draggable, DragController dragController);
 
-  public abstract void onMove(DragAndDropController dragAndDropController);
+  public abstract void onMove(Widget draggable, DragController dragController);
 
 }

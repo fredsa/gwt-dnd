@@ -19,10 +19,10 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragAndDropController;
+import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController;
@@ -36,12 +36,18 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
  */
 public class DragDropDemo implements EntryPoint {
 
+  private static final String STYLE_BOUNDRY = "boundry";
+  private static final String STYLE_DEMO_LABEL = "flow-label";
+
+  private DragController dragController;
   private int draggableOffsetHeight;
   private int draggableOffsetWidth;
 
   public void onModuleLoad() {
-    determineRedBoxDimensions();
     AbsolutePanel boundryPanel = new AbsolutePanel();
+    this.dragController = new DragController(boundryPanel);
+
+    determineRedBoxDimensions();
     boundryPanel.setPixelSize(750, 500);
     RootPanel.get().add(new HTML("<h3>Drag-and-Drop Examples</h3>"));
     RootPanel.get().add(
@@ -50,7 +56,7 @@ public class DragDropDemo implements EntryPoint {
 
     HTML boundryDescription = ExampleTabPanel.describe("BoundryDropController",
         "All our example drag operations are constrained to the panel below.");
-    boundryDescription.addStyleName("boundry");
+    boundryDescription.addStyleName(STYLE_BOUNDRY);
     RootPanel.get().add(boundryDescription);
     RootPanel.get().add(boundryPanel);
 
@@ -69,7 +75,7 @@ public class DragDropDemo implements EntryPoint {
 
     // Example 1: TrashBinDropController
     AbsolutePanel containingPanel = new AbsolutePanel();
-    TrashBinPanel simpleDropTarget = new TrashBinPanel(120, 120);
+    TrashBin simpleDropTarget = new TrashBin(120, 120);
     containingPanel.add(simpleDropTarget);
     new TrashBinDropController(simpleDropTarget);
     dropTargets.add(containingPanel, "TrashBinDropController",
@@ -106,8 +112,9 @@ public class DragDropDemo implements EntryPoint {
     IndexedDropController indexedDropController = new IndexedDropController(flowPanelDropTarget);
     for (int i = 1; i <= 5; i++) {
       Label label = new Label("Draggable child #" + i);
-      label.addStyleName("flow-label");
-      indexedDropController.drop(new DragAndDropController(label, boundryPanel));
+      label.addStyleName(STYLE_DEMO_LABEL);
+      dragController.makeDraggable(label);
+      indexedDropController.drop(label);
     }
     indexedDropController.drop(createDraggable(boundryPanel));
 
@@ -118,7 +125,6 @@ public class DragDropDemo implements EntryPoint {
     NoOverlapDropController noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
     noOverlapDropTarget.setPixelSize(400, 150);
     noOverlapDropController.drop(createDraggable(boundryPanel), 10, 10);
-    noOverlapDropController.drop(createDraggable(boundryPanel), 10, 20);
     noOverlapDropController.drop(createDraggable(boundryPanel), 90, 60);
     noOverlapDropController.drop(createDraggable(boundryPanel), 190, 50);
 
@@ -139,16 +145,17 @@ public class DragDropDemo implements EntryPoint {
     //
     // });
 
-     dropTargets.selectTab(1);
+    dropTargets.selectTab(1);
   }
 
-  private DragAndDropController createDraggable(AbsolutePanel boundryPanel) {
-    Panel panel = new RedBoxDraggablePanel();
-    return new DragAndDropController(panel, boundryPanel);
+  private Widget createDraggable(AbsolutePanel boundryPanel) {
+    RedBoxDraggableWidget redBox = new RedBoxDraggableWidget();
+    dragController.makeDraggable(redBox);
+    return redBox;
   }
 
   private void determineRedBoxDimensions() {
-    RedBoxDraggablePanel redBox = new RedBoxDraggablePanel();
+    RedBoxDraggableWidget redBox = new RedBoxDraggableWidget();
     RootPanel.get().add(redBox, 0, 0);
     this.draggableOffsetWidth = redBox.getOffsetWidth();
     this.draggableOffsetHeight = redBox.getOffsetHeight();

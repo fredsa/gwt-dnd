@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import java.util.Iterator;
@@ -38,10 +37,10 @@ public class DragAndDropListenerCollection extends Vector {
     }
   }
 
-  public void fireDrop(Widget draggable, Panel dropTargetPanel) {
+  public void fireDrop(Widget draggable, Widget dropTarget) {
     for (Iterator it = iterator(); it.hasNext();) {
       DragAndDropListener listener = (DragAndDropListener) it.next();
-      listener.onDrop(draggable, dropTargetPanel);
+      listener.onDrop(draggable, dropTarget);
     }
   }
 
@@ -55,7 +54,7 @@ public class DragAndDropListenerCollection extends Vector {
     return false;
   }
 
-  public boolean firePreventDrop(Widget draggable, Panel dropTargetPanel) {
+  public boolean firePreventDrop(Widget draggable, Widget dropTarget) {
     for (Iterator it = iterator(); it.hasNext();) {
       DragAndDropListener listener = (DragAndDropListener) it.next();
       if (listener.onPreventDrop(draggable)) {

@@ -11,9 +11,11 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class ExampleTabPanel extends TabPanel {
 
+  private static final String STYLE_EXAMPLE_DESCRIPTION = "example-description";
+
   public static HTML describe(String controllerClassName, String description) {
     HTML html = new HTML("<code>" + controllerClassName + "</code><br>\n" + "<i>" + description + "</i>");
-    html.addStyleName("example-description");
+    html.addStyleName(STYLE_EXAMPLE_DESCRIPTION);
     return html;
   }
 
@@ -25,6 +27,6 @@ public class ExampleTabPanel extends TabPanel {
     verticalPanel.add(panel);
     add(verticalPanel, "Example " + ++this.counter, true);
     // ensure added tab is visible so DOM position coordinates are possible
-    selectTab(getWidgetCount() - 1); 
+    selectTab(getWidgetCount() - 1);
   }
 }

@@ -1,8 +1,0 @@
-<module>
-
-	<inherits name='com.google.gwt.user.User'/>
-
-	<!-- TODO After http://code.google.com/p/google-web-toolkit/issues/detail?id=577 is fixed -->
-  <!-- stylesheet src='DragDrop.css'/ -->
-
-</module>
