@@ -1,0 +1,104 @@
+@CHARSET "ISO-8859-1";
+
+body {
+  margin: 10px; /* leave for testing of positions */
+}
+
+code {
+  font-style: normal;
+}
+  
+.red-box-draggable-widget {
+  background-color: #EE0000; /* red */
+  border: 2px solid #AA0000; /* dark red */
+  text-align: center;
+  color: #FFCCCC;
+  font-size: 0.9em;
+}
+
+.example-description.boundry {
+  border-top: 1px solid #87B3FF;
+  border-left: 1px solid #87B3FF;
+  border-right: 1px solid #87B3FF;
+}
+
+.example-description {
+  font-size: 0.9em;
+  border-bottom: 1px solid #E8EEF7;
+  padding: 0.5em 0.3em;
+}
+
+.dragdrop-dropTarget.trashbin {
+  text-align: center;
+  border: 1px solid black;
+  border-top: 4px solid black;
+  background-color: #87B3FF;
+}
+
+.trashbin-engage {
+  filter: alpha(opacity =   10);
+  opacity: 0.1;
+  -moz-opacity: 0.1;
+}
+
+.flow-label {
+  font-size: 1.2em;
+}
+
+.dragdrop-boundry {
+  background: #F8F8F8; /* light grey */
+  border: 1px solid blue;
+}
+
+.dragdrop-dropTarget {
+  background-color: #CCCCCC; /* grey */
+  border: 1px solid black;
+  margin: 2em 1em;
+}
+
+.dragdrop-dropTarget.dragdrop-engage {
+  background: #BCDEFF; /* lighter blue */
+}
+
+.gwt-TabPanel {
+}
+
+.gwt-TabPanelBottom {
+  border-left: 1px solid #87B3FF;
+  border-right: 1px solid #87B3FF;
+  border-bottom: 1px solid #87B3FF;
+  background-color: #E8EEF7;
+}
+
+.gwt-TabBar {
+  background-color: #C3D9FF;
+}
+
+.gwt-TabBar .gwt-TabBarFirst {
+  height: 100%;
+  border-bottom: 1px solid #87B3FF;
+  padding-left: 3px;
+}
+
+.gwt-TabBar .gwt-TabBarRest {
+  border-bottom: 1px solid #87B3FF;
+  padding-right: 3px;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+  border-top: 1px solid #C3D9FF;
+  border-bottom: 1px solid #87B3FF;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+
+.gwt-TabBar .gwt-TabBarItem-selected {
+  font-weight: bold;
+  background-color: #E8EEF7;
+  border-top: 1px solid #87B3FF;
+  border-left: 1px solid #87B3FF;
+  border-right: 1px solid #87B3FF;
+  border-bottom: 1px solid #E8EEF7;
+  padding: 2px;
+  cursor: default;
+}
