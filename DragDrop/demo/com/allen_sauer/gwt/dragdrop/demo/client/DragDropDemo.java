@@ -128,28 +128,13 @@ public class DragDropDemo implements EntryPoint {
     noOverlapDropController.drop(createDraggable(boundryPanel), 90, 60);
     noOverlapDropController.drop(createDraggable(boundryPanel), 190, 50);
 
-    // Widget.addDragAndDropListener(new DragAndDropListener() {
-    //
-    // public boolean onPreDragStart(Widget draggable) {
-    // UIUtil.debug("onPreDragStart()");
-    // return true;
-    // }
-    //
-    // public void onDragStart(Widget draggable) {
-    // UIUtil.debug("onDragStart()");
-    // }
-    //
-    // public void onDrop(Widget draggable, Panel dropTargetPanel) {
-    // UIUtil.debug("onDrop()");
-    // }
-    //
-    // });
+    // TODO add demo drag or drop event veto
 
     dropTargets.selectTab(1);
   }
 
   private Widget createDraggable(AbsolutePanel boundryPanel) {
-    RedBoxDraggableWidget redBox = new RedBoxDraggableWidget();
+    Widget redBox = new RedBoxDraggableWidget();
     this.dragController.makeDraggable(redBox);
     return redBox;
   }
