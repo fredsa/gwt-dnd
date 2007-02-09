@@ -53,7 +53,7 @@ public class IndexedDropController extends AbstractPositioningDropController {
   }
 
   public boolean onDrop(Widget draggable, DragController dragController) {
-    int index = this.dropTargetPanel.getWidgetIndex(getPositionerWidget());
+    int index = this.dropTargetPanel.getWidgetIndex(getPositioner());
     boolean result = super.onDrop(draggable, dragController);
     insert(draggable, index);
     return result;
@@ -61,7 +61,7 @@ public class IndexedDropController extends AbstractPositioningDropController {
 
   public void onEnter(Widget draggable, DragController dragController) {
     super.onEnter(draggable, dragController);
-    UIUtil.resetStylePositionStatic(getPositionerWidget().getElement());
+    UIUtil.resetStylePositionStatic(getPositioner().getElement());
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
@@ -70,7 +70,7 @@ public class IndexedDropController extends AbstractPositioningDropController {
 
   public void onMove(Widget draggable, DragController dragController) {
     super.onMove(draggable, dragController);
-    indexedAdd(draggable, getPositionerWidget());
+    indexedAdd(draggable, getPositioner());
   }
 
   private void indexedAdd(Widget draggable, Widget widget) {

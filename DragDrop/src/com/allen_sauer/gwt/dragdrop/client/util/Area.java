@@ -28,13 +28,35 @@ public class Area {
   private int right;
   private int top;
 
+  /**
+   * Determine area (i.e. the top left and bottom right coordinates) of widget relative to
+   * boundryPanel such that:
+   * <ul>
+   * <li><code>boundryPanel.setWidgetPosition(area.getLeft(), location.getTop())</code>
+   * leaves the object in the exact same location on the screen and area</li>
+   * <li><code>area.getRight() = area.getLeft() + widget.getOffsetWidget()</code></li>
+   * <li><code>area.getBottom() = area.getTop() + widget.getOffsetHeight()</code></li>
+   * </ul>
+   * 
+   * Note that boundryPanel need not be the parent node, or even an ancestor of widget.
+   * Therefore coordinates returned may be negative or may exceed the dimensions of boundryPanel.
+   * 
+   * @param widget the widget whose area we seek
+   * @param boundryPanel the AbsolutePanel relative to which we seek our area
+   */
   public Area(Widget widget, AbsolutePanel boundryPanel) {
-    this.left = widget.getAbsoluteLeft() - (boundryPanel == null ? 0 : boundryPanel.getAbsoluteLeft());
-    this.top = widget.getAbsoluteTop() - (boundryPanel == null ? 0 : boundryPanel.getAbsoluteTop());
+    Location topLeft = new Location(widget,boundryPanel);
+    this.left = topLeft.getLeft();
+    this.top = topLeft.getTop();
     this.right = this.left + widget.getOffsetWidth();
     this.bottom = this.top + widget.getOffsetHeight();
   }
 
+  /**
+   * Determine whether area is fully contained without our area.
+   * @param area the area we are testing
+   * @return true of area is fully contained within our area
+   */
   public boolean contains(Area area) {
     return (area.left >= this.left) && (area.right <= this.right) && (area.top >= this.top) && (area.bottom <= this.bottom);
   }
