@@ -40,7 +40,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
   }
 
   public void drop(Widget widget, int left, int top) {
-    // allow any programatic drop location; disregard overlapping
+    // TODO no longer allow any programatic drop location; enforce overlapping
+    // TODO utilize super.drop() instead
     this.dropTargetPanel.add(widget, left, top);
   }
 
