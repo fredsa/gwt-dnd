@@ -113,7 +113,7 @@ public class DragDropDemo implements EntryPoint {
     for (int i = 1; i <= 5; i++) {
       Label label = new Label("Draggable child #" + i);
       label.addStyleName(STYLE_DEMO_LABEL);
-      dragController.makeDraggable(label);
+      this.dragController.makeDraggable(label);
       indexedDropController.drop(label);
     }
     indexedDropController.drop(createDraggable(boundryPanel));
@@ -150,7 +150,7 @@ public class DragDropDemo implements EntryPoint {
 
   private Widget createDraggable(AbsolutePanel boundryPanel) {
     RedBoxDraggableWidget redBox = new RedBoxDraggableWidget();
-    dragController.makeDraggable(redBox);
+    this.dragController.makeDraggable(redBox);
     return redBox;
   }
 
