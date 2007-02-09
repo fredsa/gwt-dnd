@@ -19,6 +19,7 @@ public class DragController implements SourcesDragAndDropEvents {
   private static final String STYLE_DRAGGABLE = "dragdrop-draggable";
   private static HashMap widgetControllers = new HashMap();
 
+  // TODO remove this method as it is barely used
   public static DragController getDragController(Widget widget) {
     return (DragController) widgetControllers.get(widget);
   }
