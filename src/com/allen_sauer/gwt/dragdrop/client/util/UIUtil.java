@@ -23,6 +23,11 @@ import com.google.gwt.user.client.Element;
  */
 public class UIUtil {
 
+  public static native void debug(String text) /*-{
+   $wnd.status = text;
+   }-*/;
+
+  // TODO deferred binding for browser specific behavior
   public static native int getBorderLeft(Element elem) /*-{
    // Compare to null since undefined not always JavaScript keyword
    if (elem.clientLeft != null) {
@@ -35,6 +40,7 @@ public class UIUtil {
    }
    }-*/;
 
+  // TODO deferred binding for browser specific behavior
   public static native int getBorderTop(Element elem) /*-{
    // Compare to null since undefined not always JavaScript keyword
    if (elem.clientTop != null) {
@@ -47,10 +53,32 @@ public class UIUtil {
    }
    }-*/;
 
+  // TODO support non-IE browsers
+  // TODO deferred binding for browser specific behavior
+  public static native int getClientHeight(Element elem) /*-{
+   // Compare to null since undefined not always JavaScript keyword
+   if (elem.clientHeight != null) {
+   return elem.clientHeight;
+   } else {
+   throw "Unable to determine client height";
+   }
+   }-*/;
+
+  // TODO support non-IE browsers
+  // TODO deferred binding for browser specific behavior
+  public static native int getClientWidth(Element elem) /*-{
+   // Compare to null since undefined not always JavaScript keyword
+   if (elem.clientWidth != null) {
+   return elem.clientWidth;
+   } else {
+   throw "Unable to determine client width";
+   }
+   }-*/;
+
   // TODO remove after fix for issue 626
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=626
   public static void resetStylePositionStatic(Element element) {
-    DOM.setStyleAttribute(element, "left", "");
+    DOM.setStyleAttribute(element, "right", "");
     DOM.setStyleAttribute(element, "top", "");
     DOM.setStyleAttribute(element, "position", "static");
   }

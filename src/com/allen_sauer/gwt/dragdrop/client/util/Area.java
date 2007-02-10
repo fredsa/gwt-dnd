@@ -27,12 +27,16 @@ public class Area {
   private int left;
   private int right;
   private int top;
+  private int widgetBorderLeft;
+  private int widgetBorderTop;
+  private int widgetInnerHeight;
+  private int widgetInnerWidth;
 
   /**
    * Determine area (i.e. the top left and bottom right coordinates) of widget relative to
    * boundryPanel such that:
    * <ul>
-   * <li><code>boundryPanel.setWidgetPosition(area.getLeft(), location.getTop())</code>
+   * <li><code>boundryPanel.add(widget, area.getLeft(), area.getTop())</code>
    * leaves the object in the exact same location on the screen and area</li>
    * <li><code>area.getRight() = area.getLeft() + widget.getOffsetWidget()</code></li>
    * <li><code>area.getBottom() = area.getTop() + widget.getOffsetHeight()</code></li>
@@ -42,14 +46,30 @@ public class Area {
    * Therefore coordinates returned may be negative or may exceed the dimensions of boundryPanel.
    * 
    * @param widget the widget whose area we seek
-   * @param boundryPanel the AbsolutePanel relative to which we seek our area
+   * @param boundryPanel the AbsolutePanel relative to which we seek our area or 
+   *        RootPanel().get() if null
    */
-  public Area(Widget widget, AbsolutePanel boundryPanel) {
-    Location topLeft = new Location(widget,boundryPanel);
-    this.left = topLeft.getLeft();
-    this.top = topLeft.getTop();
+  public Area(Widget widget, AbsolutePanel boundryPanel, boolean subtractBorders) {
+    this.left = widget.getAbsoluteLeft();
+    this.top = widget.getAbsoluteTop();
+    this.widgetBorderLeft = UIUtil.getBorderLeft(widget.getElement());
+    this.widgetBorderTop = UIUtil.getBorderTop(widget.getElement());
+    this.widgetInnerWidth = UIUtil.getClientWidth(widget.getElement());
+    this.widgetInnerHeight = UIUtil.getClientHeight(widget.getElement());
+
+    if (boundryPanel != null) {
+      this.left -= boundryPanel.getAbsoluteLeft();
+      this.top -= boundryPanel.getAbsoluteTop();
+    }
     this.right = this.left + widget.getOffsetWidth();
     this.bottom = this.top + widget.getOffsetHeight();
+  }
+
+  private Area(int left, int top, int right, int bottom) {
+    this.left = left;
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
   }
 
   /**
@@ -58,7 +78,12 @@ public class Area {
    * @return true of area is fully contained within our area
    */
   public boolean contains(Area area) {
-    return (area.left >= this.left) && (area.right <= this.right) && (area.top >= this.top) && (area.bottom <= this.bottom);
+    return (area.left >= (this.left + this.widgetBorderLeft)) && (area.right <= (this.right + this.widgetInnerWidth))
+        && (area.top >= (this.top + this.widgetBorderTop)) && (area.bottom <= (this.bottom + this.widgetInnerHeight));
+  }
+
+  public Area copyOf() {
+    return new Area(this.left, this.top, this.right, this.bottom);
   }
 
   public int getBottom() {
@@ -73,6 +98,14 @@ public class Area {
     return this.bottom - this.top;
   }
 
+  public int getInternalHeight() {
+    return this.widgetInnerHeight;
+  }
+
+  public int getInternalWidth() {
+    return this.widgetInnerWidth;
+  }
+
   public int getLeft() {
     return this.left;
   }
@@ -83,6 +116,34 @@ public class Area {
 
   public int getTop() {
     return this.top;
+  }
+
+  // public int overlapPixels(Area targetArea) {
+  // int horizontalPixels = Math.max(0, Math.min(this.right, targetArea.right) -
+  // Math.max(this.left, targetArea.left));
+  // int verticalPixels = Math.max(0, Math.min(this.bottom, targetArea.bottom) -
+  // Math.max(this.top, targetArea.top));
+  // return horizontalPixels * verticalPixels;
+  // }
+  //
+  // public int pixels() {
+  // return getWidth() * getHeight();
+  // }
+
+  public int getWidgetBorderLeft() {
+    return this.widgetBorderLeft;
+  }
+
+  public int getWidgetBorderTop() {
+    return this.widgetBorderTop;
+  }
+
+  public int getWidgetInnerHeight() {
+    return this.widgetInnerHeight;
+  }
+
+  public int getWidgetInnerWidth() {
+    return this.widgetInnerWidth;
   }
 
   public int getWidth() {
@@ -108,18 +169,6 @@ public class Area {
     float distanceY = (float) (location.getTop() - center.getTop()) / getHeight();
     return (distanceX + distanceY) > 0;
   }
-
-  // public int overlapPixels(Area targetArea) {
-  // int horizontalPixels = Math.max(0, Math.min(this.right, targetArea.right) -
-  // Math.max(this.left, targetArea.left));
-  // int verticalPixels = Math.max(0, Math.min(this.bottom, targetArea.bottom) -
-  // Math.max(this.top, targetArea.top));
-  // return horizontalPixels * verticalPixels;
-  // }
-  //
-  // public int pixels() {
-  // return getWidth() * getHeight();
-  // }
 
   public boolean intersects(Area targetArea) {
     if ((this.right < targetArea.left) || (this.left > targetArea.right) || (this.bottom < targetArea.top)
