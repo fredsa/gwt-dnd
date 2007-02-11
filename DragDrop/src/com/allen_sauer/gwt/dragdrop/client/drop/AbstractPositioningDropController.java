@@ -34,14 +34,14 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
 
   public AbstractPositioningDropController(Panel dropTargetPanel) {
     super(dropTargetPanel);
-    this.postioner.addStyleName("dragdrop-positioner");
+    postioner.addStyleName("dragdrop-positioner");
   }
 
   public void drop(Widget widget, int left, int top) {
   }
 
   public Widget getPositioner() {
-    return this.postioner;
+    return postioner;
   }
 
   public boolean onDrop(Widget draggable, DragController dragController) {

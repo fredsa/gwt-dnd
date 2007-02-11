@@ -45,7 +45,7 @@ public class DragDropDemo implements EntryPoint {
 
   public void onModuleLoad() {
     AbsolutePanel boundryPanel = new AbsolutePanel();
-    this.dragController = new DragController(boundryPanel);
+    dragController = new DragController(boundryPanel);
 
     determineRedBoxDimensions();
     boundryPanel.setPixelSize(750, 500);
@@ -98,12 +98,12 @@ public class DragDropDemo implements EntryPoint {
     // Example 3: GridConstrainedDropController
     AbsolutePanel gridConstrainedDropTarget = new AbsolutePanel();
     dropTargets.add(gridConstrainedDropTarget, "GridConstrainedDropController", "Drops (moves) are constrained to a ("
-        + this.draggableOffsetWidth + " x " + this.draggableOffsetHeight + ") grid on the grey drop target.");
+        + draggableOffsetWidth + " x " + draggableOffsetHeight + ") grid on the grey drop target.");
     GridConstrainedDropController gridConstrainedDropController = new GridConstrainedDropController(gridConstrainedDropTarget,
-        this.draggableOffsetWidth, this.draggableOffsetHeight);
-    gridConstrainedDropTarget.setPixelSize(this.draggableOffsetWidth * 6, this.draggableOffsetHeight * 2);
+        draggableOffsetWidth, draggableOffsetHeight);
+    gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 6, draggableOffsetHeight * 2);
     gridConstrainedDropController.drop(createDraggable(), 0, 0);
-    gridConstrainedDropController.drop(createDraggable(), this.draggableOffsetWidth, this.draggableOffsetHeight);
+    gridConstrainedDropController.drop(createDraggable(), draggableOffsetWidth, draggableOffsetHeight);
 
     // Example 4: IndexedDropController
     IndexedFlowPanel flowPanelDropTarget = new IndexedFlowPanel();
@@ -113,7 +113,7 @@ public class DragDropDemo implements EntryPoint {
     for (int i = 1; i <= 5; i++) {
       Label label = new Label("Draggable child #" + i);
       label.addStyleName(STYLE_DEMO_LABEL);
-      this.dragController.makeDraggable(label);
+      dragController.makeDraggable(label);
       indexedDropController.drop(label);
     }
     indexedDropController.drop(createDraggable());
@@ -135,15 +135,15 @@ public class DragDropDemo implements EntryPoint {
 
   private Widget createDraggable() {
     Widget redBox = new RedBoxDraggableWidget();
-    this.dragController.makeDraggable(redBox);
+    dragController.makeDraggable(redBox);
     return redBox;
   }
 
   private void determineRedBoxDimensions() {
     RedBoxDraggableWidget redBox = new RedBoxDraggableWidget();
     RootPanel.get().add(redBox, 0, 0);
-    this.draggableOffsetWidth = redBox.getOffsetWidth();
-    this.draggableOffsetHeight = redBox.getOffsetHeight();
+    draggableOffsetWidth = redBox.getOffsetWidth();
+    draggableOffsetHeight = redBox.getOffsetHeight();
     redBox.removeFromParent();
   }
 

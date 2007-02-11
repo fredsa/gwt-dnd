@@ -19,7 +19,7 @@ public class TrashBin extends HTML {
 
   public void eatWidget(Widget widget) {
     widget.removeFromParent();
-    this.count++;
+    count++;
     updateText();
   }
 
@@ -30,10 +30,10 @@ public class TrashBin extends HTML {
 
   private void updateText() {
     String text;
-    if (this.count == 0) {
+    if (count == 0) {
       text = "currently empty";
     } else {
-      text = "contains " + this.count + " item" + (this.count == 1 ? "" : "s");
+      text = "contains " + count + " item" + (count == 1 ? "" : "s");
     }
     setHTML("<b>Trash Bin</b><br>\n" + "(" + text + ")<br>\n<br>\n" + "<i>try dropping something on me</i>");
   }

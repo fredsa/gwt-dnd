@@ -42,35 +42,35 @@ public class Location {
    * @param boundryPanel the AbsolutePanel relative to which we seek our coordinates
    */
   public Location(Widget widget, AbsolutePanel boundryPanel) {
-    this.left = widget.getAbsoluteLeft();
-    this.top = widget.getAbsoluteTop();
+    left = widget.getAbsoluteLeft();
+    top = widget.getAbsoluteTop();
     if (boundryPanel != null) {
-      this.left -= boundryPanel.getAbsoluteLeft();
-      this.left -= UIUtil.getBorderLeft(boundryPanel.getElement());
-      this.top -= boundryPanel.getAbsoluteTop();
-      this.top -= UIUtil.getBorderTop(boundryPanel.getElement());
+      left -= boundryPanel.getAbsoluteLeft();
+      left -= UIUtil.getBorderLeft(boundryPanel.getElement());
+      top -= boundryPanel.getAbsoluteTop();
+      top -= UIUtil.getBorderTop(boundryPanel.getElement());
     }
   }
 
   public void constrain(int minLeft, int minTop, int maxLeft, int maxTop) {
-    this.left = Math.min(maxLeft, Math.max(this.left, minLeft));
-    this.top = Math.min(maxTop, Math.max(this.top, minTop));
+    left = Math.min(maxLeft, Math.max(left, minLeft));
+    top = Math.min(maxTop, Math.max(top, minTop));
   }
 
   public int getLeft() {
-    return this.left;
+    return left;
   }
 
   public int getTop() {
-    return this.top;
+    return top;
   }
 
   public void snapToGrid(int gridX, int gridY) {
-    this.left = Math.round((float) this.left / gridX) * gridX;
-    this.top = Math.round((float) this.top / gridY) * gridY;
+    left = Math.round((float) left / gridX) * gridX;
+    top = Math.round((float) top / gridY) * gridY;
   }
 
   public String toString() {
-    return "(" + this.left + ", " + this.top + ")";
+    return "(" + left + ", " + top + ")";
   }
 }

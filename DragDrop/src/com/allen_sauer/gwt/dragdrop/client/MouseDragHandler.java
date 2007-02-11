@@ -16,7 +16,7 @@ class MouseDragHandler implements MouseListener {
   private static final String STYLE_DRAGGING = "dragdrop-dragging";
 
   private DropController dropController;
-  private boolean inDrag;
+  private boolean dragging;
   private Location initialDraggableLocation;
   private Widget initialDraggableParent;
   private int initialMouseX;
@@ -30,27 +30,26 @@ class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
-    this.initialMouseX = x;
-    this.initialMouseY = y;
+    initialMouseX = x;
+    initialMouseY = y;
 
-    if (this.dragController.getDragAndDropListeners().firePreventDragStart(this.draggable)) {
+    if (dragController.getDragAndDropListeners().firePreventDragStart(draggable)) {
       return;
     }
-    this.dragController.getDragAndDropListeners().fireDragStart(this.draggable);
-    this.draggable.addStyleName(STYLE_DRAGGING);
+    dragController.getDragAndDropListeners().fireDragStart(draggable);
+    draggable.addStyleName(STYLE_DRAGGING);
 
     // Store initial draggable parent and coordinates in case we have to abort
-    this.initialDraggableParent = this.draggable.getParent();
-    this.initialDraggableLocation = new Location(this.draggable, this.dragController.getBoundryPanel());
-    this.dragController.getBoundryPanel().add(this.draggable, this.initialDraggableLocation.getLeft(),
-        this.initialDraggableLocation.getTop());
+    initialDraggableParent = draggable.getParent();
+    initialDraggableLocation = new Location(draggable, dragController.getBoundryPanel());
+    dragController.getBoundryPanel().add(draggable, initialDraggableLocation.getLeft(), initialDraggableLocation.getTop());
 
     DOM.setCapture(sender.getElement());
-    this.inDrag = true;
+    dragging = true;
     try {
       move(sender, x, y);
     } catch (RuntimeException ex) {
-      this.inDrag = false;
+      dragging = false;
       DOM.releaseCapture(sender.getElement());
       throw ex;
     }
@@ -63,7 +62,7 @@ class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseMove(Widget sender, int x, int y) {
-    if (!this.inDrag) {
+    if (!dragging) {
       return;
     }
     try {
@@ -75,100 +74,99 @@ class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseUp(Widget sender, int x, int y) {
-    if (!this.inDrag) {
+    if (!dragging) {
       return;
     }
     try {
       DOM.releaseCapture(sender.getElement());
 
       move(sender, x, y);
-      this.inDrag = false;
-      this.draggable.removeStyleName(STYLE_DRAGGING);
+      dragging = false;
+      draggable.removeStyleName(STYLE_DRAGGING);
 
       // Determine the interested controller at our present location
       DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(sender,
-          this.dragController.getBoundryPanel());
+          dragController.getBoundryPanel());
 
       // Is the controller at this location different than the last one?
-      if (this.dropController != newDropController) {
-        if (this.dropController != null) {
-          this.dropController.onLeave(this.draggable, this.dragController);
+      if (dropController != newDropController) {
+        if (dropController != null) {
+          dropController.onLeave(draggable, dragController);
         }
-        this.dropController = newDropController;
+        dropController = newDropController;
       }
 
       // Is there a controller willing to handle our request?
-      if (this.dropController == null) {
+      if (dropController == null) {
         cancelDrag();
         return;
       }
 
       // Does anyone wish to veto this request?
-      if (this.dragController.getDragAndDropListeners().firePreventDrop(this.draggable, this.dropController.getDropTarget())) {
+      if (dragController.getDragAndDropListeners().firePreventDrop(draggable, dropController.getDropTarget())) {
         cancelDrag();
         return;
       }
 
       // Does the controller allow the drop?
-      if (!this.dropController.onDrop(this.draggable, this.dragController)) {
+      if (!dropController.onDrop(draggable, dragController)) {
         cancelDrag();
         return;
       }
 
       // Notify listeners that drop occurred
-      this.dragController.getDragAndDropListeners().fireDrop(this.draggable, this.dropController.getDropTarget());
+      dragController.getDragAndDropListeners().fireDrop(draggable, dropController.getDropTarget());
 
     } catch (RuntimeException ex) {
       // cleanup in case anything goes wrong
       cancelDrag();
       throw ex;
     } finally {
-      this.dropController = null;
+      dropController = null;
     }
   }
 
   private void cancelDrag() {
     // Do this first so it always happens
-    DOM.releaseCapture(this.draggable.getElement());
+    DOM.releaseCapture(draggable.getElement());
 
-    if (this.dropController != null) {
-      this.dropController.onLeave(this.draggable, this.dragController);
+    if (dropController != null) {
+      dropController.onLeave(draggable, dragController);
     }
 
-    this.inDrag = false;
-    if (this.initialDraggableParent instanceof AbsolutePanel) {
-      Location parentLocation = new Location(this.initialDraggableParent, this.dragController.getBoundryPanel());
-      ((AbsolutePanel) this.initialDraggableParent).add(this.draggable, this.initialDraggableLocation.getLeft()
-          - parentLocation.getLeft(), this.initialDraggableLocation.getTop() - parentLocation.getTop());
+    dragging = false;
+    if (initialDraggableParent instanceof AbsolutePanel) {
+      Location parentLocation = new Location(initialDraggableParent, dragController.getBoundryPanel());
+      ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableLocation.getLeft() - parentLocation.getLeft(),
+          initialDraggableLocation.getTop() - parentLocation.getTop());
     } else {
-      this.dragController.getBoundryPanel().add(this.draggable, this.initialDraggableLocation.getLeft(),
-          this.initialDraggableLocation.getTop());
+      dragController.getBoundryPanel().add(draggable, initialDraggableLocation.getLeft(), initialDraggableLocation.getTop());
     }
-    this.dropController = null;
+    dropController = null;
   }
 
   private void move(Widget sender, int x, int y) {
-    Location senderLocation = new Location(this.draggable, this.dragController.getBoundryPanel());
+    Location senderLocation = new Location(draggable, dragController.getBoundryPanel());
 
-    int desiredLeft = (x - this.initialMouseX) + senderLocation.getLeft();
-    int desiredTop = (y - this.initialMouseY) + senderLocation.getTop();
+    int desiredLeft = (x - initialMouseX) + senderLocation.getLeft();
+    int desiredTop = (y - initialMouseY) + senderLocation.getTop();
 
-    this.dragController.getBoundryPanel().setWidgetPosition(this.draggable, desiredLeft, desiredTop);
+    dragController.getBoundryPanel().setWidgetPosition(draggable, desiredLeft, desiredTop);
 
-    DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(this.draggable,
-        this.dragController.getBoundryPanel());
-    if (this.dropController == newDropController) {
-      if (this.dropController != null) {
-        this.dropController.onMove(this.draggable, this.dragController);
+    DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(draggable,
+        dragController.getBoundryPanel());
+    if (dropController == newDropController) {
+      if (dropController != null) {
+        dropController.onMove(draggable, dragController);
       }
     } else {
-      if (this.dropController != null) {
-        this.dropController.onLeave(this.draggable, this.dragController);
+      if (dropController != null) {
+        dropController.onLeave(draggable, dragController);
       }
-      this.dropController = newDropController;
-      if (this.dropController != null) {
-        this.dropController.onEnter(this.draggable, this.dragController);
-        this.dropController.onMove(this.draggable, this.dragController);
+      dropController = newDropController;
+      if (dropController != null) {
+        dropController.onEnter(draggable, dragController);
+        dropController.onMove(draggable, dragController);
       }
     }
   }
