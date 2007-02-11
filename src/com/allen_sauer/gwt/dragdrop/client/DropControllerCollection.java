@@ -34,22 +34,13 @@ import java.util.Iterator;
  */
 public class DropControllerCollection {
 
-  private static final DropControllerCollection SINGLETON = new DropControllerCollection();
+  private static Collection dropTargetCollection = new ArrayList();
 
-  public static DropControllerCollection singleton() {
-    return SINGLETON;
-  }
-
-  private Collection dropTargetCollection = new ArrayList();
-
-  private DropControllerCollection() {
-  }
-
-  public void add(DropController dropTargetPanel) {
+  public static void add(DropController dropTargetPanel) {
     dropTargetCollection.add(dropTargetPanel);
   }
 
-  public DropController getIntersectDropController(Widget widget, Panel boundryPanel) {
+  public static DropController getIntersectDropController(Widget widget, Panel boundryPanel) {
     Area widgetArea = new Area(widget, null);
     Area boundryArea = new Area(boundryPanel, null);
     DropController result = null;
@@ -67,4 +58,6 @@ public class DropControllerCollection {
     return result;
   }
 
+  private DropControllerCollection() {
+  }
 }

@@ -13,8 +13,6 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  */
 class MouseDragHandler implements MouseListener {
 
-  private static final String STYLE_DRAGGING = "dragdrop-dragging";
-
   private DropController dropController;
   private boolean dragging;
   private Location initialDraggableLocation;
@@ -23,26 +21,28 @@ class MouseDragHandler implements MouseListener {
   private int initialMouseY;
   private Widget draggable;
   private DragController dragController;
+  private AbsolutePanel boundryPanel;
 
   public MouseDragHandler(Widget draggable, DragController dragController) {
     this.draggable = draggable;
     this.dragController = dragController;
+    boundryPanel = dragController.getBoundryPanel();
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
     initialMouseX = x;
     initialMouseY = y;
 
-    if (dragController.getDragAndDropListeners().firePreventDragStart(draggable)) {
+    if (!dragController.isDragAllowed(draggable)) {
       return;
     }
-    dragController.getDragAndDropListeners().fireDragStart(draggable);
-    draggable.addStyleName(STYLE_DRAGGING);
+    dragController.drag(draggable);
 
     // Store initial draggable parent and coordinates in case we have to abort
     initialDraggableParent = draggable.getParent();
-    initialDraggableLocation = new Location(draggable, dragController.getBoundryPanel());
-    dragController.getBoundryPanel().add(draggable, initialDraggableLocation.getLeft(), initialDraggableLocation.getTop());
+    initialDraggableLocation = new Location(draggable, boundryPanel);
+
+    boundryPanel.add(draggable, initialDraggableLocation.getLeft(), initialDraggableLocation.getTop());
 
     DOM.setCapture(sender.getElement());
     dragging = true;
@@ -82,13 +82,11 @@ class MouseDragHandler implements MouseListener {
 
       move(sender, x, y);
       dragging = false;
-      draggable.removeStyleName(STYLE_DRAGGING);
 
-      // Determine the interested controller at our present location
-      DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(sender,
-          dragController.getBoundryPanel());
+      // Determine the interested DropController at our present location
+      DropController newDropController = DropControllerCollection.getIntersectDropController(sender, boundryPanel);
 
-      // Is the controller at this location different than the last one?
+      // Is the DropController at this location different than the last one?
       if (dropController != newDropController) {
         if (dropController != null) {
           dropController.onLeave(draggable, dragController);
@@ -96,26 +94,26 @@ class MouseDragHandler implements MouseListener {
         dropController = newDropController;
       }
 
-      // Is there a controller willing to handle our request?
+      // Is there a DropController willing to handle our request?
       if (dropController == null) {
         cancelDrag();
         return;
       }
 
-      // Does anyone wish to veto this request?
-      if (dragController.getDragAndDropListeners().firePreventDrop(draggable, dropController.getDropTarget())) {
+      // Does the DragController allow the drop?
+      if (!dragController.isDropAllowed(draggable, dropController.getDropTarget())) {
         cancelDrag();
         return;
       }
 
-      // Does the controller allow the drop?
+      // Does the DropController allow the drop?
       if (!dropController.onDrop(draggable, dragController)) {
         cancelDrag();
         return;
       }
 
-      // Notify listeners that drop occurred
-      dragController.getDragAndDropListeners().fireDrop(draggable, dropController.getDropTarget());
+      // Notify DragController that drop occurred
+      dragController.drop(draggable, dropController.getDropTarget());
 
     } catch (RuntimeException ex) {
       // cleanup in case anything goes wrong
@@ -136,25 +134,24 @@ class MouseDragHandler implements MouseListener {
 
     dragging = false;
     if (initialDraggableParent instanceof AbsolutePanel) {
-      Location parentLocation = new Location(initialDraggableParent, dragController.getBoundryPanel());
+      Location parentLocation = new Location(initialDraggableParent, boundryPanel);
       ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableLocation.getLeft() - parentLocation.getLeft(),
           initialDraggableLocation.getTop() - parentLocation.getTop());
     } else {
-      dragController.getBoundryPanel().add(draggable, initialDraggableLocation.getLeft(), initialDraggableLocation.getTop());
+      boundryPanel.add(draggable, initialDraggableLocation.getLeft(), initialDraggableLocation.getTop());
     }
     dropController = null;
   }
 
   private void move(Widget sender, int x, int y) {
-    Location senderLocation = new Location(draggable, dragController.getBoundryPanel());
+    Location senderLocation = new Location(draggable, boundryPanel);
 
     int desiredLeft = (x - initialMouseX) + senderLocation.getLeft();
     int desiredTop = (y - initialMouseY) + senderLocation.getTop();
 
-    dragController.getBoundryPanel().setWidgetPosition(draggable, desiredLeft, desiredTop);
+    boundryPanel.setWidgetPosition(draggable, desiredLeft, desiredTop);
 
-    DropController newDropController = DropControllerCollection.singleton().getIntersectDropController(draggable,
-        dragController.getBoundryPanel());
+    DropController newDropController = DropControllerCollection.getIntersectDropController(draggable, boundryPanel);
     if (dropController == newDropController) {
       if (dropController != null) {
         dropController.onMove(draggable, dragController);

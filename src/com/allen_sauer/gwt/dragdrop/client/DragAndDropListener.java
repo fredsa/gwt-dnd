@@ -27,8 +27,8 @@ public interface DragAndDropListener {
   // TODO use event object instead so we can pass more info in the future
   void onDrop(Widget draggable, Widget dropTarget);
 
-  boolean onPreventDragStart(Widget draggable);
+  boolean onIsDragAllowed(Widget draggable);
 
-  boolean onPreventDrop(Widget draggable);
+  boolean onIsDropAllowed(Widget draggable);
 
 }
