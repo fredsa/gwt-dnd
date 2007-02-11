@@ -192,24 +192,6 @@ public class Area {
     this.bottom += deltaY;
   }
 
-  /**
-   * Determine if the area to the right and/or below is more than the area to
-   * the left and above.
-   * 
-   * <pre>
-   *                            +----+
-   * +--------------------------+-+  |
-   * |Our area                  | |  |
-   * |                          +-+--+
-   * |                            |
-   * +----------------------------+
-   * </pre>
-   */
-  public boolean toBottomRight(Area otherArea) {
-    // TODO implement
-    return false;
-  }
-
   public String toString() {
     return "[ (" + this.left + ", " + this.top + ") - (" + this.right + ", " + this.bottom + ") ]";
   }
