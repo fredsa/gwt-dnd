@@ -53,7 +53,6 @@ public class UIUtil {
    }
    }-*/;
 
-  // TODO support non-IE browsers
   // TODO deferred binding for browser specific behavior
   public static native int getClientHeight(Element elem) /*-{
    // Compare to null since undefined not always JavaScript keyword
@@ -64,7 +63,6 @@ public class UIUtil {
    }
    }-*/;
 
-  // TODO support non-IE browsers
   // TODO deferred binding for browser specific behavior
   public static native int getClientWidth(Element elem) /*-{
    // Compare to null since undefined not always JavaScript keyword
