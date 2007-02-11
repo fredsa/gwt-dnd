@@ -51,7 +51,7 @@ public class DragController implements SourcesDragAndDropEvents {
 
   public void makeDraggable(Widget widget) {
     if (widget instanceof SourcesMouseEvents) {
-      ((SourcesMouseEvents) widget).addMouseListener(new MouseHandler(widget, this));
+      ((SourcesMouseEvents) widget).addMouseListener(new MouseDragHandler(widget, this));
     } else {
       throw new RuntimeException("draggableWidget must implement SourcesMouseEvents");
     }
