@@ -11,7 +11,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 /**
  * Helper class to deal with draggable widget mouse events.
  */
-public class MouseHandler implements MouseListener {
+class MouseDragHandler implements MouseListener {
 
   private static final String STYLE_DRAGGING = "dragdrop-dragging";
 
@@ -24,7 +24,7 @@ public class MouseHandler implements MouseListener {
   private Widget draggable;
   private DragController dragController;
 
-  public MouseHandler(Widget draggable, DragController dragController) {
+  public MouseDragHandler(Widget draggable, DragController dragController) {
     this.draggable = draggable;
     this.dragController = dragController;
   }
