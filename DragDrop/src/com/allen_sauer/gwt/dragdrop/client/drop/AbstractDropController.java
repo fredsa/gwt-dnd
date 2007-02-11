@@ -33,7 +33,7 @@ public abstract class AbstractDropController implements DropController {
 
   public AbstractDropController(Widget dropTargetPanel) {
     dropTarget = dropTargetPanel;
-    DropControllerCollection.singleton().add(this);
+    DropControllerCollection.add(this);
     dropTargetPanel.addStyleName(getDropTargetStyleName());
   }
 

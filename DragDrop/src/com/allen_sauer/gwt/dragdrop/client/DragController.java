@@ -17,6 +17,8 @@ import java.util.HashMap;
 public class DragController implements SourcesDragAndDropEvents {
 
   private static final String STYLE_DRAGGABLE = "dragdrop-draggable";
+  private static final String STYLE_DRAGGING = "dragdrop-dragging";
+
   private static HashMap widgetControllers = new HashMap();
 
   // TODO remove this method as it is barely used
@@ -38,15 +40,41 @@ public class DragController implements SourcesDragAndDropEvents {
     dragAndDropListeners.add(listener);
   }
 
+  public boolean drag(Widget draggable) {
+    if (dragAndDropListeners != null) {
+      dragAndDropListeners.fireDragStart(draggable);
+    }
+    draggable.addStyleName(STYLE_DRAGGING);
+    return true;
+  }
+
+  public void drop(Widget draggable, Widget dropTarget) {
+    if (dragAndDropListeners != null) {
+      dragAndDropListeners.fireDrop(draggable, dropTarget);
+    }
+    draggable.removeStyleName(STYLE_DRAGGING);
+  }
+
   public AbsolutePanel getBoundryPanel() {
     return boundryPanel;
   }
 
-  public DragAndDropListenerCollection getDragAndDropListeners() {
-    if (dragAndDropListeners == null) {
-      dragAndDropListeners = new DragAndDropListenerCollection();
+  public boolean isDragAllowed(Widget draggable) {
+    if (dragAndDropListeners != null) {
+      if (!dragAndDropListeners.fireIsDragAllowed(draggable)) {
+        return false;
+      }
     }
-    return dragAndDropListeners;
+    return true;
+  }
+
+  public boolean isDropAllowed(Widget draggable, Widget dropTarget) {
+    if (dragAndDropListeners != null) {
+      if (!dragAndDropListeners.fireIsDropAllowed(draggable, dropTarget)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public void makeDraggable(Widget widget) {
