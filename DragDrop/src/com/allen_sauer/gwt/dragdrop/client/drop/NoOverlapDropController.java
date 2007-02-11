@@ -27,8 +27,6 @@ import java.util.Iterator;
 /**
  * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
  * constrains prevents draggable widgets from overlapping.
- * 
- * TODO handle drop() and onDrop() with overlapping coordinates properly
  */
 public class NoOverlapDropController extends AbsolutePositionDropController {
 
@@ -69,12 +67,9 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
   }
 
   public void onEnter(Widget draggable, DragController dragController) {
-    // TODO Auto-generated method stub
     super.onEnter(draggable, dragController);
   }
 
-  // TODO attempt to move as close to desired location as possible rather than
-  // simply try current desired location
   protected boolean constrainedWidgetMove(DragController dragController, Widget draggable, Widget widget) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
     Area dropArea = new Area(this.dropTargetPanel, boundryPanel, true);
