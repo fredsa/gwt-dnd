@@ -32,21 +32,21 @@ public class DragController implements SourcesDragAndDropEvents {
   }
 
   public void addDragAndDropListener(DragAndDropListener listener) {
-    if (this.dragAndDropListeners == null) {
-      this.dragAndDropListeners = new DragAndDropListenerCollection();
+    if (dragAndDropListeners == null) {
+      dragAndDropListeners = new DragAndDropListenerCollection();
     }
-    this.dragAndDropListeners.add(listener);
+    dragAndDropListeners.add(listener);
   }
 
   public AbsolutePanel getBoundryPanel() {
-    return this.boundryPanel;
+    return boundryPanel;
   }
 
   public DragAndDropListenerCollection getDragAndDropListeners() {
-    if (this.dragAndDropListeners == null) {
-      this.dragAndDropListeners = new DragAndDropListenerCollection();
+    if (dragAndDropListeners == null) {
+      dragAndDropListeners = new DragAndDropListenerCollection();
     }
-    return this.dragAndDropListeners;
+    return dragAndDropListeners;
   }
 
   public void makeDraggable(Widget widget) {
@@ -60,8 +60,8 @@ public class DragController implements SourcesDragAndDropEvents {
   }
 
   public void removeDragAndDropListener(DragAndDropListener listener) {
-    if (this.dragAndDropListeners != null) {
-      this.dragAndDropListeners.remove(listener);
+    if (dragAndDropListeners != null) {
+      dragAndDropListeners.remove(listener);
     }
   }
 }

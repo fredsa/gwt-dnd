@@ -32,17 +32,17 @@ public abstract class AbstractDropController implements DropController {
   private Widget dropTarget;
 
   public AbstractDropController(Widget dropTargetPanel) {
-    this.dropTarget = dropTargetPanel;
+    dropTarget = dropTargetPanel;
     DropControllerCollection.singleton().add(this);
     dropTargetPanel.addStyleName(getDropTargetStyleName());
   }
 
   public void drop(Widget widget) {
-    this.dropTarget.removeStyleName(STLE_ENGAGE);
+    dropTarget.removeStyleName(STLE_ENGAGE);
   }
 
   public Widget getDropTarget() {
-    return this.dropTarget;
+    return dropTarget;
   }
 
   public String getDropTargetStyleName() {
@@ -50,16 +50,16 @@ public abstract class AbstractDropController implements DropController {
   }
 
   public boolean onDrop(Widget draggable, DragController dragController) {
-    this.dropTarget.removeStyleName(STLE_ENGAGE);
+    dropTarget.removeStyleName(STLE_ENGAGE);
     return true;
   }
 
   public void onEnter(Widget draggable, DragController dragController) {
-    this.dropTarget.addStyleName(STLE_ENGAGE);
+    dropTarget.addStyleName(STLE_ENGAGE);
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
-    this.dropTarget.removeStyleName(STLE_ENGAGE);
+    dropTarget.removeStyleName(STLE_ENGAGE);
   }
 
   public void onMove(Widget draggable, DragController dragController) {

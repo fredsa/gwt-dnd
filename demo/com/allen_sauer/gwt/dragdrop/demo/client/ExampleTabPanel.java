@@ -25,7 +25,7 @@ public class ExampleTabPanel extends TabPanel {
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.add(describe(controllerClassName, description));
     verticalPanel.add(panel);
-    add(verticalPanel, "Example " + ++this.counter, true);
+    add(verticalPanel, "Example " + ++counter, true);
     // ensure added tab is visible so DOM position coordinates are possible
     selectTab(getWidgetCount() - 1);
   }
