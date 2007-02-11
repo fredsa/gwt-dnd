@@ -74,10 +74,10 @@ public class IndexedDropController extends AbstractPositioningDropController {
   }
 
   private void indexedAdd(Widget draggable, Widget widget) {
-    Location draggableCenter = new Area(draggable, null, false).getCenter();
+    Location draggableCenter = new Area(draggable, null).getCenter();
     for (int i = 0; i < this.dropTargetPanel.getWidgetCount(); i++) {
       Widget child = this.dropTargetPanel.getWidget(i);
-      Area childArea = new Area(child, null, false);
+      Area childArea = new Area(child, null);
       if (childArea.intersects(draggableCenter)) {
         int childIndex = this.dropTargetPanel.getWidgetIndex(child);
         if (childArea.inBottomRight(draggableCenter)) {

@@ -50,13 +50,13 @@ public class DropControllerCollection {
   }
 
   public DropController getIntersectDropController(Widget widget, Panel boundryPanel) {
-    Area widgetArea = new Area(widget, null, false);
-    Area boundryArea = new Area(boundryPanel, null, false);
+    Area widgetArea = new Area(widget, null);
+    Area boundryArea = new Area(boundryPanel, null);
     DropController result = null;
     for (Iterator iterator = this.dropTargetCollection.iterator(); iterator.hasNext();) {
       DropController dropController = (DropController) iterator.next();
       Widget target = dropController.getDropTarget();
-      Area targetArea = new Area(target, null, false);
+      Area targetArea = new Area(target, null);
       if ((dropController instanceof BoundryDropController)
           || (widgetArea.intersects(targetArea) && targetArea.intersects(boundryArea))) {
         if ((result == null) || DOM.isOrHasChild(result.getDropTarget().getElement(), target.getElement())) {

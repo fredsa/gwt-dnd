@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 
 import java.util.Iterator;
 
@@ -72,8 +73,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
 
   protected boolean constrainedWidgetMove(DragController dragController, Widget draggable, Widget widget) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(this.dropTargetPanel, boundryPanel, true);
-    Area draggableArea = new Area(draggable, boundryPanel, false);
+    Area dropArea = new Area(this.dropTargetPanel, boundryPanel);
+    Area draggableArea = new Area(draggable, boundryPanel);
     Location location = new Location(draggable, this.dropTargetPanel);
     location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
         - draggableArea.getHeight());
@@ -86,10 +87,12 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       return true;
     }
     if (getPositioner().isAttached()) {
-      Area dropTargetArea = new Area(this.dropTargetPanel, boundryPanel, false);
-      Area positionerArea = new Area(getPositioner(), boundryPanel, false);
+      Area dropTargetArea = new Area(this.dropTargetPanel, boundryPanel);
+      Area positionerArea = new Area(getPositioner(), boundryPanel);
       if (dropTargetArea.contains(positionerArea)) {
+        int x = getPositioner().isAttached() ? getPositioner().getAbsoluteLeft() : -1;
         boundryPanel.add(getPositioner(), positionerArea.getLeft(), positionerArea.getTop());
+        UIUtil.debug(x + " -> " + (getPositioner().isAttached() ? getPositioner().getAbsoluteLeft() : -1));
         Location positionerLocation = new Location(getPositioner(), this.dropTargetPanel);
         Area tempDraggableArea = draggableArea.copyOf();
         Location newLocation = null;
@@ -125,8 +128,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       }
     }
     if ((widget != getPositioner()) && getPositioner().isAttached()) {
-      Area dropTargetArea = new Area(this.dropTargetPanel, boundryPanel, false);
-      Area positionerArea = new Area(getPositioner(), boundryPanel, false);
+      Area dropTargetArea = new Area(this.dropTargetPanel, boundryPanel);
+      Area positionerArea = new Area(getPositioner(), boundryPanel);
       if (dropTargetArea.contains(positionerArea)) {
         // set location to where positioner was last successfully placed
         location = new Location(getPositioner(), this.dropTargetPanel);
@@ -143,7 +146,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       if ((w == widget) || (w == getPositioner())) {
         continue;
       }
-      if ((new Area(w, this.dropTargetPanel, false)).intersects(area)) {
+      if ((new Area(w, this.dropTargetPanel)).intersects(area)) {
         return true;
       }
     }
