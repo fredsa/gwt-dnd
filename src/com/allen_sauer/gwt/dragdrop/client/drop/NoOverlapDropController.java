@@ -21,7 +21,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
-import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 
 import java.util.Iterator;
 
@@ -90,9 +89,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       Area dropTargetArea = new Area(this.dropTargetPanel, boundryPanel);
       Area positionerArea = new Area(getPositioner(), boundryPanel);
       if (dropTargetArea.contains(positionerArea)) {
-        int x = getPositioner().isAttached() ? getPositioner().getAbsoluteLeft() : -1;
         boundryPanel.add(getPositioner(), positionerArea.getLeft(), positionerArea.getTop());
-        UIUtil.debug(x + " -> " + (getPositioner().isAttached() ? getPositioner().getAbsoluteLeft() : -1));
         Location positionerLocation = new Location(getPositioner(), this.dropTargetPanel);
         Area tempDraggableArea = draggableArea.copyOf();
         Location newLocation = null;
