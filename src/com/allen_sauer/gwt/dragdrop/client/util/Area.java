@@ -49,7 +49,7 @@ public class Area {
    * @param boundryPanel the AbsolutePanel relative to which we seek our area or 
    *        RootPanel().get() if null
    */
-  public Area(Widget widget, AbsolutePanel boundryPanel, boolean subtractBorders) {
+  public Area(Widget widget, AbsolutePanel boundryPanel) {
     this.left = widget.getAbsoluteLeft();
     this.top = widget.getAbsoluteTop();
     this.widgetBorderLeft = UIUtil.getBorderLeft(widget.getElement());
@@ -59,7 +59,9 @@ public class Area {
 
     if (boundryPanel != null) {
       this.left -= boundryPanel.getAbsoluteLeft();
+      this.left -= UIUtil.getBorderLeft(boundryPanel.getElement());
       this.top -= boundryPanel.getAbsoluteTop();
+      this.top -= UIUtil.getBorderTop(boundryPanel.getElement());
     }
     this.right = this.left + widget.getOffsetWidth();
     this.bottom = this.top + widget.getOffsetHeight();
