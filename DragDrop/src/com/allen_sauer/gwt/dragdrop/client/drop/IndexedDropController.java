@@ -56,8 +56,8 @@ public class IndexedDropController extends AbstractPositioningDropController {
     int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
     int draggableIndex = dropTarget.getWidgetIndex(draggable);
     boolean result = super.onDrop(reference, draggable, dragController);
-    if (result && positionerIndex != -1) {
-      if (draggableIndex != -1 && draggableIndex < positionerIndex) {
+    if (result && (positionerIndex != -1)) {
+      if ((draggableIndex != -1) && (draggableIndex < positionerIndex)) {
         // adjust for removal of widget
         insert(draggable, positionerIndex - 1);
       } else {
@@ -92,7 +92,7 @@ public class IndexedDropController extends AbstractPositioningDropController {
         int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
         if (positionerIndex == -1) {
           insert(getPositioner(), targetIndex);
-        } else if (positionerIndex == targetIndex || positionerIndex == targetIndex - 1) {
+        } else if ((positionerIndex == targetIndex) || (positionerIndex == targetIndex - 1)) {
           // already in the correct location
           return;
         } else if (positionerIndex < targetIndex) {
