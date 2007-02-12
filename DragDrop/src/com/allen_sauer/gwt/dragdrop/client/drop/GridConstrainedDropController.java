@@ -29,13 +29,13 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  */
 public class GridConstrainedDropController extends AbsolutePositionDropController {
 
-  private AbsolutePanel dropTargetPanel;
+  private AbsolutePanel dropTarget;
   private int gridX;
   private int gridY;
 
-  public GridConstrainedDropController(AbsolutePanel dropTargetPanel, int gridX, int gridY) {
-    super(dropTargetPanel);
-    this.dropTargetPanel = dropTargetPanel;
+  public GridConstrainedDropController(AbsolutePanel dropTarget, int gridX, int gridY) {
+    super(dropTarget);
+    this.dropTarget = dropTarget;
     this.gridX = gridX;
     this.gridY = gridY;
   }
@@ -44,15 +44,15 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
     return super.getDropTargetStyleName() + " dragdrop-grid-constrained-drop-target";
   }
 
-  protected boolean constrainedWidgetMove(DragController dragController, Widget draggable, Widget widget) {
+  protected boolean constrainedWidgetMove(Widget reference, Widget widget, DragController dragController) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(dropTargetPanel, boundryPanel);
-    Area draggableArea = new Area(draggable, boundryPanel);
-    Location location = new Location(draggable, dropTargetPanel);
+    Area dropArea = new Area(dropTarget, boundryPanel);
+    Area draggableArea = new Area(reference, boundryPanel);
+    Location location = new Location(reference, dropTarget);
     location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
         - draggableArea.getHeight());
     location.snapToGrid(gridX, gridY);
-    dropTargetPanel.add(widget, location.getLeft(), location.getTop());
+    dropTarget.add(widget, location.getLeft(), location.getTop());
     return true;
   }
 }

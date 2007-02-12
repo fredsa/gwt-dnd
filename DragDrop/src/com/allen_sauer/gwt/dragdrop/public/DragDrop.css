@@ -29,3 +29,11 @@
   z-index: 1;
 }
 
+.dragdrop-proxy {
+  background-color: #77AAFF; /* light blue */
+  z-index: 1;
+  font-weight: bold;
+  filter: alpha(opacity = 70);
+  opacity: 0.7;
+  -moz-opacity: 0.7;
+}

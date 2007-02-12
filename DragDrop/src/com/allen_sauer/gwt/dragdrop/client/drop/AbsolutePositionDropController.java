@@ -29,11 +29,11 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
 
-  private AbsolutePanel dropTargetPanel;
+  private AbsolutePanel dropTarget;
 
-  public AbsolutePositionDropController(AbsolutePanel dropTargetPanel) {
-    super(dropTargetPanel);
-    this.dropTargetPanel = dropTargetPanel;
+  public AbsolutePositionDropController(AbsolutePanel dropTarget) {
+    super(dropTarget);
+    this.dropTarget = dropTarget;
   }
 
   public final void drop(Widget draggable) {
@@ -43,18 +43,18 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   public void drop(Widget widget, int left, int top) {
     super.drop(widget, left, top);
     DragController dragController = DragController.getDragController(widget);
-    Location location = new Location(dropTargetPanel, dragController.getBoundryPanel());
+    Location location = new Location(dropTarget, dragController.getBoundryPanel());
     dragController.getBoundryPanel().add(widget, location.getLeft() + left, location.getTop() + top);
-    constrainedWidgetMove(dragController, widget, widget);
+    constrainedWidgetMove(widget, widget, dragController);
   }
 
   public String getDropTargetStyleName() {
     return super.getDropTargetStyleName() + " dragdrop-absolute-positioning-drop-target";
   }
 
-  public boolean onDrop(Widget draggable, DragController dragController) {
-    boolean result = constrainedWidgetMove(dragController, draggable, draggable);
-    super.onDrop(draggable, dragController);
+  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
+    boolean result = constrainedWidgetMove(reference, draggable, dragController);
+    super.onDrop(reference, draggable, dragController);
     return result;
   }
 
@@ -62,19 +62,19 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     super.onLeave(draggable, dragController);
   }
 
-  public void onMove(Widget draggable, DragController dragController) {
-    super.onMove(draggable, dragController);
-    constrainedWidgetMove(dragController, draggable, getPositioner());
+  public void onMove(Widget reference, Widget draggable, DragController dragController) {
+    super.onMove(reference, draggable, dragController);
+    constrainedWidgetMove(reference, getPositioner(), dragController);
   }
 
-  protected boolean constrainedWidgetMove(DragController dragController, Widget draggable, Widget widget) {
+  protected boolean constrainedWidgetMove(Widget reference, Widget widget, DragController dragController) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(dropTargetPanel, boundryPanel);
-    Area draggableArea = new Area(draggable, boundryPanel);
-    Location location = new Location(draggable, dropTargetPanel);
+    Area dropArea = new Area(dropTarget, boundryPanel);
+    Area draggableArea = new Area(reference, boundryPanel);
+    Location location = new Location(reference, dropTarget);
     location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
         - draggableArea.getHeight());
-    dropTargetPanel.add(widget, location.getLeft(), location.getTop());
+    dropTarget.add(widget, location.getLeft(), location.getTop());
     return true;
   }
 

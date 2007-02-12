@@ -32,8 +32,8 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
 
   private SimplePanel postioner = new SimplePanel();
 
-  public AbstractPositioningDropController(Panel dropTargetPanel) {
-    super(dropTargetPanel);
+  public AbstractPositioningDropController(Panel dropTarget) {
+    super(dropTarget);
     postioner.addStyleName("dragdrop-positioner");
   }
 
@@ -44,8 +44,8 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     return postioner;
   }
 
-  public boolean onDrop(Widget draggable, DragController dragController) {
-    boolean result = super.onDrop(draggable, dragController);
+  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
+    boolean result = super.onDrop(reference, draggable, dragController);
     removePositioner();
     return result;
   }
@@ -53,7 +53,7 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
   public void onEnter(Widget draggable, DragController dragController) {
     super.onEnter(draggable, dragController);
     Widget positioner = getPositioner();
-    // TODO calculate actual borders of positioningBox
+    // TODO calculate actual CSS borders
     positioner.setPixelSize(draggable.getOffsetWidth() - 2, draggable.getOffsetHeight() - 2);
   }
 

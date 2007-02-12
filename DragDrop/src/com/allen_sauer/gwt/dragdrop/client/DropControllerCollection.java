@@ -36,8 +36,8 @@ public class DropControllerCollection {
 
   private static Collection dropTargetCollection = new ArrayList();
 
-  public static void add(DropController dropTargetPanel) {
-    dropTargetCollection.add(dropTargetPanel);
+  public static void add(DropController dropTarget) {
+    dropTargetCollection.add(dropTarget);
   }
 
   public static DropController getIntersectDropController(Widget widget, Panel boundryPanel) {
