@@ -70,15 +70,15 @@ public class DragDropDemo implements EntryPoint {
     boundryDropController.drop(createDraggable(), 60, 280);
 
     // TabPanel to hold our examples
-    ExampleTabPanel dropTargets = new ExampleTabPanel();
-    boundryPanel.add(dropTargets, 170, 10);
+    ExampleTabPanel examples = new ExampleTabPanel();
+    boundryPanel.add(examples, 170, 10);
 
     // Example 1: TrashBinDropController
     AbsolutePanel containingPanel = new AbsolutePanel();
     TrashBin simpleDropTarget = new TrashBin(120, 120);
     containingPanel.add(simpleDropTarget);
     new TrashBinDropController(simpleDropTarget);
-    dropTargets.add(containingPanel, "TrashBinDropController",
+    examples.add(containingPanel, "TrashBinDropController",
         "Classic drop target which simply recognizes when a draggable widget is dropped on it.");
     AbsolutePositionDropController controller = new AbsolutePositionDropController(containingPanel);
     controller.drop(createDraggable(), 200, 20);
@@ -89,7 +89,7 @@ public class DragDropDemo implements EntryPoint {
     AbsolutePanel positioningDropTarget = new AbsolutePanel();
     AbsolutePositionDropController absolutePositionDropController = new AbsolutePositionDropController(positioningDropTarget);
     positioningDropTarget.setPixelSize(400, 150);
-    dropTargets.add(positioningDropTarget, "AbsolutePositionDropController",
+    examples.add(positioningDropTarget, "AbsolutePositionDropController",
         "Draggable widgets can be placed anywhere on the grey drop target.");
     absolutePositionDropController.drop(createDraggable(), 10, 30);
     absolutePositionDropController.drop(createDraggable(), 60, 8);
@@ -97,7 +97,7 @@ public class DragDropDemo implements EntryPoint {
 
     // Example 3: GridConstrainedDropController
     AbsolutePanel gridConstrainedDropTarget = new AbsolutePanel();
-    dropTargets.add(gridConstrainedDropTarget, "GridConstrainedDropController", "Drops (moves) are constrained to a ("
+    examples.add(gridConstrainedDropTarget, "GridConstrainedDropController", "Drops (moves) are constrained to a ("
         + draggableOffsetWidth + " x " + draggableOffsetHeight + ") grid on the grey drop target.");
     GridConstrainedDropController gridConstrainedDropController = new GridConstrainedDropController(gridConstrainedDropTarget,
         draggableOffsetWidth, draggableOffsetHeight);
@@ -107,7 +107,7 @@ public class DragDropDemo implements EntryPoint {
 
     // Example 4: IndexedDropController
     IndexedFlowPanel flowPanelDropTarget = new IndexedFlowPanel();
-    dropTargets.add(flowPanelDropTarget, "IndexedDropController",
+    examples.add(flowPanelDropTarget, "IndexedDropController",
         "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.");
     IndexedDropController indexedDropController = new IndexedDropController(flowPanelDropTarget);
     for (int i = 1; i <= 5; i++) {
@@ -120,7 +120,7 @@ public class DragDropDemo implements EntryPoint {
 
     // Example 5: NoOverlapDropController
     AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
-    dropTargets.add(noOverlapDropTarget, "NoOverlapDropController",
+    examples.add(noOverlapDropTarget, "NoOverlapDropController",
         "Widgets cannot be dropped on top of (overlapping) other dropped widgets");
     NoOverlapDropController noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
     noOverlapDropTarget.setPixelSize(400, 150);
@@ -130,7 +130,7 @@ public class DragDropDemo implements EntryPoint {
 
     // TODO add demo drag or drop event veto
 
-    dropTargets.selectTab(1);
+    examples.selectTab(1);
   }
 
   private Widget createDraggable() {
