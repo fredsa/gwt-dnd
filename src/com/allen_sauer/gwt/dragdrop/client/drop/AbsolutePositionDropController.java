@@ -45,7 +45,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     DragController dragController = DragController.getDragController(widget);
     Location location = new Location(dropTarget, dragController.getBoundryPanel());
     dragController.getBoundryPanel().add(widget, location.getLeft() + left, location.getTop() + top);
-    constrainedWidgetMove(widget, widget, dragController);
+    constrainedWidgetMove(widget, widget, widget, dragController);
   }
 
   public String getDropTargetStyleName() {
@@ -53,7 +53,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   }
 
   public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
-    boolean result = constrainedWidgetMove(reference, draggable, dragController);
+    boolean result = constrainedWidgetMove(reference, draggable, draggable, dragController);
     super.onDrop(reference, draggable, dragController);
     return result;
   }
@@ -64,10 +64,20 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
     super.onMove(reference, draggable, dragController);
-    constrainedWidgetMove(reference, getPositioner(), dragController);
+    constrainedWidgetMove(reference, draggable, getPositioner(), dragController);
   }
 
-  protected boolean constrainedWidgetMove(Widget reference, Widget widget, DragController dragController) {
+  /**
+   * If possible, move widget as close to the desired reference location as the
+   * constraints of this DropController allow.
+   * 
+   * @param reference widget whose location is the desired drop location
+   * @param draggable TODO
+   * @param widget either the positioner or the draggable widget to be moved
+   * @param dragController the DragController for this operation
+   * @return true if widget was moved successfully
+   */
+  protected boolean constrainedWidgetMove(Widget reference, Widget draggable, Widget widget, DragController dragController) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
     Area dropArea = new Area(dropTarget, boundryPanel);
     Area draggableArea = new Area(reference, boundryPanel);

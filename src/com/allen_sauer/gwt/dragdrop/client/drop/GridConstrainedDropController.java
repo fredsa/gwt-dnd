@@ -44,7 +44,7 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
     return super.getDropTargetStyleName() + " dragdrop-grid-constrained-drop-target";
   }
 
-  protected boolean constrainedWidgetMove(Widget reference, Widget widget, DragController dragController) {
+  protected boolean constrainedWidgetMove(Widget reference, Widget draggable, Widget widget, DragController dragController) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
     Area dropArea = new Area(dropTarget, boundryPanel);
     Area draggableArea = new Area(reference, boundryPanel);

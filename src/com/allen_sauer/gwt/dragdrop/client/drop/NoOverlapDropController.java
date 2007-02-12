@@ -56,6 +56,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
   }
 
   private AbsolutePanel dropTarget;
+  private transient Location lastGoodLocation;
 
   public NoOverlapDropController(AbsolutePanel dropTarget) {
     super(dropTarget);
@@ -68,9 +69,10 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
 
   public void onEnter(Widget draggable, DragController dragController) {
     super.onEnter(draggable, dragController);
+    lastGoodLocation = null;
   }
 
-  protected boolean constrainedWidgetMove(Widget reference, Widget widget, DragController dragController) {
+  protected boolean constrainedWidgetMove(Widget reference, Widget draggable, Widget widget, DragController dragController) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
     Area dropArea = new Area(dropTarget, boundryPanel);
     Area draggableArea = new Area(reference, boundryPanel);
@@ -80,9 +82,9 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     // Determine where draggableArea would be if it were constrained to the dropArea
     // Also causes draggableArea to become relative to dropTarget
     draggableArea.moveTo(location);
-    if (!collision(reference, widget, draggableArea)) {
-      // no overlap; move widget to new location
-      dropTarget.add(widget, location.getLeft(), location.getTop());
+    if (!collision(reference, draggable, widget, draggableArea)) {
+      // no overlap; okay to move widget to new location
+      moveTo(widget, location);
       return true;
     }
     if (getPositioner().isAttached()) {
@@ -98,7 +100,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
           Location tempLocation = new Location(left, positionerLocation.getTop());
           tempDraggableArea.moveTo(tempLocation);
           // TODO consider only widgets in area between desired and known-good positions
-          if (!collision(reference, widget, tempDraggableArea)) {
+          if (!collision(reference, draggable, widget, tempDraggableArea)) {
             newLocation = tempLocation;
           } else {
             break;
@@ -111,7 +113,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
           Location tempLocation = new Location(startLocation.getLeft(), top);
           tempDraggableArea.moveTo(tempLocation);
           // TODO consider only widgets in area between desired and known-good positions
-          if (!collision(reference, widget, tempDraggableArea)) {
+          if (!collision(reference, draggable, widget, tempDraggableArea)) {
             newLocation = tempLocation;
           } else {
             break;
@@ -119,28 +121,22 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
         }
 
         if (newLocation != null) {
-          dropTarget.add(widget, newLocation.getLeft(), newLocation.getTop());
+          moveTo(widget, newLocation);
           return true;
         }
       }
     }
-    if ((widget != getPositioner()) && getPositioner().isAttached()) {
-      Area dropTargetArea = new Area(dropTarget, boundryPanel);
-      Area positionerArea = new Area(getPositioner(), boundryPanel);
-      if (dropTargetArea.contains(positionerArea)) {
-        // set location to where positioner was last successfully placed
-        location = new Location(getPositioner(), dropTarget);
-        dropTarget.add(widget, location.getLeft(), location.getTop());
-        return true;
-      }
+    if (widget != getPositioner() && lastGoodLocation != null) {
+      moveTo(widget, lastGoodLocation);
+      return true;
     }
     return false;
   }
 
-  private boolean collision(Widget reference, Widget widget, Area area) {
+  private boolean collision(Widget reference, Widget draggable, Widget widget, Area area) {
     for (Iterator iterator = dropTarget.iterator(); iterator.hasNext();) {
       Widget w = (Widget) iterator.next();
-      if ((w == reference) || (w == widget) || (w == getPositioner())) {
+      if ((w == reference) || (w == draggable) || (w == widget) || (w == getPositioner())) {
         continue;
       }
       if ((new Area(w, dropTarget)).intersects(area)) {
@@ -148,6 +144,11 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       }
     }
     return false;
+  }
+
+  private void moveTo(Widget widget, Location location) {
+    lastGoodLocation = location;
+    dropTarget.add(widget, location.getLeft(), location.getTop());
   }
 
 }
