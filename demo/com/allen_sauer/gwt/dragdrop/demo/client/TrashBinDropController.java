@@ -15,9 +15,9 @@ public class TrashBinDropController extends SimpleDropController {
 
   private TrashBin trashBin;
 
-  public TrashBinDropController(TrashBin dropTargetPanel) {
-    super(dropTargetPanel);
-    trashBin = dropTargetPanel;
+  public TrashBinDropController(TrashBin trashBin) {
+    super(trashBin);
+    this.trashBin = trashBin;
   }
 
   public void drop(Widget draggable) {
@@ -26,8 +26,8 @@ public class TrashBinDropController extends SimpleDropController {
     trashBin.eatWidget(draggable);
   }
 
-  public boolean onDrop(Widget draggable, DragController dragController) {
-    super.onDrop(draggable, dragController);
+  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
+    super.onDrop(reference, draggable, dragController);
     draggable.removeStyleName(STYLE_TRASHBIN_ENGAGE);
     trashBin.eatWidget(draggable);
     return true;

@@ -44,6 +44,13 @@ public class DragAndDropListenerCollection extends Vector {
     }
   }
 
+  public void fireDropCanceled(Widget draggable) {
+    for (Iterator it = iterator(); it.hasNext();) {
+      DragAndDropListener listener = (DragAndDropListener) it.next();
+      listener.onDropCanceled(draggable);
+    }
+  }
+
   public boolean fireIsDragAllowed(Widget draggable) {
     for (Iterator it = iterator(); it.hasNext();) {
       DragAndDropListener listener = (DragAndDropListener) it.next();

@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util;
 
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -45,26 +44,26 @@ public class Area {
    * Note that boundryPanel need not be the parent node, or even an ancestor of widget.
    * Therefore coordinates returned may be negative or may exceed the dimensions of boundryPanel.
    * 
-   * @param widget the widget whose area we seek
-   * @param boundryPanel the AbsolutePanel relative to which we seek our area or 
-   *        RootPanel().get() if null
+   * @param child the widget whose area we seek
+   * @param parent the widget relative to which we seek our area. If <code>null</code>,
+   *        then RootPanel().get() is assumed
    */
-  public Area(Widget widget, AbsolutePanel boundryPanel) {
-    left = widget.getAbsoluteLeft();
-    top = widget.getAbsoluteTop();
-    widgetBorderLeft = UIUtil.getBorderLeft(widget.getElement());
-    widgetBorderTop = UIUtil.getBorderTop(widget.getElement());
-    widgetInnerWidth = UIUtil.getClientWidth(widget.getElement());
-    widgetInnerHeight = UIUtil.getClientHeight(widget.getElement());
+  public Area(Widget child, Widget parent) {
+    left = child.getAbsoluteLeft();
+    top = child.getAbsoluteTop();
+    widgetBorderLeft = UIUtil.getBorderLeft(child.getElement());
+    widgetBorderTop = UIUtil.getBorderTop(child.getElement());
+    widgetInnerWidth = UIUtil.getClientWidth(child.getElement());
+    widgetInnerHeight = UIUtil.getClientHeight(child.getElement());
 
-    if (boundryPanel != null) {
-      left -= boundryPanel.getAbsoluteLeft();
-      left -= UIUtil.getBorderLeft(boundryPanel.getElement());
-      top -= boundryPanel.getAbsoluteTop();
-      top -= UIUtil.getBorderTop(boundryPanel.getElement());
+    if (parent != null) {
+      left -= parent.getAbsoluteLeft();
+      left -= UIUtil.getBorderLeft(parent.getElement());
+      top -= parent.getAbsoluteTop();
+      top -= UIUtil.getBorderTop(parent.getElement());
     }
-    right = left + widget.getOffsetWidth();
-    bottom = top + widget.getOffsetHeight();
+    right = left + child.getOffsetWidth();
+    bottom = top + child.getOffsetHeight();
   }
 
   private Area(int left, int top, int right, int bottom) {

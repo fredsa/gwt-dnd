@@ -9,16 +9,16 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
  */
 public class SimpleDropController extends AbstractDropController {
 
-  public SimpleDropController(Widget dropTargetPanel) {
-    super(dropTargetPanel);
+  public SimpleDropController(Widget dropTarget) {
+    super(dropTarget);
   }
 
   public void drop(Widget draggable) {
     super.drop(draggable);
   }
 
-  public boolean onDrop(Widget draggable, DragController dragController) {
-    return super.onDrop(draggable, dragController);
+  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
+    return super.onDrop(reference, draggable, dragController);
   }
 
   public void onEnter(Widget draggable, DragController dragController) {
@@ -29,8 +29,8 @@ public class SimpleDropController extends AbstractDropController {
     super.onLeave(draggable, dragController);
   }
 
-  public void onMove(Widget draggable, DragController dragController) {
-    super.onMove(draggable, dragController);
+  public void onMove(Widget reference, Widget draggable, DragController dragController) {
+    super.onMove(reference, draggable, dragController);
   }
 
 }

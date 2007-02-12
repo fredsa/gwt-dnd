@@ -36,27 +36,36 @@ import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
  */
 public class IndexedDropController extends AbstractPositioningDropController {
 
-  private IndexedPanel dropTargetPanel;
+  private IndexedPanel dropTarget;
 
-  public IndexedDropController(IndexedPanel dropTargetPanel) {
-    super((Panel) dropTargetPanel);
-    this.dropTargetPanel = dropTargetPanel;
+  public IndexedDropController(IndexedPanel dropTarget) {
+    super((Panel) dropTarget);
+    this.dropTarget = dropTarget;
   }
 
   public void drop(Widget widget) {
     super.drop(widget);
-    insert(widget, dropTargetPanel.getWidgetCount());
+    insert(widget, dropTarget.getWidgetCount());
   }
 
   public String getDropTargetStyleName() {
     return super.getDropTargetStyleName() + " dragdrop-flow-panel-drop-target";
   }
 
-  public boolean onDrop(Widget draggable, DragController dragController) {
-    int index = dropTargetPanel.getWidgetIndex(getPositioner());
-    boolean result = super.onDrop(draggable, dragController);
-    insert(draggable, index);
-    return result;
+  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
+    int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
+    int draggableIndex = dropTarget.getWidgetIndex(draggable);
+    boolean result = super.onDrop(reference, draggable, dragController);
+    if (result && positionerIndex != -1) {
+      if (draggableIndex != -1 && draggableIndex < positionerIndex) {
+        // adjust for removal of widget
+        insert(draggable, positionerIndex - 1);
+      } else {
+        insert(draggable, positionerIndex);
+      }
+      return true;
+    }
+    return false;
   }
 
   public void onEnter(Widget draggable, DragController dragController) {
@@ -68,51 +77,49 @@ public class IndexedDropController extends AbstractPositioningDropController {
     super.onLeave(draggable, dragController);
   }
 
-  public void onMove(Widget draggable, DragController dragController) {
-    super.onMove(draggable, dragController);
-    indexedAdd(draggable, getPositioner());
-  }
-
-  private void indexedAdd(Widget draggable, Widget widget) {
-    Location draggableCenter = new Area(draggable, null).getCenter();
-    for (int i = 0; i < dropTargetPanel.getWidgetCount(); i++) {
-      Widget child = dropTargetPanel.getWidget(i);
+  public void onMove(Widget reference, Widget draggable, DragController dragController) {
+    super.onMove(reference, draggable, dragController);
+    Location draggableCenter = new Area(reference, null).getCenter();
+    for (int i = 0; i < dropTarget.getWidgetCount(); i++) {
+      Widget child = dropTarget.getWidget(i);
       Area childArea = new Area(child, null);
       if (childArea.intersects(draggableCenter)) {
-        int childIndex = dropTargetPanel.getWidgetIndex(child);
+        int targetIndex = i;
         if (childArea.inBottomRight(draggableCenter)) {
-          // place the draggable after the intersecting child
-          childIndex++;
+          // place positioner after the intersecting child
+          targetIndex++;
         }
-        int widgetIndex = dropTargetPanel.getWidgetIndex(widget);
-        if ((widgetIndex == -1) || ((widgetIndex != childIndex) && (widgetIndex != childIndex - 1))) {
-          if (childIndex > widgetIndex) {
-            // adjust index for removal of widget
-            insert(widget, childIndex - 1);
-          } else {
-            insert(widget, childIndex);
-          }
+        int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
+        if (positionerIndex == -1) {
+          insert(getPositioner(), targetIndex);
+        } else if (positionerIndex == targetIndex || positionerIndex == targetIndex - 1) {
+          // already in the correct location
+          return;
+        } else if (positionerIndex < targetIndex) {
+          // adjust for removal of widget
+          insert(getPositioner(), targetIndex - 1);
+        } else {
+          insert(getPositioner(), targetIndex);
         }
         return;
       }
     }
-    ((Panel) dropTargetPanel).add(widget);
+    ((Panel) dropTarget).add(getPositioner());
   }
 
   // TODO remove after enhancement for issue 616
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
   private void insert(Widget widget, int beforeIndex) {
-    if (dropTargetPanel instanceof DeckPanel) {
-      ((DeckPanel) dropTargetPanel).insert(widget, beforeIndex);
-    } else if (dropTargetPanel instanceof HorizontalPanel) {
-      ((HorizontalPanel) dropTargetPanel).insert(widget, beforeIndex);
-    } else if (dropTargetPanel instanceof VerticalPanel) {
-      ((VerticalPanel) dropTargetPanel).insert(widget, beforeIndex);
-    } else if (dropTargetPanel instanceof IndexedFlowPanel) {
-      ((IndexedFlowPanel) dropTargetPanel).insert(widget, beforeIndex);
+    if (dropTarget instanceof DeckPanel) {
+      ((DeckPanel) dropTarget).insert(widget, beforeIndex);
+    } else if (dropTarget instanceof HorizontalPanel) {
+      ((HorizontalPanel) dropTarget).insert(widget, beforeIndex);
+    } else if (dropTarget instanceof VerticalPanel) {
+      ((VerticalPanel) dropTarget).insert(widget, beforeIndex);
+    } else if (dropTarget instanceof IndexedFlowPanel) {
+      ((IndexedFlowPanel) dropTarget).insert(widget, beforeIndex);
     } else {
-      throw new RuntimeException("Method insert(Widget widget, int beforeIndex) not supported by "
-          + GWT.getTypeName(dropTargetPanel));
+      throw new RuntimeException("Method insert(Widget widget, int beforeIndex) not supported by " + GWT.getTypeName(dropTarget));
     }
   }
 

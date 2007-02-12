@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util;
 
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -38,17 +37,17 @@ public class Location {
    * be the parent node, or even an ancestor of widget. Therefore coordinates returned may be 
    * negative or may exceed the dimensions of boundryPanel.
    * 
-   * @param widget the widget whose coordinates we seek
-   * @param boundryPanel the AbsolutePanel relative to which we seek our coordinates
+   * @param child the widget whose coordinates we seek
+   * @param parent the widget relative to which we seek our coordinates
    */
-  public Location(Widget widget, AbsolutePanel boundryPanel) {
-    left = widget.getAbsoluteLeft();
-    top = widget.getAbsoluteTop();
-    if (boundryPanel != null) {
-      left -= boundryPanel.getAbsoluteLeft();
-      left -= UIUtil.getBorderLeft(boundryPanel.getElement());
-      top -= boundryPanel.getAbsoluteTop();
-      top -= UIUtil.getBorderTop(boundryPanel.getElement());
+  public Location(Widget child, Widget parent) {
+    left = child.getAbsoluteLeft();
+    top = child.getAbsoluteTop();
+    if (parent != null) {
+      left -= parent.getAbsoluteLeft();
+      left -= UIUtil.getBorderLeft(parent.getElement());
+      top -= parent.getAbsoluteTop();
+      top -= UIUtil.getBorderTop(parent.getElement());
     }
   }
 

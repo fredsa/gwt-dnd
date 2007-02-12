@@ -29,25 +29,25 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  */
 public class BoundryDropController extends AbsolutePositionDropController {
 
-  private AbsolutePanel dropTargetPanel;
+  private AbsolutePanel dropTarget;
 
-  public BoundryDropController(AbsolutePanel dropTargetPanel) {
-    super(dropTargetPanel);
-    this.dropTargetPanel = dropTargetPanel;
+  public BoundryDropController(AbsolutePanel dropTarget) {
+    super(dropTarget);
+    this.dropTarget = dropTarget;
   }
 
   public String getDropTargetStyleName() {
     return "dragdrop-boundry";
   }
 
-  protected boolean constrainedWidgetMove(DragController dragController, Widget draggable, Widget widget) {
+  protected boolean constrainedWidgetMove(Widget reference, Widget widget, DragController dragController) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(dropTargetPanel, boundryPanel);
-    Area draggableArea = new Area(draggable, boundryPanel);
-    Location location = new Location(draggable, dropTargetPanel);
+    Area dropArea = new Area(dropTarget, boundryPanel);
+    Area draggableArea = new Area(reference, boundryPanel);
+    Location location = new Location(reference, dropTarget);
     location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
         - draggableArea.getHeight());
-    dropTargetPanel.add(widget, location.getLeft(), location.getTop());
+    dropTarget.add(widget, location.getLeft(), location.getTop());
     return true;
   }
 

@@ -55,11 +55,11 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     }
   }
 
-  private AbsolutePanel dropTargetPanel;
+  private AbsolutePanel dropTarget;
 
-  public NoOverlapDropController(AbsolutePanel dropTargetPanel) {
-    super(dropTargetPanel);
-    this.dropTargetPanel = dropTargetPanel;
+  public NoOverlapDropController(AbsolutePanel dropTarget) {
+    super(dropTarget);
+    this.dropTarget = dropTarget;
   }
 
   public String getDropTargetStyleName() {
@@ -70,27 +70,27 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     super.onEnter(draggable, dragController);
   }
 
-  protected boolean constrainedWidgetMove(DragController dragController, Widget draggable, Widget widget) {
+  protected boolean constrainedWidgetMove(Widget reference, Widget widget, DragController dragController) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(dropTargetPanel, boundryPanel);
-    Area draggableArea = new Area(draggable, boundryPanel);
-    Location location = new Location(draggable, dropTargetPanel);
+    Area dropArea = new Area(dropTarget, boundryPanel);
+    Area draggableArea = new Area(reference, boundryPanel);
+    Location location = new Location(reference, dropTarget);
     location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
         - draggableArea.getHeight());
     // Determine where draggableArea would be if it were constrained to the dropArea
-    // Also causes draggableArea to become relative to dropTargetPanel
+    // Also causes draggableArea to become relative to dropTarget
     draggableArea.moveTo(location);
-    if (!collision(draggable, draggableArea)) {
+    if (!collision(reference, widget, draggableArea)) {
       // no overlap; move widget to new location
-      dropTargetPanel.add(widget, location.getLeft(), location.getTop());
+      dropTarget.add(widget, location.getLeft(), location.getTop());
       return true;
     }
     if (getPositioner().isAttached()) {
-      Area dropTargetArea = new Area(dropTargetPanel, boundryPanel);
+      Area dropTargetArea = new Area(dropTarget, boundryPanel);
       Area positionerArea = new Area(getPositioner(), boundryPanel);
       if (dropTargetArea.contains(positionerArea)) {
         boundryPanel.add(getPositioner(), positionerArea.getLeft(), positionerArea.getTop());
-        Location positionerLocation = new Location(getPositioner(), dropTargetPanel);
+        Location positionerLocation = new Location(getPositioner(), dropTarget);
         Area tempDraggableArea = draggableArea.copyOf();
         Location newLocation = null;
         for (IntRangeIterator iterator = new IntRangeIterator(positionerLocation.getLeft(), draggableArea.getLeft()); iterator.hasNext();) {
@@ -98,7 +98,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
           Location tempLocation = new Location(left, positionerLocation.getTop());
           tempDraggableArea.moveTo(tempLocation);
           // TODO consider only widgets in area between desired and known-good positions
-          if (!collision(draggable, tempDraggableArea)) {
+          if (!collision(reference, widget, tempDraggableArea)) {
             newLocation = tempLocation;
           } else {
             break;
@@ -111,7 +111,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
           Location tempLocation = new Location(startLocation.getLeft(), top);
           tempDraggableArea.moveTo(tempLocation);
           // TODO consider only widgets in area between desired and known-good positions
-          if (!collision(draggable, tempDraggableArea)) {
+          if (!collision(reference, widget, tempDraggableArea)) {
             newLocation = tempLocation;
           } else {
             break;
@@ -119,31 +119,31 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
         }
 
         if (newLocation != null) {
-          dropTargetPanel.add(widget, newLocation.getLeft(), newLocation.getTop());
+          dropTarget.add(widget, newLocation.getLeft(), newLocation.getTop());
           return true;
         }
       }
     }
     if ((widget != getPositioner()) && getPositioner().isAttached()) {
-      Area dropTargetArea = new Area(dropTargetPanel, boundryPanel);
+      Area dropTargetArea = new Area(dropTarget, boundryPanel);
       Area positionerArea = new Area(getPositioner(), boundryPanel);
       if (dropTargetArea.contains(positionerArea)) {
         // set location to where positioner was last successfully placed
-        location = new Location(getPositioner(), dropTargetPanel);
-        dropTargetPanel.add(widget, location.getLeft(), location.getTop());
+        location = new Location(getPositioner(), dropTarget);
+        dropTarget.add(widget, location.getLeft(), location.getTop());
         return true;
       }
     }
     return false;
   }
 
-  private boolean collision(Widget widget, Area area) {
-    for (Iterator iterator = dropTargetPanel.iterator(); iterator.hasNext();) {
+  private boolean collision(Widget reference, Widget widget, Area area) {
+    for (Iterator iterator = dropTarget.iterator(); iterator.hasNext();) {
       Widget w = (Widget) iterator.next();
-      if ((w == widget) || (w == getPositioner())) {
+      if ((w == reference) || (w == widget) || (w == getPositioner())) {
         continue;
       }
-      if ((new Area(w, dropTargetPanel)).intersects(area)) {
+      if ((new Area(w, dropTarget)).intersects(area)) {
         return true;
       }
     }

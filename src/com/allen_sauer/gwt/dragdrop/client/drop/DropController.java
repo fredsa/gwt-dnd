@@ -14,12 +14,12 @@ public interface DropController {
 
   public abstract String getDropTargetStyleName();
 
-  public abstract boolean onDrop(Widget draggable, DragController dragController);
+  public abstract boolean onDrop(Widget reference, Widget draggable, DragController dragController);
 
   public abstract void onEnter(Widget draggable, DragController dragController);
 
   public abstract void onLeave(Widget draggable, DragController dragController);
 
-  public abstract void onMove(Widget draggable, DragController dragController);
+  public abstract void onMove(Widget reference, Widget draggable, DragController dragController);
 
 }

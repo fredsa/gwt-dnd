@@ -31,10 +31,10 @@ public abstract class AbstractDropController implements DropController {
 
   private Widget dropTarget;
 
-  public AbstractDropController(Widget dropTargetPanel) {
-    dropTarget = dropTargetPanel;
+  public AbstractDropController(Widget dropTarget) {
+    this.dropTarget = dropTarget;
     DropControllerCollection.add(this);
-    dropTargetPanel.addStyleName(getDropTargetStyleName());
+    dropTarget.addStyleName(getDropTargetStyleName());
   }
 
   public void drop(Widget widget) {
@@ -49,7 +49,7 @@ public abstract class AbstractDropController implements DropController {
     return STYLE_DROP_TARGET;
   }
 
-  public boolean onDrop(Widget draggable, DragController dragController) {
+  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
     dropTarget.removeStyleName(STLE_ENGAGE);
     return true;
   }
@@ -62,7 +62,7 @@ public abstract class AbstractDropController implements DropController {
     dropTarget.removeStyleName(STLE_ENGAGE);
   }
 
-  public void onMove(Widget draggable, DragController dragController) {
+  public void onMove(Widget reference, Widget draggable, DragController dragController) {
   }
 
 }
