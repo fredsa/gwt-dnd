@@ -33,7 +33,9 @@ public class DragController implements SourcesDragAndDropEvents {
   private Widget currentDraggable;
 
   private DragAndDropListenerCollection dragAndDropListeners;
+
   private transient Widget draggableProxy;
+  private boolean dragProxyEnabled = false;
 
   public DragController(AbsolutePanel boundryPanel) {
     this.boundryPanel = boundryPanel != null ? boundryPanel : RootPanel.get();
@@ -62,8 +64,10 @@ public class DragController implements SourcesDragAndDropEvents {
     }
     draggable.removeStyleName(STYLE_DRAGGING);
     currentDraggable = null;
-    draggableProxy.removeFromParent();
-    draggableProxy = null;
+    if (dragProxyEnabled) {
+      draggableProxy.removeFromParent();
+      draggableProxy = null;
+    }
   }
 
   public void dropCanceled(Widget draggable, Widget dropTarget) {
@@ -72,8 +76,10 @@ public class DragController implements SourcesDragAndDropEvents {
     }
     draggable.removeStyleName(STYLE_DRAGGING);
     currentDraggable = null;
-    draggableProxy.removeFromParent();
-    draggableProxy = null;
+    if (dragProxyEnabled) {
+      draggableProxy.removeFromParent();
+      draggableProxy = null;
+    }
   }
 
   public AbsolutePanel getBoundryPanel() {
@@ -81,8 +87,7 @@ public class DragController implements SourcesDragAndDropEvents {
   }
 
   public Widget getDraggableProxy() {
-    // return currentDraggable;
-    return draggableProxy;
+    return dragProxyEnabled ? draggableProxy : currentDraggable;
   }
 
   public boolean isDragAllowed(Widget draggable) {
@@ -92,6 +97,10 @@ public class DragController implements SourcesDragAndDropEvents {
       }
     }
     return true;
+  }
+
+  public boolean isDragProxyEnabled() {
+    return this.dragProxyEnabled;
   }
 
   public boolean isDropAllowed(Widget draggable, Widget dropTarget) {
@@ -117,6 +126,10 @@ public class DragController implements SourcesDragAndDropEvents {
     if (dragAndDropListeners != null) {
       dragAndDropListeners.remove(listener);
     }
+  }
+
+  public void setDragProxyEnabled(boolean dragProxyEnabled) {
+    this.dragProxyEnabled = dragProxyEnabled;
   }
 
   private void createDraggableProxy(Widget draggable) {

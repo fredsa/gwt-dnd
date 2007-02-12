@@ -140,7 +140,7 @@ class MouseDragHandler implements MouseListener {
 
     dragging = false;
     moveDraggableToOriginalLocation();
-    
+
     dropController = null;
   }
 
@@ -176,7 +176,8 @@ class MouseDragHandler implements MouseListener {
           initialDraggableParentLocation.getTop());
     } else {
       // TODO instead try to add to original parent panel in a different way
-      boundryPanel.add(capturingWidget, initialDraggableBoundryPanelLocation.getLeft(), initialDraggableBoundryPanelLocation.getTop());
+      boundryPanel.add(capturingWidget, initialDraggableBoundryPanelLocation.getLeft(),
+          initialDraggableBoundryPanelLocation.getTop());
     }
   }
 }

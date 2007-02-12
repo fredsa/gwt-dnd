@@ -54,13 +54,18 @@ public class DragDropDemo implements EntryPoint {
         new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action. "
             + "You will find each of the included <code>DropContoller</code>s demonstrated.</p>"));
 
+    // Provides radio buttons to select draggable behavior
+    BehaviorPanel behaviorListBox = new BehaviorPanel(dragController);
+    RootPanel.get().add(behaviorListBox);
+
+    // Add our working example
     HTML boundryDescription = ExampleTabPanel.describe("BoundryDropController",
-        "All our example drag operations are constrained to the panel below.");
+    "All our example drag operations are constrained to the panel below.");
     boundryDescription.addStyleName(STYLE_BOUNDRY);
     RootPanel.get().add(boundryDescription);
     RootPanel.get().add(boundryPanel);
 
-    // Contrains all example drag operations to boundry panel
+    // Constrains all example drag operations to boundry panel
     BoundryDropController boundryDropController = new BoundryDropController(boundryPanel);
 
     // Create some draggable widgets to play with
@@ -71,10 +76,12 @@ public class DragDropDemo implements EntryPoint {
 
     // TabPanel to hold our examples
     ExampleTabPanel examples = new ExampleTabPanel();
-    boundryPanel.add(examples, 170, 10);
+    examples.setWidth("500px");
+    boundryPanel.add(examples, 200, 10);
 
     // Example 1: TrashBinDropController
     AbsolutePanel containingPanel = new AbsolutePanel();
+    containingPanel.setPixelSize(400, 200);
     TrashBin simpleDropTarget = new TrashBin(120, 120);
     containingPanel.add(simpleDropTarget);
     new TrashBinDropController(simpleDropTarget);
@@ -88,7 +95,7 @@ public class DragDropDemo implements EntryPoint {
     // Example 2: AbsolutePositionDropController
     AbsolutePanel positioningDropTarget = new AbsolutePanel();
     AbsolutePositionDropController absolutePositionDropController = new AbsolutePositionDropController(positioningDropTarget);
-    positioningDropTarget.setPixelSize(400, 150);
+    positioningDropTarget.setPixelSize(400, 200);
     examples.add(positioningDropTarget, "AbsolutePositionDropController",
         "Draggable widgets can be placed anywhere on the grey drop target.");
     absolutePositionDropController.drop(createDraggable(), 10, 30);
@@ -101,12 +108,13 @@ public class DragDropDemo implements EntryPoint {
         + draggableOffsetWidth + " x " + draggableOffsetHeight + ") grid on the grey drop target.");
     GridConstrainedDropController gridConstrainedDropController = new GridConstrainedDropController(gridConstrainedDropTarget,
         draggableOffsetWidth, draggableOffsetHeight);
-    gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 6, draggableOffsetHeight * 2);
+    gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 5, draggableOffsetHeight * 2);
     gridConstrainedDropController.drop(createDraggable(), 0, 0);
     gridConstrainedDropController.drop(createDraggable(), draggableOffsetWidth, draggableOffsetHeight);
 
     // Example 4: IndexedDropController
     IndexedFlowPanel flowPanelDropTarget = new IndexedFlowPanel();
+    flowPanelDropTarget.setWidth("400px");
     examples.add(flowPanelDropTarget, "IndexedDropController",
         "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.");
     IndexedDropController indexedDropController = new IndexedDropController(flowPanelDropTarget);
@@ -123,7 +131,7 @@ public class DragDropDemo implements EntryPoint {
     examples.add(noOverlapDropTarget, "NoOverlapDropController",
         "Widgets cannot be dropped on top of (overlapping) other dropped widgets");
     NoOverlapDropController noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
-    noOverlapDropTarget.setPixelSize(400, 150);
+    noOverlapDropTarget.setPixelSize(400, 200);
     noOverlapDropController.drop(createDraggable(), 10, 10);
     noOverlapDropController.drop(createDraggable(), 90, 60);
     noOverlapDropController.drop(createDraggable(), 190, 50);
