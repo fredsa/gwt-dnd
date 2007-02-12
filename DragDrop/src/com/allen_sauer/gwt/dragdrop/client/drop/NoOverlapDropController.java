@@ -22,6 +22,8 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -31,27 +33,43 @@ import java.util.Iterator;
 public class NoOverlapDropController extends AbsolutePositionDropController {
 
   /**
-   * Helper class to iterate through the provided int range.
+   * Helper class to hop through the provided int range using the
+   * halfway point to speed traversal.
    */
-  private class IntRangeIterator {
+  private class TestRange {
 
-    private final int finish;
-    private final int increment;
-    private int pos;
+    private int start;
+    private int stopBefore;
 
-    public IntRangeIterator(int start, int finish) {
-      pos = start;
-      this.finish = finish;
-      increment = start < finish ? 1 : -1;
+    /**
+     * @param start inclusive start of range
+     * @param stopBefore non-inclusive end of range
+     */
+    public TestRange(int start, int stopBefore) {
+      this.start = start;
+      this.stopBefore = stopBefore;
     }
 
-    public boolean hasNext() {
-      return pos != finish;
+    public int getHalfway() {
+      int halfway = (start + stopBefore) / 2;
+      return halfway == stopBefore ? start : halfway;
     }
 
-    public int next() {
-      pos += increment;
-      return pos;
+    public boolean hasMore() {
+      int diff = start - stopBefore;
+      return diff > 1 || diff < -1;
+    }
+
+    public void setStart(int start) {
+      this.start = start;
+    }
+
+    public void setStopBefore(int stopBefore) {
+      this.stopBefore = stopBefore;
+    }
+
+    public String toString() {
+      return start + " through " + stopBefore + " non-inclusive";
     }
   }
 
@@ -75,75 +93,119 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
   protected boolean constrainedWidgetMove(Widget reference, Widget draggable, Widget widget, DragController dragController) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
     Area dropArea = new Area(dropTarget, boundryPanel);
-    Area draggableArea = new Area(reference, boundryPanel);
-    Location location = new Location(reference, dropTarget);
-    location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
-        - draggableArea.getHeight());
+    Area referenceArea = new Area(reference, boundryPanel);
+    Location referenceLocation = new Location(reference, dropTarget);
+    referenceLocation.constrain(0, 0, dropArea.getInternalWidth() - referenceArea.getWidth(), dropArea.getInternalHeight()
+        - referenceArea.getHeight());
     // Determine where draggableArea would be if it were constrained to the dropArea
     // Also causes draggableArea to become relative to dropTarget
-    draggableArea.moveTo(location);
-    if (!collision(reference, draggable, widget, draggableArea)) {
-      // no overlap; okay to move widget to new location
-      moveTo(widget, location);
-      return true;
-    }
-    if (getPositioner().isAttached()) {
-      Area dropTargetArea = new Area(dropTarget, boundryPanel);
-      Area positionerArea = new Area(getPositioner(), boundryPanel);
-      if (dropTargetArea.contains(positionerArea)) {
-        boundryPanel.add(getPositioner(), positionerArea.getLeft(), positionerArea.getTop());
-        Location positionerLocation = new Location(getPositioner(), dropTarget);
-        Area tempDraggableArea = draggableArea.copyOf();
-        Location newLocation = null;
-        for (IntRangeIterator iterator = new IntRangeIterator(positionerLocation.getLeft(), draggableArea.getLeft()); iterator.hasNext();) {
-          int left = iterator.next();
-          Location tempLocation = new Location(left, positionerLocation.getTop());
-          tempDraggableArea.moveTo(tempLocation);
-          // TODO consider only widgets in area between desired and known-good positions
-          if (!collision(reference, draggable, widget, tempDraggableArea)) {
-            newLocation = tempLocation;
-          } else {
-            break;
-          }
-        }
+    referenceArea.moveTo(referenceLocation);
 
-        Location startLocation = newLocation != null ? newLocation : positionerLocation;
-        for (IntRangeIterator iterator = new IntRangeIterator(startLocation.getTop(), draggableArea.getTop()); iterator.hasNext();) {
-          int top = iterator.next();
-          Location tempLocation = new Location(startLocation.getLeft(), top);
-          tempDraggableArea.moveTo(tempLocation);
-          // TODO consider only widgets in area between desired and known-good positions
-          if (!collision(reference, draggable, widget, tempDraggableArea)) {
-            newLocation = tempLocation;
-          } else {
-            break;
-          }
-        }
-
-        if (newLocation != null) {
-          moveTo(widget, newLocation);
-          return true;
-        }
+    // determine our potential collision targets
+    Collection collisionTargets = new ArrayList();
+    for (Iterator iteartor = dropTarget.iterator(); iteartor.hasNext();) {
+      Widget w = (Widget) iteartor.next();
+      if (w != reference && w != draggable && w != widget && w != getPositioner()) {
+        collisionTargets.add(w);
       }
     }
-    if (widget != getPositioner() && lastGoodLocation != null) {
-      moveTo(widget, lastGoodLocation);
+
+    if (!collision(collisionTargets, referenceArea)) {
+      // no overlap; okay to move widget to new location
+      moveTo(widget, referenceLocation);
       return true;
     }
+
+    if (lastGoodLocation != null) {
+      Location newLocation = findBetterLocation(collisionTargets, referenceArea);
+
+      if (newLocation != null) {
+        // found a better location; move there
+        moveTo(widget, newLocation);
+        return true;
+      }
+      if (widget == draggable) {
+        // on drop move to last good location
+        moveTo(widget, lastGoodLocation);
+        return true;
+      }
+    }
+    // give up
     return false;
   }
 
-  private boolean collision(Widget reference, Widget draggable, Widget widget, Area area) {
-    for (Iterator iterator = dropTarget.iterator(); iterator.hasNext();) {
+  private boolean collision(Collection widgets, Area area) {
+    for (Iterator iterator = widgets.iterator(); iterator.hasNext();) {
       Widget w = (Widget) iterator.next();
-      if ((w == reference) || (w == draggable) || (w == widget) || (w == getPositioner())) {
-        continue;
-      }
       if ((new Area(w, dropTarget)).intersects(area)) {
         return true;
       }
     }
     return false;
+  }
+
+  private Location findBetterLocation(Collection widgets, Area referenceArea) {
+    Area tempReferenceArea = referenceArea.copyOf();
+    Location newLocation = null;
+
+    // see if there is an acceptable location horizontally closer to the reference widget
+    TestRange range = new TestRange(lastGoodLocation.getLeft(), referenceArea.getLeft());
+    while (range.hasMore()) {
+      int left = range.getHalfway();
+      Location tempLocation = new Location(left, lastGoodLocation.getTop());
+      tempReferenceArea.moveTo(tempLocation);
+      // TODO consider only widgets in area between desired and known-good positions
+      if (collision(widgets, tempReferenceArea)) {
+        range.setStopBefore(left);
+      } else {
+        newLocation = tempLocation;
+        range.setStart(left);
+      }
+    }
+
+    // now try vertically closer to the reference widget
+    Location startLocation = newLocation != null ? newLocation : lastGoodLocation;
+    range = new TestRange(startLocation.getTop(), referenceArea.getTop());
+    while (range.hasMore()) {
+      int top = range.getHalfway();
+      Location tempLocation = new Location(startLocation.getLeft(), top);
+      tempReferenceArea.moveTo(tempLocation);
+      // TODO consider only widgets in area between desired and known-good positions
+      if (collision(widgets, tempReferenceArea)) {
+        range.setStopBefore(top);
+      } else {
+        newLocation = tempLocation;
+        range.setStart(top);
+      }
+    }
+
+    //    for (TestRange iterator = new IntRangeHopper(lastGoodLocation.getLeft(), referenceArea.getLeft()); iterator.hasMore();) {
+    //      int left = iterator.getHalfway();
+    //      Location tempLocation = new Location(left, lastGoodLocation.getTop());
+    //      tempReferenceArea.moveTo(tempLocation);
+    //      // TODO consider only widgets in area between desired and known-good positions
+    //      if (!collision(widgets, tempReferenceArea)) {
+    //        newLocation = tempLocation;
+    //      } else {
+    //        break;
+    //      }
+    //    }
+    //
+    //    // now try vertically closer to the reference widget
+    //    Location startLocation = newLocation != null ? newLocation : lastGoodLocation;
+    //    for (TestRange iterator = new TestRange(startLocation.getTop(), referenceArea.getTop()); iterator.hasMore();) {
+    //      int top = iterator.getHalfway();
+    //      Location tempLocation = new Location(startLocation.getLeft(), top);
+    //      tempReferenceArea.moveTo(tempLocation);
+    //      // TODO consider only widgets in area between desired and known-good positions
+    //      if (!collision(widgets, tempReferenceArea)) {
+    //        newLocation = tempLocation;
+    //      } else {
+    //        break;
+    //      }
+    //    }
+    //    ((SimplePanel) getPositioner()).setWidget(new HTML(a + " + " + b + " = " + (a + b)));
+    return newLocation;
   }
 
   private void moveTo(Widget widget, Location location) {
