@@ -57,7 +57,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
 
     public boolean hasMore() {
       int diff = start - stopBefore;
-      return diff > 1 || diff < -1;
+      return (diff > 1) || (diff < -1);
     }
 
     public void setStart(int start) {
@@ -105,11 +105,12 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     Collection collisionTargets = new ArrayList();
     for (Iterator iteartor = dropTarget.iterator(); iteartor.hasNext();) {
       Widget w = (Widget) iteartor.next();
-      if (w != reference && w != draggable && w != widget && w != getPositioner()) {
+      if ((w != reference) && (w != draggable) && (w != widget) && (w != getPositioner())) {
         collisionTargets.add(w);
       }
     }
 
+    // test reference widget location for collisions
     if (!collision(collisionTargets, referenceArea)) {
       // no overlap; okay to move widget to new location
       moveTo(widget, referenceLocation);
@@ -117,7 +118,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     }
 
     if (lastGoodLocation != null) {
-      Location newLocation = findBetterLocation(collisionTargets, referenceArea);
+      // attempt to determine location closer to the reference widget without collisions
+      Location newLocation = findBetterLocation(referenceArea, collisionTargets);
 
       if (newLocation != null) {
         // found a better location; move there
@@ -144,7 +146,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     return false;
   }
 
-  private Location findBetterLocation(Collection widgets, Area referenceArea) {
+  private Location findBetterLocation(Area referenceArea, Collection widgets) {
     Area tempReferenceArea = referenceArea.copyOf();
     Location newLocation = null;
 
