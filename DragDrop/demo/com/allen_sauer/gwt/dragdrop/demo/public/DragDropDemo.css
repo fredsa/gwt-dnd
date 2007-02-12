@@ -102,3 +102,8 @@ code {
   padding: 2px;
   cursor: default;
 }
+
+.behavior-selection {
+  background-color: #E8EEF7;
+  margin: 1.4em 0.1em;
+}
