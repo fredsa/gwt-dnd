@@ -29,11 +29,6 @@ import java.util.Vector;
  */
 public class MouseListenerCollection extends Vector {
 
-  // --BEGIN CHANGES--
-  private static final long serialVersionUID = 1L;
-
-  // --END CHANGES--
-
   /**
    * Fires a mouse down event to all listeners.
    * 
