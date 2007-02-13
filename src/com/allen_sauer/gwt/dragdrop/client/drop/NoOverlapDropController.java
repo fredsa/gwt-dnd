@@ -181,32 +181,6 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       }
     }
 
-    //    for (TestRange iterator = new IntRangeHopper(lastGoodLocation.getLeft(), referenceArea.getLeft()); iterator.hasMore();) {
-    //      int left = iterator.getHalfway();
-    //      Location tempLocation = new Location(left, lastGoodLocation.getTop());
-    //      tempReferenceArea.moveTo(tempLocation);
-    //      // TODO consider only widgets in area between desired and known-good positions
-    //      if (!collision(widgets, tempReferenceArea)) {
-    //        newLocation = tempLocation;
-    //      } else {
-    //        break;
-    //      }
-    //    }
-    //
-    //    // now try vertically closer to the reference widget
-    //    Location startLocation = newLocation != null ? newLocation : lastGoodLocation;
-    //    for (TestRange iterator = new TestRange(startLocation.getTop(), referenceArea.getTop()); iterator.hasMore();) {
-    //      int top = iterator.getHalfway();
-    //      Location tempLocation = new Location(startLocation.getLeft(), top);
-    //      tempReferenceArea.moveTo(tempLocation);
-    //      // TODO consider only widgets in area between desired and known-good positions
-    //      if (!collision(widgets, tempReferenceArea)) {
-    //        newLocation = tempLocation;
-    //      } else {
-    //        break;
-    //      }
-    //    }
-    //    ((SimplePanel) getPositioner()).setWidget(new HTML(a + " + " + b + " = " + (a + b)));
     return newLocation;
   }
 
