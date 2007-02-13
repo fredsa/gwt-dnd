@@ -48,14 +48,13 @@ public class DragController implements SourcesDragAndDropEvents {
     dragAndDropListeners.add(listener);
   }
 
-  public boolean drag(Widget draggable) {
+  public void drag(Widget draggable) {
     if (dragAndDropListeners != null) {
       dragAndDropListeners.fireDragStart(draggable);
     }
     draggable.addStyleName(STYLE_DRAGGING);
     currentDraggable = draggable;
     createDraggableProxy(draggable);
-    return true;
   }
 
   public void drop(Widget draggable, Widget dropTarget) {
