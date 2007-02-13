@@ -105,5 +105,7 @@ code {
 
 .behavior-selection {
   background-color: #E8EEF7;
+  border: 1px solid #87B3FF;
   margin: 1.4em 0.1em;
+  padding: 0.5em;
 }
