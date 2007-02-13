@@ -60,7 +60,7 @@ public class DragDropDemo implements EntryPoint {
 
     // Add our working example
     HTML boundryDescription = ExampleTabPanel.describe("BoundryDropController",
-    "All our example drag operations are constrained to the panel below.");
+        "All our example drag operations are constrained to the panel below.");
     boundryDescription.addStyleName(STYLE_BOUNDRY);
     RootPanel.get().add(boundryDescription);
     RootPanel.get().add(boundryPanel);
