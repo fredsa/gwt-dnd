@@ -35,10 +35,12 @@ class MouseDragHandler implements MouseListener {
     initialMouseX = x;
     initialMouseY = y;
 
-    if (!dragController.isDragAllowed(capturingWidget)) {
+    try {
+      dragController.previewDragStart(capturingWidget);
+    } catch (VetoDragException ex) {
       return;
     }
-    dragController.drag(capturingWidget);
+    dragController.dragStart(capturingWidget);
 
     draggableProxy = dragController.getDraggableProxy();
 
@@ -105,7 +107,9 @@ class MouseDragHandler implements MouseListener {
       }
 
       // Does the DragController allow the drop?
-      if (!dragController.isDropAllowed(capturingWidget, dropController.getDropTarget())) {
+      try {
+        dragController.previewDragEnd(capturingWidget, dropController.getDropTarget());
+      } catch (VetoDragException ex) {
         cancelDrag();
         return;
       }
@@ -113,13 +117,13 @@ class MouseDragHandler implements MouseListener {
       // Does the DropController allow the drop?
       if (!dropController.onDrop(draggableProxy, capturingWidget, dragController)) {
         // Notify DragController
-        dragController.dropCanceled(capturingWidget, dropController.getDropTarget());
+        dragController.dragEnd(capturingWidget, null);
         cancelDrag();
         return;
       }
 
       // Notify DragController
-      dragController.drop(capturingWidget, dropController.getDropTarget());
+      dragController.dragEnd(capturingWidget, dropController.getDropTarget());
 
     } catch (RuntimeException ex) {
       // cleanup in case anything goes wrong

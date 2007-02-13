@@ -15,22 +15,14 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.google.gwt.user.client.ui.Widget;
-
 /**
- * Event interface for drag-and-drop events.
+ * A class that implements this interface sources the events defined by the
+ * {@link com.allen_sauer.gwt.dragdrop.client.DragHandler} interface.
  */
-public interface DragAndDropListener {
+public interface SourcesDragEvents {
 
-  void onDragStart(Widget draggable);
+  void addDragHandler(DragHandler listener);
 
-  // TODO use event object instead so we can pass more info in the future
-  void onDrop(Widget draggable, Widget dropTarget);
-
-  void onDropCanceled(Widget draggable);
-
-  boolean onIsDragAllowed(Widget draggable);
-
-  boolean onIsDropAllowed(Widget draggable);
+  void removeDragHandler(DragHandler listener);
 
 }

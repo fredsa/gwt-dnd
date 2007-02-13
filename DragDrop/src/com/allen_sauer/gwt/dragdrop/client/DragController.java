@@ -15,7 +15,7 @@ import java.util.HashMap;
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} to
  * address specific target requirements.
  */
-public class DragController implements SourcesDragAndDropEvents {
+public class DragController implements SourcesDragEvents {
 
   private static final String STYLE_DRAGGABLE = "dragdrop-draggable";
   private static final String STYLE_DRAGGING = "dragdrop-dragging";
@@ -29,55 +29,54 @@ public class DragController implements SourcesDragAndDropEvents {
   }
 
   private AbsolutePanel boundryPanel;
-
   private Widget currentDraggable;
-
-  private DragAndDropListenerCollection dragAndDropListeners;
-
-  private transient Widget draggableProxy;
+  private Widget draggableProxy;
+  private DragHandlerCollection dragHandlers;
   private boolean dragProxyEnabled = false;
 
   public DragController(AbsolutePanel boundryPanel) {
     this.boundryPanel = boundryPanel != null ? boundryPanel : RootPanel.get();
   }
 
-  public void addDragAndDropListener(DragAndDropListener listener) {
-    if (dragAndDropListeners == null) {
-      dragAndDropListeners = new DragAndDropListenerCollection();
+  public void addDragHandler(DragHandler handler) {
+    if (dragHandlers == null) {
+      dragHandlers = new DragHandlerCollection();
     }
-    dragAndDropListeners.add(listener);
+    dragHandlers.add(handler);
   }
 
-  public void drag(Widget draggable) {
-    if (dragAndDropListeners != null) {
-      dragAndDropListeners.fireDragStart(draggable);
+  /**
+   * Call back method for {@link MouseDragHandler}.
+   * 
+   * @param draggable widget which was being dragged
+   * @param dropTarget widget on which draggable was dropped. 
+   *        <code>null</code> if drag was canceled
+   */
+  public void dragEnd(Widget draggable, Widget dropTarget) {
+    if (dragHandlers != null) {
+      dragHandlers.fireDragEnd(draggable, dropTarget);
+    }
+    draggable.removeStyleName(STYLE_DRAGGING);
+    currentDraggable = null;
+    if (dragProxyEnabled) {
+      draggableProxy.removeFromParent();
+      draggableProxy = null;
+    }
+  }
+
+  /**
+   * Call back method for {@link MouseDragHandler}.
+   * 
+   * @param draggable widget which was being dragged
+   */
+  public void dragStart(Widget draggable) {
+    if (dragHandlers != null) {
+      dragHandlers.fireDragStart(draggable);
     }
     draggable.addStyleName(STYLE_DRAGGING);
     currentDraggable = draggable;
-    createDraggableProxy(draggable);
-  }
-
-  public void drop(Widget draggable, Widget dropTarget) {
-    if (dragAndDropListeners != null) {
-      dragAndDropListeners.fireDrop(draggable, dropTarget);
-    }
-    draggable.removeStyleName(STYLE_DRAGGING);
-    currentDraggable = null;
     if (dragProxyEnabled) {
-      draggableProxy.removeFromParent();
-      draggableProxy = null;
-    }
-  }
-
-  public void dropCanceled(Widget draggable, Widget dropTarget) {
-    if (dragAndDropListeners != null) {
-      dragAndDropListeners.fireDropCanceled(draggable);
-    }
-    draggable.removeStyleName(STYLE_DRAGGING);
-    currentDraggable = null;
-    if (dragProxyEnabled) {
-      draggableProxy.removeFromParent();
-      draggableProxy = null;
+      createDraggableProxy(draggable);
     }
   }
 
@@ -89,28 +88,18 @@ public class DragController implements SourcesDragAndDropEvents {
     return dragProxyEnabled ? draggableProxy : currentDraggable;
   }
 
-  public boolean isDragAllowed(Widget draggable) {
-    if (dragAndDropListeners != null) {
-      if (!dragAndDropListeners.fireIsDragAllowed(draggable)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
   public boolean isDragProxyEnabled() {
-    return this.dragProxyEnabled;
+    return dragProxyEnabled;
   }
 
-  public boolean isDropAllowed(Widget draggable, Widget dropTarget) {
-    if (dragAndDropListeners != null) {
-      if (!dragAndDropListeners.fireIsDropAllowed(draggable, dropTarget)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
+  /**
+   * Attaches a {@link MouseDragHandler} (which is a
+   * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget and
+   * adds the {@link #STYLE_DRAGGABLE} style to the widget. Call this method for
+   * each which that should be made draggable by this DragController.
+   * 
+   * @param widget the widget to be made draggable
+   */
   public void makeDraggable(Widget widget) {
     if (widget instanceof SourcesMouseEvents) {
       ((SourcesMouseEvents) widget).addMouseListener(new MouseDragHandler(this));
@@ -121,9 +110,33 @@ public class DragController implements SourcesDragAndDropEvents {
     widgetControllers.put(widget, this);
   }
 
-  public void removeDragAndDropListener(DragAndDropListener listener) {
-    if (dragAndDropListeners != null) {
-      dragAndDropListeners.remove(listener);
+  /**
+   * Call back method for {@link MouseDragHandler}.
+   * 
+   * @param draggable widget which was being dragged
+   * @throws VetoDragException if the proposed operation is unacceptable
+   */
+  public void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {
+    if (dragHandlers != null) {
+      dragHandlers.firePreviewDragEnd(draggable, dropTarget);
+    }
+  }
+
+  /**
+   * Call back method for {@link MouseDragHandler}.
+   * 
+   * @param draggable widget which was being dragged
+   * @throws VetoDragException if the proposed operation is unacceptable
+   */
+  public void previewDragStart(Widget draggable) throws VetoDragException {
+    if (dragHandlers != null) {
+      dragHandlers.firePreviewDragStart(draggable);
+    }
+  }
+
+  public void removeDragHandler(DragHandler handler) {
+    if (dragHandlers != null) {
+      dragHandlers.remove(handler);
     }
   }
 
