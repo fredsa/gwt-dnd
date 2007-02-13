@@ -172,8 +172,7 @@ public class Area {
   }
 
   public boolean intersects(Area targetArea) {
-    if ((right < targetArea.left) || (left > targetArea.right) || (bottom < targetArea.top)
-        || (top > targetArea.bottom)) {
+    if ((right < targetArea.left) || (left > targetArea.right) || (bottom < targetArea.top) || (top > targetArea.bottom)) {
       return false;
     }
     return true;
