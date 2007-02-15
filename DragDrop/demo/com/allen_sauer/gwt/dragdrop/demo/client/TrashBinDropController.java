@@ -33,8 +33,8 @@ public class TrashBinDropController extends SimpleDropController {
     return true;
   }
 
-  public void onEnter(Widget draggable, DragController dragController) {
-    super.onEnter(draggable, dragController);
+  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
+    super.onEnter(reference, draggable, dragController);
     draggable.addStyleName(STYLE_TRASHBIN_ENGAGE);
   }
 

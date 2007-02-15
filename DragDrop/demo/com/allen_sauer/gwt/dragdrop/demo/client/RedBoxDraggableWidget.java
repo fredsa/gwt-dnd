@@ -37,6 +37,7 @@ public class RedBoxDraggableWidget extends HTML {
   public void onBrowserEvent(Event event) {
     if ((DOM.eventGetType(event) & Event.MOUSEEVENTS) != 0) {
       // TODO handle this in library instead of demo application code
+      // TODO add body.ondrag and body.onselectstart return false or better alternative
       DOM.eventPreventDefault(event);
     }
     super.onBrowserEvent(event);

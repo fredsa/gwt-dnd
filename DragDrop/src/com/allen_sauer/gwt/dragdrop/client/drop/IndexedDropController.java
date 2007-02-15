@@ -30,7 +30,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} for
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} for
  * instances of
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.IndexedFlowPanel}.
  */
@@ -68,8 +68,8 @@ public class IndexedDropController extends AbstractPositioningDropController {
     return false;
   }
 
-  public void onEnter(Widget draggable, DragController dragController) {
-    super.onEnter(draggable, dragController);
+  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
+    super.onEnter(reference, draggable, dragController);
     UIUtil.resetStylePositionStatic(getPositioner().getElement());
   }
 

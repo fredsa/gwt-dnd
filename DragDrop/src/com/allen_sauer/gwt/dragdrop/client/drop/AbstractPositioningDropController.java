@@ -16,13 +16,15 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} which
  * allows a draggable widget to be placed at valid positions (locations) on the
  * drop target, e.g. {@link com.google.gwt.user.client.ui.AbsolutePanel} or
  * {@link com.google.gwt.user.client.ui.IndexedPanel}. Which positions are
@@ -30,18 +32,17 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
  */
 public abstract class AbstractPositioningDropController extends AbstractDropController {
 
-  private SimplePanel postioner = new SimplePanel();
+  private Widget positioner;
 
   public AbstractPositioningDropController(Panel dropTarget) {
     super(dropTarget);
-    postioner.addStyleName("dragdrop-positioner");
   }
 
   public void drop(Widget widget, int left, int top) {
   }
 
   public Widget getPositioner() {
-    return postioner;
+    return positioner;
   }
 
   public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
@@ -50,11 +51,9 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     return result;
   }
 
-  public void onEnter(Widget draggable, DragController dragController) {
-    super.onEnter(draggable, dragController);
-    Widget positioner = getPositioner();
-    // TODO calculate actual CSS borders
-    positioner.setPixelSize(draggable.getOffsetWidth() - 2, draggable.getOffsetHeight() - 2);
+  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
+    super.onEnter(reference, draggable, dragController);
+    positioner = newPositioner(reference);
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
@@ -62,8 +61,17 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     removePositioner();
   }
 
+  protected Widget newPositioner(Widget reference) {
+    Widget p = new SimplePanel();
+    p.addStyleName("dragdrop-positioner");
+    // place off screen
+    RootPanel.get().add(p, -500, -500);
+    p.setPixelSize(reference.getOffsetWidth() - UIUtil.getHorizontalBorders(p), reference.getOffsetHeight()
+        - UIUtil.getVerticalBorders(p));
+    return p;
+  }
+
   private void removePositioner() {
-    Widget positioner = getPositioner();
     if (positioner != null) {
       positioner.removeFromParent();
     }

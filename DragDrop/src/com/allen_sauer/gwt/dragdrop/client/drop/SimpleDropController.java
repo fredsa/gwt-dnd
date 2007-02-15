@@ -21,8 +21,8 @@ public class SimpleDropController extends AbstractDropController {
     return super.onDrop(reference, draggable, dragController);
   }
 
-  public void onEnter(Widget draggable, DragController dragController) {
-    super.onEnter(draggable, dragController);
+  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
+    super.onEnter(reference, draggable, dragController);
   }
 
   public void onLeave(Widget draggable, DragController dragController) {

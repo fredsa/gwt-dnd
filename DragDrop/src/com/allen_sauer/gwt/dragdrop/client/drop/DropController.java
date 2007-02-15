@@ -16,7 +16,7 @@ public interface DropController {
 
   public abstract boolean onDrop(Widget reference, Widget draggable, DragController dragController);
 
-  public abstract void onEnter(Widget draggable, DragController dragController);
+  public abstract void onEnter(Widget reference, Widget draggable, DragController dragController);
 
   public abstract void onLeave(Widget draggable, DragController dragController);
 

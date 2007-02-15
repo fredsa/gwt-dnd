@@ -12,6 +12,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 public class ExampleTabPanel extends TabPanel {
 
   private static final String STYLE_EXAMPLE_DESCRIPTION = "example-description";
+  private static final String STYLE_EXAMPLE_PANEL = "example-panel";
 
   public static HTML describe(String controllerClassName, String description) {
     HTML html = new HTML("<code>" + controllerClassName + "</code><br>\n" + "<i>" + description + "</i>");
@@ -22,6 +23,7 @@ public class ExampleTabPanel extends TabPanel {
   private int counter;
 
   public void add(Panel panel, String controllerClassName, String description) {
+    panel.addStyleName(STYLE_EXAMPLE_PANEL);
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.add(describe(controllerClassName, description));
     verticalPanel.add(panel);
