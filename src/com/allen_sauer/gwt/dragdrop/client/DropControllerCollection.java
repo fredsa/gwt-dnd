@@ -19,7 +19,6 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 
@@ -29,7 +28,7 @@ import java.util.Iterator;
 
 /**
  * A helper class to track all instances of
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController}.
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController}.
  * 
  */
 public class DropControllerCollection {
@@ -48,8 +47,8 @@ public class DropControllerCollection {
       DropController dropController = (DropController) iterator.next();
       Widget target = dropController.getDropTarget();
       Area targetArea = new Area(target, null);
-      if ((dropController instanceof BoundryDropController)
-          || (widgetArea.intersects(targetArea) && targetArea.intersects(boundryArea))) {
+      if (//(dropController instanceof BoundryDropController)          || 
+          (widgetArea.intersects(targetArea) && targetArea.intersects(boundryArea))) {
         if ((result == null) || DOM.isOrHasChild(result.getDropTarget().getElement(), target.getElement())) {
           result = dropController;
         }

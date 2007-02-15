@@ -23,7 +23,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} which
  * constrains the placement of draggable widgets the grid specified in the
  * constructor.
  */

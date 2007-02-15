@@ -16,6 +16,7 @@
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
@@ -24,7 +25,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.NoOverlapDropController;
@@ -43,13 +43,19 @@ public class DragDropDemo implements EntryPoint {
   private int draggableOffsetHeight;
   private int draggableOffsetWidth;
 
+  // TODO add demo drag or drop event veto
   public void onModuleLoad() {
+    GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
+      public void onUncaughtException(Throwable e) {
+        DebugUtil.debug(e);
+      }
+    });
     AbsolutePanel boundryPanel = new AbsolutePanel();
     dragController = new DragController(boundryPanel);
 
     determineRedBoxDimensions();
     boundryPanel.setPixelSize(750, 500);
-    RootPanel.get().add(new HTML("<h3>Drag-and-Drop Examples</h3>"));
+    //    RootPanel.get().add(new HTML("<h3>Drag-and-Drop Examples</h3>"));
     RootPanel.get().add(
         new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action. "
             + "You will find each of the included <code>DropContoller</code>s demonstrated.</p>"));
@@ -60,19 +66,16 @@ public class DragDropDemo implements EntryPoint {
 
     // Add our working example
     HTML boundryDescription = ExampleTabPanel.describe("BoundryDropController",
-        "All our example drag operations are constrained to the panel below.");
+        "Most of our example drag operations are constrained to the panel below.");
     boundryDescription.addStyleName(STYLE_BOUNDRY);
     RootPanel.get().add(boundryDescription);
     RootPanel.get().add(boundryPanel);
 
-    // Constrains all example drag operations to boundry panel
-    BoundryDropController boundryDropController = new BoundryDropController(boundryPanel);
-
     // Create some draggable widgets to play with
-    boundryDropController.drop(createDraggable(), 20, 100);
-    boundryDropController.drop(createDraggable(), 20, 200);
-    boundryDropController.drop(createDraggable(), 40, 240);
-    boundryDropController.drop(createDraggable(), 60, 280);
+    boundryPanel.add(createDraggable(), 20, 100);
+    boundryPanel.add(createDraggable(), 20, 200);
+    boundryPanel.add(createDraggable(), 40, 240);
+    boundryPanel.add(createDraggable(), 60, 280);
 
     // TabPanel to hold our examples
     ExampleTabPanel examples = new ExampleTabPanel();
@@ -94,8 +97,8 @@ public class DragDropDemo implements EntryPoint {
 
     // Example 2: AbsolutePositionDropController
     AbsolutePanel positioningDropTarget = new AbsolutePanel();
-    AbsolutePositionDropController absolutePositionDropController = new AbsolutePositionDropController(positioningDropTarget);
     positioningDropTarget.setPixelSize(400, 200);
+    AbsolutePositionDropController absolutePositionDropController = new AbsolutePositionDropController(positioningDropTarget);
     examples.add(positioningDropTarget, "AbsolutePositionDropController",
         "Draggable widgets can be placed anywhere on the grey drop target.");
     absolutePositionDropController.drop(createDraggable(), 10, 30);
@@ -128,17 +131,28 @@ public class DragDropDemo implements EntryPoint {
 
     // Example 5: NoOverlapDropController
     AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
+    noOverlapDropTarget.setPixelSize(400, 200);
     examples.add(noOverlapDropTarget, "NoOverlapDropController",
         "Widgets cannot be dropped on top of (overlapping) other dropped widgets");
     NoOverlapDropController noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
-    noOverlapDropTarget.setPixelSize(400, 200);
     noOverlapDropController.drop(createDraggable(), 10, 10);
     noOverlapDropController.drop(createDraggable(), 90, 60);
     noOverlapDropController.drop(createDraggable(), 190, 50);
 
-    // TODO add demo drag or drop event veto
+    // Example 6: TableRowDropController
+    AbsolutePanel tableExamplePanel = new AbsolutePanel();
+    tableExamplePanel.setPixelSize(450, 200);
+    TableRowDragController tableRowDragController = new TableRowDragController(tableExamplePanel);
+    ExampleTable table1 = new ExampleTable(5, 3, tableRowDragController);
+    ExampleTable table2 = new ExampleTable(5, 4, tableRowDragController);
+    // TableRowDropController tableRowDropController =
+    new TableRowDropController(table1);
+    new TableRowDropController(table2);
+    tableExamplePanel.add(table1, 30, 20);
+    tableExamplePanel.add(table2, 230, 40);
+    examples.add(tableExamplePanel, "TableRowDropController", "Drag table rows by their handle");
 
-    examples.selectTab(1);
+    //    examples.selectTab(1);
   }
 
   private Widget createDraggable() {

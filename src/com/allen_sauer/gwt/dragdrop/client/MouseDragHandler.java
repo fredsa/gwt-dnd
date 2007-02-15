@@ -19,9 +19,6 @@ class MouseDragHandler implements MouseListener {
   private transient Widget draggableProxy;
   private boolean dragging;
   private transient DropController dropController;
-  private transient Location initialDraggableBoundryPanelLocation;
-  private transient Widget initialDraggableParent;
-  private transient Location initialDraggableParentLocation;
   private int initialMouseX;
   private int initialMouseY;
 
@@ -42,21 +39,14 @@ class MouseDragHandler implements MouseListener {
     }
     dragController.dragStart(capturingWidget);
 
-    draggableProxy = dragController.getDraggableProxy();
-
-    // Store initial draggable parent and coordinates in case we have to abort
-    initialDraggableParent = capturingWidget.getParent();
-    initialDraggableParentLocation = new Location(capturingWidget, initialDraggableParent);
-    initialDraggableBoundryPanelLocation = new Location(capturingWidget, boundryPanel);
-    boundryPanel.add(draggableProxy, initialDraggableBoundryPanelLocation.getLeft(), initialDraggableBoundryPanelLocation.getTop());
+    draggableProxy = dragController.getDraggableOrProxy();
 
     DOM.setCapture(capturingWidget.getElement());
     dragging = true;
     try {
       move(x, y);
     } catch (RuntimeException ex) {
-      dragging = false;
-      DOM.releaseCapture(capturingWidget.getElement());
+      cancelDrag();
       throw ex;
     }
   }
@@ -90,7 +80,7 @@ class MouseDragHandler implements MouseListener {
       dragging = false;
 
       // Determine the interested DropController at our present location
-      DropController newDropController = DropControllerCollection.getIntersectDropController(draggableProxy, boundryPanel);
+      DropController newDropController = dragController.getIntersectDropController(draggableProxy);
 
       // Is the DropController at this location different than the last one?
       if (dropController != newDropController) {
@@ -117,7 +107,6 @@ class MouseDragHandler implements MouseListener {
       // Does the DropController allow the drop?
       if (!dropController.onDrop(draggableProxy, capturingWidget, dragController)) {
         // Notify DragController
-        dragController.dragEnd(capturingWidget, null);
         cancelDrag();
         return;
       }
@@ -137,15 +126,14 @@ class MouseDragHandler implements MouseListener {
   private void cancelDrag() {
     // Do this first so it always happens
     DOM.releaseCapture(capturingWidget.getElement());
+    dragging = false;
 
     if (dropController != null) {
       dropController.onLeave(capturingWidget, dragController);
     }
-
-    dragging = false;
-    moveDraggableToOriginalLocation();
-
     dropController = null;
+
+    dragController.dragEnd(capturingWidget,null);
   }
 
   private void move(int x, int y) {
@@ -156,7 +144,7 @@ class MouseDragHandler implements MouseListener {
 
     boundryPanel.setWidgetPosition(draggableProxy, desiredLeft, desiredTop);
 
-    DropController newDropController = DropControllerCollection.getIntersectDropController(draggableProxy, boundryPanel);
+    DropController newDropController = dragController.getIntersectDropController(draggableProxy);
     if (dropController == newDropController) {
       if (dropController != null) {
         dropController.onMove(draggableProxy, capturingWidget, dragController);
@@ -167,21 +155,9 @@ class MouseDragHandler implements MouseListener {
       }
       dropController = newDropController;
       if (dropController != null) {
-        dropController.onEnter(capturingWidget, dragController);
+        dropController.onEnter(draggableProxy, capturingWidget, dragController);
         dropController.onMove(draggableProxy, capturingWidget, dragController);
       }
-    }
-  }
-
-  private void moveDraggableToOriginalLocation() {
-    if (initialDraggableParent instanceof AbsolutePanel) {
-      //      Location parentLocation = new Location(initialDraggableParent, boundryPanel);
-      ((AbsolutePanel) initialDraggableParent).add(capturingWidget, initialDraggableParentLocation.getLeft(),
-          initialDraggableParentLocation.getTop());
-    } else {
-      // TODO instead try to add to original parent panel in a different way
-      boundryPanel.add(capturingWidget, initialDraggableBoundryPanelLocation.getLeft(),
-          initialDraggableBoundryPanelLocation.getTop());
     }
   }
 }

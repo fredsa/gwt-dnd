@@ -54,7 +54,7 @@ public abstract class AbstractDropController implements DropController {
     return true;
   }
 
-  public void onEnter(Widget draggable, DragController dragController) {
+  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     dropTarget.addStyleName(STLE_ENGAGE);
   }
 

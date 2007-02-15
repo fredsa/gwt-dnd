@@ -23,17 +23,19 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} for
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} for
  * the {@link com.google.gwt.user.client.ui.Panel} which contains a given
  * draggable widget.
  */
 public class BoundryDropController extends AbsolutePositionDropController {
 
   private AbsolutePanel dropTarget;
+  private boolean allowDropping;
 
-  public BoundryDropController(AbsolutePanel dropTarget) {
+  public BoundryDropController(AbsolutePanel dropTarget, boolean allowDropping) {
     super(dropTarget);
     this.dropTarget = dropTarget;
+    this.allowDropping = allowDropping;
   }
 
   public String getDropTargetStyleName() {
@@ -41,14 +43,18 @@ public class BoundryDropController extends AbsolutePositionDropController {
   }
 
   protected boolean constrainedWidgetMove(Widget reference, Widget draggable, Widget widget, DragController dragController) {
-    AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(dropTarget, boundryPanel);
-    Area draggableArea = new Area(reference, boundryPanel);
-    Location location = new Location(reference, dropTarget);
-    location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
-        - draggableArea.getHeight());
-    dropTarget.add(widget, location.getLeft(), location.getTop());
-    return true;
+    if (allowDropping) {
+      AbsolutePanel boundryPanel = dragController.getBoundryPanel();
+      Area dropArea = new Area(dropTarget, boundryPanel);
+      Area draggableArea = new Area(reference, boundryPanel);
+      Location location = new Location(reference, dropTarget);
+      location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
+          - draggableArea.getHeight());
+      dropTarget.add(widget, location.getLeft(), location.getTop());
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

@@ -17,15 +17,12 @@ package com.allen_sauer.gwt.dragdrop.client.util;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Library utility methods.
  */
 public class UIUtil {
-
-  public static native void debug(String text) /*-{
-   $wnd.status = text;
-   }-*/;
 
   // TODO deferred binding for browser specific behavior
   public static native int getBorderLeft(Element elem) /*-{
@@ -72,6 +69,14 @@ public class UIUtil {
    throw "Unable to determine client width";
    }
    }-*/;
+
+  public static int getHorizontalBorders(Widget widget) {
+    return widget.getOffsetWidth() - getClientWidth(widget.getElement());
+  }
+
+  public static int getVerticalBorders(Widget widget) {
+    return widget.getOffsetHeight() - getClientHeight(widget.getElement());
+  }
 
   // TODO remove after fix for issue 626
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=626

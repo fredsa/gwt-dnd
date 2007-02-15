@@ -25,7 +25,7 @@
 }
 
 .dragdrop-positioner {
-  border: 1px dashed #1E90FF; /* blue */
+  border: 1px solid #1E90FF; /* blue */
   z-index: 1;
 }
 
@@ -33,7 +33,8 @@
   background-color: #77AAFF; /* light blue */
   z-index: 1;
   font-weight: bold;
-  filter: alpha(opacity = 70);
-  opacity: 0.7;
-  -moz-opacity: 0.7;
+  filter: alpha(opacity = 30);
+  opacity: 0.3;
+  -moz-opacity: 0.3;
 }
+

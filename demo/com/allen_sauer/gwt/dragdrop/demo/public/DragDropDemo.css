@@ -7,7 +7,7 @@ body {
 code {
   font-style: normal;
 }
-  
+
 .red-box-draggable-widget {
   background-color: #EE0000; /* red */
   border: 2px solid #AA0000; /* dark red */
@@ -16,7 +16,7 @@ code {
   font-size: 0.9em;
 }
 
-.example-description.boundry {
+.example-description .boundry {
   border-top: 1px solid #87B3FF;
   border-left: 1px solid #87B3FF;
   border-right: 1px solid #87B3FF;
@@ -28,7 +28,7 @@ code {
   padding: 0.5em 0.3em;
 }
 
-.dragdrop-dropTarget.trashbin {
+.dragdrop-dropTarget .trashbin {
   text-align: center;
   border: 1px solid black;
   border-top: 4px solid black;
@@ -36,7 +36,7 @@ code {
 }
 
 .trashbin-engage {
-  filter: alpha(opacity =   10);
+  filter: alpha(opacity =     10);
   opacity: 0.1;
   -moz-opacity: 0.1;
 }
@@ -53,14 +53,18 @@ code {
 .dragdrop-dropTarget {
   background-color: #CCCCCC; /* grey */
   border: 1px solid black;
-  margin: 2em 1em;
 }
 
-.dragdrop-dropTarget.dragdrop-engage {
+.example-panel {
+  margin: 1em 1em;
+}
+  
+.dragdrop-dropTarget .dragdrop-engage {
   background: #BCDEFF; /* lighter blue */
 }
 
 .gwt-TabPanel {
+  
 }
 
 .gwt-TabPanelBottom {
@@ -106,6 +110,30 @@ code {
 .behavior-selection {
   background-color: #E8EEF7;
   border: 1px solid #87B3FF;
-  margin: 1.4em 0.1em;
-  padding: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 0.2em;
+  padding: 0.2em 0.1em;
 }
+
+.debug {
+  background-color: #E8EEF7;
+  border: 1px solid red;
+  padding: 0.2em;
+  margin: 0px;
+  color: red;
+  font-weight: bold;
+  z-index: 50;
+  cursor: move;
+  font-family: monospace;
+  font-size: 0.8em;
+}
+
+.table-proxy {
+  border: 1px solid red;
+}
+
+.dragdrop-table-positioner {
+  background-color: black;
+  z-index: 1;
+}
+

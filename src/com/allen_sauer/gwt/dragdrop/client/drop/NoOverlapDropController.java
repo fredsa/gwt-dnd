@@ -27,7 +27,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DropController} which
+ * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} which
  * constrains prevents draggable widgets from overlapping.
  */
 public class NoOverlapDropController extends AbsolutePositionDropController {
@@ -85,8 +85,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     return super.getDropTargetStyleName() + " dragdrop-no-overlap-drop-target";
   }
 
-  public void onEnter(Widget draggable, DragController dragController) {
-    super.onEnter(draggable, dragController);
+  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
+    super.onEnter(reference, draggable, dragController);
     lastGoodLocation = null;
   }
 
