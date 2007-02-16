@@ -77,8 +77,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    * constraints of this DropController allow.
    * 
    * @param reference widget whose location is the desired drop location
-   * @param draggable TODO
-   * @param widget either the positioner or the draggable widget to be moved
+   * @param draggable actual draggable widget
+   * @param widget positioner or the draggable widget to be moved
    * @param dragController the DragController for this operation
    * @return location where widget can be placed or null if no compatible location found
    */
