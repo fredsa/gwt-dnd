@@ -26,7 +26,7 @@ public class RedBoxDraggableWidget extends HTML {
 
   private static int counter;
   private static final int DRAGGABLE_SIZE = 65;
-  private static final String STYLE_RED_BOX_DRAGGABLE_WIDGET = "red-box-draggable-widget";
+  private static final String STYLE_DEMO_RED_BOX_DRAGGABLE_WIDGET = "demo-red-box-draggable-widget";
 
   public RedBoxDraggableWidget() {
     setPixelSize(DRAGGABLE_SIZE, DRAGGABLE_SIZE);
@@ -45,6 +45,6 @@ public class RedBoxDraggableWidget extends HTML {
 
   protected void onLoad() {
     super.onLoad();
-    addStyleName(STYLE_RED_BOX_DRAGGABLE_WIDGET);
+    addStyleName(STYLE_DEMO_RED_BOX_DRAGGABLE_WIDGET);
   }
 }

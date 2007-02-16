@@ -25,7 +25,7 @@
 }
 
 .dragdrop-positioner {
-  border: 1px solid #1E90FF; /* blue */
+  border: 1px dashed #1E90FF; /* blue */
   z-index: 1;
 }
 

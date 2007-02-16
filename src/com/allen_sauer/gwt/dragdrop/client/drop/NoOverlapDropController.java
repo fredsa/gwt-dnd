@@ -90,50 +90,12 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     lastGoodLocation = null;
   }
 
-  protected boolean constrainedWidgetMove(Widget reference, Widget draggable, Widget widget, DragController dragController) {
-    AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(dropTarget, boundryPanel);
-    Area referenceArea = new Area(reference, boundryPanel);
-    Location referenceLocation = new Location(reference, dropTarget);
-    referenceLocation.constrain(0, 0, dropArea.getInternalWidth() - referenceArea.getWidth(), dropArea.getInternalHeight()
-        - referenceArea.getHeight());
-    // Determine where draggableArea would be if it were constrained to the dropArea
-    // Also causes draggableArea to become relative to dropTarget
-    referenceArea.moveTo(referenceLocation);
-
-    // determine our potential collision targets
-    Collection collisionTargets = new ArrayList();
-    for (Iterator iteartor = dropTarget.iterator(); iteartor.hasNext();) {
-      Widget w = (Widget) iteartor.next();
-      if ((w != reference) && (w != draggable) && (w != widget) && (w != getPositioner())) {
-        collisionTargets.add(w);
-      }
+  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
+    Location location = internalGetConstrainedLocation(reference, draggable, widget, dragController);
+    if (location != null) {
+      lastGoodLocation = location;
     }
-
-    // test reference widget location for collisions
-    if (!collision(collisionTargets, referenceArea)) {
-      // no overlap; okay to move widget to new location
-      moveTo(widget, referenceLocation);
-      return true;
-    }
-
-    if (lastGoodLocation != null) {
-      // attempt to determine location closer to the reference widget without collisions
-      Location newLocation = findBetterLocation(referenceArea, collisionTargets);
-
-      if (newLocation != null) {
-        // found a better location; move there
-        moveTo(widget, newLocation);
-        return true;
-      }
-      if (widget == draggable) {
-        // on drop move to last good location
-        moveTo(widget, lastGoodLocation);
-        return true;
-      }
-    }
-    // give up
-    return false;
+    return location;
   }
 
   private boolean collision(Collection widgets, Area area) {
@@ -184,9 +146,46 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     return newLocation;
   }
 
-  private void moveTo(Widget widget, Location location) {
-    lastGoodLocation = location;
-    dropTarget.add(widget, location.getLeft(), location.getTop());
-  }
+  private Location internalGetConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
+    AbsolutePanel boundryPanel = dragController.getBoundryPanel();
+    Area dropArea = new Area(dropTarget, boundryPanel);
+    Area referenceArea = new Area(reference, boundryPanel);
+    Location referenceLocation = new Location(reference, dropTarget);
+    referenceLocation.constrain(0, 0, dropArea.getInternalWidth() - referenceArea.getWidth(), dropArea.getInternalHeight()
+        - referenceArea.getHeight());
+    // Determine where draggableArea would be if it were constrained to the dropArea
+    // Also causes draggableArea to become relative to dropTarget
+    referenceArea.moveTo(referenceLocation);
 
+    // determine our potential collision targets
+    Collection collisionTargets = new ArrayList();
+    for (Iterator iteartor = dropTarget.iterator(); iteartor.hasNext();) {
+      Widget w = (Widget) iteartor.next();
+      if ((w != reference) && (w != draggable) && (w != widget) && (w != getPositioner())) {
+        collisionTargets.add(w);
+      }
+    }
+
+    // test reference widget location for collisions
+    if (!collision(collisionTargets, referenceArea)) {
+      // no overlap; okay to move widget to new location
+      return referenceLocation;
+    }
+
+    if (lastGoodLocation != null) {
+      // attempt to determine location closer to the reference widget without collisions
+      Location newLocation = findBetterLocation(referenceArea, collisionTargets);
+
+      if (newLocation != null) {
+        // found a better location; move there
+        return newLocation;
+      }
+      if (widget == draggable) {
+        // on drop move to last good location
+        return lastGoodLocation;
+      }
+    }
+    // give up
+    return null;
+  }
 }

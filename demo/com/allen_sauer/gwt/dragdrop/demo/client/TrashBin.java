@@ -8,7 +8,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class TrashBin extends HTML {
 
-  private static final String STYLE_TRASHBIN = "trashbin";
+  private static final String STYLE_DEMO_TRASHBIN = "demo-trashbin";
 
   private int count;
 
@@ -25,7 +25,7 @@ public class TrashBin extends HTML {
 
   protected void onLoad() {
     super.onLoad();
-    addStyleName(STYLE_TRASHBIN);
+    addStyleName(STYLE_DEMO_TRASHBIN);
   }
 
   private void updateText() {

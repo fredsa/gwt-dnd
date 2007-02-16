@@ -44,7 +44,7 @@ public class BehaviorPanel extends SimplePanel {
 
   protected void onLoad() {
     super.onLoad();
-    addStyleName("behavior-selection");
+    addStyleName("demo-behavior-selection");
   }
 
   private RadioButton newButton(String name, String description) {

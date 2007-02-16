@@ -49,9 +49,8 @@ public abstract class AbstractDropController implements DropController {
     return STYLE_DROP_TARGET;
   }
 
-  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
+  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
     dropTarget.removeStyleName(STLE_ENGAGE);
-    return true;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
@@ -64,5 +63,4 @@ public abstract class AbstractDropController implements DropController {
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
   }
-
 }
