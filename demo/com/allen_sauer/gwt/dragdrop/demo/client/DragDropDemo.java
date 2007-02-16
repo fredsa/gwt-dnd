@@ -94,6 +94,7 @@ public class DragDropDemo implements EntryPoint {
     examples.add(containingPanel, trashBinDropController,
         "Classic drop target which simply recognizes when a draggable widget is dropped on it.");
     AbsolutePositionDropController controller = new AbsolutePositionDropController(containingPanel);
+    dragController.registerDropController(controller);
     controller.drop(createDraggable(), 200, 20);
     controller.drop(createDraggable(), 240, 50);
     controller.drop(createDraggable(), 190, 100);
