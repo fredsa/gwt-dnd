@@ -30,6 +30,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
 
   private AbsolutePanel dropTarget;
+  private Location dropLocation;
 
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {
     super(dropTarget);
@@ -52,10 +53,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     return super.getDropTargetStyleName() + " dragdrop-absolute-positioning-drop-target";
   }
 
-  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
-    boolean result = constrainedWidgetMove(reference, draggable, draggable, dragController);
+  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
-    return result;
+    dropTarget.add(draggable, dropLocation.getLeft(), dropLocation.getTop());
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
@@ -67,6 +67,11 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     constrainedWidgetMove(reference, draggable, getPositioner(), dragController);
   }
 
+  public boolean onPreviewDrop(Widget reference, Widget draggable, DragController dragController) {
+    dropLocation = getConstrainedLocation(reference, draggable, draggable, dragController);
+    return dropLocation != null;
+  }
+
   /**
    * If possible, move widget as close to the desired reference location as the
    * constraints of this DropController allow.
@@ -75,17 +80,22 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    * @param draggable TODO
    * @param widget either the positioner or the draggable widget to be moved
    * @param dragController the DragController for this operation
-   * @return true if widget was moved successfully
+   * @return location where widget can be placed or null if no compatible location found
    */
-  protected boolean constrainedWidgetMove(Widget reference, Widget draggable, Widget widget, DragController dragController) {
+  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
     AbsolutePanel boundryPanel = dragController.getBoundryPanel();
     Area dropArea = new Area(dropTarget, boundryPanel);
     Area draggableArea = new Area(reference, boundryPanel);
     Location location = new Location(reference, dropTarget);
     location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
         - draggableArea.getHeight());
-    dropTarget.add(widget, location.getLeft(), location.getTop());
-    return true;
+    return location;
   }
 
+  private void constrainedWidgetMove(Widget reference, Widget draggable, Widget widget, DragController dragController) {
+    Location location = getConstrainedLocation(reference, draggable, widget, dragController);
+    if (location != null) {
+      dropTarget.add(widget, location.getLeft(), location.getTop());
+    }
+  }
 }

@@ -45,10 +45,9 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     return positioner;
   }
 
-  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
-    boolean result = super.onDrop(reference, draggable, dragController);
+  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
+    super.onDrop(reference, draggable, dragController);
     removePositioner();
-    return result;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {

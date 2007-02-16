@@ -17,8 +17,8 @@ public class SimpleDropController extends AbstractDropController {
     super.drop(draggable);
   }
 
-  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
-    return super.onDrop(reference, draggable, dragController);
+  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
+    super.onDrop(reference, draggable, dragController);
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
@@ -33,4 +33,7 @@ public class SimpleDropController extends AbstractDropController {
     super.onMove(reference, draggable, dragController);
   }
 
+  public boolean onPreviewDrop(Widget reference, Widget draggable, DragController dragController) {
+    return true;
+  }
 }

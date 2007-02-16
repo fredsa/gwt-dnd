@@ -37,6 +37,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 public class IndexedDropController extends AbstractPositioningDropController {
 
   private IndexedPanel dropTarget;
+  private int dropIndex;
 
   public IndexedDropController(IndexedPanel dropTarget) {
     super((Panel) dropTarget);
@@ -52,20 +53,17 @@ public class IndexedDropController extends AbstractPositioningDropController {
     return super.getDropTargetStyleName() + " dragdrop-flow-panel-drop-target";
   }
 
-  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
-    int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
+  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
+    super.onDrop(reference, draggable, dragController);
     int draggableIndex = dropTarget.getWidgetIndex(draggable);
-    boolean result = super.onDrop(reference, draggable, dragController);
-    if (result && (positionerIndex != -1)) {
-      if ((draggableIndex != -1) && (draggableIndex < positionerIndex)) {
+    if (dropIndex != -1) {
+      if ((draggableIndex != -1) && (draggableIndex < dropIndex)) {
         // adjust for removal of widget
-        insert(draggable, positionerIndex - 1);
+        insert(draggable, dropIndex - 1);
       } else {
-        insert(draggable, positionerIndex);
+        insert(draggable, dropIndex);
       }
-      return true;
     }
-    return false;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
@@ -105,6 +103,11 @@ public class IndexedDropController extends AbstractPositioningDropController {
       }
     }
     ((Panel) dropTarget).add(getPositioner());
+  }
+
+  public boolean onPreviewDrop(Widget reference, Widget draggable, DragController dragController) {
+    dropIndex = dropTarget.getWidgetIndex(getPositioner());
+    return dropIndex != -1;
   }
 
   // TODO remove after enhancement for issue 616

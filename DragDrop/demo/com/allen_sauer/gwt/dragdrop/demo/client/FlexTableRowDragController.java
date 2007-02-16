@@ -1,25 +1,23 @@
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HTMLTable;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
 
 /**
  * Allows table rows to dragged by their handle.
  */
-public class TableRowDragController extends DragController {
+public class FlexTableRowDragController extends DragController {
 
-  private static final String STYLE_TABLE_PROXY = "table-proxy";
-  private int columns;
-  private HTMLTable draggableTable;
+  private static final String STYLE_DEMO_TABLE_PROXY = "demo-table-proxy";
+  private FlexTable draggableTable;
   private int dragRow;
 
-  public TableRowDragController(AbsolutePanel boundryPanel) {
+  public FlexTableRowDragController(AbsolutePanel boundryPanel) {
     super(boundryPanel);
   }
 
@@ -28,12 +26,21 @@ public class TableRowDragController extends DragController {
     super.dragEnd(draggable, dropTarget);
   }
 
+  // TODO support 'classic' drop behavior
+  // TODO do not allow drag outside our boundry panel
   public void dragStart(Widget draggable) {
-    draggableTable = (HTMLTable) draggable.getParent();
+    draggableTable = (FlexTable) draggable.getParent();
     dragRow = getWidgetRow(draggable, draggableTable);
-    columns = draggableTable.getCellCount(dragRow);
     draggableTable.getRowFormatter().setStyleName(dragRow, STYLE_DRAGGING);
     super.dragStart(draggable);
+  }
+
+  public FlexTable getDraggableTable() {
+    return this.draggableTable;
+  }
+
+  public int getDragRow() {
+    return this.dragRow;
   }
 
   protected BoundryDropController newBoundryDropController(AbsolutePanel boundryPanel) {
@@ -41,31 +48,23 @@ public class TableRowDragController extends DragController {
   }
 
   protected Widget newDraggableProxy(Widget draggable) {
-    HTMLTable proxy;
-    proxy = new Grid(1, columns);
+    FlexTable proxy;
+    proxy = new FlexTable();
     proxy.addStyleName(STYLE_PROXY);
-    proxy.addStyleName(STYLE_TABLE_PROXY);
-    for (int col = 0; col < columns; col++) {
-      HTML html = new HTML(draggableTable.getHTML(dragRow, col));
-      Widget w = draggableTable.getWidget(dragRow, col);
-      if (w != null) {
-        html.setPixelSize(w.getOffsetWidth(), w.getOffsetHeight());
-      }
-      proxy.setWidget(0, col, html);
-    }
+    proxy.addStyleName(STYLE_DEMO_TABLE_PROXY);
+    FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
     return proxy;
   }
 
-  private int getWidgetRow(Widget widget, HTMLTable table) {
+  private int getWidgetRow(Widget widget, FlexTable table) {
     for (int row = 0; row < table.getRowCount(); row++) {
-      for (int col = 1; col < table.getCellCount(row); col++) {
+      for (int col = 0; col < table.getCellCount(row); col++) {
         Widget w = table.getWidget(row, col);
         if (w == widget) {
           return row;
         }
       }
     }
-    return 0;
+    throw new RuntimeException("Unable to determine widget row");
   }
-
 }

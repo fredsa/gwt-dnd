@@ -42,7 +42,7 @@ public class BoundryDropController extends AbsolutePositionDropController {
     return "dragdrop-boundry";
   }
 
-  protected boolean constrainedWidgetMove(Widget reference, Widget draggable, Widget widget, DragController dragController) {
+  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
     if (allowDropping) {
       AbsolutePanel boundryPanel = dragController.getBoundryPanel();
       Area dropArea = new Area(dropTarget, boundryPanel);
@@ -50,10 +50,9 @@ public class BoundryDropController extends AbsolutePositionDropController {
       Location location = new Location(reference, dropTarget);
       location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
           - draggableArea.getHeight());
-      dropTarget.add(widget, location.getLeft(), location.getTop());
-      return true;
+      return location;
     } else {
-      return false;
+      return null;
     }
   }
 

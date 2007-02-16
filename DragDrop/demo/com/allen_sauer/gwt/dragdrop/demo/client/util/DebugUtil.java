@@ -1,4 +1,4 @@
-package com.allen_sauer.gwt.dragdrop.demo.client;
+package com.allen_sauer.gwt.dragdrop.demo.client.util;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;

@@ -11,7 +11,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
  */
 public class TrashBinDropController extends SimpleDropController {
 
-  private static final String STYLE_TRASHBIN_ENGAGE = "trashbin-engage";
+  private static final String STYLE_DEMO_TRASHBIN_ENGAGE = "demo-trashbin-engage";
 
   private TrashBin trashBin;
 
@@ -22,25 +22,24 @@ public class TrashBinDropController extends SimpleDropController {
 
   public void drop(Widget draggable) {
     super.drop(draggable);
-    draggable.removeStyleName(STYLE_TRASHBIN_ENGAGE);
+    draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
     trashBin.eatWidget(draggable);
   }
 
-  public boolean onDrop(Widget reference, Widget draggable, DragController dragController) {
+  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
-    draggable.removeStyleName(STYLE_TRASHBIN_ENGAGE);
+    draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
     trashBin.eatWidget(draggable);
-    return true;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     super.onEnter(reference, draggable, dragController);
-    draggable.addStyleName(STYLE_TRASHBIN_ENGAGE);
+    draggable.addStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
     super.onLeave(draggable, dragController);
-    draggable.removeStyleName(STYLE_TRASHBIN_ENGAGE);
+    draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
   }
 
 }
