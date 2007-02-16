@@ -51,6 +51,7 @@ public class DragDropDemo implements EntryPoint {
         DebugUtil.debug(e);
       }
     });
+
     AbsolutePanel boundryPanel = new AbsolutePanel();
     dragController = new DragController(boundryPanel);
 
@@ -140,7 +141,7 @@ public class DragDropDemo implements EntryPoint {
     NoOverlapDropController noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
     dragController.registerDropController(noOverlapDropController);
     examples.add(noOverlapDropTarget, noOverlapDropController,
-        "Widgets cannot be dropped on top of (overlapping) other dropped widgets");
+        "Widgets cannot be dropped on top of (overlapping) other dropped widgets.");
     noOverlapDropController.drop(createDraggable(), 10, 10);
     noOverlapDropController.drop(createDraggable(), 90, 60);
     noOverlapDropController.drop(createDraggable(), 190, 50);
@@ -157,7 +158,8 @@ public class DragDropDemo implements EntryPoint {
     tableRowDragController.registerDropController(flexTableRowDropController2);
     tableExamplePanel.add(table1, 10, 20);
     tableExamplePanel.add(table2, 230, 40);
-    examples.add(tableExamplePanel, flexTableRowDropController1, "Drag <code>FlexTable</code> rows by their drag handle");
+    examples.add(tableExamplePanel, flexTableRowDropController1,
+        "Drag <code>FlexTable</code> rows by their drag handle<br>(currently only implements the 'proxy' drag behavior).");
 
     examples.selectTab(0);
   }

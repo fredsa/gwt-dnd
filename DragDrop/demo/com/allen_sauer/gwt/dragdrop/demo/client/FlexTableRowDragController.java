@@ -19,6 +19,8 @@ public class FlexTableRowDragController extends DragController {
 
   public FlexTableRowDragController(AbsolutePanel boundryPanel) {
     super(boundryPanel);
+    // TODO support 'classic' drop behavior
+    setDragProxyEnabled(true);
   }
 
   public void dragEnd(Widget draggable, Widget dropTarget) {
@@ -26,7 +28,6 @@ public class FlexTableRowDragController extends DragController {
     super.dragEnd(draggable, dropTarget);
   }
 
-  // TODO support 'classic' drop behavior
   public void dragStart(Widget draggable) {
     draggableTable = (FlexTable) draggable.getParent();
     dragRow = getWidgetRow(draggable, draggableTable);

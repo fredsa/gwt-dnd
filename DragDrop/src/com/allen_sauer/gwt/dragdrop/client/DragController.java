@@ -37,7 +37,7 @@ public class DragController implements SourcesDragEvents {
   private Widget currentDraggable;
   private Widget draggableProxy;
   private DragHandlerCollection dragHandlers;
-  private boolean dragProxyEnabled = true;
+  private boolean dragProxyEnabled = false;
   private DropControllerCollection dropControllerCollection = new DropControllerCollection();
   private Location initialDraggableBoundryPanelLocation;
   private Widget initialDraggableParent;
@@ -191,8 +191,7 @@ public class DragController implements SourcesDragEvents {
     HTML proxy;
     proxy = new HTML("Drag Proxy (testing)");
     proxy.addStyleName(STYLE_PROXY);
-    // TODO calculate actual CSS borders
-    proxy.setPixelSize(currentDraggable.getOffsetWidth() - 0, currentDraggable.getOffsetHeight() - 0);
+    proxy.setPixelSize(currentDraggable.getOffsetWidth(), currentDraggable.getOffsetHeight());
     return proxy;
   }
 

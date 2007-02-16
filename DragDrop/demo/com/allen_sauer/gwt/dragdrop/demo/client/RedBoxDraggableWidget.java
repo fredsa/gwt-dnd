@@ -15,8 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.HTML;
 
 /**
@@ -31,16 +29,6 @@ public class RedBoxDraggableWidget extends HTML {
   public RedBoxDraggableWidget() {
     setPixelSize(DRAGGABLE_SIZE, DRAGGABLE_SIZE);
     setHTML("<i>drag me!</i> draggable widget #" + ++counter);
-  }
-
-  // TODO cancel text selection operation in Firefox
-  public void onBrowserEvent(Event event) {
-    if ((DOM.eventGetType(event) & Event.MOUSEEVENTS) != 0) {
-      // TODO handle this in library instead of demo application code
-      // TODO add body.ondrag and body.onselectstart return false or better alternative
-      DOM.eventPreventDefault(event);
-    }
-    super.onBrowserEvent(event);
   }
 
   protected void onLoad() {
