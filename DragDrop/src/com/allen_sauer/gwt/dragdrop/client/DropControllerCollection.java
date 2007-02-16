@@ -23,7 +23,6 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -31,32 +30,22 @@ import java.util.Iterator;
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController}.
  * 
  */
-public class DropControllerCollection {
+public class DropControllerCollection extends ArrayList {
 
-  private static Collection dropTargetCollection = new ArrayList();
-
-  public static void add(DropController dropTarget) {
-    dropTargetCollection.add(dropTarget);
-  }
-
-  public static DropController getIntersectDropController(Widget widget, Panel boundryPanel) {
+  public DropController getIntersectDropController(Widget widget, Panel boundryPanel) {
     Area widgetArea = new Area(widget, null);
     Area boundryArea = new Area(boundryPanel, null);
     DropController result = null;
-    for (Iterator iterator = dropTargetCollection.iterator(); iterator.hasNext();) {
+    for (Iterator iterator = iterator(); iterator.hasNext();) {
       DropController dropController = (DropController) iterator.next();
       Widget target = dropController.getDropTarget();
       Area targetArea = new Area(target, null);
-      if (//(dropController instanceof BoundryDropController)          || 
-          (widgetArea.intersects(targetArea) && targetArea.intersects(boundryArea))) {
-        if ((result == null) || DOM.isOrHasChild(result.getDropTarget().getElement(), target.getElement())) {
+      if (widgetArea.intersects(targetArea) && targetArea.intersects(boundryArea)) {
+        if (result == null || DOM.isOrHasChild(result.getDropTarget().getElement(), target.getElement())) {
           result = dropController;
         }
       }
     }
     return result;
-  }
-
-  private DropControllerCollection() {
   }
 }

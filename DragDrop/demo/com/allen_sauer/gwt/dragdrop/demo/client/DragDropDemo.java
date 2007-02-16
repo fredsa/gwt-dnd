@@ -65,7 +65,7 @@ public class DragDropDemo implements EntryPoint {
     BehaviorPanel behaviorListBox = new BehaviorPanel(dragController);
     RootPanel.get().add(behaviorListBox);
 
-    // Add our working example
+    // Example: BoundryDropController
     HTML boundryDescription = ExampleTabPanel.describe("BoundryDropController",
         "Most of our example drag operations are constrained to the panel below.");
     boundryDescription.addStyleName(STYLE_DEMO_BOUNDRY);
@@ -89,6 +89,7 @@ public class DragDropDemo implements EntryPoint {
     TrashBin trashBin = new TrashBin(120, 120);
     containingPanel.add(trashBin, 30, 30);
     TrashBinDropController trashBinDropController = new TrashBinDropController(trashBin);
+    dragController.registerDropController(trashBinDropController);
     examples.add(containingPanel, trashBinDropController,
         "Classic drop target which simply recognizes when a draggable widget is dropped on it.");
     AbsolutePositionDropController controller = new AbsolutePositionDropController(containingPanel);
@@ -100,6 +101,7 @@ public class DragDropDemo implements EntryPoint {
     AbsolutePanel positioningDropTarget = new AbsolutePanel();
     positioningDropTarget.setPixelSize(400, 200);
     AbsolutePositionDropController absolutePositionDropController = new AbsolutePositionDropController(positioningDropTarget);
+    dragController.registerDropController(absolutePositionDropController);
     examples.add(positioningDropTarget, absolutePositionDropController,
         "Draggable widgets can be placed anywhere on the gray drop target.");
     absolutePositionDropController.drop(createDraggable(), 10, 30);
@@ -110,6 +112,7 @@ public class DragDropDemo implements EntryPoint {
     AbsolutePanel gridConstrainedDropTarget = new AbsolutePanel();
     GridConstrainedDropController gridConstrainedDropController = new GridConstrainedDropController(gridConstrainedDropTarget,
         draggableOffsetWidth, draggableOffsetHeight);
+    dragController.registerDropController(gridConstrainedDropController);
     examples.add(gridConstrainedDropTarget, gridConstrainedDropController, "Drops (moves) are constrained to a ("
         + draggableOffsetWidth + " x " + draggableOffsetHeight + ") grid on the gray drop target.");
     gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 5, draggableOffsetHeight * 2);
@@ -120,6 +123,7 @@ public class DragDropDemo implements EntryPoint {
     IndexedFlowPanel flowPanelDropTarget = new IndexedFlowPanel();
     flowPanelDropTarget.setWidth("400px");
     IndexedDropController indexedDropController = new IndexedDropController(flowPanelDropTarget);
+    dragController.registerDropController(indexedDropController);
     examples.add(flowPanelDropTarget, indexedDropController,
         "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.");
     for (int i = 1; i <= 5; i++) {
@@ -134,6 +138,7 @@ public class DragDropDemo implements EntryPoint {
     AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
     noOverlapDropTarget.setPixelSize(400, 200);
     NoOverlapDropController noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
+    dragController.registerDropController(noOverlapDropController);
     examples.add(noOverlapDropTarget, noOverlapDropController,
         "Widgets cannot be dropped on top of (overlapping) other dropped widgets");
     noOverlapDropController.drop(createDraggable(), 10, 10);
@@ -146,12 +151,13 @@ public class DragDropDemo implements EntryPoint {
     FlexTableRowDragController tableRowDragController = new FlexTableRowDragController(tableExamplePanel);
     DemoFlexTable table1 = new DemoFlexTable(5, 3, tableRowDragController);
     DemoFlexTable table2 = new DemoFlexTable(5, 4, tableRowDragController);
-    // TableRowDropController tableRowDropController =
-    FlexTableRowDropController flexTableRowDropController = new FlexTableRowDropController(table1);
-    new FlexTableRowDropController(table2);
+    FlexTableRowDropController flexTableRowDropController1 = new FlexTableRowDropController(table1);
+    FlexTableRowDropController flexTableRowDropController2 = new FlexTableRowDropController(table2);
+    tableRowDragController.registerDropController(flexTableRowDropController1);
+    tableRowDragController.registerDropController(flexTableRowDropController2);
     tableExamplePanel.add(table1, 10, 20);
     tableExamplePanel.add(table2, 230, 40);
-    examples.add(tableExamplePanel, flexTableRowDropController, "Drag <code>FlexTable</code> rows by their drag handle");
+    examples.add(tableExamplePanel, flexTableRowDropController1, "Drag <code>FlexTable</code> rows by their drag handle");
 
     examples.selectTab(0);
   }
