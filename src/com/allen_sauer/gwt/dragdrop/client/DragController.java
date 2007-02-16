@@ -38,6 +38,7 @@ public class DragController implements SourcesDragEvents {
   private Widget draggableProxy;
   private DragHandlerCollection dragHandlers;
   private boolean dragProxyEnabled = true;
+  private DropControllerCollection dropControllerCollection = new DropControllerCollection();
   private Location initialDraggableBoundryPanelLocation;
   private Widget initialDraggableParent;
   private Location initialDraggableParentLocation;
@@ -45,6 +46,7 @@ public class DragController implements SourcesDragEvents {
   public DragController(AbsolutePanel boundryPanel) {
     this.boundryPanel = boundryPanel != null ? boundryPanel : RootPanel.get();
     boundryDropController = newBoundryDropController(boundryPanel);
+    registerDropController(boundryDropController);
   }
 
   public void addDragHandler(DragHandler handler) {
@@ -167,6 +169,10 @@ public class DragController implements SourcesDragEvents {
     }
   }
 
+  public void registerDropController(DropController dropController) {
+    dropControllerCollection.add(dropController);
+  }
+
   public void removeDragHandler(DragHandler handler) {
     if (dragHandlers != null) {
       dragHandlers.remove(handler);
@@ -190,9 +196,8 @@ public class DragController implements SourcesDragEvents {
     return proxy;
   }
 
-  // TODO replace global collection with DragController specific collection
   DropController getIntersectDropController(Widget widget) {
-    DropController dropController = DropControllerCollection.getIntersectDropController(widget, boundryPanel);
+    DropController dropController = dropControllerCollection.getIntersectDropController(widget, boundryPanel);
     return dropController != null ? dropController : boundryDropController;
   }
 }

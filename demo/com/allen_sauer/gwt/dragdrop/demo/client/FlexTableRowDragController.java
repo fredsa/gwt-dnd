@@ -27,7 +27,6 @@ public class FlexTableRowDragController extends DragController {
   }
 
   // TODO support 'classic' drop behavior
-  // TODO do not allow drag outside our boundry panel
   public void dragStart(Widget draggable) {
     draggableTable = (FlexTable) draggable.getParent();
     dragRow = getWidgetRow(draggable, draggableTable);

@@ -18,7 +18,6 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
-import com.allen_sauer.gwt.dragdrop.client.DropControllerCollection;
 
 /**
  * Base class for typical drop controllers.
@@ -33,7 +32,6 @@ public abstract class AbstractDropController implements DropController {
 
   public AbstractDropController(Widget dropTarget) {
     this.dropTarget = dropTarget;
-    DropControllerCollection.add(this);
     dropTarget.addStyleName(getDropTargetStyleName());
   }
 
