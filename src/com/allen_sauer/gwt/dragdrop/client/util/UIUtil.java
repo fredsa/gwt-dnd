@@ -85,5 +85,4 @@ public class UIUtil {
     DOM.setStyleAttribute(element, "top", "");
     DOM.setStyleAttribute(element, "position", "static");
   }
-
 }
