@@ -189,7 +189,7 @@ public class DragController implements SourcesDragEvents {
 
   protected Widget newDraggableProxy(Widget draggable) {
     HTML proxy;
-    proxy = new HTML("Drag Proxy (testing)");
+    proxy = new HTML("this is a Drag Proxy");
     proxy.addStyleName(STYLE_PROXY);
     proxy.setPixelSize(currentDraggable.getOffsetWidth(), currentDraggable.getOffsetHeight());
     return proxy;

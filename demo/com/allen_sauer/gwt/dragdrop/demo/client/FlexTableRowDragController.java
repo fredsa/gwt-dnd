@@ -14,6 +14,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
 public class FlexTableRowDragController extends DragController {
 
   private static final String STYLE_DEMO_TABLE_PROXY = "demo-table-proxy";
+  
   private FlexTable draggableTable;
   private int dragRow;
 
