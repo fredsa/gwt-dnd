@@ -1,12 +1,10 @@
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
  * TabPanel which uses a VeriticalPanel to provide a description for each
@@ -15,7 +13,6 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 public class ExampleTabPanel extends TabPanel {
 
   private static final String STYLE_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
-  private static final String STYLE_DEMO_EXAMPLE_PANEL = "demo-example-panel";
 
   public static HTML describe(String controllerClassName, String description) {
     HTML html = new HTML("<code>" + controllerClassName + "</code><br>\n" + "<i>" + description + "</i>");
@@ -25,15 +22,12 @@ public class ExampleTabPanel extends TabPanel {
 
   private int counter;
 
-  public void add(Panel panel, DropController dropController, String description) {
-    String controllerClassName = GWT.getTypeName(dropController);
+  public void add(Example example) {
+    String controllerClassName = example.getDropControllerClass().toString();
     controllerClassName = controllerClassName.substring(controllerClassName.lastIndexOf('.') + 1);
-    panel.addStyleName(STYLE_DEMO_EXAMPLE_PANEL);
     VerticalPanel verticalPanel = new VerticalPanel();
-    verticalPanel.add(describe(controllerClassName, description));
-    verticalPanel.add(panel);
+    verticalPanel.add(describe(controllerClassName, example.getDescription()));
+    verticalPanel.add(example);
     add(verticalPanel, "Example " + ++counter, true);
-    // ensure added tab is visible so DOM position coordinates are possible
-    selectTab(getWidgetCount() - 1);
   }
 }
