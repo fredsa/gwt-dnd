@@ -64,9 +64,6 @@ public class DragController implements SourcesDragEvents {
    *        <code>null</code> if drag was canceled
    */
   public void dragEnd(Widget draggable, Widget dropTarget) {
-    if (dragHandlers != null) {
-      dragHandlers.fireDragEnd(draggable, dropTarget);
-    }
     draggable.removeStyleName(STYLE_DRAGGING);
     currentDraggable = null;
     if (dragProxyEnabled) {
@@ -108,7 +105,7 @@ public class DragController implements SourcesDragEvents {
   }
 
   public BoundryDropController getBoundryDropController() {
-    return this.boundryDropController;
+    return boundryDropController;
   }
 
   public AbsolutePanel getBoundryPanel() {
@@ -143,6 +140,19 @@ public class DragController implements SourcesDragEvents {
     }
     widget.addStyleName(STYLE_DRAGGABLE);
     widgetControllers.put(widget, this);
+  }
+
+  /**
+   * Call back method for {@link MouseDragHandler}.
+   * 
+   * @param draggable widget which was being dragged
+   * @param dropTarget widget on which draggable was dropped. 
+   *        <code>null</code> if drag was canceled
+   */
+  public void notifyDragEnd(Widget draggable, Widget dropTarget) {
+    if (dragHandlers != null) {
+      dragHandlers.fireDragEnd(draggable, dropTarget);
+    }
   }
 
   /**

@@ -111,9 +111,9 @@ class MouseDragHandler implements MouseListener {
       }
 
       dragController.dragEnd(capturingWidget, dropController.getDropTarget());
-      
       dropController.onDrop(draggableProxy, capturingWidget, dragController);
-      
+      dragController.notifyDragEnd(capturingWidget, dropController.getDropTarget());
+
     } catch (RuntimeException ex) {
       // cleanup in case anything goes wrong
       cancelDrag();
@@ -134,6 +134,7 @@ class MouseDragHandler implements MouseListener {
     dropController = null;
 
     dragController.dragEnd(capturingWidget, null);
+    dragController.notifyDragEnd(capturingWidget, null);
   }
 
   private void move(int x, int y) {
