@@ -92,7 +92,7 @@ public class Area {
   }
 
   public Location getCenter() {
-    return new Location(left + this.getWidth() / 2, top + this.getHeight() / 2);
+    return new Location(left + getWidth() / 2, top + getHeight() / 2);
   }
 
   public int getHeight() {

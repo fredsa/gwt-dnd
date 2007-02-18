@@ -37,11 +37,11 @@ public class FlexTableRowDragController extends DragController {
   }
 
   public FlexTable getDraggableTable() {
-    return this.draggableTable;
+    return draggableTable;
   }
 
   public int getDragRow() {
-    return this.dragRow;
+    return dragRow;
   }
 
   protected BoundryDropController newBoundryDropController(AbsolutePanel boundryPanel) {

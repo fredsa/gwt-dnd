@@ -22,7 +22,7 @@ public abstract class Example extends SimplePanel {
   public abstract String getDescription();
 
   public DragController getDragController() {
-    return this.dragController;
+    return dragController;
   }
 
   public abstract Class getDropControllerClass();
