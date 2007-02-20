@@ -102,6 +102,8 @@ public class IndexedDropController extends AbstractPositioningDropController {
         return;
       }
     }
+    // TODO remove after fix for VerticalPanel and HorizontalPanel
+    getPositioner().removeFromParent();
     ((Panel) dropTarget).add(getPositioner());
   }
 
