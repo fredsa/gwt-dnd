@@ -74,7 +74,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
   }
 
   private AbsolutePanel dropTarget;
-  private transient Location lastGoodLocation;
+  private Location lastGoodLocation;
 
   public NoOverlapDropController(AbsolutePanel dropTarget) {
     super(dropTarget);

@@ -14,11 +14,11 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 class MouseDragHandler implements MouseListener {
 
   private AbsolutePanel boundryPanel;
-  private transient Widget capturingWidget;
+  private Widget capturingWidget;
   private DragController dragController;
-  private transient Widget draggableProxy;
+  private Widget draggableProxy;
   private boolean dragging;
-  private transient DropController dropController;
+  private DropController dropController;
   private int initialMouseX;
   private int initialMouseY;
 
