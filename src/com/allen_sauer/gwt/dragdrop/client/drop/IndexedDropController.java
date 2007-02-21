@@ -33,6 +33,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
  * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} for
  * instances of
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.IndexedFlowPanel}.
+ * 
+ * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
 public class IndexedDropController extends AbstractPositioningDropController {
 
@@ -44,9 +46,10 @@ public class IndexedDropController extends AbstractPositioningDropController {
     this.dropTarget = dropTarget;
   }
 
-  public void drop(Widget widget) {
-    super.drop(widget);
-    insert(widget, dropTarget.getWidgetCount());
+  public void drop(Widget draggable) {
+    super.drop(draggable);
+    UIUtil.resetStylePositionStatic(draggable.getElement());
+    insert(draggable, dropTarget.getWidgetCount());
   }
 
   public String getDropTargetStyleName() {
@@ -55,6 +58,7 @@ public class IndexedDropController extends AbstractPositioningDropController {
 
   public void onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
+    UIUtil.resetStylePositionStatic(draggable.getElement());
     int draggableIndex = dropTarget.getWidgetIndex(draggable);
     if (dropIndex != -1) {
       if ((draggableIndex != -1) && (draggableIndex < dropIndex)) {
