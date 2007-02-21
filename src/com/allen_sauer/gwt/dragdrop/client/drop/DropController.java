@@ -5,8 +5,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 
 /**
- * Interface to support drop behavior for drop targets. Each drop target is
- * associated with a DropController instance.
+ * Create a DropController for each drop target on which draggable widgets can be dropped.
+ * Do not forget to register each DropController with a
+ * {@link com.allen_sauer.gwt.dragdrop.client.DragController}.
  */
 public interface DropController {
 

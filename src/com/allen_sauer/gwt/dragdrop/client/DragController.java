@@ -13,11 +13,15 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import java.util.HashMap;
 
 /**
- * Controls basic drag-and-drop capabilities for a single drag-and-drop area.
- * Each area is bound by an AbsolutePanel, which is RootPanel.get() by default.
- * Each drop target utilizes a
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} to
- * address specific target requirements.
+ * Create a DragController for each logical area where a set of draggable
+ * widgets and drop targets will be allowed to interact with one another.
+ * The logical area is bound by an AbsolutePanel, or <code>RootPanel.get()</code>
+ * by default.
+ * 
+ * Also create one or more {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController DropControllers}
+ * and {@link #registerDropController(DropController) register} them.
+ * 
+ * Note: An implicit {@link BoundryDropController} is created and registered automatically.
  */
 public class DragController implements SourcesDragEvents {
 
