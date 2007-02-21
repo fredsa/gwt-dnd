@@ -35,7 +35,7 @@ public abstract class AbstractDropController implements DropController {
     dropTarget.addStyleName(getDropTargetStyleName());
   }
 
-  public void drop(Widget widget) {
+  public void drop(Widget draggable) {
     dropTarget.removeStyleName(STLE_ENGAGE);
   }
 
