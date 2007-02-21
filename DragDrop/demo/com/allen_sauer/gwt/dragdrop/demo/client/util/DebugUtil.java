@@ -1,11 +1,15 @@
 package com.allen_sauer.gwt.dragdrop.demo.client.util;
 
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MouseListenerAdapter;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.SourcesTableEvents;
+import com.google.gwt.user.client.ui.TableListener;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -13,24 +17,47 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class DebugUtil {
 
-  private static HTML debugHTML;
+  private static final int UPDATE_INTERVAL_MILLIS = 500;
+
+  private static FlexTable debugTable = new FlexTable();
+  private static TextArea debugTextArea;
   private static String debugText = "";
-  private static ScrollPanel scrollPanel;
+  private static boolean dirty = false;
+  private static Timer timer;
+
+  static {
+    timer = new Timer() {
+
+      public void run() {
+        if (dirty) {
+          dirty = false;
+          debugTextArea.setText(debugText);
+          //        debugTextArea.setScrollPosition(1000000);
+          if (!debugTable.isAttached()) {
+            RootPanel.get().add(debugTable, 5, 5);
+          }
+        }
+        schedule(UPDATE_INTERVAL_MILLIS);
+      }
+    };
+  }
 
   public static void debug(String text) {
-    if (scrollPanel == null) {
-      scrollPanel = new ScrollPanel();
-      scrollPanel.addStyleName("debug");
-      scrollPanel.setWidth("95%");
-      scrollPanel.setHeight("80%");
+    if (debugTextArea == null) {
+      debugTextArea = new TextArea();
+      debugTable.addStyleName("debug");
+      debugTextArea.setWidth("700px");
+      debugTextArea.setHeight("6em");
+      DOM.setStyleAttribute(debugTextArea.getElement(), "whiteSpace", "pre");
 
-      debugHTML = new HTML();
-      debugHTML.setWidth("100%");
-      debugHTML.setHeight("100%");
-      DOM.setStyleAttribute(debugHTML.getElement(), "whiteSpace", "pre");
-      scrollPanel.add(debugHTML);
+      final Label header = new Label("DEBUG");
+      header.addStyleName("debug-header");
+      debugTable.setWidget(0, 0, header);
+      debugTable.setWidget(1, 0, debugTextArea);
+      debugTable.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
+      timer.run();
 
-      debugHTML.addMouseListener(new MouseListenerAdapter() {
+      header.addMouseListener(new MouseListenerAdapter() {
 
         private boolean dragging = false;
         int dragStartX;
@@ -38,30 +65,28 @@ public class DebugUtil {
 
         public void onMouseDown(Widget sender, int x, int y) {
           dragging = true;
-          DOM.setCapture(debugHTML.getElement());
+          DOM.setCapture(header.getElement());
           dragStartX = x;
           dragStartY = y;
         }
 
         public void onMouseMove(Widget sender, int x, int y) {
           if (dragging) {
-            int absX = x + scrollPanel.getAbsoluteLeft();
-            int absY = y + scrollPanel.getAbsoluteTop();
-            RootPanel.get().setWidgetPosition(scrollPanel, absX - dragStartX, absY - dragStartY);
+            int absX = x + debugTable.getAbsoluteLeft();
+            int absY = y + debugTable.getAbsoluteTop();
+            RootPanel.get().setWidgetPosition(debugTable, absX - dragStartX, absY - dragStartY);
           }
         }
 
         public void onMouseUp(Widget sender, int x, int y) {
           dragging = false;
-          DOM.releaseCapture(debugHTML.getElement());
+          DOM.releaseCapture(header.getElement());
         }
       });
     }
+    debugText = debugText + (text.replaceAll("\t", "    ")) + "\n";
+    dirty = true;
     System.err.println(text);
-    debugText = debugText + "\n" + text;
-    debugHTML.setHTML(("DEBUG:\n\n" + debugText).replaceAll("\n", "<br>").replaceAll("\t", "    "));
-    scrollPanel.setScrollPosition(1000000);
-    center(scrollPanel, RootPanel.get());
   }
 
   public static void debug(Throwable ex) {
@@ -73,17 +98,4 @@ public class DebugUtil {
     System.err.println(text);
     debug(text);
   }
-
-  private static void center(Widget widget) {
-    AbsolutePanel absolutePanel = (AbsolutePanel) widget.getParent();
-    int left = (absolutePanel.getOffsetWidth() - widget.getOffsetWidth()) / 2;
-    int top = (absolutePanel.getOffsetHeight() - widget.getOffsetHeight()) / 2;
-    absolutePanel.setWidgetPosition(widget, left, top);
-  }
-
-  private static void center(Widget widget, AbsolutePanel panel) {
-    panel.add(widget, 0, 0);
-    center(widget);
-  }
-
 }
