@@ -7,15 +7,13 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MouseListenerAdapter;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SourcesTableEvents;
-import com.google.gwt.user.client.ui.TableListener;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Utility class for debugging.
  */
-public class DebugUtil {
+class LogUtil {
 
   private static final int UPDATE_INTERVAL_MILLIS = 500;
 

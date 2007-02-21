@@ -29,7 +29,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.IndexedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.TrashBinExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.util.DebugUtil;
+import com.allen_sauer.gwt.dragdrop.demo.client.util.Log;
 
 /**
  * EntryPoint class for testing Drag and Drop library.
@@ -45,7 +45,7 @@ public class DragDropDemo implements EntryPoint {
   public void onModuleLoad() {
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
       public void onUncaughtException(Throwable e) {
-        DebugUtil.debug(e);
+        Log.fatal("Uncaught Exception", e);
       }
     });
 
@@ -95,5 +95,4 @@ public class DragDropDemo implements EntryPoint {
     dragController.makeDraggable(redBox);
     return redBox;
   }
-
 }
