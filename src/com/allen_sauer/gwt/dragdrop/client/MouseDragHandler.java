@@ -28,6 +28,10 @@ class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
+    if (dragging) {
+      // Ignore additional mouse buttons
+      return;
+    }
     capturingWidget = sender;
     initialMouseX = x;
     initialMouseY = y;
