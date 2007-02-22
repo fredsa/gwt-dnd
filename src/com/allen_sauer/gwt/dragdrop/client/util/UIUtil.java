@@ -26,48 +26,78 @@ public class UIUtil {
 
   // TODO deferred binding for browser specific behavior
   public static native int getBorderLeft(Element elem) /*-{
-   // Compare to null since undefined not always JavaScript keyword
+try{
+   // Compare to 'null' since 'undefined' not always JavaScript keyword
    if (elem.clientLeft != null) {
    return elem.clientLeft;
    } else if ($doc.defaultView != null) {
-   var borderLeftWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-left-width");
+   var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
+   if (computedStyle != null) {
+   var borderLeftWidth = computedStyle.getPropertyValue("border-left-width");
    return borderLeftWidth.indexOf("px") == -1 ? 0 : parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
    } else {
-   throw "Unable to determine border-left-width";
+   // Handle Safari when elem is hidden
+   return 0;
    }
+   } else {
+   throw new Error("Unable to determine border-left-width");
+   }
+} catch(e) {
+throw new Error("JavaScript Exception caught by UIUtil.getBorderLeft():\n" + e);
+}
    }-*/;
 
   // TODO deferred binding for browser specific behavior
   public static native int getBorderTop(Element elem) /*-{
-   // Compare to null since undefined not always JavaScript keyword
+  try{
+   // Compare to 'null' since 'undefined' not always JavaScript keyword
    if (elem.clientTop != null) {
    return elem.clientTop;
    } else if ($doc.defaultView != null) {
-   var borderTopWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-top-width");
+   var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
+   if (computedStyle != null) {
+   var borderTopWidth = computedStyle.getPropertyValue("border-top-width");
    return borderTopWidth.indexOf("px") == -1 ? 0 : parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
    } else {
-   throw "Unable to determine border-top-width";
+   // Handle Safari when elem is hidden
+   return 0;
    }
+   } else {
+   throw new Error("Unable to determine border-top-width");
+   }
+} catch(e) {
+throw new Error("JavaScript Exception caught by UIUtil.getBorderTop():\n" + e);
+}
    }-*/;
 
   // TODO deferred binding for browser specific behavior
   public static native int getClientHeight(Element elem) /*-{
+try{
    // Compare to null since undefined not always JavaScript keyword
    if (elem.clientHeight != null) {
    return elem.clientHeight;
    } else {
-   throw "Unable to determine client height";
+   // Safari when element is hidden
+   return 0;
    }
+} catch(e) {
+throw new Error("JavaScript Exception caught by UIUtil.getClientHeight():\n" + e);
+}
    }-*/;
 
   // TODO deferred binding for browser specific behavior
   public static native int getClientWidth(Element elem) /*-{
+try{
    // Compare to null since undefined not always JavaScript keyword
    if (elem.clientWidth != null) {
    return elem.clientWidth;
    } else {
-   throw "Unable to determine client width";
+   // Safari when element is hidden
+   return 0;
    }
+} catch(e) {
+throw new Error("JavaScript Exception caught by UIUtil.getClientWidth():\n" + e);
+}
    }-*/;
 
   public static int getHorizontalBorders(Widget widget) {
