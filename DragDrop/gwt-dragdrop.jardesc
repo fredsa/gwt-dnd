@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jardesc>
-<jar path="C:/fred/java/lib/dragdrop.jar"/>
-<options buildIfNeeded="true" compress="false" descriptionLocation="/DragDrop/dragdrop.jardesc" exportErrors="false" exportWarnings="false" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+<jar path="C:/fred/java/lib/gwt-dragdrop.jar"/>
+<options buildIfNeeded="true" compress="false" descriptionLocation="/DragDrop/gwt-dragdrop.jardesc" exportErrors="false" exportWarnings="false" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
 <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
 <selectedProjects/>
 <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
