@@ -11,25 +11,25 @@ import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
  */
 public class TrashBinDropController extends SimpleDropController {
 
-  private static final String STYLE_DEMO_TRASHBIN_ENGAGE = "demo-trashbin-engage";
+  private static final String STYLE_DEMO_TRASHBIN_ENGAGE = "demo-bin-engage";
 
-  private TrashBin trashBin;
+  private Bin bin;
 
-  public TrashBinDropController(TrashBin trashBin) {
-    super(trashBin);
-    this.trashBin = trashBin;
+  public TrashBinDropController(Bin bin) {
+    super(bin);
+    this.bin = bin;
   }
 
   public void drop(Widget draggable) {
     super.drop(draggable);
     draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
-    trashBin.eatWidget(draggable);
+    bin.eatWidget(draggable);
   }
 
   public void onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
     draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
-    trashBin.eatWidget(draggable);
+    bin.eatWidget(draggable);
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
@@ -42,4 +42,7 @@ public class TrashBinDropController extends SimpleDropController {
     draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
   }
 
+  public boolean onPreviewDrop(Widget reference, Widget draggable, DragController dragController) {
+    return bin.isWidgetEater();
+  }
 }
