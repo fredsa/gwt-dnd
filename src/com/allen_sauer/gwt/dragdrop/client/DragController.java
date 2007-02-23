@@ -70,18 +70,20 @@ public class DragController implements SourcesDragEvents {
   public void dragEnd(Widget draggable, Widget dropTarget) {
     draggable.removeStyleName(STYLE_DRAGGING);
     currentDraggable = null;
-    if (dragProxyEnabled) {
+    if (draggableProxy != null) {
       draggableProxy.removeFromParent();
       draggableProxy = null;
     } else {
-      // move draggable to original location
-      if (initialDraggableParent instanceof AbsolutePanel) {
-        //      Location parentLocation = new Location(initialDraggableParent, boundryPanel);
-        ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
-            initialDraggableParentLocation.getTop());
-      } else {
-        // TODO instead try to add to original parent panel in a different way
-        boundryPanel.add(draggable, initialDraggableBoundryPanelLocation.getLeft(), initialDraggableBoundryPanelLocation.getTop());
+      if (dropTarget == null) {
+        // move draggable to original location
+        if (initialDraggableParent instanceof AbsolutePanel) {
+          //      Location parentLocation = new Location(initialDraggableParent, boundryPanel);
+          ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
+              initialDraggableParentLocation.getTop());
+        } else {
+          // TODO instead try to add to original parent panel in a different way
+          boundryPanel.add(draggable, initialDraggableBoundryPanelLocation.getLeft(), initialDraggableBoundryPanelLocation.getTop());
+        }
       }
     }
   }
@@ -97,9 +99,7 @@ public class DragController implements SourcesDragEvents {
     }
     draggable.addStyleName(STYLE_DRAGGING);
     currentDraggable = draggable;
-    if (dragProxyEnabled) {
-      draggableProxy = newDraggableProxy(draggable);
-    }
+    draggableProxy = maybeNewDraggableProxy(draggable);
     // Store initial draggable parent and coordinates in case we have to abort
     initialDraggableParent = draggable.getParent();
     initialDraggableParentLocation = new Location(draggable, initialDraggableParent);
@@ -121,7 +121,7 @@ public class DragController implements SourcesDragEvents {
    *         May be the actual draggable widget or an appropriate proxy widget.
    */
   public Widget getDraggableOrProxy() {
-    return isDragProxyEnabled() ? draggableProxy : currentDraggable;
+    return draggableProxy != null ? draggableProxy : currentDraggable;
   }
 
   public boolean isDragProxyEnabled() {
@@ -197,16 +197,20 @@ public class DragController implements SourcesDragEvents {
     this.dragProxyEnabled = dragProxyEnabled;
   }
 
-  protected BoundryDropController newBoundryDropController(AbsolutePanel boundryPanel) {
-    return new BoundryDropController(boundryPanel, true);
+  protected Widget maybeNewDraggableProxy(Widget draggable) {
+    if (isDragProxyEnabled()) {
+      HTML proxy;
+      proxy = new HTML("this is a Drag Proxy");
+      proxy.addStyleName(STYLE_PROXY);
+      proxy.setPixelSize(currentDraggable.getOffsetWidth(), currentDraggable.getOffsetHeight());
+      return proxy;
+    } else {
+      return null;
+    }
   }
 
-  protected Widget newDraggableProxy(Widget draggable) {
-    HTML proxy;
-    proxy = new HTML("this is a Drag Proxy");
-    proxy.addStyleName(STYLE_PROXY);
-    proxy.setPixelSize(currentDraggable.getOffsetWidth(), currentDraggable.getOffsetHeight());
-    return proxy;
+  protected BoundryDropController newBoundryDropController(AbsolutePanel boundryPanel) {
+    return new BoundryDropController(boundryPanel, true);
   }
 
   DropController getIntersectDropController(Widget widget) {
