@@ -7,5 +7,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="JUNIT_HOME/junit.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/_Google Web Toolkit"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/_Log"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
