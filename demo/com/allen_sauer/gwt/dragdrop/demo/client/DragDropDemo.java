@@ -29,7 +29,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.IndexedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.TrashBinExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.util.Log;
+import com.allen_sauer.gwt.log.client.Log;
 
 /**
  * EntryPoint class for testing Drag and Drop library.

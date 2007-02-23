@@ -4,6 +4,8 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.Bin;
 import com.allen_sauer.gwt.dragdrop.demo.client.TrashBin;
 import com.allen_sauer.gwt.dragdrop.demo.client.TrashBinDropController;
 
@@ -17,14 +19,21 @@ public class TrashBinExample extends Example {
   public TrashBinExample(DragController dragController) {
     super(dragController);
     AbsolutePanel containingPanel = new AbsolutePanel();
-    containingPanel.setPixelSize(400, 200);
+    containingPanel.addStyleName(STYLE_NOT_ENGAGABLE);
+    containingPanel.setPixelSize(500, 200);
     setWidget(containingPanel);
 
-    TrashBin trashBin = new TrashBin(120, 120);
+    Bin trashBin = new TrashBin(120, 120);
     containingPanel.add(trashBin, 30, 30);
 
-    TrashBinDropController trashBinDropController = new TrashBinDropController(trashBin);
-    dragController.registerDropController(trashBinDropController);
+    Bin closedBin = new Bin(120, 120);
+    containingPanel.add(closedBin, 350, 30);
+
+    DropController openTrashBinDropController = new TrashBinDropController(trashBin);
+    dragController.registerDropController(openTrashBinDropController);
+
+    DropController closedTrashBinDropController = new TrashBinDropController(closedBin);
+    dragController.registerDropController(closedTrashBinDropController);
 
     dropController = new AbsolutePositionDropController(containingPanel);
     dragController.registerDropController(dropController);

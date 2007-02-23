@@ -11,6 +11,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
  */
 public abstract class Example extends SimplePanel {
 
+  protected static final String STYLE_NOT_ENGAGABLE = "dragdrop-not-engagable";
+
   private static final String STYLE_DEMO_EXAMPLE_PANEL = "demo-example-panel";
 
   private DragController dragController;
