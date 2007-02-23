@@ -14,7 +14,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
 public class FlexTableRowDragController extends DragController {
 
   private static final String STYLE_DEMO_TABLE_PROXY = "demo-table-proxy";
-  
+
   private FlexTable draggableTable;
   private int dragRow;
 
@@ -44,17 +44,17 @@ public class FlexTableRowDragController extends DragController {
     return dragRow;
   }
 
-  protected BoundryDropController newBoundryDropController(AbsolutePanel boundryPanel) {
-    return new BoundryDropController(boundryPanel, false);
-  }
-
-  protected Widget newDraggableProxy(Widget draggable) {
+  protected Widget maybeNewDraggableProxy(Widget draggable) {
     FlexTable proxy;
     proxy = new FlexTable();
     proxy.addStyleName(STYLE_PROXY);
     proxy.addStyleName(STYLE_DEMO_TABLE_PROXY);
     FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
     return proxy;
+  }
+
+  protected BoundryDropController newBoundryDropController(AbsolutePanel boundryPanel) {
+    return new BoundryDropController(boundryPanel, false);
   }
 
   private int getWidgetRow(Widget widget, FlexTable table) {
