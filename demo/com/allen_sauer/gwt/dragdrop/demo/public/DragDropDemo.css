@@ -1,4 +1,4 @@
-@CHARSET "ISO-8859-1";
+@CHARSET "UTF-8";
 
 body {
   margin: 10px; /* leave for testing of positions */
@@ -112,25 +112,6 @@ code {
   margin-top: 1em;
   margin-bottom: 0.2em;
   padding: 0.2em 0.1em;
-}
-
-.debug {
-  background-color: #E8EEF7;
-  border: 1px solid red;
-  padding: 0.2em;
-  margin: 0px;
-  color: red;
-  font-weight: bold;
-  z-index: 50;
-  font-family: monospace;
-  font-size: 0.8em;
-  filter: alpha(opacity =     90);
-  opacity: 0.9;
-  -moz-opacity: 0.9;
-}
-
-.debug-header {
-  cursor: move;
 }
 
 .demo-table-proxy {
