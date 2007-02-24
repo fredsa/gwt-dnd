@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.AbsolutePositionExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.FlexTableRowExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
@@ -63,7 +64,7 @@ public class DragDropDemo implements EntryPoint {
     RootPanel.get().add(behaviorListBox);
 
     // Example: BoundryDropController
-    HTML boundryDescription = ExampleTabPanel.describe("BoundryDropController",
+    HTML boundryDescription = ExampleTabPanel.describe(BoundryDropController.class,
         "Most of our example drag operations are constrained to the panel below. Try drag one of the widgets outside this area.");
     boundryDescription.addStyleName(STYLE_DEMO_BOUNDRY);
     RootPanel.get().add(boundryDescription);
