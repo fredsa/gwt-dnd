@@ -30,7 +30,7 @@ public class MouseDragHandler implements MouseListener {
 
   public void onMouseDown(Widget sender, int x, int y) {
     if (dragging) {
-      // Ignore additional mouse buttons
+      // Ignore additional mouse buttons depressed while still dragging
       return;
     }
     capturingWidget = sender;
@@ -83,17 +83,6 @@ public class MouseDragHandler implements MouseListener {
 
       move(x, y);
       dragging = false;
-
-      // Determine the interested DropController at our present location
-      DropController newDropController = dragController.getIntersectDropController(draggableProxy);
-
-      // Is the DropController at this location different than the last one?
-      if (dropController != newDropController) {
-        if (dropController != null) {
-          dropController.onLeave(capturingWidget, dragController);
-        }
-        dropController = newDropController;
-      }
 
       // Is there a DropController willing to handle our request?
       if (dropController == null) {
