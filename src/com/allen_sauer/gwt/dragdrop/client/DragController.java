@@ -13,15 +13,15 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import java.util.HashMap;
 
 /**
- * Create a DragController for each logical area where a set of draggable
+ * <p>Create a DragController for each logical area where a set of draggable
  * widgets and drop targets will be allowed to interact with one another.
- * The logical area is bound by an AbsolutePanel, or <code>RootPanel.get()</code>
- * by default.
+ * The logical area is bound by an AbsolutePanel, or {@link RootPanel#get()}
+ * by default.</p>
  * 
- * Also create one or more {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController DropControllers}
- * and {@link #registerDropController(DropController) register} them.
+ * <p>Also create one or more {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController DropControllers}
+ * and {@link #registerDropController(DropController) register} them.</p>
  * 
- * Note: An implicit {@link BoundryDropController} is created and registered automatically.
+ * <p>Note: An implicit {@link BoundryDropController} is created and registered automatically.</p>
  */
 public class DragController implements SourcesDragEvents {
 
@@ -36,6 +36,7 @@ public class DragController implements SourcesDragEvents {
     return (DragController) widgetControllers.get(widget);
   }
 
+  private MouseDragHandler mouseDragHandler;
   private BoundryDropController boundryDropController;
   private AbsolutePanel boundryPanel;
   private Widget currentDraggable;
@@ -51,6 +52,7 @@ public class DragController implements SourcesDragEvents {
     this.boundryPanel = boundryPanel != null ? boundryPanel : RootPanel.get();
     boundryDropController = newBoundryDropController(boundryPanel);
     registerDropController(boundryDropController);
+    mouseDragHandler = new MouseDragHandler(this);
   }
 
   public void addDragHandler(DragHandler handler) {
@@ -138,7 +140,7 @@ public class DragController implements SourcesDragEvents {
    */
   public void makeDraggable(Widget widget) {
     if (widget instanceof SourcesMouseEvents) {
-      ((SourcesMouseEvents) widget).addMouseListener(new MouseDragHandler(this));
+      ((SourcesMouseEvents) widget).addMouseListener(mouseDragHandler);
     } else {
       throw new RuntimeException("widget must implement SourcesMouseEvents to be draggable");
     }
