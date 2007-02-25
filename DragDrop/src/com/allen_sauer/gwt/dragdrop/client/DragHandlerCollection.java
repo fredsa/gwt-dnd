@@ -29,7 +29,7 @@ import java.util.Iterator;
 public class DragHandlerCollection extends ArrayList {
 
   /**
-   * Fires a {@link DragHandler#onDragEbd(DragEndEvent)} on
+   * Fires a {@link DragHandler#onDragEnd(DragEndEvent)} on
    * all handlers in the collection.
    * 
    * @param sender the object sending the event

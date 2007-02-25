@@ -16,6 +16,7 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
@@ -23,8 +24,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} for
- * the {@link com.google.gwt.user.client.ui.Panel} which contains a given
+ * A {@link DropController} for the {@link Panel} which contains a given
  * draggable widget.
  */
 public class BoundryDropController extends AbsolutePositionDropController {

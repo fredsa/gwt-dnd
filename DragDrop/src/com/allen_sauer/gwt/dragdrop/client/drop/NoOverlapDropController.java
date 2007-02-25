@@ -27,7 +27,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} which
+ * A {@link DropController} which
  * constrains prevents draggable widgets from overlapping.
  */
 public class NoOverlapDropController extends AbsolutePositionDropController {

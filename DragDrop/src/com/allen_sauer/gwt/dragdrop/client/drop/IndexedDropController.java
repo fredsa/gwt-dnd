@@ -30,9 +30,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 
 /**
- * A {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController} for
- * instances of
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.IndexedFlowPanel}.
+ * A {@link DropController} for instances of {@link IndexedFlowPanel}.
  * 
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */

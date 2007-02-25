@@ -24,8 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
  * to allow for inserts at a specified index. To be removed once GWT implements
  * this functionality natively.
  * 
- * TODO remove after enhancement for issue 616
- * http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+ * TODO remove after enhancement for <a href="http://code.google.com/p/google-web-toolkit/issues/detail?id=616">GWT issue 616</a>
  */
 public class IndexedFlowPanel extends FlowPanel {
 
