@@ -47,7 +47,7 @@ public interface DragHandler extends EventListener {
   void onPreviewDragEnd(DragEndEvent event) throws VetoDragException;
 
   /**
-   * Fired before {@link #onDragStart(DragEndEvent)} is fired and provides
+   * Fired before {@link #onDragStart(DragStartEvent)} is fired and provides
    * an opportunity for any registered DragHandler to throw VetoDragException
    * to prevent the operation.
    * 

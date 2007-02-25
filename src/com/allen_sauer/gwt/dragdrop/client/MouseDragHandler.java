@@ -9,9 +9,10 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
- * Helper class to deal with draggable widget mouse events.
+ * Helper class which handles mouse events for all
+ * draggable widgets for a give {@link DropController}.
  */
-class MouseDragHandler implements MouseListener {
+public class MouseDragHandler implements MouseListener {
 
   private AbsolutePanel boundryPanel;
   private Widget capturingWidget;

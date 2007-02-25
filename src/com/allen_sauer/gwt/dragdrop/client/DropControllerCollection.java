@@ -26,8 +26,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * A helper class to track all instances of
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.drop.DragController}.
+ * A helper class to track all instances of {@link DropController}.
  * 
  */
 public class DropControllerCollection extends ArrayList {
