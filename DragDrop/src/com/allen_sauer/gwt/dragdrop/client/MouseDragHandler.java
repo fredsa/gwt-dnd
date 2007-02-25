@@ -151,19 +151,18 @@ public class MouseDragHandler implements MouseListener {
     boundryPanel.setWidgetPosition(draggableProxy, desiredLeft, desiredTop);
 
     DropController newDropController = dragController.getIntersectDropController(draggableProxy);
-    if (dropController == newDropController) {
-      if (dropController != null) {
-        dropController.onMove(draggableProxy, capturingWidget, dragController);
-      }
-    } else {
+    if (dropController != newDropController) {
       if (dropController != null) {
         dropController.onLeave(capturingWidget, dragController);
       }
       dropController = newDropController;
       if (dropController != null) {
         dropController.onEnter(draggableProxy, capturingWidget, dragController);
-        dropController.onMove(draggableProxy, capturingWidget, dragController);
       }
+    }
+
+    if (dropController != null) {
+      dropController.onMove(draggableProxy, capturingWidget, dragController);
     }
   }
 }
