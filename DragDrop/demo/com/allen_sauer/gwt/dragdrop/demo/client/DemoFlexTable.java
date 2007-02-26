@@ -23,6 +23,14 @@ import com.google.gwt.user.client.ui.HTML;
  */
 public class DemoFlexTable extends FlexTable {
 
+  /**
+   * Creates a FlexTable with the desired number of rows and columns, making each
+   * row draggable via the provided drag controller.
+   * 
+   * @param rows desired number of table rows
+   * @param cols desired number of table columns
+   * @param tableRowDragController the drag controller to enable dragging of table rows
+   */
   public DemoFlexTable(int rows, int cols, FlexTableRowDragController tableRowDragController) {
     for (int row = 0; row < rows; row++) {
       HTML handle = new HTML("[drag-here]");

@@ -24,9 +24,17 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class UIUtil {
 
-  // TODO deferred binding for browser specific behavior
+  /**
+   * Gets an element's CSS based 'border-left-width' in pixels or <code>0</code> (zero)
+   * when the element is hidden.
+   * 
+   * TODO deferred binding for browser specific behavior
+   * 
+   * @param elem the element to be measured
+   * @return the width of the left CSS border
+   */
   public static native int getBorderLeft(Element elem) /*-{
-try{
+   try{
    // Compare to 'null' since 'undefined' not always JavaScript keyword
    if (elem.clientLeft != null) {
    return elem.clientLeft;
@@ -42,14 +50,22 @@ try{
    } else {
    throw new Error("Unable to determine border-left-width");
    }
-} catch(e) {
-throw new Error("JavaScript Exception caught by UIUtil.getBorderLeft():\n" + e);
-}
+   } catch(e) {
+   throw new Error("JavaScript Exception caught by UIUtil.getBorderLeft():\n" + e);
+   }
    }-*/;
 
-  // TODO deferred binding for browser specific behavior
+  /**
+   * Gets an element's CSS based 'border-top-widget' in pixels or <code>0</code> (zero)
+   * when the element is hidden.
+   * 
+   * TODO deferred binding for browser specific behavior
+   * 
+   * @param elem the element to be measured
+   * @return the width of the top CSS border
+   */
   public static native int getBorderTop(Element elem) /*-{
-  try{
+   try{
    // Compare to 'null' since 'undefined' not always JavaScript keyword
    if (elem.clientTop != null) {
    return elem.clientTop;
@@ -65,14 +81,23 @@ throw new Error("JavaScript Exception caught by UIUtil.getBorderLeft():\n" + e);
    } else {
    throw new Error("Unable to determine border-top-width");
    }
-} catch(e) {
-throw new Error("JavaScript Exception caught by UIUtil.getBorderTop():\n" + e);
-}
+   } catch(e) {
+   throw new Error("JavaScript Exception caught by UIUtil.getBorderTop():\n" + e);
+   }
    }-*/;
 
-  // TODO deferred binding for browser specific behavior
+  /**
+   * Gets an element's client height in pixels or <code>0</code> (zero)
+   * when the element is hidden. This is equal to offset height minus
+   * the top and bottom CSS borders.
+   * 
+   * TODO deferred binding for browser specific behavior
+   * 
+   * @param elem the element to be measured
+   * @return the element's client height
+   */
   public static native int getClientHeight(Element elem) /*-{
-try{
+   try{
    // Compare to null since undefined not always JavaScript keyword
    if (elem.clientHeight != null) {
    return elem.clientHeight;
@@ -80,14 +105,23 @@ try{
    // Safari when element is hidden
    return 0;
    }
-} catch(e) {
-throw new Error("JavaScript Exception caught by UIUtil.getClientHeight():\n" + e);
-}
+   } catch(e) {
+   throw new Error("JavaScript Exception caught by UIUtil.getClientHeight():\n" + e);
+   }
    }-*/;
 
-  // TODO deferred binding for browser specific behavior
+  /**
+   * Gets an element's client widget in pixels or <code>0</code> (zero)
+   * when the element is hidden. This is equal to offset widget minus 
+   * the left and right CSS borders.
+   * 
+   * TODO deferred binding for browser specific behavior
+   * 
+   * @param elem the element to be measured
+   * @return the element's client width
+   */
   public static native int getClientWidth(Element elem) /*-{
-try{
+   try{
    // Compare to null since undefined not always JavaScript keyword
    if (elem.clientWidth != null) {
    return elem.clientWidth;
@@ -95,21 +129,40 @@ try{
    // Safari when element is hidden
    return 0;
    }
-} catch(e) {
-throw new Error("JavaScript Exception caught by UIUtil.getClientWidth():\n" + e);
-}
+   } catch(e) {
+   throw new Error("JavaScript Exception caught by UIUtil.getClientWidth():\n" + e);
+   }
    }-*/;
 
+  /**
+   * Gets the sum of an element's left and right CSS borders in pixels
+   * 
+   * @param widget the widget to be measured
+   * @return the total border width
+   */
   public static int getHorizontalBorders(Widget widget) {
     return widget.getOffsetWidth() - getClientWidth(widget.getElement());
   }
 
+  /**
+   * Gets the sum of an element's top and bottom CSS borders in pixels
+   * 
+   * @param widget the widget to be measured
+   * @return the total border height
+   */
   public static int getVerticalBorders(Widget widget) {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
   }
 
-  // TODO remove after fix for issue 626
-  // http://code.google.com/p/google-web-toolkit/issues/detail?id=626
+  /**
+   * Resets an element to 'position: static' and removes the 'right' and 'top'
+   * CSS style attributes to undo what AbsolutePanel does when a widget is attached
+   * to it.
+   * 
+   * TODO remove after fix for <a href="http://code.google.com/p/google-web-toolkit/issues/detail?id=626">GWT issue 626</a> has been resolved
+   * 
+   * @param element the element to be modified
+   */
   public static void resetStylePositionStatic(Element element) {
     DOM.setStyleAttribute(element, "right", "");
     DOM.setStyleAttribute(element, "top", "");

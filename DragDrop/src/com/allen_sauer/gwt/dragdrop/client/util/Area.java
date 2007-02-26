@@ -18,7 +18,8 @@ package com.allen_sauer.gwt.dragdrop.client.util;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * A region specified by the left (x), top (y), pixel width and pixel height.
+ * Class to represent a rectangular region of a widget relative to another widget.
+ * Also keeps track of the size of the widget borders and its inner width and height.
  */
 public class Area {
 
@@ -32,10 +33,9 @@ public class Area {
   private int widgetInnerWidth;
 
   /**
-   * Determine area (i.e. the top left and bottom right coordinates) of widget relative to
-   * boundryPanel such that:
+   * Determine the area of a widget relative to a panel. The area returned is such that:
    * <ul>
-   * <li><code>boundryPanel.add(widget, area.getLeft(), area.getTop())</code>
+   * <li><code>parent.add(widget, area.getLeft(), area.getTop())</code>
    * leaves the object in the exact same location on the screen and area</li>
    * <li><code>area.getRight() = area.getLeft() + widget.getOffsetWidget()</code></li>
    * <li><code>area.getBottom() = area.getTop() + widget.getOffsetHeight()</code></li>
@@ -44,26 +44,26 @@ public class Area {
    * Note that boundryPanel need not be the parent node, or even an ancestor of widget.
    * Therefore coordinates returned may be negative or may exceed the dimensions of boundryPanel.
    * 
-   * @param child the widget whose area we seek
-   * @param parent the widget relative to which we seek our area. If <code>null</code>,
-   *        then RootPanel().get() is assumed
+   * @param widget the widget whose area we seek
+   * @param reference the widget relative to which we seek our area. If <code>null</code>,
+   *        then <code>RootPanel().get()</code> is assumed
    */
-  public Area(Widget child, Widget parent) {
-    left = child.getAbsoluteLeft();
-    top = child.getAbsoluteTop();
-    widgetBorderLeft = UIUtil.getBorderLeft(child.getElement());
-    widgetBorderTop = UIUtil.getBorderTop(child.getElement());
-    widgetInnerWidth = UIUtil.getClientWidth(child.getElement());
-    widgetInnerHeight = UIUtil.getClientHeight(child.getElement());
+  public Area(Widget widget, Widget reference) {
+    left = widget.getAbsoluteLeft();
+    top = widget.getAbsoluteTop();
+    widgetBorderLeft = UIUtil.getBorderLeft(widget.getElement());
+    widgetBorderTop = UIUtil.getBorderTop(widget.getElement());
+    widgetInnerWidth = UIUtil.getClientWidth(widget.getElement());
+    widgetInnerHeight = UIUtil.getClientHeight(widget.getElement());
 
-    if (parent != null) {
-      left -= parent.getAbsoluteLeft();
-      left -= UIUtil.getBorderLeft(parent.getElement());
-      top -= parent.getAbsoluteTop();
-      top -= UIUtil.getBorderTop(parent.getElement());
+    if (reference != null) {
+      left -= reference.getAbsoluteLeft();
+      left -= UIUtil.getBorderLeft(reference.getElement());
+      top -= reference.getAbsoluteTop();
+      top -= UIUtil.getBorderTop(reference.getElement());
     }
-    right = left + child.getOffsetWidth();
-    bottom = top + child.getOffsetHeight();
+    right = left + widget.getOffsetWidth();
+    bottom = top + widget.getOffsetHeight();
   }
 
   private Area(int left, int top, int right, int bottom) {
@@ -83,6 +83,11 @@ public class Area {
         && (area.top >= (top + widgetBorderTop)) && (area.bottom <= (bottom + widgetInnerHeight));
   }
 
+  /**
+   * Clone our area.
+   * 
+   * @return the new area
+   */
   public Area copyOf() {
     return new Area(left, top, right, bottom);
   }
@@ -152,7 +157,7 @@ public class Area {
   }
 
   /**
-   * See if location is to the bottom-right of 45 degree line.
+   * Determine if location is to the bottom-right of the following 45 degree line.
    * 
    * <pre>
    *             y  45
@@ -163,6 +168,9 @@ public class Area {
    *           / |
    * 
    * </pre>
+   *
+   * @param location the location to consider
+   * @return true if the location is to below the 45 degree line
    */
   public boolean inBottomRight(Location location) {
     Location center = getCenter();
@@ -171,6 +179,12 @@ public class Area {
     return (distanceX + distanceY) > 0;
   }
 
+  /**
+   * Determine if the target area intersects our area
+   * 
+   * @param targetArea the area to compare to
+   * @return true if target area intersects our area
+   */
   public boolean intersects(Area targetArea) {
     if ((right < targetArea.left) || (left > targetArea.right) || (bottom < targetArea.top) || (top > targetArea.bottom)) {
       return false;
@@ -178,11 +192,22 @@ public class Area {
     return true;
   }
 
+  /**
+   * Determine if the provided location intersects with our area.
+   * 
+   * @param location the location to examine
+   * @return true if the location falls within our area
+   */
   public boolean intersects(Location location) {
     return ((left <= location.getLeft()) && (location.getLeft() <= right))
         && ((top <= location.getTop()) && (location.getTop() <= bottom));
   }
 
+  /**
+   * Translate our top left position to the new location.
+   * 
+   * @param location the position to translate to
+   */
   public void moveTo(Location location) {
     int deltaX = location.getLeft() - left;
     int deltaY = location.getTop() - top;

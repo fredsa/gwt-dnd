@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractPositioningDropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
 
@@ -55,9 +56,9 @@ public class FlexTableRowDropController extends AbstractPositioningDropControlle
         widgetLocation.getTop() + (row == -1 ? 0 : w.getOffsetHeight()));
   }
 
-  public boolean onPreviewDrop(Widget reference, Widget draggable, DragController dragController) {
+  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
+    super.onPreviewDrop(reference, draggable, dragController);
     targetRow = determineRow(reference);
-    return true;
   }
 
   protected Widget newPositioner(Widget reference) {

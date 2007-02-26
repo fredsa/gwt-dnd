@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client;
 import com.google.gwt.user.client.ui.HTML;
 
 /**
- * Demonstrate a draggable panel.
+ * Demonstrate a draggable widget.
  */
 public class RedBoxDraggableWidget extends HTML {
 

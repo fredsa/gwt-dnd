@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Panel which updates its label to display the number of items in trash.
+ * Panel which which does not 'eat' widgets.
  */
 public class Bin extends HTML {
 

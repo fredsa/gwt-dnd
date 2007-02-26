@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Panel which updates its label to display the number of items in trash.
+ * Panel which updates its label to display the number of items in the trash.
  */
 public class TrashBin extends Bin {
 

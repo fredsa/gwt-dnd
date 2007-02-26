@@ -28,10 +28,6 @@ public class SimpleDropController extends AbstractDropController {
     super(dropTarget);
   }
 
-  public void drop(Widget draggable) {
-    super.drop(draggable);
-  }
-
   public void onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
   }
@@ -48,7 +44,7 @@ public class SimpleDropController extends AbstractDropController {
     super.onMove(reference, draggable, dragController);
   }
 
-  public boolean onPreviewDrop(Widget reference, Widget draggable, DragController dragController) {
-    return true;
+  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
+    super.onPreviewDrop(reference, draggable, dragController);
   }
 }

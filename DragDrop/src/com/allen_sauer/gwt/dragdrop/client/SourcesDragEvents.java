@@ -21,8 +21,17 @@ package com.allen_sauer.gwt.dragdrop.client;
  */
 public interface SourcesDragEvents {
 
+  /**
+   * Add another {@link DragHandler} to listen for drag related events.
+   * 
+   * @param listener the handler to add
+   */
   void addDragHandler(DragHandler listener);
 
+  /**
+   * Remove a previously added {@link DragHandler}.
+   * 
+   * @param listener the handler to remove
+   */
   void removeDragHandler(DragHandler listener);
-
 }

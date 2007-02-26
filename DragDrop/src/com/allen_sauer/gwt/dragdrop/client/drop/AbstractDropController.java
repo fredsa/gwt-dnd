@@ -35,10 +35,6 @@ public abstract class AbstractDropController implements DropController {
     dropTarget.addStyleName(getDropTargetStyleName());
   }
 
-  public void drop(Widget draggable) {
-    dropTarget.removeStyleName(STLE_ENGAGE);
-  }
-
   public Widget getDropTarget() {
     return dropTarget;
   }
@@ -60,5 +56,8 @@ public abstract class AbstractDropController implements DropController {
   }
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
+  }
+
+  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
   }
 }

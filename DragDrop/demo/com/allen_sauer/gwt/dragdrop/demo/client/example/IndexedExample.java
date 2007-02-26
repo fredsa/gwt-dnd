@@ -28,14 +28,14 @@ public class IndexedExample extends Example {
 
   private static final String STYLE_DEMO_LABEL = "demo-flow-label";
 
-  private IndexedDropController indexedDropController;
+  private IndexedFlowPanel flowPanelDropTarget;
 
   public IndexedExample(DragController dragController) {
     super(dragController);
-    IndexedFlowPanel flowPanelDropTarget = new IndexedFlowPanel();
+    flowPanelDropTarget = new IndexedFlowPanel();
     flowPanelDropTarget.setWidth("400px");
     setWidget(flowPanelDropTarget);
-    indexedDropController = new IndexedDropController(flowPanelDropTarget);
+    IndexedDropController indexedDropController = new IndexedDropController(flowPanelDropTarget);
     dragController.registerDropController(indexedDropController);
   }
 
@@ -53,9 +53,8 @@ public class IndexedExample extends Example {
       Label label = new Label("Draggable child #" + i);
       label.addStyleName(STYLE_DEMO_LABEL);
       getDragController().makeDraggable(label);
-      indexedDropController.drop(label);
+      flowPanelDropTarget.add(label);
     }
-    indexedDropController.drop(createDraggable());
+    flowPanelDropTarget.add(createDraggable());
   }
-
 }

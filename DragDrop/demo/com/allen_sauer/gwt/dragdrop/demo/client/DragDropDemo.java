@@ -33,8 +33,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.TrashBinExample;
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
- * EntryPoint class for testing Drag and Drop library.
- * 
+ * EntryPoint class for demonstrating and testing drag-and-drop library.
  */
 public class DragDropDemo implements EntryPoint {
 
@@ -42,7 +41,9 @@ public class DragDropDemo implements EntryPoint {
 
   private DragController dragController;
 
-  // TODO add demo drag or drop event veto
+  /**
+   * Initialize demonstration application.
+   */
   public void onModuleLoad() {
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
       public void onUncaughtException(Throwable e) {

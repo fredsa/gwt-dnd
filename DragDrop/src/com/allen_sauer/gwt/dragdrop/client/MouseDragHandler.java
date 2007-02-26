@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
@@ -114,7 +115,9 @@ public class MouseDragHandler implements MouseListener {
       }
 
       // Does the DropController allow the drop?
-      if (!dropController.onPreviewDrop(draggableProxy, capturingWidget, dragController)) {
+      try {
+      dropController.onPreviewDrop(draggableProxy, capturingWidget, dragController);
+      } catch (VetoDropException ex) {
         cancelDrag();
         return;
       }
