@@ -38,9 +38,10 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     super(dropTarget);
   }
 
-  public void drop(Widget widget, int left, int top) {
-  }
-
+  /**
+   * @return the widget which is used as an indicator or where the draggable would be
+   *         dropped if the mouse button where to be released at the current location
+   */
   public Widget getPositioner() {
     return positioner;
   }
@@ -60,6 +61,12 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     removePositioner();
   }
 
+  /**
+   * Called in {@link #onEnter(Widget, Widget, DragController)} to create a new positioner widget
+   * 
+   * @param reference the reference widget whose size or other attributes we can copy
+   * @return the newly created widget
+   */
   protected Widget newPositioner(Widget reference) {
     Widget p = new SimplePanel();
     p.addStyleName("dragdrop-positioner");

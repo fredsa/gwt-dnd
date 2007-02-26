@@ -13,12 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.client.drop;
+package com.allen_sauer.gwt.dragdrop.client;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 
 import java.util.ArrayList;
@@ -30,6 +31,21 @@ import java.util.Iterator;
  */
 public class DropControllerCollection extends ArrayList {
 
+  /**
+   * Default constructor used by {@link DragController}.
+   */
+  protected DropControllerCollection() {
+  }
+  
+  /**
+   * Determines which drop controller has a lowest DOM descendant target area which intersects
+   * with the provided widget area.
+   * 
+   * @param widget the widget to use to determine intersects
+   * @param boundryPanel the panel which provides the boundaries for the drag controller.
+   *        Drop targets must be within this are to be considered
+   * @return a drop controller for the intersecting drop target or null if none are applicable
+   */
   public DropController getIntersectDropController(Widget widget, Panel boundryPanel) {
     Area widgetArea = new Area(widget, null);
     Area boundryArea = new Area(boundryPanel, null);

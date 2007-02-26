@@ -26,8 +26,6 @@ import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
  */
 public abstract class Example extends SimplePanel {
 
-  protected static final String STYLE_NOT_ENGAGABLE = "dragdrop-not-engagable";
-
   private static final String STYLE_DEMO_EXAMPLE_PANEL = "demo-example-panel";
 
   private DragController dragController;
@@ -36,14 +34,35 @@ public abstract class Example extends SimplePanel {
     this.dragController = dragController;
   }
 
+  /**
+   * Get a brief description of this example.
+   * 
+   * @return the description
+   */
   public abstract String getDescription();
 
+  /**
+   * Get our DragController.
+   * 
+   * @return the drag controller.
+   */
   public DragController getDragController() {
     return dragController;
   }
 
+  /**
+   * Get the main {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController} class involved in this example.
+   * 
+   * @return The drop controller Class
+   */
   public abstract Class getDropControllerClass();
 
+  /**
+   * Convenience method to create a default draggable widget. The widget is automatically
+   * made draggable by calling {@link DragController#makeDraggable(Widget)}.
+   * 
+   * @return a new draggable widget
+   */
   protected Widget createDraggable() {
     Widget redBox = new RedBoxDraggableWidget();
     dragController.makeDraggable(redBox);

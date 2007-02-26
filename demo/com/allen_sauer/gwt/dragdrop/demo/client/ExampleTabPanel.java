@@ -29,6 +29,14 @@ public class ExampleTabPanel extends TabPanel {
 
   private static final String STYLE_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
 
+  /**
+   * Describe an example in a consistent way by including a description and the name of
+   * the {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController} used in the example.
+   * 
+   * @param controllerClass the primary DropController used in this example
+   * @param description a brief description of the example
+   * @return HTML widget describing the example
+   */
   public static HTML describe(Class controllerClass, String description) {
     String controllerClassName = controllerClass.toString();
     controllerClassName = controllerClassName.substring(controllerClassName.lastIndexOf('.') + 1);
@@ -39,6 +47,11 @@ public class ExampleTabPanel extends TabPanel {
 
   private int counter;
 
+  /**
+   * Add another example to demonstrate.
+   * 
+   * @param example the example panel to add
+   */
   public void add(Example example) {
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.add(describe(example.getDropControllerClass(), example.getDescription()));

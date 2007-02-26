@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
 /**
  * Sample SimpleDropController which discards draggable widgets which are
@@ -33,12 +34,6 @@ public class TrashBinDropController extends SimpleDropController {
   public TrashBinDropController(Bin bin) {
     super(bin);
     this.bin = bin;
-  }
-
-  public void drop(Widget draggable) {
-    super.drop(draggable);
-    draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
-    bin.eatWidget(draggable);
   }
 
   public void onDrop(Widget reference, Widget draggable, DragController dragController) {
@@ -57,7 +52,10 @@ public class TrashBinDropController extends SimpleDropController {
     draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
   }
 
-  public boolean onPreviewDrop(Widget reference, Widget draggable, DragController dragController) {
-    return bin.isWidgetEater();
+  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
+    super.onPreviewDrop(reference, draggable, dragController);
+    if (!bin.isWidgetEater()) {
+      throw new VetoDropException();
+    }
   }
 }

@@ -23,7 +23,7 @@ import java.util.EventListener;
 public interface DragHandler extends EventListener {
 
   /**
-   * Fired when drag is terminated.
+   * Fired when drag operation terminates.
    * 
    * @param event an event object containing information about the drag operation
    */
@@ -38,7 +38,7 @@ public interface DragHandler extends EventListener {
 
   /**
    * Fired before {@link #onDragEnd(DragEndEvent)} is fired and provides
-   * an opportunity for any registered DragHandler to throw VetoDragException
+   * an opportunity for any registered DragHandler to throw {@link VetoDragException}
    * to prevent the operation.
    * 
    * @param event an event object containing information about the drag operation
@@ -48,7 +48,7 @@ public interface DragHandler extends EventListener {
 
   /**
    * Fired before {@link #onDragStart(DragStartEvent)} is fired and provides
-   * an opportunity for any registered DragHandler to throw VetoDragException
+   * an opportunity for any registered DragHandler to throw {@link VetoDragException}
    * to prevent the operation.
    * 
    * @param event an event object containing information about the drag operation

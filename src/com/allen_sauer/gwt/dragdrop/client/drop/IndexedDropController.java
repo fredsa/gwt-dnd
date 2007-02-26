@@ -44,12 +44,6 @@ public class IndexedDropController extends AbstractPositioningDropController {
     this.dropTarget = dropTarget;
   }
 
-  public void drop(Widget draggable) {
-    super.drop(draggable);
-    UIUtil.resetStylePositionStatic(draggable.getElement());
-    insert(draggable, dropTarget.getWidgetCount());
-  }
-
   public String getDropTargetStyleName() {
     return super.getDropTargetStyleName() + " dragdrop-flow-panel-drop-target";
   }
@@ -109,9 +103,12 @@ public class IndexedDropController extends AbstractPositioningDropController {
     ((Panel) dropTarget).add(getPositioner());
   }
 
-  public boolean onPreviewDrop(Widget reference, Widget draggable, DragController dragController) {
+  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
+    super.onPreviewDrop(reference, draggable, dragController);
     dropIndex = dropTarget.getWidgetIndex(getPositioner());
-    return dropIndex != -1;
+    if (dropIndex == -1) {
+      throw new VetoDropException();
+    }
   }
 
   // TODO remove after enhancement for issue 616
@@ -129,5 +126,4 @@ public class IndexedDropController extends AbstractPositioningDropController {
       throw new RuntimeException("Method insert(Widget widget, int beforeIndex) not supported by " + GWT.getTypeName(dropTarget));
     }
   }
-
 }

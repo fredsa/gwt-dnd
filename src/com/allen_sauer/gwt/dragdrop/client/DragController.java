@@ -23,7 +23,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.DropControllerCollection;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 import java.util.HashMap;
@@ -64,6 +63,12 @@ public class DragController implements SourcesDragEvents {
   private Widget initialDraggableParent;
   private Location initialDraggableParentLocation;
 
+  /**
+   * Create a new drag-and-drop controller. Drag operations will be limited to the
+   * specified boundary panel.
+   * 
+   * @param boundryPanel the desired boundary panel or null if entire page is to be included
+   */
   public DragController(AbsolutePanel boundryPanel) {
     this.boundryPanel = boundryPanel != null ? boundryPanel : RootPanel.get();
     boundryDropController = newBoundryDropController(boundryPanel);

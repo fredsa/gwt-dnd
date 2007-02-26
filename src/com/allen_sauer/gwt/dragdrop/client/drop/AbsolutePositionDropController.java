@@ -37,12 +37,15 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     this.dropTarget = dropTarget;
   }
 
-  public final void drop(Widget draggable) {
-    throw new RuntimeException("single argument drop() not supported");
-  }
-
+  /**
+   * Programmatically drop a widget on our drop target while obeying the constraints
+   * of this controller.
+   * 
+   * @param widget the widget to be dropped
+   * @param left the desired absolute horizontal location relative to our drop target
+   * @param top the desired absolute vertical location relative to our drop target
+   */
   public void drop(Widget widget, int left, int top) {
-    super.drop(widget, left, top);
     DragController dragController = DragController.getDragController(widget);
     Location location = new Location(dropTarget, dragController.getBoundryPanel());
     dragController.getBoundryPanel().add(widget, location.getLeft() + left, location.getTop() + top);
@@ -67,9 +70,12 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     constrainedWidgetMove(reference, draggable, getPositioner(), dragController);
   }
 
-  public boolean onPreviewDrop(Widget reference, Widget draggable, DragController dragController) {
+  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
+    super.onPreviewDrop(reference, draggable, dragController);
     dropLocation = getConstrainedLocation(reference, draggable, draggable, dragController);
-    return dropLocation != null;
+    if (dropLocation == null) {
+      throw new VetoDropException();
+    }
   }
 
   /**
