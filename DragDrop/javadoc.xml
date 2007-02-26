@@ -3,9 +3,6 @@
 <target name="javadoc">
 <javadoc access="protected" author="true" classpath="C:\Program Files\eclipse\plugins\org.junit_3.8.1\junit.jar;../java/lib/gwt-windows/gwt-user.jar;../java/lib/gwt-windows/gwt-dev-windows.jar;../java/lib/gwt-log.jar" destdir="javadoc" doctitle="gwt-dnd -- A drag-and-drop library for Google-Web-Toolkit (GWT)" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.allen_sauer.gwt.dragdrop.client.drop,com.allen_sauer.gwt.dragdrop.demo.client.example,com.allen_sauer.gwt.dragdrop.demo.client.util,com.allen_sauer.gwt.dragdrop.client.temp,com.allen_sauer.gwt.dragdrop.client.util,com.allen_sauer.gwt.dragdrop.client,com.allen_sauer.gwt.dragdrop.demo.client" source="1.5" sourcepath="patches;test;demo;src" splitindex="true" use="true" version="true">
 <link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
-<link href="file:/C:/fred/java/lib/gwt-windows/doc/javadoc/"/>
-<link href="file:/C:/fred/Log/doc/"/>
-<link href="file:/C:/fred/DragDrop/javadoc/"/>
 </javadoc>
 </target>
 </project>
