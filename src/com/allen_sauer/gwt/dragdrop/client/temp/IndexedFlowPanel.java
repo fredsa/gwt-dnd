@@ -41,5 +41,4 @@ public class IndexedFlowPanel extends FlowPanel {
     super.insert(w, null, beforeIndex);
     DOM.insertChild(getElement(), w.getElement(), beforeIndex);
   }
-
 }
