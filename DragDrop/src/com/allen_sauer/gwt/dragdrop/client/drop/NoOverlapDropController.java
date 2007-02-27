@@ -36,7 +36,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
    * Helper class to hop through the provided int range using the
    * halfway point to speed traversal.
    */
-  private class TestRange {
+  private static class TestRange {
 
     private int start;
     private int stopBefore;
