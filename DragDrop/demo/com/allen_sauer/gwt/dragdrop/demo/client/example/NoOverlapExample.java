@@ -36,12 +36,12 @@ public class NoOverlapExample extends Example {
     dragController.registerDropController(noOverlapDropController);
   }
 
-  public String getDescription() {
-    return "Widgets cannot be dropped on top of (overlapping) other dropped widgets.";
+  public Class getControllerClass() {
+    return NoOverlapDropController.class;
   }
 
-  public Class getDropControllerClass() {
-    return NoOverlapDropController.class;
+  public String getDescription() {
+    return "Widgets cannot be dropped on top of (overlapping) other dropped widgets.";
   }
 
   protected void onLoad() {

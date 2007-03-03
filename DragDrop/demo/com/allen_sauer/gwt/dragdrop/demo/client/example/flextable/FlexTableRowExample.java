@@ -13,17 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client.example;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.flextable;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoFlexTable;
-import com.allen_sauer.gwt.dragdrop.demo.client.FlexTableRowDragController;
-import com.allen_sauer.gwt.dragdrop.demo.client.FlexTableRowDropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.FlexTableRowDropController} example.
+ * {@link com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowDropController} example.
  */
 public class FlexTableRowExample extends Example {
 
@@ -43,11 +42,11 @@ public class FlexTableRowExample extends Example {
     tableExamplePanel.add(table2, 230, 40);
   }
 
-  public String getDescription() {
-    return "Drag <code>FlexTable</code> rows by their drag handle<br>(currently only implements the 'proxy' drag behavior).";
+  public Class getControllerClass() {
+    return FlexTableRowDropController.class;
   }
 
-  public Class getDropControllerClass() {
-    return FlexTableRowDropController.class;
+  public String getDescription() {
+    return "Drag <code>FlexTable</code> rows by their drag handle<br>(currently only implements the 'proxy' drag behavior).";
   }
 }

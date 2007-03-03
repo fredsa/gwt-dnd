@@ -25,11 +25,11 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.AbsolutePositionExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.FlexTableRowExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.IndexedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.TrashBinExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
@@ -88,6 +88,7 @@ public class DragDropDemo implements EntryPoint {
     examples.add(new IndexedExample(dragController));
     examples.add(new NoOverlapExample(dragController));
     examples.add(new FlexTableRowExample(dragController));
+//    examples.add(new ResizeExample());
 
     examples.selectTab(0);
   }

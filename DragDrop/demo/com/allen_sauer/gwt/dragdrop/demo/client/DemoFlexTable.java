@@ -18,6 +18,8 @@ package com.allen_sauer.gwt.dragdrop.demo.client;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 
+import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowDragController;
+
 /**
  * Table to demonstrate draggable rows and columns.
  */

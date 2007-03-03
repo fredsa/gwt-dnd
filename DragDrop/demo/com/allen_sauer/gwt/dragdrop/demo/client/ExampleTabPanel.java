@@ -54,7 +54,7 @@ public class ExampleTabPanel extends TabPanel {
    */
   public void add(Example example) {
     VerticalPanel verticalPanel = new VerticalPanel();
-    verticalPanel.add(describe(example.getDropControllerClass(), example.getDescription()));
+    verticalPanel.add(describe(example.getControllerClass(), example.getDescription()));
     verticalPanel.add(example);
     add(verticalPanel, "Example " + ++counter, true);
   }
