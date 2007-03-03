@@ -30,7 +30,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.TrashBinDropController;
 public class TrashBinExample extends Example {
 
   private static final String STYLE_NOT_ENGAGABLE = "dragdrop-not-engagable";
-  
+
   private AbsolutePositionDropController dropController;
 
   public TrashBinExample(DragController dragController) {
@@ -56,12 +56,12 @@ public class TrashBinExample extends Example {
     dragController.registerDropController(dropController);
   }
 
-  public String getDescription() {
-    return "Classic drop target which simply recognizes when a draggable widget is dropped on it.";
+  public Class getControllerClass() {
+    return TrashBinDropController.class;
   }
 
-  public Class getDropControllerClass() {
-    return TrashBinDropController.class;
+  public String getDescription() {
+    return "Classic drop target which simply recognizes when a draggable widget is dropped on it.";
   }
 
   protected void onLoad() {

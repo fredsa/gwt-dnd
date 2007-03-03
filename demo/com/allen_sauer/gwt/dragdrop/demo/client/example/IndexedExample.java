@@ -39,12 +39,12 @@ public class IndexedExample extends Example {
     dragController.registerDropController(indexedDropController);
   }
 
-  public String getDescription() {
-    return "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.";
+  public Class getControllerClass() {
+    return IndexedDropController.class;
   }
 
-  public Class getDropControllerClass() {
-    return IndexedDropController.class;
+  public String getDescription() {
+    return "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.";
   }
 
   protected void onLoad() {
