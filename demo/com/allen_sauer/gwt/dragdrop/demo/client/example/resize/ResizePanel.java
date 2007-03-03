@@ -15,13 +15,12 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.resize;
 
-import com.google.gwt.user.client.ui.ComplexPanel;
-import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.SimplePanel;
 
-public class ResizePanel extends ComplexPanel {
+public class ResizePanel extends SimplePanel {
 
   private Grid grid = new Grid(3, 3);
   private ScrollPanel scrollPanel;
@@ -32,7 +31,7 @@ public class ResizePanel extends ComplexPanel {
     this.scrollPanel = scrollPanel;
 
     grid.setCellSpacing(0);
-    setElement(grid.getElement());
+    add(grid);
 
     setupCell(0, 0, "demo-resize edge top left top-left");
     setupCell(0, 1, "demo-resize edge top top-center");
@@ -57,11 +56,9 @@ public class ResizePanel extends ComplexPanel {
   }
 
   private void setupCell(int row, int col, String styleName) {
-    Widget widget = new FocusPanel();
+    final Label widget = new Label("X");
     grid.setWidget(row, col, widget);
     resizeDragController.makeDraggable(widget);
-    widget.setHeight("100%");
-    widget.setWidth("100%");
     grid.getCellFormatter().addStyleName(row, col, styleName);
   }
 }
