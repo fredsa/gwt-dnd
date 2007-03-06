@@ -18,13 +18,12 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.flextable;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
-import com.allen_sauer.gwt.dragdrop.demo.client.DemoFlexTable;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowDropController} example.
  */
-public class FlexTableRowExample extends Example {
+public final class FlexTableRowExample extends Example {
 
   public FlexTableRowExample(DragController dragController) {
     super(dragController);

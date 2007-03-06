@@ -22,24 +22,25 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
-import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
+import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.AbsolutePositionExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.IndexedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.TrashBinExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.TrashBinExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizeExample;
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
  * EntryPoint class for demonstrating and testing drag-and-drop library.
  */
-public class DragDropDemo implements EntryPoint {
+public final  class DragDropDemo implements EntryPoint {
 
-  private static final String STYLE_DEMO_BOUNDRY = "demo-boundry";
+  private static final String STYLE_DEMO_BOUNDARY = "demo-boundary";
 
-  private DragController dragController;
+  private PickupDragController dragController;
 
   /**
    * Initialize demonstration application.
@@ -51,10 +52,10 @@ public class DragDropDemo implements EntryPoint {
       }
     });
 
-    AbsolutePanel boundryPanel = new AbsolutePanel();
-    dragController = new DragController(boundryPanel);
+    AbsolutePanel boundaryPanel = new AbsolutePanel();
+    dragController = new PickupDragController(boundaryPanel);
 
-    boundryPanel.setPixelSize(750, 500);
+    boundaryPanel.setPixelSize(750, 500);
     //    RootPanel.get().add(new HTML("<h3>Drag-and-Drop Examples</h3>"));
     RootPanel.get().add(
         new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action. "
@@ -64,23 +65,23 @@ public class DragDropDemo implements EntryPoint {
     BehaviorPanel behaviorListBox = new BehaviorPanel(dragController);
     RootPanel.get().add(behaviorListBox);
 
-    // Example: BoundryDropController
-    HTML boundryDescription = ExampleTabPanel.describe(BoundryDropController.class,
+    // Example: BoundaryDropController
+    HTML boundaryDescription = ExampleTabPanel.describe(BoundaryDropController.class,
         "Most of our example drag operations are constrained to the panel below. Try drag one of the widgets outside this area.");
-    boundryDescription.addStyleName(STYLE_DEMO_BOUNDRY);
-    RootPanel.get().add(boundryDescription);
-    RootPanel.get().add(boundryPanel);
+    boundaryDescription.addStyleName(STYLE_DEMO_BOUNDARY);
+    RootPanel.get().add(boundaryDescription);
+    RootPanel.get().add(boundaryPanel);
 
     // Create some draggable widgets to play with
-    boundryPanel.add(createDraggable(), 20, 100);
-    boundryPanel.add(createDraggable(), 20, 200);
-    boundryPanel.add(createDraggable(), 40, 240);
-    boundryPanel.add(createDraggable(), 60, 280);
+    boundaryPanel.add(createDraggable(), 20, 100);
+    boundaryPanel.add(createDraggable(), 20, 200);
+    boundaryPanel.add(createDraggable(), 40, 240);
+    boundaryPanel.add(createDraggable(), 60, 280);
 
     // TabPanel to hold our examples
     ExampleTabPanel examples = new ExampleTabPanel();
     examples.setWidth("500px");
-    boundryPanel.add(examples, 200, 10);
+    boundaryPanel.add(examples, 200, 10);
 
     examples.add(new TrashBinExample(dragController));
     examples.add(new AbsolutePositionExample(dragController));
@@ -88,9 +89,9 @@ public class DragDropDemo implements EntryPoint {
     examples.add(new IndexedExample(dragController));
     examples.add(new NoOverlapExample(dragController));
     examples.add(new FlexTableRowExample(dragController));
-//    examples.add(new ResizeExample());
+    examples.add(new ResizeExample());
 
-    examples.selectTab(0);
+    examples.selectTab(6);
   }
 
   private Widget createDraggable() {

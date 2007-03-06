@@ -24,7 +24,7 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController} example.
  */
-public class IndexedExample extends Example {
+public final class IndexedExample extends Example {
 
   private static final String STYLE_DEMO_LABEL = "demo-flow-label";
 

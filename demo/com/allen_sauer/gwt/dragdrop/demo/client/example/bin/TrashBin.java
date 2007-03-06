@@ -13,36 +13,45 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.bin;
 
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Panel which which does not 'eat' widgets.
+ * Panel which updates its label to display the number of items in the trash.
  */
-public class Bin extends HTML {
+final class TrashBin extends Bin {
 
-  private static final String STYLE_DEMO_BIN = "demo-bin";
+  private static final String STYLE_DEMO_TRASHBIN = "demo-trashbin";
 
-  public Bin(int width, int height) {
-    setPixelSize(width, height);
-    updateText();
+  private int count;
+
+  public TrashBin(int width, int height) {
+    super(width, height);
   }
 
   public void eatWidget(Widget widget) {
+    widget.removeFromParent();
+    count++;
+    updateText();
   }
 
   public boolean isWidgetEater() {
-    return false;
+    return true;
   }
 
   protected void onLoad() {
     super.onLoad();
-    addStyleName(STYLE_DEMO_BIN);
+    addStyleName(STYLE_DEMO_TRASHBIN);
   }
 
   protected void updateText() {
-    setHTML("<b>Closed Bin</b><br>\n" + "(does not currently accept trash)<br>\n<br>\n" + "<i>try dropping something on me</i>");
+    String text;
+    if (count == 0) {
+      text = "currently empty";
+    } else {
+      text = "contains " + count + " item" + (count == 1 ? "" : "s");
+    }
+    setHTML("<b>Trash Bin</b><br>\n" + "(" + text + ")<br>\n<br>\n" + "<i>try dropping something on me</i>");
   }
 }

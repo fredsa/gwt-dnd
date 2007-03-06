@@ -23,7 +23,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.NoOverlapDropController;
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.NoOverlapDropController} example.
  */
-public class NoOverlapExample extends Example {
+public final class NoOverlapExample extends Example {
 
   private NoOverlapDropController noOverlapDropController;
 

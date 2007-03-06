@@ -22,15 +22,15 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 
 /**
  * Allows the user to select the desired drag behavior
  * for this demonstration.
  */
-public class BehaviorPanel extends SimplePanel {
+public final class BehaviorPanel extends SimplePanel {
 
-  public BehaviorPanel(final DragController dragController) {
+  public BehaviorPanel(final PickupDragController dragController) {
     VerticalPanel verticalPanel = new VerticalPanel();
     final RadioButton classicButton = newButton("Classic", "widget is directly draggable");
     final RadioButton proxyButton = newButton("Proxy", "a separate proxy widget is dragged");

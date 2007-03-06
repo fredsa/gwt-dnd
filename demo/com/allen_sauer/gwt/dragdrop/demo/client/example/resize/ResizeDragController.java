@@ -17,23 +17,62 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.resize;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.AbstractDragController;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
+import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizePanel.DirectionConstant;
 
-public class ResizeDragController extends DragController {
+import java.util.HashMap;
 
-  public ResizeDragController(AbsolutePanel boundryPanel) {
-    super(boundryPanel);
+final class ResizeDragController extends AbstractDragController {
+
+  private Widget dummyMovableWidget = new HTML();
+  private HashMap directionMap = new HashMap();
+  private ResizePanel resizePanel;
+
+  public ResizeDragController(AbsolutePanel boundaryPanel) {
+    super(boundaryPanel);
+    DOM.setStyleAttribute(dummyMovableWidget.getElement(), "visibility", "hidden");
+  }
+
+  public void dragEnd(Widget draggable, Widget dropTarget) {
+    super.dragEnd(draggable, dropTarget);
+    dummyMovableWidget.removeFromParent();
   }
 
   public void dragStart(Widget draggable) {
     super.dragStart(draggable);
-    DOM.setStyleAttribute(draggable.getElement(), "border", "1px solid green");
+    resizePanel = (ResizePanel) draggable.getParent().getParent();
+    getBoundaryPanel().add(dummyMovableWidget, 0, 0);
   }
 
-  public void previewDragStart(Widget draggable) throws VetoDragException {
-    super.previewDragStart(draggable);
+  public DirectionConstant getDirection(Widget draggable) {
+    return (DirectionConstant) directionMap.get(draggable);
+  }
+
+  public Widget getMovableWidget() {
+    return dummyMovableWidget;
+  }
+
+  public ResizePanel getResizePanel() {
+    return this.resizePanel;
+  }
+
+  public void makeDraggable(Widget widget, ResizePanel.DirectionConstant direction) {
+    super.makeDraggable(widget);
+    directionMap.put(widget, direction);
+  }
+
+  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel) {
+    return new ResizeDropController(boundaryPanel);
+  }
+
+  public void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {
+    DOM.setStyleAttribute(draggable.getElement(), "border", "");
+    // we don't actually use the drop side of the drag-and-drop operation
+    throw new VetoDragException();
   }
 }

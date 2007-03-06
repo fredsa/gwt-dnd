@@ -15,43 +15,43 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.resize;
 
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
 
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
-public class ResizeExample extends Example {
+public final class ResizeExample extends Example {
 
   private ResizeDragController resizeDragController;
 
   public ResizeExample() {
     super();
-    resizeDragController = new ResizeDragController(RootPanel.get());
+    final AbsolutePanel boundaryPanel = new AbsolutePanel();
+    boundaryPanel.setPixelSize(500, 200);
+
+    resizeDragController = new ResizeDragController(boundaryPanel);
     setDragController(resizeDragController);
 
-    ScrollPanel scrollPanel = new ScrollPanel();
-    scrollPanel.setPixelSize(200, 100);
-    scrollPanel.add(getLargeHTML());
-    scrollPanel.addStyleName("demo-resize-panel");
-
-    ResizePanel resizePanel = new ResizePanel(resizeDragController, scrollPanel);
-    setWidget(resizePanel);
+    final ResizePanel resizePanel = new ResizePanel(resizeDragController, getLargeHTML());
+    boundaryPanel.add(resizePanel, 50, 30);
+    setWidget(boundaryPanel);
   }
 
   public Class getControllerClass() {
-    return ResizeDragController.class;
+    return ResizeDropController.class;
   }
 
   public String getDescription() {
-    return "Resize an embedded ScrollPanel";
+    return "Resize an embedded Widget using a composite of Grid and ScrollPanel.";
   }
 
   private HTML getLargeHTML() {
-    String t = "";
-    for (int i = 0; i < 50; i++) {
-      t += "<p>The quick brown fox jumped over the lazy dog.</p>";
+    String t = "<br>You can resize this panel by any of the four edges or corners.";
+    for (int i = 0; i < 3; i++) {
+      t += "<br>The quick brown fox jumped over the lazy dog.";
     }
-    return new HTML(t);
+    HTML html = new HTML(t);
+    html.addStyleName("demo-resize-html");
+    return html;
   }
 }

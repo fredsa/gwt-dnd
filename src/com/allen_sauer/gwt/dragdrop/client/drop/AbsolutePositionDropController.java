@@ -18,6 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.AbstractDragController;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
@@ -46,9 +47,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    * @param top the desired absolute vertical location relative to our drop target
    */
   public void drop(Widget widget, int left, int top) {
-    DragController dragController = DragController.getDragController(widget);
-    Location location = new Location(dropTarget, dragController.getBoundryPanel());
-    dragController.getBoundryPanel().add(widget, location.getLeft() + left, location.getTop() + top);
+    DragController dragController = AbstractDragController.getDragController(widget);
+    Location location = new Location(dropTarget, dragController.getBoundaryPanel());
+    dragController.getBoundaryPanel().add(widget, location.getLeft() + left, location.getTop() + top);
     constrainedWidgetMove(widget, widget, widget, dragController);
   }
 
@@ -89,9 +90,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    * @return location where widget can be placed or null if no compatible location found
    */
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
-    AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(dropTarget, boundryPanel);
-    Area draggableArea = new Area(reference, boundryPanel);
+    AbsolutePanel boundaryPanel = dragController.getBoundaryPanel();
+    Area dropArea = new Area(dropTarget, boundaryPanel);
+    Area draggableArea = new Area(reference, boundaryPanel);
     Location location = new Location(reference, dropTarget);
     location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
         - draggableArea.getHeight());
