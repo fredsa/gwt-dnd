@@ -41,8 +41,8 @@ public class Area {
    * <li><code>area.getBottom() = area.getTop() + widget.getOffsetHeight()</code></li>
    * </ul>
    * 
-   * Note that boundryPanel need not be the parent node, or even an ancestor of widget.
-   * Therefore coordinates returned may be negative or may exceed the dimensions of boundryPanel.
+   * Note that boundaryPanel need not be the parent node, or even an ancestor of widget.
+   * Therefore coordinates returned may be negative or may exceed the dimensions of boundaryPanel.
    * 
    * @param widget the widget whose area we seek
    * @param reference the widget relative to which we seek our area. If <code>null</code>,

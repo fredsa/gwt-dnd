@@ -16,7 +16,7 @@ code {
   font-size: 0.9em;
 }
 
-.demo-example-description .demo-boundry {
+.demo-example-description .demo-boundary {
   border-top: 1px solid #87B3FF;
   border-left: 1px solid #87B3FF;
   border-right: 1px solid #87B3FF;
@@ -53,7 +53,7 @@ code {
   font-size: 1.2em;
 }
 
-.dragdrop-boundry {
+body *.dragdrop-boundary {
   background: #F8F8F8; /* light gray */
   border: 1px solid blue;
 }
@@ -141,72 +141,18 @@ code {
 }
 
 .demo-drag-handle {
-  background: url(images/row-dragger-8.gif) no-repeat;
+  background: url("images/row-dragger-8.gif") no-repeat;
   padding-left: 10px;
 }
 
-.demo-resize.content {
-  background-color: #AACCAA; /* light green */
+.demo-resize-html {
+  background-color: #DDEEDD; /* light green */
 }
 
 .demo-resize.edge {
-  padding: 0px;
+  background-image: url("images/dragger-4x4.gif");
+  background-repeat: repeat;
 }
-
-
-
-.demo-resize.top-center ,
-.demo-resize.bottom-center {
-  background-image: url("images/column-dragger-8.gif");
-  background-repeat: repeat-x;
-}
-
-.demo-resize.left-center ,
-.demo-resize.right-center {
-  background-image: url("images/row-dragger-8.gif");
-  background-repeat: repeat-y;
-  vertical-align: top;
-}
-.demo-resize.left-center .dragdrop-draggable ,
-.demo-resize.right-center .dragdrop-draggable {
-  padding-bottom: 1000px;
-  margin-bottom: -1000px;
-}
-
-
-
-.demo-resize.top ,
-.demo-resize.bottom {
-  height: 8px;
-}
-
-.demo-resize.left ,
-.demo-resize.right {
-  width: 8px;
-}
-
-
-
-.demo-resize.top {
-  border-top: 1px solid red;
-  cursor: n-resize;
-}
-
-.demo-resize.bottom {
-  border-bottom: 1px solid red;
-  cursor: s-resize;
-}
-
-.demo-resize.left {
-  border-left: 1px solid red;
-  cursor: w-resize;
-}
-
-.demo-resize.right {
-  border-right: 1px solid red;
-}
-
-
 
 .demo-resize.top-left .dragdrop-draggable {
   cursor: nw-resize;
@@ -239,4 +185,3 @@ code {
 .demo-resize.bottom-right .dragdrop-draggable {
   cursor: se-resize;
 }
-

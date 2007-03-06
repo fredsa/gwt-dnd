@@ -31,11 +31,11 @@ public class Location {
   }
 
   /**
-   * Determine location of widget relative boundryPanel such that
-   * <code>boundryPanel.add(widget, location.getLeft(), location.getTop())</code>
-   * leaves the object in the exact same location on the screen. Note that boundryPanel need not
+   * Determine location of widget relative boundaryPanel such that
+   * <code>boundaryPanel.add(widget, location.getLeft(), location.getTop())</code>
+   * leaves the object in the exact same location on the screen. Note that boundaryPanel need not
    * be the parent node, or even an ancestor of widget. Therefore coordinates returned may be 
-   * negative or may exceed the dimensions of boundryPanel.
+   * negative or may exceed the dimensions of boundaryPanel.
    * 
    * @param child the widget whose coordinates we seek
    * @param parent the widget relative to which we seek our coordinates

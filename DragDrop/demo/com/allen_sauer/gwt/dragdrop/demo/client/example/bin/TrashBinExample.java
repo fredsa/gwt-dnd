@@ -13,21 +13,19 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client.example;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.bin;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
-import com.allen_sauer.gwt.dragdrop.demo.client.Bin;
-import com.allen_sauer.gwt.dragdrop.demo.client.TrashBin;
-import com.allen_sauer.gwt.dragdrop.demo.client.TrashBinDropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController} example.
  */
-public class TrashBinExample extends Example {
+public final class TrashBinExample extends Example {
 
   private static final String STYLE_NOT_ENGAGABLE = "dragdrop-not-engagable";
 

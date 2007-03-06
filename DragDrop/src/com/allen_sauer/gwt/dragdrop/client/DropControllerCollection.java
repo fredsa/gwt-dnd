@@ -32,7 +32,7 @@ import java.util.Iterator;
 public class DropControllerCollection extends ArrayList {
 
   /**
-   * Default constructor used by {@link DragController}.
+   * Default constructor used by {@link PickupDragController}.
    */
   protected DropControllerCollection() {
   }
@@ -42,19 +42,19 @@ public class DropControllerCollection extends ArrayList {
    * with the provided widget area.
    * 
    * @param widget the widget to use to determine intersects
-   * @param boundryPanel the panel which provides the boundaries for the drag controller.
+   * @param boundaryPanel the panel which provides the boundaries for the drag controller.
    *        Drop targets must be within this are to be considered
    * @return a drop controller for the intersecting drop target or null if none are applicable
    */
-  public DropController getIntersectDropController(Widget widget, Panel boundryPanel) {
+  public DropController getIntersectDropController(Widget widget, Panel boundaryPanel) {
     Area widgetArea = new Area(widget, null);
-    Area boundryArea = new Area(boundryPanel, null);
+    Area boundaryArea = new Area(boundaryPanel, null);
     DropController result = null;
     for (Iterator iterator = iterator(); iterator.hasNext();) {
       DropController dropController = (DropController) iterator.next();
       Widget target = dropController.getDropTarget();
       Area targetArea = new Area(target, null);
-      if (widgetArea.intersects(targetArea) && targetArea.intersects(boundryArea)) {
+      if (widgetArea.intersects(targetArea) && targetArea.intersects(boundaryArea)) {
         if (result == null || DOM.isOrHasChild(result.getDropTarget().getElement(), target.getElement())) {
           result = dropController;
         }

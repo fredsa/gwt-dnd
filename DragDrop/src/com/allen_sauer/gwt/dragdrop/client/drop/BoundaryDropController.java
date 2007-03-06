@@ -26,26 +26,26 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}
  * which contains a given draggable widget.
  */
-public class BoundryDropController extends AbsolutePositionDropController {
+public class BoundaryDropController extends AbsolutePositionDropController {
 
   private AbsolutePanel dropTarget;
   private boolean allowDropping;
 
-  public BoundryDropController(AbsolutePanel dropTarget, boolean allowDropping) {
+  public BoundaryDropController(AbsolutePanel dropTarget, boolean allowDropping) {
     super(dropTarget);
     this.dropTarget = dropTarget;
     this.allowDropping = allowDropping;
   }
 
   public String getDropTargetStyleName() {
-    return "dragdrop-boundry";
+    return "dragdrop-boundary";
   }
 
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
     if (allowDropping) {
-      AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-      Area dropArea = new Area(dropTarget, boundryPanel);
-      Area draggableArea = new Area(reference, boundryPanel);
+      AbsolutePanel boundaryPanel = dragController.getBoundaryPanel();
+      Area dropArea = new Area(dropTarget, boundaryPanel);
+      Area draggableArea = new Area(reference, boundaryPanel);
       Location location = new Location(reference, dropTarget);
       location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
           - draggableArea.getHeight());

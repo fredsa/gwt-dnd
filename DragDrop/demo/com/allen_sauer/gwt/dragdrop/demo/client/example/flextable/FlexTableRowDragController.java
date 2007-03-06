@@ -19,22 +19,22 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
-import com.allen_sauer.gwt.dragdrop.client.drop.BoundryDropController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
+import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
 
 /**
  * Allows table rows to dragged by their handle.
  */
-public class FlexTableRowDragController extends DragController {
+final class FlexTableRowDragController extends PickupDragController {
 
   private static final String STYLE_DEMO_TABLE_PROXY = "demo-table-proxy";
 
   private FlexTable draggableTable;
   private int dragRow;
 
-  public FlexTableRowDragController(AbsolutePanel boundryPanel) {
-    super(boundryPanel);
+  public FlexTableRowDragController(AbsolutePanel boundaryPanel) {
+    super(boundaryPanel);
     // TODO support 'classic' drop behavior
     setDragProxyEnabled(true);
   }
@@ -59,6 +59,10 @@ public class FlexTableRowDragController extends DragController {
     return dragRow;
   }
 
+  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel) {
+    return new BoundaryDropController(boundaryPanel, false);
+  }
+
   protected Widget maybeNewDraggableProxy(Widget draggable) {
     FlexTable proxy;
     proxy = new FlexTable();
@@ -66,10 +70,6 @@ public class FlexTableRowDragController extends DragController {
     proxy.addStyleName(STYLE_DEMO_TABLE_PROXY);
     FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
     return proxy;
-  }
-
-  protected BoundryDropController newBoundryDropController(AbsolutePanel boundryPanel) {
-    return new BoundryDropController(boundryPanel, false);
   }
 
   private int getWidgetRow(Widget widget, FlexTable table) {

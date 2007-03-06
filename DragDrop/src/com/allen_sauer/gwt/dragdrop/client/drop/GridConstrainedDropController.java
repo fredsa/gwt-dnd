@@ -44,9 +44,9 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
   }
 
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
-    AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(dropTarget, boundryPanel);
-    Area draggableArea = new Area(reference, boundryPanel);
+    AbsolutePanel boundaryPanel = dragController.getBoundaryPanel();
+    Area dropArea = new Area(dropTarget, boundaryPanel);
+    Area draggableArea = new Area(reference, boundaryPanel);
     Location location = new Location(reference, dropTarget);
     location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
         - draggableArea.getHeight());

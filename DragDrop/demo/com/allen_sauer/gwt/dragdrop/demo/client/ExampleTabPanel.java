@@ -25,7 +25,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  * TabPanel which uses a VeriticalPanel to provide a description for each
  * example.
  */
-public class ExampleTabPanel extends TabPanel {
+public final  class ExampleTabPanel extends TabPanel {
 
   private static final String STYLE_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
 

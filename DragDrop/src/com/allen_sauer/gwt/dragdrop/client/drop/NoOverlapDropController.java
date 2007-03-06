@@ -147,9 +147,9 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
   }
 
   private Location internalGetConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
-    AbsolutePanel boundryPanel = dragController.getBoundryPanel();
-    Area dropArea = new Area(dropTarget, boundryPanel);
-    Area referenceArea = new Area(reference, boundryPanel);
+    AbsolutePanel boundaryPanel = dragController.getBoundaryPanel();
+    Area dropArea = new Area(dropTarget, boundaryPanel);
+    Area referenceArea = new Area(reference, boundaryPanel);
     Location referenceLocation = new Location(reference, dropTarget);
     referenceLocation.constrain(0, 0, dropArea.getInternalWidth() - referenceArea.getWidth(), dropArea.getInternalHeight()
         - referenceArea.getHeight());

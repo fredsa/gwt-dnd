@@ -13,17 +13,15 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.flextable;
 
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HTML;
 
-import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowDragController;
-
 /**
  * Table to demonstrate draggable rows and columns.
  */
-public class DemoFlexTable extends FlexTable {
+final class DemoFlexTable extends FlexTable {
 
   /**
    * Creates a FlexTable with the desired number of rows and columns, making each

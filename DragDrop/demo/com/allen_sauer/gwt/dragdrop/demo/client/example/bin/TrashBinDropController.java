@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.bin;
 
 import com.google.gwt.user.client.ui.Widget;
 
@@ -25,7 +25,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
  * Sample SimpleDropController which discards draggable widgets which are
  * dropped on it.
  */
-public class TrashBinDropController extends SimpleDropController {
+final class TrashBinDropController extends SimpleDropController {
 
   private static final String STYLE_DEMO_TRASHBIN_ENGAGE = "demo-bin-engage";
 

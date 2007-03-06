@@ -28,7 +28,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
 /**
  * Allows one or more table rows to be dropped into an existing table.
  */
-public class FlexTableRowDropController extends AbstractPositioningDropController {
+final class FlexTableRowDropController extends AbstractPositioningDropController {
 
   private static final String STYLE_DEMO_TABLE_POSITIONER = "demo-table-positioner";
 
@@ -50,9 +50,9 @@ public class FlexTableRowDropController extends AbstractPositioningDropControlle
     super.onMove(reference, draggable, dragController);
     int row = determineRow(reference);
     Widget w = flexTable.getWidget(row == -1 ? 0 : row, 0);
-    Location widgetLocation = new Location(w, dragController.getBoundryPanel());
-    Location tableLocation = new Location(flexTable, dragController.getBoundryPanel());
-    dragController.getBoundryPanel().add(getPositioner(), tableLocation.getLeft(),
+    Location widgetLocation = new Location(w, dragController.getBoundaryPanel());
+    Location tableLocation = new Location(flexTable, dragController.getBoundaryPanel());
+    dragController.getBoundaryPanel().add(getPositioner(), tableLocation.getLeft(),
         widgetLocation.getTop() + (row == -1 ? 0 : w.getOffsetHeight()));
   }
 
