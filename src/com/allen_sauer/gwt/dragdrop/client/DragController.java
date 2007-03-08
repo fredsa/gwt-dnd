@@ -68,6 +68,16 @@ public interface DragController extends SourcesDragEvents {
    */
   abstract void makeDraggable(Widget widget);
 
+  /**
+   * Performs the reverse of {@link #makeDraggable(Widget)}, detaching the
+   * {@link MouseDragHandler} from the widget and removing the
+   * {@link #STYLE_DRAGGABLE} style from the widget. Call this method for
+   * each which that should be made draggable by this DragController.
+   * 
+   * @param widget the widget to be made draggable
+   */
+  abstract void makeNotDraggable(Widget widget);
+
   abstract BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel);
 
   /**
