@@ -117,6 +117,15 @@ public abstract class AbstractDragController implements DragController {
     widgetControllers.put(widget, this);
   }
 
+  public void makeNotDraggable(Widget widget) {
+    if (!widgetControllers.containsKey(widget)) {
+      throw new RuntimeException("widget is not currently draggable");
+    }
+    ((SourcesMouseEvents) widget).removeMouseListener(mouseDragHandler);
+    widget.removeStyleName(STYLE_DRAGGABLE);
+    widgetControllers.remove(widget);
+  }
+
   public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel) {
     return new BoundaryDropController(boundaryPanel, true);
   }
