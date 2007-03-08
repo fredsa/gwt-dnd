@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.resize;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Grid;
@@ -106,11 +105,8 @@ final class ResizePanel extends SimplePanel {
   private static final int BORDER_THICKNESS = 6;
   private Grid grid = new Grid(3, 3);
   private ScrollPanel scrollPanel;
-
   private ResizeDragController resizeDragController;
-
   private int contentHeight;
-
   private int contentWidth;
   private Widget northWidget;
   private Widget southWidget;
@@ -120,8 +116,6 @@ final class ResizePanel extends SimplePanel {
   public ResizePanel(ResizeDragController resizeDragController, Widget widget) {
     this.resizeDragController = resizeDragController;
     scrollPanel = new ScrollPanel(widget);
-    scrollPanel.addStyleName("test");
-    DOM.setStyleAttribute(scrollPanel.getElement(), "position", "relative");
 
     grid.setCellSpacing(0);
     grid.setCellPadding(0);

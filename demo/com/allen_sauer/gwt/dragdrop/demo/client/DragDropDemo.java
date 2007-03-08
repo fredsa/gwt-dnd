@@ -91,7 +91,7 @@ public final  class DragDropDemo implements EntryPoint {
     examples.add(new FlexTableRowExample(dragController));
     examples.add(new ResizeExample());
 
-    examples.selectTab(6);
+    examples.selectTab(0);
   }
 
   private Widget createDraggable() {

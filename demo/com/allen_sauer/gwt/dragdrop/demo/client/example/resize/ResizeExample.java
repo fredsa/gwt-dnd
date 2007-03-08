@@ -46,7 +46,7 @@ public final class ResizeExample extends Example {
   }
 
   private HTML getLargeHTML() {
-    String t = "<br>You can resize this panel by any of the four edges or corners.";
+    String t = "You can resize this panel by any of the four edges or corners.<br>";
     for (int i = 0; i < 3; i++) {
       t += "<br>The quick brown fox jumped over the lazy dog.";
     }
