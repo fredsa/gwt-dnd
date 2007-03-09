@@ -56,6 +56,6 @@ public final  class ExampleTabPanel extends TabPanel {
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.add(describe(example.getControllerClass(), example.getDescription()));
     verticalPanel.add(example);
-    add(verticalPanel, "Example " + ++counter, true);
+    add(verticalPanel, "Demo " + ++counter, true);
   }
 }

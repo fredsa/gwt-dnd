@@ -32,6 +32,7 @@ final class DemoFlexTable extends FlexTable {
    * @param tableRowDragController the drag controller to enable dragging of table rows
    */
   public DemoFlexTable(int rows, int cols, FlexTableRowDragController tableRowDragController) {
+    addStyleName("demo-flextable");
     for (int row = 0; row < rows; row++) {
       HTML handle = new HTML("[drag-here]");
       handle.addStyleName("demo-drag-handle");

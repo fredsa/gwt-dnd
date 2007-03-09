@@ -25,7 +25,6 @@ public final class ResizeExample extends Example {
   private ResizeDragController resizeDragController;
 
   public ResizeExample() {
-    super();
     final AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(500, 200);
 
@@ -42,7 +41,8 @@ public final class ResizeExample extends Example {
   }
 
   public String getDescription() {
-    return "Resize an embedded Widget using a composite of Grid and ScrollPanel.";
+    return "Resize an embedded Widget using a composite of Grid and ScrollPanel<br>" +
+            "(currently only implements the 'classic' drag behavior).";
   }
 
   private HTML getLargeHTML() {

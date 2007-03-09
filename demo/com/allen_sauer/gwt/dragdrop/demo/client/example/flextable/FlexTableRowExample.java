@@ -46,6 +46,7 @@ public final class FlexTableRowExample extends Example {
   }
 
   public String getDescription() {
-    return "Drag <code>FlexTable</code> rows by their drag handle<br>(currently only implements the 'proxy' drag behavior).";
+    return "Drag <code>FlexTable</code> rows by their drag handle<br>" +
+            "(currently only implements the 'proxy' drag behavior).";
   }
 }

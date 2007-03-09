@@ -38,8 +38,10 @@ public abstract class AbstractDragController implements DragController {
 
   protected static final String STYLE_DRAGGING = "dragdrop-dragging";
   private static final String STYLE_DRAGGABLE = "dragdrop-draggable";
+  private static final String STYLE_HANDLE = "dragdrop-handle";
 
   private static HashMap widgetControllers = new HashMap();
+  private static HashMap dragHandles = new HashMap();
 
   // TODO remove this method as it is barely used
   public static DragController getDragController(Widget widget) {
@@ -63,7 +65,7 @@ public abstract class AbstractDragController implements DragController {
    */
   public AbstractDragController(AbsolutePanel boundaryPanel) {
     this.boundaryPanel = boundaryPanel != null ? boundaryPanel : RootPanel.get();
-    boundaryDropController = newBoundaryDropController(boundaryPanel);
+    boundaryDropController = newBoundaryDropController(this.boundaryPanel);
     registerDropController(boundaryDropController);
     mouseDragHandler = new MouseDragHandler(this);
   }
@@ -108,22 +110,25 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void makeDraggable(Widget widget) {
-    if (widget instanceof SourcesMouseEvents) {
-      ((SourcesMouseEvents) widget).addMouseListener(mouseDragHandler);
-    } else {
-      throw new RuntimeException("widget must implement SourcesMouseEvents to be draggable");
-    }
-    widget.addStyleName(STYLE_DRAGGABLE);
-    widgetControllers.put(widget, this);
+    makeDraggable(widget, widget);
+  }
+
+  public void makeDraggable(Widget draggable, Widget dragHandle) {
+    mouseDragHandler.makeDraggable(draggable, dragHandle);
+    draggable.addStyleName(STYLE_DRAGGABLE);
+    dragHandle.addStyleName(STYLE_HANDLE);
+    dragHandles.put(draggable, dragHandle);
+    widgetControllers.put(draggable, this);
   }
 
   public void makeNotDraggable(Widget widget) {
-    if (!widgetControllers.containsKey(widget)) {
+    if (widgetControllers.remove(widget) == null) {
       throw new RuntimeException("widget is not currently draggable");
     }
     ((SourcesMouseEvents) widget).removeMouseListener(mouseDragHandler);
+    Widget dragHandle = (Widget) dragHandles.remove(widget);
     widget.removeStyleName(STYLE_DRAGGABLE);
-    widgetControllers.remove(widget);
+    dragHandle.removeStyleName(STYLE_HANDLE);
   }
 
   public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel) {
@@ -151,7 +156,7 @@ public abstract class AbstractDragController implements DragController {
   public final void registerDropController(DropController dropController) {
     dropControllerCollection.add(dropController);
   }
-
+  
   public final void removeDragHandler(DragHandler handler) {
     if (dragHandlers != null) {
       dragHandlers.remove(handler);

@@ -69,6 +69,15 @@ public interface DragController extends SourcesDragEvents {
   abstract void makeDraggable(Widget widget);
 
   /**
+   * Similar to {@link #makeDraggable(Widget)}, but allow separate, child
+   * to be specified as the drag handle by which the first widget can be dragged.
+   * 
+   * @param draggable the widget to be made draggable
+   * @param dragHandle the widget by which widget can be dragged
+   */
+  abstract void makeDraggable(Widget draggable, Widget dragHandle);
+
+  /**
    * Performs the reverse of {@link #makeDraggable(Widget)}, detaching the
    * {@link MouseDragHandler} from the widget and removing the
    * {@link #STYLE_DRAGGABLE} style from the widget. Call this method for

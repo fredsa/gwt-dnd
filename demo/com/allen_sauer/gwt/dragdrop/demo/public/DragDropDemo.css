@@ -141,6 +141,9 @@ body *.dragdrop-boundary {
 }
 
 .demo-drag-handle {
+}
+
+.demo-flextable .dragdrop-handle {
   background: url("images/row-dragger-8.gif") no-repeat;
   padding-left: 10px;
 }
@@ -154,34 +157,49 @@ body *.dragdrop-boundary {
   background-repeat: repeat;
 }
 
-.demo-resize.top-left .dragdrop-draggable {
+.demo-resize.top-left .dragdrop-handle {
   cursor: nw-resize;
 }
 
-.demo-resize.top-center .dragdrop-draggable {
+.demo-resize.top-center .dragdrop-handle {
   cursor: n-resize;
 }
 
-.demo-resize.top-right .dragdrop-draggable {
+.demo-resize.top-right .dragdrop-handle {
   cursor: ne-resize;
 }
 
-.demo-resize.left-center .dragdrop-draggable {
+.demo-resize.left-center .dragdrop-handle {
   cursor: w-resize;
 }
 
-.demo-resize.right-center .dragdrop-draggable {
+.demo-resize.right-center .dragdrop-handle {
   cursor: e-resize;
 }
 
-.demo-resize.bottom-left .dragdrop-draggable {
+.demo-resize.bottom-left .dragdrop-handle {
   cursor: sw-resize;
 }
 
-.demo-resize.bottom-center .dragdrop-draggable {
+.demo-resize.bottom-center .dragdrop-handle {
   cursor: s-resize;
 }
 
-.demo-resize.bottom-right .dragdrop-draggable {
+.demo-resize.bottom-right .dragdrop-handle {
   cursor: se-resize;
+}
+
+.demo-draghandle-panel {
+  background-color: white;
+  border: 1px solid green;
+  width: 400px;
+}
+
+.demo-draghandle-textarea {
+  width: 95%;
+  height: 4em;
+}
+
+.demo-draghandle-header {
+  background-color: #DDEEDD; /* light green */
 }

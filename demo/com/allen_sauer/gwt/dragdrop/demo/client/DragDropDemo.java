@@ -29,6 +29,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.IndexedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.TrashBinExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.draghandle.DragHandleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizeExample;
 import com.allen_sauer.gwt.log.client.Log;
@@ -90,6 +91,7 @@ public final  class DragDropDemo implements EntryPoint {
     examples.add(new NoOverlapExample(dragController));
     examples.add(new FlexTableRowExample(dragController));
     examples.add(new ResizeExample());
+    examples.add(new DragHandleExample());
 
     examples.selectTab(0);
   }
