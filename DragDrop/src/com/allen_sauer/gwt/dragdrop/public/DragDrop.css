@@ -1,10 +1,13 @@
 @CHARSET "UTF-8";
 
-.dragdrop-draggable {
+.dragdrop-handle {
   cursor: move;
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+}
+
+.dragdrop-draggable {
   z-index: 2;
 }
 
