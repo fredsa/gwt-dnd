@@ -28,7 +28,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController DropControllers}
  * and {@link #registerDropController(DropController) register} them.</p>
  */
-public interface DragController extends SourcesDragEvents {
+public interface DragController extends FiresDragEvents {
 
   abstract void addDragHandler(DragHandler handler);
 
