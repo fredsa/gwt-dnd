@@ -19,7 +19,7 @@ package com.allen_sauer.gwt.dragdrop.client;
  * A class that implements this interface sources the events defined by the
  * {@link com.allen_sauer.gwt.dragdrop.client.DragHandler} interface.
  */
-public interface SourcesDragEvents {
+public interface FiresDragEvents {
 
   /**
    * Add another {@link DragHandler} to listen for drag related events.
