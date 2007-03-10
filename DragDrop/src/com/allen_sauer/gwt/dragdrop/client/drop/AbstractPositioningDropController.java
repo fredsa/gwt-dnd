@@ -58,6 +58,7 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
 
   public void onLeave(Widget draggable, DragController dragController) {
     super.onLeave(draggable, dragController);
+    UIUtil.resetStylePositionStatic(draggable.getElement());
     removePositioner();
   }
 

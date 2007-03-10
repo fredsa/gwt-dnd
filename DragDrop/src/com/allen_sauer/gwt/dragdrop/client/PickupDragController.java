@@ -15,10 +15,15 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
@@ -35,6 +40,8 @@ public class PickupDragController extends AbstractDragController {
   private Location initialDraggableBoundaryPanelLocation;
   private Widget initialDraggableParent;
   private Location initialDraggableParentLocation;
+
+  private int initialDraggableIndex;
 
   /**
    * Create a new pickup-and-move style drag controller. Allows widgets or a suitable proxy
@@ -55,14 +62,23 @@ public class PickupDragController extends AbstractDragController {
     } else {
       if (dropTarget == null) {
         // move draggable to original location
+
+        // TODO simplify after enhancement for issue 616
+        // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
         if (initialDraggableParent instanceof AbsolutePanel) {
           //      Location parentLocation = new Location(initialDraggableParent, boundaryPanel);
           ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
               initialDraggableParentLocation.getTop());
+        } else if (initialDraggableParent instanceof DeckPanel) {
+          ((DeckPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+        } else if (initialDraggableParent instanceof HorizontalPanel) {
+          ((HorizontalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+        } else if (initialDraggableParent instanceof VerticalPanel) {
+          ((VerticalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+        } else if (initialDraggableParent instanceof IndexedFlowPanel) {
+          ((IndexedFlowPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
         } else {
-          // TODO instead try to add to original parent panel in a different way
-          getBoundaryPanel().add(draggable, initialDraggableBoundaryPanelLocation.getLeft(),
-              initialDraggableBoundaryPanelLocation.getTop());
+          throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
         }
       }
     }
@@ -74,7 +90,22 @@ public class PickupDragController extends AbstractDragController {
     draggableProxy = maybeNewDraggableProxy(draggable);
     // Store initial draggable parent and coordinates in case we have to abort
     initialDraggableParent = draggable.getParent();
-    initialDraggableParentLocation = new Location(draggable, initialDraggableParent);
+
+    // TODO simplify after enhancement for issue 616
+    // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+    if (initialDraggableParent instanceof AbsolutePanel) {
+      initialDraggableParentLocation = new Location(draggable, initialDraggableParent);
+    } else if (initialDraggableParent instanceof DeckPanel) {
+      initialDraggableIndex = ((DeckPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof HorizontalPanel) {
+      initialDraggableIndex = ((HorizontalPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof VerticalPanel) {
+      initialDraggableIndex = ((VerticalPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof IndexedFlowPanel) {
+      initialDraggableIndex = ((IndexedFlowPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else {
+      throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
+    }
     initialDraggableBoundaryPanelLocation = new Location(draggable, getBoundaryPanel());
     getBoundaryPanel().add(getMovableWidget(), initialDraggableBoundaryPanelLocation.getLeft(),
         initialDraggableBoundaryPanelLocation.getTop());
