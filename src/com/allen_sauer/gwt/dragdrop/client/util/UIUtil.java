@@ -155,7 +155,7 @@ public class UIUtil {
   }
 
   /**
-   * Resets an element to 'position: static' and removes the 'right' and 'top'
+   * Resets an element to 'position: static' and removes the 'left' and 'top'
    * CSS style attributes to undo what AbsolutePanel does when a widget is attached
    * to it.
    * 
@@ -164,7 +164,7 @@ public class UIUtil {
    * @param element the element to be modified
    */
   public static void resetStylePositionStatic(Element element) {
-    DOM.setStyleAttribute(element, "right", "");
+    DOM.setStyleAttribute(element, "left", "");
     DOM.setStyleAttribute(element, "top", "");
     DOM.setStyleAttribute(element, "position", "static");
   }
