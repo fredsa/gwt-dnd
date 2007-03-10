@@ -109,10 +109,27 @@ public abstract class AbstractDragController implements DragController {
     return dropController != null ? dropController : boundaryDropController;
   }
 
+  /**
+   * Attaches a {@link MouseDragHandler} (which is a
+   * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget,
+   * applies the {@link #STYLE_DRAGGABLE} style to the draggable,
+   * applies the {@link #STYLE_HANDLE} style to the handle.
+   * 
+   * @see #makeDraggable(Widget, Widget)
+   * 
+   * @param widget the widget to be made draggable
+   */
   public void makeDraggable(Widget widget) {
     makeDraggable(widget, widget);
   }
 
+  /**
+   * Similar to {@link #makeDraggable(Widget)}, but allow separate, child
+   * to be specified as the drag handle by which the first widget can be dragged.
+   * 
+   * @param draggable the widget to be made draggable
+   * @param dragHandle the widget by which widget can be dragged
+   */
   public void makeDraggable(Widget draggable, Widget dragHandle) {
     mouseDragHandler.makeDraggable(draggable, dragHandle);
     draggable.addStyleName(STYLE_DRAGGABLE);
@@ -121,6 +138,13 @@ public abstract class AbstractDragController implements DragController {
     widgetControllers.put(draggable, this);
   }
 
+  /**
+   * Performs the reverse of {@link #makeDraggable(Widget)}, detaching the
+   * {@link MouseDragHandler} from the widget and removing any styling
+   * which was applied when making the widget draggable.
+   * 
+   * @param widget the widget to be made draggable
+   */
   public void makeNotDraggable(Widget widget) {
     if (widgetControllers.remove(widget) == null) {
       throw new RuntimeException("widget is not currently draggable");
@@ -156,7 +180,7 @@ public abstract class AbstractDragController implements DragController {
   public final void registerDropController(DropController dropController) {
     dropControllerCollection.add(dropController);
   }
-  
+
   public final void removeDragHandler(DragHandler handler) {
     if (dragHandlers != null) {
       dragHandlers.remove(handler);

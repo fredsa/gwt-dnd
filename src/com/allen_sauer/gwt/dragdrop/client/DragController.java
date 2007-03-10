@@ -59,18 +59,19 @@ public interface DragController extends FiresDragEvents {
   abstract Widget getMovableWidget();
 
   /**
-   * Attaches a {@link MouseDragHandler} (which is a
-   * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget and
-   * adds the {@link #STYLE_DRAGGABLE} style to the widget. Call this method for
-   * each which that should be made draggable by this DragController.
+   * Enable dragging on widget.
+   * 
+   * @see AbstractDragController#makeDraggable(Widget)
    * 
    * @param widget the widget to be made draggable
    */
   abstract void makeDraggable(Widget widget);
 
   /**
-   * Similar to {@link #makeDraggable(Widget)}, but allow separate, child
-   * to be specified as the drag handle by which the first widget can be dragged.
+   * Enable dragging on widget, but specify a specific child widget
+   * as the drag handle.
+   * 
+   * @see AbstractDragController#makeDraggable(Widget, Widget)
    * 
    * @param draggable the widget to be made draggable
    * @param dragHandle the widget by which widget can be dragged
@@ -78,12 +79,10 @@ public interface DragController extends FiresDragEvents {
   abstract void makeDraggable(Widget draggable, Widget dragHandle);
 
   /**
-   * Performs the reverse of {@link #makeDraggable(Widget)}, detaching the
-   * {@link MouseDragHandler} from the widget and removing the
-   * {@link #STYLE_DRAGGABLE} style from the widget. Call this method for
-   * each which that should be made draggable by this DragController.
+   * Performs the reverse of {@link #makeDraggable(Widget)}, making the
+   * widget no longer draggable by this drag controller.
    * 
-   * @param widget the widget to be made draggable
+   * @param widget the widget to be made no longer draggable
    */
   abstract void makeNotDraggable(Widget widget);
 
