@@ -24,6 +24,7 @@
   filter: alpha(opacity = 30);
   opacity: 0.3;
   -moz-opacity: 0.3;
+  z-index: 3;
 }
 
 .dragdrop-hidden {

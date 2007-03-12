@@ -107,6 +107,10 @@ public class PickupDragController extends AbstractDragController {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
     initialDraggableBoundaryPanelLocation = new Location(draggable, getBoundaryPanel());
+    if (getMovableWidget().getParent() == getBoundaryPanel()) {
+      // causes widget to be place on top of all other widgets in the boundary panel
+      getMovableWidget().removeFromParent();
+    }
     getBoundaryPanel().add(getMovableWidget(), initialDraggableBoundaryPanelLocation.getLeft(),
         initialDraggableBoundaryPanelLocation.getTop());
   }
