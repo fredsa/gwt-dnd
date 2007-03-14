@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jardesc>
 <jar path="C:/fred/java/lib/gwt-dragdrop-patches-gwt1.3.3.jar"/>
-<options buildIfNeeded="true" compress="true" descriptionLocation="/DragDrop/gwt-dragdrop-patches-gwt1.3.3.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+<options buildIfNeeded="true" compress="true" descriptionLocation="/DragDrop/gwt-dragdrop-patches-gwt1.3.3.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
 <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
 <selectedProjects/>
 <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
