@@ -46,26 +46,20 @@ class DOMImplMozilla extends DOMImplStandard {
     } else {
       return button;
     }
-   }-*/;
+ }-*/;
 
-    public native int getAbsoluteLeft(Element elem) /*-{
-      var left = $doc.getBoxObjectFor(elem).screenX
-          - $doc.getBoxObjectFor($doc.documentElement).screenX;
-  
-      var computedStyle = $doc.defaultView.getComputedStyle($doc.documentElement, null);
-      var borderLeftWidth = computedStyle.getPropertyValue("border-left-width");
-      if (borderLeftWidth.indexOf("px") == borderLeftWidth.length - 2) {
-        left -= parseInt(borderLeftWidth);
-      }
-  
-      var marginLeft = computedStyle.getPropertyValue("margin-left");
-      if ($doc.documentElement.scrollLeft > 0
-          && parseInt(marginLeft) == parseFloat(marginLeft)) {
-        left--;
-      }
-  
-      return left;
-    }-*/;
+  public native int getAbsoluteLeft(Element elem) /*-{
+    var left = $doc.getBoxObjectFor(elem).screenX
+        - $doc.getBoxObjectFor($doc.documentElement).screenX;
+
+    var computedStyle = $doc.defaultView.getComputedStyle($doc.documentElement, null);
+    var borderLeftWidth = computedStyle.getPropertyValue("border-left-width");
+    if (borderLeftWidth.indexOf("px") == borderLeftWidth.length - 2) {
+      left -= parseInt(borderLeftWidth);
+    }
+
+    return left;
+  }-*/;
 
   public native int getAbsoluteTop(Element elem) /*-{
     var top = $doc.getBoxObjectFor(elem).screenY
@@ -75,12 +69,6 @@ class DOMImplMozilla extends DOMImplStandard {
     var borderTopWidth = computedStyle.getPropertyValue("border-top-width");
     if (borderTopWidth.indexOf("px") == borderTopWidth.length - 2) {
       top -= parseInt(borderTopWidth);
-    }
-
-    var marginTop = computedStyle.getPropertyValue("margin-top");
-    if ($doc.documentElement.scrollTop > 0
-        && parseInt(marginTop) == parseFloat(marginTop)) {
-      top--;
     }
 
     return top;
