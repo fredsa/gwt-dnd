@@ -30,7 +30,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
  */
 public interface DragController extends FiresDragEvents {
 
-  abstract void addDragHandler(DragHandler handler);
+  void addDragHandler(DragHandler handler);
 
   /**
    * Call back method for {@link MouseDragHandler}.
@@ -39,24 +39,38 @@ public interface DragController extends FiresDragEvents {
    * @param dropTarget widget on which draggable was dropped. 
    *        <code>null</code> if drag was canceled
    */
-  abstract void dragEnd(Widget draggable, Widget dropTarget);
+  void dragEnd(Widget draggable, Widget dropTarget);
 
   /**
    * Call back method for {@link MouseDragHandler}.
    * 
    * @param draggable widget which was being dragged
    */
-  abstract void dragStart(Widget draggable);
+  void dragStart(Widget draggable);
 
-  abstract AbsolutePanel getBoundaryPanel();
+  /**
+   * Get the boundary panel provided in the constructor.
+   * 
+   * @return the AbsolutePanel provided in the constructor
+   */
+  AbsolutePanel getBoundaryPanel();
 
-  abstract DropController getIntersectDropController(Widget draggableProxy);
+  /**
+   * Determine which DropController represents the drop target which
+   * is currently engaging the drag proxy, meaning the drop target
+   * and proxy widgets overlap and the drop target has no descendant
+   * drop targets which also intersect
+   * 
+   * @param draggableProxy the proxy widget to be used as a reference
+   * @return the repsonsibile DropController
+   */
+  DropController getIntersectDropController(Widget draggableProxy);
 
   /**
    * @return widget which will move as part of the drag operation.
    *         May be the actual draggable widget or an appropriate proxy widget.
    */
-  abstract Widget getMovableWidget();
+  Widget getMovableWidget();
 
   /**
    * Enable dragging on widget.
@@ -65,7 +79,7 @@ public interface DragController extends FiresDragEvents {
    * 
    * @param widget the widget to be made draggable
    */
-  abstract void makeDraggable(Widget widget);
+  void makeDraggable(Widget widget);
 
   /**
    * Enable dragging on widget, but specify a specific child widget
@@ -76,7 +90,7 @@ public interface DragController extends FiresDragEvents {
    * @param draggable the widget to be made draggable
    * @param dragHandle the widget by which widget can be dragged
    */
-  abstract void makeDraggable(Widget draggable, Widget dragHandle);
+  void makeDraggable(Widget draggable, Widget dragHandle);
 
   /**
    * Performs the reverse of {@link #makeDraggable(Widget)}, making the
@@ -84,9 +98,16 @@ public interface DragController extends FiresDragEvents {
    * 
    * @param widget the widget to be made no longer draggable
    */
-  abstract void makeNotDraggable(Widget widget);
+  void makeNotDraggable(Widget widget);
 
-  abstract BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel);
+  /**
+   * Create a new BoundaryDropController to manage our boundary panel as a
+   * drop target.
+   * 
+   * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
+   * @return the new DropController
+   */
+  BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel);
 
   /**
    * Call back method for {@link MouseDragHandler}.
@@ -95,7 +116,7 @@ public interface DragController extends FiresDragEvents {
    * @param dropTarget widget on which draggable was dropped. 
    *        <code>null</code> if drag was canceled
    */
-  abstract void notifyDragEnd(Widget draggable, Widget dropTarget);
+  void notifyDragEnd(Widget draggable, Widget dropTarget);
 
   /**
    * Call back method for {@link MouseDragHandler}.
@@ -103,7 +124,7 @@ public interface DragController extends FiresDragEvents {
    * @param draggable widget which was being dragged
    * @throws VetoDragException if the proposed operation is unacceptable
    */
-  abstract void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException;
+  void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException;
 
   /**
    * Call back method for {@link MouseDragHandler}.
@@ -111,9 +132,34 @@ public interface DragController extends FiresDragEvents {
    * @param draggable widget which was being dragged
    * @throws VetoDragException if the proposed operation is unacceptable
    */
-  abstract void previewDragStart(Widget draggable) throws VetoDragException;
+  void previewDragStart(Widget draggable) throws VetoDragException;
 
-  abstract void registerDropController(DropController dropController);
+  /**
+   * Register a new DropController, representing a new drop target,
+   * with this drag controller.
+   * 
+   * @param dropController the controller to register
+   */
+  void registerDropController(DropController dropController);
 
-  abstract void removeDragHandler(DragHandler handler);
+  void removeDragHandler(DragHandler handler);
+  
+  /**
+   * Restore the draggable to its original location
+   * 
+   * @see #saveDraggableLocation(Widget)
+   * 
+   * @param draggable the widget to be restored to its original location
+   */
+  void restoreDraggableLocation(Widget draggable);
+
+  /**
+   * Save the draggable's current location in case we need to
+   * restore it later.
+   * 
+   * @see #restoreDraggableLocation(Widget)
+   * 
+   * @param draggable the widget for which the location must be saved
+   */
+  void saveDraggableLocation(Widget draggable);
 }

@@ -15,13 +15,19 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SourcesMouseEvents;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 import java.util.HashMap;
 
@@ -47,6 +53,10 @@ public abstract class AbstractDragController implements DragController {
   public static DragController getDragController(Widget widget) {
     return (DragController) widgetControllers.get(widget);
   }
+  private Widget initialDraggableParent;
+  private Location initialDraggableParentLocation;
+
+  private int initialDraggableIndex;
 
   private MouseDragHandler mouseDragHandler;
   private BoundaryDropController boundaryDropController;
@@ -184,6 +194,46 @@ public abstract class AbstractDragController implements DragController {
   public final void removeDragHandler(DragHandler handler) {
     if (dragHandlers != null) {
       dragHandlers.remove(handler);
+    }
+  }
+
+  public void restoreDraggableLocation(Widget draggable) {
+    // TODO simplify after enhancement for issue 616
+    // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+    if (initialDraggableParent instanceof AbsolutePanel) {
+      //      Location parentLocation = new Location(initialDraggableParent, boundaryPanel);
+      ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
+          initialDraggableParentLocation.getTop());
+    } else if (initialDraggableParent instanceof DeckPanel) {
+      ((DeckPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+    } else if (initialDraggableParent instanceof HorizontalPanel) {
+      ((HorizontalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+    } else if (initialDraggableParent instanceof VerticalPanel) {
+      ((VerticalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+    } else if (initialDraggableParent instanceof IndexedFlowPanel) {
+      ((IndexedFlowPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+    } else {
+      throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
+    }
+  }
+
+  public void saveDraggableLocation(Widget draggable) {
+    initialDraggableParent = draggable.getParent();
+
+    // TODO simplify after enhancement for issue 616
+    // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+    if (initialDraggableParent instanceof AbsolutePanel) {
+      initialDraggableParentLocation = new Location(draggable, initialDraggableParent);
+    } else if (initialDraggableParent instanceof DeckPanel) {
+      initialDraggableIndex = ((DeckPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof HorizontalPanel) {
+      initialDraggableIndex = ((HorizontalPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof VerticalPanel) {
+      initialDraggableIndex = ((VerticalPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof IndexedFlowPanel) {
+      initialDraggableIndex = ((IndexedFlowPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else {
+      throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
   }
 }
