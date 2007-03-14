@@ -46,75 +46,44 @@ class DOMImplMozilla extends DOMImplStandard {
     } else {
       return button;
     }
- }-*/;
+   }-*/;
 
-  public native int getAbsoluteLeft(Element elem) /*-{
-    var left = $doc.getBoxObjectFor(elem).x;
-    var parent = elem;
-
-    while (parent) {
-      // Sometimes get NAN.
-      if (parent.scrollLeft > 0) {
-        left = left -  parent.scrollLeft;
-      }
-      parent = parent.parentNode;
-    }
- 
-    // --BEGIN CHANGES--
-    var borderLeftWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-left-width");
-    if (borderLeftWidth.indexOf("px") != -1) {
-      left = left - parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
-    }
-
-    parent = elem.parentNode;
-    while (parent && parent.nodeName != '#document') {
-      var overflow = $doc.defaultView.getComputedStyle(parent, null).getPropertyValue("overflow");
-      if (overflow != "visible") {
-        var borderLeftWidth = $doc.defaultView.getComputedStyle(parent, null).getPropertyValue("border-left-width");
-        if (borderLeftWidth.indexOf("px") != -1) {
-          left = left + parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
-        }
-      }
-      parent = parent.parentNode;
-    }
-    // --END CHANGES--
+    public native int getAbsoluteLeft(Element elem) /*-{
+      var left = $doc.getBoxObjectFor(elem).screenX
+          - $doc.getBoxObjectFor($doc.documentElement).screenX;
   
-  // Must cover both Standard and Quirks mode. 
-    return left + $doc.body.scrollLeft + $doc.documentElement.scrollLeft;
-  }-*/;
+      var computedStyle = $doc.defaultView.getComputedStyle($doc.documentElement, null);
+      var borderLeftWidth = computedStyle.getPropertyValue("border-left-width");
+      if (borderLeftWidth.indexOf("px") == borderLeftWidth.length - 2) {
+        left -= parseInt(borderLeftWidth);
+      }
+  
+      var marginLeft = computedStyle.getPropertyValue("margin-left");
+      if ($doc.documentElement.scrollLeft > 0
+          && parseInt(marginLeft) == parseFloat(marginLeft)) {
+        left--;
+      }
+  
+      return left;
+    }-*/;
 
   public native int getAbsoluteTop(Element elem) /*-{
-    var top = $doc.getBoxObjectFor(elem).y;
-    var parent = elem;
-    while (parent) {
-      // Sometimes get NAN.
-      if (parent.scrollTop > 0) {
-        top -= parent.scrollTop;
-      }
-      parent = parent.parentNode;
-    }
-   
-    // --BEGIN CHANGES--
-    var borderTopWidth = $doc.defaultView.getComputedStyle(elem, null).getPropertyValue("border-top-width");
-    if (borderTopWidth.indexOf("px") != -1) {
-      top = top - parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
+    var top = $doc.getBoxObjectFor(elem).screenY
+        - $doc.getBoxObjectFor($doc.documentElement).screenY;
+
+    var computedStyle = $doc.defaultView.getComputedStyle($doc.documentElement, null);
+    var borderTopWidth = computedStyle.getPropertyValue("border-top-width");
+    if (borderTopWidth.indexOf("px") == borderTopWidth.length - 2) {
+      top -= parseInt(borderTopWidth);
     }
 
-    parent = elem.parentNode;
-    while (parent && parent.nodeName != '#document') {
-      var overflow = $doc.defaultView.getComputedStyle(parent, null).getPropertyValue("overflow");
-      if (overflow != "visible") {
-        var borderTopWidth = $doc.defaultView.getComputedStyle(parent, null).getPropertyValue("border-top-width");
-        if (borderTopWidth.indexOf("px") != -1) {
-          top = top + parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
-        }
-      }
-      parent = parent.parentNode;
+    var marginTop = computedStyle.getPropertyValue("margin-top");
+    if ($doc.documentElement.scrollTop > 0
+        && parseInt(marginTop) == parseFloat(marginTop)) {
+      top--;
     }
-    // --END CHANGES--
 
-  // Must cover both Standard and Quirks mode.
-    return top + $doc.body.scrollTop + $doc.documentElement.scrollTop;
+    return top;
   }-*/;
 
   public native int getChildIndex(Element parent, Element toFind) /*-{
