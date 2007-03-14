@@ -53,12 +53,11 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     super.onEnter(reference, draggable, dragController);
-    positioner = newPositioner(reference);
+    positioner = newPositioner(draggable);
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
     super.onLeave(draggable, dragController);
-    UIUtil.resetStylePositionStatic(draggable.getElement());
     removePositioner();
   }
 
