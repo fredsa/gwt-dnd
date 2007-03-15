@@ -60,7 +60,7 @@ final class ResizeDragController extends AbstractDragController {
   }
 
   public ResizePanel getResizePanel() {
-    return this.resizePanel;
+    return resizePanel;
   }
 
   public void makeDraggable(Widget widget, ResizePanel.DirectionConstant direction) {
