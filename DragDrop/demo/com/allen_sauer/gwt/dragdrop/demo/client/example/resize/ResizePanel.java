@@ -38,7 +38,7 @@ final class ResizePanel extends SimplePanel {
     }
 
     public int getDirectionBits() {
-      return this.directionBits;
+      return directionBits;
     }
   }
 
@@ -139,11 +139,11 @@ final class ResizePanel extends SimplePanel {
   }
 
   public int getContentWidth() {
-    return this.contentWidth;
+    return contentWidth;
   }
 
   public ScrollPanel getScrollPanel() {
-    return this.scrollPanel;
+    return scrollPanel;
   }
 
   public void moveBy(int right, int down) {
