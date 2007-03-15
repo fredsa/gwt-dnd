@@ -173,13 +173,6 @@ public class MouseDragHandler implements MouseListener {
 
   private void move(int x, int y) {
     Location location = new Location(capturingWidget, boundaryPanel);
-    //    Location altLocation = new Location(moveableWidget, boundaryPanel);
-    //    Log.debug("offset= " + (altLocation.getLeft() - location.getLeft()));
-    //
-    //    DOM.setStyleAttribute(capturingWidget.getElement(), "border", "3px solid green");
-    //    DOM.setStyleAttribute(draggable.getElement(), "border", "3px solid pink");
-    //    DOM.setStyleAttribute(moveableWidget.getElement(), "border", "3px solid red");
-
     int desiredLeft = location.getLeft() + offsetX + (x - initialMouseX);
     int desiredTop = location.getTop() + offsetY + (y - initialMouseY);
     boundaryPanel.setWidgetPosition(moveableWidget, desiredLeft, desiredTop);
