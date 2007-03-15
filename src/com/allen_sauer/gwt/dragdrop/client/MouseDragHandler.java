@@ -45,6 +45,7 @@ public class MouseDragHandler implements MouseListener {
   private int initialMouseY;
   private int offsetX;
   private int offsetY;
+  private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
 
   public MouseDragHandler(DragController dragController) {
     this.dragController = dragController;
@@ -87,7 +88,7 @@ public class MouseDragHandler implements MouseListener {
     DOM.setCapture(capturingWidget.getElement());
     dragging = true;
     try {
-      move(x, y);
+      actualMove(x, y);
     } catch (RuntimeException ex) {
       cancelDrag();
       throw ex;
@@ -105,7 +106,7 @@ public class MouseDragHandler implements MouseListener {
       return;
     }
     try {
-      move(x, y);
+      deferredMoveCommand.scheduleOrExecute(x, y);
     } catch (RuntimeException ex) {
       cancelDrag();
       throw ex;
@@ -119,7 +120,7 @@ public class MouseDragHandler implements MouseListener {
     try {
       DOM.releaseCapture(capturingWidget.getElement());
 
-      move(x, y);
+      actualMove(x, y);
       dragging = false;
 
       // Is there a DropController willing to handle our request?
@@ -157,21 +158,7 @@ public class MouseDragHandler implements MouseListener {
     }
   }
 
-  private void cancelDrag() {
-    // Do this first so it always happens
-    DOM.releaseCapture(capturingWidget.getElement());
-    dragging = false;
-
-    if (dropController != null) {
-      dropController.onLeave(draggable, dragController);
-    }
-    dropController = null;
-
-    dragController.dragEnd(draggable, null);
-    dragController.notifyDragEnd(draggable, null);
-  }
-
-  private void move(int x, int y) {
+  void actualMove(int x, int y) {
     Location location = new Location(capturingWidget, boundaryPanel);
     int desiredLeft = location.getLeft() + offsetX + (x - initialMouseX);
     int desiredTop = location.getTop() + offsetY + (y - initialMouseY);
@@ -191,5 +178,19 @@ public class MouseDragHandler implements MouseListener {
     if (dropController != null) {
       dropController.onMove(moveableWidget, draggable, dragController);
     }
+  }
+
+  private void cancelDrag() {
+    // Do this first so it always happens
+    DOM.releaseCapture(capturingWidget.getElement());
+    dragging = false;
+
+    if (dropController != null) {
+      dropController.onLeave(draggable, dragController);
+    }
+    dropController = null;
+
+    dragController.dragEnd(draggable, null);
+    dragController.notifyDragEnd(draggable, null);
   }
 }
