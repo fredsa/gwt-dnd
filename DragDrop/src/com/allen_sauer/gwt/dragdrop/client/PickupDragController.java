@@ -61,11 +61,11 @@ public class PickupDragController extends AbstractDragController {
     currentDraggable = draggable;
     draggableProxy = maybeNewDraggableProxy(draggable);
     saveDraggableLocation(draggable);
+    Location location = new Location(draggable, getBoundaryPanel());
     if (getMovableWidget().getParent() == getBoundaryPanel()) {
       // causes widget to be placed on top of all other widgets in the boundary panel
       getMovableWidget().removeFromParent();
     }
-    Location location = new Location(draggable, getBoundaryPanel());
     getBoundaryPanel().add(getMovableWidget(), location.getLeft(), location.getTop());
   }
 
