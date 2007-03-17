@@ -13,16 +13,32 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.client.drop;
-
-import com.google.gwt.user.client.ui.Widget;
+package com.allen_sauer.gwt.dragdrop.client.util;
 
 /**
- * Minimal implementation of a DropController.
+ * A position represented by a left (x) and top (y) coordinate.
  */
-public class SimpleDropController extends AbstractDropController {
+public class CoordinateLocation extends AbstractLocation {
 
-  public SimpleDropController(Widget dropTarget) {
-    super(dropTarget);
+  private int left;
+  private int top;
+
+  public CoordinateLocation(int left, int top) {
+    this.left = left;
+    this.top = top;
+  }
+
+  /* (non-Javadoc)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.Location#getLeft()
+   */
+  public int getLeft() {
+    return left;
+  }
+
+  /* (non-Javadoc)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.Location#getTop()
+   */
+  public int getTop() {
+    return top;
   }
 }

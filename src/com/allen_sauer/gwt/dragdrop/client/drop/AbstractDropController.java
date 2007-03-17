@@ -29,10 +29,15 @@ public abstract class AbstractDropController implements DropController {
   private static final String STYLE_DROP_TARGET = "dragdrop-dropTarget";
 
   private Widget dropTarget;
+  private DragController currentDragController;
 
   public AbstractDropController(Widget dropTarget) {
     this.dropTarget = dropTarget;
     dropTarget.addStyleName(getDropTargetStyleName());
+  }
+
+  public DragController getCurrentDragController() {
+    return this.currentDragController;
   }
 
   public Widget getDropTarget() {
@@ -45,14 +50,17 @@ public abstract class AbstractDropController implements DropController {
 
   public void onDrop(Widget reference, Widget draggable, DragController dragController) {
     dropTarget.removeStyleName(STLE_ENGAGE);
+    currentDragController = null;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     dropTarget.addStyleName(STLE_ENGAGE);
+    currentDragController = dragController;
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
     dropTarget.removeStyleName(STLE_ENGAGE);
+    currentDragController = null;
   }
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {

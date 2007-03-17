@@ -21,8 +21,10 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -31,12 +33,14 @@ import java.util.Iterator;
  */
 public class DropControllerCollection extends ArrayList {
 
+  private HashMap areaControllerMap = new HashMap();
+
   /**
    * Default constructor used by {@link PickupDragController}.
    */
   protected DropControllerCollection() {
   }
-  
+
   /**
    * Determines which drop controller has a lowest DOM descendant target area which intersects
    * with the provided widget area.
@@ -47,19 +51,31 @@ public class DropControllerCollection extends ArrayList {
    * @return a drop controller for the intersecting drop target or null if none are applicable
    */
   public DropController getIntersectDropController(Widget widget, Panel boundaryPanel) {
-    Area widgetArea = new Area(widget, null);
-    Area boundaryArea = new Area(boundaryPanel, null);
+    Area widgetArea = new WidgetArea(widget, null);
     DropController result = null;
-    for (Iterator iterator = iterator(); iterator.hasNext();) {
-      DropController dropController = (DropController) iterator.next();
-      Widget target = dropController.getDropTarget();
-      Area targetArea = new Area(target, null);
-      if (widgetArea.intersects(targetArea) && targetArea.intersects(boundaryArea)) {
-        if (result == null || DOM.isOrHasChild(result.getDropTarget().getElement(), target.getElement())) {
+    for (Iterator iterator = areaControllerMap.keySet().iterator(); iterator.hasNext();) {
+      WidgetArea targetArea = (WidgetArea) iterator.next();
+      if (widgetArea.intersects(targetArea)) {
+        DropController dropController = (DropController) areaControllerMap.get(targetArea);
+        if (result == null || DOM.isOrHasChild(result.getDropTarget().getElement(), dropController.getDropTarget().getElement())) {
           result = dropController;
         }
       }
     }
     return result;
+  }
+
+  public void resetCache(Panel boundaryPanel) {
+    WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
+
+    areaControllerMap.clear();
+    for (Iterator iterator = iterator(); iterator.hasNext();) {
+      DropController dropController = (DropController) iterator.next();
+      Widget target = dropController.getDropTarget();
+      Area targetArea = new WidgetArea(target, null);
+      if (targetArea.intersects(boundaryArea)) {
+        areaControllerMap.put(targetArea, dropController);
+      }
+    }
   }
 }

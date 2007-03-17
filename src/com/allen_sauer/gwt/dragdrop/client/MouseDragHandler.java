@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.HashMap;
 
@@ -66,6 +67,7 @@ public class MouseDragHandler implements MouseListener {
       // Ignore additional mouse buttons depressed while still dragging
       return;
     }
+    dragController.resetCache();
     capturingWidget = sender;
     draggable = (Widget) dragHandleMap.get(capturingWidget);
     initialMouseX = x;
@@ -80,8 +82,8 @@ public class MouseDragHandler implements MouseListener {
 
     moveableWidget = dragController.getMovableWidget();
 
-    Location location = new Location(capturingWidget, boundaryPanel);
-    Location altLocation = new Location(moveableWidget, boundaryPanel);
+    Location location = new WidgetLocation(capturingWidget, boundaryPanel);
+    Location altLocation = new WidgetLocation(moveableWidget, boundaryPanel);
     offsetX = altLocation.getLeft() - location.getLeft();
     offsetY = altLocation.getTop() - location.getTop();
 
@@ -159,7 +161,7 @@ public class MouseDragHandler implements MouseListener {
   }
 
   void actualMove(int x, int y) {
-    Location location = new Location(capturingWidget, boundaryPanel);
+    Location location = new WidgetLocation(capturingWidget, boundaryPanel);
     int desiredLeft = location.getLeft() + offsetX + (x - initialMouseX);
     int desiredTop = location.getTop() + offsetY + (y - initialMouseY);
     boundaryPanel.setWidgetPosition(moveableWidget, desiredLeft, desiredTop);

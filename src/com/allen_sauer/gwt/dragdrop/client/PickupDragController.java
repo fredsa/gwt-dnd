@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
  * DragController used for drag-and-drop operations where a draggable widget
@@ -61,7 +62,7 @@ public class PickupDragController extends AbstractDragController {
     currentDraggable = draggable;
     draggableProxy = maybeNewDraggableProxy(draggable);
     saveDraggableLocation(draggable);
-    Location location = new Location(draggable, getBoundaryPanel());
+    Location location = new WidgetLocation(draggable, getBoundaryPanel());
     if (getMovableWidget().getParent() == getBoundaryPanel()) {
       // causes widget to be placed on top of all other widgets in the boundary panel
       getMovableWidget().removeFromParent();

@@ -18,9 +18,10 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
  * A {@link DropController} which constrains the placement of draggable widgets 
@@ -28,13 +29,11 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  */
 public class GridConstrainedDropController extends AbsolutePositionDropController {
 
-  private AbsolutePanel dropTarget;
   private int gridX;
   private int gridY;
 
   public GridConstrainedDropController(AbsolutePanel dropTarget, int gridX, int gridY) {
     super(dropTarget);
-    this.dropTarget = dropTarget;
     this.gridX = gridX;
     this.gridY = gridY;
   }
@@ -43,13 +42,11 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
     return super.getDropTargetStyleName() + " dragdrop-grid-constrained-drop-target";
   }
 
-  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
-    AbsolutePanel boundaryPanel = dragController.getBoundaryPanel();
-    Area dropArea = new Area(dropTarget, boundaryPanel);
-    Area draggableArea = new Area(reference, boundaryPanel);
-    Location location = new Location(reference, dropTarget);
-    location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
-        - draggableArea.getHeight());
+  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
+    Area referenceArea = new WidgetArea(reference, getDropTargetInfo().getBoundaryPanel());
+    WidgetLocation location = new WidgetLocation(reference, getDropTargetInfo().getDropTarget());
+    location.constrain(0, 0, getDropTargetInfo().getDropAreaClientWidth() - referenceArea.getWidth(),
+        getDropTargetInfo().getDropAreaClientHeight() - referenceArea.getHeight());
     location.snapToGrid(gridX, gridY);
     return location;
   }

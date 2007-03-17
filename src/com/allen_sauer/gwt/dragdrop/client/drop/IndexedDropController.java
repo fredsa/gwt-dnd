@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 
@@ -73,10 +74,10 @@ public class IndexedDropController extends AbstractPositioningDropController {
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
     super.onMove(reference, draggable, dragController);
-    Location draggableCenter = new Area(reference, null).getCenter();
+    Location draggableCenter = new WidgetArea(reference, null).getCenter();
     for (int i = 0; i < dropTarget.getWidgetCount(); i++) {
       Widget child = dropTarget.getWidget(i);
-      Area childArea = new Area(child, null);
+      Area childArea = new WidgetArea(child, null);
       if (childArea.intersects(draggableCenter)) {
         int targetIndex = i;
         if (childArea.inBottomRight(draggableCenter)) {
