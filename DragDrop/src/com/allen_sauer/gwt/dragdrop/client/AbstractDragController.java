@@ -28,6 +28,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.HashMap;
 
@@ -46,13 +47,8 @@ public abstract class AbstractDragController implements DragController {
   private static final String STYLE_DRAGGABLE = "dragdrop-draggable";
   private static final String STYLE_HANDLE = "dragdrop-handle";
 
-  private static HashMap widgetControllers = new HashMap();
   private static HashMap dragHandles = new HashMap();
 
-  // TODO remove this method as it is barely used
-  public static DragController getDragController(Widget widget) {
-    return (DragController) widgetControllers.get(widget);
-  }
   private Widget initialDraggableParent;
   private Location initialDraggableParentLocation;
 
@@ -145,7 +141,6 @@ public abstract class AbstractDragController implements DragController {
     draggable.addStyleName(STYLE_DRAGGABLE);
     dragHandle.addStyleName(STYLE_HANDLE);
     dragHandles.put(draggable, dragHandle);
-    widgetControllers.put(draggable, this);
   }
 
   /**
@@ -156,9 +151,6 @@ public abstract class AbstractDragController implements DragController {
    * @param widget the widget to be made draggable
    */
   public void makeNotDraggable(Widget widget) {
-    if (widgetControllers.remove(widget) == null) {
-      throw new RuntimeException("widget is not currently draggable");
-    }
     ((SourcesMouseEvents) widget).removeMouseListener(mouseDragHandler);
     Widget dragHandle = (Widget) dragHandles.remove(widget);
     widget.removeStyleName(STYLE_DRAGGABLE);
@@ -197,11 +189,14 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
+  public void resetCache() {
+    dropControllerCollection.resetCache(getBoundaryPanel());
+  }
+
   public void restoreDraggableLocation(Widget draggable) {
     // TODO simplify after enhancement for issue 616
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
     if (initialDraggableParent instanceof AbsolutePanel) {
-      //      Location parentLocation = new Location(initialDraggableParent, boundaryPanel);
       ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
           initialDraggableParentLocation.getTop());
     } else if (initialDraggableParent instanceof DeckPanel) {
@@ -223,7 +218,7 @@ public abstract class AbstractDragController implements DragController {
     // TODO simplify after enhancement for issue 616
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
     if (initialDraggableParent instanceof AbsolutePanel) {
-      initialDraggableParentLocation = new Location(draggable, initialDraggableParent);
+      initialDraggableParentLocation = new WidgetLocation(draggable, initialDraggableParent);
     } else if (initialDraggableParent instanceof DeckPanel) {
       initialDraggableIndex = ((DeckPanel) initialDraggableParent).getWidgetIndex(draggable);
     } else if (initialDraggableParent instanceof HorizontalPanel) {

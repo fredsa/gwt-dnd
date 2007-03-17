@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 final class ResizePanel extends SimplePanel {
 
@@ -149,7 +150,7 @@ final class ResizePanel extends SimplePanel {
   public void moveBy(int right, int down) {
     AbsolutePanel parent = (AbsolutePanel) getParent();
     // TODO Use parent.getWidgetLeft/getWidgetTop after <a href="http://code.google.com/p/google-web-toolkit/issues/detail?id=757">GWT issue 757</a> is fixed
-    Location location = new Location(this, parent);
+    Location location = new WidgetLocation(this, parent);
     int left = location.getLeft() + right;
     int top = location.getTop() + down;
     parent.setWidgetPosition(this, left, top);

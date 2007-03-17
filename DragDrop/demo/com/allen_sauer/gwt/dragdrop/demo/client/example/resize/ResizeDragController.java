@@ -24,6 +24,7 @@ import com.allen_sauer.gwt.dragdrop.client.AbstractDragController;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizePanel.DirectionConstant;
 
 import java.util.HashMap;
@@ -47,7 +48,7 @@ final class ResizeDragController extends AbstractDragController {
   public void dragStart(Widget draggable) {
     super.dragStart(draggable);
     resizePanel = (ResizePanel) draggable.getParent().getParent();
-    Location location = new Location(draggable, getBoundaryPanel());
+    Location location = new WidgetLocation(draggable, getBoundaryPanel());
     getBoundaryPanel().add(dummyMovableWidget, location.getLeft(), location.getTop());
   }
 

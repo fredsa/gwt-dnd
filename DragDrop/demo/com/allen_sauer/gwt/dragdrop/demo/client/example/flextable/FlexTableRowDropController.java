@@ -23,6 +23,7 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractPositioningDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
 
 /**
@@ -50,8 +51,8 @@ final class FlexTableRowDropController extends AbstractPositioningDropController
     super.onMove(reference, draggable, dragController);
     int row = determineRow(reference);
     Widget w = flexTable.getWidget(row == -1 ? 0 : row, 0);
-    Location widgetLocation = new Location(w, dragController.getBoundaryPanel());
-    Location tableLocation = new Location(flexTable, dragController.getBoundaryPanel());
+    Location widgetLocation = new WidgetLocation(w, dragController.getBoundaryPanel());
+    Location tableLocation = new WidgetLocation(flexTable, dragController.getBoundaryPanel());
     dragController.getBoundaryPanel().add(getPositioner(), tableLocation.getLeft(),
         widgetLocation.getTop() + (row == -1 ? 0 : w.getOffsetHeight()));
   }

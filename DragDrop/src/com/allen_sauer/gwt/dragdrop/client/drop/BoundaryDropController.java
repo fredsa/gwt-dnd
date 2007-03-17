@@ -18,9 +18,10 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
  * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}
@@ -28,12 +29,11 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  */
 public class BoundaryDropController extends AbsolutePositionDropController {
 
-  private AbsolutePanel dropTarget;
   private boolean allowDropping;
+  private WidgetLocation referenceLocation;
 
   public BoundaryDropController(AbsolutePanel dropTarget, boolean allowDropping) {
     super(dropTarget);
-    this.dropTarget = dropTarget;
     this.allowDropping = allowDropping;
   }
 
@@ -41,18 +41,19 @@ public class BoundaryDropController extends AbsolutePositionDropController {
     return "dragdrop-boundary";
   }
 
-  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget, DragController dragController) {
+  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     if (allowDropping) {
-      AbsolutePanel boundaryPanel = dragController.getBoundaryPanel();
-      Area dropArea = new Area(dropTarget, boundaryPanel);
-      Area draggableArea = new Area(reference, boundaryPanel);
-      Location location = new Location(reference, dropTarget);
-      location.constrain(0, 0, dropArea.getInternalWidth() - draggableArea.getWidth(), dropArea.getInternalHeight()
-          - draggableArea.getHeight());
-      return location;
+      Area referenceArea = new WidgetArea(reference, getDropTargetInfo().getBoundaryPanel());
+      if (referenceLocation == null) {
+        referenceLocation = new WidgetLocation(reference, getDropTargetInfo().getDropTarget());
+      } else {
+        referenceLocation.setWidget(reference);
+      }
+      referenceLocation.constrain(0, 0, getDropTargetInfo().getDropAreaClientWidth() - referenceArea.getWidth(),
+          getDropTargetInfo().getDropAreaClientHeight() - referenceArea.getHeight());
+      return referenceLocation;
     } else {
       return null;
     }
   }
-
 }
