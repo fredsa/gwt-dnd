@@ -21,6 +21,8 @@ import java.util.EventObject;
 
 /**
  * Event containing information about the end of a drag.
+ * 
+ * TODO Add position information
  */
 public class DragEndEvent extends EventObject {
 
