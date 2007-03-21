@@ -28,6 +28,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.HashMap;
@@ -206,6 +207,7 @@ public abstract class AbstractDragController implements DragController {
     } else if (initialDraggableParent instanceof VerticalPanel) {
       ((VerticalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
     } else if (initialDraggableParent instanceof IndexedFlowPanel) {
+      UIUtil.resetStylePositionStatic(draggable.getElement());
       ((IndexedFlowPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
     } else {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
