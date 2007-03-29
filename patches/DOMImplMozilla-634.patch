@@ -1,0 +1,56 @@
+Index: src/com/google/gwt/user/client/impl/DOMImplMozilla.java
+===================================================================
+--- src/com/google/gwt/user/client/impl/DOMImplMozilla.java	(revision 16)
++++ src/com/google/gwt/user/client/impl/DOMImplMozilla.java	(working copy)
+@@ -49,34 +49,29 @@
+  }-*/;
+ 
+   public native int getAbsoluteLeft(Element elem) /*-{
+-    var left = $doc.getBoxObjectFor(elem).x;
+-    var parent = elem;
++    var left = $doc.getBoxObjectFor(elem).screenX
++        - $doc.getBoxObjectFor($doc.documentElement).screenX;
+ 
+-    while (parent) {
+-      // Sometimes get NAN.
+-      if (parent.scrollLeft > 0) {
+-        left = left -  parent.scrollLeft;
+-      }
+-      parent = parent.parentNode;
++    var computedStyle = $doc.defaultView.getComputedStyle($doc.documentElement, null);
++    var borderLeftWidth = computedStyle.getPropertyValue("border-left-width");
++    if (borderLeftWidth.indexOf("px") == borderLeftWidth.length - 2) {
++      left -= parseInt(borderLeftWidth);
+     }
+- 
+-  // Must cover both Standard and Quirks mode. 
+-    return left + $doc.body.scrollLeft + $doc.documentElement.scrollLeft;
++
++    return left;
+   }-*/;
+ 
+   public native int getAbsoluteTop(Element elem) /*-{
+-    var top = $doc.getBoxObjectFor(elem).y;
+-    var parent = elem;
+-    while (parent) {
+-      // Sometimes get NAN.
+-      if (parent.scrollTop > 0) {
+-        top -= parent.scrollTop;
+-      }
+-      parent = parent.parentNode;
++    var top = $doc.getBoxObjectFor(elem).screenY
++        - $doc.getBoxObjectFor($doc.documentElement).screenY;
++
++    var computedStyle = $doc.defaultView.getComputedStyle($doc.documentElement, null);
++    var borderTopWidth = computedStyle.getPropertyValue("border-top-width");
++    if (borderTopWidth.indexOf("px") == borderTopWidth.length - 2) {
++      top -= parseInt(borderTopWidth);
+     }
+-   
+-    // Must cover both Standard and Quirks mode.
+-    return top + $doc.body.scrollTop + $doc.documentElement.scrollTop;
++
++    return top;
+   }-*/;
+ 
+   public native int getChildIndex(Element parent, Element toFind) /*-{
