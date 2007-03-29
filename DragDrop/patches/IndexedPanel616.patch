@@ -1,0 +1,21 @@
+Index: src/com/google/gwt/user/client/ui/IndexedPanel.java
+===================================================================
+--- src/com/google/gwt/user/client/ui/IndexedPanel.java	(revision 292)
++++ src/com/google/gwt/user/client/ui/IndexedPanel.java	(working copy)
+@@ -45,6 +45,16 @@
+   int getWidgetIndex(Widget child);
+ 
+   /**
++   * Inserts a widget before the specified index.
++   * 
++   * @param w the widget to be inserted
++   * @param beforeIndex the index before which it will be inserted
++   * @throws IndexOutOfBoundsException if <code>beforeIndex</code> is out of
++   *           range
++   */
++  void insert(Widget w, int beforeIndex);
++
++  /**
+    * Removes the widget at the specified index.
+    * 
+    * @param index the index of the widget to be removed
