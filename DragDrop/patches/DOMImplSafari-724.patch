@@ -1,0 +1,30 @@
+Index: src/com/google/gwt/user/client/impl/DOMImplSafari.java
+===================================================================
+--- src/com/google/gwt/user/client/impl/DOMImplSafari.java	(revision 452)
++++ src/com/google/gwt/user/client/impl/DOMImplSafari.java	(working copy)
+@@ -25,7 +25,11 @@
+   public native int getAbsoluteLeft(Element elem) /*-{
+     var left = 0;
+     while (elem) {
+-      left += elem.offsetLeft - elem.scrollLeft;
++      // Unattached elements and elements (or their ancestors) with style
++      // 'display: none' have no offsetLeft
++      if (elem.offsetLeft != null) {
++        left += elem.offsetLeft - elem.scrollLeft;
++      }
+ 
+       // Safari bug: a top-level absolutely positioned element includes the
+       // body's offset position already.
+@@ -43,7 +47,11 @@
+   public native int getAbsoluteTop(Element elem) /*-{
+     var top = 0;
+     while (elem) {
+-      top += elem.offsetTop - elem.scrollTop;
++      // Unattached elements and elements (or their ancestors) with style
++      // 'display: none' have no offsetTop
++      if (elem.offsetTop != null) {
++        top += elem.offsetTop - elem.scrollTop;
++      }
+ 
+       // Safari bug: a top-level absolutely positioned element includes the
+       // body's offset position already.
