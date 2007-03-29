@@ -36,19 +36,17 @@ class DOMImplIE6 extends DOMImpl {
     return $doc.createElement("<INPUT type='RADIO' name='" + group + "'>");
   }-*/;
 
-  // --BEGIN CHANGES--
   public native int eventGetClientX(Event evt) /*-{
-    // Offset needed as IE starts the window's upper left at
-    // 2,2 rather than 0,0.
-    return evt.clientX - 2;
+    // Standard mode use $doc.documentElement.clientLeft (= always 2)
+    // Quirks mode use $doc.body.clientLeft (=BODY border width)
+    return evt.clientX - ($doc.documentElement.clientLeft || $doc.body.clientLeft);
   }-*/;
 
   public native int eventGetClientY(Event evt) /*-{
-    // Offset needed as IE starts the window's upper left at
-    // 2,2 rather than 0,0.
-    return evt.clientY - 2;
+    // Standard mode use $doc.documentElement.clientTop (= always 2)
+    // Quirks mode use $doc.body.clientTop (= BODY border width)
+    return evt.clientY - ($doc.documentElement.clientTop || $doc.body.clientTop);
   }-*/;
-  // --END CHANGES--
 
   public native Element eventGetTarget(Event evt) /*-{
     var elem = evt.srcElement;
@@ -76,9 +74,8 @@ class DOMImplIE6 extends DOMImpl {
       scrollLeft = $doc.body.scrollLeft
     }
     
-    // Offset needed as IE starts the window's upper left at
-    // 2,2 rather than 0,0.
-    return (elem.getBoundingClientRect().left + scrollLeft) - 2;
+    return (elem.getBoundingClientRect().left + scrollLeft)
+		    - ($doc.documentElement.clientLeft || $doc.body.clientLeft);
   }-*/;
 
   public native int getAbsoluteTop(Element elem) /*-{
@@ -89,9 +86,8 @@ class DOMImplIE6 extends DOMImpl {
       scrollTop = $doc.body.scrollTop
     } 
     
-    // Offset needed as IE starts the window's upper left as 2,2 
-    // rather than 0,0.
-    return (elem.getBoundingClientRect().top +  scrollTop) - 2;
+    return (elem.getBoundingClientRect().top +  scrollTop)
+		    - ($doc.documentElement.clientTop || $doc.body.clientTop);
    }-*/;
 
   public native Element getChild(Element elem, int index) /*-{
@@ -144,15 +140,11 @@ class DOMImplIE6 extends DOMImpl {
         if (!@com.google.gwt.user.client.DOM::previewEvent(Lcom/google/gwt/user/client/Event;)($wnd.event))
           return;
       }
-  
-      var listener, curElem = this;
-      while (curElem && !(listener = curElem.__listener))
-      curElem = curElem.parentElement;
-  
-      if (listener)
-        @com.google.gwt.user.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)($wnd.event, curElem, listener);
+
+      if (this.__listener)
+        @com.google.gwt.user.client.DOM::dispatchEvent(Lcom/google/gwt/user/client/Event;Lcom/google/gwt/user/client/Element;Lcom/google/gwt/user/client/EventListener;)($wnd.event, this, this.__listener);
     };
-  
+
     $wnd.__dispatchDblClickEvent = function() {
       var newEvent = $doc.createEventObject();
       this.fireEvent('onclick', newEvent);
