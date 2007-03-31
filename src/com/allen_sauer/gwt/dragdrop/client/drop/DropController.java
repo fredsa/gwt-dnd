@@ -18,6 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 
 /**
  * Create a DropController for each drop target on which draggable widgets can be dropped.
@@ -44,6 +45,7 @@ public interface DropController {
   /**
    * Called when the draggable widget or its proxy is dropped on our drop target.
    * Implementing classes must attach the draggable widget to our drop target in a suitable manner.
+   * @return TODO
    * 
    * @see #onPreviewDrop(Widget, Widget, DragController)
    * 
@@ -52,7 +54,7 @@ public interface DropController {
    * @param draggable the actual draggable widget to which the drop operation applies
    * @param dragController the {@link DragController} coordinating the current drag-and-drop operation
    */
-  abstract void onDrop(Widget reference, Widget draggable, DragController dragController);
+  abstract DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController);
 
   /**
    * Called when the draggable widget or its proxy engages our drop target. This occurs when

@@ -19,8 +19,8 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**

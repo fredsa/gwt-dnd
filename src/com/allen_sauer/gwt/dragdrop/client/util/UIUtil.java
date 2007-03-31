@@ -144,6 +144,10 @@ public class UIUtil {
     return widget.getOffsetWidth() - getClientWidth(widget.getElement());
   }
 
+  public static native String getNodeName(Element element) /*-{
+   return element.nodeName;
+   }-*/;
+
   /**
    * Gets the sum of an element's top and bottom CSS borders in pixels
    * 

@@ -148,8 +148,8 @@ public class MouseDragHandler implements MouseListener {
       }
 
       dragController.dragEnd(draggable, dropController.getDropTarget());
-      dropController.onDrop(moveableWidget, draggable, dragController);
-      dragController.notifyDragEnd(capturingWidget, dropController.getDropTarget());
+      DragEndEvent dragEndEvent = dropController.onDrop(moveableWidget, draggable, dragController);
+      dragController.notifyDragEnd(dragEndEvent);
 
     } catch (RuntimeException ex) {
       // cleanup in case anything goes wrong
@@ -193,6 +193,7 @@ public class MouseDragHandler implements MouseListener {
     dropController = null;
 
     dragController.dragEnd(draggable, null);
-    dragController.notifyDragEnd(draggable, null);
+    DragEndEvent dragEndEvent = new DragEndEvent(draggable, null);
+    dragController.notifyDragEnd(dragEndEvent);
   }
 }

@@ -13,33 +13,30 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.client;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.flextable;
 
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.FlexTable;
 
-import java.util.EventObject;
+import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 
 /**
- * Event containing information about the end of a drag.
+ * Event containing information about the end of a drag
+ * for drop targets which are {@link com.google.gwt.user.client.ui.IndexedPanel IndexedPanels}.
  */
-public class DragEndEvent extends EventObject {
+public class FlexTableRowDragEndEvent extends DragEndEvent {
 
-  private Widget dropTarget;
+  private int row;
 
-  public DragEndEvent(Object source, Widget dropTarget) {
-    super(source);
-    this.dropTarget = dropTarget;
+  public FlexTableRowDragEndEvent(Object source, FlexTable flexTable, int row) {
+    super(source, flexTable);
+    this.row = row;
   }
 
-  /**
-   * @return the drop target widget is the drop is successful or <code>null</code>
-   * if the drop was disallowed
-   */
-  public Widget getDropTarget() {
-    return dropTarget;
+  public int getRow() {
+    return this.row;
   }
 
   public String toString() {
-    return "DragEndEvent(" + (dropTarget == null ? "canceled" : "") + ")";
+    return "FlexTableRowDragEndEvent(row = " + row + ")";
   }
 }

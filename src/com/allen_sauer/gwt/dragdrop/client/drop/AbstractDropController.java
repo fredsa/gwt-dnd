@@ -18,6 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 
 /**
  * Base class for typical drop controllers.
@@ -48,9 +49,10 @@ public abstract class AbstractDropController implements DropController {
     return STYLE_DROP_TARGET;
   }
 
-  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
+  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     dropTarget.removeStyleName(STLE_ENGAGE);
     currentDragController = null;
+    return makeDragEndEvent(reference, draggable, dragController);
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
@@ -67,5 +69,9 @@ public abstract class AbstractDropController implements DropController {
   }
 
   public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
+  }
+
+  protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
+    return new DragEndEvent(draggable, dropTarget);
   }
 }

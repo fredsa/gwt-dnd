@@ -162,11 +162,11 @@ public abstract class AbstractDragController implements DragController {
     return new BoundaryDropController(boundaryPanel, true);
   }
 
-  public void notifyDragEnd(Widget draggable, Widget dropTarget) {
+  public void notifyDragEnd(DragEndEvent dragEndEvent) {
     if (dragHandlers != null) {
-      dragHandlers.fireDragEnd(draggable, dropTarget);
+      dragHandlers.fireDragEnd(dragEndEvent);
     }
-  }
+ }
 
   public void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {
     if (dragHandlers != null) {

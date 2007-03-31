@@ -18,7 +18,9 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.AbsolutePositionDragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
@@ -61,9 +63,10 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     return super.getDropTargetStyleName() + " dragdrop-absolute-positioning-drop-target";
   }
 
-  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
-    super.onDrop(reference, draggable, dragController);
+  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
+    DragEndEvent event = super.onDrop(reference, draggable, dragController);
     dropTargetInfo.getDropTarget().add(draggable, dropLocation.getLeft(), dropLocation.getTop());
+    return event;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
@@ -101,13 +104,19 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     Area referenceArea = new WidgetArea(reference, dropTargetInfo.getBoundaryPanel());
     if (referenceLocation == null) {
-      referenceLocation = new WidgetLocation(reference, dropTargetInfo.getDropTarget());
+       referenceLocation = new WidgetLocation(reference, dropTargetInfo.getDropTarget());
     } else {
       referenceLocation.setWidget(reference);
     }
     referenceLocation.constrain(0, 0, dropTargetInfo.getDropAreaClientWidth() - referenceArea.getWidth(),
         dropTargetInfo.getDropAreaClientHeight() - referenceArea.getHeight());
     return referenceLocation;
+  }
+
+  protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
+    Widget dropTarget = getDropTarget();
+    Location location = new WidgetLocation(reference, dropTarget);
+    return new AbsolutePositionDragEndEvent(draggable, dropTarget, location.getLeft(), location.getTop());
   }
 
   private void constrainedWidgetMove(Widget reference, Widget draggable, Widget widget) {

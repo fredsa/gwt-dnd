@@ -18,6 +18,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.bin;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
@@ -36,10 +37,11 @@ final class TrashBinDropController extends SimpleDropController {
     this.bin = bin;
   }
 
-  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
-    super.onDrop(reference, draggable, dragController);
+  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
+    DragEndEvent event = super.onDrop(reference, draggable, dragController);
     draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
     bin.eatWidget(draggable);
+    return event;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {

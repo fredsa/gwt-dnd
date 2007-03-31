@@ -18,8 +18,6 @@ package com.allen_sauer.gwt.dragdrop.client.util;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.log.client.Log;
-
 /**
  * A position represented by a left (x) and top (y) coordinate.
  */
