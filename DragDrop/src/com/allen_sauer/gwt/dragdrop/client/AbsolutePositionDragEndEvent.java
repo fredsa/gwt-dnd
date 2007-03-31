@@ -17,29 +17,30 @@ package com.allen_sauer.gwt.dragdrop.client;
 
 import com.google.gwt.user.client.ui.Widget;
 
-import java.util.EventObject;
-
 /**
- * Event containing information about the end of a drag.
+ * Event containing information about the end of a drag
+ * for drop targets which are {@link com.google.gwt.user.client.ui.AbsolutePanel AbsolutePanels}.
  */
-public class DragEndEvent extends EventObject {
+public class AbsolutePositionDragEndEvent extends DragEndEvent {
 
-  private Widget dropTarget;
+  private int x;
+  private int y;
 
-  public DragEndEvent(Object source, Widget dropTarget) {
-    super(source);
-    this.dropTarget = dropTarget;
+  public AbsolutePositionDragEndEvent(Object source, Widget dropTarget, int x, int y) {
+    super(source, dropTarget);
+    this.x = x;
+    this.y = y;
   }
 
-  /**
-   * @return the drop target widget is the drop is successful or <code>null</code>
-   * if the drop was disallowed
-   */
-  public Widget getDropTarget() {
-    return dropTarget;
+  public int getX() {
+    return this.x;
+  }
+
+  public int getY() {
+    return this.y;
   }
 
   public String toString() {
-    return "DragEndEvent(" + (dropTarget == null ? "canceled" : "") + ")";
+    return "AbsolutePositionDragEndEvent(x = " + x + ", y = " + y + ")";
   }
 }

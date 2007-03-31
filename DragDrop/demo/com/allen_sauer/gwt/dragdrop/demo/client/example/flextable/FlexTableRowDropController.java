@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractPositioningDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
@@ -41,10 +42,11 @@ final class FlexTableRowDropController extends AbstractPositioningDropController
     this.flexTable = flexTable;
   }
 
-  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
+  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
     FlexTableRowDragController trDragController = (FlexTableRowDragController) dragController;
     FlexTableUtil.moveRow(trDragController.getDraggableTable(), flexTable, trDragController.getDragRow(), targetRow + 1);
+    return new FlexTableRowDragEndEvent(draggable, flexTable, targetRow + 1);
   }
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {

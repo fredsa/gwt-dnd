@@ -17,29 +17,24 @@ package com.allen_sauer.gwt.dragdrop.client;
 
 import com.google.gwt.user.client.ui.Widget;
 
-import java.util.EventObject;
-
 /**
- * Event containing information about the end of a drag.
+ * Event containing information about the end of a drag
+ * for drop targets which are {@link com.google.gwt.user.client.ui.IndexedPanel IndexedPanels}.
  */
-public class DragEndEvent extends EventObject {
+public class IndexedDragEndEvent extends DragEndEvent {
 
-  private Widget dropTarget;
+  private int index;
 
-  public DragEndEvent(Object source, Widget dropTarget) {
-    super(source);
-    this.dropTarget = dropTarget;
+  public IndexedDragEndEvent(Object source, Widget dropTarget, int index) {
+    super(source, dropTarget);
+    this.index = index;
   }
 
-  /**
-   * @return the drop target widget is the drop is successful or <code>null</code>
-   * if the drop was disallowed
-   */
-  public Widget getDropTarget() {
-    return dropTarget;
+  public int getIndex() {
+    return this.index;
   }
 
   public String toString() {
-    return "DragEndEvent(" + (dropTarget == null ? "canceled" : "") + ")";
+    return "IndexedDragEndEvent(index = " + index + ")";
   }
 }

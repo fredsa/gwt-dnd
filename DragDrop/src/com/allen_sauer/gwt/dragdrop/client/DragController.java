@@ -111,12 +111,9 @@ public interface DragController extends FiresDragEvents {
 
   /**
    * Call back method for {@link MouseDragHandler}.
-   * 
-   * @param draggable widget which was being dragged
-   * @param dropTarget widget on which draggable was dropped. 
-   *        <code>null</code> if drag was canceled
+   * @param dragEndEvent TODO
    */
-  void notifyDragEnd(Widget draggable, Widget dropTarget);
+  void notifyDragEnd(DragEndEvent dragEndEvent);
 
   /**
    * Call back method for {@link MouseDragHandler}.

@@ -31,17 +31,12 @@ public class DragHandlerCollection extends ArrayList {
   /**
    * Fires a {@link DragHandler#onDragEnd(DragEndEvent)} on
    * all handlers in the collection.
-   * 
-   * @param sender the object sending the event
-   * @param dropTarget the widget on which the drag operation terminated.
-   *        <code>null</code> if drag was canceled
+   * @param dragEndEvent TODO
    */
-  public void fireDragEnd(Widget sender, Widget dropTarget) {
-    DragEndEvent event = new DragEndEvent(sender, dropTarget);
-
+  public void fireDragEnd(DragEndEvent dragEndEvent) {
     for (Iterator it = iterator(); it.hasNext();) {
       DragHandler handler = (DragHandler) it.next();
-      handler.onDragEnd(event);
+      handler.onDragEnd(dragEndEvent);
     }
   }
 

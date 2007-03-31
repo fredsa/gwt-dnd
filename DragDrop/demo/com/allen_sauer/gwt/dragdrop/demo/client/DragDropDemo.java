@@ -37,7 +37,7 @@ import com.allen_sauer.gwt.log.client.Log;
 /**
  * EntryPoint class for demonstrating and testing drag-and-drop library.
  */
-public final  class DragDropDemo implements EntryPoint {
+public final class DragDropDemo implements EntryPoint {
 
   private static final String STYLE_DEMO_BOUNDARY = "demo-boundary";
 

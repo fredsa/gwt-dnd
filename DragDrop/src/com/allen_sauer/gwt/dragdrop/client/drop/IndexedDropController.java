@@ -24,11 +24,13 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
+import com.allen_sauer.gwt.dragdrop.client.IndexedDragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
 /**
  * A {@link DropController} for instances of {@link IndexedFlowPanel}.
@@ -49,18 +51,19 @@ public class IndexedDropController extends AbstractPositioningDropController {
     return super.getDropTargetStyleName() + " dragdrop-flow-panel-drop-target";
   }
 
-  public void onDrop(Widget reference, Widget draggable, DragController dragController) {
+  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
     UIUtil.resetStylePositionStatic(draggable.getElement());
     int draggableIndex = dropTarget.getWidgetIndex(draggable);
-    if (dropIndex != -1) {
-      if ((draggableIndex != -1) && (draggableIndex < dropIndex)) {
-        // adjust for removal of widget
-        insert(draggable, dropIndex - 1);
-      } else {
-        insert(draggable, dropIndex);
-      }
+    if (dropIndex == -1) {
+      throw new RuntimeException("Should not happen after onPreviewDrop did not veto");
     }
+    if ((draggableIndex != -1) && (draggableIndex < dropIndex)) {
+      // adjust for removal of widget
+      dropIndex--;
+    }
+    insert(draggable, dropIndex);
+    return new IndexedDragEndEvent(draggable, (Panel) dropTarget, dropIndex);
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
