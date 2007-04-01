@@ -7,5 +7,7 @@
 	<entry-point class='com.allen_sauer.gwt.dragdrop.demo.client.DragDropDemo'/>
   
   <public path="public"/>
+
+  <stylesheet src='DragDropDemo.css'/>
   
 </module>
