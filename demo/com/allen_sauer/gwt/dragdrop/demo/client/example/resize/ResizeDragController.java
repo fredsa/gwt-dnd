@@ -74,7 +74,6 @@ final class ResizeDragController extends AbstractDragController {
   }
 
   public void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {
-    DOM.setStyleAttribute(draggable.getElement(), "border", "");
     // we don't actually use the drop side of the drag-and-drop operation
     throw new VetoDragException();
   }
