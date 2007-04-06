@@ -24,14 +24,14 @@ public interface FiresDragEvents {
   /**
    * Add another {@link DragHandler} to listen for drag related events.
    * 
-   * @param listener the handler to add
+   * @param handler the handler to add
    */
-  void addDragHandler(DragHandler listener);
+  void addDragHandler(DragHandler handler);
 
   /**
    * Remove a previously added {@link DragHandler}.
    * 
-   * @param listener the handler to remove
+   * @param handler the handler to remove
    */
-  void removeDragHandler(DragHandler listener);
+  void removeDragHandler(DragHandler handler);
 }
