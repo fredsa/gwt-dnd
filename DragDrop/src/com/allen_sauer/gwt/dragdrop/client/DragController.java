@@ -135,6 +135,8 @@ public interface DragController extends FiresDragEvents {
    * Register a new DropController, representing a new drop target,
    * with this drag controller.
    * 
+   * @see #unregisterDropController(DropController)
+   * 
    * @param dropController the controller to register
    */
   void registerDropController(DropController dropController);
@@ -161,4 +163,13 @@ public interface DragController extends FiresDragEvents {
    * @param draggable the widget for which the location must be saved
    */
   void saveDraggableLocation(Widget draggable);
+
+  /**
+   * Unregister a DropController from this drag controller.
+   * 
+   * @see #registerDropController(DropController)
+   * 
+   * @param dropController the controller to register
+   */
+  void unregisterDropController(DropController dropController);
 }

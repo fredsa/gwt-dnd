@@ -166,7 +166,7 @@ public abstract class AbstractDragController implements DragController {
     if (dragHandlers != null) {
       dragHandlers.fireDragEnd(dragEndEvent);
     }
- }
+  }
 
   public void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {
     if (dragHandlers != null) {
@@ -232,5 +232,9 @@ public abstract class AbstractDragController implements DragController {
     } else {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
+  }
+
+  public void unregisterDropController(DropController dropController) {
+    dropControllerCollection.remove(dropController);
   }
 }
