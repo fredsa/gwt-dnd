@@ -22,11 +22,11 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 
 /**
  * Base class for typical drop controllers.
- * Contains some basic functionalty like adjust widget styles.
+ * Contains some basic functionality like adjust widget styles.
  */
 public abstract class AbstractDropController implements DropController {
 
-  private static final String STLE_ENGAGE = "dragdrop-engage";
+  private static final String STYLE_ENGAGE = "dragdrop-engage";
   private static final String STYLE_DROP_TARGET = "dragdrop-dropTarget";
 
   private Widget dropTarget;
@@ -50,18 +50,18 @@ public abstract class AbstractDropController implements DropController {
   }
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    dropTarget.removeStyleName(STLE_ENGAGE);
+    dropTarget.removeStyleName(STYLE_ENGAGE);
     currentDragController = null;
     return makeDragEndEvent(reference, draggable, dragController);
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    dropTarget.addStyleName(STLE_ENGAGE);
+    dropTarget.addStyleName(STYLE_ENGAGE);
     currentDragController = dragController;
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
-    dropTarget.removeStyleName(STLE_ENGAGE);
+    dropTarget.removeStyleName(STYLE_ENGAGE);
     currentDragController = null;
   }
 
