@@ -63,11 +63,11 @@ final class FlexTableRowDragController extends PickupDragController {
     return new BoundaryDropController(boundaryPanel, false);
   }
 
-  public void restoreDraggableLocation(Widget draggable) {
+  public void restoreDraggableLocationAndSize(Widget draggable) {
     // Nothing to restore because we use a drag proxy
   }
 
-  public void saveDraggableLocation(Widget draggable) {
+  public void saveDraggableLocationAndSize(Widget draggable) {
     // Nothing to save because we use a drag proxy
   }
 
