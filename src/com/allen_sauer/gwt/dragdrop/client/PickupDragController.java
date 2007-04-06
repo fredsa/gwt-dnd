@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
@@ -52,7 +53,7 @@ public class PickupDragController extends AbstractDragController {
       draggableProxy = null;
     } else {
       if (dropTarget == null) {
-        restoreDraggableLocation(draggable);
+        restoreDraggableLocationAndSize(draggable);
       }
     }
   }
@@ -61,7 +62,8 @@ public class PickupDragController extends AbstractDragController {
     super.dragStart(draggable);
     currentDraggable = draggable;
     draggableProxy = maybeNewDraggableProxy(draggable);
-    saveDraggableLocation(draggable);
+    saveDraggableLocationAndSize(draggable);
+    draggable.setPixelSize(UIUtil.getClientWidth(draggable.getElement()),UIUtil.getClientHeight(draggable.getElement()));
     Location location = new WidgetLocation(draggable, getBoundaryPanel());
     if (getMovableWidget().getParent() == getBoundaryPanel()) {
       // causes widget to be placed on top of all other widgets in the boundary panel

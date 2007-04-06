@@ -16,6 +16,7 @@
 package com.allen_sauer.gwt.dragdrop.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -52,7 +53,8 @@ public abstract class AbstractDragController implements DragController {
 
   private Widget initialDraggableParent;
   private Location initialDraggableParentLocation;
-
+  private String initialStyleWidth;
+  private String initialStyleHeight;
   private int initialDraggableIndex;
 
   private MouseDragHandler mouseDragHandler;
@@ -194,7 +196,7 @@ public abstract class AbstractDragController implements DragController {
     dropControllerCollection.resetCache(getBoundaryPanel());
   }
 
-  public void restoreDraggableLocation(Widget draggable) {
+  public void restoreDraggableLocationAndSize(Widget draggable) {
     // TODO simplify after enhancement for issue 616
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
     if (initialDraggableParent instanceof AbsolutePanel) {
@@ -212,9 +214,11 @@ public abstract class AbstractDragController implements DragController {
     } else {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
+    DOM.setStyleAttribute(draggable.getElement(), "width", initialStyleWidth);
+    DOM.setStyleAttribute(draggable.getElement(), "height", initialStyleHeight);
   }
 
-  public void saveDraggableLocation(Widget draggable) {
+  public void saveDraggableLocationAndSize(Widget draggable) {
     initialDraggableParent = draggable.getParent();
 
     // TODO simplify after enhancement for issue 616
@@ -232,6 +236,8 @@ public abstract class AbstractDragController implements DragController {
     } else {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
+    initialStyleWidth = DOM.getStyleAttribute(draggable.getElement(), "width");
+    initialStyleHeight = DOM.getStyleAttribute(draggable.getElement(), "height");
   }
 
   public void unregisterDropController(DropController dropController) {
