@@ -9,6 +9,7 @@
 
 .dragdrop-draggable {
   z-index: 2;
+  zoom: 1; /* IE gain hasLayout */
 }
 
 .dragdrop-boundary {
