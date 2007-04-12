@@ -47,7 +47,7 @@ final class FlexTableRowDragController extends PickupDragController {
   public void dragStart(Widget draggable) {
     draggableTable = (FlexTable) draggable.getParent();
     dragRow = getWidgetRow(draggable, draggableTable);
-    draggableTable.getRowFormatter().setStyleName(dragRow, STYLE_DRAGGING);
+    draggableTable.getRowFormatter().addStyleName(dragRow, STYLE_DRAGGING);
     super.dragStart(draggable);
     // remove super class added style
     draggable.removeStyleName(STYLE_DRAGGING);

@@ -40,6 +40,7 @@ public class FlexTableUtil {
       HTML html = new HTML(sourceTable.getHTML(sourceRow, col));
       targetTable.setWidget(targetRow, col, html);
     }
+    copyRowStyle(sourceTable, targetTable, sourceRow, targetRow);
   }
 
   /**
@@ -68,7 +69,22 @@ public class FlexTableUtil {
         targetTable.setWidget(targetRow, col, html);
       }
     }
+    copyRowStyle(sourceTable, targetTable, sourceRow, targetRow);
     sourceTable.removeRow(sourceRow);
+  }
+
+  /**
+   * Copies the CSS style of a source row to a target row.
+   * 
+   * @param sourceTable
+   * @param targetTable
+   * @param sourceRow
+   * @param targetRow
+   */
+  private static void copyRowStyle(FlexTable sourceTable, FlexTable targetTable, int sourceRow, int targetRow)
+  {
+      String rowStyle = sourceTable.getRowFormatter().getStyleName(sourceRow);
+      targetTable.getRowFormatter().setStyleName(targetRow, rowStyle);
   }
 
 }
