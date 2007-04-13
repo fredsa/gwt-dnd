@@ -125,11 +125,16 @@ public abstract class AbstractDragController implements DragController {
    * applies the {@link #STYLE_HANDLE} style to the handle.
    * 
    * @see #makeDraggable(Widget, Widget)
+   * @see HasDragHandle
    * 
    * @param widget the widget to be made draggable
    */
   public void makeDraggable(Widget widget) {
-    makeDraggable(widget, widget);
+    if (widget instanceof HasDragHandle) {
+      makeDraggable(widget, ((HasDragHandle) widget).getDragHandle());
+    } else {
+      makeDraggable(widget, widget);
+    }
   }
 
   /**
