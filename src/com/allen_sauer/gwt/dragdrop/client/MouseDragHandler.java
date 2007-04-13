@@ -40,6 +40,7 @@ public class MouseDragHandler implements MouseListener {
   private Widget draggable;
   private DragController dragController;
   private Widget moveableWidget;
+  private boolean mouseDown;
   private boolean dragging;
   private DropController dropController;
   private int initialMouseX;
@@ -63,38 +64,13 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
+    mouseDown = true;
     if (dragging) {
       // Ignore additional mouse buttons depressed while still dragging
       return;
     }
-    dragController.resetCache();
-    capturingWidget = sender;
-    draggable = (Widget) dragHandleMap.get(capturingWidget);
     initialMouseX = x;
     initialMouseY = y;
-
-    try {
-      dragController.previewDragStart(draggable);
-    } catch (VetoDragException ex) {
-      return;
-    }
-    dragController.dragStart(draggable);
-
-    moveableWidget = dragController.getMovableWidget();
-
-    Location location = new WidgetLocation(capturingWidget, boundaryPanel);
-    Location altLocation = new WidgetLocation(moveableWidget, boundaryPanel);
-    offsetX = altLocation.getLeft() - location.getLeft();
-    offsetY = altLocation.getTop() - location.getTop();
-
-    DOM.setCapture(capturingWidget.getElement());
-    dragging = true;
-    try {
-      actualMove(x, y);
-    } catch (RuntimeException ex) {
-      cancelDrag();
-      throw ex;
-    }
   }
 
   public void onMouseEnter(Widget sender) {
@@ -105,7 +81,12 @@ public class MouseDragHandler implements MouseListener {
 
   public void onMouseMove(Widget sender, int x, int y) {
     if (!dragging) {
-      return;
+      if (mouseDown) {
+        startDragging(sender);
+      }
+      if (!dragging) {
+        return;
+      }
     }
     try {
       deferredMoveCommand.scheduleOrExecute(x, y);
@@ -116,6 +97,7 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseUp(Widget sender, int x, int y) {
+    mouseDown = false;
     if (!dragging) {
       return;
     }
@@ -157,6 +139,35 @@ public class MouseDragHandler implements MouseListener {
       throw ex;
     } finally {
       dropController = null;
+    }
+  }
+
+  public void startDragging(Widget w) {
+    dragController.resetCache();
+    capturingWidget = w;
+    draggable = (Widget) dragHandleMap.get(capturingWidget);
+
+    try {
+      dragController.previewDragStart(draggable);
+    } catch (VetoDragException ex) {
+      return;
+    }
+    dragController.dragStart(draggable);
+
+    moveableWidget = dragController.getMovableWidget();
+
+    Location location = new WidgetLocation(capturingWidget, boundaryPanel);
+    Location altLocation = new WidgetLocation(moveableWidget, boundaryPanel);
+    offsetX = altLocation.getLeft() - location.getLeft();
+    offsetY = altLocation.getTop() - location.getTop();
+
+    DOM.setCapture(capturingWidget.getElement());
+    dragging = true;
+    try {
+      actualMove(initialMouseX, initialMouseY);
+    } catch (RuntimeException ex) {
+      cancelDrag();
+      throw ex;
     }
   }
 
