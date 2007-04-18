@@ -40,6 +40,6 @@ public class DragEndEvent extends EventObject {
   }
 
   public String toString() {
-    return "DragEndEvent(" + (dropTarget == null ? "canceled" : "") + ")";
+    return "DragEndEvent(" + (dropTarget == null ? "cancelled" : "") + ")";
   }
 }

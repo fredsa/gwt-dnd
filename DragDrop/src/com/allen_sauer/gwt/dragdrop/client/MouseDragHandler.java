@@ -39,7 +39,7 @@ public class MouseDragHandler implements MouseListener {
   private Widget capturingWidget;
   private Widget draggable;
   private DragController dragController;
-  private Widget moveableWidget;
+  private Widget movableWidget;
   private boolean mouseDown;
   private boolean dragging;
   private DropController dropController;
@@ -123,14 +123,14 @@ public class MouseDragHandler implements MouseListener {
 
       // Does the DropController allow the drop?
       try {
-        dropController.onPreviewDrop(moveableWidget, draggable, dragController);
+        dropController.onPreviewDrop(movableWidget, draggable, dragController);
       } catch (VetoDropException ex) {
         cancelDrag();
         return;
       }
 
       dragController.dragEnd(draggable, dropController.getDropTarget());
-      DragEndEvent dragEndEvent = dropController.onDrop(moveableWidget, draggable, dragController);
+      DragEndEvent dragEndEvent = dropController.onDrop(movableWidget, draggable, dragController);
       dragController.notifyDragEnd(dragEndEvent);
 
     } catch (RuntimeException ex) {
@@ -154,10 +154,10 @@ public class MouseDragHandler implements MouseListener {
     }
     dragController.dragStart(draggable);
 
-    moveableWidget = dragController.getMovableWidget();
+    movableWidget = dragController.getMovableWidget();
 
     Location location = new WidgetLocation(capturingWidget, boundaryPanel);
-    Location altLocation = new WidgetLocation(moveableWidget, boundaryPanel);
+    Location altLocation = new WidgetLocation(movableWidget, boundaryPanel);
     offsetX = altLocation.getLeft() - location.getLeft();
     offsetY = altLocation.getTop() - location.getTop();
 
@@ -175,21 +175,21 @@ public class MouseDragHandler implements MouseListener {
     Location location = new WidgetLocation(capturingWidget, boundaryPanel);
     int desiredLeft = location.getLeft() + offsetX + (x - initialMouseX);
     int desiredTop = location.getTop() + offsetY + (y - initialMouseY);
-    boundaryPanel.setWidgetPosition(moveableWidget, desiredLeft, desiredTop);
-
-    DropController newDropController = dragController.getIntersectDropController(moveableWidget);
+    boundaryPanel.setWidgetPosition(movableWidget, desiredLeft, desiredTop);
+    
+    DropController newDropController = dragController.getIntersectDropController(movableWidget);
     if (dropController != newDropController) {
       if (dropController != null) {
         dropController.onLeave(draggable, dragController);
       }
       dropController = newDropController;
       if (dropController != null) {
-        dropController.onEnter(moveableWidget, draggable, dragController);
+        dropController.onEnter(movableWidget, draggable, dragController);
       }
     }
 
     if (dropController != null) {
-      dropController.onMove(moveableWidget, draggable, dragController);
+      dropController.onMove(movableWidget, draggable, dragController);
     }
   }
 
