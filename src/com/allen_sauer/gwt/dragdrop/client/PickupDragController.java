@@ -53,9 +53,10 @@ public class PickupDragController extends AbstractDragController {
       draggableProxy = null;
     } else {
       if (dropTarget == null) {
-        restoreDraggableLocationAndSize(draggable);
+        restoreDraggableLocation(draggable);
       }
     }
+    restoreDraggableSize(draggable);
   }
 
   public void dragStart(Widget draggable) {
@@ -63,7 +64,7 @@ public class PickupDragController extends AbstractDragController {
     currentDraggable = draggable;
     draggableProxy = maybeNewDraggableProxy(draggable);
     saveDraggableLocationAndSize(draggable);
-    draggable.setPixelSize(UIUtil.getClientWidth(draggable.getElement()),UIUtil.getClientHeight(draggable.getElement()));
+    draggable.setPixelSize(UIUtil.getClientWidth(draggable.getElement()), UIUtil.getClientHeight(draggable.getElement()));
     Location location = new WidgetLocation(draggable, getBoundaryPanel());
     if (getMovableWidget().getParent() == getBoundaryPanel()) {
       // causes widget to be placed on top of all other widgets in the boundary panel
