@@ -49,7 +49,7 @@ public final class DragDropDemo implements EntryPoint {
   public void onModuleLoad() {
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
       public void onUncaughtException(Throwable e) {
-        Log.fatal("Uncaught Exception", e);
+        Log.fatal("DragDropDemo UncaughtExceptionHandler caught", e);
       }
     });
 
@@ -101,4 +101,5 @@ public final class DragDropDemo implements EntryPoint {
     dragController.makeDraggable(redBox);
     return redBox;
   }
+
 }
