@@ -58,7 +58,9 @@ public class DropControllerCollection extends ArrayList {
       if (widgetArea.intersects(targetArea)) {
         DropController dropController = (DropController) areaControllerMap.get(targetArea);
         if (result == null || DOM.isOrHasChild(result.getDropTarget().getElement(), dropController.getDropTarget().getElement())) {
-          result = dropController;
+          if (widget != dropController.getDropTarget()) {
+            result = dropController;
+          }
         }
       }
     }
