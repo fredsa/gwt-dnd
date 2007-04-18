@@ -98,7 +98,7 @@ public interface DropController {
 
   /**
    * Called just prior to {@link #onDrop(Widget, Widget, DragController)} to allow the drop
-   * operation to be canceled by throwing a {@link VetoDropException}.
+   * operation to be cancelled by throwing a {@link VetoDropException}.
    * 
    * @param reference the widget (either the actual draggable widget or a suitable proxy widget)
    *                  which is physically currently at the desired drop position

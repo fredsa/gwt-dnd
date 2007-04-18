@@ -69,7 +69,7 @@ final class FlexTableRowDragController extends PickupDragController {
     // Nothing to restore because we use a drag proxy
   }
 
-  public void saveDraggableLocationAndSize(Widget draggable) {
+  public void saveDraggableLocation(Widget draggable) {
     // Nothing to save because we use a drag proxy
   }
 

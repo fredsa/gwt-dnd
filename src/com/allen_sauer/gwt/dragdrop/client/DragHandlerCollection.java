@@ -61,7 +61,7 @@ public class DragHandlerCollection extends ArrayList {
    * 
    * @param sender the object sending the event
    * @param dropTarget the widget on which the drag operation terminated.
-   *        <code>null</code> if drag was canceled
+   *        <code>null</code> if drag was cancelled
    * @throws VetoDragException if the proposed operation is unacceptable
    */
   public void firePreviewDragEnd(Widget sender, Widget dropTarget) throws VetoDragException {
