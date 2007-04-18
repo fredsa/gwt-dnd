@@ -37,7 +37,7 @@ public interface DragController extends FiresDragEvents {
    * 
    * @param draggable widget which was being dragged
    * @param dropTarget widget on which draggable was dropped. 
-   *        <code>null</code> if drag was canceled
+   *        <code>null</code> if drag was cancelled
    */
   void dragEnd(Widget draggable, Widget dropTarget);
 
@@ -69,6 +69,7 @@ public interface DragController extends FiresDragEvents {
   /**
    * @return widget which will move as part of the drag operation.
    *         May be the actual draggable widget or an appropriate proxy widget.
+   *         The original widget may also be wrapped inside this widget.
    */
   Widget getMovableWidget();
 
@@ -148,22 +149,12 @@ public interface DragController extends FiresDragEvents {
   /**
    * Restore the draggable to its original location
    * 
-   * @see #saveDraggableLocationAndSize(Widget)
+   * @see #saveDraggableLocation(Widget)
    * @see #restoreDraggableSize(Widget)
    * 
    * @param draggable the widget to be restored to its original location
    */
   void restoreDraggableLocation(Widget draggable);
-
-  /**
-   * Restore the draggable to its original size
-   * 
-   * @see #saveDraggableLocationAndSize(Widget)
-   * @see #restoreDraggableLocation(Widget)
-   * 
-   * @param draggable the widget to be restored to its original location
-   */
-  void restoreDraggableSize(Widget draggable);
 
   /**
    * Save the draggable's current location in case we need to
@@ -173,7 +164,7 @@ public interface DragController extends FiresDragEvents {
    * 
    * @param draggable the widget for which the location must be saved
    */
-  void saveDraggableLocationAndSize(Widget draggable);
+  void saveDraggableLocation(Widget draggable);
 
   /**
    * Unregister a DropController from this drag controller.
