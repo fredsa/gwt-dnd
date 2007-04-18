@@ -201,7 +201,7 @@ public abstract class AbstractDragController implements DragController {
     dropControllerCollection.resetCache(getBoundaryPanel());
   }
 
-  public void restoreDraggableLocationAndSize(Widget draggable) {
+  public void restoreDraggableLocation(Widget draggable) {
     // TODO simplify after enhancement for issue 616
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
     if (initialDraggableParent instanceof AbsolutePanel) {
@@ -219,6 +219,9 @@ public abstract class AbstractDragController implements DragController {
     } else {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
+  }
+
+  public void restoreDraggableSize(Widget draggable) {
     DOM.setStyleAttribute(draggable.getElement(), "width", initialStyleWidth);
     DOM.setStyleAttribute(draggable.getElement(), "height", initialStyleHeight);
   }
