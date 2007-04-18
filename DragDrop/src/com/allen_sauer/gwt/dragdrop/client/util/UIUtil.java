@@ -112,7 +112,7 @@ public class UIUtil {
 
   /**
    * Gets an element's client widget in pixels or <code>0</code> (zero)
-   * when the element is hidden. This is equal to offset widget minus 
+   * when the element is hidden. This is equal to offset width minus 
    * the left and right CSS borders.
    * 
    * TODO deferred binding for browser specific behavior

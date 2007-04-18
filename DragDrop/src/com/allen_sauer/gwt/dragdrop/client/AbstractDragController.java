@@ -16,7 +16,6 @@
 package com.allen_sauer.gwt.dragdrop.client;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -53,8 +52,6 @@ public abstract class AbstractDragController implements DragController {
 
   private Widget initialDraggableParent;
   private Location initialDraggableParentLocation;
-  private String initialStyleWidth;
-  private String initialStyleHeight;
   private int initialDraggableIndex;
 
   private MouseDragHandler mouseDragHandler;
@@ -91,7 +88,7 @@ public abstract class AbstractDragController implements DragController {
    * 
    * @param draggable widget which was being dragged
    * @param dropTarget widget on which draggable was dropped. 
-   *        <code>null</code> if drag was canceled
+   *        <code>null</code> if drag was cancelled
    */
   public void dragEnd(Widget draggable, Widget dropTarget) {
     draggable.removeStyleName(STYLE_DRAGGING);
@@ -221,12 +218,7 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
-  public void restoreDraggableSize(Widget draggable) {
-    DOM.setStyleAttribute(draggable.getElement(), "width", initialStyleWidth);
-    DOM.setStyleAttribute(draggable.getElement(), "height", initialStyleHeight);
-  }
-
-  public void saveDraggableLocationAndSize(Widget draggable) {
+  public void saveDraggableLocation(Widget draggable) {
     initialDraggableParent = draggable.getParent();
 
     // TODO simplify after enhancement for issue 616
@@ -244,8 +236,6 @@ public abstract class AbstractDragController implements DragController {
     } else {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
-    initialStyleWidth = DOM.getStyleAttribute(draggable.getElement(), "width");
-    initialStyleHeight = DOM.getStyleAttribute(draggable.getElement(), "height");
   }
 
   public void unregisterDropController(DropController dropController) {

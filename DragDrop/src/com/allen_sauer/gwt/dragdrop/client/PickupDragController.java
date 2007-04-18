@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dragdrop.client;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
@@ -34,6 +35,7 @@ public class PickupDragController extends AbstractDragController {
   private Widget currentDraggable;
   private Widget draggableProxy;
   private boolean dragProxyEnabled = false;
+  private SimplePanel movablePanel;
 
   /**
    * Create a new pickup-and-move style drag controller. Allows widgets or a suitable proxy
@@ -56,25 +58,27 @@ public class PickupDragController extends AbstractDragController {
         restoreDraggableLocation(draggable);
       }
     }
-    restoreDraggableSize(draggable);
+    movablePanel.removeFromParent();
+    movablePanel = null;
   }
 
   public void dragStart(Widget draggable) {
     super.dragStart(draggable);
     currentDraggable = draggable;
     draggableProxy = maybeNewDraggableProxy(draggable);
-    saveDraggableLocationAndSize(draggable);
-    draggable.setPixelSize(UIUtil.getClientWidth(draggable.getElement()), UIUtil.getClientHeight(draggable.getElement()));
+    saveDraggableLocation(draggable);
     Location location = new WidgetLocation(draggable, getBoundaryPanel());
-    if (getMovableWidget().getParent() == getBoundaryPanel()) {
-      // causes widget to be placed on top of all other widgets in the boundary panel
-      getMovableWidget().removeFromParent();
-    }
-    getBoundaryPanel().add(getMovableWidget(), location.getLeft(), location.getTop());
+    movablePanel = new SimplePanel();
+    movablePanel.setPixelSize(draggable.getOffsetWidth(), draggable.getOffsetHeight());
+    getBoundaryPanel().add(movablePanel, location.getLeft(), location.getTop());
+
+    final Widget innerWidget = draggableProxy != null ? draggableProxy : currentDraggable;
+    UIUtil.resetStylePositionStatic(innerWidget.getElement());
+    movablePanel.setWidget(innerWidget);
   }
 
   public Widget getMovableWidget() {
-    return draggableProxy != null ? draggableProxy : currentDraggable;
+    return movablePanel;
   }
 
   public boolean isDragProxyEnabled() {
