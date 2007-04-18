@@ -66,6 +66,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     DragEndEvent event = super.onDrop(reference, draggable, dragController);
     dropTargetInfo.getDropTarget().add(draggable, dropLocation.getLeft(), dropLocation.getTop());
+    referenceLocation = null;
     return event;
   }
 
@@ -77,6 +78,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   public void onLeave(Widget draggable, DragController dragController) {
     super.onLeave(draggable, dragController);
     dropTargetInfo.setBoundaryPanel(null);
+    referenceLocation = null;
   }
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
@@ -104,7 +106,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     Area referenceArea = new WidgetArea(reference, dropTargetInfo.getBoundaryPanel());
     if (referenceLocation == null) {
-       referenceLocation = new WidgetLocation(reference, dropTargetInfo.getDropTarget());
+      referenceLocation = new WidgetLocation(reference, dropTargetInfo.getDropTarget());
     } else {
       referenceLocation.setWidget(reference);
     }
