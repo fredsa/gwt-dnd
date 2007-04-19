@@ -13,24 +13,25 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client.example;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel;
 
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HTML;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController} example.
  */
-public final class IndexedExample extends Example {
+public final class FlowPanelExample extends Example {
 
   private static final String STYLE_DEMO_FLOW_LABEL = "demo-flow-label";
 
   private IndexedFlowPanel flowPanelDropTarget;
 
-  public IndexedExample(DragController dragController) {
+  public FlowPanelExample(DragController dragController) {
     super(dragController);
     flowPanelDropTarget = new IndexedFlowPanel();
     flowPanelDropTarget.setWidth("400px");
@@ -50,10 +51,10 @@ public final class IndexedExample extends Example {
   protected void onLoad() {
     super.onLoad();
     for (int i = 1; i <= 25; i++) {
-      Label label = new Label("Draggable #" + i);
-      label.addStyleName(STYLE_DEMO_FLOW_LABEL);
-      getDragController().makeDraggable(label);
-      flowPanelDropTarget.add(label);
+      HTML html = new HTML("Draggable&nbsp;#" + i + "&#x200B;");
+      html.addStyleName(STYLE_DEMO_FLOW_LABEL);
+      getDragController().makeDraggable(html);
+      flowPanelDropTarget.add(html);
     }
   }
 }

@@ -26,11 +26,11 @@ import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.AbsolutePositionExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.IndexedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.TrashBinExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.draghandle.DragHandleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel.FlowPanelExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizeExample;
 import com.allen_sauer.gwt.log.client.Log;
 
@@ -87,7 +87,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new TrashBinExample(dragController));
     examples.add(new AbsolutePositionExample(dragController));
     examples.add(new GridConstrainedExample(dragController));
-    examples.add(new IndexedExample(dragController));
+    examples.add(new FlowPanelExample(dragController));
     examples.add(new NoOverlapExample(dragController));
     examples.add(new FlexTableRowExample(dragController));
     examples.add(new ResizeExample());

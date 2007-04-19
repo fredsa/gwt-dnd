@@ -16,8 +16,8 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Panel;
@@ -40,16 +40,14 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
  */
 public class IndexedDropController extends AbstractPositioningDropController {
 
+  private static final String STYLE_DRAGDROP_INDEXED_POSITIONER = "dragdrop-indexed-positioner";
+  
   private IndexedPanel dropTarget;
   private int dropIndex;
 
   public IndexedDropController(IndexedPanel dropTarget) {
     super((Panel) dropTarget);
     this.dropTarget = dropTarget;
-  }
-
-  public String getDropTargetStyleName() {
-    return super.getDropTargetStyleName() + " dragdrop-flow-panel-drop-target";
   }
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
@@ -117,8 +115,8 @@ public class IndexedDropController extends AbstractPositioningDropController {
   }
 
   protected Widget newPositioner(Widget reference) {
-    Widget positioner = super.newPositioner(reference);
-    DOM.setStyleAttribute(positioner.getElement(), "display", "inline");
+    HTML positioner = new HTML("&#x203B;");
+    positioner.addStyleName(STYLE_DRAGDROP_INDEXED_POSITIONER);
     return positioner;
   }
 
