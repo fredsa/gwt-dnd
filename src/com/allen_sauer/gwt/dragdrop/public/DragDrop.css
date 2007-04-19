@@ -38,6 +38,12 @@
   zoom: 1; /* IE gain hasLayout */
 }
 
+.dragdrop-indexed-positioner {
+  color: #1E90FF; /* blue */
+  display: inline;
+  vertical-align: middle;
+}
+
 .dragdrop-proxy {
   background-color: #77AAFF; /* light blue */
   z-index: 1;
@@ -49,3 +55,4 @@
 
 .dragdrop-movable-panel {
 }
+

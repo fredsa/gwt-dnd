@@ -27,7 +27,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  */
 public final class TrashBinExample extends Example {
 
-  private static final String STYLE_NOT_ENGAGABLE = "dragdrop-not-engagable";
+  private static final String STYLE_NOT_ENGAGABLE = "demo-not-engagable";
 
   private AbsolutePositionDropController dropController;
 

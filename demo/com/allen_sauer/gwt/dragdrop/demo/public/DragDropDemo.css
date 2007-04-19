@@ -51,6 +51,7 @@ code {
 
 .demo-flow-label {
   font-size: 1.2em;
+  line-height: 1.6em;
   display: inline;
   border: 1px solid blue;
   padding: 0.1em;
@@ -62,8 +63,8 @@ body *.dragdrop-boundary {
   border: 1px solid blue;
 }
 
-.dragdrop-dropTarget.dragdrop-not-engagable ,
-.dragdrop-dropTarget.dragdrop-not-engagable.dragdrop-engage {
+.dragdrop-dropTarget.demo-not-engagable ,
+.dragdrop-dropTarget.demo-not-engagable.dragdrop-engage {
   background-color: #CCCCCC; /* gray */
 }
 
@@ -137,7 +138,10 @@ body *.dragdrop-boundary {
 }
 
 .dragdrop-positioner {
-  text-align: center;
+}
+
+.dragdrop-indexed-positioner {
+  color: blue;
 }
 
 .demo-table-positioner {
