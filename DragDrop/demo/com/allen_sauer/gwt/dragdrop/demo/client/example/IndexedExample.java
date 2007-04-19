@@ -26,7 +26,7 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
  */
 public final class IndexedExample extends Example {
 
-  private static final String STYLE_DEMO_LABEL = "demo-flow-label";
+  private static final String STYLE_DEMO_FLOW_LABEL = "demo-flow-label";
 
   private IndexedFlowPanel flowPanelDropTarget;
 
@@ -49,12 +49,11 @@ public final class IndexedExample extends Example {
 
   protected void onLoad() {
     super.onLoad();
-    for (int i = 1; i <= 5; i++) {
-      Label label = new Label("Draggable child #" + i);
-      label.addStyleName(STYLE_DEMO_LABEL);
+    for (int i = 1; i <= 25; i++) {
+      Label label = new Label("Draggable #" + i);
+      label.addStyleName(STYLE_DEMO_FLOW_LABEL);
       getDragController().makeDraggable(label);
       flowPanelDropTarget.add(label);
     }
-    flowPanelDropTarget.add(createDraggable());
   }
 }

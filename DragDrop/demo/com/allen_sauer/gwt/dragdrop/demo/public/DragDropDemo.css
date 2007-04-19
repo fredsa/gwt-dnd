@@ -51,6 +51,10 @@ code {
 
 .demo-flow-label {
   font-size: 1.2em;
+  display: inline;
+  border: 1px solid blue;
+  padding: 0.1em;
+  margin: 0.1em;
 }
 
 body *.dragdrop-boundary {
@@ -129,6 +133,7 @@ body *.dragdrop-boundary {
 
 .demo-table-proxy {
   border: 1px solid blue;
+  
 }
 
 .dragdrop-positioner {

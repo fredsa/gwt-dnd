@@ -31,6 +31,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 public class PickupDragController extends AbstractDragController {
 
   protected static final String STYLE_PROXY = "dragdrop-proxy";
+  protected static final String STYLE_MOVABLE_PANEL = "dragdrop-movable-panel";
 
   private Widget currentDraggable;
   private Widget draggableProxy;
@@ -58,6 +59,7 @@ public class PickupDragController extends AbstractDragController {
         restoreDraggableLocation(draggable);
       }
     }
+    restoreDraggableStyle(draggable);
     movablePanel.removeFromParent();
     movablePanel = null;
   }
@@ -66,10 +68,10 @@ public class PickupDragController extends AbstractDragController {
     super.dragStart(draggable);
     currentDraggable = draggable;
     draggableProxy = maybeNewDraggableProxy(draggable);
-    saveDraggableLocation(draggable);
+    saveDraggableLocationAndStyle(draggable);
     Location location = new WidgetLocation(draggable, getBoundaryPanel());
     movablePanel = new SimplePanel();
-    movablePanel.setPixelSize(draggable.getOffsetWidth(), draggable.getOffsetHeight());
+    movablePanel.addStyleName(STYLE_MOVABLE_PANEL);
     getBoundaryPanel().add(movablePanel, location.getLeft(), location.getTop());
 
     final Widget innerWidget = draggableProxy != null ? draggableProxy : currentDraggable;

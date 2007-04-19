@@ -30,6 +30,16 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
  */
 public interface DragController extends FiresDragEvents {
 
+  /**
+   * Restore the draggable to its original style
+   * 
+   * @see #saveDraggableLocationAndStyle(Widget)
+   * @see #restoreDraggableLocation(Widget)
+   * 
+   * @param draggable the widget to be restored to its original location
+   */
+  public void restoreDraggableStyle(Widget draggable);
+
   void addDragHandler(DragHandler handler);
 
   /**
@@ -149,14 +159,14 @@ public interface DragController extends FiresDragEvents {
   /**
    * Restore the draggable to its original location
    * 
-   * @see #saveDraggableLocation(Widget)
-   * @see #restoreDraggableSize(Widget)
+   * @see #saveDraggableLocationAndStyle(Widget)
+   * @see #restoreDraggableStyle(Widget)
    * 
    * @param draggable the widget to be restored to its original location
    */
   void restoreDraggableLocation(Widget draggable);
 
-  /**
+    /**
    * Save the draggable's current location in case we need to
    * restore it later.
    * 
@@ -164,7 +174,7 @@ public interface DragController extends FiresDragEvents {
    * 
    * @param draggable the widget for which the location must be saved
    */
-  void saveDraggableLocation(Widget draggable);
+  void saveDraggableLocationAndStyle(Widget draggable);
 
   /**
    * Unregister a DropController from this drag controller.

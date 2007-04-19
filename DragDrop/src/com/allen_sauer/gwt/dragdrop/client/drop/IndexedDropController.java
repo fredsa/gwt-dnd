@@ -16,6 +16,7 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IndexedPanel;
@@ -113,6 +114,12 @@ public class IndexedDropController extends AbstractPositioningDropController {
     if (dropIndex == -1) {
       throw new VetoDropException();
     }
+  }
+
+  protected Widget newPositioner(Widget reference) {
+    Widget positioner = super.newPositioner(reference);
+    DOM.setStyleAttribute(positioner.getElement(), "display", "inline");
+    return positioner;
   }
 
   // TODO remove after enhancement for issue 616
