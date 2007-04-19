@@ -35,6 +35,7 @@
 .dragdrop-positioner {
   border: 1px dashed #1E90FF; /* blue */
   z-index: 1;
+  zoom: 1; /* IE gain hasLayout */
 }
 
 .dragdrop-proxy {
@@ -44,4 +45,7 @@
   filter: alpha(opacity = 30);
   opacity: 0.3;
   -moz-opacity: 0.3;
+}
+
+.dragdrop-movable-panel {
 }

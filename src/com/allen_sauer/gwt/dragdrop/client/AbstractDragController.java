@@ -16,6 +16,7 @@
 package com.allen_sauer.gwt.dragdrop.client;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
@@ -52,6 +53,7 @@ public abstract class AbstractDragController implements DragController {
 
   private Widget initialDraggableParent;
   private Location initialDraggableParentLocation;
+  private String initialDraggableMargin;
   private int initialDraggableIndex;
 
   private MouseDragHandler mouseDragHandler;
@@ -218,7 +220,11 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
-  public void saveDraggableLocation(Widget draggable) {
+  public void restoreDraggableStyle(Widget draggable) {
+    DOM.setStyleAttribute(draggable.getElement(), "margin", initialDraggableMargin);
+  }
+
+  public void saveDraggableLocationAndStyle(Widget draggable) {
     initialDraggableParent = draggable.getParent();
 
     // TODO simplify after enhancement for issue 616
@@ -236,6 +242,8 @@ public abstract class AbstractDragController implements DragController {
     } else {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
+    initialDraggableMargin = DOM.getStyleAttribute(draggable.getElement(), "margin");
+    DOM.setStyleAttribute(draggable.getElement(), "margin", "0px");
   }
 
   public void unregisterDropController(DropController dropController) {
