@@ -17,7 +17,6 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.DeckPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Panel;
@@ -27,21 +26,20 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.IndexedDragEndEvent;
-import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
 /**
- * A {@link DropController} for instances of {@link IndexedFlowPanel}.
+ * A {@link DropController} for instances of {@link com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel}.
  * 
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
 public class IndexedDropController extends AbstractPositioningDropController {
 
   private static final String STYLE_DRAGDROP_INDEXED_POSITIONER = "dragdrop-indexed-positioner";
-  
+
   private IndexedPanel dropTarget;
   private int dropIndex;
 
@@ -114,25 +112,23 @@ public class IndexedDropController extends AbstractPositioningDropController {
     }
   }
 
-  protected Widget newPositioner(Widget reference) {
-    HTML positioner = new HTML("&#x203B;");
-    positioner.addStyleName(STYLE_DRAGDROP_INDEXED_POSITIONER);
-    return positioner;
-  }
-
   // TODO remove after enhancement for issue 616
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
-  private void insert(Widget widget, int beforeIndex) {
+  protected void insert(Widget widget, int beforeIndex) {
     if (dropTarget instanceof DeckPanel) {
       ((DeckPanel) dropTarget).insert(widget, beforeIndex);
     } else if (dropTarget instanceof HorizontalPanel) {
       ((HorizontalPanel) dropTarget).insert(widget, beforeIndex);
     } else if (dropTarget instanceof VerticalPanel) {
       ((VerticalPanel) dropTarget).insert(widget, beforeIndex);
-    } else if (dropTarget instanceof IndexedFlowPanel) {
-      ((IndexedFlowPanel) dropTarget).insert(widget, beforeIndex);
     } else {
       throw new RuntimeException("Method insert(Widget widget, int beforeIndex) not supported by " + GWT.getTypeName(dropTarget));
     }
+  }
+
+  protected Widget newPositioner(Widget reference) {
+    Widget positioner = super.newPositioner(reference);
+    positioner.addStyleName(STYLE_DRAGDROP_INDEXED_POSITIONER);
+    return positioner;
   }
 }

@@ -69,7 +69,7 @@ public class DragHandleExample extends Example {
     verticalPanel.add(textArea);
     verticalPanel.add(button);
 
-    dragController = new PickupDragController(boundaryPanel);
+    dragController = new PickupDragController(boundaryPanel, true);
     AbsolutePositionDropController dropController = new AbsolutePositionDropController(boundaryPanel);
     dragController.registerDropController(dropController);
     dragController.makeDraggable(verticalPanel, header);

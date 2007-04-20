@@ -18,12 +18,12 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel;
 import com.google.gwt.user.client.ui.HTML;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
-import com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController} example.
+ * {@link com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController} example.
  */
 public final class FlowPanelExample extends Example {
 
@@ -36,16 +36,16 @@ public final class FlowPanelExample extends Example {
     flowPanelDropTarget = new IndexedFlowPanel();
     flowPanelDropTarget.setWidth("400px");
     setWidget(flowPanelDropTarget);
-    IndexedDropController indexedDropController = new IndexedDropController(flowPanelDropTarget);
-    dragController.registerDropController(indexedDropController);
+    FlowPanelDropController flowPanelDropController = new FlowPanelDropController(flowPanelDropTarget);
+    dragController.registerDropController(flowPanelDropController);
   }
 
   public Class getControllerClass() {
-    return IndexedDropController.class;
+    return FlowPanelDropController.class;
   }
 
   public String getDescription() {
-    return "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.";
+    return "Allows drop to occur anywhere in a <code>IndexedFlowPanel</code>.";
   }
 
   protected void onLoad() {

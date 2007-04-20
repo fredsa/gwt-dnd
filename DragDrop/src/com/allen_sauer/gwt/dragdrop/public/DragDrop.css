@@ -38,9 +38,10 @@
   zoom: 1; /* IE gain hasLayout */
 }
 
-.dragdrop-indexed-positioner {
+.dragdrop-flow-panel-positioner {
   color: #1E90FF; /* blue */
   display: inline;
+  text-align: center;
   vertical-align: middle;
 }
 

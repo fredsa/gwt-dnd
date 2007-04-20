@@ -34,7 +34,7 @@ final class FlexTableRowDragController extends PickupDragController {
   private int dragRow;
 
   public FlexTableRowDragController(AbsolutePanel boundaryPanel) {
-    super(boundaryPanel);
+    super(boundaryPanel, false);
     // TODO support 'classic' drop behavior
     setDragProxyEnabled(true);
   }
@@ -61,7 +61,7 @@ final class FlexTableRowDragController extends PickupDragController {
     return dragRow;
   }
 
-  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel) {
+  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
     return new BoundaryDropController(boundaryPanel, false);
   }
 

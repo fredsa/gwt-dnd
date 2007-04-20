@@ -58,6 +58,27 @@ code {
   margin: 0.1em;
 }
 
+.demo-indexed-panel-widget ,
+.demo-indexed-panel-heading {
+  border: 1px solid blue;
+  padding: 0.1em;
+  margin: 0.1em;
+  width: 120px;
+}
+
+.demo-indexed-panel-heading {
+  background-color: #87B3FF;
+  width: 120px;
+}
+
+.dragdrop-dropTarget.demo-indexed-panel-container ,
+.dragdrop-dropTarget.demo-indexed-panel-container.dragdrop-engage {
+  background-color: #E8EEF7;
+  border: none;
+  height: 40px;
+  width: 120px;
+}
+
 body *.dragdrop-boundary {
   background: #F8F8F8; /* light gray */
   border: 1px solid blue;
@@ -141,6 +162,9 @@ body *.dragdrop-boundary {
 }
 
 .dragdrop-indexed-positioner {
+}
+
+.dragdrop-flow-panel-positioner {
   color: blue;
 }
 
