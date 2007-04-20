@@ -29,7 +29,7 @@ public class MyApplication implements EntryPoint {
 
     // Create a DragController for each logical area where a set of draggable
     // widgets and drop targets will be allowed to interact with one another.
-    DragController dragController = new PickupDragController(boundaryPanel);
+    DragController dragController = new PickupDragController(boundaryPanel, true);
 
     // Create a DropController for each drop target on which draggable widgets can be dropped
     DropController dropController = new AbsolutePositionDropController(targetPanel);
