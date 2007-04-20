@@ -166,7 +166,7 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
-    return new BoundaryDropController(boundaryPanel, true);
+    return new BoundaryDropController(boundaryPanel, allowDropping);
   }
 
   public void notifyDragEnd(DragEndEvent dragEndEvent) {
