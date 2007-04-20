@@ -4,6 +4,7 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="demo"/>
 	<classpathentry kind="src" path="patches"/>
+	<classpathentry kind="src" path="getting-started"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="JUNIT_HOME/junit.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/_Google Web Toolkit"/>
