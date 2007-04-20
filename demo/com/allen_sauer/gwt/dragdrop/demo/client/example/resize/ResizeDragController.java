@@ -36,7 +36,7 @@ final class ResizeDragController extends AbstractDragController {
   private ResizePanel resizePanel;
 
   public ResizeDragController(AbsolutePanel boundaryPanel) {
-    super(boundaryPanel);
+    super(boundaryPanel, false);
     DOM.setStyleAttribute(dummyMovableWidget.getElement(), "visibility", "hidden");
   }
 
@@ -69,7 +69,7 @@ final class ResizeDragController extends AbstractDragController {
     directionMap.put(widget, direction);
   }
 
-  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel) {
+  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
     return new ResizeDropController(boundaryPanel);
   }
 

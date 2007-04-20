@@ -31,6 +31,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.TrashBinExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.draghandle.DragHandleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel.FlowPanelExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.indexedpanel.IndexedPanelExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizeExample;
 import com.allen_sauer.gwt.log.client.Log;
 
@@ -54,7 +55,7 @@ public final class DragDropDemo implements EntryPoint {
     });
 
     AbsolutePanel boundaryPanel = new AbsolutePanel();
-    dragController = new PickupDragController(boundaryPanel);
+    dragController = new PickupDragController(boundaryPanel, true);
 
     boundaryPanel.setPixelSize(750, 500);
     //    RootPanel.get().add(new HTML("<h3>Drag-and-Drop Examples</h3>"));
@@ -88,6 +89,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new AbsolutePositionExample(dragController));
     examples.add(new GridConstrainedExample(dragController));
     examples.add(new FlowPanelExample(dragController));
+    examples.add(new IndexedPanelExample());
     examples.add(new NoOverlapExample(dragController));
     examples.add(new FlexTableRowExample(dragController));
     examples.add(new ResizeExample());

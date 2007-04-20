@@ -70,10 +70,11 @@ public abstract class AbstractDragController implements DragController {
    * registered automatically.</p>
    * 
    * @param boundaryPanel the desired boundary panel or null if entire page is to be included
+   * @param allowDropping whether or not boundary panel should allow dropping
    */
-  public AbstractDragController(AbsolutePanel boundaryPanel) {
+  public AbstractDragController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
     this.boundaryPanel = boundaryPanel != null ? boundaryPanel : RootPanel.get();
-    boundaryDropController = newBoundaryDropController(this.boundaryPanel);
+    boundaryDropController = newBoundaryDropController(this.boundaryPanel, allowDroppingOnBoundaryPanel);
     registerDropController(boundaryDropController);
     mouseDragHandler = new MouseDragHandler(this);
   }
@@ -164,7 +165,7 @@ public abstract class AbstractDragController implements DragController {
     dragHandle.removeStyleName(STYLE_HANDLE);
   }
 
-  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel) {
+  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
     return new BoundaryDropController(boundaryPanel, true);
   }
 
