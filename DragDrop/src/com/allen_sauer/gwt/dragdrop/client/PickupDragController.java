@@ -15,6 +15,7 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -51,18 +52,21 @@ public class PickupDragController extends AbstractDragController {
 
   public void dragEnd(Widget draggable, Widget dropTarget) {
     super.dragEnd(draggable, dropTarget);
-    currentDraggable = null;
-    if (draggableProxy != null) {
-      draggableProxy.removeFromParent();
-      draggableProxy = null;
-    } else {
-      if (dropTarget == null) {
-        restoreDraggableLocation(draggable);
+    // in case MouseDragHandler calls us twice due to DropController exception
+    if (currentDraggable != null) {
+      currentDraggable = null;
+      if (draggableProxy != null) {
+        draggableProxy.removeFromParent();
+        draggableProxy = null;
+      } else {
+        if (dropTarget == null) {
+          restoreDraggableLocation(draggable);
+        }
       }
+      restoreDraggableStyle(draggable);
+      movablePanel.removeFromParent();
+      movablePanel = null;
     }
-    restoreDraggableStyle(draggable);
-    movablePanel.removeFromParent();
-    movablePanel = null;
   }
 
   public void dragStart(Widget draggable) {

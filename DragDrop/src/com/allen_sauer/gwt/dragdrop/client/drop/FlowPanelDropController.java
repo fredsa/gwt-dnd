@@ -25,6 +25,8 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 /**
  * A {@link DropController} for instances of {@link FlowPanel}.
  * 
+ * @see IndexedDropController
+ * 
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
 public class FlowPanelDropController extends IndexedDropController {
