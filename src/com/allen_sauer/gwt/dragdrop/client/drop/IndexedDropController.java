@@ -19,17 +19,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IndexedPanel;
-import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dragdrop.client.DragController;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
-import com.allen_sauer.gwt.dragdrop.client.IndexedDragEndEvent;
-import com.allen_sauer.gwt.dragdrop.client.util.Area;
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
-import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
 /**
  * A {@link DropController} for instances of {@link com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel}.
@@ -38,80 +29,18 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
  * 
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
-public class IndexedDropController extends AbstractPositioningDropController {
+public class IndexedDropController extends AbstractIndexedDropController {
 
   private static final String STYLE_DRAGDROP_INDEXED_POSITIONER = "dragdrop-indexed-positioner";
 
   private IndexedPanel dropTarget;
-  private int dropIndex;
 
   public IndexedDropController(IndexedPanel dropTarget) {
-    super((Panel) dropTarget);
+    super(dropTarget);
+    if (!(dropTarget instanceof DeckPanel) && !(dropTarget instanceof HorizontalPanel) && !(dropTarget instanceof VerticalPanel)) {
+      throw new IllegalArgumentException(GWT.getTypeName(dropTarget) + " is not currently supported by this controller");
+    }
     this.dropTarget = dropTarget;
-  }
-
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    super.onDrop(reference, draggable, dragController);
-    UIUtil.resetStylePositionStatic(draggable.getElement());
-    int draggableIndex = dropTarget.getWidgetIndex(draggable);
-    if (dropIndex == -1) {
-      throw new RuntimeException("Should not happen after onPreviewDrop did not veto");
-    }
-    if ((draggableIndex != -1) && (draggableIndex < dropIndex)) {
-      // adjust for removal of widget
-      dropIndex--;
-    }
-    insert(draggable, dropIndex);
-    return new IndexedDragEndEvent(draggable, (Panel) dropTarget, dropIndex);
-  }
-
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
-    UIUtil.resetStylePositionStatic(getPositioner().getElement());
-  }
-
-  public void onLeave(Widget draggable, DragController dragController) {
-    super.onLeave(draggable, dragController);
-  }
-
-  public void onMove(Widget reference, Widget draggable, DragController dragController) {
-    super.onMove(reference, draggable, dragController);
-    Location draggableCenter = new WidgetArea(reference, null).getCenter();
-    for (int i = 0; i < dropTarget.getWidgetCount(); i++) {
-      Widget child = dropTarget.getWidget(i);
-      Area childArea = new WidgetArea(child, null);
-      if (childArea.intersects(draggableCenter)) {
-        int targetIndex = i;
-        if (childArea.inBottomRight(draggableCenter)) {
-          // place positioner after the intersecting child
-          targetIndex++;
-        }
-        int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
-        if (positionerIndex == -1) {
-          insert(getPositioner(), targetIndex);
-        } else if ((positionerIndex == targetIndex) || (positionerIndex == targetIndex - 1)) {
-          // already in the correct location
-          return;
-        } else if (positionerIndex < targetIndex) {
-          // adjust for removal of widget
-          insert(getPositioner(), targetIndex - 1);
-        } else {
-          insert(getPositioner(), targetIndex);
-        }
-        return;
-      }
-    }
-    // TODO remove after fix for VerticalPanel and HorizontalPanel
-    getPositioner().removeFromParent();
-    ((Panel) dropTarget).add(getPositioner());
-  }
-
-  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
-    super.onPreviewDrop(reference, draggable, dragController);
-    dropIndex = dropTarget.getWidgetIndex(getPositioner());
-    if (dropIndex == -1) {
-      throw new VetoDropException();
-    }
   }
 
   // TODO remove after enhancement for issue 616
@@ -133,4 +62,5 @@ public class IndexedDropController extends AbstractPositioningDropController {
     positioner.addStyleName(STYLE_DRAGDROP_INDEXED_POSITIONER);
     return positioner;
   }
+
 }
