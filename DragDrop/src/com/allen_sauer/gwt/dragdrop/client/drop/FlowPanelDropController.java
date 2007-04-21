@@ -29,14 +29,22 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
  * 
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
-public class FlowPanelDropController extends IndexedDropController {
+public class FlowPanelDropController extends AbstractIndexedDropController {
 
   private static final String STYLE_DRAGDROP_FLOW_PANEL_POSITIONER = "dragdrop-flow-panel-positioner";
 
   private FlowPanel dropTarget;
 
+  /**
+   * @see IndexedDropController#IndexedDropController(com.google.gwt.user.client.ui.IndexedPanel)
+   * 
+   * @param dropTarget
+   */
   public FlowPanelDropController(FlowPanel dropTarget) {
     super(dropTarget);
+    if (!(dropTarget instanceof IndexedFlowPanel)) {
+      throw new IllegalArgumentException(GWT.getTypeName(dropTarget) + " is not currently supported by this controller");
+    }
     this.dropTarget = dropTarget;
   }
 
