@@ -1,10 +1,22 @@
 @CHARSET "UTF-8";
 
+body {
+   -moz-user-select: element;
+   -khtml-user-select: element;
+   user-select: element;
+}
+
 .dragdrop-handle {
   cursor: move;
   -moz-user-select: none;
   -khtml-user-select: none;
   user-select: none;
+}
+
+.dragdrop-dropTarget.dragdrop-engage {
+   -moz-user-select: none;
+   -khtml-user-select: none;
+   user-select: none;
 }
 
 .dragdrop-draggable {
