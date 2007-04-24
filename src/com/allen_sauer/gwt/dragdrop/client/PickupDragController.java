@@ -43,7 +43,7 @@ public class PickupDragController extends AbstractDragController {
    * to be temporarily picked up and moved around the specified boundary panel.
    * 
    * @param boundaryPanel the desired boundary panel or null if entire page is to be included
-   * @param allowDropping whether or not boundary panel should allow dropping
+   * @param allowDroppingOnBoundaryPanel whether or not boundary panel should allow dropping
    */
   public PickupDragController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
     super(boundaryPanel, allowDroppingOnBoundaryPanel);
