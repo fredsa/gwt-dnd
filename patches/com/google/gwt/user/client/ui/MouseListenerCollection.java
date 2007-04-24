@@ -32,12 +32,9 @@ public class MouseListenerCollection extends Vector {
   /**
    * Fires a mouse down event to all listeners.
    * 
-   * @param sender
-   *          the widget sending the event
-   * @param x
-   *          the x coordinate of the mouse
-   * @param y
-   *          the y coordinate of the mouse
+   * @param sender the widget sending the event
+   * @param x the x coordinate of the mouse
+   * @param y the y coordinate of the mouse
    */
   public void fireMouseDown(Widget sender, int x, int y) {
     for (Iterator it = iterator(); it.hasNext();) {
@@ -49,8 +46,7 @@ public class MouseListenerCollection extends Vector {
   /**
    * Fires a mouse enter event to all listeners.
    * 
-   * @param sender
-   *          the widget sending the event
+   * @param sender the widget sending the event
    */
   public void fireMouseEnter(Widget sender) {
     for (Iterator it = iterator(); it.hasNext();) {
@@ -62,65 +58,48 @@ public class MouseListenerCollection extends Vector {
   /**
    * A helper for widgets that source mouse events.
    * 
-   * @param sender
-   *          the widget sending the event
-   * @param event
-   *          the {@link Event} received by the widget
+   * @param sender the widget sending the event
+   * @param event the {@link Event} received by the widget
    */
   public void fireMouseEvent(Widget sender, Event event) {
-    int x = DOM.eventGetClientX(event) - DOM.getAbsoluteLeft(sender.getElement());
-    int y = DOM.eventGetClientY(event) - DOM.getAbsoluteTop(sender.getElement());
-    // --BEGIN CHANGES--
-    Element body = RootPanel.get().getElement();
-    Element html = DOM.getParent(body);
-
-    x = x + DOM.getIntAttribute(body, "scrollLeft") // quirks mode correction
-        + DOM.getIntAttribute(html, "scrollLeft"); // standard mode correction
-    y = y + DOM.getIntAttribute(body, "scrollTop") // quirks mode correction
-        + DOM.getIntAttribute(html, "scrollTop"); // standard mode correction
-    // --END CHANGES--
-
-    // --BEGIN CHANGES--
-    String clientLeft = DOM.getAttribute(sender.getElement(), "clientLeft");
-    String clientTop = DOM.getAttribute(sender.getElement(), "clientTop");
-    x = x - (clientLeft == null ? 0 : Integer.parseInt(clientLeft));
-    y = y - (clientTop == null ? 0 : Integer.parseInt(clientTop));
-    // --END CHANGES--
+    int x = DOM.eventGetClientX(event)
+        - DOM.getAbsoluteLeft(sender.getElement());
+    int y = DOM.eventGetClientY(event)
+        - DOM.getAbsoluteTop(sender.getElement());
 
     switch (DOM.eventGetType(event)) {
-    case Event.ONMOUSEDOWN:
-      fireMouseDown(sender, x, y);
-      break;
-    case Event.ONMOUSEUP:
-      fireMouseUp(sender, x, y);
-      break;
-    case Event.ONMOUSEMOVE:
-      fireMouseMove(sender, x, y);
-      break;
-    case Event.ONMOUSEOVER:
-      // Only fire the mouseEnter event if it's coming from outside this
-      // widget.
-      Element from = DOM.eventGetFromElement(event);
-      if (!DOM.isOrHasChild(sender.getElement(), from)) {
-        fireMouseEnter(sender);
-      }
-      break;
-    case Event.ONMOUSEOUT:
-      // Only fire the mouseLeave event if it's actually leaving this
-      // widget.
-      Element to = DOM.eventGetToElement(event);
-      if (!DOM.isOrHasChild(sender.getElement(), to)) {
-        fireMouseLeave(sender);
-      }
-      break;
+      case Event.ONMOUSEDOWN:
+        fireMouseDown(sender, x, y);
+        break;
+      case Event.ONMOUSEUP:
+        fireMouseUp(sender, x, y);
+        break;
+      case Event.ONMOUSEMOVE:
+        fireMouseMove(sender, x, y);
+        break;
+      case Event.ONMOUSEOVER:
+        // Only fire the mouseEnter event if it's coming from outside this
+        // widget.
+        Element from = DOM.eventGetFromElement(event);
+        if (!DOM.isOrHasChild(sender.getElement(), from)) {
+          fireMouseEnter(sender);
+        }
+        break;
+      case Event.ONMOUSEOUT:
+        // Only fire the mouseLeave event if it's actually leaving this
+        // widget.
+        Element to = DOM.eventGetToElement(event);
+        if (!DOM.isOrHasChild(sender.getElement(), to)) {
+          fireMouseLeave(sender);
+        }
+        break;
     }
   }
 
   /**
    * Fires a mouse leave event to all listeners.
    * 
-   * @param sender
-   *          the widget sending the event
+   * @param sender the widget sending the event
    */
   public void fireMouseLeave(Widget sender) {
     for (Iterator it = iterator(); it.hasNext();) {
@@ -132,12 +111,9 @@ public class MouseListenerCollection extends Vector {
   /**
    * Fires a mouse move event to all listeners.
    * 
-   * @param sender
-   *          the widget sending the event
-   * @param x
-   *          the x coordinate of the mouse
-   * @param y
-   *          the y coordinate of the mouse
+   * @param sender the widget sending the event
+   * @param x the x coordinate of the mouse
+   * @param y the y coordinate of the mouse
    */
   public void fireMouseMove(Widget sender, int x, int y) {
     for (Iterator it = iterator(); it.hasNext();) {
@@ -149,12 +125,9 @@ public class MouseListenerCollection extends Vector {
   /**
    * Fires a mouse up event to all listeners.
    * 
-   * @param sender
-   *          the widget sending the event
-   * @param x
-   *          the x coordinate of the mouse
-   * @param y
-   *          the y coordinate of the mouse
+   * @param sender the widget sending the event
+   * @param x the x coordinate of the mouse
+   * @param y the y coordinate of the mouse
    */
   public void fireMouseUp(Widget sender, int x, int y) {
     for (Iterator it = iterator(); it.hasNext();) {

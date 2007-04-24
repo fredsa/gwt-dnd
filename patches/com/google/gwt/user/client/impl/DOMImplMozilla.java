@@ -1,12 +1,12 @@
 /*
- * Copyright 2006 Google Inc.
- * 
+ * Copyright 2007 Google Inc.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -42,36 +42,45 @@ class DOMImplMozilla extends DOMImplStandard {
     if(button == 0) {
       return 1;
     } else if (button == 1) {
-      return 4;     
+      return 4;
     } else {
       return button;
     }
  }-*/;
 
-  public native int getAbsoluteLeft(Element elem) /*-{
-    var left = $doc.getBoxObjectFor(elem).screenX
-        - $doc.getBoxObjectFor($doc.documentElement).screenX;
+  public native int eventGetMouseWheelVelocityY(Event evt) /*-{
+    return evt.detail;
+  }-*/;
 
-    var computedStyle = $doc.defaultView.getComputedStyle($doc.documentElement, null);
-    var borderLeftWidth = computedStyle.getPropertyValue("border-left-width");
-    if (borderLeftWidth.indexOf("px") == borderLeftWidth.length - 2) {
-      left -= parseInt(borderLeftWidth);
+  public native int getAbsoluteLeft(Element elem) /*-{
+    var left = $doc.getBoxObjectFor(elem).x;
+    var parent = elem;
+
+    while (parent) {
+      // Sometimes get NAN.
+      if (parent.scrollLeft > 0) {
+        left = left -  parent.scrollLeft;
+      }
+      parent = parent.parentNode;
     }
 
-    return left;
+  // Must cover both Standard and Quirks mode.
+    return left + $doc.body.scrollLeft + $doc.documentElement.scrollLeft;
   }-*/;
 
   public native int getAbsoluteTop(Element elem) /*-{
-    var top = $doc.getBoxObjectFor(elem).screenY
-        - $doc.getBoxObjectFor($doc.documentElement).screenY;
-
-    var computedStyle = $doc.defaultView.getComputedStyle($doc.documentElement, null);
-    var borderTopWidth = computedStyle.getPropertyValue("border-top-width");
-    if (borderTopWidth.indexOf("px") == borderTopWidth.length - 2) {
-      top -= parseInt(borderTopWidth);
+    var top = $doc.getBoxObjectFor(elem).y;
+    var parent = elem;
+    while (parent) {
+      // Sometimes get NAN.
+      if (parent.scrollTop > 0) {
+        top -= parent.scrollTop;
+      }
+      parent = parent.parentNode;
     }
 
-    return top;
+    // Must cover both Standard and Quirks mode.
+    return top + $doc.body.scrollTop + $doc.documentElement.scrollTop;
   }-*/;
 
   public native int getChildIndex(Element parent, Element toFind) /*-{
@@ -88,19 +97,27 @@ class DOMImplMozilla extends DOMImplStandard {
     return -1;
   }-*/;
 
+  public void init() {
+    super.init();
+    initMozilla();
+  }
+
   public native boolean isOrHasChild(Element parent, Element child) /*-{
     while (child) {
       if (parent.isSameNode(child)) {
         return true;
       }
+
       try {
         child = child.parentNode;
       } catch(e) {
-        // Give up on 'Permission denied to get property HTMLDivElement.parentNode'
+        // Give up on 'Permission denied to get property
+        // HTMLDivElement.parentNode'
         // See https://bugzilla.mozilla.org/show_bug.cgi?id=208427
         return false;
       }
-      if (child.nodeType != 1) {
+
+      if (child && (child.nodeType != 1)) {
         child = null;
       }
     }
@@ -112,4 +129,31 @@ class DOMImplMozilla extends DOMImplStandard {
       $wnd.__captureElem = null;
     }
   }-*/;
+
+  public void sinkEvents(Element elem, int bits) {
+    super.sinkEvents(elem, bits);
+    sinkEventsMozilla(elem, bits);
+  }
+
+  public native void sinkEventsMozilla(Element elem, int bits) /*-{
+    if (bits & 0x20000) {
+      elem.addEventListener('DOMMouseScroll', $wnd.__dispatchEvent, false);
+    }
+  }-*/;
+
+  public native String toString(Element elem) /*-{
+    // Basic idea is to use the innerHTML property by copying the node into a
+    // div and getting the innerHTML
+    var temp = elem.cloneNode(true);
+    var tempDiv = $doc.createElement("DIV");
+    tempDiv.appendChild(temp);
+    outer = tempDiv.innerHTML;
+    temp.innerHTML = "";
+    return outer;
+  }-*/;
+
+  protected native void initMozilla() /*-{
+    $wnd.addEventListener('DOMMouseScroll', $wnd.__dispatchCapturedMouseEvent, true);
+  }-*/;
+
 }
