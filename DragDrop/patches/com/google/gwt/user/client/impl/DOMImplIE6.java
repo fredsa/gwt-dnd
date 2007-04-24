@@ -1,12 +1,12 @@
 /*
- * Copyright 2006 Google Inc.
- * 
+ * Copyright 2007 Google Inc.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -36,16 +36,8 @@ class DOMImplIE6 extends DOMImpl {
     return $doc.createElement("<INPUT type='RADIO' name='" + group + "'>");
   }-*/;
 
-  public native int eventGetClientX(Event evt) /*-{
-    // Standard mode use $doc.documentElement.clientLeft (= always 2)
-    // Quirks mode use $doc.body.clientLeft (=BODY border width)
-    return evt.clientX - ($doc.documentElement.clientLeft || $doc.body.clientLeft);
-  }-*/;
-
-  public native int eventGetClientY(Event evt) /*-{
-    // Standard mode use $doc.documentElement.clientTop (= always 2)
-    // Quirks mode use $doc.body.clientTop (= BODY border width)
-    return evt.clientY - ($doc.documentElement.clientTop || $doc.body.clientTop);
+  public native int eventGetMouseWheelVelocityY(Event evt) /*-{
+    return -evt.wheelDelta / 40;
   }-*/;
 
   public native Element eventGetTarget(Event evt) /*-{
@@ -67,27 +59,23 @@ class DOMImplIE6 extends DOMImpl {
   }-*/;
 
   public native int getAbsoluteLeft(Element elem) /*-{
-    // Standard mode used documentElement.scrollLeft. Quirks mode uses 
-    // document.body.scrollLeft. So we take the max of the two.  
-    var scrollLeft = $doc.documentElement.scrollLeft;
-    if(scrollLeft == 0){
-      scrollLeft = $doc.body.scrollLeft
-    }
-    
+    // Standard mode || Quirks mode.
+    var scrollLeft = $doc.documentElement.scrollLeft || $doc.body.scrollLeft;
+
+    // Standard mode use $doc.documentElement.clientLeft (= always 2)
+    // Quirks mode use $doc.body.clientLeft (=BODY border width)
     return (elem.getBoundingClientRect().left + scrollLeft)
-		    - ($doc.documentElement.clientLeft || $doc.body.clientLeft);
+        - ($doc.documentElement.clientLeft || $doc.body.clientLeft);
   }-*/;
 
   public native int getAbsoluteTop(Element elem) /*-{
-    // Standard mode used documentElement.scrollTop. Quirks mode uses 
-    // document.body.scrollTop. So we take the max of the two.
-    var scrollTop = $doc.documentElement.scrollTop;
-    if(scrollTop == 0){
-      scrollTop = $doc.body.scrollTop
-    } 
-    
+    // Standard mode || Quirks mode.
+    var scrollTop = $doc.documentElement.scrollTop || $doc.body.scrollTop;
+
+    // Standard mode use $doc.documentElement.clientTop (= always 2)
+    // Quirks mode use $doc.body.clientTop (= BODY border width)
     return (elem.getBoundingClientRect().top +  scrollTop)
-		    - ($doc.documentElement.clientTop || $doc.body.clientTop);
+        - ($doc.documentElement.clientTop || $doc.body.clientTop);
    }-*/;
 
   public native Element getChild(Element elem, int index) /*-{
@@ -151,11 +139,12 @@ class DOMImplIE6 extends DOMImpl {
       if (this.__eventBits & 2)
         $wnd.__dispatchEvent.call(this);
     };
-  
+
     $doc.body.onclick       =
     $doc.body.onmousedown   =
     $doc.body.onmouseup     =
     $doc.body.onmousemove   =
+    $doc.body.onmousewheel  =
     $doc.body.onkeydown     =
     $doc.body.onkeypress    =
     $doc.body.onkeyup       =
@@ -228,9 +217,6 @@ class DOMImplIE6 extends DOMImpl {
     elem.onscroll      = (bits & 0x04000) ? $wnd.__dispatchEvent : null;
     elem.onload        = (bits & 0x08000) ? $wnd.__dispatchEvent : null;
     elem.onerror       = (bits & 0x10000) ? $wnd.__dispatchEvent : null;
-  }-*/;
-
-  public native String toString(Element elem) /*-{
-    return elem.outerHTML;
+    elem.onmousewheel  = (bits & 0x20000) ? $wnd.__dispatchEvent : null;
   }-*/;
 }
