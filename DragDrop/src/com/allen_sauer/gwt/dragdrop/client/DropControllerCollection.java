@@ -74,6 +74,9 @@ public class DropControllerCollection extends ArrayList {
     for (Iterator iterator = iterator(); iterator.hasNext();) {
       DropController dropController = (DropController) iterator.next();
       Widget target = dropController.getDropTarget();
+      if (!target.isAttached()) {
+        throw new RuntimeException("Unattached drop target; please call dragController#unregisterDropController");
+      }
       Area targetArea = new WidgetArea(target, null);
       if (targetArea.intersects(boundaryArea)) {
         areaControllerMap.put(targetArea, dropController);
