@@ -26,4 +26,11 @@
 		<nature>net.sourceforge.metrics.nature</nature>
 		<nature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>user-src</name>
+			<type>2</type>
+			<locationURI>GWT_ROOT/user/src</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

@@ -16,7 +16,6 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -37,7 +36,7 @@ public class IndexedDropController extends AbstractIndexedDropController {
 
   public IndexedDropController(IndexedPanel dropTarget) {
     super(dropTarget);
-    if (!(dropTarget instanceof DeckPanel) && !(dropTarget instanceof HorizontalPanel) && !(dropTarget instanceof VerticalPanel)) {
+    if (!(dropTarget instanceof HorizontalPanel) && !(dropTarget instanceof VerticalPanel)) {
       throw new IllegalArgumentException(GWT.getTypeName(dropTarget) + " is not currently supported by this controller");
     }
     this.dropTarget = dropTarget;
@@ -46,9 +45,7 @@ public class IndexedDropController extends AbstractIndexedDropController {
   // TODO remove after enhancement for issue 616
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
   protected void insert(Widget widget, int beforeIndex) {
-    if (dropTarget instanceof DeckPanel) {
-      ((DeckPanel) dropTarget).insert(widget, beforeIndex);
-    } else if (dropTarget instanceof HorizontalPanel) {
+    if (dropTarget instanceof HorizontalPanel) {
       ((HorizontalPanel) dropTarget).insert(widget, beforeIndex);
     } else if (dropTarget instanceof VerticalPanel) {
       ((VerticalPanel) dropTarget).insert(widget, beforeIndex);

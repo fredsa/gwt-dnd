@@ -14,9 +14,9 @@ body {
 }
 
 .dragdrop-dropTarget.dragdrop-engage {
-   -moz-user-select: none;
-   -khtml-user-select: none;
-   user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 }
 
 .dragdrop-draggable {
@@ -60,7 +60,6 @@ body {
 .dragdrop-proxy {
   background-color: #77AAFF; /* light blue */
   z-index: 1;
-  font-weight: bold;
   filter: alpha(opacity = 30);
   opacity: 0.3;
   -moz-opacity: 0.3;

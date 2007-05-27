@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
@@ -63,6 +64,12 @@ final class FlexTableRowDragController extends PickupDragController {
 
   public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
     return new BoundaryDropController(boundaryPanel, false);
+  }
+
+  public void notifyDragEnd(DragEndEvent dragEndEvent) {
+    super.notifyDragEnd(dragEndEvent);
+    // cleanup
+    draggableTable = null;
   }
 
   public void restoreDraggableLocation(Widget draggable) {
