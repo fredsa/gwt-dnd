@@ -236,3 +236,51 @@ body *.dragdrop-boundary {
 .demo-draghandle-header {
   background-color: #DDEEDD; /* light green */
 }
+
+.demo-dual-list .dragdrop-boundary {
+  border: none;
+  background-color: transparent;
+}
+
+.demo-dual-list-center {
+  margin: 0.4em;
+}
+
+.demo-dual-list-center td {
+  padding: 0.2em 0.4em;
+}
+
+.demo-dual-list-center button {
+  width: 4em;
+}
+
+.demo-mouselistbox ,
+.demo-mouselistbox.dragdrop-engage {
+  background-color: orange;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  border: 1px solid black;
+  margin: 30px;
+  outline: none;
+}
+
+.demo-mouselistbox.dragdrop-handle {
+  cursor: default;
+}
+
+.demo-dual-list-item-has-content {
+  cursor: pointer;
+}
+
+.demo-dual-list-item-selected {
+  background-color: blue;
+}
+
+.demo-dual-list .dragdrop-dragging ,
+.demo-dual-list .dragdrop-proxy {
+  filter: alpha(opacity = 100);
+  opacity: 1.0;
+  -moz-opacity: 1.0;
+}
+

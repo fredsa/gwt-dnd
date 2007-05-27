@@ -18,7 +18,6 @@ package com.allen_sauer.gwt.dragdrop.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SourcesMouseEvents;
@@ -46,8 +45,8 @@ import java.util.HashMap;
 public abstract class AbstractDragController implements DragController {
 
   protected static final String STYLE_DRAGGING = "dragdrop-dragging";
-  private static final String STYLE_DRAGGABLE = "dragdrop-draggable";
-  private static final String STYLE_HANDLE = "dragdrop-handle";
+  protected static final String STYLE_DRAGGABLE = "dragdrop-draggable";
+  protected static final String STYLE_HANDLE = "dragdrop-handle";
 
   private static HashMap dragHandles = new HashMap();
 
@@ -207,8 +206,6 @@ public abstract class AbstractDragController implements DragController {
     if (initialDraggableParent instanceof AbsolutePanel) {
       ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
           initialDraggableParentLocation.getTop());
-    } else if (initialDraggableParent instanceof DeckPanel) {
-      ((DeckPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
     } else if (initialDraggableParent instanceof HorizontalPanel) {
       ((HorizontalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
     } else if (initialDraggableParent instanceof VerticalPanel) {
@@ -222,7 +219,9 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void restoreDraggableStyle(Widget draggable) {
-    DOM.setStyleAttribute(draggable.getElement(), "margin", initialDraggableMargin);
+    if (initialDraggableMargin != null && initialDraggableMargin.length() != 0) {
+      DOM.setStyleAttribute(draggable.getElement(), "margin", initialDraggableMargin);
+    }
   }
 
   public void saveDraggableLocationAndStyle(Widget draggable) {
@@ -232,8 +231,6 @@ public abstract class AbstractDragController implements DragController {
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
     if (initialDraggableParent instanceof AbsolutePanel) {
       initialDraggableParentLocation = new WidgetLocation(draggable, initialDraggableParent);
-    } else if (initialDraggableParent instanceof DeckPanel) {
-      initialDraggableIndex = ((DeckPanel) initialDraggableParent).getWidgetIndex(draggable);
     } else if (initialDraggableParent instanceof HorizontalPanel) {
       initialDraggableIndex = ((HorizontalPanel) initialDraggableParent).getWidgetIndex(draggable);
     } else if (initialDraggableParent instanceof VerticalPanel) {
@@ -244,7 +241,9 @@ public abstract class AbstractDragController implements DragController {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
     initialDraggableMargin = DOM.getStyleAttribute(draggable.getElement(), "margin");
-    DOM.setStyleAttribute(draggable.getElement(), "margin", "0px");
+    if (initialDraggableMargin != null && initialDraggableMargin.length() != 0) {
+      DOM.setStyleAttribute(draggable.getElement(), "margin", "0px");
+    }
   }
 
   public void unregisterDropController(DropController dropController) {

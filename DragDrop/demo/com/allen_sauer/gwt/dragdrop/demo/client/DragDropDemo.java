@@ -29,6 +29,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.TrashBinExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.draghandle.DragHandleExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.duallist.DualListExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel.FlowPanelExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.indexedpanel.IndexedPanelExample;
@@ -57,7 +58,7 @@ public final class DragDropDemo implements EntryPoint {
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     dragController = new PickupDragController(boundaryPanel, true);
 
-    boundaryPanel.setPixelSize(750, 500);
+    boundaryPanel.setPixelSize(950, 500);
     //    RootPanel.get().add(new HTML("<h3>Drag-and-Drop Examples</h3>"));
     RootPanel.get().add(
         new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action. "
@@ -94,6 +95,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new FlexTableRowExample(dragController));
     examples.add(new ResizeExample());
     examples.add(new DragHandleExample());
+    examples.add(new DualListExample());
 
     examples.selectTab(0);
   }
