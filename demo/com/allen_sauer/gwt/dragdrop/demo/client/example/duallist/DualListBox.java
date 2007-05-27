@@ -27,12 +27,12 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class DualListBox extends AbsolutePanel {
 
-  public final static int OPERATION_COPY = 1;
-  public final static int OPERATION_MOVE = 2;
+  public static final int OPERATION_COPY = 1;
+  public static final int OPERATION_MOVE = 2;
   private static final int LIST_SIZE = 10;
   private static final String STYLENAME_DEMO_DUAL_LIST_CENTER = "demo-dual-list-center";
 
-  static protected void copyOrmoveItems(MouseListBox from, MouseListBox to, boolean justSelectedItems, int operation) {
+  protected static void copyOrmoveItems(MouseListBox from, MouseListBox to, boolean justSelectedItems, int operation) {
     boolean anyCopiedOrMoved = false;
     int toItemCount = to.getWidgetCount();
     int index = 0;
@@ -60,7 +60,7 @@ public class DualListBox extends AbsolutePanel {
     }
   }
 
-  static private void copyOrMoveItem(MouseListBox from, MouseListBox to, int index, int operation) {
+  private static void copyOrMoveItem(MouseListBox from, MouseListBox to, int index, int operation) {
     to.add(from.getClonedWidget(index));
     to.setItemSelected(to.getWidgetCount() - 1, true);
     switch (operation) {
