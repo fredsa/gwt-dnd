@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -156,20 +155,5 @@ public class UIUtil {
    */
   public static int getVerticalBorders(Widget widget) {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
-  }
-
-  /**
-   * Resets an element to 'position: static' and removes the 'left' and 'top'
-   * CSS style attributes to undo what AbsolutePanel does when a widget is attached
-   * to it.
-   * 
-   * TODO remove after fix for <a href="http://code.google.com/p/google-web-toolkit/issues/detail?id=626">GWT issue 626</a> has been resolved
-   * 
-   * @param element the element to be modified
-   */
-  public static void resetStylePositionStatic(Element element) {
-    DOM.setStyleAttribute(element, "left", "");
-    DOM.setStyleAttribute(element, "top", "");
-    DOM.setStyleAttribute(element, "position", "static");
   }
 }

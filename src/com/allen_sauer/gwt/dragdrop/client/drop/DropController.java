@@ -45,7 +45,6 @@ public interface DropController {
   /**
    * Called when the draggable widget or its proxy is dropped on our drop target.
    * Implementing classes must attach the draggable widget to our drop target in a suitable manner.
-   * @return TODO
    * 
    * @see #onPreviewDrop(Widget, Widget, DragController)
    * 
@@ -53,6 +52,7 @@ public interface DropController {
    *                  which is physically currently at the desired drop position
    * @param draggable the actual draggable widget to which the drop operation applies
    * @param dragController the {@link DragController} coordinating the current drag-and-drop operation
+   * @return event representing the drop action
    */
   abstract DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController);
 

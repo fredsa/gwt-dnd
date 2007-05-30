@@ -113,17 +113,18 @@ public interface DragController extends FiresDragEvents {
 
   /**
    * Create a new BoundaryDropController to manage our boundary panel as a
-   * drop target.
+   * drop target. To ensure that draggable widgets can only be dropped on registered
+   * drop targets, set <code>allowDropping</code> to <code>false</code>.
    * 
    * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
-   * @param allowDropping TODO
+   * @param allowDropping whether or not dropping is allowed on the boundary panel
    * @return the new DropController
    */
   BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping);
 
   /**
    * Call back method for {@link MouseDragHandler}.
-   * @param dragEndEvent TODO
+   * @param dragEndEvent the event
    */
   void notifyDragEnd(DragEndEvent dragEndEvent);
 

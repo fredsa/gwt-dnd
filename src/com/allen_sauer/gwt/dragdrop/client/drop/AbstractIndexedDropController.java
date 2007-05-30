@@ -24,7 +24,6 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.IndexedDragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
-import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
 public abstract class AbstractIndexedDropController extends AbstractPositioningDropController {
@@ -44,7 +43,6 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
-    UIUtil.resetStylePositionStatic(draggable.getElement());
     int draggableIndex = dropTarget.getWidgetIndex(draggable);
     if (dropIndex == -1) {
       throw new RuntimeException("Should not happen after onPreviewDrop did not veto");
@@ -55,15 +53,6 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     }
     insert(draggable, dropIndex);
     return new IndexedDragEndEvent(draggable, (Panel) dropTarget, dropIndex);
-  }
-
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
-    UIUtil.resetStylePositionStatic(getPositioner().getElement());
-  }
-
-  public void onLeave(Widget draggable, DragController dragController) {
-    super.onLeave(draggable, dragController);
   }
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
@@ -93,8 +82,6 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
         return;
       }
     }
-    // TODO remove after fix for VerticalPanel and HorizontalPanel
-    getPositioner().removeFromParent();
     ((Panel) dropTarget).add(getPositioner());
   }
 

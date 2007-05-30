@@ -31,7 +31,7 @@ public class DragHandlerCollection extends ArrayList {
   /**
    * Fires a {@link DragHandler#onDragEnd(DragEndEvent)} on
    * all handlers in the collection.
-   * @param dragEndEvent TODO
+   * @param dragEndEvent the event to pass
    */
   public void fireDragEnd(DragEndEvent dragEndEvent) {
     for (Iterator it = iterator(); it.hasNext();) {

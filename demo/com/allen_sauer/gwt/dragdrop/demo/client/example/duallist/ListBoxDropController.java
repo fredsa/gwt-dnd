@@ -40,7 +40,7 @@ public class ListBoxDropController extends AbstractDropController {
   public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
     super.onPreviewDrop(reference, draggable, dragController);
     MouseListBox from = ((ListBoxDragController) dragController).getCurrentDraggableListBox();
-    // TODO can't be avoid this
+    // TODO avoid this
     if (from == mouseListBox) {
       throw new VetoDropException();
     }

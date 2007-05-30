@@ -50,8 +50,4 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
     location.snapToGrid(gridX, gridY);
     return location;
   }
-
-  // protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
-  //   TODO Auto-generated method stub
-  // }
 }
