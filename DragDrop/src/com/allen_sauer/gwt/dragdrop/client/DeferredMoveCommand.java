@@ -69,7 +69,7 @@ public class DeferredMoveCommand implements Command {
     //      execute immediately
     // Web Mode
     if (GWT.isScript() && mostRecentTotalTime > PERFORMANCE_THRESHOLD_MILLIS) {
-      DeferredCommand.add(this);
+      DeferredCommand.addCommand(this);
     } else {
       execute();
     }

@@ -17,9 +17,9 @@ package com.allen_sauer.gwt.dragdrop.test.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import com.allen_sauer.gwt.dragdrop.demo.client.example.duallist.DualListBox;
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
@@ -38,13 +38,6 @@ public final class DragDropTest implements EntryPoint {
   }
 
   private void test() {
-    DualListBox dualListBox = new DualListBox(10, "10em");
-    dualListBox.addLeft("Apples");
-    dualListBox.addLeft("Bananas");
-    dualListBox.addLeft("Cucumbers");
-    dualListBox.addLeft("Dates");
-    dualListBox.addLeft("Enchiladas");
-
-    RootPanel.get().add(dualListBox);
+    RootPanel.get().add(new Label("DragDropTest"));
   }
 }
