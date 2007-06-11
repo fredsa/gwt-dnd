@@ -1,6 +1,9 @@
 package com.mycompany.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -10,12 +13,19 @@ import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
-/**
- * Entry point classes define <code>onModuleLoad()</code>.
- */
 public class MyApplication implements EntryPoint {
 
+  private static class MyUncaughtExceptionHandler implements UncaughtExceptionHandler {
+
+    public void onUncaughtException(Throwable ex) {
+      Window.alert("Uncaught Exception\n" + (ex == null ? "null" : ex.toString()));
+    }
+  }
+
   public void onModuleLoad() {
+    // Make sure we catch unexpected exceptions in web mode, especially in other browsers
+    GWT.setUncaughtExceptionHandler(new MyUncaughtExceptionHandler());
+
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(400, 300);
     boundaryPanel.addStyleName("getting-started-blue");
