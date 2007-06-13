@@ -75,6 +75,9 @@ public class PickupDragController extends AbstractDragController {
     Location location = new WidgetLocation(draggable, getBoundaryPanel());
     movablePanel = new SimplePanel();
     movablePanel.addStyleName(STYLE_MOVABLE_PANEL);
+    if (draggableProxy == null) {
+      movablePanel.setPixelSize(draggable.getOffsetWidth(), draggable.getOffsetHeight());
+    }
     getBoundaryPanel().add(movablePanel, location.getLeft(), location.getTop());
 
     final Widget innerWidget = draggableProxy != null ? draggableProxy : currentDraggable;
