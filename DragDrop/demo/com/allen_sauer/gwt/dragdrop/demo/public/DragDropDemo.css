@@ -284,3 +284,6 @@ body *.dragdrop-boundary {
   -moz-opacity: 1.0;
 }
 
+.demo-indexed-panel-column-composite {
+  margin: 3px;
+}
