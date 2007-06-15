@@ -32,6 +32,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  */
 public final class IndexedPanelExample extends Example {
 
+  private static final String STYLE_DEMO_INDEXED_PANEL_COLUMN_COMPOSITE = "demo-indexed-panel-column-composite";
   private static final String STYLE_DEMO_INDEXED_PANEL_CONTAINER = "demo-indexed-panel-container";
   private static final String STYLE_DEMO_INDEXED_PANEL_HEADING = "demo-indexed-panel-heading";
   private static final String STYLE_DEMO_INDEXED_PANEL_LABEL = "demo-indexed-panel-widget";
@@ -59,7 +60,9 @@ public final class IndexedPanelExample extends Example {
     for (int col = 1; col <= COLUMNS; col++) {
       VerticalPanel columnCompositePanel = new VerticalPanel();
       VerticalPanel verticalPanel = new VerticalPanel();
+//      DOM.setStyleAttribute(verticalPanel.getElement(), "border", "3px dashed black");
       verticalPanel.addStyleName(STYLE_DEMO_INDEXED_PANEL_CONTAINER);
+      columnCompositePanel.addStyleName(STYLE_DEMO_INDEXED_PANEL_COLUMN_COMPOSITE);
       verticalPanel.setSpacing(SPACING);
       horizontalPanel.add(columnCompositePanel);
       IndexedDropController widgetDropController = new IndexedDropController(verticalPanel);
