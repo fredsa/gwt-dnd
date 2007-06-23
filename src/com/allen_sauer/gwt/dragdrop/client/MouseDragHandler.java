@@ -59,8 +59,15 @@ public class MouseDragHandler implements MouseListener {
       ((SourcesMouseEvents) dragHandle).addMouseListener(this);
       dragHandleMap.put(dragHandle, draggable);
     } else {
-      throw new RuntimeException("widget must implement SourcesMouseEvents to be draggable");
+      throw new RuntimeException("dragHandle must implement SourcesMouseEvents to be draggable");
     }
+  }
+
+  public void makeNotDraggable(Widget dragHandle) {
+    if (dragHandleMap.remove(dragHandle) == null) {
+      throw new RuntimeException("dragHandle was not draggable");
+    }
+    ((SourcesMouseEvents) dragHandle).removeMouseListener(this);
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
@@ -176,7 +183,7 @@ public class MouseDragHandler implements MouseListener {
     int desiredLeft = location.getLeft() + offsetX + (x - initialMouseX);
     int desiredTop = location.getTop() + offsetY + (y - initialMouseY);
     boundaryPanel.setWidgetPosition(movableWidget, desiredLeft, desiredTop);
-    
+
     DropController newDropController = dragController.getIntersectDropController(movableWidget);
     if (dropController != newDropController) {
       if (dropController != null) {

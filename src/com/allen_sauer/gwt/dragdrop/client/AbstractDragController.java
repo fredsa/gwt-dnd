@@ -20,7 +20,6 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -154,12 +153,12 @@ public abstract class AbstractDragController implements DragController {
    * {@link MouseDragHandler} from the widget and removing any styling
    * which was applied when making the widget draggable.
    * 
-   * @param widget the widget to be made draggable
+   * @param draggable the widget to no longer be draggable
    */
-  public void makeNotDraggable(Widget widget) {
-    ((SourcesMouseEvents) widget).removeMouseListener(mouseDragHandler);
-    Widget dragHandle = (Widget) dragHandles.remove(widget);
-    widget.removeStyleName(STYLE_DRAGGABLE);
+  public void makeNotDraggable(Widget draggable) {
+    Widget dragHandle = (Widget) dragHandles.remove(draggable);
+    mouseDragHandler.makeNotDraggable(dragHandle);
+    draggable.removeStyleName(STYLE_DRAGGABLE);
     dragHandle.removeStyleName(STYLE_HANDLE);
   }
 
