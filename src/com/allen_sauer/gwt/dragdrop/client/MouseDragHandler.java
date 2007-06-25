@@ -136,8 +136,11 @@ public class MouseDragHandler implements MouseListener {
         return;
       }
 
-      dragController.dragEnd(draggable, dropController.getDropTarget());
+      // TODO: collapse dropController onPreviewDrop/onDrop
+      // TODO: collapse dragController dragEnd/notifyDragEnd
+      // TODO: verify current order of next two calls is indeed ok
       DragEndEvent dragEndEvent = dropController.onDrop(movableWidget, draggable, dragController);
+      dragController.dragEnd(draggable, dropController.getDropTarget());
       dragController.notifyDragEnd(dragEndEvent);
 
     } catch (RuntimeException ex) {
