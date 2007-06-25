@@ -15,13 +15,16 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
+import com.allen_sauer.gwt.log.client.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,17 +56,25 @@ public class DropControllerCollection extends ArrayList {
   public DropController getIntersectDropController(Widget widget, Panel boundaryPanel) {
     Area widgetArea = new WidgetArea(widget, null);
     DropController result = null;
+    Log.debug("------------------------------");
     for (Iterator iterator = areaControllerMap.keySet().iterator(); iterator.hasNext();) {
       WidgetArea targetArea = (WidgetArea) iterator.next();
       if (widgetArea.intersects(targetArea)) {
         DropController dropController = (DropController) areaControllerMap.get(targetArea);
+        Log.debug("dropController=" + GWT.getTypeName(dropController));
+        Log.debug("   result=" + (result == null ? "null" : GWT.getTypeName(result)));
         if (result == null || DOM.isOrHasChild(result.getDropTarget().getElement(), dropController.getDropTarget().getElement())) {
           if (!DOM.isOrHasChild(widget.getElement(), dropController.getDropTarget().getElement())) {
-            result = dropController;
+            if (result == null
+                || (result instanceof BoundaryDropController && (!(dropController instanceof BoundaryDropController)))) {
+              Log.debug("result <- dropController");
+              result = dropController;
+            }
           }
         }
       }
     }
+    Log.debug("  RETRUN result=" + (result == null ? "null" : GWT.getTypeName(result)));
     return result;
   }
 
