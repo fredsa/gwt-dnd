@@ -3,7 +3,7 @@
 	This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-Checkstyle-Configuration: Fred Checkstyle
+Checkstyle-Configuration: DragDrop Checkstyle
 Description:
 
 -->
@@ -199,7 +199,9 @@ Description:
         <module name="ArrayTrailingComma"/>
         <module name="UnnecessaryParentheses"/>
     </module>
-    <module name="PackageHtml"/>
+    <module name="PackageHtml">
+        <property name="severity" value="ignore"/>
+    </module>
     <module name="SuppressionCommentFilter">
         <property name="offCommentFormat" value="CHECKSTYLE_OFF"/>
         <property name="onCommentFormat" value="CHECKSTYLE_ON"/>
