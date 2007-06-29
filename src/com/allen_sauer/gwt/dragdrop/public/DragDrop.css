@@ -13,6 +13,12 @@ body {
   user-select: none;
 }
 
+.dragdrop-boundary {
+}
+
+.dragdrop-dropTarget {
+}
+
 .dragdrop-dropTarget.dragdrop-engage {
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -22,15 +28,6 @@ body {
 .dragdrop-draggable {
   z-index: 2;
   zoom: 1; /* IE gain hasLayout */
-}
-
-.dragdrop-boundary {
-}
-
-.dragdrop-dropTarget {
-}
-
-.dragdrop-dropTarget.dragdrop-engage {
 }
 
 .dragdrop-dragging {
