@@ -64,8 +64,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   }
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    DragEndEvent event = super.onDrop(reference, draggable, dragController);
+    // constrain the position before creating the DragEndEvent
     dropTargetInfo.getDropTarget().add(draggable, dropLocation.getLeft(), dropLocation.getTop());
+    DragEndEvent event = super.onDrop(reference, draggable, dragController);
     referenceLocation = null;
     return event;
   }
@@ -117,7 +118,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
     Widget dropTarget = getDropTarget();
-    Location location = new WidgetLocation(reference, dropTarget);
+    Location location = new WidgetLocation(draggable, dropTarget);
     return new AbsolutePositionDragEndEvent(draggable, dropTarget, location.getLeft(), location.getTop());
   }
 
