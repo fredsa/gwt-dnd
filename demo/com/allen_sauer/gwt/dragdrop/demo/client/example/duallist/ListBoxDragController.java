@@ -39,7 +39,7 @@ public class ListBoxDragController extends PickupDragController {
   }
 
   public MouseListBox getCurrentDraggableListBox() {
-    return this.currentDraggableListBox;
+    return currentDraggableListBox;
   }
 
   public Widget getMovableWidget() {

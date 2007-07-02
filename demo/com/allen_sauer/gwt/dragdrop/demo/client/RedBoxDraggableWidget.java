@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.HTML;
 /**
  * Demonstrate a draggable widget.
  */
-public final  class RedBoxDraggableWidget extends HTML {
+public final class RedBoxDraggableWidget extends HTML {
 
   private static int counter;
   private static final int DRAGGABLE_SIZE = 65;

@@ -31,8 +31,8 @@ import java.util.HashMap;
 
 final class ResizeDragController extends AbstractDragController {
 
-  private Widget dummyMovableWidget = new HTML();
   private HashMap directionMap = new HashMap();
+  private Widget dummyMovableWidget = new HTML();
   private ResizePanel resizePanel;
 
   public ResizeDragController(AbsolutePanel boundaryPanel) {

@@ -34,20 +34,20 @@ import java.util.HashMap;
  */
 public class MouseDragHandler implements MouseListener {
 
-  private HashMap dragHandleMap = new HashMap();
   private AbsolutePanel boundaryPanel;
   private Widget capturingWidget;
-  private Widget draggable;
+  private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
   private DragController dragController;
-  private Widget movableWidget;
-  private boolean mouseDown;
+  private Widget draggable;
   private boolean dragging;
+  private HashMap dragHandleMap = new HashMap();
   private DropController dropController;
   private int initialMouseX;
   private int initialMouseY;
+  private boolean mouseDown;
+  private Widget movableWidget;
   private int offsetX;
   private int offsetY;
-  private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
 
   public MouseDragHandler(DragController dragController) {
     this.dragController = dragController;
@@ -138,10 +138,10 @@ public class MouseDragHandler implements MouseListener {
 
       // remove movable panel, cleanup styles, etc.
       dragController.dragEnd(draggable, dropController.getDropTarget());
-      
+
       // use state information from earlier onPreviewDrop to attached draggable to dropTarget
       DragEndEvent dragEndEvent = dropController.onDrop(movableWidget, draggable, dragController);
-      
+
       // notify listeners
       dragController.notifyDragEnd(dragEndEvent);
 
@@ -185,8 +185,8 @@ public class MouseDragHandler implements MouseListener {
 
   void actualMove(int x, int y) {
     Location location = new WidgetLocation(capturingWidget, boundaryPanel);
-    int desiredLeft = location.getLeft() + offsetX + (x - initialMouseX);
-    int desiredTop = location.getTop() + offsetY + (y - initialMouseY);
+    int desiredLeft = location.getLeft() + offsetX + x - initialMouseX;
+    int desiredTop = location.getTop() + offsetY + y - initialMouseY;
     boundaryPanel.setWidgetPosition(movableWidget, desiredLeft, desiredTop);
 
     DropController newDropController = dragController.getIntersectDropController(movableWidget);

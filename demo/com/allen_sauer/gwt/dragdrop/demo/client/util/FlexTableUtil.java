@@ -81,10 +81,9 @@ public class FlexTableUtil {
    * @param sourceRow
    * @param targetRow
    */
-  private static void copyRowStyle(FlexTable sourceTable, FlexTable targetTable, int sourceRow, int targetRow)
-  {
-      String rowStyle = sourceTable.getRowFormatter().getStyleName(sourceRow);
-      targetTable.getRowFormatter().setStyleName(targetRow, rowStyle);
+  private static void copyRowStyle(FlexTable sourceTable, FlexTable targetTable, int sourceRow, int targetRow) {
+    String rowStyle = sourceTable.getRowFormatter().getStyleName(sourceRow);
+    targetTable.getRowFormatter().setStyleName(targetRow, rowStyle);
   }
 
 }

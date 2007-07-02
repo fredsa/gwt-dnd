@@ -26,11 +26,11 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
  */
 public abstract class AbstractDropController implements DropController {
 
-  private static final String STYLE_ENGAGE = "dragdrop-engage";
   private static final String STYLE_DROP_TARGET = "dragdrop-dropTarget";
+  private static final String STYLE_ENGAGE = "dragdrop-engage";
 
-  private Widget dropTarget;
   private DragController currentDragController;
+  private Widget dropTarget;
 
   public AbstractDropController(Widget dropTarget) {
     this.dropTarget = dropTarget;
@@ -38,7 +38,7 @@ public abstract class AbstractDropController implements DropController {
   }
 
   public DragController getCurrentDragController() {
-    return this.currentDragController;
+    return currentDragController;
   }
 
   public Widget getDropTarget() {

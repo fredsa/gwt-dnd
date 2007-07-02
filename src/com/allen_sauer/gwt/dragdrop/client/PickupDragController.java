@@ -29,8 +29,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
  */
 public class PickupDragController extends AbstractDragController {
 
-  protected static final String STYLE_PROXY = "dragdrop-proxy";
   protected static final String STYLE_MOVABLE_PANEL = "dragdrop-movable-panel";
+  protected static final String STYLE_PROXY = "dragdrop-proxy";
 
   private Widget currentDraggable;
   private Widget draggableProxy;

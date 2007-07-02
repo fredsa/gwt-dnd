@@ -51,7 +51,7 @@ final class ResizeDropController extends BoundaryDropController {
         int contentHeight = resizePanel.getContentHeight();
         int newHeight = Math.max(contentHeight + delta, MIN_WIDGET_SIZE);
         if (newHeight != contentHeight) {
-          resizePanel.moveBy(0,  contentHeight - newHeight);
+          resizePanel.moveBy(0, contentHeight - newHeight);
         }
         resizePanel.setContentSize(resizePanel.getContentWidth(), newHeight);
       }

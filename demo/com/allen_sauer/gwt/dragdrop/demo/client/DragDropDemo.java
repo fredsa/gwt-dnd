@@ -17,11 +17,9 @@ package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
@@ -90,7 +88,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.setWidth("500px");
     boundaryPanel.add(examples, 200, 10);
 
-    final TextArea eventTextArea = new TextArea();
+    final HTML eventTextArea = new HTML();
     eventTextArea.addStyleName(STYLE_DEMO_EVENT_TEXT_AREA);
     eventTextArea.setSize(boundaryPanel.getOffsetWidth() + "px", "10em");
 
@@ -99,7 +97,7 @@ public final class DragDropDemo implements EntryPoint {
 
     DemoDragHandler demoDragHandler = new DemoDragHandler(eventTextArea);
     dragController.addDragHandler(demoDragHandler);
-    
+
     examples.add(new TrashBinExample(dragController));
     examples.add(new AbsolutePositionExample(dragController));
     examples.add(new GridConstrainedExample(dragController));
@@ -110,7 +108,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new ResizeExample(demoDragHandler));
     examples.add(new DragHandleExample(demoDragHandler));
     examples.add(new DualListExample(demoDragHandler));
-    
+
     examples.selectTab(0);
   }
 

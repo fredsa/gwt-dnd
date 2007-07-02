@@ -17,7 +17,6 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.flextable;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
@@ -47,7 +46,6 @@ public final class FlexTableRowExample extends Example {
   }
 
   public String getDescription() {
-    return "Drag <code>FlexTable</code> rows by their drag handle<br>" +
-            "(currently only implements the 'proxy' drag behavior).";
+    return "Drag <code>FlexTable</code> rows by their drag handle<br>" + "(currently only implements the 'proxy' drag behavior).";
   }
 }

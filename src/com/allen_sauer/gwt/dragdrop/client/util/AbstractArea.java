@@ -27,7 +27,7 @@ public abstract class AbstractArea implements Area {
   }
 
   public final int getBottom() {
-    return this.bottom;
+    return bottom;
   }
 
   public Location getCenter() {
@@ -39,15 +39,15 @@ public abstract class AbstractArea implements Area {
   }
 
   public final int getLeft() {
-    return this.left;
+    return left;
   }
 
   public final int getRight() {
-    return this.right;
+    return right;
   }
 
   public final int getTop() {
-    return this.top;
+    return top;
   }
 
   public int getWidth() {
@@ -58,20 +58,19 @@ public abstract class AbstractArea implements Area {
     Location center = getCenter();
     float distanceX = (float) (location.getLeft() - center.getLeft()) / getWidth();
     float distanceY = (float) (location.getTop() - center.getTop()) / getHeight();
-    return (distanceX + distanceY) > 0;
+    return distanceX + distanceY > 0;
   }
 
   public boolean intersects(Area targetArea) {
-    if ((getRight() < targetArea.getLeft()) || (getLeft() > targetArea.getRight()) || (getBottom() < targetArea.getTop())
-        || (getTop() > targetArea.getBottom())) {
+    if (getRight() < targetArea.getLeft() || getLeft() > targetArea.getRight() || getBottom() < targetArea.getTop()
+        || getTop() > targetArea.getBottom()) {
       return false;
     }
     return true;
   }
 
   public boolean intersects(Location location) {
-    return ((left <= location.getLeft()) && (location.getLeft() <= right))
-        && ((top <= location.getTop()) && (location.getTop() <= bottom));
+    return left <= location.getLeft() && location.getLeft() <= right && top <= location.getTop() && location.getTop() <= bottom;
   }
 
   public void moveTo(Location location) {

@@ -33,7 +33,7 @@ public class FlexTableRowDragEndEvent extends DragEndEvent {
   }
 
   public int getRow() {
-    return this.row;
+    return row;
   }
 
   public String toString() {

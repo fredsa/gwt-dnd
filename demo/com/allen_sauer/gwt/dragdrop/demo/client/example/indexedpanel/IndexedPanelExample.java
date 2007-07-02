@@ -33,13 +33,13 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  */
 public final class IndexedPanelExample extends Example {
 
+  private static final int COLUMNS = 3;
+  private static final int ROWS = 4;
+  private static final int SPACING = 0;
   private static final String STYLE_DEMO_INDEXED_PANEL_COLUMN_COMPOSITE = "demo-indexed-panel-column-composite";
   private static final String STYLE_DEMO_INDEXED_PANEL_CONTAINER = "demo-indexed-panel-container";
   private static final String STYLE_DEMO_INDEXED_PANEL_HEADING = "demo-indexed-panel-heading";
   private static final String STYLE_DEMO_INDEXED_PANEL_LABEL = "demo-indexed-panel-widget";
-  private static final int ROWS = 4;
-  private static final int COLUMNS = 3;
-  private static final int SPACING = 0;
 
   public IndexedPanelExample(DemoDragHandler demoDragHandler) {
     int count = 0;
@@ -63,7 +63,7 @@ public final class IndexedPanelExample extends Example {
     for (int col = 1; col <= COLUMNS; col++) {
       VerticalPanel columnCompositePanel = new VerticalPanel();
       VerticalPanel verticalPanel = new VerticalPanel();
-//      DOM.setStyleAttribute(verticalPanel.getElement(), "border", "3px dashed black");
+      //      DOM.setStyleAttribute(verticalPanel.getElement(), "border", "3px dashed black");
       verticalPanel.addStyleName(STYLE_DEMO_INDEXED_PANEL_CONTAINER);
       columnCompositePanel.addStyleName(STYLE_DEMO_INDEXED_PANEL_COLUMN_COMPOSITE);
       verticalPanel.setSpacing(SPACING);
@@ -81,7 +81,7 @@ public final class IndexedPanelExample extends Example {
         HTML widget = new HTML("Draggable&nbsp;#" + ++count);
         widget.addStyleName(STYLE_DEMO_INDEXED_PANEL_LABEL);
         widgetDragController.makeDraggable(widget);
-        widget.setHeight((Random.nextInt(4) + 2) + "em");
+        widget.setHeight(Random.nextInt(4) + 2 + "em");
         verticalPanel.add(widget);
       }
     }

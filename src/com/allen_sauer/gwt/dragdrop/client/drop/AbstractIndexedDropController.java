@@ -28,8 +28,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
 public abstract class AbstractIndexedDropController extends AbstractPositioningDropController {
 
-  private IndexedPanel dropTarget;
   private int dropIndex;
+  private IndexedPanel dropTarget;
 
   /**
    * @see FlowPanelDropController#FlowPanelDropController(com.google.gwt.user.client.ui.FlowPanel)
@@ -47,7 +47,7 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     if (dropIndex == -1) {
       throw new RuntimeException("Should not happen after onPreviewDrop did not veto");
     }
-    if ((draggableIndex != -1) && (draggableIndex < dropIndex)) {
+    if (draggableIndex != -1 && draggableIndex < dropIndex) {
       // adjust for removal of widget
       dropIndex--;
     }
@@ -70,7 +70,7 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
         int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
         if (positionerIndex == -1) {
           insert(getPositioner(), targetIndex);
-        } else if ((positionerIndex == targetIndex) || (positionerIndex == targetIndex - 1)) {
+        } else if (positionerIndex == targetIndex || positionerIndex == targetIndex - 1) {
           // already in the correct location
           return;
         } else if (positionerIndex < targetIndex) {

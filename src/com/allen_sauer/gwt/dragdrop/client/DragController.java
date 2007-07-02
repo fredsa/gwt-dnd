@@ -168,14 +168,14 @@ public interface DragController extends FiresDragEvents {
    */
   void restoreDraggableLocation(Widget draggable);
 
-    /**
-   * Save the draggable's current location in case we need to
-   * restore it later.
-   * 
-   * @see #restoreDraggableLocation(Widget)
-   * 
-   * @param draggable the widget for which the location must be saved
-   */
+  /**
+  * Save the draggable's current location in case we need to
+  * restore it later.
+  * 
+  * @see #restoreDraggableLocation(Widget)
+  * 
+  * @param draggable the widget for which the location must be saved
+  */
   void saveDraggableLocationAndStyle(Widget draggable);
 
   /**

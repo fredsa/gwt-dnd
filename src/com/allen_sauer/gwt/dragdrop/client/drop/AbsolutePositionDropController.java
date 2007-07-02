@@ -34,8 +34,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
 
   private Location dropLocation;
-  private WidgetLocation referenceLocation;
   private final DropTargetInfo dropTargetInfo;
+  private WidgetLocation referenceLocation;
 
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {
     super(dropTarget);
@@ -56,7 +56,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   }
 
   public final DropTargetInfo getDropTargetInfo() {
-    return this.dropTargetInfo;
+    return dropTargetInfo;
   }
 
   public String getDropTargetStyleName() {

@@ -23,11 +23,11 @@ public class DeferredMoveCommand implements Command {
 
   private static final int PERFORMANCE_THRESHOLD_MILLIS = 80;
 
-  private int x;
-  private int y;
+  private long mostRecentTotalTime;
   private MouseDragHandler mouseDragHandler;
   private long scheduledTimeMillis;
-  private long mostRecentTotalTime;
+  private int x;
+  private int y;
 
   DeferredMoveCommand(MouseDragHandler mouseDragHandler) {
     this.mouseDragHandler = mouseDragHandler;

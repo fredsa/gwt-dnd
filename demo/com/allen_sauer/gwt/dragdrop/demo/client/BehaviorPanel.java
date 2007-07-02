@@ -53,7 +53,7 @@ public final class BehaviorPanel extends SimplePanel {
 
     classicButton.addClickListener(listener);
     proxyButton.addClickListener(listener);
-    
+
     setWidget(verticalPanel);
   }
 
