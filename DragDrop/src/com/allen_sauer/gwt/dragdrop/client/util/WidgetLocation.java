@@ -24,13 +24,13 @@ import com.google.gwt.user.client.ui.Widget;
 public class WidgetLocation extends AbstractLocation {
 
   private int left;
-  private int top;
-  private int widgetLeft;
-  private int widgetTop;
+  private Widget reference;
   private int referenceAdjustLeft;
   private int referenceAdjustTop;
+  private int top;
   private Widget widget;
-  private Widget reference;
+  private int widgetLeft;
+  private int widgetTop;
 
   /**
    * Determine location of widget relative boundaryPanel such that
@@ -61,7 +61,7 @@ public class WidgetLocation extends AbstractLocation {
   }
 
   public Widget getReference() {
-    return this.reference;
+    return reference;
   }
 
   /* (non-Javadoc)
@@ -72,7 +72,7 @@ public class WidgetLocation extends AbstractLocation {
   }
 
   public Widget getWidget() {
-    return this.widget;
+    return widget;
   }
 
   public void setReference(Widget reference) {

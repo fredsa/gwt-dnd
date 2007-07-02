@@ -24,14 +24,14 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class DualListBoxItem extends Composite {
 
-  private static final String STYLENAME_DEMO_DUAL_LIST_ITEM_HAS_CONTENT = "demo-dual-list-item-has-content";
-  private static final String STYLENAME_DEMO_DUAL_LIST_ITEM = "demo-dual-list-item";
-  private static final String STYLENAME_DEMO_DUAL_LIST_ITEM_SELECTED = "demo-dual-list-item-selected";
-
   private static final String EMPTY_HTML = "&nbsp;";
-  private boolean selected = false;
+  private static final String STYLENAME_DEMO_DUAL_LIST_ITEM = "demo-dual-list-item";
+  private static final String STYLENAME_DEMO_DUAL_LIST_ITEM_HAS_CONTENT = "demo-dual-list-item-has-content";
+
+  private static final String STYLENAME_DEMO_DUAL_LIST_ITEM_SELECTED = "demo-dual-list-item-selected";
   private FocusPanel focusPanel = new FocusPanel();
-  
+  private boolean selected = false;
+
   {
     initWidget(focusPanel);
     addStyleName(STYLENAME_DEMO_DUAL_LIST_ITEM);
@@ -61,7 +61,7 @@ public class DualListBoxItem extends Composite {
   }
 
   public boolean isSelected() {
-    return this.selected;
+    return selected;
   }
 
   public void removeClickListener(ClickListener listener) {

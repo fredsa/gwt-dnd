@@ -74,14 +74,9 @@ final class ResizePanel extends SimplePanel {
   public static final DirectionConstant NORTH = new DirectionConstant(DIRECTION_NORTH);
 
   /**
-   * Specifies that resizing occur at the south edge.
+   * Specifies that resizing occur at the north-east edge.
    */
-  public static final DirectionConstant SOUTH = new DirectionConstant(DIRECTION_SOUTH);
-
-  /**
-   * Specifies that resizing occur at the west edge.
-   */
-  public static final DirectionConstant WEST = new DirectionConstant(DIRECTION_WEST);
+  public static final DirectionConstant NORTH_EAST = new DirectionConstant(DIRECTION_NORTH | DIRECTION_EAST);
 
   /**
    * Specifies that resizing occur at the north-west edge.
@@ -89,9 +84,14 @@ final class ResizePanel extends SimplePanel {
   public static final DirectionConstant NORTH_WEST = new DirectionConstant(DIRECTION_NORTH | DIRECTION_WEST);
 
   /**
-   * Specifies that resizing occur at the north-east edge.
+   * Specifies that resizing occur at the south edge.
    */
-  public static final DirectionConstant NORTH_EAST = new DirectionConstant(DIRECTION_NORTH | DIRECTION_EAST);
+  public static final DirectionConstant SOUTH = new DirectionConstant(DIRECTION_SOUTH);
+
+  /**
+   * Specifies that resizing occur at the south-east edge.
+   */
+  public static final DirectionConstant SOUTH_EAST = new DirectionConstant(DIRECTION_SOUTH | DIRECTION_EAST);
 
   /**
    * Specifies that resizing occur at the south-west edge.
@@ -99,19 +99,19 @@ final class ResizePanel extends SimplePanel {
   public static final DirectionConstant SOUTH_WEST = new DirectionConstant(DIRECTION_SOUTH | DIRECTION_WEST);
 
   /**
-   * Specifies that resizing occur at the south-east edge.
+   * Specifies that resizing occur at the west edge.
    */
-  public static final DirectionConstant SOUTH_EAST = new DirectionConstant(DIRECTION_SOUTH | DIRECTION_EAST);
+  public static final DirectionConstant WEST = new DirectionConstant(DIRECTION_WEST);
 
   private static final int BORDER_THICKNESS = 6;
-  private Grid grid = new Grid(3, 3);
-  private ScrollPanel scrollPanel;
-  private ResizeDragController resizeDragController;
   private int contentHeight;
   private int contentWidth;
-  private Widget northWidget;
-  private Widget southWidget;
   private Widget eastWidget;
+  private Grid grid = new Grid(3, 3);
+  private Widget northWidget;
+  private ResizeDragController resizeDragController;
+  private ScrollPanel scrollPanel;
+  private Widget southWidget;
   private Widget westWidget;
 
   public ResizePanel(ResizeDragController resizeDragController, Widget widget) {

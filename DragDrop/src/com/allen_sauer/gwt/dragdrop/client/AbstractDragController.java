@@ -42,22 +42,22 @@ import java.util.HashMap;
  */
 public abstract class AbstractDragController implements DragController {
 
-  protected static final String STYLE_DRAGGING = "dragdrop-dragging";
   protected static final String STYLE_DRAGGABLE = "dragdrop-draggable";
+  protected static final String STYLE_DRAGGING = "dragdrop-dragging";
   protected static final String STYLE_HANDLE = "dragdrop-handle";
 
   private static HashMap dragHandles = new HashMap();
 
-  private Widget initialDraggableParent;
-  private Location initialDraggableParentLocation;
-  private String initialDraggableMargin;
-  private int initialDraggableIndex;
-
-  private MouseDragHandler mouseDragHandler;
   private BoundaryDropController boundaryDropController;
   private AbsolutePanel boundaryPanel;
   private DragHandlerCollection dragHandlers;
   private DropControllerCollection dropControllerCollection = new DropControllerCollection();
+
+  private int initialDraggableIndex;
+  private String initialDraggableMargin;
+  private Widget initialDraggableParent;
+  private Location initialDraggableParentLocation;
+  private MouseDragHandler mouseDragHandler;
 
   /**
    * Create a new drag-and-drop controller. Drag operations will be limited to the

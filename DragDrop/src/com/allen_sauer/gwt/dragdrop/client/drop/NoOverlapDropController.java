@@ -60,7 +60,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
 
     public boolean hasMore() {
       int diff = start - stopBefore;
-      return (diff > 1) || (diff < -1);
+      return diff > 1 || diff < -1;
     }
 
     public void setStart(int start) {
@@ -160,7 +160,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     Collection collisionTargets = new ArrayList();
     for (Iterator iteartor = getDropTargetInfo().getDropTarget().iterator(); iteartor.hasNext();) {
       Widget w = (Widget) iteartor.next();
-      if ((w != reference) && (w != draggable) && (w != widget) && (w != getPositioner())) {
+      if (w != reference && w != draggable && w != widget && w != getPositioner()) {
         collisionTargets.add(w);
       }
     }

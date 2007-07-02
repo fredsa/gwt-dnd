@@ -15,6 +15,7 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.TextArea;
 
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
@@ -23,35 +24,39 @@ import com.allen_sauer.gwt.dragdrop.client.DragStartEvent;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 
 public final class DemoDragHandler implements DragHandler {
-  private final TextArea eventTextArea;
+  private static final String GREEN = "#44BB44";
+  private static final String BLUE = "#4444BB";
+  private static final String RED = "#BB4444";
 
-  public DemoDragHandler(TextArea eventTextArea) {
-    this.eventTextArea = eventTextArea;
+  private final HTML eventTextArea;
+
+  public DemoDragHandler(HTML dragHandlerHTML) {
+    this.eventTextArea = dragHandlerHTML;
   }
 
   public void onDragEnd(DragEndEvent event) {
-    log("onDragEnd: " + event);
+    log("onDragEnd: " + event, RED);
   }
 
   public void onDragStart(DragStartEvent event) {
-    clear(eventTextArea);
-    log("onDragStart: " + event);
+    log("onDragStart: " + event, GREEN);
   }
 
   public void onPreviewDragEnd(DragEndEvent event) throws VetoDragException {
-    log("onPreviewDragEnd: " + event);
+    log("<br>onPreviewDragEnd: " + event, BLUE);
   }
 
   public void onPreviewDragStart(DragStartEvent event) throws VetoDragException {
-    log("onPreviewDragStart: " + event);
+    clear();
+    log("onPreviewDragStart: " + event, BLUE);
   }
 
-  private void clear(final TextArea eventTextArea) {
-    eventTextArea.setText("");
+  private void clear() {
+    eventTextArea.setHTML("");
   }
 
-  private void log(String text) {
-    eventTextArea.setText(eventTextArea.getText() + (eventTextArea.getText().length() == 0 ? "" : "\n") + text);
-    eventTextArea.setCursorPos(eventTextArea.getText().length());
+  private void log(String text, String color) {
+    eventTextArea.setHTML(eventTextArea.getHTML() + (eventTextArea.getHTML().length() == 0 ? "" : "<br>") + "<span style='color:"
+        + color + "'>" + text + "</span>");
   }
 }

@@ -22,6 +22,6 @@ import com.google.gwt.user.client.ui.Widget;
  * to {@link DragController#makeDraggable(Widget)} for implementing classes.
  */
 public interface HasDragHandle {
-  
+
   Widget getDragHandle();
 }

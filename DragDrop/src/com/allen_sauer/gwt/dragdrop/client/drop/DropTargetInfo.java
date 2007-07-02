@@ -21,35 +21,35 @@ import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 
 public final class DropTargetInfo {
 
-  private final AbsolutePanel dropTarget;
   private AbsolutePanel boundaryPanel;
-  private int dropAreaClientWidth;
   private int dropAreaClientHeight;
+  private int dropAreaClientWidth;
+  private final AbsolutePanel dropTarget;
 
   public DropTargetInfo(AbsolutePanel dropTarget) {
     this.dropTarget = dropTarget;
   }
 
   public final AbsolutePanel getBoundaryPanel() {
-    return this.boundaryPanel;
+    return boundaryPanel;
   }
 
   public final int getDropAreaClientHeight() {
     if (dropAreaClientHeight == 0) {
       dropAreaClientHeight = UIUtil.getClientHeight(dropTarget.getElement());
     }
-    return this.dropAreaClientHeight;
+    return dropAreaClientHeight;
   }
 
   public final int getDropAreaClientWidth() {
     if (dropAreaClientWidth == 0) {
       dropAreaClientWidth = UIUtil.getClientWidth(dropTarget.getElement());
     }
-    return this.dropAreaClientWidth;
+    return dropAreaClientWidth;
   }
 
   public final AbsolutePanel getDropTarget() {
-    return this.dropTarget;
+    return dropTarget;
   }
 
   public final void setBoundaryPanel(AbsolutePanel boundaryPanel) {

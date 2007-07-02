@@ -33,8 +33,8 @@ public class MouseListBox extends FocusPanel {
     }
   }
 
-  private static final String STYLE_DEMO_MOUSELISTBOX = "demo-mouselistbox";
   private static ItemClickListener itemClickListener = new ItemClickListener();
+  private static final String STYLE_DEMO_MOUSELISTBOX = "demo-mouselistbox";
 
   private VerticalPanel verticalPanel = new VerticalPanel();
   private int widgetCount = 0;
