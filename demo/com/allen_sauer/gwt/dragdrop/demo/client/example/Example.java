@@ -61,10 +61,6 @@ public abstract class Example extends SimplePanel {
     return dragController;
   }
 
-  public void setDragController(DragController dragController) {
-    this.dragController = dragController;
-  }
-
   /**
    * Convenience method to create a default draggable widget. The widget is automatically
    * made draggable by calling {@link DragController#makeDraggable(Widget)}.

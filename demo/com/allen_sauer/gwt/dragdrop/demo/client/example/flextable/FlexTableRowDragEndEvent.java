@@ -37,6 +37,6 @@ public class FlexTableRowDragEndEvent extends DragEndEvent {
   }
 
   public String toString() {
-    return "FlexTableRowDragEndEvent(row = " + row + ")";
+    return "FlexTableRowDragEndEvent(row=" + row + ")";
   }
 }

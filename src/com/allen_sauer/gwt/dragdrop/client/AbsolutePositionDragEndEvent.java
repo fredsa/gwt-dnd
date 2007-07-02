@@ -22,7 +22,6 @@ import com.google.gwt.user.client.ui.Widget;
  * for drop targets which are {@link com.google.gwt.user.client.ui.AbsolutePanel AbsolutePanels}.
  */
 public class AbsolutePositionDragEndEvent extends DragEndEvent {
-
   private int x;
   private int y;
 
@@ -41,6 +40,6 @@ public class AbsolutePositionDragEndEvent extends DragEndEvent {
   }
 
   public String toString() {
-    return "AbsolutePositionDragEndEvent(x = " + x + ", y = " + y + ")";
+    return "AbsolutePositionDragEndEvent(x=" + x + ", y=" + y + ")";
   }
 }

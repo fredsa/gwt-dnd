@@ -18,6 +18,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.flextable;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
@@ -25,12 +26,12 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  */
 public final class FlexTableRowExample extends Example {
 
-  public FlexTableRowExample(DragController dragController) {
-    super(dragController);
+  public FlexTableRowExample(DemoDragHandler demoDragHandler) {
     AbsolutePanel tableExamplePanel = new AbsolutePanel();
     tableExamplePanel.setPixelSize(450, 300);
     setWidget(tableExamplePanel);
     FlexTableRowDragController tableRowDragController = new FlexTableRowDragController(tableExamplePanel);
+    tableRowDragController.addDragHandler(demoDragHandler);
     DemoFlexTable table1 = new DemoFlexTable(5, 3, tableRowDragController);
     DemoFlexTable table2 = new DemoFlexTable(5, 4, tableRowDragController);
     FlexTableRowDropController flexTableRowDropController1 = new FlexTableRowDropController(table1);

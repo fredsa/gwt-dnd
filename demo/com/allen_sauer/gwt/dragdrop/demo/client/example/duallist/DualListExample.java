@@ -15,6 +15,7 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.duallist;
 
+import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
@@ -24,9 +25,10 @@ public final class DualListExample extends Example {
 
   private static final String STYLENAME_DEMO_DUAL_LIST = "demo-dual-list";
 
-  public DualListExample() {
+  public DualListExample(DemoDragHandler demoDragHandler) {
     addStyleName(STYLENAME_DEMO_DUAL_LIST);
     DualListBox dualListBox = new DualListBox(10, "10em");
+    dualListBox.getDragController().addDragHandler(demoDragHandler);
     dualListBox.addLeft("Apples");
     dualListBox.addLeft("Bananas");
     dualListBox.addLeft("Cucumbers");

@@ -25,6 +25,8 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.DragController;
+
 public class DualListBox extends AbsolutePanel {
 
   public static final int OPERATION_COPY = 1;
@@ -74,6 +76,7 @@ public class DualListBox extends AbsolutePanel {
     }
   }
 
+  private ListBoxDragController dragController;
   private MouseListBox left;
   private MouseListBox right;
 
@@ -86,8 +89,7 @@ public class DualListBox extends AbsolutePanel {
     verticalPanel.addStyleName(STYLENAME_DEMO_DUAL_LIST_CENTER);
     verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
-    ListBoxDragController dragController = new ListBoxDragController(this);
-
+    dragController = new ListBoxDragController(this);
     left = new MouseListBox(LIST_SIZE);
     right = new MouseListBox(10);
     dragController.makeDraggable(left);
@@ -151,5 +153,9 @@ public class DualListBox extends AbsolutePanel {
    */
   public void addLeft(Widget widget) {
     left.add(widget);
+  }
+
+  public DragController getDragController() {
+    return dragController;
   }
 }
