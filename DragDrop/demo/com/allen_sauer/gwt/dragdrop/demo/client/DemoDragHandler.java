@@ -16,7 +16,6 @@
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.TextArea;
 
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.DragHandler;
