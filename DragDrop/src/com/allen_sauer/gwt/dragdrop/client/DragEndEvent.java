@@ -17,6 +17,8 @@ package com.allen_sauer.gwt.dragdrop.client;
 
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.demo.client.util.StringUtil;
+
 import java.util.EventObject;
 
 /**
@@ -40,6 +42,7 @@ public class DragEndEvent extends EventObject {
   }
 
   public String toString() {
-    return "DragEndEvent(" + (dropTarget == null ? "cancelled" : "") + ")";
+    String dropTargetText = dropTarget != null ? "dropTarget=" + StringUtil.getShortTypeName(dropTarget) : "[cancelled]";
+    return "DragEndEvent(" + dropTargetText + ", source=" + StringUtil.getShortTypeName(getSource()) + ")";
   }
 }

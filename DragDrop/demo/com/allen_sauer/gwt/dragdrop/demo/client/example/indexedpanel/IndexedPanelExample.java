@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
@@ -40,7 +41,7 @@ public final class IndexedPanelExample extends Example {
   private static final int COLUMNS = 3;
   private static final int SPACING = 0;
 
-  public IndexedPanelExample() {
+  public IndexedPanelExample(DemoDragHandler demoDragHandler) {
     int count = 0;
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setSize("100%", "100%");
@@ -48,7 +49,9 @@ public final class IndexedPanelExample extends Example {
     setWidget(boundaryPanel);
 
     PickupDragController columnDragController = new PickupDragController(boundaryPanel, false);
+    columnDragController.addDragHandler(demoDragHandler);
     PickupDragController widgetDragController = new PickupDragController(boundaryPanel, false);
+    widgetDragController.addDragHandler(demoDragHandler);
 
     HorizontalPanel horizontalPanel = new HorizontalPanel();
     horizontalPanel.addStyleName(STYLE_DEMO_INDEXED_PANEL_CONTAINER);

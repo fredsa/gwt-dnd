@@ -44,7 +44,7 @@ code {
 }
 
 .demo-bin-engage {
-  filter: alpha(opacity = 10);
+  filter: alpha(opacity =   10);
   opacity: 0.1;
   -moz-opacity: 0.1;
 }
@@ -58,8 +58,7 @@ code {
   margin: 0.1em;
 }
 
-.demo-indexed-panel-widget ,
-.demo-indexed-panel-heading {
+.demo-indexed-panel-widget  , .demo-indexed-panel-heading {
   border: 1px solid blue;
   padding: 0.1em;
   margin: 0.1em;
@@ -71,21 +70,21 @@ code {
   width: 120px;
 }
 
-.dragdrop-dropTarget.demo-indexed-panel-container ,
-.dragdrop-dropTarget.demo-indexed-panel-container.dragdrop-engage {
+.dragdrop-dropTarget.demo-indexed-panel-container  ,
+  .dragdrop-dropTarget.demo-indexed-panel-container.dragdrop-engage {
   background-color: #E8EEF7;
   border: none;
   height: 40px;
   width: 120px;
 }
 
-body *.dragdrop-boundary {
+body .dragdrop-boundary {
   background: #F8F8F8; /* light gray */
   border: 1px solid blue;
 }
 
-.dragdrop-dropTarget.demo-not-engagable ,
-.dragdrop-dropTarget.demo-not-engagable.dragdrop-engage {
+.dragdrop-dropTarget.demo-not-engagable  , .dragdrop-dropTarget.demo-not-engagable.dragdrop-engage
+  {
   background-color: #CCCCCC; /* gray */
 }
 
@@ -97,12 +96,13 @@ body *.dragdrop-boundary {
 .demo-example-panel {
   margin: 1em 1em;
 }
-  
+
 .dragdrop-dropTarget.dragdrop-engage {
   background: #BCDEFF; /* lighter blue */
 }
 
 .gwt-TabPanel {
+  
 }
 
 .gwt-TabPanelBottom {
@@ -155,13 +155,14 @@ body *.dragdrop-boundary {
 
 .demo-table-proxy {
   border: 1px solid blue;
-  
 }
 
 .dragdrop-positioner {
+  
 }
 
 .dragdrop-indexed-positioner {
+  
 }
 
 .dragdrop-flow-panel-positioner {
@@ -174,6 +175,7 @@ body *.dragdrop-boundary {
 }
 
 .demo-drag-handle {
+  
 }
 
 .demo-flextable .dragdrop-handle {
@@ -254,8 +256,7 @@ body *.dragdrop-boundary {
   width: 4em;
 }
 
-.demo-mouselistbox ,
-.demo-mouselistbox.dragdrop-engage {
+.demo-mouselistbox  , .demo-mouselistbox.dragdrop-engage {
   background-color: orange;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -277,13 +278,16 @@ body *.dragdrop-boundary {
   background-color: blue;
 }
 
-.demo-dual-list .dragdrop-dragging ,
-.demo-dual-list .dragdrop-proxy {
-  filter: alpha(opacity = 100);
+.demo-dual-list .dragdrop-dragging  , .demo-dual-list .dragdrop-proxy {
+  filter: alpha(opacity =   100);
   opacity: 1.0;
   -moz-opacity: 1.0;
 }
 
 .demo-indexed-panel-column-composite {
   margin: 3px;
+}
+
+.demo-event-text-area {
+  border: 1px solid green;
 }

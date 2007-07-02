@@ -28,13 +28,14 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 public class DragHandleExample extends Example {
 
   private DragController dragController;
 
-  public DragHandleExample() {
+  public DragHandleExample(DemoDragHandler demoDragHandler) {
     final AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(500, 200);
 
@@ -70,6 +71,7 @@ public class DragHandleExample extends Example {
     verticalPanel.add(button);
 
     dragController = new PickupDragController(boundaryPanel, true);
+    dragController.addDragHandler(demoDragHandler);
     AbsolutePositionDropController dropController = new AbsolutePositionDropController(boundaryPanel);
     dragController.registerDropController(dropController);
     dragController.makeDraggable(verticalPanel, header);

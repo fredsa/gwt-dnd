@@ -18,18 +18,19 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.resize;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 
+import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 public final class ResizeExample extends Example {
 
   private ResizeDragController resizeDragController;
 
-  public ResizeExample() {
+  public ResizeExample(DemoDragHandler demoDragHandler) {
     final AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(500, 200);
 
     resizeDragController = new ResizeDragController(boundaryPanel);
-    setDragController(resizeDragController);
+    resizeDragController.addDragHandler(demoDragHandler);
 
     final ResizePanel resizePanel = new ResizePanel(resizeDragController, getLargeHTML());
     boundaryPanel.add(resizePanel, 50, 30);

@@ -13,22 +13,13 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.client;
+package com.allen_sauer.gwt.dragdrop.demo.client.util;
 
-import com.allen_sauer.gwt.dragdrop.demo.client.util.StringUtil;
+import com.google.gwt.core.client.GWT;
 
-import java.util.EventObject;
-
-/**
- * Event containing information about the start of a drag.
- */
-public class DragStartEvent extends EventObject {
-
-  public DragStartEvent(Object source) {
-    super(source);
-  }
-
-  public String toString() {
-    return "DragStartEvent(source=" + StringUtil.getShortTypeName(getSource()) + ")";
+public class StringUtil {
+  public static String getShortTypeName(Object obj) {
+    String typeName = GWT.getTypeName(obj);
+    return typeName.substring(typeName.lastIndexOf('.') + 1);
   }
 }

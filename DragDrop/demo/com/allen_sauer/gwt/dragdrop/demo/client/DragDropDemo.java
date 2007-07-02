@@ -17,9 +17,11 @@ package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
@@ -40,8 +42,9 @@ import com.allen_sauer.gwt.log.client.Log;
  * EntryPoint class for demonstrating and testing drag-and-drop library.
  */
 public final class DragDropDemo implements EntryPoint {
-
   private static final String STYLE_DEMO_BOUNDARY = "demo-boundary";
+  private static final String STYLE_DEMO_BOUNDARY_PANEL = "demo-boundary-panel";
+  private static final String STYLE_DEMO_EVENT_TEXT_AREA = "demo-event-text-area";
 
   private PickupDragController dragController;
 
@@ -56,6 +59,7 @@ public final class DragDropDemo implements EntryPoint {
     });
 
     AbsolutePanel boundaryPanel = new AbsolutePanel();
+    boundaryPanel.addStyleName(STYLE_DEMO_BOUNDARY_PANEL);
     dragController = new PickupDragController(boundaryPanel, true);
 
     boundaryPanel.setPixelSize(950, 500);
@@ -86,17 +90,27 @@ public final class DragDropDemo implements EntryPoint {
     examples.setWidth("500px");
     boundaryPanel.add(examples, 200, 10);
 
+    final TextArea eventTextArea = new TextArea();
+    eventTextArea.addStyleName(STYLE_DEMO_EVENT_TEXT_AREA);
+    eventTextArea.setSize(boundaryPanel.getOffsetWidth() + "px", "10em");
+
+    RootPanel.get().add(new HTML("Events received by registered <code>DragHandler</code>s"));
+    RootPanel.get().add(eventTextArea);
+
+    DemoDragHandler demoDragHandler = new DemoDragHandler(eventTextArea);
+    dragController.addDragHandler(demoDragHandler);
+    
     examples.add(new TrashBinExample(dragController));
     examples.add(new AbsolutePositionExample(dragController));
     examples.add(new GridConstrainedExample(dragController));
     examples.add(new FlowPanelExample(dragController));
-    examples.add(new IndexedPanelExample());
+    examples.add(new IndexedPanelExample(demoDragHandler));
     examples.add(new NoOverlapExample(dragController));
-    examples.add(new FlexTableRowExample(dragController));
-    examples.add(new ResizeExample());
-    examples.add(new DragHandleExample());
-    examples.add(new DualListExample());
-
+    examples.add(new FlexTableRowExample(demoDragHandler));
+    examples.add(new ResizeExample(demoDragHandler));
+    examples.add(new DragHandleExample(demoDragHandler));
+    examples.add(new DualListExample(demoDragHandler));
+    
     examples.selectTab(0);
   }
 
@@ -105,5 +119,4 @@ public final class DragDropDemo implements EntryPoint {
     dragController.makeDraggable(redBox);
     return redBox;
   }
-
 }

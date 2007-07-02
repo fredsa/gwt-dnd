@@ -35,6 +35,6 @@ public class IndexedDragEndEvent extends DragEndEvent {
   }
 
   public String toString() {
-    return "IndexedDragEndEvent(index = " + index + ")";
+    return "IndexedDragEndEvent(index=" + index + ")";
   }
 }
