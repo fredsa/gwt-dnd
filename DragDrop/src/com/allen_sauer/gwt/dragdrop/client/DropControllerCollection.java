@@ -60,8 +60,7 @@ public class DropControllerCollection extends ArrayList {
         DropController dropController = (DropController) areaControllerMap.get(targetArea);
         if (result == null || DOM.isOrHasChild(result.getDropTarget().getElement(), dropController.getDropTarget().getElement())) {
           if (!DOM.isOrHasChild(widget.getElement(), dropController.getDropTarget().getElement())) {
-            if (result == null
-                || (result instanceof BoundaryDropController && (!(dropController instanceof BoundaryDropController)))) {
+            if (result == null || !(dropController instanceof BoundaryDropController)) {
               result = dropController;
             }
           }
@@ -71,6 +70,7 @@ public class DropControllerCollection extends ArrayList {
     return result;
   }
 
+  // TODO sort areaControllerMap with descendant drop targets first so that getIntersectDropController can return with the first hit
   public void resetCache(Panel boundaryPanel) {
     WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
 
@@ -79,7 +79,7 @@ public class DropControllerCollection extends ArrayList {
       DropController dropController = (DropController) iterator.next();
       Widget target = dropController.getDropTarget();
       if (!target.isAttached()) {
-        throw new RuntimeException("Unattached drop target; please call dragController#unregisterDropController");
+        throw new IllegalStateException("Unattached drop target; please call dragController#unregisterDropController");
       }
       Area targetArea = new WidgetArea(target, null);
       if (targetArea.intersects(boundaryArea)) {
