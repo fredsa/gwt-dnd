@@ -15,7 +15,7 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.allen_sauer.gwt.dragdrop.demo.client.util.StringUtil;
+import com.allen_sauer.gwt.dragdrop.client.util.StringUtil;
 
 import java.util.EventObject;
 
