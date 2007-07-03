@@ -92,7 +92,7 @@ public final class DragDropDemo implements EntryPoint {
     eventTextArea.addStyleName(STYLE_DEMO_EVENT_TEXT_AREA);
     eventTextArea.setSize(boundaryPanel.getOffsetWidth() + "px", "10em");
 
-    RootPanel.get().add(new HTML("Events received by registered <code>DragHandler</code>s"));
+    RootPanel.get().add(new HTML("<br>Events received by registered <code>DragHandler</code>s"));
     RootPanel.get().add(eventTextArea);
 
     DemoDragHandler demoDragHandler = new DemoDragHandler(eventTextArea);
