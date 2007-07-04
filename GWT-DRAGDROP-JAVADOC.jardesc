@@ -11,6 +11,7 @@
 </sealing>
 </manifest>
 <selectedElements exportClassFiles="false" exportJavaFiles="true" exportOutputFolder="false">
+<file path="/DragDrop/LICENSE"/>
 <folder path="/DragDrop/javadoc"/>
 </selectedElements>
 </jardesc>

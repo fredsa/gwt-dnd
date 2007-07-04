@@ -5,6 +5,7 @@
 <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
 <selectedProjects/>
 <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+<file path="/DragDrop/LICENSE"/>
 <javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dragdrop"/>
 <javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dragdrop.client.drop"/>
 <javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dragdrop.client.temp"/>
