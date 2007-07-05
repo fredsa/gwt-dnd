@@ -26,8 +26,10 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
  */
 public abstract class AbstractDropController implements DropController {
 
-  private static final String STYLE_DROP_TARGET = "dragdrop-dropTarget";
-  private static final String STYLE_ENGAGE = "dragdrop-engage";
+  private static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
+
+  // TODO remove legacy "dragdrop-engage"
+  private static final String CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage dragdrop-engage";
 
   private DragController currentDragController;
   private Widget dropTarget;
@@ -46,22 +48,22 @@ public abstract class AbstractDropController implements DropController {
   }
 
   public String getDropTargetStyleName() {
-    return STYLE_DROP_TARGET;
+    return CSS_DROP_TARGET;
   }
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    dropTarget.removeStyleName(STYLE_ENGAGE);
+    dropTarget.removeStyleName(CSS_DROP_TARGET_ENGAGE);
     currentDragController = null;
     return makeDragEndEvent(reference, draggable, dragController);
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    dropTarget.addStyleName(STYLE_ENGAGE);
+    dropTarget.addStyleName(CSS_DROP_TARGET_ENGAGE);
     currentDragController = dragController;
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
-    dropTarget.removeStyleName(STYLE_ENGAGE);
+    dropTarget.removeStyleName(CSS_DROP_TARGET_ENGAGE);
     currentDragController = null;
   }
 

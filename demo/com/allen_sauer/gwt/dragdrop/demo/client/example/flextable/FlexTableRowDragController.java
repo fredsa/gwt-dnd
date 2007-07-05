@@ -29,8 +29,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
  */
 final class FlexTableRowDragController extends PickupDragController {
 
-  private static final String STYLE_DEMO_TABLE_PROXY = "demo-table-proxy";
-
+  private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY = "demo-FlexTableRowExample-table-proxy";
   private FlexTable draggableTable;
   private int dragRow;
 
@@ -41,17 +40,17 @@ final class FlexTableRowDragController extends PickupDragController {
   }
 
   public void dragEnd(Widget draggable, Widget dropTarget) {
-    draggableTable.getRowFormatter().removeStyleName(dragRow, STYLE_DRAGGING);
+    draggableTable.getRowFormatter().removeStyleName(dragRow, CSS_DRAGGING);
     super.dragEnd(draggable, dropTarget);
   }
 
   public void dragStart(Widget draggable) {
     draggableTable = (FlexTable) draggable.getParent();
     dragRow = getWidgetRow(draggable, draggableTable);
-    draggableTable.getRowFormatter().addStyleName(dragRow, STYLE_DRAGGING);
+    draggableTable.getRowFormatter().addStyleName(dragRow, CSS_DRAGGING);
     super.dragStart(draggable);
     // remove super class added style
-    draggable.removeStyleName(STYLE_DRAGGING);
+    draggable.removeStyleName(CSS_DRAGGING);
   }
 
   public FlexTable getDraggableTable() {
@@ -87,8 +86,8 @@ final class FlexTableRowDragController extends PickupDragController {
   protected Widget maybeNewDraggableProxy(Widget draggable) {
     FlexTable proxy;
     proxy = new FlexTable();
-    proxy.addStyleName(STYLE_PROXY);
-    proxy.addStyleName(STYLE_DEMO_TABLE_PROXY);
+    proxy.addStyleName(CSS_PROXY);
+    proxy.addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY);
     FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
     return proxy;
   }

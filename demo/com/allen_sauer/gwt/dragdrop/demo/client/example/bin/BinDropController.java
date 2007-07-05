@@ -26,32 +26,35 @@ import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
  * Sample SimpleDropController which discards draggable widgets which are
  * dropped on it.
  */
-final class TrashBinDropController extends SimpleDropController {
+final class BinDropController extends SimpleDropController {
 
-  private static final String STYLE_DEMO_TRASHBIN_ENGAGE = "demo-bin-engage";
+  private static final String CSS_DEMO_BIN_DRAGGABLE_ENGAGE = "demo-bin-draggable-engage";
 
   private Bin bin;
 
-  public TrashBinDropController(Bin bin) {
+  public BinDropController(Bin bin) {
     super(bin);
     this.bin = bin;
   }
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     DragEndEvent event = super.onDrop(reference, draggable, dragController);
-    draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
+    draggable.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+    bin.setEngaged(false);
     bin.eatWidget(draggable);
     return event;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     super.onEnter(reference, draggable, dragController);
-    draggable.addStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
+    draggable.addStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+    bin.setEngaged(true);
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
     super.onLeave(draggable, dragController);
-    draggable.removeStyleName(STYLE_DEMO_TRASHBIN_ENGAGE);
+    draggable.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+    bin.setEngaged(false);
   }
 
   public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {

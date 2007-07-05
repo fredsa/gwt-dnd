@@ -32,7 +32,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
  */
 final class FlexTableRowDropController extends AbstractPositioningDropController {
 
-  private static final String STYLE_DEMO_TABLE_POSITIONER = "demo-table-positioner";
+  private static final String CSS_DEMO_TABLE_POSITIONER = "demo-table-positioner";
 
   private FlexTable flexTable;
   private int targetRow;
@@ -66,7 +66,7 @@ final class FlexTableRowDropController extends AbstractPositioningDropController
 
   protected Widget newPositioner(Widget reference) {
     Widget p = new SimplePanel();
-    p.addStyleName(STYLE_DEMO_TABLE_POSITIONER);
+    p.addStyleName(CSS_DEMO_TABLE_POSITIONER);
     p.setPixelSize(flexTable.getOffsetWidth(), 1);
     return p;
   }

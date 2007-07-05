@@ -27,7 +27,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  */
 public final class ExampleTabPanel extends TabPanel {
 
-  private static final String STYLE_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
+  private static final String CSS_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
 
   /**
    * Describe an example in a consistent way by including a description and the name of
@@ -41,7 +41,7 @@ public final class ExampleTabPanel extends TabPanel {
     String controllerClassName = controllerClass.toString();
     controllerClassName = controllerClassName.substring(controllerClassName.lastIndexOf('.') + 1);
     HTML html = new HTML("<code>" + controllerClassName + "</code><br>\n" + "<i>" + description + "</i>");
-    html.addStyleName(STYLE_DEMO_EXAMPLE_DESCRIPTION);
+    html.addStyleName(CSS_DEMO_EXAMPLE_DESCRIPTION);
     return html;
   }
 

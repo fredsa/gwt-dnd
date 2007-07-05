@@ -27,19 +27,19 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 final class ResizePanel extends SimplePanel {
 
+  private static final String CSS_DEMO_RESIZE_EDGE = "demo-resize-edge";
+
   /**
    * ResizePanel direction constant, used in
    * {@link ResizeDragController#makeDraggable(com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizePanel.DirectionConstant)}.
    */
   public static class DirectionConstant {
-    private int directionBits;
+    public final int directionBits;
+    public final String directionLetters;
 
-    private DirectionConstant(int directionBits) {
+    private DirectionConstant(int directionBits, String directionLetters) {
       this.directionBits = directionBits;
-    }
-
-    public int getDirectionBits() {
-      return directionBits;
+      this.directionLetters = directionLetters;
     }
   }
 
@@ -66,44 +66,44 @@ final class ResizePanel extends SimplePanel {
   /**
    * Specifies that resizing occur at the east edge.
    */
-  public static final DirectionConstant EAST = new DirectionConstant(DIRECTION_EAST);
+  public static final DirectionConstant EAST = new DirectionConstant(DIRECTION_EAST, "e");
 
   /**
    * Specifies that resizing occur at the both edge.
    */
-  public static final DirectionConstant NORTH = new DirectionConstant(DIRECTION_NORTH);
+  public static final DirectionConstant NORTH = new DirectionConstant(DIRECTION_NORTH, "n");
 
   /**
    * Specifies that resizing occur at the north-east edge.
    */
-  public static final DirectionConstant NORTH_EAST = new DirectionConstant(DIRECTION_NORTH | DIRECTION_EAST);
+  public static final DirectionConstant NORTH_EAST = new DirectionConstant(DIRECTION_NORTH | DIRECTION_EAST, "ne");
 
   /**
    * Specifies that resizing occur at the north-west edge.
    */
-  public static final DirectionConstant NORTH_WEST = new DirectionConstant(DIRECTION_NORTH | DIRECTION_WEST);
+  public static final DirectionConstant NORTH_WEST = new DirectionConstant(DIRECTION_NORTH | DIRECTION_WEST, "nw");
 
   /**
    * Specifies that resizing occur at the south edge.
    */
-  public static final DirectionConstant SOUTH = new DirectionConstant(DIRECTION_SOUTH);
+  public static final DirectionConstant SOUTH = new DirectionConstant(DIRECTION_SOUTH, "s");
 
   /**
    * Specifies that resizing occur at the south-east edge.
    */
-  public static final DirectionConstant SOUTH_EAST = new DirectionConstant(DIRECTION_SOUTH | DIRECTION_EAST);
+  public static final DirectionConstant SOUTH_EAST = new DirectionConstant(DIRECTION_SOUTH | DIRECTION_EAST, "se");
 
   /**
    * Specifies that resizing occur at the south-west edge.
    */
-  public static final DirectionConstant SOUTH_WEST = new DirectionConstant(DIRECTION_SOUTH | DIRECTION_WEST);
+  public static final DirectionConstant SOUTH_WEST = new DirectionConstant(DIRECTION_SOUTH | DIRECTION_WEST, "sw");
 
   /**
    * Specifies that resizing occur at the west edge.
    */
-  public static final DirectionConstant WEST = new DirectionConstant(DIRECTION_WEST);
+  public static final DirectionConstant WEST = new DirectionConstant(DIRECTION_WEST, "w");
 
-  private static final int BORDER_THICKNESS = 6;
+  private static final int BORDER_THICKNESS = 5;
   private int contentHeight;
   private int contentWidth;
   private Widget eastWidget;
@@ -122,17 +122,17 @@ final class ResizePanel extends SimplePanel {
     grid.setCellPadding(0);
     add(grid);
 
-    setupCell(0, 0, "demo-resize edge top left top-left", NORTH_WEST);
-    northWidget = setupCell(0, 1, "demo-resize edge top top-center", NORTH);
-    setupCell(0, 2, "demo-resize edge top right top-right", NORTH_EAST);
+    setupCell(0, 0, NORTH_WEST);
+    northWidget = setupCell(0, 1, NORTH);
+    setupCell(0, 2, NORTH_EAST);
 
-    westWidget = setupCell(1, 0, "demo-resize edge left left-center", WEST);
+    westWidget = setupCell(1, 0, WEST);
     grid.setWidget(1, 1, scrollPanel);
-    eastWidget = setupCell(1, 2, "demo-resize edge right right-center", EAST);
+    eastWidget = setupCell(1, 2, EAST);
 
-    setupCell(2, 0, "demo-resize edge bottom left bottom-left", SOUTH_WEST);
-    southWidget = setupCell(2, 1, "demo-resize edge bottom bottom-center", SOUTH);
-    setupCell(2, 2, "demo-resize edge bottom right bottom-right", SOUTH_EAST);
+    setupCell(2, 0, SOUTH_WEST);
+    southWidget = setupCell(2, 1, SOUTH);
+    setupCell(2, 2, SOUTH_EAST);
   }
 
   public int getContentHeight() {
@@ -175,12 +175,12 @@ final class ResizePanel extends SimplePanel {
     setContentSize(scrollPanel.getOffsetWidth(), scrollPanel.getOffsetHeight());
   }
 
-  private Widget setupCell(int row, int col, String styleName, DirectionConstant direction) {
+  private Widget setupCell(int row, int col, DirectionConstant direction) {
     final FocusPanel widget = new FocusPanel();
     widget.setPixelSize(BORDER_THICKNESS, BORDER_THICKNESS);
     grid.setWidget(row, col, widget);
     resizeDragController.makeDraggable(widget, direction);
-    grid.getCellFormatter().addStyleName(row, col, styleName);
+    grid.getCellFormatter().addStyleName(row, col, CSS_DEMO_RESIZE_EDGE + " demo-resize-" + direction.directionLetters);
     return widget;
   }
 }

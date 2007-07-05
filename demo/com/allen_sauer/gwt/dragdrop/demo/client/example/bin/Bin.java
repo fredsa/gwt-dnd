@@ -22,12 +22,13 @@ import com.google.gwt.user.client.ui.Widget;
  * Panel which which does not 'eat' widgets.
  */
 class Bin extends HTML {
-
-  private static final String STYLE_DEMO_BIN = "demo-bin";
+  private static final String CSS_DEMO_BIN = "demo-bin";
+  private static final String CSS_DEMO_BIN_ENGAGE = "demo-bin-engage";
 
   public Bin(int width, int height) {
     setPixelSize(width, height);
     updateText();
+    addStyleName(CSS_DEMO_BIN);
   }
 
   public void eatWidget(Widget widget) {
@@ -37,9 +38,12 @@ class Bin extends HTML {
     return false;
   }
 
-  protected void onLoad() {
-    super.onLoad();
-    addStyleName(STYLE_DEMO_BIN);
+  public void setEngaged(boolean engaged) {
+    if (engaged) {
+      addStyleName(CSS_DEMO_BIN_ENGAGE);
+    } else {
+      removeStyleName(CSS_DEMO_BIN_ENGAGE);
+    }
   }
 
   protected void updateText() {

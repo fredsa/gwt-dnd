@@ -29,10 +29,10 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 
 public class DualListBox extends AbsolutePanel {
 
+  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_CENTER = "demo-DualListExample-center";
   public static final int OPERATION_COPY = 1;
   public static final int OPERATION_MOVE = 2;
   private static final int LIST_SIZE = 10;
-  private static final String STYLENAME_DEMO_DUAL_LIST_CENTER = "demo-dual-list-center";
 
   protected static void copyOrmoveItems(MouseListBox from, MouseListBox to, boolean justSelectedItems, int operation) {
     boolean anyCopiedOrMoved = false;
@@ -86,7 +86,7 @@ public class DualListBox extends AbsolutePanel {
     horizontalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 
     VerticalPanel verticalPanel = new VerticalPanel();
-    verticalPanel.addStyleName(STYLENAME_DEMO_DUAL_LIST_CENTER);
+    verticalPanel.addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_CENTER);
     verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
     dragController = new ListBoxDragController(this);

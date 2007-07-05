@@ -34,13 +34,13 @@ public class MouseListBox extends FocusPanel {
   }
 
   private static ItemClickListener itemClickListener = new ItemClickListener();
-  private static final String STYLE_DEMO_MOUSELISTBOX = "demo-mouselistbox";
+  private static final String CSS_DEMO_MOUSELISTBOX = "demo-MouseListBox";
 
   private VerticalPanel verticalPanel = new VerticalPanel();
   private int widgetCount = 0;
 
   public MouseListBox(int size) {
-    addStyleName(STYLE_DEMO_MOUSELISTBOX);
+    addStyleName(CSS_DEMO_MOUSELISTBOX);
     super.add(verticalPanel);
     for (int i = 0; i < size; i++) {
       DualListBoxItem item = new DualListBoxItem();

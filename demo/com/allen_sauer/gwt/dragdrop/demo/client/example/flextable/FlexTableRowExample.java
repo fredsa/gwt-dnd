@@ -24,8 +24,10 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  * {@link com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowDropController} example.
  */
 public final class FlexTableRowExample extends Example {
+  private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE = "demo-FlexTableRowExample";
 
   public FlexTableRowExample(DemoDragHandler demoDragHandler) {
+    addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE);
     AbsolutePanel tableExamplePanel = new AbsolutePanel();
     tableExamplePanel.setPixelSize(450, 300);
     setWidget(tableExamplePanel);

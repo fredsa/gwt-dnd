@@ -24,7 +24,6 @@ import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController} example.
  */
 public final class AbsolutePositionExample extends Example {
-
   private AbsolutePositionDropController absolutePositionDropController;
 
   public AbsolutePositionExample(DragController dragController) {
