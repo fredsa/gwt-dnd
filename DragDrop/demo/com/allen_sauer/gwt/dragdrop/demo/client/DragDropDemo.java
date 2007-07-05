@@ -27,7 +27,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.AbsolutePositionExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.TrashBinExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.BinExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.draghandle.DragHandleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.duallist.DualListExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
@@ -40,9 +40,9 @@ import com.allen_sauer.gwt.log.client.Log;
  * EntryPoint class for demonstrating and testing drag-and-drop library.
  */
 public final class DragDropDemo implements EntryPoint {
-  private static final String STYLE_DEMO_BOUNDARY = "demo-boundary";
-  private static final String STYLE_DEMO_BOUNDARY_PANEL = "demo-boundary-panel";
-  private static final String STYLE_DEMO_EVENT_TEXT_AREA = "demo-event-text-area";
+  private static final String CSS_DEMO_BOUNDARY = "demo-boundary";
+  private static final String CSS_DEMO_MAIN_BOUNDARY_PANEL = "demo-main-boundary-panel";
+  private static final String CSS_DEMO_EVENT_TEXT_AREA = "demo-event-text-area";
 
   private PickupDragController dragController;
 
@@ -57,7 +57,7 @@ public final class DragDropDemo implements EntryPoint {
     });
 
     AbsolutePanel boundaryPanel = new AbsolutePanel();
-    boundaryPanel.addStyleName(STYLE_DEMO_BOUNDARY_PANEL);
+    boundaryPanel.addStyleName(CSS_DEMO_MAIN_BOUNDARY_PANEL);
     dragController = new PickupDragController(boundaryPanel, true);
 
     boundaryPanel.setPixelSize(950, 500);
@@ -73,7 +73,7 @@ public final class DragDropDemo implements EntryPoint {
     // Example: BoundaryDropController
     HTML boundaryDescription = ExampleTabPanel.describe(BoundaryDropController.class,
         "Most of our example drag operations are constrained to the panel below. Try drag one of the widgets outside this area.");
-    boundaryDescription.addStyleName(STYLE_DEMO_BOUNDARY);
+    boundaryDescription.addStyleName(CSS_DEMO_BOUNDARY);
     RootPanel.get().add(boundaryDescription);
     RootPanel.get().add(boundaryPanel);
 
@@ -89,7 +89,7 @@ public final class DragDropDemo implements EntryPoint {
     boundaryPanel.add(examples, 200, 10);
 
     final HTML eventTextArea = new HTML();
-    eventTextArea.addStyleName(STYLE_DEMO_EVENT_TEXT_AREA);
+    eventTextArea.addStyleName(CSS_DEMO_EVENT_TEXT_AREA);
     eventTextArea.setSize(boundaryPanel.getOffsetWidth() + "px", "10em");
 
     RootPanel.get().add(new HTML("<br>Events received by registered <code>DragHandler</code>s"));
@@ -98,7 +98,7 @@ public final class DragDropDemo implements EntryPoint {
     DemoDragHandler demoDragHandler = new DemoDragHandler(eventTextArea);
     dragController.addDragHandler(demoDragHandler);
 
-    examples.add(new TrashBinExample(dragController));
+    examples.add(new BinExample(dragController));
     examples.add(new AbsolutePositionExample(dragController));
     examples.add(new GridConstrainedExample(dragController));
     examples.add(new FlowPanelExample(dragController));

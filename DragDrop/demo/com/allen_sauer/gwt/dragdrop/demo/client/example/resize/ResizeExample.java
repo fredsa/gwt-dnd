@@ -23,9 +23,11 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 public final class ResizeExample extends Example {
 
+  private static final String CSS_DEMO_RESIZE_EXAMPLE = "demo-ResizeExample";
   private ResizeDragController resizeDragController;
 
   public ResizeExample(DemoDragHandler demoDragHandler) {
+    addStyleName(CSS_DEMO_RESIZE_EXAMPLE);
     final AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(500, 200);
 

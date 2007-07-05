@@ -26,13 +26,14 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController} example.
  */
 public final class FlowPanelExample extends Example {
-
-  private static final String STYLE_DEMO_FLOW_LABEL = "demo-flow-label";
+  private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE = "demo-FlowPanelExample";
+  private static final String CSS_DEMO_FLOW_PANEL_EXAMPLELABEL = "demo-FlowPanelExample-label";
 
   private IndexedFlowPanel flowPanelDropTarget;
 
   public FlowPanelExample(DragController dragController) {
     super(dragController);
+    addStyleName(CSS_DEMO_FLOW_PANEL_EXAMPLE);
     flowPanelDropTarget = new IndexedFlowPanel();
     flowPanelDropTarget.setWidth("400px");
     setWidget(flowPanelDropTarget);
@@ -52,7 +53,7 @@ public final class FlowPanelExample extends Example {
     super.onLoad();
     for (int i = 1; i <= 25; i++) {
       HTML html = new HTML("Draggable&nbsp;#" + i + "&#x200B;");
-      html.addStyleName(STYLE_DEMO_FLOW_LABEL);
+      html.addStyleName(CSS_DEMO_FLOW_PANEL_EXAMPLELABEL);
       getDragController().makeDraggable(html);
       flowPanelDropTarget.add(html);
     }

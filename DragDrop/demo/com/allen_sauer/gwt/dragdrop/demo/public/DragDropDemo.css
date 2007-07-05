@@ -1,13 +1,35 @@
 @CHARSET "UTF-8";
 
-body {
+/* ------------ global ------------ */
+BODY {
   margin: 10px; /* leave for testing of positions */
 }
 
-code {
+CODE {
   font-style: normal;
 }
 
+/* ------------ Example ------------ */
+.demo-example-panel {
+  margin: 1em 1em;
+}
+
+DIV.dragdrop-dropTarget {
+  background-color: #CCCCCC; /* gray */
+  border: 1px solid black;
+}
+
+DIV.dragdrop-dropTarget-engage {
+  background: #BCDEFF; /* lighter blue */
+}
+
+/* ------------ Main Boundary Panel ------------ */
+DIV.demo-main-boundary-panel {
+  background: #F8F8F8; /* light gray */
+  border: 1px solid blue;
+}
+
+/* ------------ RedBoxDraggableWidget ------------ */
 .demo-red-box-draggable-widget {
   background-color: #EE0000; /* red */
   border: 2px solid #AA0000; /* dark red */
@@ -16,40 +38,38 @@ code {
   font-size: 0.9em;
 }
 
-.demo-example-description .demo-boundary {
-  border-top: 1px solid #87B3FF;
-  border-left: 1px solid #87B3FF;
-  border-right: 1px solid #87B3FF;
+/* ------------ BinExample ------------ */
+.demo-BinExample DIV.dragdrop-dropTarget {
+  background-color: #CCCCCC; /* gray */
 }
 
-.demo-example-description {
-  font-size: 0.9em;
-  border-bottom: 1px solid #E8EEF7;
-  padding: 0.5em 0.3em;
-}
-
-.dragdrop-dropTarget.demo-bin {
+.demo-BinExample DIV.demo-bin {
   text-align: center;
   border: 1px solid black;
   border-top: 4px solid black;
   background-color: #87B3FF; /* blue */
 }
 
-.dragdrop-dropTarget.demo-bin.demo-trashbin {
-  background-color: #FF8753; /* orange */
+.demo-BinExample DIV.demo-bin-engage {
+  background-color: #A7E3FF; /* bright blue */
 }
 
-.dragdrop-dropTarget.demo-bin.demo-trashbin.dragdrop-engage {
-  background-color: #FFa773; /* bright orange */
+.demo-BinExample DIV.demo-trashbin {
+  background-color: #FF7743; /* orange */
 }
 
-.demo-bin-engage {
-  filter: alpha(opacity =   10);
+.demo-BinExample DIV.demo-trashbin-engage {
+  background-color: #FFA773; /* bright orange */
+}
+
+.demo-BinExample-draggable-engage {
+  filter: alpha(opacity = 10);
   opacity: 0.1;
   -moz-opacity: 0.1;
 }
 
-.demo-flow-label {
+/* ------------ FlowPanelExample ------------ */
+.demo-FlowPanelExample .demo-FlowPanelExample-label {
   font-size: 1.2em;
   line-height: 1.6em;
   display: inline;
@@ -58,53 +78,171 @@ code {
   margin: 0.1em;
 }
 
-.demo-indexed-panel-widget  , .demo-indexed-panel-heading {
+/* ------------ IndexedPanelExample ------------ */
+.demo-IndexedPanelExample .demo-IndexedPanelExample-widget ,
+  .demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
   border: 1px solid blue;
   padding: 0.1em;
   margin: 0.1em;
   width: 120px;
 }
 
-.demo-indexed-panel-heading {
+.demo-IndexedPanelExample .demo-IndexedPanelExample-widget {
+  background-color: #B3FF87;
+}
+
+.demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
   background-color: #87B3FF;
-  width: 120px;
 }
 
-.dragdrop-dropTarget.demo-indexed-panel-container  ,
-  .dragdrop-dropTarget.demo-indexed-panel-container.dragdrop-engage {
-  background-color: #E8EEF7;
-  border: none;
-  height: 40px;
-  width: 120px;
+.demo-IndexedPanelExample .demo-IndexedPanelExample-column-composite {
+  padding: 1px;
 }
 
-body .dragdrop-boundary {
-  background: #F8F8F8; /* light gray */
+/* ------------ FlexTableRowExample ------------ */
+.demo-FlexTableRowExample .demo-FlexTableRowExample-table-proxy {
   border: 1px solid blue;
 }
 
-.dragdrop-dropTarget.demo-not-engagable  , .dragdrop-dropTarget.demo-not-engagable.dragdrop-engage
-  {
-  background-color: #CCCCCC; /* gray */
+.demo-FlexTableRowExample .demo-flextable .dragdrop-handle {
+  background: url("images/row-dragger-8.gif") no-repeat;
+  padding-left: 10px;
 }
 
-.dragdrop-dropTarget {
+.demo-FlexTableRowExample .dragdrop-dropTarget {
   background-color: #CCCCCC; /* gray */
   border: 1px solid black;
 }
 
-.demo-example-panel {
-  margin: 1em 1em;
+.demo-FlexTableRowExample .demo-table-positioner {
+  z-index: 1;
+  border-top: 1px solid green;
+  margin-top: 1px;
 }
 
-.dragdrop-dropTarget.dragdrop-engage {
-  background: #BCDEFF; /* lighter blue */
+/* ------------ ResizeExample ------------ */
+.demo-ResizeExample .dragdrop-boundary {
+  background-color: #F8F8F8; /* light gray */
+  border: 1px solid black;
 }
 
-.gwt-TabPanel {
-  
+.demo-ResizeExample .demo-resize-html {
+  background-color: #DDEEDD; /* light green */
 }
 
+.demo-ResizeExample .demo-resize-edge {
+  background-image: url("images/dragger-4x4.gif");
+  background-repeat: repeat;
+  line-height: 1px;
+  font-size: 1px;
+}
+
+.demo-ResizeExample .demo-resize-nw .dragdrop-handle {
+  cursor: nw-resize;
+}
+
+.demo-ResizeExample .demo-resize-n .dragdrop-handle {
+  cursor: n-resize;
+}
+
+.demo-ResizeExample .demo-resize-ne .dragdrop-handle {
+  cursor: ne-resize;
+}
+
+.demo-ResizeExample .demo-resize-w .dragdrop-handle {
+  cursor: w-resize;
+}
+
+.demo-ResizeExample .demo-resize-e .dragdrop-handle {
+  cursor: e-resize;
+}
+
+.demo-ResizeExample .demo-resize-sw .dragdrop-handle {
+  cursor: sw-resize;
+}
+
+.demo-ResizeExample .demo-resize-s .dragdrop-handle {
+  cursor: s-resize;
+}
+
+.demo-ResizeExample .demo-resize-se .dragdrop-handle {
+  cursor: se-resize;
+}
+
+/* ------------ FlowPanelExample ------------ */
+.dragdrop-flow-panel-positioner {
+  color: blue;
+}
+
+/* ------------ General Demo CSS ------------ */
+.demo-main-boundary-panel .demo-example-description {
+  font-size: 0.9em;
+  border-bottom: 1px solid #87B3FF;
+  padding: 0.5em 0.3em;
+}
+
+.demo-behavior-selection {
+  background-color: #E8EEF7;
+  border: 1px solid #87B3FF;
+  margin-top: 1em;
+  margin-bottom: 0.2em;
+  padding: 0.2em 0.1em;
+}
+
+.demo-event-text-area {
+  border: 1px solid green;
+}
+
+/* ------------ DragHandleExample ------------ */
+.demo-DragHandleExample-panel {
+  background-color: white;
+  border: 1px solid green;
+  width: 400px;
+}
+
+.demo-DragHandleExample-textarea {
+  width: 95%;
+  height: 4em;
+}
+
+.demo-DragHandleExample-header {
+  background-color: #DDEEDD; /* light green */
+}
+
+/* ------------ DualListExample ------------ */
+.demo-DualListExample .dragdrop-boundary {
+  border: none;
+  background-color: transparent;
+}
+
+.demo-DualListExample-center {
+  margin: 0.4em;
+}
+
+.demo-DualListExample-center TD {
+  padding: 0.2em 0.4em;
+}
+
+.demo-DualListExample-center BUTTON {
+  width: 4em;
+}
+
+.demo-DualListExample-item-has-content {
+  cursor: pointer;
+}
+
+.demo-DualListExample-item-selected {
+  background-color: blue;
+}
+
+.demo-DualListExample .dragdrop-dragging ,
+  .demo-DualListExample .dragdrop-proxy {
+  filter: alpha(opacity = 100);
+  opacity: 1.0;
+  -moz-opacity: 1.0;
+}
+
+/* ------------ General GWT CSS ------------ */
 .gwt-TabPanelBottom {
   border-left: 1px solid #87B3FF;
   border-right: 1px solid #87B3FF;
@@ -143,151 +281,4 @@ body .dragdrop-boundary {
   border-bottom: 1px solid #E8EEF7;
   padding: 2px;
   cursor: default;
-}
-
-.demo-behavior-selection {
-  background-color: #E8EEF7;
-  border: 1px solid #87B3FF;
-  margin-top: 1em;
-  margin-bottom: 0.2em;
-  padding: 0.2em 0.1em;
-}
-
-.demo-table-proxy {
-  border: 1px solid blue;
-}
-
-.dragdrop-positioner {
-  
-}
-
-.dragdrop-indexed-positioner {
-  
-}
-
-.dragdrop-flow-panel-positioner {
-  color: blue;
-}
-
-.demo-table-positioner {
-  background-color: black;
-  z-index: 1;
-}
-
-.demo-drag-handle {
-  
-}
-
-.demo-flextable .dragdrop-handle {
-  background: url("images/row-dragger-8.gif") no-repeat;
-  padding-left: 10px;
-}
-
-.demo-resize-html {
-  background-color: #DDEEDD; /* light green */
-}
-
-.demo-resize.edge {
-  background-image: url("images/dragger-4x4.gif");
-  background-repeat: repeat;
-}
-
-.demo-resize.top-left .dragdrop-handle {
-  cursor: nw-resize;
-}
-
-.demo-resize.top-center .dragdrop-handle {
-  cursor: n-resize;
-}
-
-.demo-resize.top-right .dragdrop-handle {
-  cursor: ne-resize;
-}
-
-.demo-resize.left-center .dragdrop-handle {
-  cursor: w-resize;
-}
-
-.demo-resize.right-center .dragdrop-handle {
-  cursor: e-resize;
-}
-
-.demo-resize.bottom-left .dragdrop-handle {
-  cursor: sw-resize;
-}
-
-.demo-resize.bottom-center .dragdrop-handle {
-  cursor: s-resize;
-}
-
-.demo-resize.bottom-right .dragdrop-handle {
-  cursor: se-resize;
-}
-
-.demo-draghandle-panel {
-  background-color: white;
-  border: 1px solid green;
-  width: 400px;
-}
-
-.demo-draghandle-textarea {
-  width: 95%;
-  height: 4em;
-}
-
-.demo-draghandle-header {
-  background-color: #DDEEDD; /* light green */
-}
-
-.demo-dual-list .dragdrop-boundary {
-  border: none;
-  background-color: transparent;
-}
-
-.demo-dual-list-center {
-  margin: 0.4em;
-}
-
-.demo-dual-list-center td {
-  padding: 0.2em 0.4em;
-}
-
-.demo-dual-list-center button {
-  width: 4em;
-}
-
-.demo-mouselistbox  , .demo-mouselistbox.dragdrop-engage {
-  background-color: orange;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  user-select: none;
-  border: 1px solid black;
-  margin: 30px;
-  outline: none;
-}
-
-.demo-mouselistbox.dragdrop-handle {
-  cursor: default;
-}
-
-.demo-dual-list-item-has-content {
-  cursor: pointer;
-}
-
-.demo-dual-list-item-selected {
-  background-color: blue;
-}
-
-.demo-dual-list .dragdrop-dragging  , .demo-dual-list .dragdrop-proxy {
-  filter: alpha(opacity =   100);
-  opacity: 1.0;
-  -moz-opacity: 1.0;
-}
-
-.demo-indexed-panel-column-composite {
-  margin: 3px;
-}
-
-.demo-event-text-area {
-  border: 1px solid green;
 }

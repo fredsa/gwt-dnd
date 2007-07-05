@@ -23,18 +23,16 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 public class DualListBoxItem extends Composite {
-
+  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM = "demo-DualListExample-item";
+  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_HAS_CONTENT = "demo-DualListExample-item-has-content";
+  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_SELECTED = "demo-DualListExample-item-selected";
   private static final String EMPTY_HTML = "&nbsp;";
-  private static final String STYLENAME_DEMO_DUAL_LIST_ITEM = "demo-dual-list-item";
-  private static final String STYLENAME_DEMO_DUAL_LIST_ITEM_HAS_CONTENT = "demo-dual-list-item-has-content";
-
-  private static final String STYLENAME_DEMO_DUAL_LIST_ITEM_SELECTED = "demo-dual-list-item-selected";
   private FocusPanel focusPanel = new FocusPanel();
   private boolean selected = false;
 
   {
     initWidget(focusPanel);
-    addStyleName(STYLENAME_DEMO_DUAL_LIST_ITEM);
+    addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM);
     focusPanel.setTabIndex(-1);
   }
 
@@ -70,15 +68,15 @@ public class DualListBoxItem extends Composite {
 
   public void removeWrappedWidget() {
     focusPanel.setWidget(emptyHtml());
-    removeStyleName(STYLENAME_DEMO_DUAL_LIST_ITEM_HAS_CONTENT);
+    removeStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_HAS_CONTENT);
   }
 
   public void setSelected(boolean selected) {
     this.selected = selected;
     if (selected) {
-      addStyleName(STYLENAME_DEMO_DUAL_LIST_ITEM_SELECTED);
+      addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_SELECTED);
     } else {
-      removeStyleName(STYLENAME_DEMO_DUAL_LIST_ITEM_SELECTED);
+      removeStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_SELECTED);
     }
   }
 
@@ -87,7 +85,7 @@ public class DualListBoxItem extends Composite {
       removeWrappedWidget();
     } else {
       focusPanel.setWidget(widget);
-      addStyleName(STYLENAME_DEMO_DUAL_LIST_ITEM_HAS_CONTENT);
+      addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_HAS_CONTENT);
     }
   }
 

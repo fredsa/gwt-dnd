@@ -33,6 +33,9 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 public class DragHandleExample extends Example {
 
+  private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_HEADER = "demo-DragHandleExample-header";
+  private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA = "demo-DragHandleExample-textarea";
+  private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_PANEL = "demo-DragHandleExample-panel";
   private DragController dragController;
 
   public DragHandleExample(DemoDragHandler demoDragHandler) {
@@ -41,7 +44,7 @@ public class DragHandleExample extends Example {
 
     // title bar
     Label header = new Label("Title/Header (Drag Handle)");
-    header.addStyleName("demo-draghandle-header");
+    header.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_HEADER);
 
     // some text
     HTML content = new HTML("This is a <code>VerticalPanel</code> which can be dragged by its header,"
@@ -49,7 +52,7 @@ public class DragHandleExample extends Example {
 
     // an editable text area
     final TextArea textArea = new TextArea();
-    textArea.addStyleName("demo-draghandle-textarea");
+    textArea.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA);
     //    textArea.setSize("20em", "5em");
     textArea.setText("You can click in this TextArea to get focus without causing the panel to be dragged.");
 
@@ -64,7 +67,7 @@ public class DragHandleExample extends Example {
     // a panel to hold all our widgets
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.setSpacing(2);
-    verticalPanel.addStyleName("demo-draghandle-panel");
+    verticalPanel.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_PANEL);
     verticalPanel.add(header);
     verticalPanel.add(content);
     verticalPanel.add(textArea);

@@ -26,7 +26,6 @@ import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController} example.
  */
 public final class GridConstrainedExample extends Example {
-
   private int draggableOffsetHeight;
   private int draggableOffsetWidth;
   private GridConstrainedDropController gridConstrainedDropController;

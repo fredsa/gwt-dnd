@@ -26,14 +26,16 @@ import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
  */
 public abstract class Example extends SimplePanel {
 
-  private static final String STYLE_DEMO_EXAMPLE_PANEL = "demo-example-panel";
+  private static final String CSS_DEMO_EXAMPLE_PANEL = "demo-example-panel";
 
   private DragController dragController;
 
   public Example() {
+    addStyleName(CSS_DEMO_EXAMPLE_PANEL);
   }
 
   public Example(DragController dragController) {
+    this();
     this.dragController = dragController;
   }
 
@@ -71,10 +73,5 @@ public abstract class Example extends SimplePanel {
     Widget redBox = new RedBoxDraggableWidget();
     dragController.makeDraggable(redBox);
     return redBox;
-  }
-
-  protected void onLoad() {
-    super.onLoad();
-    addStyleName(STYLE_DEMO_EXAMPLE_PANEL);
   }
 }

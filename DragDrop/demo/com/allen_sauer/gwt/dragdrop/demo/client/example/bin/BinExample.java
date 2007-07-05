@@ -25,16 +25,15 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController} example.
  */
-public final class TrashBinExample extends Example {
-
-  private static final String STYLE_NOT_ENGAGABLE = "demo-not-engagable";
+public final class BinExample extends Example {
+  private static final String CSS_DEMO_BIN_EXAMPLE = "demo-BinExample";
 
   private AbsolutePositionDropController dropController;
 
-  public TrashBinExample(DragController dragController) {
+  public BinExample(DragController dragController) {
     super(dragController);
+    addStyleName(CSS_DEMO_BIN_EXAMPLE);
     AbsolutePanel containingPanel = new AbsolutePanel();
-    containingPanel.addStyleName(STYLE_NOT_ENGAGABLE);
     containingPanel.setPixelSize(500, 200);
     setWidget(containingPanel);
 
@@ -44,10 +43,10 @@ public final class TrashBinExample extends Example {
     Bin closedBin = new Bin(120, 120);
     containingPanel.add(closedBin, 350, 30);
 
-    DropController openTrashBinDropController = new TrashBinDropController(trashBin);
+    DropController openTrashBinDropController = new BinDropController(trashBin);
     dragController.registerDropController(openTrashBinDropController);
 
-    DropController closedTrashBinDropController = new TrashBinDropController(closedBin);
+    DropController closedTrashBinDropController = new BinDropController(closedBin);
     dragController.registerDropController(closedTrashBinDropController);
 
     dropController = new AbsolutePositionDropController(containingPanel);
@@ -55,7 +54,7 @@ public final class TrashBinExample extends Example {
   }
 
   public Class getControllerClass() {
-    return TrashBinDropController.class;
+    return BinDropController.class;
   }
 
   public String getDescription() {

@@ -42,9 +42,9 @@ import java.util.HashMap;
  */
 public abstract class AbstractDragController implements DragController {
 
-  protected static final String STYLE_DRAGGABLE = "dragdrop-draggable";
-  protected static final String STYLE_DRAGGING = "dragdrop-dragging";
-  protected static final String STYLE_HANDLE = "dragdrop-handle";
+  protected static final String CSS_DRAGGABLE = "dragdrop-draggable";
+  protected static final String CSS_DRAGGING = "dragdrop-dragging";
+  protected static final String CSS_HANDLE = "dragdrop-handle";
 
   private static HashMap dragHandles = new HashMap();
 
@@ -91,7 +91,7 @@ public abstract class AbstractDragController implements DragController {
    *        <code>null</code> if drag was cancelled
    */
   public void dragEnd(Widget draggable, Widget dropTarget) {
-    draggable.removeStyleName(STYLE_DRAGGING);
+    draggable.removeStyleName(CSS_DRAGGING);
   }
 
   /**
@@ -103,7 +103,7 @@ public abstract class AbstractDragController implements DragController {
     if (dragHandlers != null) {
       dragHandlers.fireDragStart(draggable);
     }
-    draggable.addStyleName(STYLE_DRAGGING);
+    draggable.addStyleName(CSS_DRAGGING);
   }
 
   public final AbsolutePanel getBoundaryPanel() {
@@ -118,8 +118,8 @@ public abstract class AbstractDragController implements DragController {
   /**
    * Attaches a {@link MouseDragHandler} (which is a
    * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget,
-   * applies the {@link #STYLE_DRAGGABLE} style to the draggable,
-   * applies the {@link #STYLE_HANDLE} style to the handle.
+   * applies the {@link #CSS_DRAGGABLE} style to the draggable,
+   * applies the {@link #CSS_HANDLE} style to the handle.
    * 
    * @see #makeDraggable(Widget, Widget)
    * @see HasDragHandle
@@ -143,8 +143,8 @@ public abstract class AbstractDragController implements DragController {
    */
   public void makeDraggable(Widget draggable, Widget dragHandle) {
     mouseDragHandler.makeDraggable(draggable, dragHandle);
-    draggable.addStyleName(STYLE_DRAGGABLE);
-    dragHandle.addStyleName(STYLE_HANDLE);
+    draggable.addStyleName(CSS_DRAGGABLE);
+    dragHandle.addStyleName(CSS_HANDLE);
     dragHandles.put(draggable, dragHandle);
   }
 
@@ -158,8 +158,8 @@ public abstract class AbstractDragController implements DragController {
   public void makeNotDraggable(Widget draggable) {
     Widget dragHandle = (Widget) dragHandles.remove(draggable);
     mouseDragHandler.makeNotDraggable(dragHandle);
-    draggable.removeStyleName(STYLE_DRAGGABLE);
-    dragHandle.removeStyleName(STYLE_HANDLE);
+    draggable.removeStyleName(CSS_DRAGGABLE);
+    dragHandle.removeStyleName(CSS_HANDLE);
   }
 
   public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {

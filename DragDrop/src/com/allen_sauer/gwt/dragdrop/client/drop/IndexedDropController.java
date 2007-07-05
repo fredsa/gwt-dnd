@@ -30,7 +30,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class IndexedDropController extends AbstractIndexedDropController {
 
-  private static final String STYLE_DRAGDROP_INDEXED_POSITIONER = "dragdrop-indexed-positioner";
+  private static final String CSS_DRAGDROP_INDEXED_POSITIONER = "dragdrop-indexed-positioner";
 
   private IndexedPanel dropTarget;
 
@@ -56,7 +56,7 @@ public class IndexedDropController extends AbstractIndexedDropController {
 
   protected Widget newPositioner(Widget reference) {
     Widget positioner = super.newPositioner(reference);
-    positioner.addStyleName(STYLE_DRAGDROP_INDEXED_POSITIONER);
+    positioner.addStyleName(CSS_DRAGDROP_INDEXED_POSITIONER);
     return positioner;
   }
 

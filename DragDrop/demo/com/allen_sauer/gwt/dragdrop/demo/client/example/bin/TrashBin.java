@@ -21,13 +21,14 @@ import com.google.gwt.user.client.ui.Widget;
  * Panel which updates its label to display the number of items in the trash.
  */
 final class TrashBin extends Bin {
-
-  private static final String STYLE_DEMO_TRASHBIN = "demo-trashbin";
+  private static final String CSS_DEMO_TRASHBIN = "demo-trashbin";
+  private static final String CSS_DEMO_TRASHBIN_ENGAGE = "demo-trashbin-engage";
 
   private int count;
 
   public TrashBin(int width, int height) {
     super(width, height);
+    addStyleName(CSS_DEMO_TRASHBIN);
   }
 
   public void eatWidget(Widget widget) {
@@ -40,9 +41,12 @@ final class TrashBin extends Bin {
     return true;
   }
 
-  protected void onLoad() {
-    super.onLoad();
-    addStyleName(STYLE_DEMO_TRASHBIN);
+  public void setEngaged(boolean engaged) {
+    if (engaged) {
+      addStyleName(CSS_DEMO_TRASHBIN_ENGAGE);
+    } else {
+      removeStyleName(CSS_DEMO_TRASHBIN_ENGAGE);
+    }
   }
 
   protected void updateText() {

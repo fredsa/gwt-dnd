@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.indexedpanel;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -34,18 +33,19 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 public final class IndexedPanelExample extends Example {
 
   private static final int COLUMNS = 3;
+  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE = "demo-IndexedPanelExample";
+  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_COLUMN_COMPOSITE = "demo-IndexedPanelExample-column-composite";
+  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER = "demo-IndexedPanelExample-container";
+  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_HEADING = "demo-IndexedPanelExample-heading";
+  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET = "demo-IndexedPanelExample-widget";
   private static final int ROWS = 4;
   private static final int SPACING = 0;
-  private static final String STYLE_DEMO_INDEXED_PANEL_COLUMN_COMPOSITE = "demo-indexed-panel-column-composite";
-  private static final String STYLE_DEMO_INDEXED_PANEL_CONTAINER = "demo-indexed-panel-container";
-  private static final String STYLE_DEMO_INDEXED_PANEL_HEADING = "demo-indexed-panel-heading";
-  private static final String STYLE_DEMO_INDEXED_PANEL_LABEL = "demo-indexed-panel-widget";
 
   public IndexedPanelExample(DemoDragHandler demoDragHandler) {
+    addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE);
     int count = 0;
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setSize("100%", "100%");
-    DOM.setStyleAttribute(boundaryPanel.getElement(), "border", "1px solid green");
     setWidget(boundaryPanel);
 
     PickupDragController columnDragController = new PickupDragController(boundaryPanel, false);
@@ -54,7 +54,7 @@ public final class IndexedPanelExample extends Example {
     widgetDragController.addDragHandler(demoDragHandler);
 
     HorizontalPanel horizontalPanel = new HorizontalPanel();
-    horizontalPanel.addStyleName(STYLE_DEMO_INDEXED_PANEL_CONTAINER);
+    horizontalPanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER);
     horizontalPanel.setSpacing(SPACING);
     boundaryPanel.add(horizontalPanel);
     IndexedDropController columnDropController = new IndexedDropController(horizontalPanel);
@@ -62,24 +62,23 @@ public final class IndexedPanelExample extends Example {
 
     for (int col = 1; col <= COLUMNS; col++) {
       VerticalPanel columnCompositePanel = new VerticalPanel();
+      columnCompositePanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_COLUMN_COMPOSITE);
       VerticalPanel verticalPanel = new VerticalPanel();
-      //      DOM.setStyleAttribute(verticalPanel.getElement(), "border", "3px dashed black");
-      verticalPanel.addStyleName(STYLE_DEMO_INDEXED_PANEL_CONTAINER);
-      columnCompositePanel.addStyleName(STYLE_DEMO_INDEXED_PANEL_COLUMN_COMPOSITE);
+      verticalPanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER);
       verticalPanel.setSpacing(SPACING);
       horizontalPanel.add(columnCompositePanel);
       IndexedDropController widgetDropController = new IndexedDropController(verticalPanel);
       widgetDragController.registerDropController(widgetDropController);
 
       Label heading = new Label("Column " + col);
-      heading.addStyleName(STYLE_DEMO_INDEXED_PANEL_HEADING);
+      heading.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_HEADING);
       columnCompositePanel.add(heading);
       columnCompositePanel.add(verticalPanel);
       columnDragController.makeDraggable(columnCompositePanel, heading);
 
       for (int row = 1; row <= ROWS; row++) {
         HTML widget = new HTML("Draggable&nbsp;#" + ++count);
-        widget.addStyleName(STYLE_DEMO_INDEXED_PANEL_LABEL);
+        widget.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET);
         widgetDragController.makeDraggable(widget);
         widget.setHeight(Random.nextInt(4) + 2 + "em");
         verticalPanel.add(widget);

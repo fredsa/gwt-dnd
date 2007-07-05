@@ -31,7 +31,7 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
  */
 public class FlowPanelDropController extends AbstractIndexedDropController {
 
-  private static final String STYLE_DRAGDROP_FLOW_PANEL_POSITIONER = "dragdrop-flow-panel-positioner";
+  private static final String CSS_DRAGDROP_FLOW_PANEL_POSITIONER = "dragdrop-flow-panel-positioner";
 
   private FlowPanel dropTarget;
 
@@ -64,7 +64,7 @@ public class FlowPanelDropController extends AbstractIndexedDropController {
 
   protected Widget newPositioner(Widget reference) {
     HTML positioner = new HTML("&#x203B;");
-    positioner.addStyleName(STYLE_DRAGDROP_FLOW_PANEL_POSITIONER);
+    positioner.addStyleName(CSS_DRAGDROP_FLOW_PANEL_POSITIONER);
     return positioner;
   }
 }
