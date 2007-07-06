@@ -18,14 +18,13 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.resize;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
-import com.allen_sauer.gwt.dragdrop.client.DragStartEvent;
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * Demonstrate the ability to capture {@link DragStartEvent DragStartEvents}
- * and {@link DragEndEvent DragEndEvents}.
+ * Demonstrate the ability to capture
+ * {@link com.allen_sauer.gwt.dragdrop.client.DragStartEvent DragStartEvents}
+ * and {@link com.allen_sauer.gwt.dragdrop.client.DragEndEvent DragEndEvents}.
  */
 public final class ResizeExample extends Example {
 
