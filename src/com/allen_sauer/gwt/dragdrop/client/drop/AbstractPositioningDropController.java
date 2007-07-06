@@ -15,6 +15,7 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -33,6 +34,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
  */
 public abstract class AbstractPositioningDropController extends AbstractDropController {
 
+  private static final String CSS_DRAGDROP_POSITIONER = "dragdrop-positioner";
+  private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
   private Widget positioner;
 
   public AbstractPositioningDropController(Panel dropTarget) {
@@ -70,13 +73,24 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
    * @return the newly created widget
    */
   protected Widget newPositioner(Widget reference) {
-    Widget p = new SimplePanel();
-    p.addStyleName("dragdrop-positioner");
-    // place off screen
-    RootPanel.get().add(p, -500, -500);
-    p.setPixelSize(reference.getOffsetWidth() - UIUtil.getHorizontalBorders(p), reference.getOffsetHeight()
-        - UIUtil.getVerticalBorders(p));
-    return p;
+    // Use two widgets so that setPixelSize() consistently affects dimensions excluding positioner border in quirks and strict modes
+    SimplePanel outer = new SimplePanel();
+    outer.addStyleName(CSS_DRAGDROP_POSITIONER);
+
+    // place off screen for border calculation calculation
+    RootPanel.get().add(outer, -500, -500);
+
+    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid UIUtil.getVerticalBorders(outer)
+    outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
+
+    SimplePanel inner = new SimplePanel();
+    int offsetWidth = reference.getOffsetWidth() - UIUtil.getHorizontalBorders(outer);
+    int offsetHeight = reference.getOffsetHeight() - UIUtil.getVerticalBorders(outer);
+    inner.setPixelSize(offsetWidth, offsetHeight);
+
+    outer.setWidget(inner);
+
+    return outer;
   }
 
   private void removePositioner() {
