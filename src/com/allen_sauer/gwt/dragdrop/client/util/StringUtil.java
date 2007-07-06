@@ -17,6 +17,9 @@ package com.allen_sauer.gwt.dragdrop.client.util;
 
 import com.google.gwt.core.client.GWT;
 
+/**
+ * Shared {@link String} utility methods.
+ */
 public class StringUtil {
   public static String getShortTypeName(Object obj) {
     String typeName = GWT.getTypeName(obj);

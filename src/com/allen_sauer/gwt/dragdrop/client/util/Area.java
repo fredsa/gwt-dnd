@@ -15,15 +15,10 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util;
 
+/**
+ * Class representing a rectangular region, with convenience methods for calculations.
+ */
 public interface Area {
-
-  //  /**
-  //   * Determine whether area is fully contained without our area.
-  //   * @param area the area we are testing
-  //   * @return true of area is fully contained within our area
-  //   */
-  //  public abstract boolean contains(WidgetArea area);
-  //
   /**
    * Clone our area.
    * 

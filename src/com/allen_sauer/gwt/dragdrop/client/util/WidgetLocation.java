@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * A position represented by a left (x) and top (y) coordinate.
+ * Class representing the location of one widget relative to another.
  */
 public class WidgetLocation extends AbstractLocation {
 

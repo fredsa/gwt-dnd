@@ -28,7 +28,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 /**
  * A {@link DropController} which allows a draggable widget to be placed at
  * valid positions (locations) on the drop target,
- * e.g. {@link com.google.gwt.user.client.ui.AbsolutePanel} or
+ * such as {@link com.google.gwt.user.client.ui.AbsolutePanel} or
  * {@link com.google.gwt.user.client.ui.IndexedPanel}. Which positions are
  * valid is determined by the implementing subclass.
  */

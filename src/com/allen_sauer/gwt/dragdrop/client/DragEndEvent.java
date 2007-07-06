@@ -22,7 +22,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.StringUtil;
 import java.util.EventObject;
 
 /**
- * Event containing information about the end of a drag.
+ * {@link EventObject} containing information about the end of a drag.
  */
 public class DragEndEvent extends EventObject {
 

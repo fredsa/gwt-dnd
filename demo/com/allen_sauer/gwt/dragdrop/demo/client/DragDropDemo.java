@@ -37,7 +37,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizeExample;
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
- * EntryPoint class for demonstrating and testing drag-and-drop library.
+ * EntryPoint class for demonstrating and testing gwt-dnd.
  */
 public final class DragDropDemo implements EntryPoint {
   private static final String CSS_DEMO_BOUNDARY = "demo-boundary";

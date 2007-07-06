@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client;
 import java.util.EventListener;
 
 /**
- * Event interface for drag-and-drop events.
+ * {@link EventListener} interface for drag-and-drop events.
  */
 public interface DragHandler extends EventListener {
 

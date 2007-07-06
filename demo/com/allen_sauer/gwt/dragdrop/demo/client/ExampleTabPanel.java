@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * TabPanel which uses a VeriticalPanel to provide a description for each
+ * {@link TabPanel} which uses a {@link VerticalPanel} to provide a description for each
  * example.
  */
 public final class ExampleTabPanel extends TabPanel {

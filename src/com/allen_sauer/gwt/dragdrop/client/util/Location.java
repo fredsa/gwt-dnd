@@ -15,8 +15,10 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util;
 
+/**
+ * Class representing a location defined by left (x) and top (y) coordinates.
+ */
 public interface Location {
-
   public abstract int getLeft();
 
   public abstract int getTop();

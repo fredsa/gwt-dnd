@@ -32,16 +32,15 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 import java.util.HashMap;
 
 /**
- * Abstract DragController which performs the bare essentials such as
+ * {@link DragController} which performs the bare essentials such as
  * adding/removing styles, maintaining collections, adding mouse
  * listeners, etc.
  * 
- * <p>Extend this class when you do not require actual widgets to be picked
- * up a moved around (see {@link PickupDragController}), e.g. for resizing
- * table columns or a panel.</p>
+ * <p>Extend this class to implement specialized drag capabilities such table column
+ * or panel resizing. For classic drag-and-drop functionality, i.e. the ability to
+ * pickup, move around and drop widgets, use {@link PickupDragController} instead.</p>
  */
 public abstract class AbstractDragController implements DragController {
-
   protected static final String CSS_DRAGGABLE = "dragdrop-draggable";
   protected static final String CSS_DRAGGING = "dragdrop-dragging";
   protected static final String CSS_HANDLE = "dragdrop-handle";
