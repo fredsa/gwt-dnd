@@ -32,7 +32,7 @@ DIV.demo-main-boundary-panel {
 /* ------------ RedBoxDraggableWidget ------------ */
 .demo-red-box-draggable-widget {
   background-color: #EE0000; /* red */
-  border: 10px solid #AA0000; /* dark red */
+  border: 2px solid #AA0000; /* dark red */
   text-align: center;
   color: #FFCCCC;
   font-size: 0.9em;
