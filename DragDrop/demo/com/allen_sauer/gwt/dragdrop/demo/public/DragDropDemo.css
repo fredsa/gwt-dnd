@@ -32,7 +32,7 @@ DIV.demo-main-boundary-panel {
 /* ------------ RedBoxDraggableWidget ------------ */
 .demo-red-box-draggable-widget {
   background-color: #EE0000; /* red */
-  border: 2px solid #AA0000; /* dark red */
+  border: 10px solid #AA0000; /* dark red */
   text-align: center;
   color: #FFCCCC;
   font-size: 0.9em;
@@ -80,7 +80,7 @@ DIV.demo-main-boundary-panel {
 
 /* ------------ IndexedPanelExample ------------ */
 .demo-IndexedPanelExample .demo-IndexedPanelExample-widget ,
-  .demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
+.demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
   border: 1px solid blue;
   padding: 0.1em;
   margin: 0.1em;
@@ -236,7 +236,7 @@ DIV.demo-main-boundary-panel {
 }
 
 .demo-DualListExample .dragdrop-dragging ,
-  .demo-DualListExample .dragdrop-proxy {
+.demo-DualListExample .dragdrop-proxy {
   filter: alpha(opacity = 100);
   opacity: 1.0;
   -moz-opacity: 1.0;
