@@ -22,7 +22,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
 /**
- * Interface which implementing drag controllers much implement.
+ * Common interface which all drag controllers much implement.
  * 
  * <p>Be sure to also create one or more
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController DropControllers}

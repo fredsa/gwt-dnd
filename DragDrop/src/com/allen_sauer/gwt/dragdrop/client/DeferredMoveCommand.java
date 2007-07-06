@@ -19,6 +19,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 
+/**
+ * Used by {@link MouseDragHandler} to improve drag performance on slower platforms.
+ */
 public class DeferredMoveCommand implements Command {
 
   private static final int PERFORMANCE_THRESHOLD_MILLIS = 80;

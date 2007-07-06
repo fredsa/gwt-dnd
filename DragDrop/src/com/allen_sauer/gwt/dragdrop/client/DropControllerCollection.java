@@ -29,15 +29,15 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- * A helper class to track all instances of {@link DropController}.
- * 
+ * A helper class to track all relevant {@link DropController DropControllers},
+ * used by {@link AbstractDragController}.
  */
 public class DropControllerCollection extends ArrayList {
 
   private HashMap areaControllerMap = new HashMap();
 
   /**
-   * Default constructor used by {@link PickupDragController}.
+   * Default constructor.
    */
   protected DropControllerCollection() {
   }

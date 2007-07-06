@@ -15,8 +15,10 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util;
 
+/**
+ * Provides implementations for common {@link Area} calculations.
+ */
 public abstract class AbstractArea implements Area {
-
   private int bottom;
   private int left;
   private int right;

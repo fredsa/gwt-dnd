@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.Widget;
  * this functionality natively.
  * 
  * TODO remove after enhancement for <a href="http://code.google.com/p/google-web-toolkit/issues/detail?id=616">GWT issue 616</a>
+ * @deprecated
  */
 public class IndexedFlowPanel extends FlowPanel {
 

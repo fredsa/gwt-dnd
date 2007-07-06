@@ -15,8 +15,10 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util;
 
+/**
+ * Provides default method implementations.
+ */
 public abstract class AbstractLocation implements Location {
-
   public String toString() {
     return "(" + getLeft() + ", " + getTop() + ")";
   }

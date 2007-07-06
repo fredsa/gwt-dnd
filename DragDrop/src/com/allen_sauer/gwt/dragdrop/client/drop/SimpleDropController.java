@@ -18,7 +18,8 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Minimal implementation of a DropController.
+ * Simple {@link DropController} which accepts widgets dropped on it.
+ * For location sensitive dropping see {@link AbsolutePositionDropController}.
  */
 public class SimpleDropController extends AbstractDropController {
 

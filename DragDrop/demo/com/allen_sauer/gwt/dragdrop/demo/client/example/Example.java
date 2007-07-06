@@ -22,7 +22,7 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
 
 /**
- * Abstract class representing a drag-and-drop example.
+ * Class representing a single drag-and-drop example.
  */
 public abstract class Example extends SimplePanel {
 

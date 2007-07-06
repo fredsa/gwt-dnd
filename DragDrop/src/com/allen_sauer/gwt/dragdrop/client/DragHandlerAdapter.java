@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dragdrop.client;
 
 /**
  * Convenience class for anonymous inner classes not
- * wishing to define all methods required by this interface.
+ * wishing to define all methods required by the {@link DragHandler} interface.
  */
 public class DragHandlerAdapter implements DragHandler {
 

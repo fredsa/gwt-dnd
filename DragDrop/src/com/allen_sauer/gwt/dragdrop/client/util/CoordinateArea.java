@@ -15,8 +15,10 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util;
 
+/**
+ * Class representing a numerically specified rectangular region.
+ */
 public class CoordinateArea extends AbstractArea {
-
   public CoordinateArea(int left, int top, int right, int bottom) {
     setLeft(left);
     setTop(top);

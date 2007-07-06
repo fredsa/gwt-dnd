@@ -26,8 +26,10 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
+/**
+ * {@link DropController} for {@link IndexedPanel} drop targets.
+ */
 public abstract class AbstractIndexedDropController extends AbstractPositioningDropController {
-
   private int dropIndex;
   private IndexedPanel dropTarget;
 
