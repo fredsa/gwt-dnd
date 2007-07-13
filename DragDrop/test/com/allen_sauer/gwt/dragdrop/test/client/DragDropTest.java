@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dragdrop.test.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import com.allen_sauer.gwt.log.client.Log;
@@ -26,6 +26,10 @@ import com.allen_sauer.gwt.log.client.Log;
  * EntryPoint class for demonstrating and testing drag-and-drop library.
  */
 public final class DragDropTest implements EntryPoint {
+  private static native String getCompatMode()
+  /*-{
+    return $doc.compatMode;
+  }-*/;
 
   public void onModuleLoad() {
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
@@ -38,6 +42,6 @@ public final class DragDropTest implements EntryPoint {
   }
 
   private void test() {
-    RootPanel.get().add(new Label("DragDropTest"));
+    RootPanel.get().add(new HTML("DragDropTest in <b>" + getCompatMode() + "</b> mode."));
   }
 }
