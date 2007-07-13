@@ -49,7 +49,7 @@ public class DualListBoxItem extends Composite {
   }
 
   public DualListBoxItem cloneItem() {
-    HTML html = new HTML(DOM.getInnerHTML(getWidget().getElement()));
+    HTML html = new HTML(DOM.getInnerHTML(getElement()));
     DualListBoxItem clone = new DualListBoxItem(html);
     return clone;
   }
