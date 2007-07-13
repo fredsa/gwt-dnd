@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
@@ -81,6 +82,7 @@ public class PickupDragController extends AbstractDragController {
     getBoundaryPanel().add(movablePanel, location.getLeft(), location.getTop());
 
     final Widget innerWidget = draggableProxy != null ? draggableProxy : currentDraggable;
+    UIUtil.resetStylePositionStatic(innerWidget.getElement());
     movablePanel.setWidget(innerWidget);
   }
 

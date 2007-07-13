@@ -8,6 +8,6 @@
   
   <public path="public"/>
 
-  <stylesheet src='DragDropDemo.css'/>
+  <!-- stylesheet src='DragDropDemo.css'/ -->
   
 </module>

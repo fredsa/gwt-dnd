@@ -24,6 +24,7 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.IndexedDragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
 /**
@@ -45,6 +46,7 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
+    UIUtil.resetStylePositionStatic(draggable.getElement());
     int draggableIndex = dropTarget.getWidgetIndex(draggable);
     if (dropIndex == -1) {
       throw new RuntimeException("Should not happen after onPreviewDrop did not veto");
@@ -84,6 +86,8 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
         return;
       }
     }
+    // TODO remove after fix for VerticalPanel and HorizontalPanel in GWT 1.4
+    getPositioner().removeFromParent();
     ((Panel) dropTarget).add(getPositioner());
   }
 
@@ -98,4 +102,8 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
   // TODO remove after enhancement for issue 616
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
   protected abstract void insert(Widget widget, int beforeIndex);
+    public void onEnter(Widget reference, Widget draggable, DragController dragController) {
+       super.onEnter(reference, draggable, dragController);
+       UIUtil.resetStylePositionStatic(getPositioner().getElement());
+     }
 }
