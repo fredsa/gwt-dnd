@@ -59,6 +59,11 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     return new IndexedDragEndEvent(draggable, (Panel) dropTarget, dropIndex);
   }
 
+  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
+       super.onEnter(reference, draggable, dragController);
+       UIUtil.resetStylePositionStatic(getPositioner().getElement());
+     }
+
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
     super.onMove(reference, draggable, dragController);
     Location draggableCenter = new WidgetArea(reference, null).getCenter();
@@ -102,8 +107,4 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
   // TODO remove after enhancement for issue 616
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
   protected abstract void insert(Widget widget, int beforeIndex);
-    public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-       super.onEnter(reference, draggable, dragController);
-       UIUtil.resetStylePositionStatic(getPositioner().getElement());
-     }
 }
