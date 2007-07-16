@@ -1,1 +1,1 @@
-@java -cp "%~dp0\src;%~dp0\demo;%~dp0\bin;%GWT_LIBS/gwt-log.jar;%GWT_WINDOWS/gwt-user.jar;%GWT_WINDOWS/gwt-dev-windows.jar" com.google.gwt.dev.GWTShell -out "%~dp0\www\demo" %* com.allen_sauer.gwt.dragdrop.demo.DragDropDemo/DragDropDemo.html
+@java -cp "%~dp0\src;%~dp0\demo;%~dp0\bin;%GWT_LIBS%/gwt-log.jar;%GWT_WINDOWS%/gwt-user.jar;%GWT_WINDOWS%/gwt-dev-windows.jar" com.google.gwt.dev.GWTShell -out "%~dp0\www\demo" %* com.allen_sauer.gwt.dragdrop.demo.DragDropDemo/DragDropDemo.html
