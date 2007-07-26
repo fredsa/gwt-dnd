@@ -39,7 +39,7 @@ public class DropControllerCollection extends ArrayList {
   /**
    * Default constructor.
    */
-  protected DropControllerCollection() {
+  public DropControllerCollection() {
   }
 
   /**
