@@ -23,14 +23,14 @@ import com.allen_sauer.gwt.dragdrop.client.DragStartEvent;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 
 public final class DemoDragHandler implements DragHandler {
-  private static final String GREEN = "#44BB44";
   private static final String BLUE = "#4444BB";
+  private static final String GREEN = "#44BB44";
   private static final String RED = "#BB4444";
 
   private final HTML eventTextArea;
 
   public DemoDragHandler(HTML dragHandlerHTML) {
-    this.eventTextArea = dragHandlerHTML;
+    eventTextArea = dragHandlerHTML;
   }
 
   public void onDragEnd(DragEndEvent event) {

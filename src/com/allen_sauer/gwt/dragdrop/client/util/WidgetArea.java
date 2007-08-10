@@ -46,9 +46,9 @@ public class WidgetArea extends AbstractArea {
 
     if (reference != null) {
       left -= reference.getAbsoluteLeft();
-      left -= UIUtil.getBorderLeft(reference.getElement());
+      left -= DOMUtil.getBorderLeft(reference.getElement());
       top -= reference.getAbsoluteTop();
-      top -= UIUtil.getBorderTop(reference.getElement());
+      top -= DOMUtil.getBorderTop(reference.getElement());
     }
     int right = left + widget.getOffsetWidth();
     int bottom = top + widget.getOffsetHeight();

@@ -118,7 +118,7 @@ public interface DragController extends FiresDragEvents {
    * 
    * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
    * @param allowDropping whether or not dropping is allowed on the boundary panel
-   * @return the new DropController
+   * @return the new BoundaryDropController
    */
   BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping);
 

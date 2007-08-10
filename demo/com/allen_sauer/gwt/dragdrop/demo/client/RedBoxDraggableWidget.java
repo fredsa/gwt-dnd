@@ -23,8 +23,8 @@ import com.google.gwt.user.client.ui.HTML;
 public final class RedBoxDraggableWidget extends HTML {
 
   private static int counter;
-  private static final int DRAGGABLE_SIZE = 65;
   private static final String CSS_DEMO_RED_BOX_DRAGGABLE_WIDGET = "demo-red-box-draggable-widget";
+  private static final int DRAGGABLE_SIZE = 65;
 
   public RedBoxDraggableWidget() {
     setPixelSize(DRAGGABLE_SIZE, DRAGGABLE_SIZE);

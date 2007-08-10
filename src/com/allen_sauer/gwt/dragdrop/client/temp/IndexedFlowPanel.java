@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.temp;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -37,8 +36,9 @@ public class IndexedFlowPanel extends FlowPanel {
    *           range
    */
   public void insert(Widget w, int beforeIndex) {
-    w.removeFromParent();
-    super.insert(w, null, beforeIndex);
-    DOM.insertChild(getElement(), w.getElement(), beforeIndex);
+    //    w.removeFromParent();
+    //    super.insert(w, null, beforeIndex);
+    //    DOM.insertChild(getElement(), w.getElement(), beforeIndex);
+    super.insert(w, getElement(), beforeIndex, true);
   }
 }

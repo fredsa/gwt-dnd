@@ -100,8 +100,8 @@ public class WidgetLocation extends AbstractLocation {
       referenceAdjustLeft = 0;
       referenceAdjustTop = 0;
     } else {
-      referenceAdjustLeft = reference.getAbsoluteLeft() + UIUtil.getBorderLeft(reference.getElement());
-      referenceAdjustTop = reference.getAbsoluteTop() + UIUtil.getBorderTop(reference.getElement());
+      referenceAdjustLeft = reference.getAbsoluteLeft() + DOMUtil.getBorderLeft(reference.getElement());
+      referenceAdjustTop = reference.getAbsoluteTop() + DOMUtil.getBorderTop(reference.getElement());
     }
   }
 

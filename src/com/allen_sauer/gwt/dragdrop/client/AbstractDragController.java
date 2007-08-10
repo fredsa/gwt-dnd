@@ -27,6 +27,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.HashMap;
@@ -144,6 +145,7 @@ public abstract class AbstractDragController implements DragController {
     mouseDragHandler.makeDraggable(draggable, dragHandle);
     draggable.addStyleName(CSS_DRAGGABLE);
     dragHandle.addStyleName(CSS_HANDLE);
+    DOMUtil.preventSelection(dragHandle.getElement());
     dragHandles.put(draggable, dragHandle);
   }
 
