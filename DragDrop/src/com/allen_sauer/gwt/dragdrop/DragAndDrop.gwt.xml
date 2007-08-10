@@ -4,4 +4,29 @@
 
   <stylesheet src='DragDrop.css'/>
 
+
+  <replace-with class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImplOpera">
+    <when-type-is class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImpl"/>
+    <when-property-is name="user.agent" value="opera"/>
+  </replace-with>
+
+  <replace-with class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImplSafari">
+    <when-type-is class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImpl"/>
+    <when-property-is name="user.agent" value="safari"/>
+  </replace-with>
+
+  <replace-with class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImplIE6">
+    <when-type-is class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImpl"/>
+    <when-property-is name="user.agent" value="ie6"/>
+  </replace-with>
+
+  <replace-with class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImplMozilla">
+    <when-type-is class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImpl"/>
+    <when-property-is name="user.agent" value="gecko1_8"/>
+  </replace-with>
+
+  <replace-with class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImplMozillaOld">
+    <when-type-is class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImpl"/>
+    <when-property-is name="user.agent" value="gecko"/>
+  </replace-with>
 </module>

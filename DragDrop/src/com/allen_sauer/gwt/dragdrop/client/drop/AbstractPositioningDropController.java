@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
-import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
 /**
  * A {@link DropController} which allows a draggable widget to be placed at
@@ -80,12 +80,12 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     // place off screen for border calculation calculation
     RootPanel.get().add(outer, -500, -500);
 
-    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid UIUtil.getVerticalBorders(outer)
+    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid DOMUtil.getVerticalBorders(outer)
     outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
 
     SimplePanel inner = new SimplePanel();
-    int offsetWidth = reference.getOffsetWidth() - UIUtil.getHorizontalBorders(outer);
-    int offsetHeight = reference.getOffsetHeight() - UIUtil.getVerticalBorders(outer);
+    int offsetWidth = reference.getOffsetWidth() - DOMUtil.getHorizontalBorders(outer);
+    int offsetHeight = reference.getOffsetHeight() - DOMUtil.getVerticalBorders(outer);
     inner.setPixelSize(offsetWidth, offsetHeight);
 
     outer.setWidget(inner);

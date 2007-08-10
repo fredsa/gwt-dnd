@@ -27,8 +27,6 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 final class ResizePanel extends SimplePanel {
 
-  private static final String CSS_DEMO_RESIZE_EDGE = "demo-resize-edge";
-
   /**
    * ResizePanel direction constant, used in
    * {@link ResizeDragController#makeDraggable(com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizePanel.DirectionConstant)}.
@@ -104,6 +102,8 @@ final class ResizePanel extends SimplePanel {
   public static final DirectionConstant WEST = new DirectionConstant(DIRECTION_WEST, "w");
 
   private static final int BORDER_THICKNESS = 5;
+
+  private static final String CSS_DEMO_RESIZE_EDGE = "demo-resize-edge";
   private int contentHeight;
   private int contentWidth;
   private Widget eastWidget;

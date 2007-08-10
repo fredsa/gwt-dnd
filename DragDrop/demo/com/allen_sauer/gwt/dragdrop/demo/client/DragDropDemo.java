@@ -19,6 +19,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -41,8 +42,8 @@ import com.allen_sauer.gwt.log.client.Log;
  */
 public final class DragDropDemo implements EntryPoint {
   private static final String CSS_DEMO_BOUNDARY = "demo-boundary";
-  private static final String CSS_DEMO_MAIN_BOUNDARY_PANEL = "demo-main-boundary-panel";
   private static final String CSS_DEMO_EVENT_TEXT_AREA = "demo-event-text-area";
+  private static final String CSS_DEMO_MAIN_BOUNDARY_PANEL = "demo-main-boundary-panel";
 
   private PickupDragController dragController;
 
@@ -113,8 +114,8 @@ public final class DragDropDemo implements EntryPoint {
   }
 
   private Widget createDraggable() {
-    Widget redBox = new RedBoxDraggableWidget();
-    dragController.makeDraggable(redBox);
-    return redBox;
+    Image image = new Image("images/99pumpkin2-65x58.jpg");
+    dragController.makeDraggable(image);
+    return image;
   }
 }

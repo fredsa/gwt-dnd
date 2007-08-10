@@ -29,9 +29,9 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 
 public class DualListBox extends AbsolutePanel {
 
-  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_CENTER = "demo-DualListExample-center";
   public static final int OPERATION_COPY = 1;
   public static final int OPERATION_MOVE = 2;
+  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_CENTER = "demo-DualListExample-center";
   private static final int LIST_SIZE = 10;
 
   protected static void copyOrmoveItems(MouseListBox from, MouseListBox to, boolean justSelectedItems, int operation) {

@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
-import com.allen_sauer.gwt.dragdrop.client.util.UIUtil;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
 public final class DropTargetInfo {
 
@@ -36,14 +36,14 @@ public final class DropTargetInfo {
 
   public final int getDropAreaClientHeight() {
     if (dropAreaClientHeight == 0) {
-      dropAreaClientHeight = UIUtil.getClientHeight(dropTarget.getElement());
+      dropAreaClientHeight = DOMUtil.getClientHeight(dropTarget.getElement());
     }
     return dropAreaClientHeight;
   }
 
   public final int getDropAreaClientWidth() {
     if (dropAreaClientWidth == 0) {
-      dropAreaClientWidth = UIUtil.getClientWidth(dropTarget.getElement());
+      dropAreaClientWidth = DOMUtil.getClientWidth(dropTarget.getElement());
     }
     return dropAreaClientWidth;
   }

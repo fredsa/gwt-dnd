@@ -34,8 +34,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 public class DragHandleExample extends Example {
 
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_HEADER = "demo-DragHandleExample-header";
-  private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA = "demo-DragHandleExample-textarea";
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_PANEL = "demo-DragHandleExample-panel";
+  private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA = "demo-DragHandleExample-textarea";
   private DragController dragController;
 
   public DragHandleExample(DemoDragHandler demoDragHandler) {
