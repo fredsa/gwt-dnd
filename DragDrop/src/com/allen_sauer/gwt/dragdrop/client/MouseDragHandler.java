@@ -19,7 +19,6 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.MouseListener;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -74,7 +73,9 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
-    if (DOM.eventGetButton(DOM.eventGetCurrentEvent()) != Event.BUTTON_LEFT) return;
+    if (DOM.eventGetButton(DOM.eventGetCurrentEvent()) != Event.BUTTON_LEFT) {
+      return;
+    }
     mouseDown = true;
     if (dragging) {
       // Ignore additional mouse buttons depressed while still dragging
@@ -93,7 +94,6 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseMove(Widget sender, int x, int y) {
-    DOMUtil.setStatus(DOMUtil.getNodeName(sender.getElement()) + ": " + x + ", " + y);
     if (!dragging) {
       if (mouseDown) {
         startDragging(sender);
@@ -112,7 +112,9 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseUp(Widget sender, int x, int y) {
-    if (DOM.eventGetButton(DOM.eventGetCurrentEvent()) != Event.BUTTON_LEFT) return;
+    if (DOM.eventGetButton(DOM.eventGetCurrentEvent()) != Event.BUTTON_LEFT) {
+      return;
+    }
     mouseDown = false;
     if (!dragging) {
       return;
