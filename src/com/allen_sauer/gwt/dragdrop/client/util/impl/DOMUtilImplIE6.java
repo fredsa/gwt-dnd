@@ -99,9 +99,10 @@ public class DOMUtilImplIE6 extends DOMUtilImpl {
     return widget.getOffsetWidth() - getClientWidth(widget.getElement());
   }
 
-  public native String getNodeName(Element element) /*-{
-           return element.nodeName;
-           }-*/;
+  public native String getNodeName(Element element)
+  /*-{
+    return element.nodeName;
+  }-*/;
 
   public int getVerticalBorders(Widget widget) {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
