@@ -51,8 +51,7 @@ public abstract class AbstractDragController implements DragController {
   private BoundaryDropController boundaryDropController;
   private AbsolutePanel boundaryPanel;
   private DragHandlerCollection dragHandlers;
-  private DropControllerCollection dropControllerCollection = new DropControllerCollection();
-
+  private DropControllerCollection dropControllerCollection = getDropControllerCollection();
   private int initialDraggableIndex;
   private String initialDraggableMargin;
   private Widget initialDraggableParent;
@@ -246,5 +245,15 @@ public abstract class AbstractDragController implements DragController {
 
   public void unregisterDropController(DropController dropController) {
     dropControllerCollection.remove(dropController);
+  }
+
+  /**
+   * Allow subclasses ability to override implementing {@link DropContollerCollection}
+   * to support custom intersection logic.
+   * 
+   * @return a new DropControllerCollection
+   */
+  protected DropControllerCollection getDropControllerCollection() {
+    return new DropControllerCollection();
   }
 }
