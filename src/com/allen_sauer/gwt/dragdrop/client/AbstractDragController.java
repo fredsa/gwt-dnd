@@ -208,6 +208,8 @@ public abstract class AbstractDragController implements DragController {
       ((VerticalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
     } else if (initialDraggableParent instanceof IndexedFlowPanel) {
       ((IndexedFlowPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+    } else if (initialDraggableParent instanceof SimplePanel) {
+      ((SimplePanel) initialDraggableParent).setWidget(draggable);
     } else {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
@@ -232,6 +234,8 @@ public abstract class AbstractDragController implements DragController {
       initialDraggableIndex = ((VerticalPanel) initialDraggableParent).getWidgetIndex(draggable);
     } else if (initialDraggableParent instanceof IndexedFlowPanel) {
       initialDraggableIndex = ((IndexedFlowPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof SimplePanel) {
+      // save nothing
     } else {
       throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
     }
