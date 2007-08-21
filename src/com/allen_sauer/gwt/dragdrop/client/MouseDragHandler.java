@@ -169,7 +169,6 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void startDragging(Widget w) {
-    dragController.resetCache();
     capturingWidget = w;
     draggable = (Widget) dragHandleMap.get(capturingWidget);
 

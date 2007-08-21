@@ -19,13 +19,13 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
+import com.allen_sauer.gwt.log.client.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -33,8 +33,46 @@ import java.util.Iterator;
  * used by {@link AbstractDragController}.
  */
 public class DropControllerCollection extends ArrayList {
+  private static class Candidate implements Comparable {
+    private final DropController dropController;
+    private Integer size;
+    private Area targetArea;
 
-  private HashMap areaControllerMap = new HashMap();
+    public Candidate(DropController dropController) {
+      this.dropController = dropController;
+      Widget target = dropController.getDropTarget();
+      if (!target.isAttached()) {
+        throw new IllegalStateException("Unattached drop target; please call dragController#unregisterDropController");
+      }
+      targetArea = new WidgetArea(target, null);
+    }
+
+    public int compareTo(Object arg0) {
+      Candidate other = (Candidate) arg0;
+      return getSize().compareTo(other.getSize());
+    }
+
+    public DropController getDropController() {
+      return dropController;
+    }
+
+    public Widget getDropTarget() {
+      return dropController.getDropTarget();
+    }
+
+    public Integer getSize() {
+      if (size == null) {
+        size = new Integer(targetArea.getSize());
+      }
+      return size;
+    }
+
+    public Area getTargetArea() {
+      return targetArea;
+    }
+  }
+
+  private Candidate[] sortedCandidates;
 
   /**
    * Default constructor.
@@ -53,38 +91,61 @@ public class DropControllerCollection extends ArrayList {
    */
   public DropController getIntersectDropController(Widget widget, Panel boundaryPanel) {
     Area widgetArea = new WidgetArea(widget, null);
-    DropController result = null;
-    for (Iterator iterator = areaControllerMap.keySet().iterator(); iterator.hasNext();) {
-      WidgetArea targetArea = (WidgetArea) iterator.next();
-      if (widgetArea.intersects(targetArea)) {
-        DropController dropController = (DropController) areaControllerMap.get(targetArea);
-        if (result == null || DOM.isOrHasChild(result.getDropTarget().getElement(), dropController.getDropTarget().getElement())) {
-          if (!DOM.isOrHasChild(widget.getElement(), dropController.getDropTarget().getElement())) {
-            if (result == null || !(dropController instanceof BoundaryDropController)) {
-              result = dropController;
-            }
+    Candidate result = null;
+    int closestCenterDistanceToEdge = Integer.MAX_VALUE;
+    for (int i = 0; i < sortedCandidates.length; i++) {
+      Candidate candidate = sortedCandidates[i];
+      Area targetArea = candidate.getTargetArea();
+      if (targetArea.intersects(widgetArea)) {
+  //      DropController dropController = candidate.getDropController();
+        int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(widgetArea.getCenter());
+//        if (widgetCenterDistanceToTargetEdge == 0) {
+//          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "blue");
+//        } else if (widgetCenterDistanceToTargetEdge < 0) {
+//          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "red");
+//        } else {
+//          Log.debug(i + ": " + widgetCenterDistanceToTargetEdge);
+//          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "green");
+//        }
+        if (widgetCenterDistanceToTargetEdge < closestCenterDistanceToEdge) {
+          //        if (!DOM.isOrHasChild(widget.getElement(), candidate.getDropTarget().getElement())) {
+          //        if (result == null || !(dropController instanceof BoundaryDropController)) {
+          if (result == null || !DOM.isOrHasChild(candidate.getDropTarget().getElement(), result.getDropTarget().getElement())) {
+            closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
+            result = candidate;
           }
+          // }
+          //}
+        }
+      } else {
+//        DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "");
+      }
+    }
+    return result == null ? null : result.getDropController();
+  }
+
+  /**
+   * Cache a list of eligible drop controllers, sorted by target area size.
+   * Should be called at the beginning of each drag operation, or whenever
+   * drop target eligibility has changed.
+   * 
+   * @param boundaryPanel boundary area for drop target eligibility considerations
+   * @param draggable 
+   */
+  public void resetCache(Panel boundaryPanel, Widget draggable) {
+    WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
+
+    ArrayList list = new ArrayList();
+    for (Iterator iterator = iterator(); iterator.hasNext();) {
+      DropController dropController = (DropController) iterator.next();
+      Candidate candidate = new Candidate(dropController);
+      if (!DOM.isOrHasChild(draggable.getElement(), candidate.getDropTarget().getElement())) {
+        if (candidate.getTargetArea().intersects(boundaryArea)) {
+          list.add(candidate);
         }
       }
     }
-    return result;
-  }
-
-  // TODO sort areaControllerMap with descendant drop targets first so that getIntersectDropController can return with the first hit
-  public void resetCache(Panel boundaryPanel) {
-    WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
-
-    areaControllerMap.clear();
-    for (Iterator iterator = iterator(); iterator.hasNext();) {
-      DropController dropController = (DropController) iterator.next();
-      Widget target = dropController.getDropTarget();
-      if (!target.isAttached()) {
-        throw new IllegalStateException("Unattached drop target; please call dragController#unregisterDropController");
-      }
-      Area targetArea = new WidgetArea(target, null);
-      if (targetArea.intersects(boundaryArea)) {
-        areaControllerMap.put(targetArea, dropController);
-      }
-    }
+    sortedCandidates = (Candidate[]) list.toArray(new Candidate[] {});
+    Arrays.sort(sortedCandidates);
   }
 }

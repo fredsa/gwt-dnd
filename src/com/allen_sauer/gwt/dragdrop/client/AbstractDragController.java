@@ -20,14 +20,15 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.HashMap;
@@ -99,6 +100,7 @@ public abstract class AbstractDragController implements DragController {
    * @param draggable widget which was being dragged
    */
   public void dragStart(Widget draggable) {
+    dropControllerCollection.resetCache(getBoundaryPanel(), draggable);
     if (dragHandlers != null) {
       dragHandlers.fireDragStart(draggable);
     }
@@ -192,10 +194,6 @@ public abstract class AbstractDragController implements DragController {
     if (dragHandlers != null) {
       dragHandlers.remove(handler);
     }
-  }
-
-  public void resetCache() {
-    dropControllerCollection.resetCache(getBoundaryPanel());
   }
 
   public void restoreDraggableLocation(Widget draggable) {
