@@ -19,13 +19,13 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.AbsolutePositionExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.DraggableFactory;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.BinExample;
@@ -34,6 +34,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.duallist.DualListExample
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel.FlowPanelExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.indexedpanel.IndexedPanelExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.puzzle.PuzzleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizeExample;
 import com.allen_sauer.gwt.log.client.Log;
 
@@ -115,8 +116,6 @@ public final class DragDropDemo implements EntryPoint {
   }
 
   private Widget createDraggable() {
-    Image image = new Image("images/99pumpkin2-65x58.jpg");
-    dragController.makeDraggable(image);
-    return image;
+    return DraggableFactory.createDraggableRedBox(dragController);
   }
 }
