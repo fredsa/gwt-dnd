@@ -28,6 +28,12 @@ public abstract class AbstractArea implements Area {
     return new CoordinateArea(getLeft(), getTop(), getRight(), getBottom());
   }
 
+  public int distanceToEdge(Location location) {
+    int xDistance = Math.max(left - location.getLeft(), location.getLeft() - right);
+    int yDistance = Math.max(top - location.getTop(), location.getTop() - bottom);
+    return Math.max(xDistance, yDistance);
+  }
+
   public final int getBottom() {
     return bottom;
   }
@@ -46,6 +52,10 @@ public abstract class AbstractArea implements Area {
 
   public final int getRight() {
     return right;
+  }
+
+  public int getSize() {
+    return getWidth() * getHeight();
   }
 
   public final int getTop() {

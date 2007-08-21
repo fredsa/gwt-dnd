@@ -156,8 +156,6 @@ public interface DragController extends FiresDragEvents {
 
   void removeDragHandler(DragHandler handler);
 
-  void resetCache();
-
   /**
    * Restore the draggable to its original location
    * 

@@ -26,6 +26,16 @@ public interface Area {
    */
   public abstract Area copyOf();
 
+  /**
+   * Determine the shortest distance from the location to the
+   * edge of the area. Zero indicates a location on the edge.
+   * Negative distances indicate a location inside the area.
+   * 
+   * @param location the reference location
+   * @return shortest distance to edge of area
+   */
+  public int distanceToEdge(Location location);
+
   public abstract int getBottom();
 
   public abstract Location getCenter();
@@ -35,6 +45,13 @@ public interface Area {
   public abstract int getLeft();
 
   public abstract int getRight();
+
+  /**
+   * Determine area (width * height).
+   * 
+   * @return size of area
+   */
+  public abstract int getSize();
 
   public abstract int getTop();
 
