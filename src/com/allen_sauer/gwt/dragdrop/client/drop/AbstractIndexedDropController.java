@@ -63,12 +63,8 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     for (int i = 0; i < dropTarget.getWidgetCount(); i++) {
       Widget child = dropTarget.getWidget(i);
       Area childArea = new WidgetArea(child, null);
-      if (childArea.intersects(draggableCenter)) {
+      if (!childArea.inBottomRight(draggableCenter)) {
         int targetIndex = i;
-        if (childArea.inBottomRight(draggableCenter)) {
-          // place positioner after the intersecting child
-          targetIndex++;
-        }
         int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
         if (positionerIndex == -1) {
           insert(getPositioner(), targetIndex);
