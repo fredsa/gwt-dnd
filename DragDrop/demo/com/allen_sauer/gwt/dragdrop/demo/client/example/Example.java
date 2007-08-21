@@ -19,7 +19,6 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
-import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
 
 /**
  * Class representing a single drag-and-drop example.
@@ -70,8 +69,6 @@ public abstract class Example extends SimplePanel {
    * @return a new draggable widget
    */
   protected Widget createDraggable() {
-    Widget redBox = new RedBoxDraggableWidget();
-    dragController.makeDraggable(redBox);
-    return redBox;
+    return DraggableFactory.createDraggableRedBox(dragController);
   }
 }
