@@ -15,6 +15,8 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel;
 
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
@@ -27,7 +29,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  */
 public final class FlowPanelExample extends Example {
   private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE = "demo-FlowPanelExample";
-  private static final String CSS_DEMO_FLOW_PANEL_EXAMPLELABEL = "demo-FlowPanelExample-label";
+  private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE_LABEL = "demo-FlowPanelExample-label";
 
   private IndexedFlowPanel flowPanelDropTarget;
 
@@ -52,10 +54,19 @@ public final class FlowPanelExample extends Example {
   protected void onLoad() {
     super.onLoad();
     for (int i = 1; i <= 25; i++) {
-      HTML html = new HTML("Draggable&nbsp;#" + i + "&#x200B;");
-      html.addStyleName(CSS_DEMO_FLOW_PANEL_EXAMPLELABEL);
-      getDragController().makeDraggable(html);
-      flowPanelDropTarget.add(html);
+      FocusPanel focusPanel = new FocusPanel();
+      focusPanel.setStyleName("demo-FlowPanelExample-draggable");
+
+      FlowPanel flowPanel = new FlowPanel();
+      focusPanel.add(flowPanel);
+
+      HTML label = new HTML("Draggable&nbsp;#" + i);
+      HTML spacer = new HTML(" ");
+      label.addStyleName(CSS_DEMO_FLOW_PANEL_EXAMPLE_LABEL);
+      flowPanel.add(label);
+      flowPanel.add(spacer);
+      getDragController().makeDraggable(focusPanel);
+      flowPanelDropTarget.add(focusPanel);
     }
   }
 }

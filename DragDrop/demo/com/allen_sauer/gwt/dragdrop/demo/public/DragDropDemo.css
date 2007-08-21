@@ -69,13 +69,17 @@ DIV.demo-main-boundary-panel {
 }
 
 /* ------------ FlowPanelExample ------------ */
-.demo-FlowPanelExample .demo-FlowPanelExample-label {
+.demo-FlowPanelExample-draggable ,
+.demo-FlowPanelExample-draggable DIV {
+  display: inline;
+}
+
+.demo-FlowPanelExample-label {
   font-size: 1.2em;
   line-height: 1.6em;
-  display: inline;
-  border: 1px solid blue;
   padding: 0.1em;
   margin: 0.1em;
+  border: 1px solid blue;
 }
 
 /* ------------ IndexedPanelExample ------------ */
