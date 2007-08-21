@@ -178,6 +178,14 @@ DIV.demo-main-boundary-panel {
   color: blue;
 }
 
+/* ------------ Puzzle Example ------------ */
+.demo-PuzzleExample-table {
+  border: 1px solid red;
+}
+.demo-PuzzleExample-cell {
+  border: 1px solid black;
+}
+
 /* ------------ General Demo CSS ------------ */
 .demo-main-boundary-panel .demo-example-description {
   font-size: 0.9em;
