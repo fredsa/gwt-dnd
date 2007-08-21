@@ -71,9 +71,6 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
         } else if (positionerIndex == targetIndex || positionerIndex == targetIndex - 1) {
           // already in the correct location
           return;
-        } else if (positionerIndex < targetIndex) {
-          // adjust for removal of widget
-          insert(getPositioner(), targetIndex - 1);
         } else {
           insert(getPositioner(), targetIndex);
         }
