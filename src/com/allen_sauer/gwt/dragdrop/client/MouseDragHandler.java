@@ -35,7 +35,6 @@ import java.util.HashMap;
  * draggable widgets for a give {@link DropController}.
  */
 public class MouseDragHandler implements MouseListener {
-
   private AbsolutePanel boundaryPanel;
   private Widget capturingWidget;
   private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
@@ -73,7 +72,9 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
-    if (DOM.eventGetButton(DOM.eventGetCurrentEvent()) != Event.BUTTON_LEFT) {
+    int button = DOM.eventGetButton(DOM.eventGetCurrentEvent());
+    // TODO remove Event.UNDEFINED after GWT Issue 1535 is fixed
+    if (button != Event.BUTTON_LEFT && button != Event.UNDEFINED) {
       return;
     }
     mouseDown = true;
@@ -112,7 +113,9 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseUp(Widget sender, int x, int y) {
-    if (DOM.eventGetButton(DOM.eventGetCurrentEvent()) != Event.BUTTON_LEFT) {
+    int button = DOM.eventGetButton(DOM.eventGetCurrentEvent());
+    // TODO remove Event.UNDEFINED after GWT Issue 1535 is fixed
+    if (button != Event.BUTTON_LEFT && button != Event.UNDEFINED) {
       return;
     }
     mouseDown = false;
