@@ -109,6 +109,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new ResizeExample(demoDragHandler));
     examples.add(new DragHandleExample(demoDragHandler));
     examples.add(new DualListExample(demoDragHandler));
+    examples.add(new PuzzleExample(demoDragHandler));
 
     examples.selectTab(0);
   }
