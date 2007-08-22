@@ -45,35 +45,41 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
-    int draggableIndex = dropTarget.getWidgetIndex(draggable);
-    if (dropIndex == -1) {
-      throw new RuntimeException("Should not happen after onPreviewDrop did not veto");
-    }
+    assert dropIndex != -1 : "Should not happen after onPreviewDrop did not veto";
     insert(draggable, dropIndex);
     return new IndexedDragEndEvent(draggable, (Panel) dropTarget, dropIndex);
   }
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
-    super.onMove(reference, draggable, dragController);
-    Location draggableCenter = new WidgetArea(reference, null).getCenter();
+    super.onMove(reference, reference, dragController);
+    int closestCenterDistanceToEdge = Integer.MAX_VALUE;
+    int targetIndex = -1;
+    Area referenceArea = new WidgetArea(reference, null);
+    Location referenceCenter = referenceArea.getCenter();
     for (int i = 0; i < dropTarget.getWidgetCount(); i++) {
-      Widget child = dropTarget.getWidget(i);
-      Area childArea = new WidgetArea(child, null);
-      if (!childArea.inBottomRight(draggableCenter)) {
-        int targetIndex = i;
-        int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
-        if (positionerIndex == -1) {
-          insert(getPositioner(), targetIndex);
-        } else if (positionerIndex == targetIndex || positionerIndex == targetIndex - 1) {
-          // already in the correct location
-          return;
-        } else {
-          insert(getPositioner(), targetIndex);
+      Widget target = dropTarget.getWidget(i);
+      Area targetArea = new WidgetArea(target, null);
+
+      if (targetArea.intersects(referenceArea)) {
+        int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(referenceCenter);
+        if (widgetCenterDistanceToTargetEdge < closestCenterDistanceToEdge) {
+          closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
+          targetIndex = i;
+          if (targetArea.inBottomRight(referenceCenter)) {
+            targetIndex++;
+          }
         }
-        return;
       }
     }
-    ((Panel) dropTarget).add(getPositioner());
+    int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
+    // check that positioner not already in the correct location
+    if (positionerIndex != targetIndex && positionerIndex != targetIndex - 1) {
+      if (targetIndex == -1) {
+        getPositioner().removeFromParent();
+      } else {
+        insert(getPositioner(), targetIndex);
+      }
+    }
   }
 
   public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
