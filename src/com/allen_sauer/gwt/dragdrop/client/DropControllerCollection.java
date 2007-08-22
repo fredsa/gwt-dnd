@@ -22,7 +22,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
-import com.allen_sauer.gwt.log.client.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,16 +96,16 @@ public class DropControllerCollection extends ArrayList {
       Candidate candidate = sortedCandidates[i];
       Area targetArea = candidate.getTargetArea();
       if (targetArea.intersects(widgetArea)) {
-  //      DropController dropController = candidate.getDropController();
+        //      DropController dropController = candidate.getDropController();
         int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(widgetArea.getCenter());
-//        if (widgetCenterDistanceToTargetEdge == 0) {
-//          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "blue");
-//        } else if (widgetCenterDistanceToTargetEdge < 0) {
-//          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "red");
-//        } else {
-//          Log.debug(i + ": " + widgetCenterDistanceToTargetEdge);
-//          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "green");
-//        }
+        //        if (widgetCenterDistanceToTargetEdge == 0) {
+        //          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "blue");
+        //        } else if (widgetCenterDistanceToTargetEdge < 0) {
+        //          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "red");
+        //        } else {
+        //          Log.debug(i + ": " + widgetCenterDistanceToTargetEdge);
+        //          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "green");
+        //        }
         if (widgetCenterDistanceToTargetEdge < closestCenterDistanceToEdge) {
           //        if (!DOM.isOrHasChild(widget.getElement(), candidate.getDropTarget().getElement())) {
           //        if (result == null || !(dropController instanceof BoundaryDropController)) {
@@ -118,7 +117,7 @@ public class DropControllerCollection extends ArrayList {
           //}
         }
       } else {
-//        DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "");
+        //        DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "");
       }
     }
     return result == null ? null : result.getDropController();
