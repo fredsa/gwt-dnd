@@ -49,10 +49,6 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     if (dropIndex == -1) {
       throw new RuntimeException("Should not happen after onPreviewDrop did not veto");
     }
-    if (draggableIndex != -1 && draggableIndex < dropIndex) {
-      // adjust for removal of widget
-      dropIndex--;
-    }
     insert(draggable, dropIndex);
     return new IndexedDragEndEvent(draggable, (Panel) dropTarget, dropIndex);
   }
