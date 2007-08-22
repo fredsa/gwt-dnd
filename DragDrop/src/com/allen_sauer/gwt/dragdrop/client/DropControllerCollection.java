@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
 import java.util.ArrayList;
@@ -90,34 +91,20 @@ public class DropControllerCollection extends ArrayList {
    */
   public DropController getIntersectDropController(Widget widget, Panel boundaryPanel) {
     Area widgetArea = new WidgetArea(widget, null);
+    Location widgetCenter = widgetArea.getCenter();
     Candidate result = null;
     int closestCenterDistanceToEdge = Integer.MAX_VALUE;
     for (int i = 0; i < sortedCandidates.length; i++) {
       Candidate candidate = sortedCandidates[i];
       Area targetArea = candidate.getTargetArea();
       if (targetArea.intersects(widgetArea)) {
-        //      DropController dropController = candidate.getDropController();
-        int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(widgetArea.getCenter());
-        //        if (widgetCenterDistanceToTargetEdge == 0) {
-        //          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "blue");
-        //        } else if (widgetCenterDistanceToTargetEdge < 0) {
-        //          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "red");
-        //        } else {
-        //          Log.debug(i + ": " + widgetCenterDistanceToTargetEdge);
-        //          DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "green");
-        //        }
+        int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(widgetCenter);
         if (widgetCenterDistanceToTargetEdge < closestCenterDistanceToEdge) {
-          //        if (!DOM.isOrHasChild(widget.getElement(), candidate.getDropTarget().getElement())) {
-          //        if (result == null || !(dropController instanceof BoundaryDropController)) {
           if (result == null || !DOM.isOrHasChild(candidate.getDropTarget().getElement(), result.getDropTarget().getElement())) {
             closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
             result = candidate;
           }
-          // }
-          //}
         }
-      } else {
-        //        DOM.setStyleAttribute(candidate.getDropTarget().getElement(), "backgroundColor", "");
       }
     }
     return result == null ? null : result.getDropController();
