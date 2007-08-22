@@ -250,7 +250,7 @@ public abstract class AbstractDragController implements DragController {
   }
 
   /**
-   * Allow subclasses ability to override implementing {@link DropContollerCollection}
+   * Allow subclasses ability to override implementing {@link DropControllerCollection}
    * to support custom intersection logic.
    * 
    * @return a new DropControllerCollection
