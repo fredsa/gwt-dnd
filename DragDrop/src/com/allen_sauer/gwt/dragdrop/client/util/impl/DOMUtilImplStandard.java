@@ -21,39 +21,39 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
   public native int getBorderLeft(Element elem)
   /*-{
     try {
-    var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
-    var borderLeftWidth = computedStyle.getPropertyValue("border-left-width");
-    return borderLeftWidth.indexOf("px") == -1 ? 0 : parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
+      var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
+      var borderLeftWidth = computedStyle.getPropertyValue("border-left-width");
+      return borderLeftWidth.indexOf("px") == -1 ? 0 : parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
     } catch(e) { throw new Error("getBorderLeft: " + e); }
   }-*/;
 
   public native int getBorderTop(Element elem)
   /*-{
     try {
-    var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
-    var borderTopWidth = computedStyle.getPropertyValue("border-top-width");
-    return borderTopWidth.indexOf("px") == -1 ? 0 : parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
+      var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
+      var borderTopWidth = computedStyle.getPropertyValue("border-top-width");
+      return borderTopWidth.indexOf("px") == -1 ? 0 : parseInt(borderTopWidth.substr(0, borderTopWidth.length - 2));
     } catch(e) { throw new Error("getBorderTop: " + e); }
   }-*/;
 
   public native int getClientHeight(Element elem)
   /*-{
     try {
-    return elem.clientHeight;
+      return elem.clientHeight;
     } catch(e) { throw new Error("getClientHeight: " + e); }
   }-*/;
 
   public native int getClientWidth(Element elem)
   /*-{
     try {
-    return elem.clientWidth;
+      return elem.clientWidth;
     } catch(e) { throw new Error("getClientWidth: " + e); }
   }-*/;
 
   public native void unselect()
   /*-{
     try {
-    $wnd.getSelection().removeAllRanges();
+      $wnd.getSelection().removeAllRanges();
     } catch(e) { throw new Error("unselect: " + e); }
   }-*/;
 }
