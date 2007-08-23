@@ -40,11 +40,6 @@ public abstract class DOMUtilImpl {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
   }
 
-  public native void preventSelection(Element elem)
-  /*-{
-    elem.onselectstart = function() { return false; }
-  }-*/;
-
   public native void setStatus(String text)
   /*-{
      $wnd.status = text;

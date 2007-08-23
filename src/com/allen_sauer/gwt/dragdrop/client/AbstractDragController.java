@@ -146,7 +146,6 @@ public abstract class AbstractDragController implements DragController {
     mouseDragHandler.makeDraggable(draggable, dragHandle);
     draggable.addStyleName(CSS_DRAGGABLE);
     dragHandle.addStyleName(CSS_HANDLE);
-    DOMUtil.preventSelection(dragHandle.getElement());
     dragHandles.put(draggable, dragHandle);
   }
 

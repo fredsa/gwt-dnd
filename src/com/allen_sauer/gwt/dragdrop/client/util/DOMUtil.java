@@ -101,10 +101,6 @@ public class DOMUtil {
     return impl.getVerticalBorders(widget);
   }
 
-  public static void preventSelection(Element elem) {
-    impl.preventSelection(elem);
-  }
-
   public static void setStatus(String text) {
     impl.setStatus(text);
   }
