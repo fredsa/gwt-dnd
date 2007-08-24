@@ -8,15 +8,7 @@
 }
 
 .dragdrop-draggable {
-  z-index: 2;
   zoom: 1; /* IE gain hasLayout */
-}
-
-.dragdrop-dragging {
-  filter: alpha(opacity = 30);
-  opacity: 0.3;
-  -moz-opacity: 0.3;
-  z-index: 3;
 }
 
 .dragdrop-hidden {
@@ -25,8 +17,8 @@
 
 .dragdrop-positioner {
   border: 1px dashed #1E90FF; /* blue */
-  z-index: 1;
   zoom: 1; /* IE gain hasLayout */
+  z-index: 100;
 }
 
 .dragdrop-flow-panel-positioner {
@@ -38,8 +30,11 @@
 
 .dragdrop-proxy {
   background-color: #77AAFF; /* light blue */
-  z-index: 1;
+}
+
+.dragdrop-movable-panel {
   filter: alpha(opacity = 30);
   opacity: 0.3;
   -moz-opacity: 0.3;
+  z-index: 200;
 }
