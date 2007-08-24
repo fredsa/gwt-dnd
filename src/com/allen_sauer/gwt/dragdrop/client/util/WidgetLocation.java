@@ -49,8 +49,8 @@ public class WidgetLocation extends AbstractLocation {
   }
 
   public void constrain(int minLeft, int minTop, int maxLeft, int maxTop) {
-    left = Math.min(maxLeft, Math.max(left, minLeft));
-    top = Math.min(maxTop, Math.max(top, minTop));
+    left = Math.max(minLeft, Math.min(left, maxLeft));
+    top = Math.max(minTop, Math.min(top, maxTop));
   }
 
   /* (non-Javadoc)
