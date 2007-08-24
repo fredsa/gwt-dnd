@@ -26,10 +26,10 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
  */
 public abstract class AbstractDropController implements DropController {
 
-  private static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
-
   // TODO remove legacy "dragdrop-engage"
-  private static final String CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage dragdrop-engage";
+  protected static final String CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage dragdrop-engage";
+
+  private static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
 
   private DragController currentDragController;
   private Widget dropTarget;
