@@ -20,27 +20,32 @@ import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
+import com.allen_sauer.gwt.dragdrop.demo.client.util.GWTUtil;
 
 /**
  * {@link TabPanel} which uses a {@link VerticalPanel} to provide a description for each
  * example.
  */
 public final class ExampleTabPanel extends TabPanel {
-
   private static final String CSS_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
 
   /**
    * Describe an example in a consistent way by including a description and the name of
    * the {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController} used in the example.
    * 
-   * @param controllerClass the primary DropController used in this example
+   * @param classes the primary DropController used in this example
    * @param description a brief description of the example
    * @return HTML widget describing the example
    */
-  public static HTML describe(Class controllerClass, String description) {
-    String controllerClassName = controllerClass.toString();
-    controllerClassName = controllerClassName.substring(controllerClassName.lastIndexOf('.') + 1);
-    HTML html = new HTML("<code>" + controllerClassName + "</code><br>\n" + "<i>" + description + "</i>");
+  public static HTML describe(Class[] classes, String description) {
+    String sourceCodeLinks = "";
+    for (int i = 0; i < classes.length; i++) {
+      sourceCodeLinks += GWTUtil.getClassAnchorHTML(classes[i]);
+      if (i < classes.length - 1) {
+        sourceCodeLinks += ", ";
+      }
+    }
+    HTML html = new HTML("<i>" + description + "</i><br>\n(Source code: " + sourceCodeLinks + ")");
     html.addStyleName(CSS_DEMO_EXAMPLE_DESCRIPTION);
     return html;
   }
@@ -54,7 +59,7 @@ public final class ExampleTabPanel extends TabPanel {
    */
   public void add(Example example) {
     VerticalPanel verticalPanel = new VerticalPanel();
-    verticalPanel.add(describe(example.getControllerClass(), example.getDescription()));
+    verticalPanel.add(describe(example.getInvolvedClasses(), example.getDescription()));
     verticalPanel.add(example);
     add(verticalPanel, "Demo " + ++counter, true);
   }

@@ -39,14 +39,6 @@ public abstract class Example extends SimplePanel {
   }
 
   /**
-   * Get the main {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController}
-   * or {@link DragController} class involved in this example.
-   * 
-   * @return the drop controller (or in some cases drag controller) Class
-   */
-  public abstract Class getControllerClass();
-
-  /**
    * Get a brief description of this example.
    * 
    * @return the description
@@ -61,6 +53,13 @@ public abstract class Example extends SimplePanel {
   public DragController getDragController() {
     return dragController;
   }
+
+  /**
+   * Return the classes involved in this example.
+   * 
+   * @return an array of involved classes
+   */
+  public abstract Class[] getInvolvedClasses();
 
   /**
    * Convenience method to create a default draggable widget. The widget is automatically

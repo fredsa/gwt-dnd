@@ -44,13 +44,12 @@ public final class ResizeExample extends Example {
     setWidget(boundaryPanel);
   }
 
-  public Class getControllerClass() {
-    return ResizeDropController.class;
+  public String getDescription() {
+    return "Resize an embedded Widget using a composite of Grid and ScrollPanel.";
   }
 
-  public String getDescription() {
-    return "Resize an embedded Widget using a composite of Grid and ScrollPanel<br>"
-        + "(currently only implements the 'classic' drag behavior).";
+  public Class[] getInvolvedClasses() {
+    return new Class[] {ResizeExample.class, ResizeDropController.class, ResizeDragController.class, ResizePanel.class,};
   }
 
   private HTML getLargeHTML() {

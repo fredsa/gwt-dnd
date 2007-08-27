@@ -68,6 +68,14 @@ DIV.demo-main-boundary-panel {
   -moz-opacity: 0.1;
 }
 
+/* ------------ AbsolutePositionExample ------------ */
+.demo-AbsolutePositionExample {
+}
+
+/* ------------ GridConstrainedExample ------------ */
+.demo-GridConstrainedExample {
+}
+
 /* ------------ FlowPanelExample ------------ */
 .demo-FlowPanelExample-draggable ,
 .demo-FlowPanelExample-draggable DIV {
@@ -80,6 +88,10 @@ DIV.demo-main-boundary-panel {
   padding: 0.1em;
   margin: 0.1em;
   border: 1px solid blue;
+}
+
+.dragdrop-flow-panel-positioner {
+  color: blue;
 }
 
 /* ------------ IndexedPanelExample ------------ */
@@ -103,7 +115,17 @@ DIV.demo-main-boundary-panel {
   padding: 1px;
 }
 
+
+/* ------------ NoOverlapExample ------------ */
+.demo-NoOverlapExample {
+}
+
 /* ------------ FlexTableRowExample ------------ */
+.demo-FlexTableRowExample .dragdrop-boundary {
+  background-color: #F8F8F8; /* light gray */
+  border: 1px solid black;
+}
+
 .demo-FlexTableRowExample .demo-FlexTableRowExample-table-proxy {
   border: 1px solid blue;
 }
@@ -173,38 +195,6 @@ DIV.demo-main-boundary-panel {
   cursor: se-resize;
 }
 
-/* ------------ FlowPanelExample ------------ */
-.dragdrop-flow-panel-positioner {
-  color: blue;
-}
-
-/* ------------ Puzzle Example ------------ */
-.demo-PuzzleExample-table {
-  border: 1px solid red;
-}
-.demo-PuzzleExample-cell {
-  border: 1px solid black;
-}
-
-/* ------------ General Demo CSS ------------ */
-.demo-main-boundary-panel .demo-example-description {
-  font-size: 0.9em;
-  border-bottom: 1px solid #87B3FF;
-  padding: 0.5em 0.3em;
-}
-
-.demo-behavior-selection {
-  background-color: #E8EEF7;
-  border: 1px solid #87B3FF;
-  margin-top: 1em;
-  margin-bottom: 0.2em;
-  padding: 0.2em 0.1em;
-}
-
-.demo-event-text-area {
-  border: 1px solid green;
-}
-
 /* ------------ DragHandleExample ------------ */
 .demo-DragHandleExample-panel {
   background-color: white;
@@ -252,6 +242,57 @@ DIV.demo-main-boundary-panel {
   filter: alpha(opacity = 100);
   opacity: 1.0;
   -moz-opacity: 1.0;
+}
+
+/* ------------ PuzzleExample ------------ */
+.demo-PuzzleExample .dragdrop-boundary {
+  background-color: #F8F8F8; /* light gray */
+  border: 1px solid black;
+}
+.demo-PuzzleExample-table {
+  border: 1px solid red;
+}
+.demo-PuzzleExample-cell {
+  border: 1px solid black;
+}
+
+/* ------------ MatryoshkaExample ------------ */
+.demo-MatryoshkaExample .dragdrop-boundary {
+  background-color: #F8F8F8; /* light gray */
+  border: 1px solid black;
+}
+
+.demo-MatryoshkaExample .demo-rgb-focus-panel .demo-rgb-focus-panel {
+  margin: 10px;
+}
+
+.demo-MatryoshkaExample .demo-rgb-focus-panel {
+  border: 1px solid white;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.demo-MatryoshkaExample .dragdrop-dropTarget-engage {
+  border: 1px solid black;
+}
+
+/* ------------ General Demo CSS ------------ */
+.demo-main-boundary-panel .demo-example-description {
+  font-size: 0.9em;
+  border-bottom: 1px solid #87B3FF;
+  padding: 0.5em 0.3em;
+}
+
+.demo-behavior-selection {
+  background-color: #E8EEF7;
+  border: 1px solid #87B3FF;
+  margin-top: 1em;
+  margin-bottom: 0.2em;
+  padding: 0.2em 0.1em;
+}
+
+.demo-event-text-area {
+  border: 1px solid green;
 }
 
 /* ------------ General GWT CSS ------------ */

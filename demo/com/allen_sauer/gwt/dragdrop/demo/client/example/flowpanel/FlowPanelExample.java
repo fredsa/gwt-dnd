@@ -43,12 +43,12 @@ public final class FlowPanelExample extends Example {
     dragController.registerDropController(flowPanelDropController);
   }
 
-  public Class getControllerClass() {
-    return FlowPanelDropController.class;
-  }
-
   public String getDescription() {
     return "Allows drop to occur anywhere in a <code>IndexedFlowPanel</code>.";
+  }
+
+  public Class[] getInvolvedClasses() {
+    return new Class[] {FlowPanelExample.class, FlowPanelDropController.class, IndexedFlowPanel.class,};
   }
 
   protected void onLoad() {

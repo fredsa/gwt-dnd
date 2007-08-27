@@ -29,6 +29,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 public class PuzzleExample extends Example {
   private static final int COLUMNS = 4;
   private static final String CSS_DEMO_PUZZLE_CELL = "demo-PuzzleExample-cell";
+  private static final String CSS_DEMO_PUZZLE_EXAMPLE = "demo-PuzzleExample";
   private static final String CSS_DEMO_PUZZLE_TABLE = "demo-PuzzleExample-table";
   private static final int IMAGE_HEIGHT = 58;
   private static final int IMAGE_WIDTH = 65;
@@ -36,6 +37,7 @@ public class PuzzleExample extends Example {
   private DragController dragController;
 
   public PuzzleExample(DemoDragHandler demoDragHandler) {
+    addStyleName(CSS_DEMO_PUZZLE_EXAMPLE);
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(500, 300);
     setWidget(boundaryPanel);
@@ -63,12 +65,12 @@ public class PuzzleExample extends Example {
     }
   }
 
-  public Class getControllerClass() {
-    return SetWidgetDropController.class;
-  }
-
   public String getDescription() {
     return "Demonstrate image dragging and target selection when there are multiple intersecting drop targets.";
+  }
+
+  public Class[] getInvolvedClasses() {
+    return new Class[] {PuzzleExample.class, SetWidgetDropController.class, PickupDragController.class,};
   }
 
   protected Widget createDraggable() {

@@ -37,11 +37,13 @@ public final class DualListExample extends Example {
     setWidget(dualListBox);
   }
 
-  public Class getControllerClass() {
-    return ListBoxDragController.class;
-  }
-
   public String getDescription() {
     return "Allow drag and drop between two lists.";
+  }
+
+  public Class[] getInvolvedClasses() {
+    return new Class[] {
+        DualListExample.class, ListBoxDragController.class, ListBoxDropController.class, MouseListBox.class, DualListBox.class,
+        DualListBoxItem.class,};
   }
 }
