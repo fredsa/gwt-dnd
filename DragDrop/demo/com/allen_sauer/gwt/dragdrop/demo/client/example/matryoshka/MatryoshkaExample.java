@@ -35,21 +35,32 @@ public final class MatryoshkaExample extends Example {
 
   public MatryoshkaExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE);
+
+    // use the boundary panel as this composite's widget
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(500, 300);
     setWidget(boundaryPanel);
 
     boundaryPanel.setPixelSize((NUMBER_COLS + 3) * (CELL_WIDTH + CELL_SPACER) + 2 * CELL_SPACER, NUMBER_ROWS
         * (CELL_HEIGHT + CELL_SPACER) + 2 * CELL_SPACER);
+
+    // initialize our drag controller
     DragController dragController = new PickupDragController(boundaryPanel, true);
     dragController.addDragHandler(demoDragHandler);
+    
+    // create our grid of draggable drop target widgets
     for (int col = 0; col < NUMBER_COLS; col++) {
       for (int row = 0; row < NUMBER_ROWS; row++) {
+        // pick a nice color
         int red = 255 * col / NUMBER_COLS;
         int green = 255 * row / NUMBER_ROWS;
         int blue = 128;
+
+        // instantiate a widget which automatically makes itself a drop target
         RGBFocusPanel panel = new RGBFocusPanel(dragController, CELL_WIDTH, CELL_HEIGHT, red, green, blue);
         boundaryPanel.add(panel, col * (CELL_WIDTH + CELL_SPACER) + CELL_SPACER, row * (CELL_HEIGHT + CELL_SPACER) + CELL_SPACER);
+        
+        // make the widget draggable
         dragController.makeDraggable(panel);
       }
     }

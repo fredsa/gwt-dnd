@@ -31,9 +31,13 @@ public final class NoOverlapExample extends Example {
   public NoOverlapExample(DragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_NO_OVERLAP_EXAMPLE);
+
+    // use the drop target as this composite's widget
     AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
     noOverlapDropTarget.setPixelSize(400, 200);
     setWidget(noOverlapDropTarget);
+
+    // initialize our drop controller
     noOverlapDropController = new NoOverlapDropController(noOverlapDropTarget);
     dragController.registerDropController(noOverlapDropController);
   }
