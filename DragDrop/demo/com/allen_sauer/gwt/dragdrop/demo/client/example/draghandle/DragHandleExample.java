@@ -27,7 +27,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
@@ -83,12 +82,11 @@ public class DragHandleExample extends Example {
     boundaryPanel.add(verticalPanel, 20, 20);
   }
 
-  public Class getControllerClass() {
-    return BoundaryDropController.class;
+  public String getDescription() {
+    return "Demonstrate how a draggable widget can be dragged by a child drag handle widget.";
   }
 
-  public String getDescription() {
-    return "Demonstrate how a draggable widget can be dragged by a child drag handle widget<br>"
-        + "(currently only implements the 'classic' drag behavior).";
+  public Class[] getInvolvedClasses() {
+    return new Class[] {DragHandleExample.class, PickupDragController.class, AbsolutePositionDropController.class,};
   }
 }

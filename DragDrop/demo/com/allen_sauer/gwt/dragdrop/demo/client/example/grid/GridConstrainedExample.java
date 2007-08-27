@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client.example;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.grid;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -21,17 +21,20 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController} example.
  */
 public final class GridConstrainedExample extends Example {
+  private static final String CSS_DEMO_GRID_CONSTRAINED_EXAMPLE = "demo-GridConstrainedExample";
   private int draggableOffsetHeight;
   private int draggableOffsetWidth;
   private GridConstrainedDropController gridConstrainedDropController;
 
   public GridConstrainedExample(DragController dragController) {
     super(dragController);
+    addStyleName(CSS_DEMO_GRID_CONSTRAINED_EXAMPLE);
     determineRedBoxDimensions();
     AbsolutePanel gridConstrainedDropTarget = new AbsolutePanel();
     setWidget(gridConstrainedDropTarget);
@@ -41,13 +44,13 @@ public final class GridConstrainedExample extends Example {
     gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 5, draggableOffsetHeight * 2);
   }
 
-  public Class getControllerClass() {
-    return GridConstrainedDropController.class;
-  }
-
   public String getDescription() {
     return "Drops (moves) are constrained to a (" + draggableOffsetWidth + " x " + draggableOffsetHeight
         + ") grid on the gray drop target.";
+  }
+
+  public Class[] getInvolvedClasses() {
+    return new Class[] {GridConstrainedExample.class, GridConstrainedDropController.class, };
   }
 
   protected void onLoad() {

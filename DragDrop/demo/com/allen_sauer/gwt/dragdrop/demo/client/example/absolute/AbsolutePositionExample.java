@@ -13,21 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client.example;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.absolute;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController} example.
  */
 public final class AbsolutePositionExample extends Example {
+  private static final String CSS_DEMO_ABSOLUTE_POSITION_EXAMPLE = "demo-AbsolutePositionExample";
   private AbsolutePositionDropController absolutePositionDropController;
 
   public AbsolutePositionExample(DragController dragController) {
     super(dragController);
+    addStyleName(CSS_DEMO_ABSOLUTE_POSITION_EXAMPLE);
     AbsolutePanel positioningDropTarget = new AbsolutePanel();
     positioningDropTarget.setPixelSize(400, 200);
     setWidget(positioningDropTarget);
@@ -35,12 +38,12 @@ public final class AbsolutePositionExample extends Example {
     dragController.registerDropController(absolutePositionDropController);
   }
 
-  public Class getControllerClass() {
-    return AbsolutePositionDropController.class;
-  }
-
   public String getDescription() {
     return "Draggable widgets can be placed anywhere on the gray drop target.";
+  }
+
+  public Class[] getInvolvedClasses() {
+    return new Class[] {AbsolutePositionExample.class, AbsolutePositionDropController.class,};
   }
 
   protected void onLoad() {

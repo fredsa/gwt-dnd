@@ -53,12 +53,12 @@ public final class BinExample extends Example {
     dragController.registerDropController(dropController);
   }
 
-  public Class getControllerClass() {
-    return BinDropController.class;
-  }
-
   public String getDescription() {
     return "Classic drop target which simply recognizes when a draggable widget is dropped on it.";
+  }
+
+  public Class[] getInvolvedClasses() {
+    return new Class[] {BinExample.class, BinDropController.class, AbsolutePositionDropController.class, TrashBin.class, Bin.class,};
   }
 
   protected void onLoad() {

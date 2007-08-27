@@ -13,21 +13,24 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client.example;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.nooverlap;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.NoOverlapDropController;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.NoOverlapDropController} example.
  */
 public final class NoOverlapExample extends Example {
+  private static final String CSS_DEMO_NO_OVERLAP_EXAMPLE = "demo-NoOverlapExample";
   private NoOverlapDropController noOverlapDropController;
 
   public NoOverlapExample(DragController dragController) {
     super(dragController);
+    addStyleName(CSS_DEMO_NO_OVERLAP_EXAMPLE);
     AbsolutePanel noOverlapDropTarget = new AbsolutePanel();
     noOverlapDropTarget.setPixelSize(400, 200);
     setWidget(noOverlapDropTarget);
@@ -35,12 +38,12 @@ public final class NoOverlapExample extends Example {
     dragController.registerDropController(noOverlapDropController);
   }
 
-  public Class getControllerClass() {
-    return NoOverlapDropController.class;
-  }
-
   public String getDescription() {
     return "Widgets cannot be dropped on top of (overlapping) other dropped widgets.";
+  }
+
+  public Class[] getInvolvedClasses() {
+    return new Class[] {NoOverlapExample.class, NoOverlapDropController.class,};
   }
 
   protected void onLoad() {

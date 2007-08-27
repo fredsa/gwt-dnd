@@ -43,11 +43,13 @@ public final class FlexTableRowExample extends Example {
     tableExamplePanel.add(table2, 230, 40);
   }
 
-  public Class getControllerClass() {
-    return FlexTableRowDropController.class;
+  public String getDescription() {
+    return "Drag <code>FlexTable</code> rows by their drag handle.";
   }
 
-  public String getDescription() {
-    return "Drag <code>FlexTable</code> rows by their drag handle<br>" + "(currently only implements the 'proxy' drag behavior).";
+  public Class[] getInvolvedClasses() {
+    return new Class[] {
+        FlexTableRowExample.class, FlexTableRowDropController.class, FlexTableRowDragController.class,
+        FlexTableRowDragEndEvent.class, DemoFlexTable.class, FlexTableUtil.class,};
   }
 }

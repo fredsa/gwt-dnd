@@ -86,11 +86,11 @@ public final class IndexedPanelExample extends Example {
     }
   }
 
-  public Class getControllerClass() {
-    return IndexedDropController.class;
-  }
-
   public String getDescription() {
     return "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.";
+  }
+
+  public Class[] getInvolvedClasses() {
+    return new Class[] {IndexedPanelExample.class, IndexedDropController.class, PickupDragController.class,};
   }
 }

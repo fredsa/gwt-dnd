@@ -25,7 +25,6 @@ import com.allen_sauer.gwt.dragdrop.client.drop.AbstractPositioningDropControlle
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
-import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
 
 /**
  * Allows one or more table rows to be dropped into an existing table.

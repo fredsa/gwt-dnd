@@ -22,7 +22,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
-import com.allen_sauer.gwt.dragdrop.demo.client.util.FlexTableUtil;
 
 /**
  * Allows table rows to dragged by their handle.

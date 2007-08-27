@@ -24,24 +24,27 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.AbsolutePositionExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.DraggableFactory;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.GridConstrainedExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.NoOverlapExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.absolute.AbsolutePositionExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.BinExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.draghandle.DragHandleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.duallist.DualListExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel.FlowPanelExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.grid.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.indexedpanel.IndexedPanelExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.matryoshka.MatryoshkaExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.nooverlap.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.puzzle.PuzzleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizeExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.util.GWTUtil;
 import com.allen_sauer.gwt.log.client.Log;
 
 /**
  * EntryPoint class for demonstrating and testing gwt-dnd.
  */
 public final class DragDropDemo implements EntryPoint {
+  public static final String DEMO_CLIENT_PACKAGE = GWTUtil.getPackageName(DragDropDemo.class);
   private static final String CSS_DEMO_BOUNDARY = "demo-boundary";
   private static final String CSS_DEMO_EVENT_TEXT_AREA = "demo-event-text-area";
   private static final String CSS_DEMO_MAIN_BOUNDARY_PANEL = "demo-main-boundary-panel";
@@ -73,7 +76,8 @@ public final class DragDropDemo implements EntryPoint {
     RootPanel.get().add(behaviorListBox);
 
     // Example: BoundaryDropController
-    HTML boundaryDescription = ExampleTabPanel.describe(BoundaryDropController.class,
+    HTML boundaryDescription = ExampleTabPanel.describe(new Class[] {
+        DragDropDemo.class, PickupDragController.class, BoundaryDropController.class,},
         "Most of our example drag operations are constrained to the panel below. Try drag one of the widgets outside this area.");
     boundaryDescription.addStyleName(CSS_DEMO_BOUNDARY);
     RootPanel.get().add(boundaryDescription);
@@ -111,6 +115,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new DragHandleExample(demoDragHandler));
     examples.add(new DualListExample(demoDragHandler));
     examples.add(new PuzzleExample(demoDragHandler));
+    examples.add(new MatryoshkaExample(demoDragHandler));
 
     examples.selectTab(0);
   }
