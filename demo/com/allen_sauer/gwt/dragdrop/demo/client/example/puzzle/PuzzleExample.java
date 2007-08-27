@@ -38,27 +38,36 @@ public class PuzzleExample extends Example {
 
   public PuzzleExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_PUZZLE_EXAMPLE);
+
+    // use the boundary panel as this composite's widget
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(500, 300);
     setWidget(boundaryPanel);
 
+    // initialize our flex table
     FlexTable flexTable = new FlexTable();
     flexTable.setStyleName(CSS_DEMO_PUZZLE_TABLE);
     boundaryPanel.add(flexTable, 50, 20);
 
+    // initialize our drag controller
     dragController = new PickupDragController(boundaryPanel, true);
     dragController.addDragHandler(demoDragHandler);
 
+    // create our grid
     for (int i = 0; i < COLUMNS; i++) {
       for (int j = 0; j < ROWS; j++) {
+        // create a simple panel drop target for the current cell
         SimplePanel simplePanel = new SimplePanel();
         simplePanel.setPixelSize(IMAGE_WIDTH, IMAGE_HEIGHT);
         flexTable.setWidget(i, j, simplePanel);
         flexTable.getCellFormatter().setStyleName(i, j, CSS_DEMO_PUZZLE_CELL);
+
+        // place a pumpkin in each panel in the cells in the first column
         if (j == 0) {
           simplePanel.setWidget(createDraggable());
         }
 
+        // instantiate a drop controller of the panel in the current cell
         SetWidgetDropController dropController = new SetWidgetDropController(simplePanel);
         dragController.registerDropController(dropController);
       }

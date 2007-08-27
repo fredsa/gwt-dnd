@@ -27,21 +27,24 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  * and {@link com.allen_sauer.gwt.dragdrop.client.DragEndEvent DragEndEvents}.
  */
 public final class ResizeExample extends Example {
-
   private static final String CSS_DEMO_RESIZE_EXAMPLE = "demo-ResizeExample";
   private ResizeDragController resizeDragController;
 
   public ResizeExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_RESIZE_EXAMPLE);
-    final AbsolutePanel boundaryPanel = new AbsolutePanel();
-    boundaryPanel.setPixelSize(500, 200);
 
+    // use the boundary panel as this composite's widget
+    AbsolutePanel boundaryPanel = new AbsolutePanel();
+    boundaryPanel.setPixelSize(500, 200);
+    setWidget(boundaryPanel);
+
+    // initialize our drag controller
     resizeDragController = new ResizeDragController(boundaryPanel);
     resizeDragController.addDragHandler(demoDragHandler);
 
-    final ResizePanel resizePanel = new ResizePanel(resizeDragController, getLargeHTML());
+    // create the panel we will be resizing
+    ResizePanel resizePanel = new ResizePanel(resizeDragController, getLargeHTML());
     boundaryPanel.add(resizePanel, 50, 30);
-    setWidget(boundaryPanel);
   }
 
   public String getDescription() {

@@ -31,7 +31,6 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  * {@link com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController} example.
  */
 public final class IndexedPanelExample extends Example {
-
   private static final int COLUMNS = 3;
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE = "demo-IndexedPanelExample";
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_COLUMN_COMPOSITE = "demo-IndexedPanelExample-column-composite";
@@ -44,44 +43,63 @@ public final class IndexedPanelExample extends Example {
   public IndexedPanelExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE);
     int count = 0;
+
+    // use the boundary panel as this composite's widget
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setSize("100%", "100%");
     setWidget(boundaryPanel);
 
+    // initialize our column drag controller
     PickupDragController columnDragController = new PickupDragController(boundaryPanel, false);
     columnDragController.addDragHandler(demoDragHandler);
+
+    // initialize our widget drag controller
     PickupDragController widgetDragController = new PickupDragController(boundaryPanel, false);
     widgetDragController.addDragHandler(demoDragHandler);
 
+    // initialize horizontal panel to hold our columns
     HorizontalPanel horizontalPanel = new HorizontalPanel();
     horizontalPanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER);
     horizontalPanel.setSpacing(SPACING);
     boundaryPanel.add(horizontalPanel);
+
+    // initialize our column drop controller
     IndexedDropController columnDropController = new IndexedDropController(horizontalPanel);
     columnDragController.registerDropController(columnDropController);
 
     for (int col = 1; col <= COLUMNS; col++) {
+      // initialize a vertical panel to hold the heading and a second vertical panel
       VerticalPanel columnCompositePanel = new VerticalPanel();
       columnCompositePanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_COLUMN_COMPOSITE);
+      
+      // initialize inner vertical panel to hold individual widgets
       VerticalPanel verticalPanel = new VerticalPanel();
       verticalPanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER);
       verticalPanel.setSpacing(SPACING);
       horizontalPanel.add(columnCompositePanel);
+
+      // initialize a widget drop controller for the current column
       IndexedDropController widgetDropController = new IndexedDropController(verticalPanel);
       widgetDragController.registerDropController(widgetDropController);
 
+      // Put together the column pieces
       Label heading = new Label("Column " + col);
       heading.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_HEADING);
       columnCompositePanel.add(heading);
       columnCompositePanel.add(verticalPanel);
+
+      // make the column draggable by its heading
       columnDragController.makeDraggable(columnCompositePanel, heading);
 
       for (int row = 1; row <= ROWS; row++) {
+        // initialize a widget
         HTML widget = new HTML("Draggable&nbsp;#" + ++count);
         widget.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET);
-        widgetDragController.makeDraggable(widget);
         widget.setHeight(Random.nextInt(4) + 2 + "em");
         verticalPanel.add(widget);
+        
+        // make the widget draggable
+        widgetDragController.makeDraggable(widget);
       }
     }
   }
