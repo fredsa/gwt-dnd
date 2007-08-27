@@ -47,7 +47,7 @@ public final class MatryoshkaExample extends Example {
     // initialize our drag controller
     DragController dragController = new PickupDragController(boundaryPanel, true);
     dragController.addDragHandler(demoDragHandler);
-    
+
     // create our grid of draggable drop target widgets
     for (int col = 0; col < NUMBER_COLS; col++) {
       for (int row = 0; row < NUMBER_ROWS; row++) {
@@ -59,7 +59,7 @@ public final class MatryoshkaExample extends Example {
         // instantiate a widget which automatically makes itself a drop target
         RGBFocusPanel panel = new RGBFocusPanel(dragController, CELL_WIDTH, CELL_HEIGHT, red, green, blue);
         boundaryPanel.add(panel, col * (CELL_WIDTH + CELL_SPACER) + CELL_SPACER, row * (CELL_HEIGHT + CELL_SPACER) + CELL_SPACER);
-        
+
         // make the widget draggable
         dragController.makeDraggable(panel);
       }

@@ -35,12 +35,20 @@ public final class GridConstrainedExample extends Example {
   public GridConstrainedExample(DragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_GRID_CONSTRAINED_EXAMPLE);
+
+    // determine runtime dimensions of our basic draggable widgets
     determineRedBoxDimensions();
+
+    // use the drop target as this composite's widget
     AbsolutePanel gridConstrainedDropTarget = new AbsolutePanel();
     setWidget(gridConstrainedDropTarget);
+
+    // instantiate our drop controller
     gridConstrainedDropController = new GridConstrainedDropController(gridConstrainedDropTarget, draggableOffsetWidth,
         draggableOffsetHeight);
     dragController.registerDropController(gridConstrainedDropController);
+
+    // set our drop target size to a multiple of the draggable size
     gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 5, draggableOffsetHeight * 2);
   }
 
@@ -50,7 +58,7 @@ public final class GridConstrainedExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {GridConstrainedExample.class, GridConstrainedDropController.class, };
+    return new Class[] {GridConstrainedExample.class, GridConstrainedDropController.class,};
   }
 
   protected void onLoad() {

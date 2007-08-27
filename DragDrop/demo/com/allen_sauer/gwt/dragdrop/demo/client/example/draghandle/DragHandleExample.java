@@ -31,31 +31,35 @@ import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 public class DragHandleExample extends Example {
-
+  private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE = "demo-DragHandleExample";
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_HEADER = "demo-DragHandleExample-header";
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_PANEL = "demo-DragHandleExample-panel";
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA = "demo-DragHandleExample-textarea";
   private DragController dragController;
 
   public DragHandleExample(DemoDragHandler demoDragHandler) {
+    addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE);
+
+    // use the boundary panel as this composite's widget
     final AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(500, 200);
+    setWidget(boundaryPanel);
 
-    // title bar
+    // create the title bar
     Label header = new Label("Title/Header (Drag Handle)");
     header.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_HEADER);
 
-    // some text
+    // add some text
     HTML content = new HTML("This is a <code>VerticalPanel</code> which can be dragged by its header,"
         + "i.e. the <code>Label</code> which makes up the top cell in the panel.");
 
-    // an editable text area
+    // add an editable text area
     final TextArea textArea = new TextArea();
     textArea.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA);
     //    textArea.setSize("20em", "5em");
     textArea.setText("You can click in this TextArea to get focus without causing the panel to be dragged.");
 
-    // a button
+    // add a clickable button
     Button button = new Button("Click me");
     button.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
@@ -63,7 +67,7 @@ public class DragHandleExample extends Example {
       }
     });
 
-    // a panel to hold all our widgets
+    // create a panel to hold all our widgets
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.setSpacing(2);
     verticalPanel.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_PANEL);
@@ -71,15 +75,18 @@ public class DragHandleExample extends Example {
     verticalPanel.add(content);
     verticalPanel.add(textArea);
     verticalPanel.add(button);
+    boundaryPanel.add(verticalPanel, 20, 20);
 
+    // instantiate our drag controller    
     dragController = new PickupDragController(boundaryPanel, true);
     dragController.addDragHandler(demoDragHandler);
+
+    // instantiate our drop controller
     AbsolutePositionDropController dropController = new AbsolutePositionDropController(boundaryPanel);
     dragController.registerDropController(dropController);
-    dragController.makeDraggable(verticalPanel, header);
 
-    setWidget(boundaryPanel);
-    boundaryPanel.add(verticalPanel, 20, 20);
+    // make the panel draggable by its header
+    dragController.makeDraggable(verticalPanel, header);
   }
 
   public String getDescription() {
