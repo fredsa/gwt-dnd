@@ -28,19 +28,27 @@ public final class FlexTableRowExample extends Example {
 
   public FlexTableRowExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE);
+
+    // use the containing panel as this composite's widget
     AbsolutePanel tableExamplePanel = new AbsolutePanel();
     tableExamplePanel.setPixelSize(450, 300);
     setWidget(tableExamplePanel);
+
+    // instantiate our drag controller
     FlexTableRowDragController tableRowDragController = new FlexTableRowDragController(tableExamplePanel);
     tableRowDragController.addDragHandler(demoDragHandler);
+
+    // instantiate two flex tables
     DemoFlexTable table1 = new DemoFlexTable(5, 3, tableRowDragController);
     DemoFlexTable table2 = new DemoFlexTable(5, 4, tableRowDragController);
+    tableExamplePanel.add(table1, 10, 20);
+    tableExamplePanel.add(table2, 230, 40);
+
+    // instantiate a drop controller for each table
     FlexTableRowDropController flexTableRowDropController1 = new FlexTableRowDropController(table1);
     FlexTableRowDropController flexTableRowDropController2 = new FlexTableRowDropController(table2);
     tableRowDragController.registerDropController(flexTableRowDropController1);
     tableRowDragController.registerDropController(flexTableRowDropController2);
-    tableExamplePanel.add(table1, 10, 20);
-    tableExamplePanel.add(table2, 230, 40);
   }
 
   public String getDescription() {

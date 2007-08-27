@@ -31,9 +31,13 @@ public final class AbsolutePositionExample extends Example {
   public AbsolutePositionExample(DragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_ABSOLUTE_POSITION_EXAMPLE);
+
+    // use the drop target as this composite's widget
     AbsolutePanel positioningDropTarget = new AbsolutePanel();
     positioningDropTarget.setPixelSize(400, 200);
     setWidget(positioningDropTarget);
+
+    // instantiate our drop controller
     absolutePositionDropController = new AbsolutePositionDropController(positioningDropTarget);
     dragController.registerDropController(absolutePositionDropController);
   }

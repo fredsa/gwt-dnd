@@ -33,22 +33,29 @@ public final class BinExample extends Example {
   public BinExample(DragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_BIN_EXAMPLE);
+
+    // use the containing panel as this composite's widget
     AbsolutePanel containingPanel = new AbsolutePanel();
     containingPanel.setPixelSize(500, 200);
     setWidget(containingPanel);
 
+    // create a trash bin
     Bin trashBin = new TrashBin(120, 120);
     containingPanel.add(trashBin, 30, 30);
 
+    // create a bin that won't accept trash
     Bin closedBin = new Bin(120, 120);
     containingPanel.add(closedBin, 350, 30);
 
+    // add drop controller for trash bin
     DropController openTrashBinDropController = new BinDropController(trashBin);
     dragController.registerDropController(openTrashBinDropController);
 
+    // add drop controller for closed bin
     DropController closedTrashBinDropController = new BinDropController(closedBin);
     dragController.registerDropController(closedTrashBinDropController);
 
+    // create a drop controller for the containing panel
     dropController = new AbsolutePositionDropController(containingPanel);
     dragController.registerDropController(dropController);
   }

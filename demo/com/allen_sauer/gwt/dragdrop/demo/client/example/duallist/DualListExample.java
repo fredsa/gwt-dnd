@@ -27,14 +27,20 @@ public final class DualListExample extends Example {
 
   public DualListExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE);
+
+    // create a dual list box which manages its own drag and drop controllers
     DualListBox dualListBox = new DualListBox(10, "10em");
     dualListBox.getDragController().addDragHandler(demoDragHandler);
+
+    // use the dual list box as our widget
+    setWidget(dualListBox);
+
+    // add some items to the list
     dualListBox.addLeft("Apples");
     dualListBox.addLeft("Bananas");
     dualListBox.addLeft("Cucumbers");
     dualListBox.addLeft("Dates");
     dualListBox.addLeft("Enchiladas");
-    setWidget(dualListBox);
   }
 
   public String getDescription() {

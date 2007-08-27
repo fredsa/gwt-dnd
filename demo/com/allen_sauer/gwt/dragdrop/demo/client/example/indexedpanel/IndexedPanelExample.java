@@ -71,7 +71,7 @@ public final class IndexedPanelExample extends Example {
       // initialize a vertical panel to hold the heading and a second vertical panel
       VerticalPanel columnCompositePanel = new VerticalPanel();
       columnCompositePanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_COLUMN_COMPOSITE);
-      
+
       // initialize inner vertical panel to hold individual widgets
       VerticalPanel verticalPanel = new VerticalPanel();
       verticalPanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER);
@@ -97,7 +97,7 @@ public final class IndexedPanelExample extends Example {
         widget.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET);
         widget.setHeight(Random.nextInt(4) + 2 + "em");
         verticalPanel.add(widget);
-        
+
         // make the widget draggable
         widgetDragController.makeDraggable(widget);
       }

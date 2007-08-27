@@ -196,18 +196,18 @@ DIV.demo-main-boundary-panel {
 }
 
 /* ------------ DragHandleExample ------------ */
-.demo-DragHandleExample-panel {
+.demo-DragHandleExample .demo-DragHandleExample-panel {
   background-color: white;
   border: 1px solid green;
   width: 400px;
 }
 
-.demo-DragHandleExample-textarea {
+.demo-DragHandleExample .demo-DragHandleExample-textarea {
   width: 95%;
   height: 4em;
 }
 
-.demo-DragHandleExample-header {
+.demo-DragHandleExample .demo-DragHandleExample-header {
   background-color: #DDEEDD; /* light green */
 }
 
