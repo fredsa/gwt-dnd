@@ -22,6 +22,6 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.GWTShell"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-out www/test com.allen_sauer.gwt.dragdrop.test.DragDropTest/DragDropTest.html&#13;&#10;-style PRETTY"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-out www/test com.allen_sauer.gwt.dragdrop.test.DragDropTest/DragDropTest.html&#13;&#10;-style PRETTY&#13;&#10;-port auto"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="DragDrop"/>
 </launchConfiguration>
