@@ -29,7 +29,6 @@ import com.google.gwt.user.client.ui.Widget;
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
 public class IndexedDropController extends AbstractIndexedDropController {
-
   private static final String CSS_DRAGDROP_INDEXED_POSITIONER = "dragdrop-indexed-positioner";
 
   private IndexedPanel dropTarget;
@@ -59,5 +58,4 @@ public class IndexedDropController extends AbstractIndexedDropController {
     positioner.addStyleName(CSS_DRAGDROP_INDEXED_POSITIONER);
     return positioner;
   }
-
 }

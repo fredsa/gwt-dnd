@@ -23,12 +23,11 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
-import com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController} example.
+ * {@link com.allen_sauer.gwt.dragdrop.client.drop.NoInsertAtEndIndexedDropController} example.
  */
 public final class IndexedPanelExample extends Example {
   private static final int COLUMNS = 3;
@@ -64,7 +63,7 @@ public final class IndexedPanelExample extends Example {
     boundaryPanel.add(horizontalPanel);
 
     // initialize our column drop controller
-    IndexedDropController columnDropController = new IndexedDropController(horizontalPanel);
+    NoInsertAtEndIndexedDropController columnDropController = new NoInsertAtEndIndexedDropController(horizontalPanel);
     columnDragController.registerDropController(columnDropController);
 
     for (int col = 1; col <= COLUMNS; col++) {
@@ -77,9 +76,9 @@ public final class IndexedPanelExample extends Example {
       verticalPanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER);
       verticalPanel.setSpacing(SPACING);
       horizontalPanel.add(columnCompositePanel);
-
+      
       // initialize a widget drop controller for the current column
-      IndexedDropController widgetDropController = new IndexedDropController(verticalPanel);
+      NoInsertAtEndIndexedDropController widgetDropController = new NoInsertAtEndIndexedDropController(verticalPanel);
       widgetDragController.registerDropController(widgetDropController);
 
       // Put together the column pieces
@@ -101,6 +100,9 @@ public final class IndexedPanelExample extends Example {
         // make the widget draggable
         widgetDragController.makeDraggable(widget);
       }
+
+      // prevent vertical panel from collapsing to zero when last widget is removed
+      verticalPanel.add(new Label(""));
     }
   }
 
@@ -109,6 +111,6 @@ public final class IndexedPanelExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {IndexedPanelExample.class, IndexedDropController.class, PickupDragController.class,};
+    return new Class[] {IndexedPanelExample.class, NoInsertAtEndIndexedDropController.class, PickupDragController.class,};
   }
 }
