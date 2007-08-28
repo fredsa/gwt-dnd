@@ -200,7 +200,9 @@ public class MouseDragHandler implements MouseListener {
     Location location = new WidgetLocation(capturingWidget, boundaryPanel);
     int desiredLeft = location.getLeft() + offsetX + x - initialMouseX;
     int desiredTop = location.getTop() + offsetY + y - initialMouseY;
-    boundaryPanel.setWidgetPosition(movableWidget, desiredLeft, desiredTop);
+
+    //    boundaryPanel.setWidgetPosition(movableWidget, desiredLeft, desiredTop);
+    DOMUtil.fastSetElementPosition(movableWidget.getElement(), desiredLeft, desiredTop);
 
     DropController newDropController = dragController.getIntersectDropController(movableWidget);
     if (dropController != newDropController) {

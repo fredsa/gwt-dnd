@@ -31,6 +31,12 @@ public class DOMUtil {
     impl = (DOMUtilImpl) GWT.create(DOMUtilImpl.class);
   }
 
+  public static native void fastSetElementPosition(Element elem, int left, int top)
+  /*-{
+    elem.style.left = left + "px";
+    elem.style.top = top + "px";
+  }-*/;
+
   /**
    * Gets an element's CSS based 'border-left-width' in pixels or <code>0</code> (zero)
    * when the element is hidden.
