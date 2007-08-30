@@ -42,7 +42,8 @@ public class DropControllerCollection extends ArrayList {
       this.dropController = dropController;
       Widget target = dropController.getDropTarget();
       if (!target.isAttached()) {
-        throw new IllegalStateException("Unattached drop target; please call dragController#unregisterDropController");
+        throw new IllegalStateException(
+            "Unattached drop target; please call dragController#unregisterDropController");
       }
       targetArea = new WidgetArea(target, null);
     }
@@ -99,8 +100,10 @@ public class DropControllerCollection extends ArrayList {
       Area targetArea = candidate.getTargetArea();
       if (targetArea.intersects(widgetArea)) {
         int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(widgetCenter);
-        if (widgetCenterDistanceToTargetEdge < closestCenterDistanceToEdge) {
-          if (result == null || !DOM.isOrHasChild(candidate.getDropTarget().getElement(), result.getDropTarget().getElement())) {
+        if (widgetCenterDistanceToTargetEdge <= closestCenterDistanceToEdge) {
+          if (result == null
+              || !DOM.isOrHasChild(candidate.getDropTarget().getElement(),
+                  result.getDropTarget().getElement())) {
             closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
             result = candidate;
           }
