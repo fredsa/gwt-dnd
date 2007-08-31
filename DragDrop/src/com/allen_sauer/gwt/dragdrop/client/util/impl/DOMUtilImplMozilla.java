@@ -15,10 +15,9 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util.impl;
 
-import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
 /**
- * {@link DOMUtil} implementation for Mozilla.
+ * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for Mozilla.
  */
 public class DOMUtilImplMozilla extends DOMUtilImplStandard {
 }
