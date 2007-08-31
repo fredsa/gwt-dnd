@@ -19,6 +19,9 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
+/**
+ * Provides convenient access to drop target information.
+ */
 public final class DropTargetInfo {
   private AbsolutePanel boundaryPanel;
   private final AbsolutePanel dropTarget;

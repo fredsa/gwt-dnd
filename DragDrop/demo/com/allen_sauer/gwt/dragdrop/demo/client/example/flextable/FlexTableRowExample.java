@@ -21,7 +21,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowDropController} example.
+ * {@link FlexTableRowDropController} example.
  */
 public final class FlexTableRowExample extends Example {
   private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE = "demo-FlexTableRowExample";

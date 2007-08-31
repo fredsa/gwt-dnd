@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="javadoc">
-<target name="javadoc">
-<javadoc access="protected" author="true" classpath="C:\Program Files\eclipse\plugins\org.junit_3.8.1\junit.jar;../java/lib/gwt-windows/gwt-user.jar;../java/lib/gwt-windows/gwt-dev-windows.jar;../java/lib/gwt-log.jar" destdir="javadoc" doctitle="gwt-dnd -- A drag-and-drop library for Google-Web-Toolkit (GWT)" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.allen_sauer.gwt.dragdrop.client.drop,com.allen_sauer.gwt.dragdrop.demo.client.example,com.allen_sauer.gwt.dragdrop.demo.client.util,com.allen_sauer.gwt.dragdrop.client.temp,com.allen_sauer.gwt.dragdrop.client.util,com.allen_sauer.gwt.dragdrop.client,com.allen_sauer.gwt.dragdrop.demo.client" source="1.5" sourcepath="demo;src" splitindex="true" use="true" version="true">
-<link href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
-</javadoc>
-</target>
+    <target name="javadoc">
+        <javadoc access="protected" author="true" classpath="../gwt/trunk/build/staging/gwt-windows-0.0.0/gwt-user.jar;../gwt/trunk/build/staging/gwt-windows-0.0.0/gwt-dev-windows.jar;C:\Program Files\eclipse-3.3RC4\plugins\org.junit4_4.3.1\junit.jar;../java/lib/gwt-log.jar" destdir="javadoc" doctitle="gwt-dnd -- A drag-and-drop library for Google-Web-Toolkit (GWT)" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="com.allen_sauer.gwt.dragdrop.demo.client.example.absolute,com.allen_sauer.gwt.dragdrop.demo.client.example.bin,com.allen_sauer.gwt.dragdrop.demo.client.example.flextable,com.allen_sauer.gwt.dragdrop.demo.client.example.resize,com.allen_sauer.gwt.dragdrop.demo.client.util,com.allen_sauer.gwt.dragdrop.client.drop,com.allen_sauer.gwt.dragdrop.client.util.impl,com.allen_sauer.gwt.dragdrop.client.temp,com.allen_sauer.gwt.dragdrop.demo.client.example.grid,com.allen_sauer.gwt.dragdrop.client,com.allen_sauer.gwt.dragdrop.demo.client.example.duallist,com.allen_sauer.gwt.dragdrop.demo.client.example.puzzle,com.allen_sauer.gwt.dragdrop.demo.client.example.draghandle,com.allen_sauer.gwt.dragdrop.demo.client.example.indexedpanel,com.allen_sauer.gwt.dragdrop.demo.client.example.matryoshka,com.allen_sauer.gwt.dragdrop.demo.client,com.allen_sauer.gwt.dragdrop.demo.client.example.nooverlap,com.allen_sauer.gwt.dragdrop.demo.client.example,com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel,com.allen_sauer.gwt.dragdrop.client.util" source="1.4" sourcepath="demo;c:\fred\gwt\trunk\user\src;test;getting-started;src" splitindex="false" use="true" version="true">
+            <link href="http://www.junit.org/junit/javadoc/4.3"/>
+            <link href="http://java.sun.com/javase/6/docs/api/"/>
+        </javadoc>
+    </target>
 </project>

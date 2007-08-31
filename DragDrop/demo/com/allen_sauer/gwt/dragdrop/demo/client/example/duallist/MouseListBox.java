@@ -23,10 +23,11 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+/**
+ * Either left or right hand side of a {@link DualListBox}.
+ */
 public class MouseListBox extends FocusPanel {
-
   private static class ItemClickListener implements ClickListener {
-
     public void onClick(Widget sender) {
       DualListBoxItem item = (DualListBoxItem) sender.getParent();
       item.setSelected(!item.isSelected());

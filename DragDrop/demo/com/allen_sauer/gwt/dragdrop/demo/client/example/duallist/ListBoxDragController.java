@@ -21,8 +21,10 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 
+/**
+ * DragController for {@link DualListExample}.
+ */
 public class ListBoxDragController extends PickupDragController {
-
   private MouseListBox currentDraggableListBox;
 
   public ListBoxDragController(DualListBox dualListBox) {

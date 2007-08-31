@@ -30,6 +30,10 @@ import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
+/**
+ * Example illustrating drag handles, so that widgets inside
+ * draggable can still interact normally with the mouse.
+ */
 public class DragHandleExample extends Example {
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE = "demo-DragHandleExample";
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_HEADER = "demo-DragHandleExample-header";

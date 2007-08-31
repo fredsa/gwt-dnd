@@ -22,8 +22,10 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
+/**
+ * DropController for {@link DualListExample}.
+ */
 public class ListBoxDropController extends AbstractDropController {
-
   private MouseListBox mouseListBox;
 
   public ListBoxDropController(MouseListBox mouseListBox) {

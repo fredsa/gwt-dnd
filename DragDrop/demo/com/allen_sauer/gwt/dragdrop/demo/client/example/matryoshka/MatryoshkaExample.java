@@ -23,7 +23,9 @@ import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController} example.
+ * Example of drop targets that are also draggable
+ * so that widgets can be dragged into a arbitrary
+ * hierarchy of widgets.
  */
 public final class MatryoshkaExample extends Example {
   private static final int CELL_HEIGHT = 50;
@@ -72,6 +74,6 @@ public final class MatryoshkaExample extends Example {
 
   public Class[] getInvolvedClasses() {
     return new Class[] {
-        MatryoshkaExample.class, PickupDragController.class, MatryoshkaReplaceWidgetDropController.class, RGBFocusPanel.class,};
+        MatryoshkaExample.class, PickupDragController.class, MatryoshkaSetWidgetDropController.class, RGBFocusPanel.class,};
   }
 }

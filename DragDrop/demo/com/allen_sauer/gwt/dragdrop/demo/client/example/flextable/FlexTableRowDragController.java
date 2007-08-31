@@ -26,8 +26,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 /**
  * Allows table rows to dragged by their handle.
  */
-final class FlexTableRowDragController extends PickupDragController {
-
+public final class FlexTableRowDragController extends PickupDragController {
   private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY = "demo-FlexTableRowExample-table-proxy";
   private FlexTable draggableTable;
   private int dragRow;
