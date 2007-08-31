@@ -32,7 +32,6 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
  * drop target.
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
-
   private Location dropLocation;
   private final DropTargetInfo dropTargetInfo;
   private WidgetLocation referenceLocation;

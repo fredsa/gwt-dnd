@@ -27,7 +27,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.NoInsertAtEndIndexedDropController} example.
+ * Example of columns that can be rearranged, with widget that
+ * can be moved within a column or between columns.
  */
 public final class IndexedPanelExample extends Example {
   private static final int COLUMNS = 3;

@@ -23,6 +23,11 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
+/**
+ * DropController which allows a widget to be dropped on a
+ * SimplePanel drop target when the drop target does not yet
+ * have a child widget.
+ */
 public class SetWidgetDropController extends SimpleDropController {
   private final SimplePanel dropTarget;
 

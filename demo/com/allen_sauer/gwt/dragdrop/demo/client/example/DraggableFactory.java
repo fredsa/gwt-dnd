@@ -21,6 +21,9 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
 
+/**
+ * Shared utility methods to produce draggable widgets.
+ */
 public class DraggableFactory {
   public static Widget createDraggableImage(DragController dragController) {
     Image image = new Image("images/99pumpkin2-65x58.jpg");

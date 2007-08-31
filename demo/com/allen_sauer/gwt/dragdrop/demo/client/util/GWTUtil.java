@@ -17,6 +17,9 @@ package com.allen_sauer.gwt.dragdrop.demo.client.util;
 
 import com.allen_sauer.gwt.dragdrop.demo.client.DragDropDemo;
 
+/**
+ * Shared utility methods for examples.
+ */
 public class GWTUtil {
   private static final String SUBVERSION_TRUNK = "http://gwt-dnd.googlecode.com/svn/trunk/DragDrop/";
 

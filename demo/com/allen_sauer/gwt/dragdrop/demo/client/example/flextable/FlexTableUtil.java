@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Utility class to manipulate {@link com.google.gwt.user.client.ui.FlexTable FlexTables}.
+ * Utility class to manipulate {@link FlexTable FlexTables}.
  */
 public class FlexTableUtil {
 

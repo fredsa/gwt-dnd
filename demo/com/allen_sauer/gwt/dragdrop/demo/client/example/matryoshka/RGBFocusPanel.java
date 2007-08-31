@@ -21,10 +21,13 @@ import com.google.gwt.user.client.ui.FocusPanel;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
+/**
+ * Colorful panel for dragging and dropping.
+ */
 public class RGBFocusPanel extends FocusPanel {
   private static final String CSS_DEMO_RGB_FOCUS_PANEL = "demo-rgb-focus-panel";
   private final DragController dragController;
-  private DropController dropController = new MatryoshkaReplaceWidgetDropController(this);
+  private DropController dropController = new MatryoshkaSetWidgetDropController(this);
 
   public RGBFocusPanel(DragController dragController, int width, int height, int red, int green, int blue) {
     this.dragController = dragController;

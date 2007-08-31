@@ -27,8 +27,10 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 
+/**
+ * Example of two lists side by side for {@link DualListExample}.
+ */
 public class DualListBox extends AbsolutePanel {
-
   public static final int OPERATION_COPY = 1;
   public static final int OPERATION_MOVE = 2;
   private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_CENTER = "demo-DualListExample-center";
@@ -91,7 +93,7 @@ public class DualListBox extends AbsolutePanel {
 
     dragController = new ListBoxDragController(this);
     left = new MouseListBox(LIST_SIZE);
-    right = new MouseListBox(10);
+    right = new MouseListBox(LIST_SIZE);
     dragController.makeDraggable(left);
     dragController.makeDraggable(right);
 
