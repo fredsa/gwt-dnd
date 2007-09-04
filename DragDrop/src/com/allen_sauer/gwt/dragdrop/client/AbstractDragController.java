@@ -235,7 +235,8 @@ public abstract class AbstractDragController implements DragController {
     } else if (initialDraggableParent instanceof SimplePanel) {
       // save nothing
     } else {
-      throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
+      throw new RuntimeException("Unable to handle 'initialDraggableParent instanceof " + GWT.getTypeName(initialDraggableParent)
+          + "'; Please create your own DragController and override saveDraggableLocationAndStyle() and restoreDraggableLocation()");
     }
     initialDraggableMargin = DOM.getStyleAttribute(draggable.getElement(), "margin");
     if (initialDraggableMargin != null && initialDraggableMargin.length() != 0) {
