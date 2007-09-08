@@ -17,6 +17,8 @@ package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -51,9 +53,6 @@ public final class DragDropDemo implements EntryPoint {
 
   private PickupDragController dragController;
 
-  /**
-   * Initialize demonstration application.
-   */
   public void onModuleLoad() {
     // expect the unexecpted
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
@@ -62,16 +61,30 @@ public final class DragDropDemo implements EntryPoint {
       }
     });
 
-    // create the main common boundary panel to which drag operations will be restricted
+    // use a deferred command so that the handler catches onModuleLoad2()
+    // exceptions
+    DeferredCommand.addCommand(new Command() {
+      public void execute() {
+        onModuleLoad2();
+      }
+    });
+  }
+
+  private Widget createDraggable() {
+    return DraggableFactory.createDraggableRedBox(dragController);
+  }
+
+  private void onModuleLoad2() {
+    // create the main common boundary panel to which drag operations will be
+    // restricted
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.addStyleName(CSS_DEMO_MAIN_BOUNDARY_PANEL);
     boundaryPanel.setPixelSize(950, 500);
-    
+
     // instantiate the common drag controller used the less specific examples
     dragController = new PickupDragController(boundaryPanel, true);
 
-    RootPanel.get().add(
-        new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action.</p>"));
+    RootPanel.get().add(new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action.</p>"));
 
     // Add radio buttons to select draggable behavior
     BehaviorPanel behaviorListBox = new BehaviorPanel(dragController);
@@ -123,9 +136,5 @@ public final class DragDropDemo implements EntryPoint {
 
     // select the first example
     examples.selectTab(0);
-  }
-
-  private Widget createDraggable() {
-    return DraggableFactory.createDraggableRedBox(dragController);
   }
 }

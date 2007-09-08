@@ -17,6 +17,8 @@ package com.allen_sauer.gwt.dragdrop.test.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -32,16 +34,22 @@ public final class DragDropTest implements EntryPoint {
   }-*/;
 
   public void onModuleLoad() {
+    // set DragDropTest exception handler
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
       public void onUncaughtException(Throwable e) {
         Log.fatal("DragDropTest UncaughtExceptionHandler caught", e);
       }
     });
 
-    test();
+    // use deferred command to catch initialization exceptions
+    DeferredCommand.addCommand(new Command() {
+      public void execute() {
+        onModuleLoad2();
+      }
+    });
   }
 
-  private void test() {
-    RootPanel.get().add(new HTML("DragDropTest in <b>" + getCompatMode() + "</b> mode."));
+  public void onModuleLoad2() {
+    RootPanel.get().add(new HTML("DragDropTest is in <b>" + getCompatMode() + "</b> mode."));
   }
 }
