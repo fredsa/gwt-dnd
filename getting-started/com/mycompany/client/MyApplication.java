@@ -3,6 +3,8 @@ package com.mycompany.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
@@ -14,25 +16,34 @@ import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
 public class MyApplication implements EntryPoint {
-  static {
+  public void onModuleLoad() {
     // catch unexpected exceptions, especially in other browsers
-    // set the handler statically so that it is in effect for onModuleLoad()
     GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
       public void onUncaughtException(Throwable ex) {
         Window.alert("Uncaught Exception\n" + (ex == null ? "null" : ex.toString()));
       }
     });
+    
+    // use a deferred command so that the handler catches onModuleLoad2() exceptions
+    DeferredCommand.addCommand(new Command() {
+      public void execute() {
+        onModuleLoad2();
+      }
+    });
   }
 
-  public void onModuleLoad() {
+  private void onModuleLoad2() {
+    // create a boundary panel to constrain all drag operations
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(400, 300);
     boundaryPanel.addStyleName("getting-started-blue");
 
+    // create a drop target on which we can drop labels
     AbsolutePanel targetPanel = new AbsolutePanel();
     targetPanel.setPixelSize(300, 200);
     targetPanel.addStyleName("getting-started-blue");
 
+    // add both panels to the root panel
     RootPanel.get().add(boundaryPanel);
     boundaryPanel.add(targetPanel, 10, 10);
 
