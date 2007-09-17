@@ -27,7 +27,7 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
       var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
       var borderLeftWidth = computedStyle.getPropertyValue("border-left-width");
       return borderLeftWidth.indexOf("px") == -1 ? 0 : parseInt(borderLeftWidth.substr(0, borderLeftWidth.length - 2));
-    } catch(e) { throw new Error("getBorderLeft: " + e); }
+    } catch(e) { throw new Error("getBorderLeft exception:\n" + e); }
   }-*/;
 
   public native int getBorderTop(Element elem)
@@ -43,20 +43,20 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
   /*-{
     try {
       return elem.clientHeight;
-    } catch(e) { throw new Error("getClientHeight: " + e); }
+    } catch(e) { throw new Error("getClientHeight exception:\n" + e); }
   }-*/;
 
   public native int getClientWidth(Element elem)
   /*-{
     try {
       return elem.clientWidth;
-    } catch(e) { throw new Error("getClientWidth: " + e); }
+    } catch(e) { throw new Error("getClientWidth exception:\n" + e); }
   }-*/;
 
   public native void unselect()
   /*-{
     try {
       $wnd.getSelection().removeAllRanges();
-    } catch(e) { throw new Error("unselect: " + e); }
+    } catch(e) { throw new Error("unselect exception:\n" + e); }
   }-*/;
 }

@@ -54,4 +54,11 @@ public class DOMUtilImplSafari extends DOMUtilImplStandard {
   /*-{
     return elem.clientWidth || 0;
   }-*/;
+
+  public native void unselect()
+  /*-{
+    try {
+      $wnd.getSelection().collapse();
+    } catch(e) { throw new Error("unselect exception:\n" + e); }
+  }-*/;
 }
