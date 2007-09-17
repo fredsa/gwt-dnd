@@ -32,7 +32,7 @@ import java.util.Iterator;
  * A helper class to track all relevant {@link DropController DropControllers},
  * used by {@link AbstractDragController}.
  */
-public class DropControllerCollection extends ArrayList {
+public class DropControllerCollection {
   private static class Candidate implements Comparable {
     private final DropController dropController;
     private Integer size;
@@ -42,8 +42,7 @@ public class DropControllerCollection extends ArrayList {
       this.dropController = dropController;
       Widget target = dropController.getDropTarget();
       if (!target.isAttached()) {
-        throw new IllegalStateException(
-            "Unattached drop target; please call dragController#unregisterDropController");
+        throw new IllegalStateException("Unattached drop target; please call dragController#unregisterDropController");
       }
       targetArea = new WidgetArea(target, null);
     }
@@ -73,6 +72,7 @@ public class DropControllerCollection extends ArrayList {
     }
   }
 
+  private ArrayList controllerList = new ArrayList();
   private Candidate[] sortedCandidates;
 
   /**
@@ -81,14 +81,20 @@ public class DropControllerCollection extends ArrayList {
   public DropControllerCollection() {
   }
 
+  public void add(DropController dropController) {
+    controllerList.add(dropController);
+  }
+
   /**
-   * Determines which drop controller has a lowest DOM descendant target area which intersects
-   * with the provided widget area.
+   * Determines which drop controller has a lowest DOM descendant target area
+   * which intersects with the provided widget area.
    * 
    * @param widget the widget to use to determine intersects
-   * @param boundaryPanel the panel which provides the boundaries for the drag controller.
-   *        Drop targets must be within this are to be considered
-   * @return a drop controller for the intersecting drop target or null if none are applicable
+   * @param boundaryPanel the panel which provides the boundaries for the drag
+   *            controller. Drop targets must be within this are to be
+   *            considered
+   * @return a drop controller for the intersecting drop target or null if none
+   *         are applicable
    */
   public DropController getIntersectDropController(Widget widget, Panel boundaryPanel) {
     Area widgetArea = new WidgetArea(widget, null);
@@ -101,9 +107,7 @@ public class DropControllerCollection extends ArrayList {
       if (targetArea.intersects(widgetArea)) {
         int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(widgetCenter);
         if (widgetCenterDistanceToTargetEdge <= closestCenterDistanceToEdge) {
-          if (result == null
-              || !DOM.isOrHasChild(candidate.getDropTarget().getElement(),
-                  result.getDropTarget().getElement())) {
+          if (result == null || !DOM.isOrHasChild(candidate.getDropTarget().getElement(), result.getDropTarget().getElement())) {
             closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
             result = candidate;
           }
@@ -113,13 +117,18 @@ public class DropControllerCollection extends ArrayList {
     return result == null ? null : result.getDropController();
   }
 
+  public void remove(DropController dropController) {
+    controllerList.remove(dropController);
+  }
+
   /**
    * Cache a list of eligible drop controllers, sorted by target area size.
-   * Should be called at the beginning of each drag operation, or whenever
-   * drop target eligibility has changed.
+   * Should be called at the beginning of each drag operation, or whenever drop
+   * target eligibility has changed.
    * 
-   * @param boundaryPanel boundary area for drop target eligibility considerations
-   * @param draggable 
+   * @param boundaryPanel boundary area for drop target eligibility
+   *            considerations
+   * @param draggable
    */
   public void resetCache(Panel boundaryPanel, Widget draggable) {
     WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
@@ -136,5 +145,9 @@ public class DropControllerCollection extends ArrayList {
     }
     sortedCandidates = (Candidate[]) list.toArray(new Candidate[] {});
     Arrays.sort(sortedCandidates);
+  }
+
+  private Iterator iterator() {
+    return controllerList.iterator();
   }
 }
