@@ -60,7 +60,7 @@ public class MyApplication implements EntryPoint {
     dragController.registerDropController(dropController);
 
     // create a few randomly placed draggable labels
-    for (int i = 1; i <= 1; i++) {
+    for (int i = 1; i <= 5; i++) {
       // create a label and give it style
       Label label = new Label("Label #" + i, false);
       label.addStyleName("getting-started-label");
