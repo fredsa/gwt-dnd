@@ -27,9 +27,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.DraggableFactory;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * Example illustrating image dragging and drop target
- * selection with multiple eligible drop targets being
- * considered.
+ * Example illustrating image dragging and drop target selection with multiple
+ * eligible drop targets being considered.
  */
 public class PuzzleExample extends Example {
   private static final int COLUMNS = 4;

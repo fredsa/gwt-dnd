@@ -29,8 +29,9 @@ import java.util.Iterator;
 public class DragHandlerCollection extends ArrayList {
 
   /**
-   * Fires a {@link DragHandler#onDragEnd(DragEndEvent)} on
-   * all handlers in the collection.
+   * Fires a {@link DragHandler#onDragEnd(DragEndEvent)} on all handlers in the
+   * collection.
+   * 
    * @param dragEndEvent the event to pass
    */
   public void fireDragEnd(DragEndEvent dragEndEvent) {
@@ -41,8 +42,8 @@ public class DragHandlerCollection extends ArrayList {
   }
 
   /**
-   * Fires a {@link DragHandler#onDragStart(DragStartEvent)} on
-   * all handlers in the collection.
+   * Fires a {@link DragHandler#onDragStart(DragStartEvent)} on all handlers in
+   * the collection.
    * 
    * @param sender the object sending the event
    */
@@ -56,12 +57,12 @@ public class DragHandlerCollection extends ArrayList {
   }
 
   /**
-   * Fires a {@link DragHandler#onPreviewDragEnd(DragEndEvent)} on
-   * all handlers in the collection.
+   * Fires a {@link DragHandler#onPreviewDragEnd(DragEndEvent)} on all handlers
+   * in the collection.
    * 
    * @param sender the object sending the event
    * @param dropTarget the widget on which the drag operation terminated.
-   *        <code>null</code> if drag was cancelled
+   *            <code>null</code> if drag was cancelled
    * @throws VetoDragException if the proposed operation is unacceptable
    */
   public void firePreviewDragEnd(Widget sender, Widget dropTarget) throws VetoDragException {
@@ -74,8 +75,8 @@ public class DragHandlerCollection extends ArrayList {
   }
 
   /**
-   * Fires a {@link DragHandler#onPreviewDragStart(DragStartEvent)} on
-   * all handlers in the collection.
+   * Fires a {@link DragHandler#onPreviewDragStart(DragStartEvent)} on all
+   * handlers in the collection.
    * 
    * @param sender the object sending the event
    * @throws VetoDragException if the proposed operation is unacceptable

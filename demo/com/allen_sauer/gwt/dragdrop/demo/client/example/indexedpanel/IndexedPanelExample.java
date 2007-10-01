@@ -27,8 +27,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * Example of columns that can be rearranged, with widget that
- * can be moved within a column or between columns.
+ * Example of columns that can be rearranged, with widget that can be moved
+ * within a column or between columns.
  */
 public final class IndexedPanelExample extends Example {
   private static final int COLUMNS = 3;
@@ -68,7 +68,8 @@ public final class IndexedPanelExample extends Example {
     columnDragController.registerDropController(columnDropController);
 
     for (int col = 1; col <= COLUMNS; col++) {
-      // initialize a vertical panel to hold the heading and a second vertical panel
+      // initialize a vertical panel to hold the heading and a second vertical
+      // panel
       VerticalPanel columnCompositePanel = new VerticalPanel();
       columnCompositePanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_COLUMN_COMPOSITE);
 
@@ -77,7 +78,7 @@ public final class IndexedPanelExample extends Example {
       verticalPanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER);
       verticalPanel.setSpacing(SPACING);
       horizontalPanel.add(columnCompositePanel);
-      
+
       // initialize a widget drop controller for the current column
       NoInsertAtEndIndexedDropController widgetDropController = new NoInsertAtEndIndexedDropController(verticalPanel);
       widgetDragController.registerDropController(widgetDropController);
@@ -102,7 +103,8 @@ public final class IndexedPanelExample extends Example {
         widgetDragController.makeDraggable(widget);
       }
 
-      // prevent vertical panel from collapsing to zero when last widget is removed
+      // prevent vertical panel from collapsing to zero when last widget is
+      // removed
       Label spacerLabel = new Label("");
       spacerLabel.setPixelSize(10, 50);
       verticalPanel.add(spacerLabel);

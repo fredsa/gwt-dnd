@@ -72,11 +72,12 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
 
   /**
    * Determines where the reference widget is in relation to the rows of our
-   * drop target. Use the middle of the reference widget and the middle of
-   * the rows to decide to insert-before or insert-after.
+   * drop target. Use the middle of the reference widget and the middle of the
+   * rows to decide to insert-before or insert-after.
    * 
    * @param reference widget whose position we compare to
-   * @return row number after which insertion is desired, or -1 to insert before row 0
+   * @return row number after which insertion is desired, or -1 to insert before
+   *         row 0
    */
   private int determineRow(Widget reference) {
     int refY = reference.getAbsoluteTop() + reference.getOffsetHeight() / 2;

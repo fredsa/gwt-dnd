@@ -27,8 +27,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
 /**
  * A {@link DropController} which allows a draggable widget to be placed at
- * valid positions (locations) on the drop target,
- * such as {@link com.google.gwt.user.client.ui.AbsolutePanel} or
+ * valid positions (locations) on the drop target, such as
+ * {@link com.google.gwt.user.client.ui.AbsolutePanel} or
  * {@link com.google.gwt.user.client.ui.IndexedPanel}. Which positions are
  * valid is determined by the implementing subclass.
  */
@@ -43,8 +43,9 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
   }
 
   /**
-   * @return the widget which is used as an indicator or where the draggable would be
-   *         dropped if the mouse button where to be released at the current location
+   * @return the widget which is used as an indicator or where the draggable
+   *         would be dropped if the mouse button where to be released at the
+   *         current location
    */
   public Widget getPositioner() {
     return positioner;
@@ -67,20 +68,24 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
   }
 
   /**
-   * Called in {@link #onEnter(Widget, Widget, DragController)} to create a new positioner widget
+   * Called in {@link #onEnter(Widget, Widget, DragController)} to create a new
+   * positioner widget
    * 
-   * @param reference the reference widget whose size or other attributes we can copy
+   * @param reference the reference widget whose size or other attributes we can
+   *            copy
    * @return the newly created widget
    */
   protected Widget newPositioner(Widget reference) {
-    // Use two widgets so that setPixelSize() consistently affects dimensions excluding positioner border in quirks and strict modes
+    // Use two widgets so that setPixelSize() consistently affects dimensions
+    // excluding positioner border in quirks and strict modes
     SimplePanel outer = new SimplePanel();
     outer.addStyleName(CSS_DRAGDROP_POSITIONER);
 
     // place off screen for border calculation calculation
     RootPanel.get().add(outer, -500, -500);
 
-    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid DOMUtil.getVerticalBorders(outer)
+    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid
+    // DOMUtil.getVerticalBorders(outer)
     outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
 
     SimplePanel inner = new SimplePanel();

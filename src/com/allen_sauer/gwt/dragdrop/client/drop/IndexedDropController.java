@@ -22,7 +22,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * A {@link DropController} for instances of {@link com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel}.
+ * A {@link DropController} for instances of
+ * {@link com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel}.
  * 
  * @see FlowPanelDropController
  * 

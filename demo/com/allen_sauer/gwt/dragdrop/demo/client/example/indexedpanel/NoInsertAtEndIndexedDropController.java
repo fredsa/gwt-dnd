@@ -19,8 +19,8 @@ import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * IndexedDropController that disallows dropping after the last child,
- * which is assumed to be dummy spacer widget preventing parent collapse.
+ * IndexedDropController that disallows dropping after the last child, which is
+ * assumed to be dummy spacer widget preventing parent collapse.
  */
 public class NoInsertAtEndIndexedDropController extends com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController {
   private IndexedPanel dropTarget;

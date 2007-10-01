@@ -21,8 +21,8 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 
 /**
- * Base class for typical drop controllers.
- * Contains some basic functionality like adjust widget styles.
+ * Base class for typical drop controllers. Contains some basic functionality
+ * like adjust widget styles.
  */
 public abstract class AbstractDropController implements DropController {
 

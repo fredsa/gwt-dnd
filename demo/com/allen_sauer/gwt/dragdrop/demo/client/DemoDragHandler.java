@@ -23,8 +23,8 @@ import com.allen_sauer.gwt.dragdrop.client.DragStartEvent;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 
 /**
- * Shared drag handler which display events as they
- * are received by the various drag controllers.
+ * Shared drag handler which display events as they are received by the various
+ * drag controllers.
  */
 public final class DemoDragHandler implements DragHandler {
   private static final String BLUE = "#4444BB";

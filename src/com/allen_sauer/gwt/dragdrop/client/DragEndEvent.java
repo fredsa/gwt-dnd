@@ -34,8 +34,8 @@ public class DragEndEvent extends EventObject {
   }
 
   /**
-   * @return the drop target widget is the drop is successful or <code>null</code>
-   * if the drop was disallowed
+   * @return the drop target widget is the drop is successful or
+   *         <code>null</code> if the drop was disallowed
    */
   public Widget getDropTarget() {
     return dropTarget;

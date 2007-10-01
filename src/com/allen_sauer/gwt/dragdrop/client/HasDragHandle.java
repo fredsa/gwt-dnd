@@ -18,8 +18,9 @@ package com.allen_sauer.gwt.dragdrop.client;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * Convenience interface which reduces {@link DragController#makeDraggable(Widget, Widget)}
- * to {@link DragController#makeDraggable(Widget)} for implementing classes.
+ * Convenience interface which reduces
+ * {@link DragController#makeDraggable(Widget, Widget)} to
+ * {@link DragController#makeDraggable(Widget)} for implementing classes.
  */
 public interface HasDragHandle {
 

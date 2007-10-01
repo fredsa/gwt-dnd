@@ -31,8 +31,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 import java.util.HashMap;
 
 /**
- * Helper class which handles mouse events for all
- * draggable widgets for a give {@link DropController}.
+ * Helper class which handles mouse events for all draggable widgets for a give
+ * {@link DropController}.
  */
 public class MouseDragHandler implements MouseListener {
   private AbsolutePanel boundaryPanel;
@@ -153,7 +153,8 @@ public class MouseDragHandler implements MouseListener {
       // remove movable panel, cleanup styles, etc.
       dragController.dragEnd(draggable, dropController.getDropTarget());
 
-      // use state information from earlier onPreviewDrop to attached draggable to dropTarget
+      // use state information from earlier onPreviewDrop to attached draggable
+      // to dropTarget
       DragEndEvent dragEndEvent = dropController.onDrop(movableWidget, draggable, dragController);
 
       // notify listeners
@@ -201,7 +202,7 @@ public class MouseDragHandler implements MouseListener {
     int desiredLeft = location.getLeft() + offsetX + x - initialMouseX;
     int desiredTop = location.getTop() + offsetY + y - initialMouseY;
 
-    //    boundaryPanel.setWidgetPosition(movableWidget, desiredLeft, desiredTop);
+    // boundaryPanel.setWidgetPosition(movableWidget, desiredLeft, desiredTop);
     DOMUtil.fastSetElementPosition(movableWidget.getElement(), desiredLeft, desiredTop);
 
     DropController newDropController = dragController.getIntersectDropController(movableWidget);

@@ -25,8 +25,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 
 /**
- * Allows the user to select the desired drag behavior
- * for this demonstration.
+ * Allows the user to select the desired drag behavior for this demonstration.
  */
 public final class BehaviorPanel extends SimplePanel {
 

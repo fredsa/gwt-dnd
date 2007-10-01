@@ -15,9 +15,9 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util.impl;
 
-
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for Opera.
+ * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for
+ * Opera.
  */
 public class DOMUtilImplOpera extends DOMUtilImplStandard {
 }

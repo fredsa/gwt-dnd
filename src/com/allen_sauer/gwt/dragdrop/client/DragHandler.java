@@ -25,33 +25,37 @@ public interface DragHandler extends EventListener {
   /**
    * Fired when drag operation terminates.
    * 
-   * @param event an event object containing information about the drag operation
+   * @param event an event object containing information about the drag
+   *            operation
    */
   void onDragEnd(DragEndEvent event);
 
   /**
    * Fired when drag is initiated.
    * 
-   * @param event an event object containing information about the drag operation
+   * @param event an event object containing information about the drag
+   *            operation
    */
   void onDragStart(DragStartEvent event);
 
   /**
-   * Fired before {@link #onDragEnd(DragEndEvent)} is fired and provides
-   * an opportunity for any registered DragHandler to throw {@link VetoDragException}
-   * to prevent the operation.
+   * Fired before {@link #onDragEnd(DragEndEvent)} is fired and provides an
+   * opportunity for any registered DragHandler to throw
+   * {@link VetoDragException} to prevent the operation.
    * 
-   * @param event an event object containing information about the drag operation
+   * @param event an event object containing information about the drag
+   *            operation
    * @throws VetoDragException when the drag operation is unacceptable
    */
   void onPreviewDragEnd(DragEndEvent event) throws VetoDragException;
 
   /**
-   * Fired before {@link #onDragStart(DragStartEvent)} is fired and provides
-   * an opportunity for any registered DragHandler to throw {@link VetoDragException}
-   * to prevent the operation.
+   * Fired before {@link #onDragStart(DragStartEvent)} is fired and provides an
+   * opportunity for any registered DragHandler to throw
+   * {@link VetoDragException} to prevent the operation.
    * 
-   * @param event an event object containing information about the drag operation
+   * @param event an event object containing information about the drag
+   *            operation
    * @throws VetoDragException when the drag operation is unacceptable
    */
   void onPreviewDragStart(DragStartEvent event) throws VetoDragException;

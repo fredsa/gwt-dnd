@@ -24,7 +24,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
- * A {@link DropController} which constrains the placement of draggable widgets 
+ * A {@link DropController} which constrains the placement of draggable widgets
  * the grid specified in the constructor.
  */
 public class GridConstrainedDropController extends AbsolutePositionDropController {

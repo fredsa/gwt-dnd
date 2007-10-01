@@ -38,8 +38,8 @@ public class DOMUtil {
   }-*/;
 
   /**
-   * Gets an element's CSS based 'border-left-width' in pixels or <code>0</code> (zero)
-   * when the element is hidden.
+   * Gets an element's CSS based 'border-left-width' in pixels or <code>0</code>
+   * (zero) when the element is hidden.
    * 
    * @param elem the element to be measured
    * @return the width of the left CSS border
@@ -49,8 +49,8 @@ public class DOMUtil {
   }
 
   /**
-   * Gets an element's CSS based 'border-top-widget' in pixels or <code>0</code> (zero)
-   * when the element is hidden.
+   * Gets an element's CSS based 'border-top-widget' in pixels or <code>0</code>
+   * (zero) when the element is hidden.
    * 
    * @param elem the element to be measured
    * @return the width of the top CSS border
@@ -60,9 +60,9 @@ public class DOMUtil {
   }
 
   /**
-   * Gets an element's client height in pixels or <code>0</code> (zero)
-   * when the element is hidden. This is equal to offset height minus
-   * the top and bottom CSS borders.
+   * Gets an element's client height in pixels or <code>0</code> (zero) when
+   * the element is hidden. This is equal to offset height minus the top and
+   * bottom CSS borders.
    * 
    * @param elem the element to be measured
    * @return the element's client height
@@ -72,9 +72,9 @@ public class DOMUtil {
   }
 
   /**
-   * Gets an element's client widget in pixels or <code>0</code> (zero)
-   * when the element is hidden. This is equal to offset width minus 
-   * the left and right CSS borders.
+   * Gets an element's client widget in pixels or <code>0</code> (zero) when
+   * the element is hidden. This is equal to offset width minus the left and
+   * right CSS borders.
    * 
    * @param elem the element to be measured
    * @return the element's client width

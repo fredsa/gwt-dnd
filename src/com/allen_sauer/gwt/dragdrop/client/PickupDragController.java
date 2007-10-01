@@ -24,8 +24,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
- * DragController used for drag-and-drop operations where a draggable widget
- * or drag proxy is temporarily picked up and dragged around the boundary panel.
+ * DragController used for drag-and-drop operations where a draggable widget or
+ * drag proxy is temporarily picked up and dragged around the boundary panel.
  */
 public class PickupDragController extends AbstractDragController {
 
@@ -38,11 +38,14 @@ public class PickupDragController extends AbstractDragController {
   private SimplePanel movablePanel;
 
   /**
-   * Create a new pickup-and-move style drag controller. Allows widgets or a suitable proxy
-   * to be temporarily picked up and moved around the specified boundary panel.
+   * Create a new pickup-and-move style drag controller. Allows widgets or a
+   * suitable proxy to be temporarily picked up and moved around the specified
+   * boundary panel.
    * 
-   * @param boundaryPanel the desired boundary panel or null if entire page is to be included
-   * @param allowDroppingOnBoundaryPanel whether or not boundary panel should allow dropping
+   * @param boundaryPanel the desired boundary panel or null if entire page is
+   *            to be included
+   * @param allowDroppingOnBoundaryPanel whether or not boundary panel should
+   *            allow dropping
    */
   public PickupDragController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
     super(boundaryPanel, allowDroppingOnBoundaryPanel);

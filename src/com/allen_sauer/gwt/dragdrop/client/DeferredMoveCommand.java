@@ -20,7 +20,8 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 
 /**
- * Used by {@link MouseDragHandler} to improve drag performance on slower platforms.
+ * Used by {@link MouseDragHandler} to improve drag performance on slower
+ * platforms.
  */
 public class DeferredMoveCommand implements Command {
 
@@ -46,15 +47,15 @@ public class DeferredMoveCommand implements Command {
   }
 
   /**
-   * Either execute {@link MouseDragHandler#actualMove(int, int)} immediately
-   * or schedule via {@link DeferredCommand#add(Command)}. This is done as a
+   * Either execute {@link MouseDragHandler#actualMove(int, int)} immediately or
+   * schedule via {@link DeferredCommand#add(Command)}. This is done as a
    * work-around for slow otherwise slow performance on Firefox/Linux
    * (discovered on Ubuntu). The decision is made as follows:
    * <ul>
-   *   <li>In Hosted Mode, always execute immediately.</li>
-   *   <li>In Web Mode execute immediately, unless most recent processing time
-   *       exceeded {@link #PERFORMANCE_THRESHOLD_MILLIS}
-   *       ({@value #PERFORMANCE_THRESHOLD_MILLIS} milliseconds).</li>
+   * <li>In Hosted Mode, always execute immediately.</li>
+   * <li>In Web Mode execute immediately, unless most recent processing time
+   * exceeded {@link #PERFORMANCE_THRESHOLD_MILLIS} ({@value #PERFORMANCE_THRESHOLD_MILLIS}
+   * milliseconds).</li>
    * </ul>
    * 
    * @param x the left mouse move position
@@ -69,7 +70,7 @@ public class DeferredMoveCommand implements Command {
     // Select method to perform move:
     // 
     // Hosted Mode:
-    //      execute immediately
+    // execute immediately
     // Web Mode
     if (GWT.isScript() && mostRecentTotalTime > PERFORMANCE_THRESHOLD_MILLIS) {
       DeferredCommand.addCommand(this);

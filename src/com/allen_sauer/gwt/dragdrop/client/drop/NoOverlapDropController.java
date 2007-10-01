@@ -30,14 +30,14 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * A {@link DropController} which
- * constrains prevents draggable widgets from overlapping.
+ * A {@link DropController} which constrains prevents draggable widgets from
+ * overlapping.
  */
 public class NoOverlapDropController extends AbsolutePositionDropController {
 
   /**
-   * Helper class to hop through the provided int range using the
-   * halfway point to speed traversal.
+   * Helper class to hop through the provided int range using the halfway point
+   * to speed traversal.
    */
   private static class TestRange {
 
@@ -113,13 +113,15 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     Area tempReferenceArea = referenceArea.copyOf();
     Location newLocation = null;
 
-    // see if there is an acceptable location horizontally closer to the reference widget
+    // see if there is an acceptable location horizontally closer to the
+    // reference widget
     TestRange range = new TestRange(lastGoodLocation.getLeft(), referenceArea.getLeft());
     while (range.hasMore()) {
       int left = range.getHalfway();
       Location tempLocation = new CoordinateLocation(left, lastGoodLocation.getTop());
       tempReferenceArea.moveTo(tempLocation);
-      // TODO consider only widgets in area between desired and known-good positions
+      // TODO consider only widgets in area between desired and known-good
+      // positions
       if (collision(widgets, tempReferenceArea)) {
         range.setStopBefore(left);
       } else {
@@ -135,7 +137,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       int top = range.getHalfway();
       Location tempLocation = new CoordinateLocation(startLocation.getLeft(), top);
       tempReferenceArea.moveTo(tempLocation);
-      // TODO consider only widgets in area between desired and known-good positions
+      // TODO consider only widgets in area between desired and known-good
+      // positions
       if (collision(widgets, tempReferenceArea)) {
         range.setStopBefore(top);
       } else {
@@ -152,7 +155,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     WidgetLocation referenceLocation = new WidgetLocation(reference, getDropTargetInfo().getDropTarget());
     referenceLocation.constrain(0, 0, getDropTargetInfo().getDropAreaClientWidth() - referenceArea.getWidth(),
         getDropTargetInfo().getDropAreaClientHeight() - referenceArea.getHeight());
-    // Determine where draggableArea would be if it were constrained to the dropArea
+    // Determine where draggableArea would be if it were constrained to the
+    // dropArea
     // Also causes draggableArea to become relative to dropTarget
     referenceArea.moveTo(referenceLocation);
 
@@ -172,7 +176,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     }
 
     if (lastGoodLocation != null) {
-      // attempt to determine location closer to the reference widget without collisions
+      // attempt to determine location closer to the reference widget without
+      // collisions
       Location newLocation = findBetterLocation(referenceArea, collisionTargets);
 
       if (newLocation != null) {

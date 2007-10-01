@@ -15,9 +15,9 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util.impl;
 
-
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for older Mozillae.
+ * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for
+ * older Mozillae.
  */
 public class DOMUtilImplMozillaOld extends DOMUtilImplMozilla {
 }

@@ -24,7 +24,8 @@ import com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController} example.
+ * {@link com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController}
+ * example.
  */
 public final class FlowPanelExample extends Example {
   private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE = "demo-FlowPanelExample";

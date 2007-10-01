@@ -23,7 +23,8 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController} example.
+ * {@link com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController}
+ * example.
  */
 public final class BinExample extends Example {
   private static final String CSS_DEMO_BIN_EXAMPLE = "demo-BinExample";

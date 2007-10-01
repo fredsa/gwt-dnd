@@ -22,7 +22,8 @@ import com.allen_sauer.gwt.dragdrop.client.drop.NoOverlapDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.NoOverlapDropController} example.
+ * {@link com.allen_sauer.gwt.dragdrop.client.drop.NoOverlapDropController}
+ * example.
  */
 public final class NoOverlapExample extends Example {
   private static final String CSS_DEMO_NO_OVERLAP_EXAMPLE = "demo-NoOverlapExample";
