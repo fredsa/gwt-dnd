@@ -7,7 +7,6 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -15,7 +14,6 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController;
 
 public class MyApplication implements EntryPoint {
   public void onModuleLoad() {
@@ -80,15 +78,5 @@ public class MyApplication implements EntryPoint {
       // make the label draggable
       dragController.makeDraggable(label);
     }
-
-    FlowPanel targetPanelIdx = new FlowPanel();
-    targetPanelIdx.setPixelSize(250, 50);
-    targetPanelIdx.addStyleName("getting-started-blue");
-
-    boundaryPanel.add(targetPanelIdx, 10, 220);
-//    targetPanelIdx.add(new Label("xx"));
-
-    FlowPanelDropController dropControllerIdx = new FlowPanelDropController(targetPanelIdx);
-    dragController.registerDropController(dropControllerIdx);
   }
 }
