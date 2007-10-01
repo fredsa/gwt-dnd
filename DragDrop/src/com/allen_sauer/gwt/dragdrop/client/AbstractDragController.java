@@ -201,8 +201,7 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void restoreDraggableLocation(Widget draggable) {
-    // TODO simplify after enhancement for issue 1112 provides InsertPanel
-    // interface
+    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
     if (initialDraggableParent instanceof AbsolutePanel) {
       ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
@@ -229,8 +228,7 @@ public abstract class AbstractDragController implements DragController {
   public void saveDraggableLocationAndStyle(Widget draggable) {
     initialDraggableParent = draggable.getParent();
 
-    // TODO simplify after enhancement for issue 1112 provides InsertPanel
-    // interface
+    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
     if (initialDraggableParent instanceof AbsolutePanel) {
       initialDraggableParentLocation = new WidgetLocation(draggable, initialDraggableParent);
