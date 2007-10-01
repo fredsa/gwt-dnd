@@ -21,7 +21,6 @@ import com.google.gwt.user.client.ui.HTML;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController;
-import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
@@ -31,12 +30,12 @@ public final class FlowPanelExample extends Example {
   private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE = "demo-FlowPanelExample";
   private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE_LABEL = "demo-FlowPanelExample-label";
 
-  private IndexedFlowPanel flowPanelDropTarget;
+  private FlowPanel flowPanelDropTarget;
 
   public FlowPanelExample(DragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_FLOW_PANEL_EXAMPLE);
-    flowPanelDropTarget = new IndexedFlowPanel();
+    flowPanelDropTarget = new FlowPanel();
     flowPanelDropTarget.setWidth("400px");
     setWidget(flowPanelDropTarget);
     FlowPanelDropController flowPanelDropController = new FlowPanelDropController(flowPanelDropTarget);
@@ -48,7 +47,7 @@ public final class FlowPanelExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {FlowPanelExample.class, FlowPanelDropController.class, IndexedFlowPanel.class,};
+    return new Class[] {FlowPanelExample.class, FlowPanelDropController.class, FlowPanel.class,};
   }
 
   protected void onLoad() {

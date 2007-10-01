@@ -18,6 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -26,7 +27,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
-import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
@@ -195,8 +195,8 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void restoreDraggableLocation(Widget draggable) {
-    // TODO simplify after enhancement for issue 616
-    // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
+    // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
     if (initialDraggableParent instanceof AbsolutePanel) {
       ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
           initialDraggableParentLocation.getTop());
@@ -204,8 +204,8 @@ public abstract class AbstractDragController implements DragController {
       ((HorizontalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
     } else if (initialDraggableParent instanceof VerticalPanel) {
       ((VerticalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
-    } else if (initialDraggableParent instanceof IndexedFlowPanel) {
-      ((IndexedFlowPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+    } else if (initialDraggableParent instanceof FlowPanel) {
+      ((FlowPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
     } else if (initialDraggableParent instanceof SimplePanel) {
       ((SimplePanel) initialDraggableParent).setWidget(draggable);
     } else {
@@ -222,16 +222,16 @@ public abstract class AbstractDragController implements DragController {
   public void saveDraggableLocationAndStyle(Widget draggable) {
     initialDraggableParent = draggable.getParent();
 
-    // TODO simplify after enhancement for issue 616
-    // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
+    // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
     if (initialDraggableParent instanceof AbsolutePanel) {
       initialDraggableParentLocation = new WidgetLocation(draggable, initialDraggableParent);
     } else if (initialDraggableParent instanceof HorizontalPanel) {
       initialDraggableIndex = ((HorizontalPanel) initialDraggableParent).getWidgetIndex(draggable);
     } else if (initialDraggableParent instanceof VerticalPanel) {
       initialDraggableIndex = ((VerticalPanel) initialDraggableParent).getWidgetIndex(draggable);
-    } else if (initialDraggableParent instanceof IndexedFlowPanel) {
-      initialDraggableIndex = ((IndexedFlowPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof FlowPanel) {
+      initialDraggableIndex = ((FlowPanel) initialDraggableParent).getWidgetIndex(draggable);
     } else if (initialDraggableParent instanceof SimplePanel) {
       // save nothing
     } else {

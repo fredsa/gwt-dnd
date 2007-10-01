@@ -149,7 +149,6 @@ final class ResizePanel extends SimplePanel {
 
   public void moveBy(int right, int down) {
     AbsolutePanel parent = (AbsolutePanel) getParent();
-    // TODO Use parent.getWidgetLeft/getWidgetTop after <a href="http://code.google.com/p/google-web-toolkit/issues/detail?id=757">GWT issue 757</a> is fixed
     Location location = new WidgetLocation(this, parent);
     int left = location.getLeft() + right;
     int top = location.getTop() + down;

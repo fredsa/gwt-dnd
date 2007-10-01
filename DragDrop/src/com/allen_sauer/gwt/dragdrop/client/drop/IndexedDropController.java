@@ -41,8 +41,8 @@ public class IndexedDropController extends AbstractIndexedDropController {
     this.dropTarget = dropTarget;
   }
 
-  // TODO remove after enhancement for issue 616
-  // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+  // TODO remove after enhancement for issue 1112 provides InsertPanel interface
+  // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
   protected void insert(Widget widget, int beforeIndex) {
     if (dropTarget instanceof HorizontalPanel) {
       ((HorizontalPanel) dropTarget).insert(widget, beforeIndex);

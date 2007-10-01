@@ -20,8 +20,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
-
 /**
  * A {@link DropController} for instances of {@link FlowPanel}.
  * 
@@ -30,7 +28,6 @@ import com.allen_sauer.gwt.dragdrop.client.temp.IndexedFlowPanel;
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
 public class FlowPanelDropController extends AbstractIndexedDropController {
-
   private static final String CSS_DRAGDROP_FLOW_PANEL_POSITIONER = "dragdrop-flow-panel-positioner";
 
   private FlowPanel dropTarget;
@@ -42,7 +39,7 @@ public class FlowPanelDropController extends AbstractIndexedDropController {
    */
   public FlowPanelDropController(FlowPanel dropTarget) {
     super(dropTarget);
-    if (!(dropTarget instanceof IndexedFlowPanel)) {
+    if (!(dropTarget instanceof FlowPanel)) {
       throw new IllegalArgumentException(GWT.getTypeName(dropTarget) + " is not currently supported by this controller");
     }
     this.dropTarget = dropTarget;
@@ -52,14 +49,10 @@ public class FlowPanelDropController extends AbstractIndexedDropController {
     return FlowPanelDropController.class;
   }
 
-  // TODO remove after enhancement for issue 616
-  // http://code.google.com/p/google-web-toolkit/issues/detail?id=616
+  // TODO remove after enhancement for issue 1112 provides InsertPanel interface
+  // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
   protected void insert(Widget widget, int beforeIndex) {
-    if (dropTarget instanceof IndexedFlowPanel) {
-      ((IndexedFlowPanel) dropTarget).insert(widget, beforeIndex);
-    } else {
-      throw new RuntimeException("Method insert(Widget widget, int beforeIndex) not supported by " + GWT.getTypeName(dropTarget));
-    }
+    dropTarget.insert(widget, beforeIndex);
   }
 
   protected Widget newPositioner(Widget reference) {
