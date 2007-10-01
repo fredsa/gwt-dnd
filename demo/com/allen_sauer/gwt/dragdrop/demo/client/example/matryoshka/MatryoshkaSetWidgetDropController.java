@@ -54,7 +54,7 @@ public class MatryoshkaSetWidgetDropController extends SimpleDropController {
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController); // TODO Replace auto-generated method stub
+    super.onEnter(reference, draggable, dragController);
     if (dropTarget.getWidget() != null) {
       dropTarget.removeStyleName(CSS_DROP_TARGET_ENGAGE);
     }
