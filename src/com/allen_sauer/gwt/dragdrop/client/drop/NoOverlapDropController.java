@@ -120,8 +120,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       int left = range.getHalfway();
       Location tempLocation = new CoordinateLocation(left, lastGoodLocation.getTop());
       tempReferenceArea.moveTo(tempLocation);
-      // TODO consider only widgets in area between desired and known-good
-      // positions
+      // TODO consider only widgets in area between desired and known-good positions
       if (collision(widgets, tempReferenceArea)) {
         range.setStopBefore(left);
       } else {
@@ -137,8 +136,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       int top = range.getHalfway();
       Location tempLocation = new CoordinateLocation(startLocation.getLeft(), top);
       tempReferenceArea.moveTo(tempLocation);
-      // TODO consider only widgets in area between desired and known-good
-      // positions
+      // TODO consider only widgets in area between desired and known-good positions
       if (collision(widgets, tempReferenceArea)) {
         range.setStopBefore(top);
       } else {
