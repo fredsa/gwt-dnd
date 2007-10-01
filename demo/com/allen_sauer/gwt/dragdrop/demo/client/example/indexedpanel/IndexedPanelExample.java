@@ -103,7 +103,9 @@ public final class IndexedPanelExample extends Example {
       }
 
       // prevent vertical panel from collapsing to zero when last widget is removed
-      verticalPanel.add(new Label(""));
+      Label spacerLabel = new Label("");
+      spacerLabel.setPixelSize(10, 50);
+      verticalPanel.add(spacerLabel);
     }
   }
 
