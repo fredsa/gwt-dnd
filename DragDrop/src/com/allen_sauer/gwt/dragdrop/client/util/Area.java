@@ -16,7 +16,8 @@
 package com.allen_sauer.gwt.dragdrop.client.util;
 
 /**
- * Class representing a rectangular region, with convenience methods for calculations.
+ * Class representing a rectangular region, with convenience methods for
+ * calculations.
  */
 public interface Area {
   /**
@@ -27,9 +28,9 @@ public interface Area {
   public abstract Area copyOf();
 
   /**
-   * Determine the shortest distance from the location to the
-   * edge of the area. Zero indicates a location on the edge.
-   * Negative distances indicate a location inside the area.
+   * Determine the shortest distance from the location to the edge of the area.
+   * Zero indicates a location on the edge. Negative distances indicate a
+   * location inside the area.
    * 
    * @param location the reference location
    * @return shortest distance to edge of area
@@ -58,7 +59,8 @@ public interface Area {
   public abstract int getWidth();
 
   /**
-   * Determine if location is to the bottom-right of the following 45 degree line.
+   * Determine if location is to the bottom-right of the following 45 degree
+   * line.
    * 
    * <pre>
    *             y  45
@@ -69,7 +71,7 @@ public interface Area {
    *           / |
    * 
    * </pre>
-   *
+   * 
    * @param location the location to consider
    * @return true if the location is to below the 45 degree line
    */

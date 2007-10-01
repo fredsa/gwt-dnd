@@ -18,7 +18,8 @@ package com.allen_sauer.gwt.dragdrop.client.util.impl;
 import com.google.gwt.user.client.Element;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for Webkit/Safari.
+ * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for
+ * Webkit/Safari.
  */
 public class DOMUtilImplSafari extends DOMUtilImplStandard {
   public native int getBorderLeft(Element elem)

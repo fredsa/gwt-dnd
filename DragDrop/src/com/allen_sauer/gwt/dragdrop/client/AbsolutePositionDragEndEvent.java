@@ -18,8 +18,9 @@ package com.allen_sauer.gwt.dragdrop.client;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * {@link DragEndEvent} containing information about the end of a drag
- * for drop targets which are {@link com.google.gwt.user.client.ui.AbsolutePanel AbsolutePanels}.
+ * {@link DragEndEvent} containing information about the end of a drag for drop
+ * targets which are
+ * {@link com.google.gwt.user.client.ui.AbsolutePanel AbsolutePanels}.
  */
 public class AbsolutePositionDragEndEvent extends DragEndEvent {
   private int x;

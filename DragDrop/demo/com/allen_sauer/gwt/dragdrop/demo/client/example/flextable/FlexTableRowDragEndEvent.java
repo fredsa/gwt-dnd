@@ -20,8 +20,8 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 
 /**
- * Event containing information about the end of a drag
- * for drop targets which are {@link com.google.gwt.user.client.ui.IndexedPanel IndexedPanels}.
+ * Event containing information about the end of a drag for drop targets which
+ * are {@link com.google.gwt.user.client.ui.IndexedPanel IndexedPanels}.
  */
 public class FlexTableRowDragEndEvent extends DragEndEvent {
 

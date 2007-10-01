@@ -19,7 +19,8 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for IE.
+ * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for
+ * IE.
  */
 public class DOMUtilImplIE6 extends DOMUtilImpl {
   public native int getBorderLeft(Element elem)

@@ -24,7 +24,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController} example.
+ * {@link com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController}
+ * example.
  */
 public final class GridConstrainedExample extends Example {
   private static final String CSS_DEMO_GRID_CONSTRAINED_EXAMPLE = "demo-GridConstrainedExample";

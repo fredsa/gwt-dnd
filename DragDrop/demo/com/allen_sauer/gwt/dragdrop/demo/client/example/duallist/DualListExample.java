@@ -19,8 +19,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * Example illustrating selection by clicking or dragging of
- * items between two lists.
+ * Example illustrating selection by clicking or dragging of items between two
+ * lists.
  */
 public final class DualListExample extends Example {
 

@@ -28,8 +28,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
  * A {@link DropController} which allows a draggable widget to be placed at
- * specific (absolute) locations on an {@link com.google.gwt.user.client.ui.AbsolutePanel}
- * drop target.
+ * specific (absolute) locations on an
+ * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
   private Location dropLocation;
@@ -42,12 +42,14 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   }
 
   /**
-   * Programmatically drop a widget on our drop target while obeying the constraints
-   * of this controller.
+   * Programmatically drop a widget on our drop target while obeying the
+   * constraints of this controller.
    * 
    * @param widget the widget to be dropped
-   * @param left the desired absolute horizontal location relative to our drop target
-   * @param top the desired absolute vertical location relative to our drop target
+   * @param left the desired absolute horizontal location relative to our drop
+   *            target
+   * @param top the desired absolute vertical location relative to our drop
+   *            target
    */
   public void drop(Widget widget, int left, int top) {
     dropTargetInfo.getDropTarget().add(widget, left, top);
@@ -101,7 +103,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    * @param reference widget whose location is the desired drop location
    * @param draggable actual draggable widget
    * @param widget positioner or the draggable widget to be moved
-   * @return location where widget can be placed or null if no compatible location found
+   * @return location where widget can be placed or null if no compatible
+   *         location found
    */
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     Area referenceArea = new WidgetArea(reference, dropTargetInfo.getBoundaryPanel());

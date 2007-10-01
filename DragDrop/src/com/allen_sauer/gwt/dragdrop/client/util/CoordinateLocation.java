@@ -28,14 +28,18 @@ public class CoordinateLocation extends AbstractLocation {
     this.top = top;
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see com.allen_sauer.gwt.dragdrop.client.util.Location#getLeft()
    */
   public int getLeft() {
     return left;
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see com.allen_sauer.gwt.dragdrop.client.util.Location#getTop()
    */
   public int getTop() {

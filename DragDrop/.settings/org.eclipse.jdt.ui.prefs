@@ -1,4 +1,4 @@
-#Mon Jul 02 16:38:16 MDT 2007
+#Mon Oct 01 10:21:50 MDT 2007
 cleanup.add_default_serial_version_id=true
 cleanup.add_generated_serial_version_id=false
 cleanup.add_missing_annotations=false
@@ -48,4 +48,6 @@ cleanup.use_this_for_non_static_method_access_only_if_necessary=true
 cleanup_profile=_DragDrop Clean Up
 cleanup_settings_version=2
 eclipse.preferences.version=1
+formatter_profile=_gwt-dnd Format
+formatter_settings_version=11
 instance/org.eclipse.core.net/org.eclipse.core.net.hasMigrated=true

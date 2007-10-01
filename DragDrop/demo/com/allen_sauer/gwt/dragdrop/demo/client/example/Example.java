@@ -62,8 +62,9 @@ public abstract class Example extends SimplePanel {
   public abstract Class[] getInvolvedClasses();
 
   /**
-   * Convenience method to create a default draggable widget. The widget is automatically
-   * made draggable by calling {@link DragController#makeDraggable(Widget)}.
+   * Convenience method to create a default draggable widget. The widget is
+   * automatically made draggable by calling
+   * {@link DragController#makeDraggable(Widget)}.
    * 
    * @return a new draggable widget
    */

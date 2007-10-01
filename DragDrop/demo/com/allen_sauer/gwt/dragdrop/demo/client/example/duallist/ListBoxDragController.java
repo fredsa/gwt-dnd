@@ -50,7 +50,7 @@ public class ListBoxDragController extends PickupDragController {
 
   public void notifyDragEnd(DragEndEvent dragEndEvent) {
     super.notifyDragEnd(dragEndEvent);
-    // cleanup 
+    // cleanup
     currentDraggableListBox = null;
   }
 

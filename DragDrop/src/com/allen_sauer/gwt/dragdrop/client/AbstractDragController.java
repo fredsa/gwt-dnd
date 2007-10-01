@@ -34,12 +34,14 @@ import java.util.HashMap;
 
 /**
  * {@link DragController} which performs the bare essentials such as
- * adding/removing styles, maintaining collections, adding mouse
- * listeners, etc.
+ * adding/removing styles, maintaining collections, adding mouse listeners, etc.
  * 
- * <p>Extend this class to implement specialized drag capabilities such table column
- * or panel resizing. For classic drag-and-drop functionality, i.e. the ability to
- * pickup, move around and drop widgets, use {@link PickupDragController} instead.</p>
+ * <p>
+ * Extend this class to implement specialized drag capabilities such table
+ * column or panel resizing. For classic drag-and-drop functionality, i.e. the
+ * ability to pickup, move around and drop widgets, use
+ * {@link PickupDragController} instead.
+ * </p>
  */
 public abstract class AbstractDragController implements DragController {
   protected static final String CSS_DRAGGABLE = "dragdrop-draggable";
@@ -59,14 +61,18 @@ public abstract class AbstractDragController implements DragController {
   private MouseDragHandler mouseDragHandler;
 
   /**
-   * Create a new drag-and-drop controller. Drag operations will be limited to the
-   * specified boundary panel.
+   * Create a new drag-and-drop controller. Drag operations will be limited to
+   * the specified boundary panel.
    * 
-   * <p>Note: An implicit {@link BoundaryDropController} is created and 
-   * registered automatically.</p>
+   * <p>
+   * Note: An implicit {@link BoundaryDropController} is created and registered
+   * automatically.
+   * </p>
    * 
-   * @param boundaryPanel the desired boundary panel or null if entire page is to be included
-   * @param allowDroppingOnBoundaryPanel whether or not boundary panel should allow dropping
+   * @param boundaryPanel the desired boundary panel or null if entire page is
+   *            to be included
+   * @param allowDroppingOnBoundaryPanel whether or not boundary panel should
+   *            allow dropping
    */
   public AbstractDragController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
     this.boundaryPanel = boundaryPanel != null ? boundaryPanel : RootPanel.get();
@@ -86,8 +92,8 @@ public abstract class AbstractDragController implements DragController {
    * Call back method for {@link MouseDragHandler}.
    * 
    * @param draggable widget which was being dragged
-   * @param dropTarget widget on which draggable was dropped. 
-   *        <code>null</code> if drag was cancelled
+   * @param dropTarget widget on which draggable was dropped. <code>null</code>
+   *            if drag was cancelled
    */
   public void dragEnd(Widget draggable, Widget dropTarget) {
     draggable.removeStyleName(CSS_DRAGGING);
@@ -118,8 +124,8 @@ public abstract class AbstractDragController implements DragController {
   /**
    * Attaches a {@link MouseDragHandler} (which is a
    * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget,
-   * applies the {@link #CSS_DRAGGABLE} style to the draggable,
-   * applies the {@link #CSS_HANDLE} style to the handle.
+   * applies the {@link #CSS_DRAGGABLE} style to the draggable, applies the
+   * {@link #CSS_HANDLE} style to the handle.
    * 
    * @see #makeDraggable(Widget, Widget)
    * @see HasDragHandle
@@ -135,8 +141,8 @@ public abstract class AbstractDragController implements DragController {
   }
 
   /**
-   * Similar to {@link #makeDraggable(Widget)}, but allow separate, child
-   * to be specified as the drag handle by which the first widget can be dragged.
+   * Similar to {@link #makeDraggable(Widget)}, but allow separate, child to be
+   * specified as the drag handle by which the first widget can be dragged.
    * 
    * @param draggable the widget to be made draggable
    * @param dragHandle the widget by which widget can be dragged
@@ -150,8 +156,8 @@ public abstract class AbstractDragController implements DragController {
 
   /**
    * Performs the reverse of {@link #makeDraggable(Widget)}, detaching the
-   * {@link MouseDragHandler} from the widget and removing any styling
-   * which was applied when making the widget draggable.
+   * {@link MouseDragHandler} from the widget and removing any styling which was
+   * applied when making the widget draggable.
    * 
    * @param draggable the widget to no longer be draggable
    */
@@ -195,7 +201,8 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void restoreDraggableLocation(Widget draggable) {
-    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
+    // TODO simplify after enhancement for issue 1112 provides InsertPanel
+    // interface
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
     if (initialDraggableParent instanceof AbsolutePanel) {
       ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
@@ -222,7 +229,8 @@ public abstract class AbstractDragController implements DragController {
   public void saveDraggableLocationAndStyle(Widget draggable) {
     initialDraggableParent = draggable.getParent();
 
-    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
+    // TODO simplify after enhancement for issue 1112 provides InsertPanel
+    // interface
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
     if (initialDraggableParent instanceof AbsolutePanel) {
       initialDraggableParentLocation = new WidgetLocation(draggable, initialDraggableParent);
@@ -249,8 +257,8 @@ public abstract class AbstractDragController implements DragController {
   }
 
   /**
-   * Allow subclasses ability to override implementing {@link DropControllerCollection}
-   * to support custom intersection logic.
+   * Allow subclasses ability to override implementing
+   * {@link DropControllerCollection} to support custom intersection logic.
    * 
    * @return a new DropControllerCollection
    */

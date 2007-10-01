@@ -23,15 +23,16 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 import com.allen_sauer.gwt.dragdrop.demo.client.util.GWTUtil;
 
 /**
- * {@link TabPanel} which uses a {@link VerticalPanel} to provide a description for each
- * example.
+ * {@link TabPanel} which uses a {@link VerticalPanel} to provide a description
+ * for each example.
  */
 public final class ExampleTabPanel extends TabPanel {
   private static final String CSS_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
 
   /**
-   * Describe an example in a consistent way by including a description and the name of
-   * the {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController} used in the example.
+   * Describe an example in a consistent way by including a description and the
+   * name of the {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController}
+   * used in the example.
    * 
    * @param classes the primary DropController used in this example
    * @param description a brief description of the example

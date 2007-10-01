@@ -35,9 +35,10 @@ public class WidgetLocation extends AbstractLocation {
   /**
    * Determine location of widget relative boundaryPanel such that
    * <code>boundaryPanel.add(widget, location.getLeft(), location.getTop())</code>
-   * leaves the object in the exact same location on the screen. Note that boundaryPanel need not
-   * be the parent node, or even an ancestor of widget. Therefore coordinates returned may be 
-   * negative or may exceed the dimensions of boundaryPanel.
+   * leaves the object in the exact same location on the screen. Note that
+   * boundaryPanel need not be the parent node, or even an ancestor of widget.
+   * Therefore coordinates returned may be negative or may exceed the dimensions
+   * of boundaryPanel.
    * 
    * @param widget the widget whose coordinates we seek
    * @param reference the widget relative to which we seek our coordinates
@@ -53,7 +54,9 @@ public class WidgetLocation extends AbstractLocation {
     top = Math.max(minTop, Math.min(top, maxTop));
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see com.allen_sauer.gwt.dragdrop.client.util.Location#getLeft()
    */
   public int getLeft() {
@@ -64,7 +67,9 @@ public class WidgetLocation extends AbstractLocation {
     return reference;
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
+   * 
    * @see com.allen_sauer.gwt.dragdrop.client.util.Location#getTop()
    */
   public int getTop() {

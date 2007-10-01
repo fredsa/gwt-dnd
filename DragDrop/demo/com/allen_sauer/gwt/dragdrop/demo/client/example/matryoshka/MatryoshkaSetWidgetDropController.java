@@ -25,10 +25,9 @@ import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
 /**
- * DropController which allows a widget to be dropped on a
- * SimplePanel drop target when the drop target does not yet
- * have a child widget. Also pops the parent widget to the top
- * of stack by reattaching it to the grandparent.
+ * DropController which allows a widget to be dropped on a SimplePanel drop
+ * target when the drop target does not yet have a child widget. Also pops the
+ * parent widget to the top of stack by reattaching it to the grandparent.
  */
 public class MatryoshkaSetWidgetDropController extends SimpleDropController {
   private static void makeLastChild(Widget child) {

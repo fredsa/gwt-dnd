@@ -22,7 +22,8 @@ import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController} example.
+ * {@link com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController}
+ * example.
  */
 public final class AbsolutePositionExample extends Example {
   private static final String CSS_DEMO_ABSOLUTE_POSITION_EXAMPLE = "demo-AbsolutePositionExample";

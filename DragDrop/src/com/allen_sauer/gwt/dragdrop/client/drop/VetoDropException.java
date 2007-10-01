@@ -16,8 +16,8 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 /**
- * A VetoDropException is thrown by {@link DropController DropControllers}
- * when the proposed operation is unacceptable.
+ * A VetoDropException is thrown by {@link DropController DropControllers} when
+ * the proposed operation is unacceptable.
  */
 public class VetoDropException extends Exception {
 

@@ -23,9 +23,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * Example of drop targets that are also draggable
- * so that widgets can be dragged into a arbitrary
- * hierarchy of widgets.
+ * Example of drop targets that are also draggable so that widgets can be
+ * dragged into a arbitrary hierarchy of widgets.
  */
 public final class MatryoshkaExample extends Example {
   private static final int CELL_HEIGHT = 50;

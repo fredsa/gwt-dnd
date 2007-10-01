@@ -31,8 +31,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
 /**
- * Example illustrating drag handles, so that widgets inside
- * draggable can still interact normally with the mouse.
+ * Example illustrating drag handles, so that widgets inside draggable can still
+ * interact normally with the mouse.
  */
 public class DragHandleExample extends Example {
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE = "demo-DragHandleExample";
@@ -60,7 +60,7 @@ public class DragHandleExample extends Example {
     // add an editable text area
     final TextArea textArea = new TextArea();
     textArea.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA);
-    //    textArea.setSize("20em", "5em");
+    // textArea.setSize("20em", "5em");
     textArea.setText("You can click in this TextArea to get focus without causing the panel to be dragged.");
 
     // add a clickable button
@@ -81,7 +81,7 @@ public class DragHandleExample extends Example {
     verticalPanel.add(button);
     boundaryPanel.add(verticalPanel, 20, 20);
 
-    // instantiate our drag controller    
+    // instantiate our drag controller
     dragController = new PickupDragController(boundaryPanel, true);
     dragController.addDragHandler(demoDragHandler);
 
