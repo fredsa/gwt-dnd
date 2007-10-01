@@ -56,28 +56,35 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     int targetIndex = -1;
     Area referenceArea = new WidgetArea(reference, null);
     Location referenceCenter = referenceArea.getCenter();
-    for (int i = 0; i < dropTarget.getWidgetCount(); i++) {
-      Widget target = dropTarget.getWidget(i);
-      Area targetArea = new WidgetArea(target, null);
+    int widgetCount = dropTarget.getWidgetCount();
+    if (widgetCount == 0) {
+      insert(getPositioner(), 0);
+    } else {
+      for (int i = 0; i < widgetCount; i++) {
+        Widget target = dropTarget.getWidget(i);
+        Area targetArea = new WidgetArea(target, null);
 
-      if (targetArea.intersects(referenceArea)) {
-        int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(referenceCenter);
-        if (widgetCenterDistanceToTargetEdge < closestCenterDistanceToEdge) {
-          closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
-          targetIndex = i;
-          if (targetArea.inBottomRight(referenceCenter)) {
-            targetIndex++;
+        if (targetArea.intersects(referenceArea)) {
+          int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(referenceCenter);
+          if (widgetCenterDistanceToTargetEdge < closestCenterDistanceToEdge) {
+            closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
+            targetIndex = i;
+            if (targetArea.inBottomRight(referenceCenter)) {
+              targetIndex++;
+            }
           }
         }
       }
-    }
-    int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
-    // check that positioner not already in the correct location
-    if (positionerIndex != targetIndex && positionerIndex != targetIndex - 1) {
-      if (targetIndex == -1) {
-        getPositioner().removeFromParent();
-      } else {
-        insert(getPositioner(), targetIndex);
+      int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
+      // check that positioner not already in the correct location
+      if (positionerIndex != targetIndex && positionerIndex != targetIndex - 1) {
+        if (widgetCount == 1 && positionerIndex == 0) {
+          // do nothing, the positioner is the only widget
+        } else if (targetIndex == -1) {
+          getPositioner().removeFromParent();
+        } else {
+          insert(getPositioner(), targetIndex);
+        }
       }
     }
   }
