@@ -2,8 +2,6 @@
 
 	<inherits name='com.allen_sauer.gwt.dragdrop.DragAndDrop'/>
 
-	<inherits name='com.allen_sauer.gwt.log.Log'/>
-
 	<entry-point class='com.allen_sauer.gwt.dragdrop.demo.client.DragDropDemo'/>
   
   <public path="public"/>
