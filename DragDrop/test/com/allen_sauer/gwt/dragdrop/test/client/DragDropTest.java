@@ -18,11 +18,11 @@ package com.allen_sauer.gwt.dragdrop.test.client;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
-
-import com.allen_sauer.gwt.log.client.Log;
 
 /**
  * EntryPoint class for demonstrating and testing drag-and-drop library.
@@ -34,14 +34,30 @@ public final class DragDropTest implements EntryPoint {
   }-*/;
 
   public void onModuleLoad() {
-    // set DragDropTest exception handler
+    // set uncaught exception handler
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
-      public void onUncaughtException(Throwable e) {
-        Log.fatal("DragDropTest UncaughtExceptionHandler caught", e);
+      public void onUncaughtException(Throwable throwable) {
+        String text = "Uncaught exception: ";
+        while (throwable != null) {
+          StackTraceElement[] stackTraceElements = throwable.getStackTrace();
+          text += new String(throwable.toString() + "\n");
+          for (int i = 0; i < stackTraceElements.length; i++) {
+            text += "    at " + stackTraceElements[i] + "\n";
+          }
+          throwable = throwable.getCause();
+          if (throwable != null) {
+            text += "Caused by: ";
+          }
+        }
+        DialogBox dialogBox = new DialogBox(true);
+        DOM.setStyleAttribute(dialogBox.getElement(), "backgroundColor", "#ABCDEF");
+        text = text.replaceAll(" ", "&nbsp;");
+        dialogBox.setHTML("<pre>" + text + "</pre>");
+        dialogBox.center();
       }
     });
 
-    // use deferred command to catch initialization exceptions
+    // use a deferred command so that the handler catches onModuleLoad2() exceptions
     DeferredCommand.addCommand(new Command() {
       public void execute() {
         onModuleLoad2();
