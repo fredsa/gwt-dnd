@@ -33,7 +33,7 @@ public interface DropController {
    * @return the widget representing the drop target associated with this
    *         controller
    */
-  abstract Widget getDropTarget();
+  Widget getDropTarget();
 
   /**
    * Retrieve the desired CSS style name to be applied to our drop target.
@@ -42,7 +42,7 @@ public interface DropController {
    *         {@link Widget#addStyleName(String)} as this controller is
    *         constructed
    */
-  abstract String getDropTargetStyleName();
+  String getDropTargetStyleName();
 
   /**
    * Called when the draggable widget or its proxy is dropped on our drop
@@ -60,7 +60,7 @@ public interface DropController {
    *            drag-and-drop operation
    * @return event representing the drop action
    */
-  abstract DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController);
+  DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController);
 
   /**
    * Called when the draggable widget or its proxy engages our drop target. This
@@ -79,7 +79,7 @@ public interface DropController {
    * @param dragController the {@link DragController} coordinating the current
    *            drag-and-drop operation
    */
-  abstract void onEnter(Widget reference, Widget draggable, DragController dragController);
+  void onEnter(Widget reference, Widget draggable, DragController dragController);
 
   /**
    * Called when the reference widget stops engaging our drop target by leaving
@@ -92,7 +92,7 @@ public interface DropController {
    * @param dragController the {@link DragController} coordinating the current
    *            drag-and-drop operation
    */
-  abstract void onLeave(Widget draggable, DragController dragController);
+  void onLeave(Widget draggable, DragController dragController);
 
   /**
    * Called with each mouse movement while the reference widget is engaging our
@@ -110,7 +110,7 @@ public interface DropController {
    * @param dragController the {@link DragController} coordinating the current
    *            drag-and-drop operation
    */
-  abstract void onMove(Widget reference, Widget draggable, DragController dragController);
+  void onMove(Widget reference, Widget draggable, DragController dragController);
 
   /**
    * Called just prior to {@link #onDrop(Widget, Widget, DragController)} to
@@ -126,5 +126,5 @@ public interface DropController {
    *            drag-and-drop operation
    * @throws VetoDropException when the proposed drop operation is unacceptable
    */
-  abstract void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException;
+  void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException;
 }
