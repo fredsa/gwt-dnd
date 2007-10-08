@@ -143,6 +143,10 @@ public class DropControllerCollection {
         }
       }
     }
+    // TODO revisit size based sorting implementation to use DOM.isOrHasChild after
+    // GWT Issue 1218 optimizations have been implemented, which will also address
+    // scrollable ancestors of drop targets
+    // http://code.google.com/p/google-web-toolkit/issues/detail?id=1218
     sortedCandidates = (Candidate[]) list.toArray(new Candidate[] {});
     Arrays.sort(sortedCandidates);
   }
