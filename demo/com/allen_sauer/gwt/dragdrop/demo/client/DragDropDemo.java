@@ -40,7 +40,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.indexedpanel.IndexedPane
 import com.allen_sauer.gwt.dragdrop.demo.client.example.matryoshka.MatryoshkaExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.nooverlap.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.puzzle.PuzzleExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizeExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.window.WindowExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.util.GWTUtil;
 
 /**
@@ -143,7 +143,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new IndexedPanelExample(demoDragHandler));
     examples.add(new NoOverlapExample(dragController));
     examples.add(new FlexTableRowExample(demoDragHandler));
-    examples.add(new ResizeExample(demoDragHandler));
+    examples.add(new WindowExample(demoDragHandler));
     examples.add(new DragHandleExample(demoDragHandler));
     examples.add(new DualListExample(demoDragHandler));
     examples.add(new PuzzleExample(demoDragHandler));

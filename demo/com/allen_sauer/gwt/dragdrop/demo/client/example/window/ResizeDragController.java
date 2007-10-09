@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client.example.resize;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.window;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -25,15 +25,14 @@ import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizePanel.DirectionConstant;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.window.WindowPanel.DirectionConstant;
 
 import java.util.HashMap;
 
 final class ResizeDragController extends AbstractDragController {
-
   private HashMap directionMap = new HashMap();
   private Widget dummyMovableWidget = new HTML();
-  private ResizePanel resizePanel;
+  private WindowPanel WindowPanel;
 
   public ResizeDragController(AbsolutePanel boundaryPanel) {
     super(boundaryPanel, false);
@@ -47,7 +46,7 @@ final class ResizeDragController extends AbstractDragController {
 
   public void dragStart(Widget draggable) {
     super.dragStart(draggable);
-    resizePanel = (ResizePanel) draggable.getParent().getParent();
+    WindowPanel = (WindowPanel) draggable.getParent().getParent();
     Location location = new WidgetLocation(draggable, getBoundaryPanel());
     getBoundaryPanel().add(dummyMovableWidget, location.getLeft(), location.getTop());
   }
@@ -60,11 +59,11 @@ final class ResizeDragController extends AbstractDragController {
     return dummyMovableWidget;
   }
 
-  public ResizePanel getResizePanel() {
-    return resizePanel;
+  public WindowPanel getWindowPanel() {
+    return WindowPanel;
   }
 
-  public void makeDraggable(Widget widget, ResizePanel.DirectionConstant direction) {
+  public void makeDraggable(Widget widget, WindowPanel.DirectionConstant direction) {
     super.makeDraggable(widget);
     directionMap.put(widget, direction);
   }
