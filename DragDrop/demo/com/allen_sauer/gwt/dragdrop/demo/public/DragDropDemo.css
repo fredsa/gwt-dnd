@@ -70,10 +70,12 @@ DIV.demo-main-boundary-panel {
 
 /* ------------ AbsolutePositionExample ------------ */
 .demo-AbsolutePositionExample {
+  
 }
 
 /* ------------ GridConstrainedExample ------------ */
 .demo-GridConstrainedExample {
+  
 }
 
 /* ------------ FlowPanelExample ------------ */
@@ -115,9 +117,9 @@ DIV.demo-main-boundary-panel {
   padding: 1px;
 }
 
-
 /* ------------ NoOverlapExample ------------ */
 .demo-NoOverlapExample {
+  
 }
 
 /* ------------ FlexTableRowExample ------------ */
@@ -146,52 +148,67 @@ DIV.demo-main-boundary-panel {
   margin-top: 1px;
 }
 
-/* ------------ ResizeExample ------------ */
-.demo-ResizeExample .dragdrop-boundary {
+/* ------------ WindowExample ------------ */
+.demo-WindowExample .demo-WindowPanel {
+  background-color: #FFFFFF; /* prevent transparency */
+}
+
+.demo-WindowExample .demo-WindowPanel .demo-WindowPanel-header {
+  background-color: #666666;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+
+.demo-WindowExample .demo-WindowPanel .demo-WindowPanel-iframe {
+  border: none;
+  display: block;
+}
+
+.demo-WindowExample .dragdrop-boundary {
   background-color: #F8F8F8; /* light gray */
   border: 1px solid black;
 }
 
-.demo-ResizeExample .demo-resize-html {
+.demo-WindowExample .demo-resize-html {
   background-color: #DDEEDD; /* light green */
 }
 
-.demo-ResizeExample .demo-resize-edge {
+.demo-WindowExample .demo-resize-edge {
   background-image: url("images/dragger-4x4.gif");
   background-repeat: repeat;
   line-height: 1px;
   font-size: 1px;
 }
 
-.demo-ResizeExample .demo-resize-nw .dragdrop-handle {
+.demo-WindowExample .demo-resize-nw .dragdrop-handle {
   cursor: nw-resize;
 }
 
-.demo-ResizeExample .demo-resize-n .dragdrop-handle {
+.demo-WindowExample .demo-resize-n .dragdrop-handle {
   cursor: n-resize;
 }
 
-.demo-ResizeExample .demo-resize-ne .dragdrop-handle {
+.demo-WindowExample .demo-resize-ne .dragdrop-handle {
   cursor: ne-resize;
 }
 
-.demo-ResizeExample .demo-resize-w .dragdrop-handle {
+.demo-WindowExample .demo-resize-w .dragdrop-handle {
   cursor: w-resize;
 }
 
-.demo-ResizeExample .demo-resize-e .dragdrop-handle {
+.demo-WindowExample .demo-resize-e .dragdrop-handle {
   cursor: e-resize;
 }
 
-.demo-ResizeExample .demo-resize-sw .dragdrop-handle {
+.demo-WindowExample .demo-resize-sw .dragdrop-handle {
   cursor: sw-resize;
 }
 
-.demo-ResizeExample .demo-resize-s .dragdrop-handle {
+.demo-WindowExample .demo-resize-s .dragdrop-handle {
   cursor: s-resize;
 }
 
-.demo-ResizeExample .demo-resize-se .dragdrop-handle {
+.demo-WindowExample .demo-resize-se .dragdrop-handle {
   cursor: se-resize;
 }
 
@@ -249,9 +266,11 @@ DIV.demo-main-boundary-panel {
   background-color: #F8F8F8; /* light gray */
   border: 1px solid black;
 }
+
 .demo-PuzzleExample-table {
   border: 1px solid red;
 }
+
 .demo-PuzzleExample-cell {
   border: 1px solid black;
 }

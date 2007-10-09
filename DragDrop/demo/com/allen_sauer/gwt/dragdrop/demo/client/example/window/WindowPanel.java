@@ -13,23 +13,25 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dragdrop.demo.client.example.resize;
+package com.allen_sauer.gwt.dragdrop.demo.client.example.window;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
-final class ResizePanel extends SimplePanel {
-
+final class WindowPanel extends FocusPanel {
   /**
-   * ResizePanel direction constant, used in
-   * {@link ResizeDragController#makeDraggable(com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dragdrop.demo.client.example.resize.ResizePanel.DirectionConstant)}.
+   * WindowPanel direction constant, used in
+   * {@link ResizeDragController#makeDraggable(com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dragdrop.demo.client.example.resize.WindowPanel.DirectionConstant)}.
    */
   public static class DirectionConstant {
     public final int directionBits;
@@ -104,19 +106,52 @@ final class ResizePanel extends SimplePanel {
   private static final int BORDER_THICKNESS = 5;
 
   private static final String CSS_DEMO_RESIZE_EDGE = "demo-resize-edge";
+  private static final String CSS_DEMO_RESIZE_PANEL = "demo-WindowPanel";
+  private static final String CSS_DEMO_RESIZE_PANEL_HEADER = "demo-WindowPanel-header";
+
   private int contentHeight;
   private int contentWidth;
   private Widget eastWidget;
   private Grid grid = new Grid(3, 3);
+  private final FocusPanel headerContainer;
+  private final Widget headerWidget;
   private Widget northWidget;
-  private ResizeDragController resizeDragController;
-  private ScrollPanel scrollPanel;
+  private Widget scrollPanel;
   private Widget southWidget;
   private Widget westWidget;
 
-  public ResizePanel(ResizeDragController resizeDragController, Widget widget) {
-    this.resizeDragController = resizeDragController;
-    scrollPanel = new ScrollPanel(widget);
+  private final WindowController windowController;
+
+  public WindowPanel(final WindowController windowController, Widget headerWidget, Widget contentWidget) {
+    this.windowController = windowController;
+    this.headerWidget = headerWidget;
+    addStyleName(CSS_DEMO_RESIZE_PANEL);
+
+    if (contentWidget instanceof Frame) {
+      scrollPanel = contentWidget;
+    } else {
+      scrollPanel = new ScrollPanel(contentWidget);
+      DOM.setStyleAttribute(scrollPanel.getElement(), "overflow", "auto");
+    }
+
+    headerContainer = new FocusPanel();
+    headerContainer.addStyleName(CSS_DEMO_RESIZE_PANEL_HEADER);
+    headerContainer.add(headerWidget);
+
+    windowController.getPickupDragController().makeDraggable(this, headerContainer);
+
+    addClickListener(new ClickListener() {
+      public void onClick(Widget sender) {
+        // force our panel to the top of our z-index context
+        AbsolutePanel boundaryPanel = windowController.getBoundaryPanel();
+        WidgetLocation location = new WidgetLocation(WindowPanel.this, boundaryPanel);
+        boundaryPanel.add(WindowPanel.this, location.getLeft(), location.getTop());
+      }
+    });
+
+    VerticalPanel verticalPanel = new VerticalPanel();
+    verticalPanel.add(headerContainer);
+    verticalPanel.add(scrollPanel);
 
     grid.setCellSpacing(0);
     grid.setCellPadding(0);
@@ -127,7 +162,7 @@ final class ResizePanel extends SimplePanel {
     setupCell(0, 2, NORTH_EAST);
 
     westWidget = setupCell(1, 0, WEST);
-    grid.setWidget(1, 1, scrollPanel);
+    grid.setWidget(1, 1, verticalPanel);
     eastWidget = setupCell(1, 2, EAST);
 
     setupCell(2, 0, SOUTH_WEST);
@@ -143,10 +178,6 @@ final class ResizePanel extends SimplePanel {
     return contentWidth;
   }
 
-  public ScrollPanel getScrollPanel() {
-    return scrollPanel;
-  }
-
   public void moveBy(int right, int down) {
     AbsolutePanel parent = (AbsolutePanel) getParent();
     Location location = new WidgetLocation(this, parent);
@@ -158,19 +189,22 @@ final class ResizePanel extends SimplePanel {
   public void setContentSize(int width, int height) {
     if (width != contentWidth) {
       contentWidth = width;
+      headerContainer.setPixelSize(contentWidth, headerWidget.getOffsetHeight());
       northWidget.setPixelSize(contentWidth, BORDER_THICKNESS);
       southWidget.setPixelSize(contentWidth, BORDER_THICKNESS);
     }
     if (height != contentHeight) {
       contentHeight = height;
-      westWidget.setPixelSize(BORDER_THICKNESS, contentHeight);
-      eastWidget.setPixelSize(BORDER_THICKNESS, contentHeight);
+      int headerHeight = headerContainer.getOffsetHeight();
+      westWidget.setPixelSize(BORDER_THICKNESS, contentHeight + headerHeight);
+      eastWidget.setPixelSize(BORDER_THICKNESS, contentHeight + headerHeight);
     }
     scrollPanel.setPixelSize(contentWidth, contentHeight);
   }
 
   protected void onLoad() {
     super.onLoad();
+    headerWidget.setPixelSize(headerWidget.getOffsetWidth(), headerWidget.getOffsetHeight());
     setContentSize(scrollPanel.getOffsetWidth(), scrollPanel.getOffsetHeight());
   }
 
@@ -178,7 +212,7 @@ final class ResizePanel extends SimplePanel {
     final FocusPanel widget = new FocusPanel();
     widget.setPixelSize(BORDER_THICKNESS, BORDER_THICKNESS);
     grid.setWidget(row, col, widget);
-    resizeDragController.makeDraggable(widget, direction);
+    windowController.getResizeDragController().makeDraggable(widget, direction);
     grid.getCellFormatter().addStyleName(row, col, CSS_DEMO_RESIZE_EDGE + " demo-resize-" + direction.directionLetters);
     return widget;
   }
