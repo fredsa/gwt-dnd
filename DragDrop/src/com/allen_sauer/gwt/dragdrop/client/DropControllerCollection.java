@@ -42,7 +42,7 @@ public class DropControllerCollection {
       this.dropController = dropController;
       Widget target = dropController.getDropTarget();
       if (!target.isAttached()) {
-        throw new IllegalStateException("Unattached drop target; please call dragController#unregisterDropController");
+        throw new IllegalStateException("Unattached drop target. You must call DragController#unregisterDropController for all drop targets not attached to the DOM.");
       }
       targetArea = new WidgetArea(target, null);
     }
