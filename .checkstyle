@@ -3,7 +3,7 @@
     <fileset name="GWT" enabled="true" check-config-name="GWT Checks" local="false">
         <file-match-pattern match-pattern="^user\\src\\.*java$" include-pattern="true"/>
     </fileset>
-    <fileset name="gwt-dnd" enabled="true" check-config-name="DragDrop CheckStyle" local="false">
+    <fileset name="gwt-dnd" enabled="true" check-config-name="DragDrop Checks" local="false">
         <file-match-pattern match-pattern="^src\\.*java$" include-pattern="true"/>
         <file-match-pattern match-pattern="^test\\.*java$" include-pattern="true"/>
         <file-match-pattern match-pattern="^demo\\.*java$" include-pattern="true"/>
