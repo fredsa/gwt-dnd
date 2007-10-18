@@ -1,0 +1,10 @@
+#Organize Import Order
+#Wed Oct 17 14:00:40 MDT 2007
+6=java
+5=org
+4=net
+3=junit
+2=com
+1=com.allen_sauer
+0=com.google
+7=javax
