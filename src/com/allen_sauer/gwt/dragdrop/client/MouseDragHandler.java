@@ -72,6 +72,9 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
+    // mouse down determines draggable
+    capturingWidget = sender;
+    
     int button = DOM.eventGetButton(DOM.eventGetCurrentEvent());
     // TODO remove Event.UNDEFINED after GWT Issue 1535 is fixed
     if (button != Event.BUTTON_LEFT && button != Event.UNDEFINED) {
@@ -97,7 +100,7 @@ public class MouseDragHandler implements MouseListener {
   public void onMouseMove(Widget sender, int x, int y) {
     if (!dragging) {
       if (mouseDown) {
-        startDragging(sender);
+        startDragging();
       }
       if (!dragging) {
         return;
@@ -169,8 +172,7 @@ public class MouseDragHandler implements MouseListener {
     }
   }
 
-  public void startDragging(Widget w) {
-    capturingWidget = w;
+  public void startDragging() {
     draggable = (Widget) dragHandleMap.get(capturingWidget);
 
     try {
