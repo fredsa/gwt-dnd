@@ -25,7 +25,7 @@ final class ResizeDropController extends BoundaryDropController {
 
   private static final int MIN_WIDGET_SIZE = 10;
 
-  private WindowPanel WindowPanel;
+  private WindowPanel windowPanel;
 
   public ResizeDropController(AbsolutePanel boundaryPanel) {
     super(boundaryPanel, false);
@@ -33,12 +33,12 @@ final class ResizeDropController extends BoundaryDropController {
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     super.onEnter(reference, draggable, dragController);
-    WindowPanel = ((ResizeDragController) dragController).getWindowPanel();
+    windowPanel = ((ResizeDragController) dragController).getWindowPanel();
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
     super.onLeave(draggable, dragController);
-    WindowPanel = null;
+    windowPanel = null;
   }
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
@@ -48,33 +48,33 @@ final class ResizeDropController extends BoundaryDropController {
     if ((direction & WindowPanel.DIRECTION_NORTH) != 0) {
       int delta = draggable.getAbsoluteTop() - reference.getAbsoluteTop();
       if (delta != 0) {
-        int contentHeight = WindowPanel.getContentHeight();
+        int contentHeight = windowPanel.getContentHeight();
         int newHeight = Math.max(contentHeight + delta, MIN_WIDGET_SIZE);
         if (newHeight != contentHeight) {
-          WindowPanel.moveBy(0, contentHeight - newHeight);
+          windowPanel.moveBy(0, contentHeight - newHeight);
         }
-        WindowPanel.setContentSize(WindowPanel.getContentWidth(), newHeight);
+        windowPanel.setContentSize(windowPanel.getContentWidth(), newHeight);
       }
     } else if ((direction & WindowPanel.DIRECTION_SOUTH) != 0) {
       int delta = reference.getAbsoluteTop() - draggable.getAbsoluteTop();
       if (delta != 0) {
-        WindowPanel.setContentSize(WindowPanel.getContentWidth(), WindowPanel.getContentHeight() + delta);
+        windowPanel.setContentSize(windowPanel.getContentWidth(), windowPanel.getContentHeight() + delta);
       }
     }
     if ((direction & WindowPanel.DIRECTION_WEST) != 0) {
       int delta = draggable.getAbsoluteLeft() - reference.getAbsoluteLeft();
       if (delta != 0) {
-        int contentWidth = WindowPanel.getContentWidth();
+        int contentWidth = windowPanel.getContentWidth();
         int newWidth = Math.max(contentWidth + delta, MIN_WIDGET_SIZE);
         if (newWidth != contentWidth) {
-          WindowPanel.moveBy(contentWidth - newWidth, 0);
+          windowPanel.moveBy(contentWidth - newWidth, 0);
         }
-        WindowPanel.setContentSize(newWidth, WindowPanel.getContentHeight());
+        windowPanel.setContentSize(newWidth, windowPanel.getContentHeight());
       }
     } else if ((direction & WindowPanel.DIRECTION_EAST) != 0) {
       int delta = reference.getAbsoluteLeft() - draggable.getAbsoluteLeft();
       if (delta != 0) {
-        WindowPanel.setContentSize(WindowPanel.getContentWidth() + delta, WindowPanel.getContentHeight());
+        windowPanel.setContentSize(windowPanel.getContentWidth() + delta, windowPanel.getContentHeight());
       }
     }
   }
