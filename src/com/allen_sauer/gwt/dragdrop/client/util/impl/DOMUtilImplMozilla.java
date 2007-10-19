@@ -15,9 +15,15 @@
  */
 package com.allen_sauer.gwt.dragdrop.client.util.impl;
 
+import com.google.gwt.user.client.Element;
+
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for
  * Mozilla.
  */
 public class DOMUtilImplMozilla extends DOMUtilImplStandard {
+  public native boolean contains(Element parent, Element child)
+  /*-{
+    return !!(parent.compareDocumentPosition(child) & 16);
+  }-*/;
 }
