@@ -24,7 +24,7 @@
 		<link>
 			<name>user-src</name>
 			<type>2</type>
-			<locationURI>GWT_ROOT/user/src</locationURI>
+			<locationURI>GWT_TRUNK/user/src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
