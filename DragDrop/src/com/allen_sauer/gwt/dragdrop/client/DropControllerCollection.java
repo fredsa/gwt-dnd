@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 
@@ -35,21 +36,21 @@ import java.util.Iterator;
 public class DropControllerCollection {
   private static class Candidate implements Comparable {
     private final DropController dropController;
-    private Integer size;
     private Area targetArea;
 
     public Candidate(DropController dropController) {
       this.dropController = dropController;
       Widget target = dropController.getDropTarget();
       if (!target.isAttached()) {
-        throw new IllegalStateException("Unattached drop target. You must call DragController#unregisterDropController for all drop targets not attached to the DOM.");
+        throw new IllegalStateException(
+            "Unattached drop target. You must call DragController#unregisterDropController for all drop targets not attached to the DOM.");
       }
       targetArea = new WidgetArea(target, null);
     }
 
     public int compareTo(Object arg0) {
       Candidate other = (Candidate) arg0;
-      return getSize().compareTo(other.getSize());
+      return DOMUtil.contains(getDropTarget().getElement(), other.getDropTarget().getElement()) ? 1 : -1;
     }
 
     public DropController getDropController() {
@@ -58,13 +59,6 @@ public class DropControllerCollection {
 
     public Widget getDropTarget() {
       return dropController.getDropTarget();
-    }
-
-    public Integer getSize() {
-      if (size == null) {
-        size = new Integer(targetArea.getSize());
-      }
-      return size;
     }
 
     public Area getTargetArea() {
@@ -143,10 +137,7 @@ public class DropControllerCollection {
         }
       }
     }
-    // TODO revisit size based sorting implementation to use DOM.isOrHasChild after
-    // GWT Issue 1218 optimizations have been implemented, which will also address
-    // scrollable ancestors of drop targets
-    // http://code.google.com/p/google-web-toolkit/issues/detail?id=1218
+
     sortedCandidates = (Candidate[]) list.toArray(new Candidate[] {});
     Arrays.sort(sortedCandidates);
   }
