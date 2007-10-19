@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -101,7 +100,7 @@ public class DropControllerCollection {
       if (targetArea.intersects(widgetArea)) {
         int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(widgetCenter);
         if (widgetCenterDistanceToTargetEdge <= closestCenterDistanceToEdge) {
-          if (result == null || !DOM.isOrHasChild(candidate.getDropTarget().getElement(), result.getDropTarget().getElement())) {
+          if (result == null || !DOMUtil.contains(candidate.getDropTarget().getElement(), result.getDropTarget().getElement())) {
             closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
             result = candidate;
           }
@@ -131,7 +130,7 @@ public class DropControllerCollection {
     for (Iterator iterator = iterator(); iterator.hasNext();) {
       DropController dropController = (DropController) iterator.next();
       Candidate candidate = new Candidate(dropController);
-      if (!DOM.isOrHasChild(draggable.getElement(), candidate.getDropTarget().getElement())) {
+      if (!DOMUtil.contains(draggable.getElement(), candidate.getDropTarget().getElement())) {
         if (candidate.getTargetArea().intersects(boundaryArea)) {
           list.add(candidate);
         }
