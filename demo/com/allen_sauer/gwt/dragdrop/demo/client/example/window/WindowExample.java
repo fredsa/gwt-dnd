@@ -40,7 +40,7 @@ public final class WindowExample extends Example {
     final AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(600, 300);
     setWidget(boundaryPanel);
-    
+
     boundaryPanel.add(new Label("hi"), 10, 10);
 
     // initialize window controller which provides drag and resize windows
@@ -66,6 +66,13 @@ public final class WindowExample extends Example {
   public Class[] getInvolvedClasses() {
     return new Class[] {
         WindowExample.class, WindowController.class, WindowPanel.class, ResizeDropController.class, ResizeDragController.class,};
+  }
+
+  protected void onLoad() {
+    super.onLoad();
+    // IE work around for disappearing panel
+    DOM.setStyleAttribute(getElement(), "display", "none");
+    DOM.setStyleAttribute(getElement(), "display", "");
   }
 
   private Frame getIframe(String url) {
