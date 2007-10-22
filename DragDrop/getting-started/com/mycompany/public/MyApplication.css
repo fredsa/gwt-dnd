@@ -1,10 +1,5 @@
 @CHARSET "ISO-8859-1";
 
-.dragdrop-dropTarget {
-  border: 1px solid blue;
-  background-color: #FFFFFF;
-}
-
 .dragdrop-dropTarget-engage {
   background-color: #E0E8FF;
 }

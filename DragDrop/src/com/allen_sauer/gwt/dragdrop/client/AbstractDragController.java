@@ -88,22 +88,14 @@ public abstract class AbstractDragController implements DragController {
     dragHandlers.add(handler);
   }
 
-  /**
-   * Call back method for {@link MouseDragHandler}.
-   * 
-   * @param draggable widget which was being dragged
-   * @param dropTarget widget on which draggable was dropped. <code>null</code>
-   *            if drag was cancelled
-   */
+  public void constrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
+    mouseDragHandler.constrainWidgetToBoundaryPanel(constrainWidgetToBoundaryPanel);
+  }
+
   public void dragEnd(Widget draggable, Widget dropTarget) {
     draggable.removeStyleName(CSS_DRAGGING);
   }
 
-  /**
-   * Call back method for {@link MouseDragHandler}.
-   * 
-   * @param draggable widget which was being dragged
-   */
   public void dragStart(Widget draggable) {
     dropControllerCollection.resetCache(getBoundaryPanel(), draggable);
     if (dragHandlers != null) {

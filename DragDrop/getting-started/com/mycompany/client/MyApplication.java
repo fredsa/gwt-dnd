@@ -25,7 +25,6 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
@@ -80,7 +79,11 @@ public class MyApplication implements EntryPoint {
 
     // create a DragController for each logical area where a set of draggable
     // widgets and drop targets will be allowed to interact with one another.
-    DragController dragController = new PickupDragController(boundaryPanel, true);
+    PickupDragController dragController = new PickupDragController(boundaryPanel, true);
+
+    // Positioner is always constrained to the boundary panel
+    // Use 'true' to also constrain the draggable or drag proxy to the boundary panel
+    dragController.constrainWidgetToBoundaryPanel(false);
 
     // create a DropController for each drop target on which draggable widgets
     // can be dropped
