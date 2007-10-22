@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
+import com.allen_sauer.gwt.dragdrop.client.drop.IndexedDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
@@ -64,7 +65,7 @@ public final class IndexedPanelExample extends Example {
     boundaryPanel.add(horizontalPanel);
 
     // initialize our column drop controller
-    NoInsertAtEndIndexedDropController columnDropController = new NoInsertAtEndIndexedDropController(horizontalPanel);
+    IndexedDropController columnDropController = new IndexedDropController(horizontalPanel);
     columnDragController.registerDropController(columnDropController);
 
     for (int col = 1; col <= COLUMNS; col++) {
