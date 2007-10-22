@@ -181,6 +181,15 @@ public interface DragController extends FiresDragEvents {
   void saveDraggableLocationAndStyle(Widget draggable);
 
   /**
+   * Whether or not draggable / drag proxy is to be constrained to the boundary panel
+   * during dragging. Note that the positioner is always constrained to the boundary
+   * panel.
+   * 
+   * @param constrainWidgetToBoundaryPanel whether or not to constrain to the boundary panel
+   */
+  void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel);
+
+  /**
    * Unregister a DropController from this drag controller.
    * 
    * @see #registerDropController(DropController)

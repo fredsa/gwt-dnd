@@ -83,7 +83,7 @@ public class MyApplication implements EntryPoint {
 
     // Positioner is always constrained to the boundary panel
     // Use 'true' to also constrain the draggable or drag proxy to the boundary panel
-    dragController.constrainWidgetToBoundaryPanel(false);
+    dragController.setConstrainWidgetToBoundaryPanel(false);
 
     // create a DropController for each drop target on which draggable widgets
     // can be dropped

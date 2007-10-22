@@ -88,10 +88,6 @@ public abstract class AbstractDragController implements DragController {
     dragHandlers.add(handler);
   }
 
-  public void constrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
-    mouseDragHandler.constrainWidgetToBoundaryPanel(constrainWidgetToBoundaryPanel);
-  }
-
   public void dragEnd(Widget draggable, Widget dropTarget) {
     draggable.removeStyleName(CSS_DRAGGING);
   }
@@ -240,6 +236,10 @@ public abstract class AbstractDragController implements DragController {
     if (initialDraggableMargin != null && initialDraggableMargin.length() != 0) {
       DOM.setStyleAttribute(draggable.getElement(), "margin", "0px");
     }
+  }
+
+  public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
+    mouseDragHandler.setConstrainWidgetToBoundaryPanel(constrainWidgetToBoundaryPanel);
   }
 
   public void unregisterDropController(DropController dropController) {
