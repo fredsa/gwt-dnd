@@ -15,18 +15,19 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
+import com.allen_sauer.gwt.dragdrop.demo.client.ui.MultiRowTabPanel;
 import com.allen_sauer.gwt.dragdrop.demo.client.util.GWTUtil;
 
 /**
- * {@link TabPanel} which uses a {@link VerticalPanel} to provide a description
+ * {@link MultiRowTabPanel} which uses a {@link VerticalPanel} to provide a description
  * for each example.
  */
-public final class ExampleTabPanel extends TabPanel {
+public final class ExampleTabPanel extends MultiRowTabPanel {
   private static final String CSS_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
 
   /**
@@ -53,15 +54,19 @@ public final class ExampleTabPanel extends TabPanel {
 
   private int counter;
 
+  public ExampleTabPanel(int rows) {
+    super(rows);
+  }
+
   /**
    * Add another example to demonstrate.
    * 
    * @param example the example panel to add
    */
-  public void add(Example example) {
+  public void add(int row, Example example) {
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.add(describe(example.getInvolvedClasses(), example.getDescription()));
     verticalPanel.add(example);
-    add(verticalPanel, "Demo " + ++counter, true);
+    add(verticalPanel, "Demo " + ++counter, row);
   }
 }

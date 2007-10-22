@@ -120,7 +120,7 @@ public final class DragDropDemo implements EntryPoint {
     boundaryPanel.add(createDraggable(), 60, 280);
 
     // TabPanel to hold our examples
-    ExampleTabPanel examples = new ExampleTabPanel();
+    ExampleTabPanel examples = new ExampleTabPanel(2);
     examples.setWidth("500px");
     boundaryPanel.add(examples, 200, 10);
 
@@ -136,20 +136,21 @@ public final class DragDropDemo implements EntryPoint {
     dragController.addDragHandler(demoDragHandler);
 
     // add our individual examples
-    examples.add(new BinExample(dragController));
-    examples.add(new AbsolutePositionExample(dragController));
-    examples.add(new GridConstrainedExample(dragController));
-    examples.add(new FlowPanelExample(dragController));
-    examples.add(new IndexedPanelExample(demoDragHandler));
-    examples.add(new NoOverlapExample(dragController));
-    examples.add(new FlexTableRowExample(demoDragHandler));
-    examples.add(new WindowExample(demoDragHandler));
-    examples.add(new DragHandleExample(demoDragHandler));
-    examples.add(new DualListExample(demoDragHandler));
-    examples.add(new PuzzleExample(demoDragHandler));
-    examples.add(new MatryoshkaExample(demoDragHandler));
+    examples.add(0, new BinExample(dragController));
+    examples.add(0, new AbsolutePositionExample(dragController));
+    examples.add(0, new GridConstrainedExample(dragController));
+    examples.add(0, new FlowPanelExample(dragController));
+    examples.add(0, new IndexedPanelExample(demoDragHandler));
+    examples.add(0, new NoOverlapExample(dragController));
+    examples.add(0, new FlexTableRowExample(demoDragHandler));
+
+    examples.add(1, new WindowExample(demoDragHandler));
+    examples.add(1, new DragHandleExample(demoDragHandler));
+    examples.add(1, new DualListExample(demoDragHandler));
+    examples.add(1, new PuzzleExample(demoDragHandler));
+    examples.add(1, new MatryoshkaExample(demoDragHandler));
 
     // select the first example
-    examples.selectTab(0);
+    examples.selectTab(0, 0);
   }
 }

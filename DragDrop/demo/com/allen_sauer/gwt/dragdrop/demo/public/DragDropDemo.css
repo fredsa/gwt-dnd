@@ -314,8 +314,8 @@ DIV.demo-main-boundary-panel {
   border: 1px solid green;
 }
 
-/* ------------ General GWT CSS ------------ */
-.gwt-TabPanelBottom {
+/* ------------ ExampleTabPanel ------------ */
+.demo-MultiRowTabPanel-bottom {
   border-left: 1px solid #87B3FF;
   border-right: 1px solid #87B3FF;
   border-bottom: 1px solid #87B3FF;
@@ -328,20 +328,23 @@ DIV.demo-main-boundary-panel {
 
 .gwt-TabBar .gwt-TabBarFirst {
   height: 100%;
-  border-bottom: 1px solid #87B3FF;
   padding-left: 3px;
 }
 
 .gwt-TabBar .gwt-TabBarRest {
-  border-bottom: 1px solid #87B3FF;
   padding-right: 3px;
 }
 
 .gwt-TabBar .gwt-TabBarItem {
   border-top: 1px solid #C3D9FF;
-  border-bottom: 1px solid #87B3FF;
   padding: 2px 6px;
   cursor: pointer;
+}
+
+.demo-MultiRowTabPanel-last .gwt-TabBarItem,
+.demo-MultiRowTabPanel-last .gwt-TabBarFirst,
+.demo-MultiRowTabPanel-last .gwt-TabBarRest {
+  border-bottom: 1px solid #87B3FF;
 }
 
 .gwt-TabBar .gwt-TabBarItem-selected {

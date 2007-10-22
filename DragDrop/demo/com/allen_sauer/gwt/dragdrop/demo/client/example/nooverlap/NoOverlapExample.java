@@ -51,8 +51,7 @@ public final class NoOverlapExample extends Example {
     return new Class[] {NoOverlapExample.class, NoOverlapDropController.class,};
   }
 
-  protected void onLoad() {
-    super.onLoad();
+  protected void onInitialLoad() {
     noOverlapDropController.drop(createDraggable(), 10, 10);
     noOverlapDropController.drop(createDraggable(), 90, 60);
     noOverlapDropController.drop(createDraggable(), 190, 50);

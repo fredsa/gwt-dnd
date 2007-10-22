@@ -62,8 +62,7 @@ public final class GridConstrainedExample extends Example {
     return new Class[] {GridConstrainedExample.class, GridConstrainedDropController.class,};
   }
 
-  protected void onLoad() {
-    super.onLoad();
+  protected void onInitialLoad() {
     gridConstrainedDropController.drop(createDraggable(), 0, 0);
     gridConstrainedDropController.drop(createDraggable(), draggableOffsetWidth, draggableOffsetHeight);
   }

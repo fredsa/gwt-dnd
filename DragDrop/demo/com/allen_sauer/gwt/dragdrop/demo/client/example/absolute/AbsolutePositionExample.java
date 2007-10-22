@@ -51,8 +51,7 @@ public final class AbsolutePositionExample extends Example {
     return new Class[] {AbsolutePositionExample.class, AbsolutePositionDropController.class,};
   }
 
-  protected void onLoad() {
-    super.onLoad();
+  protected void onInitialLoad() {
     absolutePositionDropController.drop(createDraggable(), 10, 30);
     absolutePositionDropController.drop(createDraggable(), 60, 8);
     absolutePositionDropController.drop(createDraggable(), 190, 60);

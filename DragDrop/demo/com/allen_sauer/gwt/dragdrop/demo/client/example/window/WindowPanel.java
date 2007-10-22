@@ -119,7 +119,6 @@ final class WindowPanel extends FocusPanel {
   private Widget scrollPanel;
   private Widget southWidget;
   private Widget westWidget;
-
   private final WindowController windowController;
 
   public WindowPanel(final WindowController windowController, Widget headerWidget, Widget contentWidget) {
@@ -204,8 +203,10 @@ final class WindowPanel extends FocusPanel {
 
   protected void onLoad() {
     super.onLoad();
-    headerWidget.setPixelSize(headerWidget.getOffsetWidth(), headerWidget.getOffsetHeight());
-    setContentSize(scrollPanel.getOffsetWidth(), scrollPanel.getOffsetHeight());
+    if (scrollPanel.getOffsetHeight() != 0) {
+      headerWidget.setPixelSize(headerWidget.getOffsetWidth(), headerWidget.getOffsetHeight());
+      setContentSize(scrollPanel.getOffsetWidth(), scrollPanel.getOffsetHeight());
+    }
   }
 
   private Widget setupCell(int row, int col, DirectionConstant direction) {
