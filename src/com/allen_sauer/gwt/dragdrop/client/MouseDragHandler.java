@@ -58,10 +58,6 @@ public class MouseDragHandler implements MouseListener {
     boundaryPanel = dragController.getBoundaryPanel();
   }
 
-  public void constrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
-    constrainedToBoundaryPanel = constrainWidgetToBoundaryPanel;
-  }
-
   public void makeDraggable(Widget draggable, Widget dragHandle) {
     if (dragHandle instanceof SourcesMouseEvents) {
       ((SourcesMouseEvents) dragHandle).addMouseListener(this);
@@ -177,6 +173,10 @@ public class MouseDragHandler implements MouseListener {
     } finally {
       dropController = null;
     }
+  }
+
+  public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
+    constrainedToBoundaryPanel = constrainWidgetToBoundaryPanel;
   }
 
   public void startDragging() {

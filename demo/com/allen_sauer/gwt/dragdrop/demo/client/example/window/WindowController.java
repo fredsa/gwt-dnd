@@ -26,9 +26,12 @@ final class WindowController {
 
   WindowController(AbsolutePanel boundaryPanel) {
     this.boundaryPanel = boundaryPanel;
+
     pickupDragController = new PickupDragController(boundaryPanel, true);
+    pickupDragController.setConstrainWidgetToBoundaryPanel(true);
+
     resizeDragController = new ResizeDragController(boundaryPanel);
-    //    resizeDragController.addDragHandler(demoDragHandler);
+    resizeDragController.setConstrainWidgetToBoundaryPanel(true);
   }
 
   public AbsolutePanel getBoundaryPanel() {
