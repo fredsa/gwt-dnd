@@ -37,6 +37,7 @@ import java.util.HashMap;
 public class MouseDragHandler implements MouseListener {
   private AbsolutePanel boundaryPanel;
   private Widget capturingWidget;
+  private boolean constrainedToBoundaryPanel = false;
   private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
   private DragController dragController;
   private Widget draggable;
@@ -45,6 +46,8 @@ public class MouseDragHandler implements MouseListener {
   private DropController dropController;
   private int initialMouseX;
   private int initialMouseY;
+  private int maxLeft;
+  private int maxTop;
   private boolean mouseDown;
   private Widget movableWidget;
   private int offsetX;
@@ -53,6 +56,10 @@ public class MouseDragHandler implements MouseListener {
   public MouseDragHandler(DragController dragController) {
     this.dragController = dragController;
     boundaryPanel = dragController.getBoundaryPanel();
+  }
+
+  public void constrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
+    constrainedToBoundaryPanel = constrainWidgetToBoundaryPanel;
   }
 
   public void makeDraggable(Widget draggable, Widget dragHandle) {
@@ -74,7 +81,7 @@ public class MouseDragHandler implements MouseListener {
   public void onMouseDown(Widget sender, int x, int y) {
     // mouse down determines draggable
     capturingWidget = sender;
-    
+
     int button = DOM.eventGetButton(DOM.eventGetCurrentEvent());
     // TODO remove Event.UNDEFINED after GWT Issue 1535 is fixed
     if (button != Event.BUTTON_LEFT && button != Event.UNDEFINED) {
@@ -184,6 +191,9 @@ public class MouseDragHandler implements MouseListener {
 
     movableWidget = dragController.getMovableWidget();
 
+    maxLeft = DOMUtil.getClientWidth(boundaryPanel.getElement()) - movableWidget.getOffsetWidth();
+    maxTop = DOMUtil.getClientHeight(boundaryPanel.getElement()) - movableWidget.getOffsetHeight();
+
     Location location = new WidgetLocation(capturingWidget, boundaryPanel);
     Location altLocation = new WidgetLocation(movableWidget, boundaryPanel);
     offsetX = altLocation.getLeft() - location.getLeft();
@@ -203,6 +213,11 @@ public class MouseDragHandler implements MouseListener {
     Location location = new WidgetLocation(capturingWidget, boundaryPanel);
     int desiredLeft = location.getLeft() + offsetX + x - initialMouseX;
     int desiredTop = location.getTop() + offsetY + y - initialMouseY;
+
+    if (constrainedToBoundaryPanel) {
+      desiredLeft = Math.max(0, Math.min(desiredLeft, maxLeft));
+      desiredTop = Math.max(0, Math.min(desiredTop, maxTop));
+    }
 
     // boundaryPanel.setWidgetPosition(movableWidget, desiredLeft, desiredTop);
     DOMUtil.fastSetElementPosition(movableWidget.getElement(), desiredLeft, desiredTop);
