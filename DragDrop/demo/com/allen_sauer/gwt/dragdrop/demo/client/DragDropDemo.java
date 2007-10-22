@@ -94,7 +94,7 @@ public final class DragDropDemo implements EntryPoint {
     // create the main common boundary panel to which drag operations will be restricted
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.addStyleName(CSS_DEMO_MAIN_BOUNDARY_PANEL);
-    boundaryPanel.setPixelSize(950, 500);
+    boundaryPanel.setPixelSize(900, 600);
 
     // instantiate the common drag controller used the less specific examples
     dragController = new PickupDragController(boundaryPanel, true);
@@ -121,7 +121,7 @@ public final class DragDropDemo implements EntryPoint {
 
     // TabPanel to hold our examples
     ExampleTabPanel examples = new ExampleTabPanel(2);
-    examples.setWidth("500px");
+    examples.setWidth("650px");
     boundaryPanel.add(examples, 200, 10);
 
     // text area to log drag events as they are triggered
