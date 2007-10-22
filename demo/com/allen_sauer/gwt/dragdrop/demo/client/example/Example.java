@@ -24,10 +24,10 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
  * Class representing a single drag-and-drop example.
  */
 public abstract class Example extends SimplePanel {
-
   private static final String CSS_DEMO_EXAMPLE_PANEL = "demo-example-panel";
 
   private DragController dragController;
+  private boolean initialLoaded = false;
 
   public Example() {
     addStyleName(CSS_DEMO_EXAMPLE_PANEL);
@@ -70,5 +70,16 @@ public abstract class Example extends SimplePanel {
    */
   protected Widget createDraggable() {
     return DraggableFactory.createDraggableRedBox(dragController);
+  }
+
+  protected void onInitialLoad() {
+  }
+
+  protected void onLoad() {
+    super.onLoad();
+    if (!initialLoaded) {
+      onInitialLoad();
+      initialLoaded = true;
+    }
   }
 }

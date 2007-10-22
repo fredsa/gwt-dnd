@@ -51,8 +51,7 @@ public final class FlowPanelExample extends Example {
     return new Class[] {FlowPanelExample.class, FlowPanelDropController.class, FlowPanel.class,};
   }
 
-  protected void onLoad() {
-    super.onLoad();
+  protected void onInitialLoad() {
     for (int i = 1; i <= 25; i++) {
       FocusPanel focusPanel = new FocusPanel();
       focusPanel.setStyleName("demo-FlowPanelExample-draggable");

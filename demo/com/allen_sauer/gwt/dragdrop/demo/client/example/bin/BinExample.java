@@ -59,6 +59,10 @@ public final class BinExample extends Example {
     // create a drop controller for the containing panel
     dropController = new AbsolutePositionDropController(containingPanel);
     dragController.registerDropController(dropController);
+
+    containingPanel.add(createDraggable(), 200, 20);
+    containingPanel.add(createDraggable(), 240, 50);
+    containingPanel.add(createDraggable(), 190, 100);
   }
 
   public String getDescription() {
@@ -67,12 +71,5 @@ public final class BinExample extends Example {
 
   public Class[] getInvolvedClasses() {
     return new Class[] {BinExample.class, BinDropController.class, AbsolutePositionDropController.class, TrashBin.class, Bin.class,};
-  }
-
-  protected void onLoad() {
-    super.onLoad();
-    dropController.drop(createDraggable(), 200, 20);
-    dropController.drop(createDraggable(), 240, 50);
-    dropController.drop(createDraggable(), 190, 100);
   }
 }
