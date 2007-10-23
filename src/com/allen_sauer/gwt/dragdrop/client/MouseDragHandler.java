@@ -18,7 +18,9 @@ package com.allen_sauer.gwt.dragdrop.client;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.MouseListener;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -35,8 +37,10 @@ import java.util.HashMap;
  * {@link DropController}.
  */
 public class MouseDragHandler implements MouseListener {
+  private int boundaryOffsetX;
+  private int boundaryOffsetY;
   private AbsolutePanel boundaryPanel;
-  private Widget capturingWidget;
+  private FocusPanel capturingWidget;
   private boolean constrainedToBoundaryPanel = false;
   private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
   private DragController dragController;
@@ -44,18 +48,21 @@ public class MouseDragHandler implements MouseListener {
   private boolean dragging;
   private HashMap dragHandleMap = new HashMap();
   private DropController dropController;
-  private int initialMouseX;
-  private int initialMouseY;
   private int maxLeft;
   private int maxTop;
   private boolean mouseDown;
+  private int mouseDownOffsetX;
+  private int mouseDownOffsetY;
+  private Widget mouseDownWidget;
   private Widget movableWidget;
-  private int offsetX;
-  private int offsetY;
 
   public MouseDragHandler(DragController dragController) {
     this.dragController = dragController;
     boundaryPanel = dragController.getBoundaryPanel();
+    capturingWidget = new FocusPanel();
+    capturingWidget.setPixelSize(0, 0);
+    RootPanel.get().add(capturingWidget, 0, 0);
+    capturingWidget.addMouseListener(this);
   }
 
   public void makeDraggable(Widget draggable, Widget dragHandle) {
@@ -76,7 +83,7 @@ public class MouseDragHandler implements MouseListener {
 
   public void onMouseDown(Widget sender, int x, int y) {
     // mouse down determines draggable
-    capturingWidget = sender;
+    mouseDownWidget = sender;
 
     int button = DOM.eventGetButton(DOM.eventGetCurrentEvent());
     // TODO remove Event.UNDEFINED after GWT Issue 1535 is fixed
@@ -89,9 +96,9 @@ public class MouseDragHandler implements MouseListener {
       return;
     }
     DOM.eventPreventDefault(DOM.eventGetCurrentEvent());
-    DOMUtil.unselect();
-    initialMouseX = x;
-    initialMouseY = y;
+
+    mouseDownOffsetX = x;
+    mouseDownOffsetY = y;
   }
 
   public void onMouseEnter(Widget sender) {
@@ -103,7 +110,13 @@ public class MouseDragHandler implements MouseListener {
   public void onMouseMove(Widget sender, int x, int y) {
     if (!dragging) {
       if (mouseDown) {
+        DOMUtil.unselect();
         startDragging();
+
+        // adjust (x,y) to be relative to capturingWidget at (0,0)
+        Location location = new WidgetLocation(mouseDownWidget, null);
+        x += location.getLeft();
+        y += location.getTop();
       }
       if (!dragging) {
         return;
@@ -180,7 +193,7 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void startDragging() {
-    draggable = (Widget) dragHandleMap.get(capturingWidget);
+    draggable = (Widget) dragHandleMap.get(mouseDownWidget);
 
     try {
       dragController.previewDragStart(draggable);
@@ -188,38 +201,28 @@ public class MouseDragHandler implements MouseListener {
       return;
     }
     dragController.dragStart(draggable);
-
     movableWidget = dragController.getMovableWidget();
 
     maxLeft = DOMUtil.getClientWidth(boundaryPanel.getElement()) - movableWidget.getOffsetWidth();
     maxTop = DOMUtil.getClientHeight(boundaryPanel.getElement()) - movableWidget.getOffsetHeight();
 
-    Location location = new WidgetLocation(capturingWidget, boundaryPanel);
-    Location altLocation = new WidgetLocation(movableWidget, boundaryPanel);
-    offsetX = altLocation.getLeft() - location.getLeft();
-    offsetY = altLocation.getTop() - location.getTop();
+    Location location = new WidgetLocation(boundaryPanel, null);
+    boundaryOffsetX = location.getLeft() + DOMUtil.getBorderLeft(boundaryPanel.getElement());
+    boundaryOffsetY = location.getTop() + DOMUtil.getBorderTop(boundaryPanel.getElement());
 
     DOM.setCapture(capturingWidget.getElement());
     dragging = true;
-    try {
-      actualMove(initialMouseX, initialMouseY);
-    } catch (RuntimeException ex) {
-      cancelDrag();
-      throw ex;
-    }
   }
 
   void actualMove(int x, int y) {
-    Location location = new WidgetLocation(capturingWidget, boundaryPanel);
-    int desiredLeft = location.getLeft() + offsetX + x - initialMouseX;
-    int desiredTop = location.getTop() + offsetY + y - initialMouseY;
+    int desiredLeft = x - boundaryOffsetX - mouseDownOffsetX;
+    int desiredTop = y - boundaryOffsetY - mouseDownOffsetY;
 
     if (constrainedToBoundaryPanel) {
       desiredLeft = Math.max(0, Math.min(desiredLeft, maxLeft));
       desiredTop = Math.max(0, Math.min(desiredTop, maxTop));
     }
 
-    // boundaryPanel.setWidgetPosition(movableWidget, desiredLeft, desiredTop);
     DOMUtil.fastSetElementPosition(movableWidget.getElement(), desiredLeft, desiredTop);
 
     DropController newDropController = dragController.getIntersectDropController(movableWidget);
