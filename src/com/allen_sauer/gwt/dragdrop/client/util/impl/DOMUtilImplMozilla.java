@@ -22,8 +22,8 @@ import com.google.gwt.user.client.Element;
  * Mozilla.
  */
 public class DOMUtilImplMozilla extends DOMUtilImplStandard {
-  public native boolean contains(Element parent, Element child)
+  public native boolean isOrContains(Element parent, Element child)
   /*-{
-    return !!(parent.compareDocumentPosition(child) & 16);
+    return child.isSameNode(parent) || !!(parent.compareDocumentPosition(child) & 16);
   }-*/;
 }
