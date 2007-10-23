@@ -65,13 +65,6 @@ public final class WindowExample extends Example {
         WindowExample.class, WindowController.class, WindowPanel.class, ResizeDropController.class, ResizeDragController.class,};
   }
 
-  protected void onLoad() {
-    super.onLoad();
-    // IE work around for disappearing panel
-    DOM.setStyleAttribute(getElement(), "display", "none");
-    DOM.setStyleAttribute(getElement(), "display", "");
-  }
-
   private Frame getIframe(String url) {
     Frame iframe = new Frame() {
       protected void onLoad() {
