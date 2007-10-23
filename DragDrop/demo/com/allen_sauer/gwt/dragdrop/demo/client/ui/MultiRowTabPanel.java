@@ -23,17 +23,22 @@ import com.google.gwt.user.client.ui.TabListener;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import java.util.HashMap;
+
 public class MultiRowTabPanel extends Composite {
   private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_BOTTOM = "demo-MultiRowTabPanel-bottom";
   private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_FIRST = "demo-MultiRowTabPanel-first";
   private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_LAST = "demo-MultiRowTabPanel-last";
   private DeckPanel masterDeckPanel;
-  private final int rows;
+  private int rows = 0;
   private int selectedRow = -1;
   private StylableVerticalPanel tabBarsVerticalPanel;
+  private int widgetCount;
+  private HashMap widgetOffsetMap = new HashMap();
+  private final int widgetsPerRow;
 
-  public MultiRowTabPanel(int rows) {
-    this.rows = rows;
+  public MultiRowTabPanel(int widgetsPerRow) {
+    this.widgetsPerRow = widgetsPerRow;
     VerticalPanel containerPanel = new VerticalPanel();
     initWidget(containerPanel);
 
@@ -43,42 +48,18 @@ public class MultiRowTabPanel extends Composite {
     masterDeckPanel.addStyleName(CSS_DEMO_MULTI_ROW_TAB_PANEL_BOTTOM);
     containerPanel.add(tabBarsVerticalPanel);
     containerPanel.add(masterDeckPanel);
-
-    for (int i = 0; i < rows; i++) {
-      TabBar tabBar = new TabBar();
-      tabBarsVerticalPanel.add(tabBar);
-      tabBar.addTabListener(new TabListener() {
-        public boolean onBeforeTabSelected(SourcesTabEvents sender, int tabIndex) {
-          return true;
-        }
-
-        public void onTabSelected(SourcesTabEvents sender, int tabIndex) {
-          int row = tabBarsVerticalPanel.getWidgetIndex((TabBar) sender);
-          whenTabSelected(row, tabIndex);
-        }
-      });
-    }
-    setTabBarFirstLastStyleNames();
-
-    for (int i = 0; i < rows; i++) {
-      DeckPanel deckPanel = new DeckPanel();
-      masterDeckPanel.add(deckPanel);
-    }
   }
 
-  public void add(Widget widget, String tabText, int row) {
-    DeckPanel deckPanel = (DeckPanel) masterDeckPanel.getWidget(row);
-    insert(widget, tabText, row, deckPanel.getWidgetCount());
-  }
-
-  public void insert(Widget widget, String tabText, int row, int beforeIndex) {
+  public void add(Widget widget, String tabText) {
+    int row = widgetCount / widgetsPerRow;
+    //    int col = widgetCount % widgetsPerRow;
+    while (row >= rows) {
+      addRow();
+    }
+    widgetCount++;
+    masterDeckPanel.add(widget);
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);
-    DeckPanel deckPanel = (DeckPanel) masterDeckPanel.getWidget(row);
-
-    tabBar.insertTab(tabText, true, beforeIndex);
-    deckPanel.insert(widget, beforeIndex);
-
-    masterDeckPanel.showWidget(row);
+    tabBar.addTab(tabText, true);
   }
 
   public void selectTab(int row, int tabIndex) {
@@ -86,16 +67,38 @@ public class MultiRowTabPanel extends Composite {
     tabBar.selectTab(tabIndex);
   }
 
-  private void moveSelectedRowToBottom() {
-    tabBarsVerticalPanel.add(tabBarsVerticalPanel.getWidget(selectedRow));
+  private void addRow() {
+    TabBar tabBar = new TabBar();
+    tabBarsVerticalPanel.add(tabBar);
+    tabBar.addTabListener(new TabListener() {
+      public boolean onBeforeTabSelected(SourcesTabEvents sender, int tabIndex) {
+        return true;
+      }
+
+      public void onTabSelected(SourcesTabEvents sender, int tabIndex) {
+        int row = tabBarsVerticalPanel.getWidgetIndex((TabBar) sender);
+        whenTabSelected(row, tabIndex);
+      }
+    });
+    widgetOffsetMap.put(tabBar, new Integer(widgetCount));
+
+    rows++;
     setTabBarFirstLastStyleNames();
-    masterDeckPanel.add(masterDeckPanel.getWidget(selectedRow));
+  }
+
+  private void rotateSelectedRowToBottom() {
+    for (int i = 0; i <= selectedRow; i++) {
+      tabBarsVerticalPanel.add(tabBarsVerticalPanel.getWidget(0));
+    }
+    setTabBarFirstLastStyleNames();
     selectedRow = rows - 1;
-    masterDeckPanel.showWidget(selectedRow);
   }
 
   private void setTabBarFirstLastStyleNames() {
     tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(0), CSS_DEMO_MULTI_ROW_TAB_PANEL_FIRST);
+    for (int i = 1; i < rows - 1; i++) {
+      tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(i), "");
+    }
     tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(rows - 1), CSS_DEMO_MULTI_ROW_TAB_PANEL_LAST);
   }
 
@@ -103,8 +106,6 @@ public class MultiRowTabPanel extends Composite {
     if (tabIndex == -1) {
       return;
     }
-    DeckPanel deckPanel = (DeckPanel) masterDeckPanel.getWidget(row);
-    deckPanel.showWidget(tabIndex);
     if (row != selectedRow) {
       selectedRow = row;
       for (int i = 0; i < rows; i++) {
@@ -113,7 +114,10 @@ public class MultiRowTabPanel extends Composite {
           tabBar.selectTab(-1);
         }
       }
-      moveSelectedRowToBottom();
+      rotateSelectedRowToBottom();
     }
+    TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(selectedRow);
+    Integer widgetOffset = (Integer) widgetOffsetMap.get(tabBar);
+    masterDeckPanel.showWidget(widgetOffset.intValue() + tabIndex);
   }
 }

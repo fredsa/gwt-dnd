@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -54,19 +53,18 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
 
   private int counter;
 
-  public ExampleTabPanel(int rows) {
-    super(rows);
+  public ExampleTabPanel(int widgetsPerRow) {
+    super(widgetsPerRow);
   }
 
   /**
    * Add another example to demonstrate.
-   * 
    * @param example the example panel to add
    */
-  public void add(int row, Example example) {
+  public void add(Example example) {
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.add(describe(example.getInvolvedClasses(), example.getDescription()));
     verticalPanel.add(example);
-    add(verticalPanel, "Demo " + ++counter, row);
+    add(verticalPanel, "Demo " + ++counter);
   }
 }

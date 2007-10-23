@@ -19,7 +19,6 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
 
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
@@ -40,8 +39,6 @@ public final class WindowExample extends Example {
     final AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(600, 300);
     setWidget(boundaryPanel);
-
-    boundaryPanel.add(new Label("hi"), 10, 10);
 
     // initialize window controller which provides drag and resize windows
     WindowController windowController = new WindowController(boundaryPanel);
