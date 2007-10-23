@@ -54,11 +54,6 @@ public class WidgetLocation extends AbstractLocation {
     top = Math.max(minTop, Math.min(top, maxTop));
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.allen_sauer.gwt.dragdrop.client.util.Location#getLeft()
-   */
   public int getLeft() {
     return left;
   }
@@ -67,11 +62,6 @@ public class WidgetLocation extends AbstractLocation {
     return reference;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.allen_sauer.gwt.dragdrop.client.util.Location#getTop()
-   */
   public int getTop() {
     return top;
   }
