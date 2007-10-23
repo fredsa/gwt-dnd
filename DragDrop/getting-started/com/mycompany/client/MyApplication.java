@@ -20,6 +20,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
@@ -28,6 +30,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
 public class MyApplication implements EntryPoint {
   public void onModuleLoad() {
@@ -102,9 +105,9 @@ public class MyApplication implements EntryPoint {
       // add it to the DOM so that offset width/height becomes available
       targetPanel.add(label, 0, 0);
 
-      // determine random label location within target pael
-      int left = (int) (Math.random() * (targetPanel.getOffsetWidth() - label.getOffsetWidth()));
-      int top = (int) (Math.random() * (targetPanel.getOffsetHeight() - label.getOffsetHeight()));
+      // determine random label location within target panel
+      int left = Random.nextInt(DOMUtil.getClientWidth(targetPanel.getElement()) - label.getOffsetWidth());
+      int top = Random.nextInt(DOMUtil.getClientHeight(targetPanel.getElement()) - label.getOffsetHeight());
 
       // move the label
       targetPanel.setWidgetPosition(label, left, top);
