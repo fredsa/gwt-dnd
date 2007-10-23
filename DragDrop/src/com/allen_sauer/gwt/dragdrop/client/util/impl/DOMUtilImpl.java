@@ -23,11 +23,6 @@ import com.google.gwt.user.client.ui.Widget;
  * cross-browser implementation.
  */
 public abstract class DOMUtilImpl {
-  public native boolean contains(Element parent, Element child)
-  /*-{
-    return parent.contains(child);
-  }-*/;
-
   public abstract int getBorderLeft(Element elem);
 
   public abstract int getBorderTop(Element elem);
@@ -48,6 +43,11 @@ public abstract class DOMUtilImpl {
   public int getVerticalBorders(Widget widget) {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
   }
+
+  public native boolean isOrContains(Element parent, Element child)
+  /*-{
+    return parent.contains(child);
+  }-*/;
 
   public native void setStatus(String text)
   /*-{
