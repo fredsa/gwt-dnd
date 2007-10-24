@@ -20,12 +20,13 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
+
 /**
  * A {@link DropController} for instances of {@link FlowPanel}.
  * 
  * @see IndexedDropController
- * 
- * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
 public class FlowPanelDropController extends AbstractIndexedDropController {
   private static final String CSS_DRAGDROP_FLOW_PANEL_POSITIONER = "dragdrop-flow-panel-positioner";
@@ -45,14 +46,20 @@ public class FlowPanelDropController extends AbstractIndexedDropController {
     this.dropTarget = dropTarget;
   }
 
-  public Class getControllerClass() {
-    return FlowPanelDropController.class;
-  }
-
   // TODO remove after enhancement for issue 1112 provides InsertPanel interface
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
   protected void insert(Widget widget, int beforeIndex) {
     dropTarget.insert(widget, beforeIndex);
+  }
+
+  /**
+   * Determine if location is to the right of area's center.
+   * 
+   * @param location the location to consider
+   * @return true if the location is indicates an index position following the widget
+   */
+  protected boolean locationIndicatesIndexFollowingWidget(WidgetArea widgetArea, Location location) {
+    return location.getLeft() > widgetArea.getLeft() + widgetArea.getWidth() / 2;
   }
 
   protected Widget newPositioner(Widget reference) {

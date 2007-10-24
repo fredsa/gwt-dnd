@@ -23,7 +23,6 @@ import com.google.gwt.user.client.ui.Widget;
  * width and height.
  */
 public class WidgetArea extends AbstractArea {
-
   /**
    * Determine the area of a widget relative to a panel. The area returned is
    * such that the following are true:

@@ -104,8 +104,8 @@ public abstract class AbstractDragController implements DragController {
     return boundaryPanel;
   }
 
-  public DropController getIntersectDropController(Widget widget) {
-    DropController dropController = dropControllerCollection.getIntersectDropController(widget, boundaryPanel);
+  public DropController getIntersectDropController(int x, int y) {
+    DropController dropController = dropControllerCollection.getIntersectDropController(x, y, boundaryPanel);
     return dropController != null ? dropController : boundaryDropController;
   }
 

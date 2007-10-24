@@ -68,15 +68,15 @@ public interface DragController extends FiresDragEvents {
   AbsolutePanel getBoundaryPanel();
 
   /**
-   * Determine which DropController represents the drop target which is
-   * currently engaging the drag proxy, meaning the drop target and proxy
-   * widgets overlap and the drop target has no descendant drop targets which
-   * also intersect
+   * Determine which DropController represents the deepest DOM descendant
+   * drop target located at provided location (x, y).
    * 
-   * @param draggableProxy the proxy widget to be used as a reference
-   * @return the repsonsibile DropController
+   * @param x offset left relative to document body
+   * @param y offset top relative to document body
+   * 
+   * @return the responsible DropController
    */
-  DropController getIntersectDropController(Widget draggableProxy);
+  DropController getIntersectDropController(int x, int y);
 
   /**
    * @return widget which will move as part of the drag operation. May be the
