@@ -21,6 +21,9 @@ import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
+
 /**
  * A {@link DropController} for instances of {@link IndexedPanel}.
  * 
@@ -50,6 +53,35 @@ public class IndexedDropController extends AbstractIndexedDropController {
       ((VerticalPanel) dropTarget).insert(widget, beforeIndex);
     } else {
       throw new RuntimeException("Method insert(Widget widget, int beforeIndex) not supported by " + GWT.getTypeName(dropTarget));
+    }
+  }
+
+  /**
+   * Determine whether or not <code>location</code> indicates insertion
+   * following widget.
+   * 
+   * <ul>
+   *    <li>When <code>dropTarget instanceof HorizontalPanel</code>,
+   *        determine if location is to the right of area's center.
+   *    </li>
+   *    <li>When <code>dropTarget instanceof VerticalPanel</code>,
+   *        determine if location is below area'a center.
+   *    </li>
+   *    <li>Otherwise default to
+   *        <code>{@link WidgetArea#inBottomRight(Location)}</code>.
+   *    </li>
+   * </ul>
+   * 
+   * @param location the location to consider
+   * @return true if the location is indicates an index position following the widget
+   */
+  protected boolean locationIndicatesIndexFollowingWidget(WidgetArea widgetArea, Location location) {
+    if (dropTarget instanceof HorizontalPanel) {
+      return location.getLeft() > widgetArea.getLeft() + widgetArea.getWidth() / 2;
+    } else if (dropTarget instanceof VerticalPanel) {
+      return location.getTop() > widgetArea.getTop() + widgetArea.getHeight() / 2;
+    } else {
+      return widgetArea.inBottomRight(location);
     }
   }
 

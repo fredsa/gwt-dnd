@@ -99,9 +99,8 @@ public interface DropController {
    * drop target. {@link #onEnter(Widget, Widget, DragController)} is called
    * before this method is called.
    * 
-   * @see #onEnter(Widget, Widget, DragController)
-   * @see #onLeave(Widget, DragController)
-   * 
+   * @param x offset left relative to document body
+   * @param y offset top relative to document body
    * @param reference the widget (either the actual draggable widget or a
    *            suitable proxy widget) which is currently engaging
    *            (intersecting) with our drop target
@@ -109,8 +108,11 @@ public interface DropController {
    *            operation would apply
    * @param dragController the {@link DragController} coordinating the current
    *            drag-and-drop operation
+   * 
+   * @see #onEnter(Widget, Widget, DragController)
+   * @see #onLeave(Widget, DragController)
    */
-  void onMove(Widget reference, Widget draggable, DragController dragController);
+  void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController);
 
   /**
    * Called just prior to {@link #onDrop(Widget, Widget, DragController)} to

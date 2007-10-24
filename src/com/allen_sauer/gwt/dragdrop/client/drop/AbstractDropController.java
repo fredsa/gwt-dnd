@@ -67,7 +67,7 @@ public abstract class AbstractDropController implements DropController {
     currentDragController = null;
   }
 
-  public void onMove(Widget reference, Widget draggable, DragController dragController) {
+  public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
   }
 
   public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {

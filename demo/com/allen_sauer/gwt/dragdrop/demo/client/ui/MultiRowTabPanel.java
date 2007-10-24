@@ -52,7 +52,6 @@ public class MultiRowTabPanel extends Composite {
 
   public void add(Widget widget, String tabText) {
     int row = widgetCount / widgetsPerRow;
-    //    int col = widgetCount % widgetsPerRow;
     while (row >= rows) {
       addRow();
     }
@@ -62,7 +61,9 @@ public class MultiRowTabPanel extends Composite {
     tabBar.addTab(tabText, true);
   }
 
-  public void selectTab(int row, int tabIndex) {
+  public void selectTab(int index) {
+    int row = index / widgetsPerRow;
+    int tabIndex = index % widgetsPerRow;
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);
     tabBar.selectTab(tabIndex);
   }

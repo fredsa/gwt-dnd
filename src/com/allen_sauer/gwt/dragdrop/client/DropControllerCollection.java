@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
+import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
@@ -49,7 +50,7 @@ public class DropControllerCollection {
 
     public int compareTo(Object arg0) {
       Candidate other = (Candidate) arg0;
-      return DOMUtil.contains(getDropTarget().getElement(), other.getDropTarget().getElement()) ? 1 : -1;
+      return DOMUtil.isOrContains(getDropTarget().getElement(), other.getDropTarget().getElement()) ? 1 : -1;
     }
 
     public DropController getDropController() {
@@ -82,32 +83,25 @@ public class DropControllerCollection {
    * Determines which drop controller has a lowest DOM descendant target area
    * which intersects with the provided widget area.
    * 
-   * @param widget the widget to use to determine intersects
+   * @param x offset left relative to document body
+   * @param y offset top relative to document body
    * @param boundaryPanel the panel which provides the boundaries for the drag
-   *            controller. Drop targets must be within this are to be
-   *            considered
+   *                      controller. Drop targets must be within this are to be
+   *                      considered
+   * 
    * @return a drop controller for the intersecting drop target or null if none
    *         are applicable
    */
-  public DropController getIntersectDropController(Widget widget, Panel boundaryPanel) {
-    Area widgetArea = new WidgetArea(widget, null);
-    Location widgetCenter = widgetArea.getCenter();
-    Candidate result = null;
-    int closestCenterDistanceToEdge = Integer.MAX_VALUE;
+  public DropController getIntersectDropController(int x, int y, Panel boundaryPanel) {
+    Location location = new CoordinateLocation(x, y);
     for (int i = 0; i < sortedCandidates.length; i++) {
       Candidate candidate = sortedCandidates[i];
       Area targetArea = candidate.getTargetArea();
-      if (targetArea.intersects(widgetArea)) {
-        int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(widgetCenter);
-        if (widgetCenterDistanceToTargetEdge <= closestCenterDistanceToEdge) {
-          if (result == null || !DOMUtil.contains(candidate.getDropTarget().getElement(), result.getDropTarget().getElement())) {
-            closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
-            result = candidate;
-          }
-        }
+      if (targetArea.intersects(location)) {
+        return candidate.getDropController();
       }
     }
-    return result == null ? null : result.getDropController();
+    return null;
   }
 
   public void remove(DropController dropController) {
@@ -115,9 +109,9 @@ public class DropControllerCollection {
   }
 
   /**
-   * Cache a list of eligible drop controllers, sorted by target area size.
-   * Should be called at the beginning of each drag operation, or whenever drop
-   * target eligibility has changed.
+   * Cache a list of eligible drop controllers, sorted by relative DOM positions
+   * of their respective drop targets. Should be called at the beginning of each
+   * drag operation, or whenever drop target eligibility has changed.
    * 
    * @param boundaryPanel boundary area for drop target eligibility
    *            considerations
@@ -130,10 +124,11 @@ public class DropControllerCollection {
     for (Iterator iterator = iterator(); iterator.hasNext();) {
       DropController dropController = (DropController) iterator.next();
       Candidate candidate = new Candidate(dropController);
-      if (!DOMUtil.contains(draggable.getElement(), candidate.getDropTarget().getElement())) {
-        if (candidate.getTargetArea().intersects(boundaryArea)) {
-          list.add(candidate);
-        }
+      if (DOMUtil.isOrContains(draggable.getElement(), candidate.getDropTarget().getElement())) {
+        continue;
+      }
+      if (candidate.getTargetArea().intersects(boundaryArea)) {
+        list.add(candidate);
       }
     }
 

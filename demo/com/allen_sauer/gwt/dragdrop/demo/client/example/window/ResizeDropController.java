@@ -41,8 +41,8 @@ final class ResizeDropController extends BoundaryDropController {
     windowPanel = null;
   }
 
-  public void onMove(Widget reference, Widget draggable, DragController dragController) {
-    super.onMove(reference, draggable, dragController);
+  public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
+    super.onMove(x, y, reference, draggable, dragController);
 
     int direction = ((ResizeDragController) dragController).getDirection(draggable).directionBits;
     if ((direction & WindowPanel.DIRECTION_NORTH) != 0) {

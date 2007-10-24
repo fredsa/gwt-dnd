@@ -59,10 +59,7 @@ public class MouseDragHandler implements MouseListener {
   public MouseDragHandler(DragController dragController) {
     this.dragController = dragController;
     boundaryPanel = dragController.getBoundaryPanel();
-    capturingWidget = new FocusPanel();
-    capturingWidget.setPixelSize(0, 0);
-    RootPanel.get().add(capturingWidget, 0, 0);
-    capturingWidget.addMouseListener(this);
+    initCapturingWidget();
   }
 
   public void makeDraggable(Widget draggable, Widget dragHandle) {
@@ -225,7 +222,7 @@ public class MouseDragHandler implements MouseListener {
 
     DOMUtil.fastSetElementPosition(movableWidget.getElement(), desiredLeft, desiredTop);
 
-    DropController newDropController = dragController.getIntersectDropController(movableWidget);
+    DropController newDropController = dragController.getIntersectDropController(x, y);
     if (dropController != newDropController) {
       if (dropController != null) {
         dropController.onLeave(draggable, dragController);
@@ -237,7 +234,7 @@ public class MouseDragHandler implements MouseListener {
     }
 
     if (dropController != null) {
-      dropController.onMove(movableWidget, draggable, dragController);
+      dropController.onMove(x, y, movableWidget, draggable, dragController);
     }
   }
 
@@ -254,5 +251,13 @@ public class MouseDragHandler implements MouseListener {
     dragController.dragEnd(draggable, null);
     DragEndEvent dragEndEvent = new DragEndEvent(draggable, null);
     dragController.notifyDragEnd(dragEndEvent);
+  }
+
+  private void initCapturingWidget() {
+    capturingWidget = new FocusPanel();
+    capturingWidget.setPixelSize(0, 0);
+    RootPanel.get().add(capturingWidget, 0, 0);
+    capturingWidget.addMouseListener(this);
+    DOM.setStyleAttribute(capturingWidget.getElement(), "visibility", "hidden");
   }
 }

@@ -48,8 +48,8 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     return new FlexTableRowDragEndEvent(draggable, flexTable, targetRow + 1);
   }
 
-  public void onMove(Widget reference, Widget draggable, DragController dragController) {
-    super.onMove(reference, draggable, dragController);
+  public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
+    super.onMove(x, y, reference, draggable, dragController);
     int row = determineRow(reference);
     Widget w = flexTable.getWidget(row == -1 ? 0 : row, 0);
     Location widgetLocation = new WidgetLocation(w, dragController.getBoundaryPanel());

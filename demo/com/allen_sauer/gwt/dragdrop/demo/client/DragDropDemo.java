@@ -153,6 +153,6 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new MatryoshkaExample(demoDragHandler));
 
     // select the first example
-    examples.selectTab(0, 0);
+    examples.selectTab(0);
   }
 }
