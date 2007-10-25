@@ -35,6 +35,8 @@ public interface DragController extends FiresDragEvents {
    * Register a drag handler which will listen for
    * {@link DragStartEvent DragStartEvents} and
    * and {@link DragEndEvent DragEndEvents}.
+   * 
+   * @see #removeDragHandler(DragHandler)
    */
   void addDragHandler(DragHandler handler);
 
@@ -62,7 +64,8 @@ public interface DragController extends FiresDragEvents {
   AbsolutePanel getBoundaryPanel();
 
   /**
-   * Determine which DropController represents the deepest DOM descendant
+   * Call back method for {@link MouseDragHandler} to determine
+   * which DropController represents the deepest DOM descendant
    * drop target located at provided location (x, y).
    * 
    * @param x offset left relative to document body
@@ -73,26 +76,26 @@ public interface DragController extends FiresDragEvents {
   DropController getIntersectDropController(int x, int y);
 
   /**
-   * @return widget which will move as part of the drag operation. May be the
-   *         actual draggable widget or an appropriate proxy widget. The
-   *         original widget may also be wrapped inside this widget.
+   * Call back method for {@link MouseDragHandler} to determine the
+   * container widget that will move as part of the drag operation.
+   * This may be the actual draggable widget, an appropriate drag proxy
+   * widget, or a wrapper widget.
+   * 
+   * @return the movable container widget
    */
   Widget getMovableWidget();
 
   /**
-   * Enable dragging on widget.
-   * 
-   * @see AbstractDragController#makeDraggable(Widget)
+   * Enable dragging on widget. Call this method for each widget that
+   * you would like to make draggable under this drag controller.
    * 
    * @param widget the widget to be made draggable
    */
   void makeDraggable(Widget widget);
 
   /**
-   * Enable dragging on widget, but specify a specific child widget as the drag
-   * handle.
-   * 
-   * @see AbstractDragController#makeDraggable(Widget, Widget)
+   * Enable dragging on widget, specifying the child widget serving as a
+   * drag handle.
    * 
    * @param draggable the widget to be made draggable
    * @param dragHandle the widget by which widget can be dragged
@@ -103,22 +106,10 @@ public interface DragController extends FiresDragEvents {
    * Performs the reverse of {@link #makeDraggable(Widget)}, making the widget
    * no longer draggable by this drag controller.
    * 
-   * @param widget the widget to be made no longer draggable
+   * @param widget the widget which should no longer be draggable
    */
   void makeNotDraggable(Widget widget);
 
-  /**
-   * Create a new BoundaryDropController to manage our boundary panel as a drop
-   * target. To ensure that draggable widgets can only be dropped on registered
-   * drop targets, set <code>allowDropping</code> to <code>false</code>.
-   * 
-   * @param boundaryPanel the panel to which our drag-and-drop operations are
-   *            constrained
-   * @param allowDropping whether or not dropping is allowed on the boundary
-   *            panel
-   * @return the new BoundaryDropController
-   */
-  BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping);
 
   /**
    * Call back method for {@link MouseDragHandler}.
@@ -153,12 +144,16 @@ public interface DragController extends FiresDragEvents {
    */
   void registerDropController(DropController dropController);
 
+  /**
+   * Unregister drag handler.
+   * 
+   * @see #addDragHandler(DragHandler)
+   */
   void removeDragHandler(DragHandler handler);
 
   /**
-   * Whether or not draggable / drag proxy is to be constrained to the boundary panel
-   * during dragging. Note that the positioner is always constrained to the boundary
-   * panel.
+   * Whether or not movable widget is to be constrained to the boundary panel
+   * during dragging. The default is not to constrain the draggable or drag proxy.
    * 
    * @param constrainWidgetToBoundaryPanel whether or not to constrain to the boundary panel
    */
