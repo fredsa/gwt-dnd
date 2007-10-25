@@ -29,6 +29,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  */
 public final class FlowPanelExample extends Example {
   private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE = "demo-FlowPanelExample";
+  private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE_DRAGGABLE = "demo-FlowPanelExample-draggable";
   private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE_LABEL = "demo-FlowPanelExample-label";
 
   private FlowPanel flowPanelDropTarget;
@@ -54,7 +55,7 @@ public final class FlowPanelExample extends Example {
   protected void onInitialLoad() {
     for (int i = 1; i <= 25; i++) {
       FocusPanel focusPanel = new FocusPanel();
-      focusPanel.setStyleName("demo-FlowPanelExample-draggable");
+      focusPanel.setStyleName(CSS_DEMO_FLOW_PANEL_EXAMPLE_DRAGGABLE);
 
       FlowPanel flowPanel = new FlowPanel();
       focusPanel.add(flowPanel);

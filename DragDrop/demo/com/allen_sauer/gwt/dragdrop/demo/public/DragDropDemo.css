@@ -79,6 +79,12 @@ DIV.demo-main-boundary-panel {
 }
 
 /* ------------ FlowPanelExample ------------ */
+.demo-FlowPanelExample-draggable {
+  padding: 0.1em;
+  margin: 0.1em;
+  border: 1px solid blue;
+}
+
 .demo-FlowPanelExample-draggable ,
 .demo-FlowPanelExample-draggable DIV {
   display: inline;
@@ -87,9 +93,6 @@ DIV.demo-main-boundary-panel {
 .demo-FlowPanelExample-label {
   font-size: 1.2em;
   line-height: 1.6em;
-  padding: 0.1em;
-  margin: 0.1em;
-  border: 1px solid blue;
 }
 
 .dragdrop-flow-panel-positioner {
