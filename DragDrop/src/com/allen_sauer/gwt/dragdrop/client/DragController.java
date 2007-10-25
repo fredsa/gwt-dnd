@@ -31,17 +31,11 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
  * </p>
  */
 public interface DragController extends FiresDragEvents {
-
   /**
-   * Restore the draggable to its original style
-   * 
-   * @see #saveDraggableLocationAndStyle(Widget)
-   * @see #restoreDraggableLocation(Widget)
-   * 
-   * @param draggable the widget to be restored to its original location
+   * Register a drag handler which will listen for
+   * {@link DragStartEvent DragStartEvents} and
+   * and {@link DragEndEvent DragEndEvents}.
    */
-  public void restoreDraggableStyle(Widget draggable);
-
   void addDragHandler(DragHandler handler);
 
   /**
@@ -160,25 +154,6 @@ public interface DragController extends FiresDragEvents {
   void registerDropController(DropController dropController);
 
   void removeDragHandler(DragHandler handler);
-
-  /**
-   * Restore the draggable to its original location
-   * 
-   * @see #saveDraggableLocationAndStyle(Widget)
-   * @see #restoreDraggableStyle(Widget)
-   * 
-   * @param draggable the widget to be restored to its original location
-   */
-  void restoreDraggableLocation(Widget draggable);
-
-  /**
-   * Save the draggable's current location in case we need to restore it later.
-   * 
-   * @see #restoreDraggableLocation(Widget)
-   * 
-   * @param draggable the widget for which the location must be saved
-   */
-  void saveDraggableLocationAndStyle(Widget draggable);
 
   /**
    * Whether or not draggable / drag proxy is to be constrained to the boundary panel

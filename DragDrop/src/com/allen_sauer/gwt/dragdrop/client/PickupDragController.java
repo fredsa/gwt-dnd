@@ -15,9 +15,14 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
@@ -28,13 +33,16 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
  * drag proxy is temporarily picked up and dragged around the boundary panel.
  */
 public class PickupDragController extends AbstractDragController {
-
   protected static final String CSS_MOVABLE_PANEL = "dragdrop-movable-panel";
   protected static final String CSS_PROXY = "dragdrop-proxy";
 
   private Widget currentDraggable;
   private Widget draggableProxy;
   private boolean dragProxyEnabled = false;
+  private int initialDraggableIndex;
+  private String initialDraggableMargin;
+  private Widget initialDraggableParent;
+  private Location initialDraggableParentLocation;
   private SimplePanel movablePanel;
 
   /**
@@ -108,6 +116,79 @@ public class PickupDragController extends AbstractDragController {
       return proxy;
     } else {
       return null;
+    }
+  }
+
+  /**
+   * Restore the draggable to its original location
+   * 
+   * @see #saveDraggableLocationAndStyle(Widget)
+   * @see #restoreDraggableStyle(Widget)
+   * 
+   * @param draggable the widget to be restored to its original location
+   */
+  protected void restoreDraggableLocation(Widget draggable) {
+    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
+    // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
+    if (initialDraggableParent instanceof AbsolutePanel) {
+      ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
+          initialDraggableParentLocation.getTop());
+    } else if (initialDraggableParent instanceof HorizontalPanel) {
+      ((HorizontalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+    } else if (initialDraggableParent instanceof VerticalPanel) {
+      ((VerticalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+    } else if (initialDraggableParent instanceof FlowPanel) {
+      ((FlowPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
+    } else if (initialDraggableParent instanceof SimplePanel) {
+      ((SimplePanel) initialDraggableParent).setWidget(draggable);
+    } else {
+      throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
+    }
+  }
+
+  /**
+   * Restore the draggable to its original style
+   * 
+   * @see #saveDraggableLocationAndStyle(Widget)
+   * @see #restoreDraggableLocation(Widget)
+   * 
+   * @param draggable the widget to be restored to its original location
+   */
+  protected void restoreDraggableStyle(Widget draggable) {
+    if (initialDraggableMargin != null && initialDraggableMargin.length() != 0) {
+      DOM.setStyleAttribute(draggable.getElement(), "margin", initialDraggableMargin);
+    }
+  }
+
+  /**
+   * Save the draggable's current location in case we need to restore it later.
+   * 
+   * @see #restoreDraggableLocation(Widget)
+   * 
+   * @param draggable the widget for which the location must be saved
+   */
+  protected void saveDraggableLocationAndStyle(Widget draggable) {
+    initialDraggableParent = draggable.getParent();
+
+    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
+    // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
+    if (initialDraggableParent instanceof AbsolutePanel) {
+      initialDraggableParentLocation = new WidgetLocation(draggable, initialDraggableParent);
+    } else if (initialDraggableParent instanceof HorizontalPanel) {
+      initialDraggableIndex = ((HorizontalPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof VerticalPanel) {
+      initialDraggableIndex = ((VerticalPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof FlowPanel) {
+      initialDraggableIndex = ((FlowPanel) initialDraggableParent).getWidgetIndex(draggable);
+    } else if (initialDraggableParent instanceof SimplePanel) {
+      // save nothing
+    } else {
+      throw new RuntimeException("Unable to handle 'initialDraggableParent instanceof " + GWT.getTypeName(initialDraggableParent)
+          + "'; Please create your own DragController and override saveDraggableLocationAndStyle() and restoreDraggableLocation()");
+    }
+    initialDraggableMargin = DOM.getStyleAttribute(draggable.getElement(), "margin");
+    if (initialDraggableMargin != null && initialDraggableMargin.length() != 0) {
+      DOM.setStyleAttribute(draggable.getElement(), "margin", "0px");
     }
   }
 }
