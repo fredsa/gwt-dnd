@@ -15,20 +15,12 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.HashMap;
 
@@ -52,12 +44,9 @@ public abstract class AbstractDragController implements DragController {
 
   private BoundaryDropController boundaryDropController;
   private AbsolutePanel boundaryPanel;
+  private Widget draggable;
   private DragHandlerCollection dragHandlers;
   private DropControllerCollection dropControllerCollection = getDropControllerCollection();
-  private int initialDraggableIndex;
-  private String initialDraggableMargin;
-  private Widget initialDraggableParent;
-  private Location initialDraggableParentLocation;
   private MouseDragHandler mouseDragHandler;
 
   /**
@@ -93,7 +82,8 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void dragStart(Widget draggable) {
-    dropControllerCollection.resetCache(getBoundaryPanel(), draggable);
+    this.draggable = draggable;
+    resetCache();
     if (dragHandlers != null) {
       dragHandlers.fireDragStart(draggable);
     }
@@ -188,54 +178,13 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
-  public void restoreDraggableLocation(Widget draggable) {
-    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
-    // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
-    if (initialDraggableParent instanceof AbsolutePanel) {
-      ((AbsolutePanel) initialDraggableParent).add(draggable, initialDraggableParentLocation.getLeft(),
-          initialDraggableParentLocation.getTop());
-    } else if (initialDraggableParent instanceof HorizontalPanel) {
-      ((HorizontalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
-    } else if (initialDraggableParent instanceof VerticalPanel) {
-      ((VerticalPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
-    } else if (initialDraggableParent instanceof FlowPanel) {
-      ((FlowPanel) initialDraggableParent).insert(draggable, initialDraggableIndex);
-    } else if (initialDraggableParent instanceof SimplePanel) {
-      ((SimplePanel) initialDraggableParent).setWidget(draggable);
-    } else {
-      throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(initialDraggableParent));
-    }
-  }
-
-  public void restoreDraggableStyle(Widget draggable) {
-    if (initialDraggableMargin != null && initialDraggableMargin.length() != 0) {
-      DOM.setStyleAttribute(draggable.getElement(), "margin", initialDraggableMargin);
-    }
-  }
-
-  public void saveDraggableLocationAndStyle(Widget draggable) {
-    initialDraggableParent = draggable.getParent();
-
-    // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
-    // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
-    if (initialDraggableParent instanceof AbsolutePanel) {
-      initialDraggableParentLocation = new WidgetLocation(draggable, initialDraggableParent);
-    } else if (initialDraggableParent instanceof HorizontalPanel) {
-      initialDraggableIndex = ((HorizontalPanel) initialDraggableParent).getWidgetIndex(draggable);
-    } else if (initialDraggableParent instanceof VerticalPanel) {
-      initialDraggableIndex = ((VerticalPanel) initialDraggableParent).getWidgetIndex(draggable);
-    } else if (initialDraggableParent instanceof FlowPanel) {
-      initialDraggableIndex = ((FlowPanel) initialDraggableParent).getWidgetIndex(draggable);
-    } else if (initialDraggableParent instanceof SimplePanel) {
-      // save nothing
-    } else {
-      throw new RuntimeException("Unable to handle 'initialDraggableParent instanceof " + GWT.getTypeName(initialDraggableParent)
-          + "'; Please create your own DragController and override saveDraggableLocationAndStyle() and restoreDraggableLocation()");
-    }
-    initialDraggableMargin = DOM.getStyleAttribute(draggable.getElement(), "margin");
-    if (initialDraggableMargin != null && initialDraggableMargin.length() != 0) {
-      DOM.setStyleAttribute(draggable.getElement(), "margin", "0px");
-    }
+  /**
+   * Reset the internal drop controller (drop target) cache which was setup during
+   * {{@link #dragStart(Widget)}. This method should be called when a drop target's
+   * size and/or location changes, or when drop target eligibility changes.
+   */
+  public void resetCache() {
+    dropControllerCollection.resetCache(boundaryPanel, draggable);
   }
 
   public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
@@ -255,4 +204,5 @@ public abstract class AbstractDragController implements DragController {
   protected DropControllerCollection getDropControllerCollection() {
     return new DropControllerCollection();
   }
+
 }

@@ -69,18 +69,6 @@ public final class FlexTableRowDragController extends PickupDragController {
     draggableTable = null;
   }
 
-  public void restoreDraggableLocation(Widget draggable) {
-    // Nothing to restore because we use a drag proxy
-  }
-
-  public void restoreDraggableStyle(Widget draggable) {
-    // Nothing to restore because we use a drag proxy
-  }
-
-  public void saveDraggableLocationAndStyle(Widget draggable) {
-    // Nothing to save because we use a drag proxy
-  }
-
   protected Widget maybeNewDraggableProxy(Widget draggable) {
     FlexTable proxy;
     proxy = new FlexTable();
@@ -88,6 +76,18 @@ public final class FlexTableRowDragController extends PickupDragController {
     proxy.addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY);
     FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
     return proxy;
+  }
+
+  protected void restoreDraggableLocation(Widget draggable) {
+    // Nothing to restore because we use a drag proxy
+  }
+
+  protected void restoreDraggableStyle(Widget draggable) {
+    // Nothing to restore because we use a drag proxy
+  }
+
+  protected void saveDraggableLocationAndStyle(Widget draggable) {
+    // Nothing to save because we use a drag proxy
   }
 
   private int getWidgetRow(Widget widget, FlexTable table) {
