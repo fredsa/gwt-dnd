@@ -25,9 +25,7 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
  * like adjust widget styles.
  */
 public abstract class AbstractDropController implements DropController {
-
-  // TODO remove legacy "dragdrop-engage"
-  protected static final String CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage dragdrop-engage";
+  protected static final String CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage";
 
   private static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
 
