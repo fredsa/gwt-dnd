@@ -146,10 +146,6 @@ public abstract class AbstractDragController implements DragController {
     dragHandle.removeStyleName(CSS_HANDLE);
   }
 
-  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
-    return new BoundaryDropController(boundaryPanel, allowDropping);
-  }
-
   public void notifyDragEnd(DragEndEvent dragEndEvent) {
     if (dragHandlers != null) {
       dragHandlers.fireDragEnd(dragEndEvent);
@@ -205,4 +201,16 @@ public abstract class AbstractDragController implements DragController {
     return new DropControllerCollection();
   }
 
+  /**
+   * Create a new BoundaryDropController to manage our boundary panel as a drop
+   * target. To ensure that draggable widgets can only be dropped on registered
+   * drop targets, set <code>allowDropping</code> to <code>false</code>.
+   * 
+   * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
+   * @param allowDropping whether or not dropping is allowed on the boundary panel
+   * @return the new BoundaryDropController
+   */
+  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
+    return new BoundaryDropController(boundaryPanel, allowDropping);
+  }
 }
