@@ -43,9 +43,10 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
   }
 
   /**
-   * @return the widget which is used as an indicator or where the draggable
-   *         would be dropped if the mouse button where to be released at the
-   *         current location
+   * Get the widget which is used as an indicator of where the draggable would be 
+   * dropped if the mouse button where to be released at the current location.
+   * 
+   * @return the positioner widget
    */
   public Widget getPositioner() {
     return positioner;
@@ -53,7 +54,7 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     DragEndEvent event = super.onDrop(reference, draggable, dragController);
-    removePositioner();
+    positioner.removeFromParent();
     return event;
   }
 
@@ -64,15 +65,14 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
 
   public void onLeave(Widget draggable, DragController dragController) {
     super.onLeave(draggable, dragController);
-    removePositioner();
+    positioner.removeFromParent();
   }
 
   /**
    * Called in {@link #onEnter(Widget, Widget, DragController)} to create a new
-   * positioner widget
+   * positioner widget.
    * 
-   * @param reference the reference widget whose size or other attributes we can
-   *            copy
+   * @param reference the reference widget whose size or other attributes we can copy
    * @return the newly created widget
    */
   protected Widget newPositioner(Widget reference) {
@@ -96,11 +96,5 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     outer.setWidget(inner);
 
     return outer;
-  }
-
-  private void removePositioner() {
-    if (positioner != null) {
-      positioner.removeFromParent();
-    }
   }
 }
