@@ -84,8 +84,14 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     }
   }
 
-  // TODO remove after enhancement for issue 1112 provides InsertPanel interface
-  // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
+  /**
+   * Insert the provided widget using an appropriate drop target specific method.
+   * 
+   * TODO remove after enhancement for issue 1112 provides InsertPanel interface
+   * 
+   * @param widget the widget to be inserted
+   * @param beforeIndex the widget index before which <code>widget</code> should be inserted
+   */
   protected abstract void insert(Widget widget, int beforeIndex);
 
   /**
