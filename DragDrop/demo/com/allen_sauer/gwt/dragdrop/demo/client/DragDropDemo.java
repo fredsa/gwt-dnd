@@ -20,6 +20,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
@@ -31,6 +32,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.DraggableFactory;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.absolute.AbsolutePositionExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.BinExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.cache.CacheExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.draghandle.DragHandleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.duallist.DualListExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
@@ -121,7 +123,7 @@ public final class DragDropDemo implements EntryPoint {
     boundaryPanel.add(createDraggable(), 60, 280);
 
     // TabPanel to hold our examples
-    ExampleTabPanel examples = new ExampleTabPanel(6);
+    ExampleTabPanel examples = new ExampleTabPanel(7);
     examples.setWidth("650px");
     boundaryPanel.add(examples, 200, 10);
 
@@ -152,7 +154,9 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new PuzzleExample(demoDragHandler));
     examples.add(new MatryoshkaExample(demoDragHandler));
 
+    examples.add(new CacheExample(dragController));
+
     // select the first example
-    examples.selectTab(0);
+    examples.selectTab(Random.nextInt(examples.getTabCount() - 1));
   }
 }

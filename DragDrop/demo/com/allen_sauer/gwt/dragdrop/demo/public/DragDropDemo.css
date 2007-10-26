@@ -92,7 +92,7 @@ DIV.demo-main-boundary-panel {
 
 .demo-FlowPanelExample-label {
   font-size: 1.2em;
-  line-height: 1.6em;
+  line-height: 1.3em;
 }
 
 .dragdrop-flow-panel-positioner {
@@ -298,6 +298,25 @@ DIV.demo-main-boundary-panel {
   border: 1px solid black;
 }
 
+/* ------------ CacheExample ------------ */
+.demo-CacheExample .demo-CacheExample-TabPanel .gwt-TabPanelBottom {
+  height: 100%;
+}
+
+.demo-CacheExample DIV.dragdrop-dropTarget {
+  border: none;
+}
+
+.demo-CacheExample .gwt-TabBar DIV.dragdrop-dropTarget {
+  padding: 2px 6px;
+}
+
+.demo-CacheExample-draggable {
+  border: 1px solid black;
+  width: 5em;
+  text-align: center;
+}
+  
 /* ------------ General Demo CSS ------------ */
 .demo-main-boundary-panel .demo-example-description {
   font-size: 0.9em;
@@ -317,6 +336,10 @@ DIV.demo-main-boundary-panel {
   border: 1px solid green;
 }
 
+.gwt-TabBar .gwt-TabBarItem {
+  cursor: pointer;
+}
+
 /* ------------ ExampleTabPanel ------------ */
 .demo-MultiRowTabPanel-bottom {
   border-left: 1px solid #87B3FF;
@@ -325,32 +348,31 @@ DIV.demo-main-boundary-panel {
   background-color: #E8EEF7;
 }
 
-.gwt-TabBar {
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar {
   background-color: #C3D9FF;
 }
 
-.gwt-TabBar .gwt-TabBarFirst {
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar .gwt-TabBarFirst {
   height: 100%;
   padding-left: 3px;
 }
 
-.gwt-TabBar .gwt-TabBarRest {
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar .gwt-TabBarRest {
   padding-right: 3px;
 }
 
-.gwt-TabBar .gwt-TabBarItem {
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar .gwt-TabBarItem {
   border-top: 1px solid #C3D9FF;
   padding: 2px 6px;
-  cursor: pointer;
 }
 
-.demo-MultiRowTabPanel-last .gwt-TabBarItem,
-.demo-MultiRowTabPanel-last .gwt-TabBarFirst,
-.demo-MultiRowTabPanel-last .gwt-TabBarRest {
+.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-last .gwt-TabBarItem,
+.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-last .gwt-TabBarFirst,
+.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-last .gwt-TabBarRest {
   border-bottom: 1px solid #87B3FF;
 }
 
-.gwt-TabBar .gwt-TabBarItem-selected {
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar .gwt-TabBarItem-selected {
   font-weight: bold;
   background-color: #E8EEF7;
   border-top: 1px solid #87B3FF;

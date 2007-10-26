@@ -32,13 +32,13 @@ public class MultiRowTabPanel extends Composite {
   private DeckPanel masterDeckPanel;
   private int rows = 0;
   private int selectedRow = -1;
+  private HashMap tabBarIndexOffsetMap = new HashMap();
   private StylableVerticalPanel tabBarsVerticalPanel;
-  private int widgetCount;
-  private HashMap widgetOffsetMap = new HashMap();
-  private final int widgetsPerRow;
+  private int tabCount;
+  private final int tabsPerRow;
 
-  public MultiRowTabPanel(int widgetsPerRow) {
-    this.widgetsPerRow = widgetsPerRow;
+  public MultiRowTabPanel(int tabsPerRow) {
+    this.tabsPerRow = tabsPerRow;
     VerticalPanel containerPanel = new VerticalPanel();
     initWidget(containerPanel);
 
@@ -51,19 +51,27 @@ public class MultiRowTabPanel extends Composite {
   }
 
   public void add(Widget widget, String tabText) {
-    int row = widgetCount / widgetsPerRow;
+    int row = tabCount / tabsPerRow;
     while (row >= rows) {
       addRow();
     }
-    widgetCount++;
+    tabCount++;
     masterDeckPanel.add(widget);
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);
     tabBar.addTab(tabText, true);
   }
 
+  public void addTabBarStyleName(String style) {
+    tabBarsVerticalPanel.addStyleName(style);
+  }
+
+  public int getTabCount() {
+    return tabCount;
+  }
+
   public void selectTab(int index) {
-    int row = index / widgetsPerRow;
-    int tabIndex = index % widgetsPerRow;
+    int row = index / tabsPerRow;
+    int tabIndex = index % tabsPerRow;
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);
     tabBar.selectTab(tabIndex);
   }
@@ -81,7 +89,7 @@ public class MultiRowTabPanel extends Composite {
         whenTabSelected(row, tabIndex);
       }
     });
-    widgetOffsetMap.put(tabBar, new Integer(widgetCount));
+    tabBarIndexOffsetMap.put(tabBar, new Integer(tabCount));
 
     rows++;
     setTabBarFirstLastStyleNames();
@@ -118,7 +126,7 @@ public class MultiRowTabPanel extends Composite {
       rotateSelectedRowToBottom();
     }
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(selectedRow);
-    Integer widgetOffset = (Integer) widgetOffsetMap.get(tabBar);
+    Integer widgetOffset = (Integer) tabBarIndexOffsetMap.get(tabBar);
     masterDeckPanel.showWidget(widgetOffset.intValue() + tabIndex);
   }
 }

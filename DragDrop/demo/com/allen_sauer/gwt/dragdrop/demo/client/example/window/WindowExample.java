@@ -37,7 +37,7 @@ public final class WindowExample extends Example {
 
     // use the boundary panel as this composite's widget
     final AbsolutePanel boundaryPanel = new AbsolutePanel();
-    boundaryPanel.setPixelSize(600, 300);
+    boundaryPanel.setPixelSize(600, 400);
     setWidget(boundaryPanel);
 
     // initialize window controller which provides drag and resize windows
