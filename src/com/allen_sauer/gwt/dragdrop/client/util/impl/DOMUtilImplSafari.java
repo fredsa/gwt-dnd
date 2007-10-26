@@ -23,6 +23,13 @@ import com.google.gwt.user.client.Element;
  * Webkit/Safari.
  */
 public class DOMUtilImplSafari extends DOMUtilImplStandard {
+  public native void cancelAllDocumentSelections()
+  /*-{
+    try {
+      $wnd.getSelection().collapse();
+    } catch(e) { throw new Error("unselect exception:\n" + e); }
+  }-*/;
+
   public native int getBorderLeft(Element elem)
   /*-{
     var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
@@ -63,11 +70,4 @@ public class DOMUtilImplSafari extends DOMUtilImplStandard {
     // Revert to a DOM walk from DOM.isOrHasChild instead.
     return DOM.isOrHasChild(parent, child);
   }
-
-  public native void unselect()
-  /*-{
-    try {
-      $wnd.getSelection().collapse();
-    } catch(e) { throw new Error("unselect exception:\n" + e); }
-  }-*/;
 }

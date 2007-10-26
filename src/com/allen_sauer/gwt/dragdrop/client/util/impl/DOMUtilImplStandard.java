@@ -22,6 +22,13 @@ import com.google.gwt.user.client.Element;
  * standard browsers.
  */
 public abstract class DOMUtilImplStandard extends DOMUtilImpl {
+  public native void cancelAllDocumentSelections()
+  /*-{
+    try {
+      $wnd.getSelection().removeAllRanges();
+    } catch(e) { throw new Error("unselect exception:\n" + e); }
+  }-*/;
+
   public native int getBorderLeft(Element elem)
   /*-{
     try {
@@ -52,12 +59,5 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
     try {
       return elem.clientWidth;
     } catch(e) { throw new Error("getClientWidth exception:\n" + e); }
-  }-*/;
-
-  public native void unselect()
-  /*-{
-    try {
-      $wnd.getSelection().removeAllRanges();
-    } catch(e) { throw new Error("unselect exception:\n" + e); }
   }-*/;
 }
