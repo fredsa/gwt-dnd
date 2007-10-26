@@ -75,6 +75,11 @@ public class DropControllerCollection {
   public DropControllerCollection() {
   }
 
+  /**
+   * Add a new drop controller to this collection.
+   * 
+   * @param dropController the drop controller to be added
+   */
   public void add(DropController dropController) {
     controllerList.add(dropController);
   }
@@ -104,6 +109,11 @@ public class DropControllerCollection {
     return null;
   }
 
+  /**
+   * Remove an existing drop controller from this collection.
+   * 
+   * @param dropController the drop controller to be removed
+   */
   public void remove(DropController dropController) {
     controllerList.remove(dropController);
   }

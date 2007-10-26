@@ -32,10 +32,20 @@ public class AbsolutePositionDragEndEvent extends DragEndEvent {
     this.y = y;
   }
 
+  /**
+   * Get the x coordinate where the draggable was dropped.
+   * 
+   * @return the x coordinate where the draggable was dropped.
+   */
   public int getX() {
     return x;
   }
 
+  /**
+   * Get the y coordinate where the draggable was dropped.
+   * 
+   * @return the y coordinate where the draggable was dropped.
+   */
   public int getY() {
     return y;
   }

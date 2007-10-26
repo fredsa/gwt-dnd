@@ -23,7 +23,6 @@ import com.google.gwt.user.client.ui.Widget;
  * {@link com.google.gwt.user.client.ui.IndexedPanel IndexedPanels}.
  */
 public class IndexedDragEndEvent extends DragEndEvent {
-
   private int index;
 
   public IndexedDragEndEvent(Object source, Widget dropTarget, int index) {
@@ -31,6 +30,11 @@ public class IndexedDragEndEvent extends DragEndEvent {
     this.index = index;
   }
 
+  /**
+   * Get the index at which the draggable was dropped.
+   * 
+   * @return the new draggable index on the drop target
+   */
   public int getIndex() {
     return index;
   }
