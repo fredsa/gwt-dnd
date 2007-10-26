@@ -46,7 +46,7 @@ public class DragHandleExample extends Example {
 
     // use the boundary panel as this composite's widget
     final AbsolutePanel boundaryPanel = new AbsolutePanel();
-    boundaryPanel.setPixelSize(500, 200);
+    boundaryPanel.setPixelSize(600, 400);
     setWidget(boundaryPanel);
 
     // create the title bar
@@ -55,7 +55,7 @@ public class DragHandleExample extends Example {
 
     // add some text
     HTML content = new HTML("This is a <code>VerticalPanel</code> which can be dragged by its header,"
-        + "i.e. the <code>Label</code> which makes up the top cell in the panel.");
+        + " i.e. the title/header widget.");
 
     // add an editable text area
     final TextArea textArea = new TextArea();
