@@ -20,19 +20,14 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
-import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
  * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}
  * which contains a given draggable widget.
  */
 public class BoundaryDropController extends AbsolutePositionDropController {
-
   private boolean allowDropping;
-  private WidgetLocation referenceLocation;
 
   public BoundaryDropController(AbsolutePanel dropTarget, boolean allowDropping) {
     super(dropTarget);
@@ -45,28 +40,10 @@ public class BoundaryDropController extends AbsolutePositionDropController {
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     DragEndEvent dragEndEvent = super.onDrop(reference, draggable, dragController);
-    referenceLocation = null;
     return dragEndEvent;
   }
 
-  public void onLeave(Widget draggable, DragController dragController) {
-    super.onLeave(draggable, dragController);
-    referenceLocation = null;
-  }
-
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
-    if (allowDropping) {
-      Area referenceArea = new WidgetArea(reference, getDropTargetInfo().getBoundaryPanel());
-      if (referenceLocation == null) {
-        referenceLocation = new WidgetLocation(reference, getDropTargetInfo().getDropTarget());
-      } else {
-        referenceLocation.setWidget(reference);
-      }
-      referenceLocation.constrain(0, 0, getDropTargetInfo().getDropAreaClientWidth() - referenceArea.getWidth(),
-          getDropTargetInfo().getDropAreaClientHeight() - referenceArea.getHeight());
-      return referenceLocation;
-    } else {
-      return null;
-    }
+    return allowDropping ? super.getConstrainedLocation(reference, draggable, widget) : null;
   }
 }
