@@ -83,6 +83,7 @@ DIV.demo-main-boundary-panel {
   padding: 0.1em;
   margin: 0.1em;
   border: 1px solid blue;
+  background-color: #B3FF87; /* bright green */
 }
 
 .demo-FlowPanelExample-draggable ,
@@ -109,11 +110,11 @@ DIV.demo-main-boundary-panel {
 }
 
 .demo-IndexedPanelExample .demo-IndexedPanelExample-widget {
-  background-color: #B3FF87;
+  background-color: #B3FF87; /* bright green */
 }
 
 .demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
-  background-color: #87B3FF;
+  background-color: #87B3FF; /* bright blue */
 }
 
 .demo-IndexedPanelExample .demo-IndexedPanelExample-column-composite {

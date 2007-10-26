@@ -50,9 +50,11 @@ import com.allen_sauer.gwt.dragdrop.demo.client.util.GWTUtil;
  */
 public final class DragDropDemo implements EntryPoint {
   public static final String DEMO_CLIENT_PACKAGE = GWTUtil.getPackageName(DragDropDemo.class);
+
   private static final String CSS_DEMO_BOUNDARY = "demo-boundary";
   private static final String CSS_DEMO_EVENT_TEXT_AREA = "demo-event-text-area";
   private static final String CSS_DEMO_MAIN_BOUNDARY_PANEL = "demo-main-boundary-panel";
+  private static final String DEMO_MAIN_PANEL = "demo-main-panel";
 
   private PickupDragController dragController;
 
@@ -94,6 +96,9 @@ public final class DragDropDemo implements EntryPoint {
   }
 
   private void onModuleLoad2() {
+    RootPanel mainPanel = RootPanel.get(DEMO_MAIN_PANEL);
+    DOM.setInnerHTML(mainPanel.getElement(), "");
+
     // create the main common boundary panel to which drag operations will be restricted
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.addStyleName(CSS_DEMO_MAIN_BOUNDARY_PANEL);
@@ -102,19 +107,19 @@ public final class DragDropDemo implements EntryPoint {
     // instantiate the common drag controller used the less specific examples
     dragController = new PickupDragController(boundaryPanel, true);
 
-    RootPanel.get().add(new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action.</p>"));
+    mainPanel.add(new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action.</p>"));
 
     // Add radio buttons to select draggable behavior
     BehaviorPanel behaviorListBox = new BehaviorPanel(dragController);
-    RootPanel.get().add(behaviorListBox);
+    mainPanel.add(behaviorListBox);
 
     // Umbrella example illustrating basic drag and drop behavior
     HTML boundaryDescription = ExampleTabPanel.describe(new Class[] {
         DragDropDemo.class, PickupDragController.class, BoundaryDropController.class,},
         "Most of our example drag operations are constrained to the panel below. Try drag one of the widgets outside this area.");
     boundaryDescription.addStyleName(CSS_DEMO_BOUNDARY);
-    RootPanel.get().add(boundaryDescription);
-    RootPanel.get().add(boundaryPanel);
+    mainPanel.add(boundaryDescription);
+    mainPanel.add(boundaryPanel);
 
     // Create some draggable widgets to play with
     boundaryPanel.add(createDraggable(), 20, 100);
@@ -131,8 +136,8 @@ public final class DragDropDemo implements EntryPoint {
     final HTML eventTextArea = new HTML();
     eventTextArea.addStyleName(CSS_DEMO_EVENT_TEXT_AREA);
     eventTextArea.setSize(boundaryPanel.getOffsetWidth() + "px", "10em");
-    RootPanel.get().add(new HTML("<br>Events received by registered <code>DragHandler</code>s"));
-    RootPanel.get().add(eventTextArea);
+    mainPanel.add(new HTML("<br>Events received by registered <code>DragHandler</code>s"));
+    mainPanel.add(eventTextArea);
 
     // instantiate shared drag handler to listen for events
     DemoDragHandler demoDragHandler = new DemoDragHandler(eventTextArea);
