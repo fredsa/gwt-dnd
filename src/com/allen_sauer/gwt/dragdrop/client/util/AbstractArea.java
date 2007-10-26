@@ -94,22 +94,46 @@ public abstract class AbstractArea implements Area {
     bottom += deltaY;
   }
 
+  /**
+   * Textual representation of this area formatted as <code>[(left, top) - (right, bottom) ]</code>.
+   * @return a string representation of this area
+   */
   public String toString() {
     return "[ (" + getLeft() + ", " + getTop() + ") - (" + getRight() + ", " + getBottom() + ") ]";
   }
 
+  /**
+   * Set bottom coordinate.
+   * 
+   * @param bottom the bottom coordinate in pixels
+   */
   protected final void setBottom(int bottom) {
     this.bottom = bottom;
   }
 
+  /**
+   * Set left coordinate.
+   * 
+   * @param left the left coordinate in pixels
+   */
   protected final void setLeft(int left) {
     this.left = left;
   }
 
+  /**
+   * Set right coordinate.
+   * 
+   * @param right the right coordinate in pixels
+   */
   protected final void setRight(int right) {
     this.right = right;
   }
 
+  /**
+   * Set top coordinate.
+   * 
+   * @param top the top coordinate in pixels
+   */
   protected final void setTop(int top) {
     this.top = top;
   }
