@@ -32,7 +32,6 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.DraggableFactory;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.absolute.AbsolutePositionExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.bin.BinExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.cache.CacheExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.draghandle.DragHandleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.duallist.DualListExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.flextable.FlexTableRowExample;
@@ -42,6 +41,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.indexedpanel.IndexedPane
 import com.allen_sauer.gwt.dragdrop.demo.client.example.matryoshka.MatryoshkaExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.nooverlap.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.puzzle.PuzzleExample;
+import com.allen_sauer.gwt.dragdrop.demo.client.example.resetcache.ResetCacheExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.window.WindowExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.util.GWTUtil;
 
@@ -154,7 +154,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new PuzzleExample(demoDragHandler));
     examples.add(new MatryoshkaExample(demoDragHandler));
 
-    examples.add(new CacheExample(dragController));
+    examples.add(new ResetCacheExample(dragController));
 
     // select the first example
     examples.selectTab(Random.nextInt(examples.getTabCount() - 1));

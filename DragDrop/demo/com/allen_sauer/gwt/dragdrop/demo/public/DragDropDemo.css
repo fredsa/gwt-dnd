@@ -298,20 +298,20 @@ DIV.demo-main-boundary-panel {
   border: 1px solid black;
 }
 
-/* ------------ CacheExample ------------ */
-.demo-CacheExample .demo-CacheExample-TabPanel .gwt-TabPanelBottom {
+/* ------------ ResetCacheExample ------------ */
+.demo-ResetCacheExample .demo-ResetCacheExample-TabPanel .gwt-TabPanelBottom {
   height: 100%;
 }
 
-.demo-CacheExample DIV.dragdrop-dropTarget {
+.demo-ResetCacheExample DIV.dragdrop-dropTarget {
   border: none;
 }
 
-.demo-CacheExample .gwt-TabBar DIV.dragdrop-dropTarget {
+.demo-ResetCacheExample .gwt-TabBar DIV.dragdrop-dropTarget {
   padding: 2px 6px;
 }
 
-.demo-CacheExample-draggable {
+.demo-ResetCacheExample-draggable {
   border: 1px solid black;
   width: 5em;
   text-align: center;

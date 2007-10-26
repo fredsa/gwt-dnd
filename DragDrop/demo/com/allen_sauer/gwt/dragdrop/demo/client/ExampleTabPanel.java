@@ -27,8 +27,8 @@ import com.allen_sauer.gwt.dragdrop.demo.client.util.GWTUtil;
  * for each example.
  */
 public final class ExampleTabPanel extends MultiRowTabPanel {
-  private static final String CSS_DEMO_EXAMPLE_TAB_PANEL_TAB_BAR = "demo-ExampleTabPanel-tab-bar";
   private static final String CSS_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
+  private static final String CSS_DEMO_EXAMPLE_TAB_PANEL_TAB_BAR = "demo-ExampleTabPanel-tab-bar";
 
   /**
    * Describe an example in a consistent way by including a description and the
