@@ -19,7 +19,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -109,8 +109,8 @@ public class PickupDragController extends AbstractDragController {
 
   protected Widget maybeNewDraggableProxy(Widget draggable) {
     if (isDragProxyEnabled()) {
-      HTML proxy;
-      proxy = new HTML("this is a Drag Proxy");
+      FocusPanel proxy;
+      proxy = new FocusPanel();
       proxy.addStyleName(CSS_PROXY);
       proxy.setPixelSize(currentDraggable.getOffsetWidth(), currentDraggable.getOffsetHeight());
       return proxy;
