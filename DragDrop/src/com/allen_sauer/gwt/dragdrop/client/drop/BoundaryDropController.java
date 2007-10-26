@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
  * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}
@@ -43,7 +43,7 @@ public class BoundaryDropController extends AbsolutePositionDropController {
     return dragEndEvent;
   }
 
-  protected WidgetLocation getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
+  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     return allowDropping ? super.getConstrainedLocation(reference, draggable, widget) : null;
   }
 }

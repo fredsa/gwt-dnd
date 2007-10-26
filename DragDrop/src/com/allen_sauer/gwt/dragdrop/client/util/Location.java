@@ -19,7 +19,27 @@ package com.allen_sauer.gwt.dragdrop.client.util;
  * Class representing a location defined by left (x) and top (y) coordinates.
  */
 public interface Location {
-  public abstract int getLeft();
+  /**
+   * Get x coordinate.
+   * 
+   * @return the left offset in pixels
+   */
+  abstract int getLeft();
 
-  public abstract int getTop();
+  /**
+   * Get the y coordinate.
+   * 
+   * @return the top offset in pixels
+   */
+  abstract int getTop();
+
+  /**
+   * Return a new location, snapped to the grid based on a spacing
+   * of <code>(gridX, gridY)</code>.
+   * 
+   * @param gridX the horizontal grid spacing in pixels
+   * @param gridY the vertical grid spacing in pixels
+   * @return the new location
+   */
+  Location newLocationSnappedToGrid(int gridX, int gridY);
 }
