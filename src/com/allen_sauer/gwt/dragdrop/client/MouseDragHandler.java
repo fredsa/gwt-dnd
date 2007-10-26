@@ -36,7 +36,7 @@ import java.util.HashMap;
  * Helper class which handles mouse events for all draggable widgets for a give
  * {@link DropController}.
  */
-public class MouseDragHandler implements MouseListener {
+class MouseDragHandler implements MouseListener {
   private int boundaryOffsetX;
   private int boundaryOffsetY;
   private AbsolutePanel boundaryPanel;
