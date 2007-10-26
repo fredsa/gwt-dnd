@@ -125,6 +125,6 @@ public class DOMUtil {
   }
 
   public static void unselect() {
-    impl.unselect();
+    impl.cancelAllDocumentSelections();
   }
 }

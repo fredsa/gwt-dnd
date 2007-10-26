@@ -16,13 +16,17 @@
 package com.allen_sauer.gwt.dragdrop.client.util.impl;
 
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} implementation for
  * IE.
  */
 public class DOMUtilImplIE6 extends DOMUtilImpl {
+  public native void cancelAllDocumentSelections()
+  /*-{
+    $doc.selection.empty();
+  }-*/;
+
   public native int getBorderLeft(Element elem)
   /*-{
     return elem.clientLeft;
@@ -41,14 +45,5 @@ public class DOMUtilImplIE6 extends DOMUtilImpl {
   public native int getClientWidth(Element elem)
   /*-{
     return elem.clientWidth;
-  }-*/;
-
-  public int getHorizontalBorders(Widget widget) {
-    return widget.getOffsetWidth() - getClientWidth(widget.getElement());
-  }
-
-  public native void unselect()
-  /*-{
-    $doc.selection.empty();
   }-*/;
 }
