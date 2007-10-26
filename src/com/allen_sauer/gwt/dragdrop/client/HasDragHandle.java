@@ -23,6 +23,10 @@ import com.google.gwt.user.client.ui.Widget;
  * {@link DragController#makeDraggable(Widget)} for implementing classes.
  */
 public interface HasDragHandle {
-
+  /**
+   * Method to return drag handle widget.
+   * 
+   * @return the drag handle widget
+   */
   Widget getDragHandle();
 }

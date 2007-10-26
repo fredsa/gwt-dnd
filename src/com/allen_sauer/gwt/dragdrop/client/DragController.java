@@ -40,7 +40,7 @@ public interface DragController extends FiresDragEvents {
   void addDragHandler(DragHandler handler);
 
   /**
-   * Call back method for {@link MouseDragHandler}.
+   * Callback method for {@link MouseDragHandler}.
    * 
    * @param draggable widget which was being dragged
    * @param dropTarget widget on which draggable was dropped. <code>null</code>
@@ -49,7 +49,7 @@ public interface DragController extends FiresDragEvents {
   void dragEnd(Widget draggable, Widget dropTarget);
 
   /**
-   * Call back method for {@link MouseDragHandler}.
+   * Callback method for {@link MouseDragHandler}.
    * 
    * @param draggable widget which was being dragged
    */
@@ -63,7 +63,7 @@ public interface DragController extends FiresDragEvents {
   AbsolutePanel getBoundaryPanel();
 
   /**
-   * Call back method for {@link MouseDragHandler} to determine
+   * Callback method for {@link MouseDragHandler} to determine
    * which DropController represents the deepest DOM descendant
    * drop target located at provided location (x, y).
    * 
@@ -75,7 +75,7 @@ public interface DragController extends FiresDragEvents {
   DropController getIntersectDropController(int x, int y);
 
   /**
-   * Call back method for {@link MouseDragHandler} to determine the
+   * Callback method for {@link MouseDragHandler} to determine the
    * container widget that will move as part of the drag operation.
    * This may be the actual draggable widget, an appropriate drag proxy
    * widget, or a wrapper widget.
@@ -110,14 +110,14 @@ public interface DragController extends FiresDragEvents {
   void makeNotDraggable(Widget widget);
 
   /**
-   * Call back method for {@link MouseDragHandler}.
+   * Callback method for {@link MouseDragHandler}.
    * 
    * @param dragEndEvent the event
    */
   void notifyDragEnd(DragEndEvent dragEndEvent);
 
   /**
-   * Call back method for {@link MouseDragHandler}.
+   * Callback method for {@link MouseDragHandler}.
    * 
    * @param draggable widget which was being dragged
    * @throws VetoDragException if the proposed operation is unacceptable
@@ -125,7 +125,7 @@ public interface DragController extends FiresDragEvents {
   void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException;
 
   /**
-   * Call back method for {@link MouseDragHandler}.
+   * Callback method for {@link MouseDragHandler}.
    * 
    * @param draggable widget which was being dragged
    * @throws VetoDragException if the proposed operation is unacceptable
