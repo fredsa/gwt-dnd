@@ -113,7 +113,7 @@ class MouseDragHandler implements MouseListener {
       }
     } else {
       if (mouseDown) {
-        DOMUtil.unselect();
+        DOMUtil.cancelAllDocumentSelections();
         startDragging();
 
         // adjust (x,y) to be relative to capturingWidget at (0,0)

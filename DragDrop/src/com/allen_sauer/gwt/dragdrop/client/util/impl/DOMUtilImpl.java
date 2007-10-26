@@ -18,13 +18,15 @@ package com.allen_sauer.gwt.dragdrop.client.util.impl;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
+
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} default
  * cross-browser implementation.
  */
 public abstract class DOMUtilImpl {
   /**
-   * Cancel all currently selected region(s) on the current page.
+   * @see DOMUtil#cancelAllDocumentSelections()
    */
   public native void cancelAllDocumentSelections()
   /*-{
@@ -32,78 +34,49 @@ public abstract class DOMUtilImpl {
   }-*/;
 
   /**
-   * Determine an element's left border width.
-   * 
-   * @param elem the element whose left border width is to be retrieved
-   * @return the element's left border width in pixels
+   * @see DOMUtil#getBorderLeft(Element)
    */
   public abstract int getBorderLeft(Element elem);
 
   /**
-   * Determine an element's top border width.
-   * 
-   * @param elem the element whose top border width is to be retrieved
-   * @return the element's top border width in pixels
+   * @see DOMUtil#getBorderTop(Element)
    */
   public abstract int getBorderTop(Element elem);
 
   /**
-   * Determine an element's client height, which is the offset
-   * width minus top and bottom border widths.
-   * 
-   * @param elem the element whose client height is to be retrieved
-   * @return the element's client height in pixels
+   * @see DOMUtil#getClientHeight(Element)
    */
   public abstract int getClientHeight(Element elem);
 
   /**
-   * Determine an element's client width, which is the offset
-   * width minus left and right border widths.
-   * 
-   * @param elem the element whose client width is to be retrieved
-   * @return the element's client width in pixels
+   * @see DOMUtil#getClientWidth(Element)
    */
   public abstract int getClientWidth(Element elem);
 
   /**
-   * Determine an widget's horizontal border width, which is the sum
-   * of the left and right border widths.
-   * 
-   * @param widget the widget's whose horizontal border width is to be determined
-   * @return the widget's horizontal border width
+   * @see DOMUtil#getHorizontalBorders(Widget)
    */
   public final int getHorizontalBorders(Widget widget) {
     return widget.getOffsetWidth() - getClientWidth(widget.getElement());
   }
 
   /**
-   * Determine an element's node name via the <code>nodeName</code> property.
-   * 
-   * @param element the element whose node name is to be determined
-   * @return the element's node name
+   * @see DOMUtil#getNodeName(Element)
    */
-  public final native String getNodeName(Element element)
+  public final native String getNodeName(Element elem)
   /*-{
-    return element.nodeName;
+    return elem.nodeName;
   }-*/;
 
   /**
-   * Determine an widget's vertical border width, which is the sum
-   * of the top and bottom border widths.
-   * 
-   * @param widget the widget's whose vertical border width is to be determined
-   * @return the widget's vertical border width
+   * @see DOMUtil#getVerticalBorders(Widget)
    */
   public final int getVerticalBorders(Widget widget) {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
   }
 
   /**
-   * Determine if <code>parent</code> is an ancestor of <code>child</code>.
-   * 
-   * @param parent the element to consider as the ancestor of <code>child</code>
-   * @param child the element to consider as the descendant of <code>parent</code>
-   * @return <code>true</code> if relationship holds
+   * @see DOMUtil#isOrContains(Element, Element)
    */
   public native boolean isOrContains(Element parent, Element child)
   /*-{
@@ -111,9 +84,7 @@ public abstract class DOMUtilImpl {
   }-*/;
 
   /**
-   * Set the browser's status bar text, if supported and enabled in the client browser.
-   * 
-   * @param text the message to use as the window status
+   * @see DOMUtil#setStatus(String)
    */
   public final native void setStatus(String text)
   /*-{

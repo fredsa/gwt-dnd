@@ -23,11 +23,11 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class WidgetLocation extends AbstractLocation {
   private int left;
-  private Widget reference;
+  //  private Widget reference;
   private int referenceAdjustLeft;
   private int referenceAdjustTop;
   private int top;
-  private Widget widget;
+  //  private Widget widget;
   private int widgetLeft;
   private int widgetTop;
 
@@ -48,6 +48,14 @@ public class WidgetLocation extends AbstractLocation {
     recalculate();
   }
 
+  /**
+   * Constrain the widget location to the provided minimum and maximum values.
+   * 
+   * @param minLeft the minimum left value
+   * @param minTop the minimum top value
+   * @param maxLeft the maximum left value
+   * @param maxTop the maximum top value
+   */
   public void constrain(int minLeft, int minTop, int maxLeft, int maxTop) {
     left = Math.max(minLeft, Math.min(left, maxLeft));
     top = Math.max(minTop, Math.min(top, maxTop));
@@ -57,34 +65,34 @@ public class WidgetLocation extends AbstractLocation {
     return left;
   }
 
-  public Widget getReference() {
-    return reference;
-  }
+  //  public Widget getReference() {
+  //    return reference;
+  //  }
 
   public int getTop() {
     return top;
   }
 
-  public Widget getWidget() {
-    return widget;
-  }
+  //  public Widget getWidget() {
+  //    return widget;
+  //  }
 
-  public void setReference(Widget reference) {
-    internalSetReference(reference);
-    recalculate();
-  }
-
-  public void setWidget(Widget widget) {
-    internalSetWidget(widget);
-    recalculate();
-  }
+  //  public void setReference(Widget reference) {
+  //    internalSetReference(reference);
+  //    recalculate();
+  //  }
+  //
+  //  public void setWidget(Widget widget) {
+  //    internalSetWidget(widget);
+  //    recalculate();
+  //  }
 
   public String toString() {
     return "(" + left + ", " + top + ")";
   }
 
   private void internalSetReference(Widget reference) {
-    this.reference = reference;
+    //    this.reference = reference;
     if (reference == null || reference == RootPanel.get()) {
       referenceAdjustLeft = 0;
       referenceAdjustTop = 0;
@@ -95,7 +103,7 @@ public class WidgetLocation extends AbstractLocation {
   }
 
   private void internalSetWidget(Widget widget) {
-    this.widget = widget;
+    //    this.widget = widget;
     if (widget == null) {
       widgetLeft = 0;
       widgetTop = 0;

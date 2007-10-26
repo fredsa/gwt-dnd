@@ -37,14 +37,39 @@ public interface Area {
    */
   public int distanceToEdge(Location location);
 
+  /**
+   * Get the area's bottom coordinate in pixels.
+   * 
+   * @return the bottom coordinate in pixels
+   */
   public abstract int getBottom();
 
+  /**
+   * Get the area's center Location.
+   * 
+   * @return the area's center Location
+   */
   public abstract Location getCenter();
 
+  /**
+   * Get the area's height
+   * 
+   * @return the area's height in pixels
+   */
   public abstract int getHeight();
 
+  /**
+   * Get the area's left coordinate in pixels.
+   * 
+   * @return the left coordinate in pixels
+   */
   public abstract int getLeft();
 
+  /**
+   * Get the area's right coordinate in pixels.
+   * 
+   * @return the right coordinate in pixels
+   */
   public abstract int getRight();
 
   /**
@@ -54,8 +79,18 @@ public interface Area {
    */
   public abstract int getSize();
 
+  /**
+   * Get the area's top coordinate in pixels.
+   * 
+   * @return the top coordinate in pixels
+   */
   public abstract int getTop();
 
+  /**
+   * Get the area's width
+   * 
+   * @return the area's width in pixels
+   */
   public abstract int getWidth();
 
   /**
