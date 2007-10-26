@@ -91,7 +91,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     lastGoodLocation = null;
   }
 
-  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
+  protected WidgetLocation getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     Location location = internalGetConstrainedLocation(reference, draggable, widget);
     if (location != null) {
       lastGoodLocation = location;
@@ -147,9 +147,9 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     return newLocation;
   }
 
-  private Location internalGetConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
+  private WidgetLocation internalGetConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     WidgetArea referenceArea = new WidgetArea(reference, currentBoundaryPanel);
-    WidgetLocation referenceLocation = (WidgetLocation) super.getConstrainedLocation(reference, draggable, widget);
+    WidgetLocation referenceLocation = super.getConstrainedLocation(reference, draggable, widget);
 
     // Determine where draggableArea would be if it were constrained to the dropArea
     // Also causes draggableArea to become relative to dropTarget
