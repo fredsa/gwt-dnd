@@ -25,8 +25,11 @@ public abstract class AbstractLocation implements Location {
     return new CoordinateLocation(left, top);
   }
 
+  /**
+   * Textual representation of this location formatted as <code>(x, y)</code>.
+   * @return a string representation of this location
+   */
   public String toString() {
     return "(" + getLeft() + ", " + getTop() + ")";
   }
-
 }
