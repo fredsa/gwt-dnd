@@ -1,9 +1,8 @@
 <module>
 
-	<inherits name='com.google.gwt.user.User'/>
+  <inherits name='com.google.gwt.user.User'/>
 
   <stylesheet src='DragDrop.css'/>
-
 
   <replace-with class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImplOpera">
     <when-type-is class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImpl"/>
@@ -29,4 +28,5 @@
     <when-type-is class="com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImpl"/>
     <when-property-is name="user.agent" value="gecko"/>
   </replace-with>
+
 </module>

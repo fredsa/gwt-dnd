@@ -18,7 +18,6 @@ package com.allen_sauer.gwt.dragdrop.client;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
 /**
@@ -109,7 +108,6 @@ public interface DragController extends FiresDragEvents {
    * @param widget the widget which should no longer be draggable
    */
   void makeNotDraggable(Widget widget);
-
 
   /**
    * Call back method for {@link MouseDragHandler}.
