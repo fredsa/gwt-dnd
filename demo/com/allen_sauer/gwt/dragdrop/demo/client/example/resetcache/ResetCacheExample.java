@@ -1,4 +1,19 @@
-package com.allen_sauer.gwt.dragdrop.demo.client.example.cache;
+/*
+ * Copyright 2007 Fred Sauer
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package com.allen_sauer.gwt.dragdrop.demo.client.example.resetcache;
 
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Random;
@@ -12,20 +27,20 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
-final public class CacheExample extends Example {
-  private static final String CSS_DEMO_CACHE_EXAMPLE = "demo-CacheExample";
-
-  private static final String CSS_DEMO_CACHE_EXAMPLE_DRAGGABLE = "demo-CacheExample-draggable";
-
-  private static final String CSS_DEMO_CACHE_EXAMPLE_TAB_PANEL = "demo-CacheExample-TabPanel";
+public final class ResetCacheExample extends Example {
+  private static final String CSS_DEMO_CACHE_EXAMPLE = "demo-ResetCacheExample";
+  private static final String CSS_DEMO_CACHE_EXAMPLE_DRAGGABLE = "demo-ResetCacheExample-draggable";
+  private static final String CSS_DEMO_CACHE_EXAMPLE_TAB_PANEL = "demo-ResetCacheExample-TabPanel";
 
   private AbsolutePositionDropController containerDropController;
 
-  public CacheExample(DragController dragController) {
+  public ResetCacheExample(DragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_CACHE_EXAMPLE);
 
+    // some colors to go with each tab
     String[] colors = {"#AAAAFF", "#AAFFAA", "#FFAAAA", "#FFFFAA", "#FFAAFF", "#AAFFFF",};
+
     // use the containing panel as this composite's widget
     AbsolutePanel containingPanel = new AbsolutePanel();
     containingPanel.setPixelSize(600, 300);
@@ -66,9 +81,9 @@ final public class CacheExample extends Example {
       int top = Random.nextInt(150);
       contentPanel.add(draggableLabel, left, top);
 
-      // create a drop controller for the simple panel
-      AbsolutePositionDropController dropController = new AbsolutePositionDropController(contentPanel);
-      dragController.registerDropController(dropController);
+      // create a drop controller for the containing panel
+      containerDropController = new AbsolutePositionDropController(containingPanel);
+      dragController.registerDropController(containerDropController);
     }
     tabPanel.selectTab(0);
 
@@ -82,6 +97,6 @@ final public class CacheExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {CacheExample.class, TabSelectingDropController.class, AbsolutePositionDropController.class,};
+    return new Class[] {ResetCacheExample.class, TabSelectingDropController.class, AbsolutePositionDropController.class,};
   }
 }
