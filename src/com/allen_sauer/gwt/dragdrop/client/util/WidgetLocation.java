@@ -22,7 +22,6 @@ import com.google.gwt.user.client.ui.Widget;
  * Class representing the location of one widget relative to another.
  */
 public class WidgetLocation extends AbstractLocation {
-
   private int left;
   private Widget reference;
   private int referenceAdjustLeft;
