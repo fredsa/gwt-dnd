@@ -23,8 +23,7 @@ import com.google.gwt.user.client.DeferredCommand;
  * Used by {@link MouseDragHandler} to improve drag performance on slower
  * platforms.
  */
-public class DeferredMoveCommand implements Command {
-
+class DeferredMoveCommand implements Command {
   private static final int PERFORMANCE_THRESHOLD_MILLIS = 80;
 
   private long mostRecentTotalTime;
