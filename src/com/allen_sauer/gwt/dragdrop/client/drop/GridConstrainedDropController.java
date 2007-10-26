@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
  * A {@link DropController} which constrains the placement of draggable widgets
@@ -39,9 +39,8 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
     return super.getDropTargetStyleName() + " dragdrop-grid-constrained-drop-target";
   }
 
-  protected WidgetLocation getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
-    WidgetLocation location = super.getConstrainedLocation(reference, draggable, widget);
-    location.snapToGrid(gridX, gridY);
-    return location;
+  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
+    Location location = super.getConstrainedLocation(reference, draggable, widget);
+    return location.newLocationSnappedToGrid(gridX, gridY);
   }
 }

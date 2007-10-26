@@ -79,11 +79,6 @@ public class WidgetLocation extends AbstractLocation {
     recalculate();
   }
 
-  public void snapToGrid(int gridX, int gridY) {
-    left = Math.round((float) left / gridX) * gridX;
-    top = Math.round((float) top / gridY) * gridY;
-  }
-
   public String toString() {
     return "(" + left + ", " + top + ")";
   }

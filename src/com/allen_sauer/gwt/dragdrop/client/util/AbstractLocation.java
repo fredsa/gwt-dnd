@@ -19,7 +19,14 @@ package com.allen_sauer.gwt.dragdrop.client.util;
  * Provides default method implementations.
  */
 public abstract class AbstractLocation implements Location {
+  public Location newLocationSnappedToGrid(int gridX, int gridY) {
+    int left = Math.round((float) getLeft() / gridX) * gridX;
+    int top = Math.round((float) getTop() / gridY) * gridY;
+    return new CoordinateLocation(left, top);
+  }
+
   public String toString() {
     return "(" + getLeft() + ", " + getTop() + ")";
   }
+
 }

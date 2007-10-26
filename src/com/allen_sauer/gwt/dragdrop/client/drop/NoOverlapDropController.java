@@ -23,7 +23,6 @@ import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -91,7 +90,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     lastGoodLocation = null;
   }
 
-  protected WidgetLocation getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
+  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     Location location = internalGetConstrainedLocation(reference, draggable, widget);
     if (location != null) {
       lastGoodLocation = location;
@@ -147,9 +146,9 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     return newLocation;
   }
 
-  private WidgetLocation internalGetConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
+  private Location internalGetConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     WidgetArea referenceArea = new WidgetArea(reference, currentBoundaryPanel);
-    WidgetLocation referenceLocation = super.getConstrainedLocation(reference, draggable, widget);
+    Location referenceLocation = super.getConstrainedLocation(reference, draggable, widget);
 
     // Determine where draggableArea would be if it were constrained to the dropArea
     // Also causes draggableArea to become relative to dropTarget
