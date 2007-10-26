@@ -106,6 +106,7 @@ class MouseDragHandler implements MouseListener {
 
   public void onMouseMove(Widget sender, int x, int y) {
     if (dragging) {
+      // TODO remove Safari workaround after GWT issue 1807 fixed
       if (sender != capturingWidget) {
         // In Safari 1.3.2 MAC, other mouse events continue to arrive even when capturing
         return;
@@ -143,6 +144,7 @@ class MouseDragHandler implements MouseListener {
     if (!dragging) {
       return;
     }
+    // TODO remove Safari workaround after GWT issue 1807 fixed
     if (sender != capturingWidget) {
       // In Safari 1.3.2 MAC does not honor capturing widget for mouse up
       Location location = new WidgetLocation(sender, null);
