@@ -37,7 +37,6 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   private Location dropLocation;
   private final AbsolutePanel dropTarget;
-  private WidgetLocation referenceLocation;
 
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {
     super(dropTarget);
@@ -66,9 +65,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     // constrain the position before creating the DragEndEvent
     dropTarget.add(draggable, dropLocation.getLeft(), dropLocation.getTop());
-    
+
     DragEndEvent event = super.onDrop(reference, draggable, dragController);
-    referenceLocation = null;
     return event;
   }
 
@@ -80,7 +78,6 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   public void onLeave(Widget draggable, DragController dragController) {
     super.onLeave(draggable, dragController);
     currentBoundaryPanel = null;
-    referenceLocation = null;
   }
 
   public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
@@ -108,11 +105,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    */
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     Area referenceArea = new WidgetArea(reference, currentBoundaryPanel);
-    if (referenceLocation == null) {
-      referenceLocation = new WidgetLocation(reference, dropTarget);
-    } else {
-      referenceLocation.setWidget(reference);
-    }
+    WidgetLocation referenceLocation = new WidgetLocation(reference, dropTarget);
     referenceLocation.constrain(0, 0, DOMUtil.getClientWidth(dropTarget.getElement()) - referenceArea.getWidth(),
         DOMUtil.getClientHeight(dropTarget.getElement()) - referenceArea.getHeight());
     return referenceLocation;
