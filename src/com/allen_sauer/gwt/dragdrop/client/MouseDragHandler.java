@@ -105,7 +105,12 @@ public class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseMove(Widget sender, int x, int y) {
-    if (!dragging) {
+    if (dragging) {
+      if (sender != capturingWidget) {
+        // In Safari 1.3.2 MAC, other mouse events continue to arrive even when capturing
+        return;
+      }
+    } else {
       if (mouseDown) {
         DOMUtil.unselect();
         startDragging();
@@ -137,6 +142,12 @@ public class MouseDragHandler implements MouseListener {
     mouseDown = false;
     if (!dragging) {
       return;
+    }
+    if (sender != capturingWidget) {
+      // In Safari 1.3.2 MAC does not honor capturing widget for mouse up
+      Location location = new WidgetLocation(sender, null);
+      x += location.getLeft();
+      y += location.getTop();
     }
     try {
       DOM.releaseCapture(capturingWidget.getElement());

@@ -15,6 +15,7 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
