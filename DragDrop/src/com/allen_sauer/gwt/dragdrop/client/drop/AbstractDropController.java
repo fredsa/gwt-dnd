@@ -44,6 +44,12 @@ public abstract class AbstractDropController implements DropController {
     return CSS_DROP_TARGET;
   }
 
+  /**
+   * When overriding this method's drop behavior, be sure to also override
+   * {@link #makeDragEndEvent(Widget, Widget, DragController)}.
+   * 
+   * @see com.allen_sauer.gwt.dragdrop.client.drop.DropController#onDrop(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dragdrop.client.DragController)
+   */
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     dropTarget.removeStyleName(CSS_DROP_TARGET_ENGAGE);
     return makeDragEndEvent(reference, draggable, dragController);
@@ -63,6 +69,17 @@ public abstract class AbstractDropController implements DropController {
   public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
   }
 
+  /**
+   * Called by {@link AbstractDropController#onDrop(Widget, Widget, DragController)} to
+   * generate a {@link DragEndEvent}. Implementing classes should override this method when
+   * then override the {@link AbstractDropController#onDrop(Widget, Widget, DragController)}
+   * behavior.
+   * 
+   * @param reference the reference widget from {@link #onDrop(Widget, Widget, DragController)}
+   * @param draggable the draggable widget from {@link #onDrop(Widget, Widget, DragController)}
+   * @param dragController the dragController from {@link #onDrop(Widget, Widget, DragController)}
+   * @return
+   */
   protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
     return new DragEndEvent(draggable, dropTarget);
   }

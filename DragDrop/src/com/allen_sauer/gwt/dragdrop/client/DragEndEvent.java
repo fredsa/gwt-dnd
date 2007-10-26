@@ -25,7 +25,6 @@ import java.util.EventObject;
  * {@link EventObject} containing information about the end of a drag.
  */
 public class DragEndEvent extends EventObject {
-
   private Widget dropTarget;
 
   public DragEndEvent(Object source, Widget dropTarget) {
@@ -34,13 +33,19 @@ public class DragEndEvent extends EventObject {
   }
 
   /**
-   * @return the drop target widget is the drop is successful or
+   * Get the drop target at which the drag operation terminated or
+   * <code>null</code> if the drop was disallowed.
+   * 
+   * @return the drop target widget if the drop was successful or
    *         <code>null</code> if the drop was disallowed
    */
   public Widget getDropTarget() {
     return dropTarget;
   }
 
+  /**
+   * Return a string representation of this event.
+   */
   public String toString() {
     String dropTargetText = dropTarget != null ? "dropTarget=" + StringUtil.getShortTypeName(dropTarget) : "[cancelled]";
     return "DragEndEvent(" + dropTargetText + ", source=" + StringUtil.getShortTypeName(getSource()) + ")";

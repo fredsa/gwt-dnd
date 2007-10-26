@@ -23,11 +23,13 @@ import java.util.EventObject;
  * {@link EventObject} containing information about the start of a drag.
  */
 public class DragStartEvent extends EventObject {
-
   public DragStartEvent(Object source) {
     super(source);
   }
 
+  /**
+   * Return a string representation of this event.
+   */
   public String toString() {
     return "DragStartEvent(source=" + StringUtil.getShortTypeName(getSource()) + ")";
   }

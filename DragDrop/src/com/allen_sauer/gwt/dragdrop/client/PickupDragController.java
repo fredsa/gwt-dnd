@@ -99,14 +99,34 @@ public class PickupDragController extends AbstractDragController {
     return movablePanel;
   }
 
+  /**
+   * Determine whether or not this controller automatically creates a drag proxy
+   * for each drag operation. Whether or not a drag proxy is used is ultimately
+   * determined by the return value of {@link #maybeNewDraggableProxy(Widget)}
+   * 
+   * @return <code>true</code> if drag proxy behavior is enabled
+   */
   public boolean isDragProxyEnabled() {
     return dragProxyEnabled;
   }
 
+  /**
+   * Set whether or not this controller should automatically create a drag proxy
+   * for each drag operation. Whether or not a drag proxy is used is ultimately
+   * determined by the return value of {@link #maybeNewDraggableProxy(Widget)}.
+   * 
+   * @param dragProxyEnabled <code>true</code> to enable drag proxy behavior
+   */
   public void setDragProxyEnabled(boolean dragProxyEnabled) {
     this.dragProxyEnabled = dragProxyEnabled;
   }
 
+  /**
+   * Called from {@link #dragStart(Widget)} to optionally create a new drag proxy widget.
+   * 
+   * @param draggable the draggable which may be references in order to create the proxy
+   * @return a draggable proxy widget or <code>null</code> if no drag proxy is desired
+   */
   protected Widget maybeNewDraggableProxy(Widget draggable) {
     if (isDragProxyEnabled()) {
       FocusPanel proxy;
