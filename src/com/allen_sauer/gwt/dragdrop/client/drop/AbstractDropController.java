@@ -40,6 +40,10 @@ public abstract class AbstractDropController implements DropController {
     return dropTarget;
   }
 
+  public String getDropTargetEngageStyleName() {
+    return CSS_DROP_TARGET_ENGAGE;
+  }
+
   public String getDropTargetStyleName() {
     return CSS_DROP_TARGET;
   }
