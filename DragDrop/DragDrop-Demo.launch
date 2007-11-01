@@ -21,7 +21,7 @@
 </listAttribute>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.GWTShell"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-out www com.allen_sauer.gwt.dragdrop.demo.DragDropDemo/DragDropDemo.html&#13;&#10;-style PRETTY&#13;&#10;-whitelist http://gwt-dnd.googlecode.com/*&#13;&#10;-whitelist http://code.google.com/webtoolkit/*"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-out www com.allen_sauer.gwt.dragdrop.demo.DragDropDemo/DragDropDemo.html&#13;&#10;-style PRETTY&#13;&#10;-whitelist http://gwt-dnd.googlecode.com/*&#13;&#10;-whitelist http://code.google.com/*"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="DragDrop"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-enableassertions"/>
 </launchConfiguration>

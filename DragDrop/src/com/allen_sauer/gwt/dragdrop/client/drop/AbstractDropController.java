@@ -35,8 +35,29 @@ public abstract class AbstractDropController implements DropController {
     dropTarget.addStyleName(CSS_DROP_TARGET);
   }
 
+  /**
+   * @deprecated No longer part of gwt-dnd 2.x API.
+   */
+  public DragController getCurrentDragController() {
+    throw new UnsupportedOperationException();
+  }
+
   public Widget getDropTarget() {
     return dropTarget;
+  }
+
+  /**
+   * @deprecated No longer part of gwt-dnd 2.x API.
+   */
+  final public String getDropTargetEngageStyleName() {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * @deprecated No longer part of gwt-dnd 2.x API.
+   */
+  final public String getDropTargetStyleName() {
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -77,19 +98,5 @@ public abstract class AbstractDropController implements DropController {
    */
   protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
     return new DragEndEvent(draggable, dropTarget);
-  }
-
-  /**
-   * @deprecated
-   */
-  final String getDropTargetEngageStyleName() {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @deprecated
-   */
-  final String getDropTargetStyleName() {
-    throw new UnsupportedOperationException();
   }
 }

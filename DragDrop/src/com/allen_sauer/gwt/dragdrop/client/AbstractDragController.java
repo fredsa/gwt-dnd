@@ -196,7 +196,7 @@ public abstract class AbstractDragController implements DragController {
    * {@link DropControllerCollection} to support custom intersection logic.
    * 
    * @return a new DropControllerCollection
-   * @deprecated Override {@link #registerDropController(DropController)}, {@link #unregisterDropController(DropController)}, {@link #resetCache()}, etc. instead
+   * @deprecated No longer part of gwt-dnd 2.x API. Override {@link #registerDropController(DropController)}, {@link #unregisterDropController(DropController)}, {@link #resetCache()}, etc. instead
   */
   protected final DropControllerCollection getDropControllerCollection() {
     throw new UnsupportedOperationException();
@@ -213,5 +213,26 @@ public abstract class AbstractDragController implements DragController {
    */
   protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
     return new BoundaryDropController(boundaryPanel, allowDropping);
+  }
+
+  /**
+   * @deprecated Method has been moved down to {@link PickupDragController#restoreDraggableLocation(Widget)}
+   */
+  protected void restoreDraggableLocation(Widget draggable) {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * @deprecated Method has been moved down to {@link PickupDragController#restoreDraggableStyle(Widget)}
+   */
+  protected void restoreDraggableStyle(Widget draggable) {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * @deprecated Method has been moved down to {@link PickupDragController#saveDraggableLocationAndStyle(Widget)}
+   */
+  protected void saveDraggableLocationAndStyle(Widget draggable) {
+    throw new UnsupportedOperationException();
   }
 }
