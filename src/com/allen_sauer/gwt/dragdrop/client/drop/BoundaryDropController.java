@@ -18,8 +18,6 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 /**
@@ -33,11 +31,6 @@ public class BoundaryDropController extends AbsolutePositionDropController {
     super(dropTarget);
     this.allowDropping = allowDropping;
     dropTarget.addStyleName("dragdrop-boundary");
-  }
-
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    DragEndEvent dragEndEvent = super.onDrop(reference, draggable, dragController);
-    return dragEndEvent;
   }
 
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
