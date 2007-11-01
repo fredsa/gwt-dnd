@@ -32,10 +32,7 @@ public class BoundaryDropController extends AbsolutePositionDropController {
   public BoundaryDropController(AbsolutePanel dropTarget, boolean allowDropping) {
     super(dropTarget);
     this.allowDropping = allowDropping;
-  }
-
-  public String getDropTargetStyleName() {
-    return "dragdrop-boundary";
+    dropTarget.addStyleName("dragdrop-boundary");
   }
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {

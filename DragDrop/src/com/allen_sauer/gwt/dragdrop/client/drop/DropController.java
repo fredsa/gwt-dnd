@@ -36,15 +36,6 @@ public interface DropController {
   Widget getDropTarget();
 
   /**
-   * Retrieve the desired CSS style name to be applied to our drop target.
-   * 
-   * @return the CSS style name to be used by
-   *         {@link Widget#addStyleName(String)} as this controller is
-   *         constructed
-   */
-  String getDropTargetStyleName();
-
-  /**
    * Called when the draggable widget or its proxy is dropped on our drop
    * target. Implementing classes must attach the draggable widget to our drop
    * target in a suitable manner.

@@ -58,10 +58,6 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     constrainedWidgetMove(widget, widget, widget);
   }
 
-  public String getDropTargetStyleName() {
-    return super.getDropTargetStyleName() + " dragdrop-absolute-positioning-drop-target";
-  }
-
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     // constrain the position before creating the DragEndEvent
     dropTarget.add(draggable, dropLocation.getLeft(), dropLocation.getTop());
