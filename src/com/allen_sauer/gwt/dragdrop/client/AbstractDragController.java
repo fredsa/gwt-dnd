@@ -46,7 +46,7 @@ public abstract class AbstractDragController implements DragController {
   private AbsolutePanel boundaryPanel;
   private Widget draggable;
   private DragHandlerCollection dragHandlers;
-  private DropControllerCollection dropControllerCollection = getDropControllerCollection();
+  private DropControllerCollection dropControllerCollection = new DropControllerCollection();
   private MouseDragHandler mouseDragHandler;
 
   /**
@@ -196,9 +196,10 @@ public abstract class AbstractDragController implements DragController {
    * {@link DropControllerCollection} to support custom intersection logic.
    * 
    * @return a new DropControllerCollection
-   */
-  protected DropControllerCollection getDropControllerCollection() {
-    return new DropControllerCollection();
+   * @deprecated Override {@link #registerDropController(DropController)}, {@link #unregisterDropController(DropController)}, {@link #resetCache()}, etc. instead
+  */
+  protected final DropControllerCollection getDropControllerCollection() {
+    throw new UnsupportedOperationException();
   }
 
   /**

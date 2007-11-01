@@ -30,15 +30,15 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * A helper class to track all relevant {@link DropController DropControllers},
- * used by {@link AbstractDragController}.
+ * Package private helper implementation class for {@link AbstractDragController}
+ * to track all relevant {@link DropController DropControllers}.
  */
-public class DropControllerCollection {
+class DropControllerCollection {
   private static class Candidate implements Comparable {
     private final DropController dropController;
     private Area targetArea;
 
-    public Candidate(DropController dropController) {
+    Candidate(DropController dropController) {
       this.dropController = dropController;
       Widget target = dropController.getDropTarget();
       if (!target.isAttached()) {
@@ -53,15 +53,15 @@ public class DropControllerCollection {
       return DOMUtil.isOrContains(getDropTarget().getElement(), other.getDropTarget().getElement()) ? 1 : -1;
     }
 
-    public DropController getDropController() {
+    DropController getDropController() {
       return dropController;
     }
 
-    public Widget getDropTarget() {
+    Widget getDropTarget() {
       return dropController.getDropTarget();
     }
 
-    public Area getTargetArea() {
+    Area getTargetArea() {
       return targetArea;
     }
   }
@@ -72,7 +72,7 @@ public class DropControllerCollection {
   /**
    * Default constructor.
    */
-  public DropControllerCollection() {
+  DropControllerCollection() {
   }
 
   /**
@@ -80,7 +80,7 @@ public class DropControllerCollection {
    * 
    * @param dropController the drop controller to be added
    */
-  public void add(DropController dropController) {
+  void add(DropController dropController) {
     controllerList.add(dropController);
   }
 
@@ -97,7 +97,7 @@ public class DropControllerCollection {
    * @return a drop controller for the intersecting drop target or null if none
    *         are applicable
    */
-  public DropController getIntersectDropController(int x, int y, Panel boundaryPanel) {
+  DropController getIntersectDropController(int x, int y, Panel boundaryPanel) {
     Location location = new CoordinateLocation(x, y);
     for (int i = 0; i < sortedCandidates.length; i++) {
       Candidate candidate = sortedCandidates[i];
@@ -114,7 +114,7 @@ public class DropControllerCollection {
    * 
    * @param dropController the drop controller to be removed
    */
-  public void remove(DropController dropController) {
+  void remove(DropController dropController) {
     controllerList.remove(dropController);
   }
 
@@ -127,11 +127,11 @@ public class DropControllerCollection {
    *            considerations
    * @param draggable
    */
-  public void resetCache(Panel boundaryPanel, Widget draggable) {
+  void resetCache(Panel boundaryPanel, Widget draggable) {
     WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
 
     ArrayList list = new ArrayList();
-    for (Iterator iterator = iterator(); iterator.hasNext();) {
+    for (Iterator iterator = controllerList.iterator(); iterator.hasNext();) {
       DropController dropController = (DropController) iterator.next();
       Candidate candidate = new Candidate(dropController);
       if (DOMUtil.isOrContains(draggable.getElement(), candidate.getDropTarget().getElement())) {
@@ -144,9 +144,5 @@ public class DropControllerCollection {
 
     sortedCandidates = (Candidate[]) list.toArray(new Candidate[] {});
     Arrays.sort(sortedCandidates);
-  }
-
-  private Iterator iterator() {
-    return controllerList.iterator();
   }
 }
