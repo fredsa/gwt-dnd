@@ -110,6 +110,9 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     return widgetArea.inBottomRight(location);
   }
 
+  /**
+   * TODO Handle LTR case once Bidi support is part of GWT.
+   */
   private int findIntersect(Location mouseLocation) {
     int widgetCount = dropTarget.getWidgetCount();
 
