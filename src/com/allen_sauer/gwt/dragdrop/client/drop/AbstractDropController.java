@@ -25,27 +25,18 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
  * like adjust widget styles.
  */
 public abstract class AbstractDropController implements DropController {
+  protected static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
   protected static final String CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage";
-
-  private static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
 
   private Widget dropTarget;
 
   public AbstractDropController(Widget dropTarget) {
     this.dropTarget = dropTarget;
-    dropTarget.addStyleName(getDropTargetStyleName());
+    dropTarget.addStyleName(CSS_DROP_TARGET);
   }
 
   public Widget getDropTarget() {
     return dropTarget;
-  }
-
-  public String getDropTargetEngageStyleName() {
-    return CSS_DROP_TARGET_ENGAGE;
-  }
-
-  public String getDropTargetStyleName() {
-    return CSS_DROP_TARGET;
   }
 
   /**
@@ -86,5 +77,19 @@ public abstract class AbstractDropController implements DropController {
    */
   protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
     return new DragEndEvent(draggable, dropTarget);
+  }
+
+  /**
+   * @deprecated
+   */
+  final String getDropTargetEngageStyleName() {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * @deprecated
+   */
+  final String getDropTargetStyleName() {
+    throw new UnsupportedOperationException();
   }
 }

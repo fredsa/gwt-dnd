@@ -81,10 +81,6 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     this.dropTarget = dropTarget;
   }
 
-  public String getDropTargetStyleName() {
-    return super.getDropTargetStyleName() + " dragdrop-no-overlap-drop-target";
-  }
-
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     super.onEnter(reference, draggable, dragController);
     lastGoodLocation = null;

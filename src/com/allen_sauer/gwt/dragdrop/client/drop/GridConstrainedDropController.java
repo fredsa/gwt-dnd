@@ -35,10 +35,6 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
     this.gridY = gridY;
   }
 
-  public String getDropTargetStyleName() {
-    return super.getDropTargetStyleName() + " dragdrop-grid-constrained-drop-target";
-  }
-
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     Location location = super.getConstrainedLocation(reference, draggable, widget);
     return location.newLocationSnappedToGrid(gridX, gridY);

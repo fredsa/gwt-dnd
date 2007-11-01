@@ -33,7 +33,7 @@ import java.util.Iterator;
  * Package private helper implementation class for {@link AbstractDragController}
  * to track all relevant {@link DropController DropControllers}.
  */
-class DropControllerCollection {
+final class DropControllerCollection {
   private static class Candidate implements Comparable {
     private final DropController dropController;
     private Area targetArea;
