@@ -63,6 +63,7 @@ public class ListBoxDragController extends PickupDragController {
 
   protected Widget maybeNewDraggableProxy(Widget draggable) {
     MouseListBox proxyMouseListBox = new MouseListBox(currentDraggableListBox.getSelectedWidgetCount());
+    proxyMouseListBox.setWidth(currentDraggableListBox.getOffsetWidth() + "px");
     proxyMouseListBox.addStyleName(CSS_PROXY);
     DualListBox.copyOrmoveItems(currentDraggableListBox, proxyMouseListBox, true, DualListBox.OPERATION_COPY);
     return proxyMouseListBox;
