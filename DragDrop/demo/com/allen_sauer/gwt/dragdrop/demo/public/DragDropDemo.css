@@ -175,6 +175,10 @@ DIV.demo-main-boundary-panel {
 
 .demo-WindowExample .demo-resize-html {
   background-color: #DDEEDD; /* light green */
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0px;
 }
 
 .demo-WindowExample .demo-resize-edge {

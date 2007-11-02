@@ -61,10 +61,11 @@ public final class WindowExample extends Example {
 
     // create the third panel
     HTML header3 = new HTML("A draggable &amp; resizable <code>IMG</code>");
-    Image image3 = new Image("http://www.google.com/intl/en_ALL/images/logo.gif");
+    Image image3 = new Image("images/99pumpkin2-65x58.jpg");
+    image3.setPixelSize(65, 58);
     image3.addStyleName("demo-resize-html");
     WindowPanel windowPanel3 = new WindowPanel(windowController, header3, image3, false);
-    boundaryPanel.add(windowPanel3, 50, 80);
+    boundaryPanel.add(windowPanel3, 70, 30);
 
     // create the fourth panel
     HTML header4 = new HTML("A draggable &amp; resizable <code>TEXTAREA</code>");
@@ -72,7 +73,7 @@ public final class WindowExample extends Example {
     textArea4.addStyleName("demo-resize-html");
     textArea4.setText(makeText());
     WindowPanel windowPanel4 = new WindowPanel(windowController, header4, textArea4, false);
-    boundaryPanel.add(windowPanel4, 50, 80);
+    boundaryPanel.add(windowPanel4, 10, 120);
   }
 
   public String getDescription() {

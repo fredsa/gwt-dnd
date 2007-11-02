@@ -125,13 +125,7 @@ final class WindowPanel extends FocusPanel {
     this.headerWidget = headerWidget;
     addStyleName(CSS_DEMO_RESIZE_PANEL);
 
-    if (wrapContentInScrollPanel) {
-      contentOrScrollPanelWidget = new ScrollPanel(contentWidget);
-      //      DOM.setStyleAttribute(scrollPanel.getElement(), "overflow", "auto");
-    } else {
-      contentOrScrollPanelWidget = contentWidget;
-      contentWidget.setSize("100%", "100%");
-    }
+    contentOrScrollPanelWidget = wrapContentInScrollPanel ? new ScrollPanel(contentWidget) : contentWidget;
 
     headerContainer = new FocusPanel();
     headerContainer.addStyleName(CSS_DEMO_RESIZE_PANEL_HEADER);
