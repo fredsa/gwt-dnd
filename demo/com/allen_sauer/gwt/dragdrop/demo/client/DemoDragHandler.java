@@ -30,7 +30,7 @@ public final class DemoDragHandler implements DragHandler {
   private final HTML eventTextArea;
 
   public DemoDragHandler(HTML dragHandlerHTML) {
-    this.eventTextArea = dragHandlerHTML;
+    eventTextArea = dragHandlerHTML;
   }
 
   public void onDragEnd(DragEndEvent event) {

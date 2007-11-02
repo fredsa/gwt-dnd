@@ -60,9 +60,9 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-       super.onEnter(reference, draggable, dragController);
-       UIUtil.resetStylePositionStatic(getPositioner().getElement());
-     }
+    super.onEnter(reference, draggable, dragController);
+    UIUtil.resetStylePositionStatic(getPositioner().getElement());
+  }
 
   public void onMove(Widget reference, Widget draggable, DragController dragController) {
     super.onMove(reference, draggable, dragController);
