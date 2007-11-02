@@ -15,11 +15,9 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.window;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -110,27 +108,29 @@ final class WindowPanel extends FocusPanel {
   private static final String CSS_DEMO_RESIZE_PANEL_HEADER = "demo-WindowPanel-header";
 
   private int contentHeight;
+  private Widget contentOrScrollPanelWidget;
   private int contentWidth;
   private Widget eastWidget;
   private Grid grid = new Grid(3, 3);
   private final FocusPanel headerContainer;
   private final Widget headerWidget;
   private Widget northWidget;
-  private Widget scrollPanel;
   private Widget southWidget;
   private Widget westWidget;
   private final WindowController windowController;
 
-  public WindowPanel(final WindowController windowController, Widget headerWidget, Widget contentWidget) {
+  public WindowPanel(final WindowController windowController, Widget headerWidget, Widget contentWidget,
+      boolean wrapContentInScrollPanel) {
     this.windowController = windowController;
     this.headerWidget = headerWidget;
     addStyleName(CSS_DEMO_RESIZE_PANEL);
 
-    if (contentWidget instanceof Frame) {
-      scrollPanel = contentWidget;
+    if (wrapContentInScrollPanel) {
+      contentOrScrollPanelWidget = new ScrollPanel(contentWidget);
+      //      DOM.setStyleAttribute(scrollPanel.getElement(), "overflow", "auto");
     } else {
-      scrollPanel = new ScrollPanel(contentWidget);
-      DOM.setStyleAttribute(scrollPanel.getElement(), "overflow", "auto");
+      contentOrScrollPanelWidget = contentWidget;
+      contentWidget.setSize("100%", "100%");
     }
 
     headerContainer = new FocusPanel();
@@ -150,7 +150,7 @@ final class WindowPanel extends FocusPanel {
 
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.add(headerContainer);
-    verticalPanel.add(scrollPanel);
+    verticalPanel.add(contentOrScrollPanelWidget);
 
     grid.setCellSpacing(0);
     grid.setCellPadding(0);
@@ -198,14 +198,14 @@ final class WindowPanel extends FocusPanel {
       westWidget.setPixelSize(BORDER_THICKNESS, contentHeight + headerHeight);
       eastWidget.setPixelSize(BORDER_THICKNESS, contentHeight + headerHeight);
     }
-    scrollPanel.setPixelSize(contentWidth, contentHeight);
+    contentOrScrollPanelWidget.setPixelSize(contentWidth, contentHeight);
   }
 
   protected void onLoad() {
     super.onLoad();
-    if (scrollPanel.getOffsetHeight() != 0) {
+    if (contentOrScrollPanelWidget.getOffsetHeight() != 0) {
       headerWidget.setPixelSize(headerWidget.getOffsetWidth(), headerWidget.getOffsetHeight());
-      setContentSize(scrollPanel.getOffsetWidth(), scrollPanel.getOffsetHeight());
+      setContentSize(contentOrScrollPanelWidget.getOffsetWidth(), contentOrScrollPanelWidget.getOffsetHeight());
     }
   }
 
