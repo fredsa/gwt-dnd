@@ -19,6 +19,8 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.TextArea;
 
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
@@ -30,7 +32,7 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  */
 public final class WindowExample extends Example {
   private static final String CSS_DEMO_RESIZE_EXAMPLE = "demo-WindowExample";
-  private static final String GWT_HOME_PAGE = "http://code.google.com/webtoolkit/";
+  private static final String GWT_DND_HOME_PAGE = "http://code.google.com/p/gwt-dnd/";
 
   public WindowExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_RESIZE_EXAMPLE);
@@ -46,14 +48,31 @@ public final class WindowExample extends Example {
 
     // create the first panel
     HTML header1 = new HTML("An draggable &amp; resizable panel");
-    WindowPanel windowPanel1 = new WindowPanel(windowController, header1, getLargeHTML());
+    HTML html1 = new HTML(makeText());
+    html1.addStyleName("demo-resize-html");
+    WindowPanel windowPanel1 = new WindowPanel(windowController, header1, html1, true);
     boundaryPanel.add(windowPanel1, 20, 20);
 
     // create the second panel
     HTML header2 = new HTML("A draggable &amp; resizable <code>IFRAME</code>");
-    Frame iframe2 = getIframe(GWT_HOME_PAGE);
-    WindowPanel windowPanel2 = new WindowPanel(windowController, header2, iframe2);
+    Frame iframe2 = getIframe(GWT_DND_HOME_PAGE);
+    WindowPanel windowPanel2 = new WindowPanel(windowController, header2, iframe2, false);
     boundaryPanel.add(windowPanel2, 50, 80);
+
+    // create the third panel
+    HTML header3 = new HTML("A draggable &amp; resizable <code>IMG</code>");
+    Image image3 = new Image("http://www.google.com/intl/en_ALL/images/logo.gif");
+    image3.addStyleName("demo-resize-html");
+    WindowPanel windowPanel3 = new WindowPanel(windowController, header3, image3, false);
+    boundaryPanel.add(windowPanel3, 50, 80);
+
+    // create the fourth panel
+    HTML header4 = new HTML("A draggable &amp; resizable <code>TEXTAREA</code>");
+    TextArea textArea4 = new TextArea();
+    textArea4.addStyleName("demo-resize-html");
+    textArea4.setText(makeText());
+    WindowPanel windowPanel4 = new WindowPanel(windowController, header4, textArea4, false);
+    boundaryPanel.add(windowPanel4, 50, 80);
   }
 
   public String getDescription() {
@@ -80,13 +99,11 @@ public final class WindowExample extends Example {
     return iframe;
   }
 
-  private HTML getLargeHTML() {
+  private String makeText() {
     String t = "You can resize this panel by any of the four edges or corners.<br>";
     for (int i = 0; i < 3; i++) {
       t += "<br>The quick brown fox jumped over the lazy dog.";
     }
-    HTML html = new HTML(t);
-    html.addStyleName("demo-resize-html");
-    return html;
+    return t;
   }
 }
