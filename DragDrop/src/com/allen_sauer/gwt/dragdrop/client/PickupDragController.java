@@ -128,8 +128,8 @@ public class PickupDragController extends AbstractDragController {
   /**
    * @deprecated Use {@link #getBehaviorDragProxy()} instead.
    */
-  public final boolean isDragProxyEnabled() {
-    throw new UnsupportedOperationException();
+  public boolean isDragProxyEnabled() {
+    return getBehaviorDragProxy();
   }
 
   /**
@@ -146,8 +146,8 @@ public class PickupDragController extends AbstractDragController {
   /**
    * @deprecated Use {@link #setBehaviorDragProxy(boolean)} instead.
    */
-  public final void setDragProxyEnabled(boolean dragProxyEnabled) {
-    throw new UnsupportedOperationException();
+  public void setDragProxyEnabled(boolean dragProxyEnabled) {
+    setBehaviorDragProxy(dragProxyEnabled);
   }
 
   /**

@@ -92,6 +92,13 @@ public abstract class AbstractDropController implements DropController {
   public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
   }
 
+  /**
+   * @deprecated No longer a part gwt-dnd 2.x API; use {@link #onMove(int, int, Widget, Widget, DragController)} intead.
+   */
+  public final void onMove(Widget reference, Widget draggable, DragController dragController) {
+    throw new UnsupportedOperationException();
+  }
+
   public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
   }
 
