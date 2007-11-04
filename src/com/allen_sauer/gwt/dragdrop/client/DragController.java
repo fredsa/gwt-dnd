@@ -228,6 +228,11 @@ public interface DragController extends FiresDragEvents {
   void setBehaviorTargetSelection(TargetSelectionMethod targetSelectionMethod);
 
   /**
+   * @deprecated Use {@link #setBehaviorConstrainedToBoundaryPanel(boolean)} instead.
+   */
+  void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel);
+
+  /**
    * Unregister a DropController from this drag controller.
    * 
    * @see #registerDropController(DropController)

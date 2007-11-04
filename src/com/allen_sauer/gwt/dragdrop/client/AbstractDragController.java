@@ -131,6 +131,13 @@ public abstract class AbstractDragController implements DragController {
     return boundaryPanel;
   }
 
+  /**
+   * @deprecated No longer a part gwt-dnd 2.x API; use {@link #getIntersectDropController(Widget, int, int)} intead.
+   */
+  public final DropController getIntersectDropController(Widget widget) {
+    throw new UnsupportedOperationException();
+  }
+
   public DropController getIntersectDropController(Widget widget, int x, int y) {
     DropController dropController = dropControllerCollection.getIntersectDropController(widget, x, y, boundaryPanel);
     return dropController != null ? dropController : boundaryDropController;
@@ -234,6 +241,13 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
+  /**
+   * @deprecated Use {@link #setBehaviorConstrainedToBoundaryPanel(boolean)} instead.
+   */
+  public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
+    setBehaviorConstrainedToBoundaryPanel(constrainWidgetToBoundaryPanel);
+  }
+
   public void unregisterDropController(DropController dropController) {
     dropControllerList.remove(dropController);
   }
@@ -250,7 +264,7 @@ public abstract class AbstractDragController implements DragController {
   }
 
   /**
-   * @deprecated Never a part of the released gwt-dnd API; use #newBoundaryDropController(AbsolutePanel, boolean) instead.
+   * @deprecated Never a part of the released gwt-dnd API; use {@link #newBoundaryDropController(AbsolutePanel, boolean)} instead.
    */
   protected final BoundaryDropController newBoundaryDropController() {
     throw new UnsupportedOperationException();
@@ -287,13 +301,6 @@ public abstract class AbstractDragController implements DragController {
    * @deprecated Method has been moved down to {@link PickupDragController#saveDraggableLocationAndStyle(Widget)}
    */
   protected void saveDraggableLocationAndStyle(Widget draggable) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @deprecated No longer part of gwt-dnd 2.x API. Use {@link #setBehaviorConstrainedToBoundaryPanel(boolean)} instead.
-   */
-  protected final void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
     throw new UnsupportedOperationException();
   }
 }
