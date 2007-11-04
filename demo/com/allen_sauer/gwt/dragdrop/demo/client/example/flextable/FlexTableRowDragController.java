@@ -33,8 +33,6 @@ public final class FlexTableRowDragController extends PickupDragController {
 
   public FlexTableRowDragController(AbsolutePanel boundaryPanel) {
     super(boundaryPanel, false);
-    // TODO support 'classic' drop behavior
-    setDragProxyEnabled(true);
   }
 
   public void dragEnd(Widget draggable, Widget dropTarget) {
@@ -59,14 +57,15 @@ public final class FlexTableRowDragController extends PickupDragController {
     return dragRow;
   }
 
-  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
-    return new BoundaryDropController(boundaryPanel, false);
-  }
-
   public void notifyDragEnd(DragEndEvent dragEndEvent) {
     super.notifyDragEnd(dragEndEvent);
     // cleanup
     draggableTable = null;
+  }
+
+  public void setBehaviorDragProxy(boolean dragProxyEnabled) {
+    // TODO implement drag proxy behavior
+    throw new UnsupportedOperationException();
   }
 
   protected Widget maybeNewDraggableProxy(Widget draggable) {
@@ -76,6 +75,12 @@ public final class FlexTableRowDragController extends PickupDragController {
     proxy.addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY);
     FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
     return proxy;
+  }
+
+  protected BoundaryDropController newBoundaryDropController() {
+    BoundaryDropController boundaryDropController = super.newBoundaryDropController();
+    boundaryDropController.setBehaviorBoundaryPanelDrop(false);
+    return boundaryDropController;
   }
 
   protected void restoreDraggableLocation(Widget draggable) {

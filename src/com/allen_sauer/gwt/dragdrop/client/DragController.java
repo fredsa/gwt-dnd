@@ -31,6 +31,22 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
  */
 public interface DragController extends FiresDragEvents {
   /**
+   * Drop target selection behavior.
+   * 
+   * TODO Convert to enum for JDK 1.5
+   */
+  public static class TargetSelectionMethod {
+    public static final TargetSelectionMethod MOUSE_POSITION = new TargetSelectionMethod();
+    public static final TargetSelectionMethod WIDGET_CENTER = new TargetSelectionMethod();
+
+    /**
+     * Prevent class instantiation.
+     */
+    private TargetSelectionMethod() {
+    }
+  }
+
+  /**
    * Register a drag handler which will listen for
    * {@link DragStartEvent DragStartEvents} and
    * and {@link DragEndEvent DragEndEvents}.
@@ -56,6 +72,27 @@ public interface DragController extends FiresDragEvents {
   void dragStart(Widget draggable);
 
   /**
+   * Whether or not dropping on the boundary panel is permitted.
+   * 
+   * @return <code>true</code> if dropping on the boundary panel is allowed
+   */
+  boolean getBehaviorBoundaryPanelDrop();
+
+  /**
+   * Determine whether or not drag operations are constrained to the boundary panel.
+   * 
+  * @return <code>true</code> if drags are constrained to the boundary panel
+  */
+  boolean getBehaviorConstrainedToBoundaryPanel();
+
+  /**
+   * Determine the current drop target selection method for this drag controller.
+   * 
+   * @return the current selection method
+   */
+  TargetSelectionMethod getBehaviorTargetSelection();
+
+  /**
    * Get the boundary panel provided in the constructor.
    * 
    * @return the AbsolutePanel provided in the constructor
@@ -65,14 +102,16 @@ public interface DragController extends FiresDragEvents {
   /**
    * Callback method for {@link MouseDragHandler} to determine
    * which DropController represents the deepest DOM descendant
-   * drop target located at provided location (x, y).
+   * drop target located at the provided location (x, y) or
+   * which suitably intersects with <code>widget</code>.
    * 
+   * @param widget draggable or its proxy widget
    * @param x offset left relative to document body
    * @param y offset top relative to document body
    * 
    * @return the responsible DropController
    */
-  DropController getIntersectDropController(int x, int y);
+  DropController getIntersectDropController(Widget widget, int x, int y);
 
   /**
    * Callback method for {@link MouseDragHandler} to determine the
@@ -150,12 +189,36 @@ public interface DragController extends FiresDragEvents {
   void removeDragHandler(DragHandler handler);
 
   /**
-   * Whether or not movable widget is to be constrained to the boundary panel
+   * Reset the internal drop controller (drop target) cache which is initialized by
+   * {{@link #dragStart(Widget)}. This method should be called when a drop target's
+   * size and/or location changes, or when drop target eligibility changes.
+   */
+  void resetCache();
+
+  /**
+   * Set whether or not widgets may be dropped anywhere on the boundary panel.
+   * Set to <code>false</code> when you only want explicitly registered drop
+   * controllers to accept drops. Defaults to <code>true</code>.
+   * 
+   * @param allowDroppingOnBoundaryPanel <code>true</code> to allow dropping
+   */
+  void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel);
+
+  /**
+   * Set whether or not movable widget is to be constrained to the boundary panel
    * during dragging. The default is not to constrain the draggable or drag proxy.
    * 
-   * @param constrainWidgetToBoundaryPanel whether or not to constrain to the boundary panel
+   * @param constrainedToBoundaryPanel whether or not to constrain to the boundary panel
    */
-  void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel);
+  void setBehaviorConstrainedToBoundaryPanel(boolean constrainedToBoundaryPanel);
+
+  /**
+   * Set the drop target selection method for this drag controller.
+   * Defaults to {@link TargetSelectionMethod#MOUSE_POSITION}.
+   * 
+   * @param targetSelectionMethod the selection method
+   */
+  void setBehaviorTargetSelection(TargetSelectionMethod targetSelectionMethod);
 
   /**
    * Unregister a DropController from this drag controller.

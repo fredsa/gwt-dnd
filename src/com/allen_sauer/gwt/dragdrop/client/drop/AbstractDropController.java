@@ -25,8 +25,8 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
  * like adjust widget styles.
  */
 public abstract class AbstractDropController implements DropController {
-  protected static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
-  protected static final String CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage";
+  private static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
+  private static final String CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage";
 
   private Widget dropTarget;
 
@@ -47,16 +47,16 @@ public abstract class AbstractDropController implements DropController {
   }
 
   /**
-   * @deprecated No longer part of gwt-dnd 2.x API.
+   * @deprecated Never part of the a released API.
    */
-  final public String getDropTargetEngageStyleName() {
+  public final String getDropTargetEngageStyleName() {
     throw new UnsupportedOperationException();
   }
 
   /**
    * @deprecated No longer part of gwt-dnd 2.x API.
    */
-  final public String getDropTargetStyleName() {
+  public final String getDropTargetStyleName() {
     throw new UnsupportedOperationException();
   }
 

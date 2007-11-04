@@ -73,6 +73,7 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     }
   }
 
+  private AbsolutePanel currentBoundaryPanel;
   private final AbsolutePanel dropTarget;
   private Location lastGoodLocation;
 
@@ -84,6 +85,12 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     super.onEnter(reference, draggable, dragController);
     lastGoodLocation = null;
+    currentBoundaryPanel = dragController.getBoundaryPanel();
+  }
+
+  public void onLeave(Widget draggable, DragController dragController) {
+    super.onLeave(draggable, dragController);
+    currentBoundaryPanel = null;
   }
 
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {

@@ -33,8 +33,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
-  protected AbsolutePanel currentBoundaryPanel;
-
+  private AbsolutePanel currentBoundaryPanel;
   private Location dropLocation;
   private final AbsolutePanel dropTarget;
 

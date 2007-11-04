@@ -68,8 +68,8 @@ final class ResizeDragController extends AbstractDragController {
     directionMap.put(widget, direction);
   }
 
-  public BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
-    return new ResizeDropController(boundaryPanel);
+  public BoundaryDropController newBoundaryDropController() {
+    return new ResizeDropController(getBoundaryPanel());
   }
 
   public void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {

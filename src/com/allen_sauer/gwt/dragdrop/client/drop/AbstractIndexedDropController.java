@@ -22,6 +22,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.IndexedDragEndEvent;
+import com.allen_sauer.gwt.dragdrop.client.DragController.TargetSelectionMethod;
+import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
@@ -33,6 +35,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 public abstract class AbstractIndexedDropController extends AbstractPositioningDropController {
   private int dropIndex;
   private IndexedPanel dropTarget;
+  private TargetSelectionMethod targetSelectionMethod;
 
   /**
    * @see FlowPanelDropController#FlowPanelDropController(com.google.gwt.user.client.ui.FlowPanel)
@@ -51,28 +54,19 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     return new IndexedDragEndEvent(draggable, (Panel) dropTarget, dropIndex);
   }
 
+  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
+    super.onEnter(reference, draggable, dragController);
+    targetSelectionMethod = dragController.getBehaviorTargetSelection();
+  }
+
   public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
     super.onMove(x, y, reference, reference, dragController);
-
-    Location dropTargetLocation = new WidgetLocation((Widget) dropTarget, null);
-    Location mouseLocation = new CoordinateLocation(x - dropTargetLocation.getLeft(), y - dropTargetLocation.getTop());
-    mouseLocation = new CoordinateLocation(x, y);
-
-    int targetIndex = findIntersect(mouseLocation);
-
-    // check that positioner not already in the correct location
-    Widget positioner = getPositioner();
-    int positionerIndex = dropTarget.getWidgetIndex(positioner);
-
-    if (positionerIndex != targetIndex && (positionerIndex != targetIndex - 1 || targetIndex == 0)) {
-      if (positionerIndex == 0 && dropTarget.getWidgetCount() == 1) {
-        // do nothing, the positioner is the only widget
-      } else if (targetIndex == -1) {
-        // outside drop target, so remove positioner to indicate a drop will not happen
-        positioner.removeFromParent();
-      } else {
-        insert(positioner, targetIndex);
-      }
+    if (targetSelectionMethod == TargetSelectionMethod.MOUSE_POSITION) {
+      onMove(x, y);
+    } else if (targetSelectionMethod == TargetSelectionMethod.WIDGET_CENTER) {
+      onMove(reference);
+    } else {
+      throw new IllegalStateException();
     }
   }
 
@@ -101,7 +95,7 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
    * 
    * This method should be overridden when all dropTarget children are either displayed
    * only horizontally or only vertically. The specific case of a HorizontalPanel
-   * or VerticalPanel dropTqrget is handled by {@link IndexedDropController}.
+   * or VerticalPanel dropTarget is handled by {@link IndexedDropController}.
    * 
    * @param location the location to consider
    * @return true if the location is indicates an index position following the widget
@@ -154,6 +148,75 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
           return mid + 1;
         } else {
           return mid;
+        }
+      }
+    }
+  }
+
+  /**
+   * Positioner placement for the {@link TargetSelectionMethod#MOUSE_POSITION} target selection
+   * method.
+   */
+  private void onMove(int x, int y) {
+    Location dropTargetLocation = new WidgetLocation((Widget) dropTarget, null);
+    Location mouseLocation = new CoordinateLocation(x - dropTargetLocation.getLeft(), y - dropTargetLocation.getTop());
+    mouseLocation = new CoordinateLocation(x, y);
+
+    int targetIndex = findIntersect(mouseLocation);
+
+    // check that positioner not already in the correct location
+    Widget positioner = getPositioner();
+    int positionerIndex = dropTarget.getWidgetIndex(positioner);
+
+    if (positionerIndex != targetIndex && (positionerIndex != targetIndex - 1 || targetIndex == 0)) {
+      if (positionerIndex == 0 && dropTarget.getWidgetCount() == 1) {
+        // do nothing, the positioner is the only widget
+      } else if (targetIndex == -1) {
+        // outside drop target, so remove positioner to indicate a drop will not happen
+        positioner.removeFromParent();
+      } else {
+        insert(positioner, targetIndex);
+      }
+    }
+  }
+
+  /**
+   * Positioner placement for the {@link TargetSelectionMethod#WIDGET_CENTER} target selection
+   * method.
+   */
+  private void onMove(Widget reference) {
+    int closestCenterDistanceToEdge = Integer.MAX_VALUE;
+    int targetIndex = -1;
+    Area referenceArea = new WidgetArea(reference, null);
+    Location referenceCenter = referenceArea.getCenter();
+    int widgetCount = dropTarget.getWidgetCount();
+    if (widgetCount == 0) {
+      insert(getPositioner(), 0);
+    } else {
+      for (int i = 0; i < widgetCount; i++) {
+        Widget target = dropTarget.getWidget(i);
+        Area targetArea = new WidgetArea(target, null);
+
+        if (targetArea.intersects(referenceArea)) {
+          int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(referenceCenter);
+          if (widgetCenterDistanceToTargetEdge < closestCenterDistanceToEdge) {
+            closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
+            targetIndex = i;
+            if (targetArea.inBottomRight(referenceCenter)) {
+              targetIndex++;
+            }
+          }
+        }
+      }
+      int positionerIndex = dropTarget.getWidgetIndex(getPositioner());
+      // check that positioner not already in the correct location
+      if (positionerIndex != targetIndex && positionerIndex != targetIndex - 1) {
+        if (widgetCount == 1 && positionerIndex == 0) {
+          // do nothing, the positioner is the only widget
+        } else if (targetIndex == -1) {
+          getPositioner().removeFromParent();
+        } else {
+          insert(getPositioner(), targetIndex);
         }
       }
     }
