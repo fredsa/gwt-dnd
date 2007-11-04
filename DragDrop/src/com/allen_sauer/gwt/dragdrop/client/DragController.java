@@ -36,7 +36,14 @@ public interface DragController extends FiresDragEvents {
    * TODO Convert to enum for JDK 1.5
    */
   public static class TargetSelectionMethod {
+    /**
+     * Drop target selection behavior based on current mouse cursor position.
+     */
     public static final TargetSelectionMethod MOUSE_POSITION = new TargetSelectionMethod();
+
+    /**
+     * Drop target selection behavior based on draggable widget center.
+     */
     public static final TargetSelectionMethod WIDGET_CENTER = new TargetSelectionMethod();
 
     /**

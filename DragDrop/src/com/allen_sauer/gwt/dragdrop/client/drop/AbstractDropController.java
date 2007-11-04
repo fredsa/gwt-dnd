@@ -25,8 +25,17 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
  * like adjust widget styles.
  */
 public abstract class AbstractDropController implements DropController {
+  /**
+   * @deprecated Use {@link #PRIVATE_CSS_DROP_TARGET_ENGAGE} instead
+   */
+  protected static final String CSS_DROP_TARGET_ENGAGE;
+
   private static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
-  private static final String CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage";
+  private static final String PRIVATE_CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage";
+
+  static {
+    CSS_DROP_TARGET_ENGAGE = PRIVATE_CSS_DROP_TARGET_ENGAGE;
+  }
 
   private Widget dropTarget;
 
@@ -62,21 +71,22 @@ public abstract class AbstractDropController implements DropController {
 
   /**
    * When overriding this method's drop behavior, be sure to also override
-   * {@link #makeDragEndEvent(Widget, Widget, DragController)}.
+   * {@link #makeDragEndEvent(Widget, Widget, DragController)}, which is
+   * called as a part of this method invocation to create the return value.
    * 
    * @see com.allen_sauer.gwt.dragdrop.client.drop.DropController#onDrop(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dragdrop.client.DragController)
    */
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    dropTarget.removeStyleName(CSS_DROP_TARGET_ENGAGE);
+    dropTarget.removeStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
     return makeDragEndEvent(reference, draggable, dragController);
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    dropTarget.addStyleName(CSS_DROP_TARGET_ENGAGE);
+    dropTarget.addStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
   }
 
   public void onLeave(Widget draggable, DragController dragController) {
-    dropTarget.removeStyleName(CSS_DROP_TARGET_ENGAGE);
+    dropTarget.removeStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
   }
 
   public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
@@ -94,7 +104,7 @@ public abstract class AbstractDropController implements DropController {
    * @param reference the reference widget from {@link #onDrop(Widget, Widget, DragController)}
    * @param draggable the draggable widget from {@link #onDrop(Widget, Widget, DragController)}
    * @param dragController the dragController from {@link #onDrop(Widget, Widget, DragController)}
-   * @return
+   * @return the new DragEndEvent
    */
   protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
     return new DragEndEvent(draggable, dropTarget);

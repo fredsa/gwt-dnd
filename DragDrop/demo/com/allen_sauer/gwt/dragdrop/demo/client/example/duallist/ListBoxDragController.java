@@ -25,6 +25,7 @@ import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
  * DragController for {@link DualListExample}.
  */
 public class ListBoxDragController extends PickupDragController {
+  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_DRAG_PROXY = "demo-DualListExample-drag-proxy";
   private MouseListBox currentDraggableListBox;
 
   public ListBoxDragController(DualListBox dualListBox) {
@@ -64,7 +65,7 @@ public class ListBoxDragController extends PickupDragController {
   protected Widget maybeNewDraggableProxy(Widget draggable) {
     MouseListBox proxyMouseListBox = new MouseListBox(currentDraggableListBox.getSelectedWidgetCount());
     proxyMouseListBox.setWidth(currentDraggableListBox.getOffsetWidth() + "px");
-    proxyMouseListBox.addStyleName(CSS_PROXY);
+    proxyMouseListBox.addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_DRAG_PROXY);
     DualListBox.copyOrmoveItems(currentDraggableListBox, proxyMouseListBox, true, DualListBox.OPERATION_COPY);
     return proxyMouseListBox;
   }

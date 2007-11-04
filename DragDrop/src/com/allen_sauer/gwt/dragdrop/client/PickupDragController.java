@@ -33,8 +33,23 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
  * drag proxy is temporarily picked up and dragged around the boundary panel.
  */
 public class PickupDragController extends AbstractDragController {
-  protected static final String CSS_MOVABLE_PANEL = "dragdrop-movable-panel";
-  protected static final String CSS_PROXY = "dragdrop-proxy";
+  /**
+   * @deprecated Use {@link #PRIVATE_CSS_MOVABLE_PANEL} instead
+   */
+  protected static final String CSS_MOVABLE_PANEL;
+
+  /**
+   * @deprecated Use {@link #PRIVATE_CSS_PROXY} instead
+   */
+  protected static final String CSS_PROXY;
+
+  private static final String PRIVATE_CSS_MOVABLE_PANEL = "dragdrop-movable-panel";
+  private static final String PRIVATE_CSS_PROXY = "dragdrop-proxy";
+
+  static {
+    CSS_MOVABLE_PANEL = PRIVATE_CSS_MOVABLE_PANEL;
+    CSS_PROXY = PRIVATE_CSS_PROXY;
+  }
 
   private Widget currentDraggable;
   private Widget draggableProxy;
@@ -85,7 +100,7 @@ public class PickupDragController extends AbstractDragController {
     saveDraggableLocationAndStyle(draggable);
     Location location = new WidgetLocation(draggable, getBoundaryPanel());
     movablePanel = new SimplePanel();
-    movablePanel.addStyleName(CSS_MOVABLE_PANEL);
+    movablePanel.addStyleName(PRIVATE_CSS_MOVABLE_PANEL);
     if (draggableProxy == null) {
       movablePanel.setPixelSize(draggable.getOffsetWidth(), draggable.getOffsetHeight());
     }
@@ -145,7 +160,7 @@ public class PickupDragController extends AbstractDragController {
     if (getBehaviorDragProxy()) {
       FocusPanel proxy;
       proxy = new FocusPanel();
-      proxy.addStyleName(CSS_PROXY);
+      proxy.addStyleName(PRIVATE_CSS_PROXY);
       proxy.setPixelSize(currentDraggable.getOffsetWidth(), currentDraggable.getOffsetHeight());
       return proxy;
     } else {
