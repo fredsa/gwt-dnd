@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jardesc>
-<jar path="C:/fred/java/lib/gwt-dnd/gwt-dnd-javadoc.jar"/>
+<jar path="C:/fred/java/lib/gwt-dnd/gwt-dnd-0.0.0-javadoc.jar"/>
 <options buildIfNeeded="true" compress="true" descriptionLocation="/DragDrop/GWT-DND-JAVADOC.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
 <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
 <selectedProjects/>
