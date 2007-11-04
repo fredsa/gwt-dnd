@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -46,8 +47,10 @@ public abstract class AbstractDragController implements DragController {
   private AbsolutePanel boundaryPanel;
   private Widget draggable;
   private DragHandlerCollection dragHandlers;
-  private DropControllerCollection dropControllerCollection = new DropControllerCollection();
+  private DropControllerCollection dropControllerCollection;
+  private ArrayList dropControllerList = new ArrayList();
   private MouseDragHandler mouseDragHandler;
+  private TargetSelectionMethod targetSelectionMethod;
 
   /**
    * Create a new drag-and-drop controller. Drag operations will be limited to
@@ -65,9 +68,11 @@ public abstract class AbstractDragController implements DragController {
    */
   public AbstractDragController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
     this.boundaryPanel = boundaryPanel != null ? boundaryPanel : RootPanel.get();
-    boundaryDropController = newBoundaryDropController(this.boundaryPanel, allowDroppingOnBoundaryPanel);
+    boundaryDropController = newBoundaryDropController();
     registerDropController(boundaryDropController);
     mouseDragHandler = new MouseDragHandler(this);
+    setBehaviorTargetSelection(TargetSelectionMethod.MOUSE_POSITION);
+    setBehaviorBoundaryPanelDrop(allowDroppingOnBoundaryPanel);
   }
 
   public final void addDragHandler(DragHandler handler) {
@@ -90,12 +95,24 @@ public abstract class AbstractDragController implements DragController {
     draggable.addStyleName(CSS_DRAGGING);
   }
 
+  public boolean getBehaviorBoundaryPanelDrop() {
+    return boundaryDropController.getBehaviorBoundaryPanelDrop();
+  }
+
+  public boolean getBehaviorConstrainedToBoundaryPanel() {
+    return mouseDragHandler.isConstrainedToBoundaryPanel();
+  }
+
+  public TargetSelectionMethod getBehaviorTargetSelection() {
+    return targetSelectionMethod;
+  }
+
   public final AbsolutePanel getBoundaryPanel() {
     return boundaryPanel;
   }
 
-  public DropController getIntersectDropController(int x, int y) {
-    DropController dropController = dropControllerCollection.getIntersectDropController(x, y, boundaryPanel);
+  public DropController getIntersectDropController(Widget widget, int x, int y) {
+    DropController dropController = dropControllerCollection.getIntersectDropController(widget, x, y, boundaryPanel);
     return dropController != null ? dropController : boundaryDropController;
   }
 
@@ -165,7 +182,7 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public final void registerDropController(DropController dropController) {
-    dropControllerCollection.add(dropController);
+    dropControllerList.add(dropController);
   }
 
   public final void removeDragHandler(DragHandler handler) {
@@ -174,21 +191,31 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
-  /**
-   * Reset the internal drop controller (drop target) cache which was setup during
-   * {{@link #dragStart(Widget)}. This method should be called when a drop target's
-   * size and/or location changes, or when drop target eligibility changes.
-   */
   public void resetCache() {
     dropControllerCollection.resetCache(boundaryPanel, draggable);
   }
 
-  public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
-    mouseDragHandler.setConstrainWidgetToBoundaryPanel(constrainWidgetToBoundaryPanel);
+  public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
+    boundaryDropController.setBehaviorBoundaryPanelDrop(allowDroppingOnBoundaryPanel);
+  }
+
+  public void setBehaviorConstrainedToBoundaryPanel(boolean constrainedToBoundaryPanel) {
+    mouseDragHandler.setConstrainedToBoundaryPanel(constrainedToBoundaryPanel);
+  }
+
+  public void setBehaviorTargetSelection(TargetSelectionMethod targetSelectionMethod) {
+    this.targetSelectionMethod = targetSelectionMethod;
+    if (targetSelectionMethod == TargetSelectionMethod.WIDGET_CENTER) {
+      dropControllerCollection = new WidgetCenterDropControllerCollection(dropControllerList);
+    } else if (targetSelectionMethod == TargetSelectionMethod.MOUSE_POSITION) {
+      dropControllerCollection = new MousePositionDropControllerCollection(dropControllerList);
+    } else {
+      throw new IllegalArgumentException();
+    }
   }
 
   public void unregisterDropController(DropController dropController) {
-    dropControllerCollection.remove(dropController);
+    dropControllerList.remove(dropController);
   }
 
   /**
@@ -208,16 +235,22 @@ public abstract class AbstractDragController implements DragController {
    * drop targets, set <code>allowDropping</code> to <code>false</code>.
    * 
    * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
-   * @param allowDropping whether or not dropping is allowed on the boundary panel
    * @return the new BoundaryDropController
    */
-  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
-    return new BoundaryDropController(boundaryPanel, allowDropping);
+  protected BoundaryDropController newBoundaryDropController() {
+    return new BoundaryDropController(boundaryPanel, getBehaviorBoundaryPanelDrop());
   }
 
   /**
-   * @deprecated Method has been moved down to {@link PickupDragController#restoreDraggableLocation(Widget)}
+   * @deprecated Subclasses should override {@link #newBoundaryDropController()} instead.
    */
+  protected final BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+  * @deprecated Method has been moved down to {@link PickupDragController#restoreDraggableLocation(Widget)}
+  */
   protected void restoreDraggableLocation(Widget draggable) {
     throw new UnsupportedOperationException();
   }
@@ -233,6 +266,13 @@ public abstract class AbstractDragController implements DragController {
    * @deprecated Method has been moved down to {@link PickupDragController#saveDraggableLocationAndStyle(Widget)}
    */
   protected void saveDraggableLocationAndStyle(Widget draggable) {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * @deprecated No longer part of gwt-dnd 2.x API. Use {@link #setBehaviorConstrainedToBoundaryPanel(boolean)} instead.
+   */
+  protected final void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
     throw new UnsupportedOperationException();
   }
 }

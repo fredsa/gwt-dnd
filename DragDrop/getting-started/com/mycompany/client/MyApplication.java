@@ -66,27 +66,27 @@ public class MyApplication implements EntryPoint {
   }
 
   private void onModuleLoad2() {
-    // create a boundary panel to constrain all drag operations
+    // Create a boundary panel to constrain all drag operations
     AbsolutePanel boundaryPanel = new AbsolutePanel();
     boundaryPanel.setPixelSize(400, 300);
     boundaryPanel.addStyleName("getting-started-blue");
 
-    // create a drop target on which we can drop labels
+    // Create a drop target on which we can drop labels
     AbsolutePanel targetPanel = new AbsolutePanel();
     targetPanel.setPixelSize(300, 200);
     targetPanel.addStyleName("getting-started-blue");
 
-    // add both panels to the root panel
+    // Add both panels to the root panel
     RootPanel.get().add(boundaryPanel);
     boundaryPanel.add(targetPanel, 10, 10);
 
-    // create a DragController for each logical area where a set of draggable
+    // Create a DragController for each logical area where a set of draggable
     // widgets and drop targets will be allowed to interact with one another.
     PickupDragController dragController = new PickupDragController(boundaryPanel, true);
 
     // Positioner is always constrained to the boundary panel
     // Use 'true' to also constrain the draggable or drag proxy to the boundary panel
-    dragController.setConstrainWidgetToBoundaryPanel(false);
+    dragController.setBehaviorConstrainedToBoundaryPanel(false);
 
     // create a DropController for each drop target on which draggable widgets
     // can be dropped

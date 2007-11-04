@@ -33,8 +33,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 import java.util.HashMap;
 
 /**
- * Helper class which handles mouse events for all draggable widgets for a give
- * {@link DropController}.
+ * Implementation helper class which handles mouse events for all
+ * draggable widgets for a given {@link DropController}.
  */
 class MouseDragHandler implements MouseListener {
   private int boundaryOffsetX;
@@ -56,26 +56,10 @@ class MouseDragHandler implements MouseListener {
   private Widget mouseDownWidget;
   private Widget movableWidget;
 
-  public MouseDragHandler(DragController dragController) {
+  MouseDragHandler(DragController dragController) {
     this.dragController = dragController;
     boundaryPanel = dragController.getBoundaryPanel();
     initCapturingWidget();
-  }
-
-  public void makeDraggable(Widget draggable, Widget dragHandle) {
-    if (dragHandle instanceof SourcesMouseEvents) {
-      ((SourcesMouseEvents) dragHandle).addMouseListener(this);
-      dragHandleMap.put(dragHandle, draggable);
-    } else {
-      throw new RuntimeException("dragHandle must implement SourcesMouseEvents to be draggable");
-    }
-  }
-
-  public void makeNotDraggable(Widget dragHandle) {
-    if (dragHandleMap.remove(dragHandle) == null) {
-      throw new RuntimeException("dragHandle was not draggable");
-    }
-    ((SourcesMouseEvents) dragHandle).removeMouseListener(this);
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
@@ -198,11 +182,58 @@ class MouseDragHandler implements MouseListener {
     }
   }
 
-  public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
-    constrainedToBoundaryPanel = constrainWidgetToBoundaryPanel;
+  void actualMove(int x, int y) {
+    int desiredLeft = x - boundaryOffsetX - mouseDownOffsetX;
+    int desiredTop = y - boundaryOffsetY - mouseDownOffsetY;
+
+    if (constrainedToBoundaryPanel) {
+      desiredLeft = Math.max(0, Math.min(desiredLeft, maxLeft));
+      desiredTop = Math.max(0, Math.min(desiredTop, maxTop));
+    }
+
+    DOMUtil.fastSetElementPosition(movableWidget.getElement(), desiredLeft, desiredTop);
+
+    DropController newDropController = dragController.getIntersectDropController(movableWidget, x, y);
+    if (dropController != newDropController) {
+      if (dropController != null) {
+        dropController.onLeave(draggable, dragController);
+      }
+      dropController = newDropController;
+      if (dropController != null) {
+        dropController.onEnter(movableWidget, draggable, dragController);
+      }
+    }
+
+    if (dropController != null) {
+      dropController.onMove(x, y, movableWidget, draggable, dragController);
+    }
   }
 
-  public void startDragging() {
+  boolean isConstrainedToBoundaryPanel() {
+    return constrainedToBoundaryPanel;
+  }
+
+  void makeDraggable(Widget draggable, Widget dragHandle) {
+    if (dragHandle instanceof SourcesMouseEvents) {
+      ((SourcesMouseEvents) dragHandle).addMouseListener(this);
+      dragHandleMap.put(dragHandle, draggable);
+    } else {
+      throw new RuntimeException("dragHandle must implement SourcesMouseEvents to be draggable");
+    }
+  }
+
+  void makeNotDraggable(Widget dragHandle) {
+    if (dragHandleMap.remove(dragHandle) == null) {
+      throw new RuntimeException("dragHandle was not draggable");
+    }
+    ((SourcesMouseEvents) dragHandle).removeMouseListener(this);
+  }
+
+  void setConstrainedToBoundaryPanel(boolean constrainedToBoundaryPanel) {
+    this.constrainedToBoundaryPanel = constrainedToBoundaryPanel;
+  }
+
+  void startDragging() {
     draggable = (Widget) dragHandleMap.get(mouseDownWidget);
 
     try {
@@ -222,33 +253,6 @@ class MouseDragHandler implements MouseListener {
 
     DOM.setCapture(capturingWidget.getElement());
     dragging = true;
-  }
-
-  void actualMove(int x, int y) {
-    int desiredLeft = x - boundaryOffsetX - mouseDownOffsetX;
-    int desiredTop = y - boundaryOffsetY - mouseDownOffsetY;
-
-    if (constrainedToBoundaryPanel) {
-      desiredLeft = Math.max(0, Math.min(desiredLeft, maxLeft));
-      desiredTop = Math.max(0, Math.min(desiredTop, maxTop));
-    }
-
-    DOMUtil.fastSetElementPosition(movableWidget.getElement(), desiredLeft, desiredTop);
-
-    DropController newDropController = dragController.getIntersectDropController(x, y);
-    if (dropController != newDropController) {
-      if (dropController != null) {
-        dropController.onLeave(draggable, dragController);
-      }
-      dropController = newDropController;
-      if (dropController != null) {
-        dropController.onEnter(movableWidget, draggable, dragController);
-      }
-    }
-
-    if (dropController != null) {
-      dropController.onMove(x, y, movableWidget, draggable, dragController);
-    }
   }
 
   private void cancelDrag() {

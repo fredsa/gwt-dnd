@@ -25,15 +25,35 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
  * which contains a given draggable widget.
  */
 public class BoundaryDropController extends AbsolutePositionDropController {
-  private boolean allowDropping;
+  private boolean allowDroppingOnBoundaryPanel = true;
 
-  public BoundaryDropController(AbsolutePanel dropTarget, boolean allowDropping) {
+  public BoundaryDropController(AbsolutePanel dropTarget, boolean allowDroppingOnBoundaryPanel) {
     super(dropTarget);
-    this.allowDropping = allowDropping;
     dropTarget.addStyleName("dragdrop-boundary");
+    this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
+  }
+
+  /**
+   * Whether or not dropping on the boundary panel is permitted.
+   * 
+   * @return <code>true</code> if dropping on the boundary panel is allowed
+   */
+  public boolean getBehaviorBoundaryPanelDrop() {
+    return allowDroppingOnBoundaryPanel;
+  }
+
+  /**
+   * Set whether or not widgets may be dropped anywhere on the boundary panel.
+   * Set to <code>false</code> when you only want explicitly registered drop
+   * controllers to accept drops. Defaults to <code>true</code>.
+   * 
+   * @param allowDroppingOnBoundaryPanel <code>true</code> to allow dropping
+   */
+  public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
+    this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
   }
 
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
-    return allowDropping ? super.getConstrainedLocation(reference, draggable, widget) : null;
+    return allowDroppingOnBoundaryPanel ? super.getConstrainedLocation(reference, draggable, widget) : null;
   }
 }

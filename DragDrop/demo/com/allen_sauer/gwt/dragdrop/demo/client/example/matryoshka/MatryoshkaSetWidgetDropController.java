@@ -30,6 +30,8 @@ import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
  * parent widget to the top of stack by re-attaching it to the grandparent.
  */
 public class MatryoshkaSetWidgetDropController extends SimpleDropController {
+  private static final String CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE = "demo-MatryoshkaExample-dropTarget-engage";
+
   private static void makeLastChild(Widget child) {
     Widget parent = child.getParent();
     if (parent instanceof AbsolutePanel) {
@@ -49,14 +51,20 @@ public class MatryoshkaSetWidgetDropController extends SimpleDropController {
     DragEndEvent dragEndEvent = super.onDrop(reference, draggable, dragController);
     makeLastChild(dropTarget);
     dropTarget.setWidget(draggable);
+    dropTarget.removeStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE);
     return dragEndEvent;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     super.onEnter(reference, draggable, dragController);
-    if (dropTarget.getWidget() != null) {
-      dropTarget.removeStyleName(CSS_DROP_TARGET_ENGAGE);
+    if (dropTarget.getWidget() == null) {
+      dropTarget.addStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE);
     }
+  }
+
+  public void onLeave(Widget draggable, DragController dragController) {
+    super.onLeave(draggable, dragController);
+    dropTarget.removeStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE);
   }
 
   public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {

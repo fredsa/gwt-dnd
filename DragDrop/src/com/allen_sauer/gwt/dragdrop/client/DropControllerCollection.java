@@ -20,21 +20,15 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
-import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 
 /**
  * Package private helper implementation class for {@link AbstractDragController}
  * to track all relevant {@link DropController DropControllers}.
  */
-final class DropControllerCollection {
-  private static class Candidate implements Comparable {
+abstract class DropControllerCollection {
+  protected static class Candidate implements Comparable {
     private final DropController dropController;
     private Area targetArea;
 
@@ -66,57 +60,28 @@ final class DropControllerCollection {
     }
   }
 
-  private ArrayList controllerList = new ArrayList();
-  private Candidate[] sortedCandidates;
-
   /**
    * Default constructor.
    */
-  DropControllerCollection() {
+  protected DropControllerCollection() {
   }
 
   /**
-   * Add a new drop controller to this collection.
+   * Determines which DropController represents the deepest DOM descendant
+   * drop target located at the provided location <code>(x, y)</code> or which suitably
+   * intersects with <code>widget</code>.
    * 
-   * @param dropController the drop controller to be added
-   */
-  void add(DropController dropController) {
-    controllerList.add(dropController);
-  }
-
-  /**
-   * Determines which drop controller has a lowest DOM descendant target area
-   * which intersects with the provided widget area.
-   * 
+   * @param widget draggable or its proxy widget
    * @param x offset left relative to document body
    * @param y offset top relative to document body
    * @param boundaryPanel the panel which provides the boundaries for the drag
    *                      controller. Drop targets must be within this are to be
    *                      considered
    * 
-   * @return a drop controller for the intersecting drop target or null if none
+   * @return a drop controller for the intersecting drop target or <code>null</code> if none
    *         are applicable
    */
-  DropController getIntersectDropController(int x, int y, Panel boundaryPanel) {
-    Location location = new CoordinateLocation(x, y);
-    for (int i = 0; i < sortedCandidates.length; i++) {
-      Candidate candidate = sortedCandidates[i];
-      Area targetArea = candidate.getTargetArea();
-      if (targetArea.intersects(location)) {
-        return candidate.getDropController();
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Remove an existing drop controller from this collection.
-   * 
-   * @param dropController the drop controller to be removed
-   */
-  void remove(DropController dropController) {
-    controllerList.remove(dropController);
-  }
+  abstract DropController getIntersectDropController(Widget widget, int x, int y, Panel boundaryPanel);
 
   /**
    * Cache a list of eligible drop controllers, sorted by relative DOM positions
@@ -127,22 +92,5 @@ final class DropControllerCollection {
    *            considerations
    * @param draggable
    */
-  void resetCache(Panel boundaryPanel, Widget draggable) {
-    WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
-
-    ArrayList list = new ArrayList();
-    for (Iterator iterator = controllerList.iterator(); iterator.hasNext();) {
-      DropController dropController = (DropController) iterator.next();
-      Candidate candidate = new Candidate(dropController);
-      if (DOMUtil.isOrContains(draggable.getElement(), candidate.getDropTarget().getElement())) {
-        continue;
-      }
-      if (candidate.getTargetArea().intersects(boundaryArea)) {
-        list.add(candidate);
-      }
-    }
-
-    sortedCandidates = (Candidate[]) list.toArray(new Candidate[] {});
-    Arrays.sort(sortedCandidates);
-  }
+  abstract void resetCache(Panel boundaryPanel, Widget draggable);
 }

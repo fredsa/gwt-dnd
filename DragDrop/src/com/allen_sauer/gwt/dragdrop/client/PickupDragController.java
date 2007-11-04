@@ -95,10 +95,6 @@ public class PickupDragController extends AbstractDragController {
     movablePanel.setWidget(innerWidget);
   }
 
-  public Widget getMovableWidget() {
-    return movablePanel;
-  }
-
   /**
    * Determine whether or not this controller automatically creates a drag proxy
    * for each drag operation. Whether or not a drag proxy is used is ultimately
@@ -106,8 +102,19 @@ public class PickupDragController extends AbstractDragController {
    * 
    * @return <code>true</code> if drag proxy behavior is enabled
    */
-  public boolean isDragProxyEnabled() {
+  public boolean getBehaviorDragProxy() {
     return dragProxyEnabled;
+  }
+
+  public Widget getMovableWidget() {
+    return movablePanel;
+  }
+
+  /**
+   * @deprecated Use {@link #getBehaviorDragProxy()} instead.
+   */
+  public final boolean isDragProxyEnabled() {
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -117,8 +124,15 @@ public class PickupDragController extends AbstractDragController {
    * 
    * @param dragProxyEnabled <code>true</code> to enable drag proxy behavior
    */
-  public void setDragProxyEnabled(boolean dragProxyEnabled) {
+  public void setBehaviorDragProxy(boolean dragProxyEnabled) {
     this.dragProxyEnabled = dragProxyEnabled;
+  }
+
+  /**
+   * @deprecated Use {@link #setBehaviorDragProxy(boolean)} instead.
+   */
+  public final void setDragProxyEnabled(boolean dragProxyEnabled) {
+    throw new UnsupportedOperationException();
   }
 
   /**
@@ -128,7 +142,7 @@ public class PickupDragController extends AbstractDragController {
    * @return a draggable proxy widget or <code>null</code> if no drag proxy is desired
    */
   protected Widget maybeNewDraggableProxy(Widget draggable) {
-    if (isDragProxyEnabled()) {
+    if (getBehaviorDragProxy()) {
       FocusPanel proxy;
       proxy = new FocusPanel();
       proxy.addStyleName(CSS_PROXY);

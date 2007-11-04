@@ -25,6 +25,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
@@ -107,30 +108,35 @@ public final class DragDropDemo implements EntryPoint {
     // instantiate the common drag controller used the less specific examples
     dragController = new PickupDragController(boundaryPanel, true);
 
-    mainPanel.add(new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> library in action.</p>"));
-
-    // Add radio buttons to select draggable behavior
-    BehaviorPanel behaviorListBox = new BehaviorPanel(dragController);
-    mainPanel.add(behaviorListBox);
+    mainPanel.add(new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> 2.x library in action.</p>"));
 
     // Umbrella example illustrating basic drag and drop behavior
     HTML boundaryDescription = ExampleTabPanel.describe(new Class[] {
         DragDropDemo.class, PickupDragController.class, BoundaryDropController.class,},
-        "Most of our example drag operations are constrained to the panel below. Try drag one of the widgets outside this area.");
+        "Most of our example drag operations are constrained to the panel below."
+            + " Try to drag one of the widgets outside this area.");
     boundaryDescription.addStyleName(CSS_DEMO_BOUNDARY);
     mainPanel.add(boundaryDescription);
     mainPanel.add(boundaryPanel);
 
+    // Add configuration panel for main drag controller
+    VerticalPanel configurationPanel = new VerticalPanel();
+    configurationPanel.setWidth("200px");
+    configurationPanel.add(new DragProxyBehaviorPanel(dragController));
+    configurationPanel.add(new TargetSelectionBehaviorPanel(dragController));
+    configurationPanel.add(new ConstrainedToBoundaryBehaviorPanel(dragController));
+    boundaryPanel.add(configurationPanel, 10, 0);
+
     // Create some draggable widgets to play with
-    boundaryPanel.add(createDraggable(), 20, 100);
-    boundaryPanel.add(createDraggable(), 20, 200);
-    boundaryPanel.add(createDraggable(), 40, 240);
-    boundaryPanel.add(createDraggable(), 60, 280);
+    boundaryPanel.add(createDraggable(), 100, 330);
+    boundaryPanel.add(createDraggable(), 20, 350);
+    boundaryPanel.add(createDraggable(), 40, 390);
+    boundaryPanel.add(createDraggable(), 60, 430);
 
     // TabPanel to hold our examples
     ExampleTabPanel examples = new ExampleTabPanel(7);
     examples.setWidth("650px");
-    boundaryPanel.add(examples, 200, 10);
+    boundaryPanel.add(examples, 220, 10);
 
     // text area to log drag events as they are triggered
     final HTML eventTextArea = new HTML();

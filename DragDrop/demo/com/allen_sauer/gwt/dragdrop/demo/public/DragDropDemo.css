@@ -299,7 +299,7 @@ DIV.demo-main-boundary-panel {
   min-height: 50px;
 }
 
-.demo-MatryoshkaExample .dragdrop-dropTarget-engage {
+.demo-MatryoshkaExample .demo-MatryoshkaExample-dropTarget-engage {
   border: 1px solid black;
 }
 
@@ -329,12 +329,26 @@ DIV.demo-main-boundary-panel {
   padding: 0.5em 0.3em;
 }
 
-.demo-behavior-selection {
+.demo-behavior-panel {
+  width: 100%;
   background-color: #E8EEF7;
   border: 1px solid #87B3FF;
   margin-top: 1em;
   margin-bottom: 0.2em;
   padding: 0.2em 0.1em;
+}
+
+.demo-behavior-panel .demo-behavior-heading {
+  font-weight: bold;
+  color: blue;
+  cursor: help;
+}
+.demo-behavior-panel .gwt-RadioButton LABEL {
+  cursor: help;
+}
+
+.demo-behavior-panel .gwt-RadioButton INPUT {
+  cursor: pointer;
 }
 
 .demo-event-text-area {

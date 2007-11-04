@@ -48,7 +48,7 @@ public final class WindowExample extends Example {
 
     // create the first panel
     HTML header1 = new HTML("An draggable &amp; resizable panel");
-    HTML html1 = new HTML(makeText());
+    HTML html1 = new HTML(makeText().replaceAll("\n", "<br>\n"));
     html1.addStyleName("demo-resize-html");
     WindowPanel windowPanel1 = new WindowPanel(windowController, header1, html1, true);
     boundaryPanel.add(windowPanel1, 20, 20);
@@ -101,9 +101,9 @@ public final class WindowExample extends Example {
   }
 
   private String makeText() {
-    String t = "You can resize this panel by any of the four edges or corners.<br>";
+    String t = "You can resize this panel by any of the four edges or corners.\n";
     for (int i = 0; i < 3; i++) {
-      t += "<br>The quick brown fox jumped over the lazy dog.";
+      t += "The quick brown fox jumped over the lazy dog.\n";
     }
     return t;
   }

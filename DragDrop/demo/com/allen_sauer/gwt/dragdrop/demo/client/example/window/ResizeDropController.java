@@ -22,7 +22,6 @@ import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 
 final class ResizeDropController extends BoundaryDropController {
-
   private static final int MIN_WIDGET_SIZE = 10;
 
   private WindowPanel windowPanel;
@@ -77,5 +76,12 @@ final class ResizeDropController extends BoundaryDropController {
         windowPanel.setContentSize(windowPanel.getContentWidth() + delta, windowPanel.getContentHeight());
       }
     }
+  }
+
+  /**
+   * Throws {@link UnsupportedOperationException} as behavior may not be changed.
+   */
+  public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
+    throw new UnsupportedOperationException();
   }
 }
