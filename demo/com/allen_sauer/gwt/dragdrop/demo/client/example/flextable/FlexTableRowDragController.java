@@ -27,6 +27,7 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
  * Allows table rows to dragged by their handle.
  */
 public final class FlexTableRowDragController extends PickupDragController {
+  private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING = "demo-FlexTableRowExample-dragging";
   private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY = "demo-FlexTableRowExample-table-proxy";
   private FlexTable draggableTable;
   private int dragRow;
@@ -36,17 +37,17 @@ public final class FlexTableRowDragController extends PickupDragController {
   }
 
   public void dragEnd(Widget draggable, Widget dropTarget) {
-    draggableTable.getRowFormatter().removeStyleName(dragRow, CSS_DRAGGING);
+    draggableTable.getRowFormatter().removeStyleName(dragRow, CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING);
     super.dragEnd(draggable, dropTarget);
   }
 
   public void dragStart(Widget draggable) {
     draggableTable = (FlexTable) draggable.getParent();
     dragRow = getWidgetRow(draggable, draggableTable);
-    draggableTable.getRowFormatter().addStyleName(dragRow, CSS_DRAGGING);
+    draggableTable.getRowFormatter().addStyleName(dragRow, CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING);
     super.dragStart(draggable);
     // remove super class added style
-    draggable.removeStyleName(CSS_DRAGGING);
+    draggable.removeStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING);
   }
 
   public FlexTable getDraggableTable() {
@@ -71,16 +72,16 @@ public final class FlexTableRowDragController extends PickupDragController {
   protected Widget maybeNewDraggableProxy(Widget draggable) {
     FlexTable proxy;
     proxy = new FlexTable();
-    proxy.addStyleName(CSS_PROXY);
     proxy.addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY);
     FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
     return proxy;
   }
 
-  protected BoundaryDropController newBoundaryDropController() {
-    BoundaryDropController boundaryDropController = super.newBoundaryDropController();
-    boundaryDropController.setBehaviorBoundaryPanelDrop(false);
-    return boundaryDropController;
+  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
+    if (allowDroppingOnBoundaryPanel) {
+      throw new IllegalArgumentException();
+    }
+    return super.newBoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
   }
 
   protected void restoreDraggableLocation(Widget draggable) {

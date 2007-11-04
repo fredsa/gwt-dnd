@@ -20,5 +20,9 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
  * the proposed operation is unacceptable.
  */
 public class VetoDropException extends Exception {
-
+  /**
+   * Default constructor.
+   */
+  public VetoDropException() {
+  }
 }
