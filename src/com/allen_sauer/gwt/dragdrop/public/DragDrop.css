@@ -31,10 +31,12 @@
 .dragdrop-proxy {
   background-color: #77AAFF; /* light blue */
 }
-
-.dragdrop-movable-panel {
+.dragdrop-selected , .dragdrop-dragging , .dragdrop-proxy {
   filter: alpha(opacity = 30);
   opacity: 0.3;
   -moz-opacity: 0.3;
+}
+
+.dragdrop-movable-panel {
   z-index: 200;
 }

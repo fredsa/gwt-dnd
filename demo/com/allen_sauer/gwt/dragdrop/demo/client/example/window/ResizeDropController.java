@@ -35,8 +35,8 @@ final class ResizeDropController extends BoundaryDropController {
     windowPanel = ((ResizeDragController) dragController).getWindowPanel();
   }
 
-  public void onLeave(Widget draggable, DragController dragController) {
-    super.onLeave(draggable, dragController);
+  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
+    super.onLeave(reference, draggable, dragController);
     windowPanel = null;
   }
 

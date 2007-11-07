@@ -20,6 +20,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
+import java.util.Collection;
+
 /**
  * Common interface which all drag controllers much implement.
  * 
@@ -62,6 +64,8 @@ public interface DragController extends FiresDragEvents {
    */
   void addDragHandler(DragHandler handler);
 
+  void clearSelection();
+
   /**
    * Callback method for {@link MouseDragHandler}.
    * 
@@ -72,11 +76,13 @@ public interface DragController extends FiresDragEvents {
   void dragEnd(Widget draggable, Widget dropTarget);
 
   /**
-   * Callback method for {@link MouseDragHandler}.
-   * 
-   * @param draggable widget which was being dragged
-   */
-  void dragStart(Widget draggable);
+  * Callback method for {@link MouseDragHandler} when a drag operation
+  * is initiated for this drag controller.
+  * 
+  * @param draggable widget which was being dragged
+  * @return a movable panel containing the draggable or suitable proxy
+  */
+  Widget dragStart(Widget draggable);
 
   /**
    * Whether or not dropping on the boundary panel is permitted.
@@ -91,6 +97,8 @@ public interface DragController extends FiresDragEvents {
   * @return <code>true</code> if drags are constrained to the boundary panel
   */
   boolean getBehaviorConstrainedToBoundaryPanel();
+
+  boolean getBehaviorMultipleSelection();
 
   /**
    * Determine the current drop target selection method for this drag controller.
@@ -107,6 +115,16 @@ public interface DragController extends FiresDragEvents {
   AbsolutePanel getBoundaryPanel();
 
   /**
+   * @deprecated No longer part of gwt-dnd 2.x API. Override {@link #registerDropController(DropController)}, {@link #unregisterDropController(DropController)}, {@link #resetCache()}, etc. instead
+  */
+  DropControllerCollection getDropControllerCollection();
+
+  /**
+   * @deprecated No longer a part gwt-dnd 2.x API; use {@link #getIntersectDropController(Widget, int, int)} intead.
+   */
+  DropController getIntersectDropController(Widget widget);
+
+  /**
    * Callback method for {@link MouseDragHandler} to determine
    * which DropController represents the deepest DOM descendant
    * drop target located at the provided location (x, y) or
@@ -121,14 +139,16 @@ public interface DragController extends FiresDragEvents {
   DropController getIntersectDropController(Widget widget, int x, int y);
 
   /**
-   * Callback method for {@link MouseDragHandler} to determine the
-   * container widget that will move as part of the drag operation.
-   * This may be the actual draggable widget, an appropriate drag proxy
-   * widget, or a wrapper widget.
-   * 
-   * @return the movable container widget
-   */
+  * @deprecated The movable panel is now returned by {@link #dragStart(Widget)}.
+  */
   Widget getMovableWidget();
+
+  /**
+   * Determine the widgets which are currently selected.
+   * 
+   * @return the selected widget collection
+   */
+  Collection getSelectedWidgets();
 
   /**
    * Enable dragging on widget. Call this method for each widget that
@@ -219,6 +239,8 @@ public interface DragController extends FiresDragEvents {
    */
   void setBehaviorConstrainedToBoundaryPanel(boolean constrainedToBoundaryPanel);
 
+  void setBehaviorMultipleSelection(boolean multipleSelectionAllowed);
+
   /**
    * Set the drop target selection method for this drag controller.
    * Defaults to {@link TargetSelectionMethod#MOUSE_POSITION}.
@@ -228,9 +250,11 @@ public interface DragController extends FiresDragEvents {
   void setBehaviorTargetSelection(TargetSelectionMethod targetSelectionMethod);
 
   /**
-   * @deprecated Use {@link #setBehaviorConstrainedToBoundaryPanel(boolean)} instead.
-   */
+  * @deprecated Use {@link #setBehaviorConstrainedToBoundaryPanel(boolean)} instead.
+  */
   void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel);
+
+  void toggleSelection(Widget draggable);
 
   /**
    * Unregister a DropController from this drag controller.

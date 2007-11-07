@@ -13,3 +13,9 @@ quirks
 onfocus
 util
 playfield
+safari
+programmatically
+fred
+sauer
+instanceof
+proxies

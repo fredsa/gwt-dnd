@@ -27,6 +27,8 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractDropController;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
+import java.util.Iterator;
+
 public class TabSelectingDropController extends AbstractDropController {
   private final int tabIndex;
   private final TabPanel tabPanel;
@@ -40,18 +42,22 @@ public class TabSelectingDropController extends AbstractDropController {
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     DragEndEvent dragEndEvent = super.onDrop(reference, draggable, dragController);
 
-    // assume content widget is a panel for now
+    // assume content widget is an AbsolutePanel for now
     AbsolutePanel absolutePanel = (AbsolutePanel) tabPanel.getWidget(tabIndex);
 
-    // temporarily (invisibly) add draggable to get dimensions
-    DOM.setStyleAttribute(draggable.getElement(), "visibility", "hidden");
-    absolutePanel.add(draggable, 0, 0);
+    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
 
-    // move widget to random location, and restore visibility
-    int left = Random.nextInt(DOMUtil.getClientWidth(absolutePanel.getElement()) - draggable.getOffsetWidth());
-    int top = Random.nextInt(DOMUtil.getClientHeight(absolutePanel.getElement()) - draggable.getOffsetHeight());
-    absolutePanel.add(draggable, left, top);
-    DOM.setStyleAttribute(draggable.getElement(), "visibility", "");
+      // temporarily (invisibly) add draggable to get its dimensions
+      DOM.setStyleAttribute(widget.getElement(), "visibility", "hidden");
+      absolutePanel.add(widget, 0, 0);
+
+      // move widget to random location, and restore visibility
+      int left = Random.nextInt(DOMUtil.getClientWidth(absolutePanel.getElement()) - widget.getOffsetWidth());
+      int top = Random.nextInt(DOMUtil.getClientHeight(absolutePanel.getElement()) - widget.getOffsetHeight());
+      absolutePanel.add(widget, left, top);
+      DOM.setStyleAttribute(widget.getElement(), "visibility", "");
+    }
 
     // return drag end event, which will have come from our makeDragEndEvent()
     return dragEndEvent;

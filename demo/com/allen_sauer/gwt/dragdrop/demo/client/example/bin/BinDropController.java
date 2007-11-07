@@ -22,6 +22,8 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
+import java.util.Iterator;
+
 /**
  * Sample SimpleDropController which discards draggable widgets which are
  * dropped on it.
@@ -39,21 +41,24 @@ final class BinDropController extends SimpleDropController {
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     DragEndEvent event = super.onDrop(reference, draggable, dragController);
-    draggable.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+    reference.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
     bin.setEngaged(false);
-    bin.eatWidget(draggable);
+    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      bin.eatWidget(widget);
+    }
     return event;
   }
 
   public void onEnter(Widget reference, Widget draggable, DragController dragController) {
     super.onEnter(reference, draggable, dragController);
-    draggable.addStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+    reference.addStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
     bin.setEngaged(true);
   }
 
-  public void onLeave(Widget draggable, DragController dragController) {
-    super.onLeave(draggable, dragController);
-    draggable.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
+    super.onLeave(reference, draggable, dragController);
+    reference.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
     bin.setEngaged(false);
   }
 

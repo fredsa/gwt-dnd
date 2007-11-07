@@ -29,6 +29,8 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
+import java.util.Iterator;
+
 /**
  * {@link DropController} for {@link IndexedPanel} drop targets.
  */
@@ -50,7 +52,10 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     super.onDrop(reference, draggable, dragController);
     assert dropIndex != -1 : "Should not happen after onPreviewDrop did not veto";
-    insert(draggable, dropIndex);
+    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      insert(widget, dropIndex);
+    }
     return new IndexedDragEndEvent(draggable, (Panel) dropTarget, dropIndex);
   }
 

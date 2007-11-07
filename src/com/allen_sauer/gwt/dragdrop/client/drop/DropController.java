@@ -60,7 +60,7 @@ public interface DropController {
    * intersect with the widget. If there are, the widget engages with the
    * descendant drop target instead.
    * 
-   * @see #onLeave(Widget, DragController)
+   * @see #onLeave(Widget, Widget, DragController)
    * 
    * @param reference the widget (either the actual draggable widget or a
    *            suitable proxy widget) which is currently engaging
@@ -73,17 +73,21 @@ public interface DropController {
   void onEnter(Widget reference, Widget draggable, DragController dragController);
 
   /**
+   * @deprecated Used {@link #onLeave(Widget, Widget, DragController)} instead.
+   */
+  void onLeave(Widget draggable, DragController dragController);
+
+  /**
    * Called when the reference widget stops engaging our drop target by leaving
    * the area of the page occupied by our drop target.
-   * 
-   * @see #onEnter(Widget, Widget, DragController)
-   * 
+   * @param reference TODO
    * @param draggable the actual draggable widget to which the eventual drop
    *            operation would've applied
    * @param dragController the {@link DragController} coordinating the current
    *            drag-and-drop operation
+   * @see #onEnter(Widget, Widget, DragController)
    */
-  void onLeave(Widget draggable, DragController dragController);
+  void onLeave(Widget reference, Widget draggable, DragController dragController);
 
   /**
    * Called with each mouse movement while the reference widget is engaging our
@@ -101,9 +105,14 @@ public interface DropController {
    *            drag-and-drop operation
    * 
    * @see #onEnter(Widget, Widget, DragController)
-   * @see #onLeave(Widget, DragController)
+   * @see #onLeave(Widget, Widget, DragController)
    */
   void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController);
+
+  /**
+   * @deprecated No longer a part gwt-dnd 2.x API; use {@link #onMove(int, int, Widget, Widget, DragController)} intead.
+   */
+  void onMove(Widget reference, Widget draggable, DragController dragController);
 
   /**
    * Called just prior to {@link #onDrop(Widget, Widget, DragController)} to

@@ -88,6 +88,9 @@ public class MyApplication implements EntryPoint {
     // Use 'true' to also constrain the draggable or drag proxy to the boundary panel
     dragController.setBehaviorConstrainedToBoundaryPanel(false);
 
+    // Allow multiple widgets to be selected at once using CTRL-click
+    dragController.setBehaviorMultipleSelection(true);
+
     // create a DropController for each drop target on which draggable widgets
     // can be dropped
     DropController dropController = new AbsolutePositionDropController(targetPanel);

@@ -34,6 +34,7 @@ public final class FlexTableRowDragController extends PickupDragController {
 
   public FlexTableRowDragController(AbsolutePanel boundaryPanel) {
     super(boundaryPanel, false);
+    setBehaviorDragProxy(true);
   }
 
   public void dragEnd(Widget draggable, Widget dropTarget) {
@@ -41,13 +42,12 @@ public final class FlexTableRowDragController extends PickupDragController {
     super.dragEnd(draggable, dropTarget);
   }
 
-  public void dragStart(Widget draggable) {
+  public Widget dragStart(Widget draggable) {
     draggableTable = (FlexTable) draggable.getParent();
     dragRow = getWidgetRow(draggable, draggableTable);
     draggableTable.getRowFormatter().addStyleName(dragRow, CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING);
-    super.dragStart(draggable);
-    // remove super class added style
-    draggable.removeStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING);
+
+    return super.dragStart(draggable);
   }
 
   public FlexTable getDraggableTable() {
@@ -65,16 +65,11 @@ public final class FlexTableRowDragController extends PickupDragController {
   }
 
   public void setBehaviorDragProxy(boolean dragProxyEnabled) {
-    // TODO implement drag proxy behavior
-    throw new UnsupportedOperationException();
-  }
-
-  protected Widget maybeNewDraggableProxy(Widget draggable) {
-    FlexTable proxy;
-    proxy = new FlexTable();
-    proxy.addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY);
-    FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
-    return proxy;
+    if (!dragProxyEnabled) {
+      // TODO implement drag proxy behavior
+      throw new IllegalArgumentException();
+    }
+    super.setBehaviorDragProxy(dragProxyEnabled);
   }
 
   protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
@@ -84,15 +79,23 @@ public final class FlexTableRowDragController extends PickupDragController {
     return super.newBoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
   }
 
-  protected void restoreDraggableLocation(Widget draggable) {
+  protected Widget newDragProxy(Widget draggable) {
+    FlexTable proxy;
+    proxy = new FlexTable();
+    proxy.addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY);
+    FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
+    return proxy;
+  }
+
+  protected void restoreSelectedWidgetsLocation() {
     // Nothing to restore because we use a drag proxy
   }
 
-  protected void restoreDraggableStyle(Widget draggable) {
+  protected void restoreSelectedWidgetsStyle() {
     // Nothing to restore because we use a drag proxy
   }
 
-  protected void saveDraggableLocationAndStyle(Widget draggable) {
+  protected void saveSelectedWidgetsLocationAndStyle() {
     // Nothing to save because we use a drag proxy
   }
 

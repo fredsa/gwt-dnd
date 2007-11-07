@@ -16,6 +16,7 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.AbsolutePositionDragEndEvent;
@@ -27,14 +28,19 @@ import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
 /**
  * A {@link DropController} which allows a draggable widget to be placed at
  * specific (absolute) locations on an
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
+  private static final Widget helperWidget = new SimplePanel();
   private AbsolutePanel currentBoundaryPanel;
-  private Location dropLocation;
+  private HashMap dropLocations;
+
   private final AbsolutePanel dropTarget;
 
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {
@@ -58,9 +64,15 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   }
 
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    // constrain the position before creating the DragEndEvent
-    dropTarget.add(draggable, dropLocation.getLeft(), dropLocation.getTop());
+    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      Location dropLocation = (Location) dropLocations.get(widget);
 
+      dropTarget.add(widget, dropLocation.getLeft(), dropLocation.getTop());
+    }
+    dropLocations = null;
+
+    // constrain the position before creating the DragEndEvent
     DragEndEvent event = super.onDrop(reference, draggable, dragController);
     return event;
   }
@@ -70,8 +82,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     currentBoundaryPanel = dragController.getBoundaryPanel();
   }
 
-  public void onLeave(Widget draggable, DragController dragController) {
-    super.onLeave(draggable, dragController);
+  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
+    super.onLeave(reference, draggable, dragController);
     currentBoundaryPanel = null;
   }
 
@@ -82,9 +94,33 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
     super.onPreviewDrop(reference, draggable, dragController);
-    dropLocation = getConstrainedLocation(reference, draggable, draggable);
-    if (dropLocation == null) {
-      throw new VetoDropException();
+
+    WidgetLocation referenceLocation = new WidgetLocation(reference, currentBoundaryPanel);
+
+    // temporarily store widget drop location for use in onDrop()
+    dropLocations = new HashMap();
+
+    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      Location dropLocation;
+      if (DOMUtil.isOrContains(reference.getElement(), widget.getElement())) {
+        // the selected widget itself is being dragged (possibly inside a containing panel)
+        dropLocation = getConstrainedLocation(widget, widget, widget);
+      } else {
+        // the selected widget is not being dragged; a drag proxy much be in use
+        WidgetLocation relativeLocation = new WidgetLocation(widget, draggable);
+
+        // Use helper widget to determine constrained location
+        currentBoundaryPanel.add(helperWidget, referenceLocation.getLeft() + relativeLocation.getLeft(), referenceLocation.getTop()
+            + relativeLocation.getTop());
+        helperWidget.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
+        dropLocation = getConstrainedLocation(helperWidget, widget, widget);
+        helperWidget.removeFromParent();
+      }
+      if (dropLocation == null) {
+        throw new VetoDropException();
+      }
+      dropLocations.put(widget, dropLocation);
     }
   }
 
