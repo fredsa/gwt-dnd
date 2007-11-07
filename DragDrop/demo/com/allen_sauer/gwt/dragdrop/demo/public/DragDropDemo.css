@@ -141,7 +141,7 @@ DIV.demo-main-boundary-panel {
   padding-left: 10px;
 }
 
-.demo-FlexTableRowExample .dragdrop-dropTarget {
+.demo-FlexTableRowExample TABLE {
   background-color: #CCCCCC; /* gray */
   border: 1px solid black;
 }
@@ -150,6 +150,14 @@ DIV.demo-main-boundary-panel {
   z-index: 1;
   border-top: 1px solid green;
   margin-top: 1px;
+}
+
+.demo-FlexTableRowExample .dragdrop-selected ,
+.demo-FlexTableRowExample .dragdrop-dragging ,
+.demo-FlexTableRowExample .dragdrop-proxy {
+  filter: alpha(opacity = 100);
+  opacity: 1.0;
+  -moz-opacity: 1.0;
 }
 
 /* ------------ WindowExample ------------ */

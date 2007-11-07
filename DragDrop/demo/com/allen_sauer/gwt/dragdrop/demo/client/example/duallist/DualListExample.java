@@ -23,7 +23,6 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
  * lists.
  */
 public final class DualListExample extends Example {
-
   private static final String CSS_DEMO_DUAL_LIST_EXAMPLE = "demo-DualListExample";
 
   public DualListExample(DemoDragHandler demoDragHandler) {

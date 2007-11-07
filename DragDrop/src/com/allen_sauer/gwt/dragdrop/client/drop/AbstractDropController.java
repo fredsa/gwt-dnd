@@ -74,7 +74,7 @@ public abstract class AbstractDropController implements DropController {
    * {@link #makeDragEndEvent(Widget, Widget, DragController)}, which is
    * called as a part of this method invocation to create the return value.
    * 
-   * @see com.allen_sauer.gwt.dragdrop.client.drop.DropController#onDrop(com.google.gwt.user.client.ui.Widget, com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dragdrop.client.DragController)
+   * @see com.allen_sauer.gwt.dragdrop.client.drop.DropController#onDrop(com.google.gwt.user.client.ui.Widget, Widget, com.allen_sauer.gwt.dragdrop.client.DragController)
    */
   public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
     dropTarget.removeStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
@@ -85,16 +85,17 @@ public abstract class AbstractDropController implements DropController {
     dropTarget.addStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
   }
 
-  public void onLeave(Widget draggable, DragController dragController) {
+  public final void onLeave(Widget draggable, DragController dragController) {
+    throw new UnsupportedOperationException();
+  }
+
+  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
     dropTarget.removeStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
   }
 
   public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
   }
 
-  /**
-   * @deprecated No longer a part gwt-dnd 2.x API; use {@link #onMove(int, int, Widget, Widget, DragController)} intead.
-   */
   public final void onMove(Widget reference, Widget draggable, DragController dragController) {
     throw new UnsupportedOperationException();
   }

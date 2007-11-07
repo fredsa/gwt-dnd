@@ -30,7 +30,6 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
  * Allows one or more table rows to be dropped into an existing table.
  */
 public final class FlexTableRowDropController extends AbstractPositioningDropController {
-
   private static final String CSS_DEMO_TABLE_POSITIONER = "demo-table-positioner";
 
   private FlexTable flexTable;

@@ -32,7 +32,7 @@ import java.util.HashMap;
 final class ResizeDragController extends AbstractDragController {
   private HashMap directionMap = new HashMap();
   private Widget dummyMovableWidget = new HTML();
-  private WindowPanel WindowPanel;
+  private WindowPanel windowPanel;
 
   public ResizeDragController(AbsolutePanel boundaryPanel) {
     super(boundaryPanel, false);
@@ -44,23 +44,20 @@ final class ResizeDragController extends AbstractDragController {
     dummyMovableWidget.removeFromParent();
   }
 
-  public void dragStart(Widget draggable) {
+  public Widget dragStart(Widget draggable) {
     super.dragStart(draggable);
-    WindowPanel = (WindowPanel) draggable.getParent().getParent();
+    windowPanel = (WindowPanel) draggable.getParent().getParent();
     Location location = new WidgetLocation(draggable, getBoundaryPanel());
     getBoundaryPanel().add(dummyMovableWidget, location.getLeft(), location.getTop());
+    return dummyMovableWidget;
   }
 
   public DirectionConstant getDirection(Widget draggable) {
     return (DirectionConstant) directionMap.get(draggable);
   }
 
-  public Widget getMovableWidget() {
-    return dummyMovableWidget;
-  }
-
   public WindowPanel getWindowPanel() {
-    return WindowPanel;
+    return windowPanel;
   }
 
   public void makeDraggable(Widget widget, WindowPanel.DirectionConstant direction) {

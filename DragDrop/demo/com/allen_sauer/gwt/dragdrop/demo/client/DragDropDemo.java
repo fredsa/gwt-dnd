@@ -107,6 +107,7 @@ public final class DragDropDemo implements EntryPoint {
 
     // instantiate the common drag controller used the less specific examples
     dragController = new PickupDragController(boundaryPanel, true);
+    dragController.setBehaviorMultipleSelection(true);
 
     mainPanel.add(new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> 2.x library in action.</p>"));
 
@@ -125,13 +126,14 @@ public final class DragDropDemo implements EntryPoint {
     configurationPanel.add(new DragProxyBehaviorPanel(dragController));
     configurationPanel.add(new TargetSelectionBehaviorPanel(dragController));
     configurationPanel.add(new ConstrainedToBoundaryBehaviorPanel(dragController));
+    configurationPanel.add(new MultipleSelectionBehaviorPanel(dragController));
     boundaryPanel.add(configurationPanel, 10, 0);
 
     // Create some draggable widgets to play with
-    boundaryPanel.add(createDraggable(), 100, 330);
-    boundaryPanel.add(createDraggable(), 20, 350);
-    boundaryPanel.add(createDraggable(), 40, 390);
-    boundaryPanel.add(createDraggable(), 60, 430);
+    boundaryPanel.add(createDraggable(), 100, 430);
+    boundaryPanel.add(createDraggable(), 20, 450);
+    boundaryPanel.add(createDraggable(), 40, 480);
+    boundaryPanel.add(createDraggable(), 60, 510);
 
     // TabPanel to hold our examples
     ExampleTabPanel examples = new ExampleTabPanel(7);

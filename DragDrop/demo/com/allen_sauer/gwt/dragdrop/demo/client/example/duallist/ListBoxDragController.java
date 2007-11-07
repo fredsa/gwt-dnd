@@ -30,23 +30,20 @@ public class ListBoxDragController extends PickupDragController {
 
   public ListBoxDragController(DualListBox dualListBox) {
     super(dualListBox, false);
+    setBehaviorDragProxy(true);
   }
 
   public void dragEnd(Widget draggable, Widget dropTarget) {
     super.dragEnd(draggable, dropTarget);
   }
 
-  public void dragStart(Widget draggable) {
+  public Widget dragStart(Widget draggable) {
     currentDraggableListBox = (MouseListBox) draggable;
-    super.dragStart(draggable);
+    return super.dragStart(draggable);
   }
 
   public MouseListBox getCurrentDraggableListBox() {
     return currentDraggableListBox;
-  }
-
-  public Widget getMovableWidget() {
-    return super.getMovableWidget();
   }
 
   public void notifyDragEnd(DragEndEvent dragEndEvent) {
@@ -62,7 +59,15 @@ public class ListBoxDragController extends PickupDragController {
     super.previewDragStart(draggable);
   }
 
-  protected Widget maybeNewDraggableProxy(Widget draggable) {
+  public void setBehaviorDragProxy(boolean dragProxyEnabled) {
+    if (!dragProxyEnabled) {
+      // TODO implement drag proxy behavior
+      throw new IllegalArgumentException();
+    }
+    super.setBehaviorDragProxy(dragProxyEnabled);
+  }
+
+  protected Widget newDragProxy(Widget draggable) {
     MouseListBox proxyMouseListBox = new MouseListBox(currentDraggableListBox.getSelectedWidgetCount());
     proxyMouseListBox.setWidth(currentDraggableListBox.getOffsetWidth() + "px");
     proxyMouseListBox.addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_DRAG_PROXY);

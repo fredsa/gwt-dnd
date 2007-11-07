@@ -88,8 +88,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     currentBoundaryPanel = dragController.getBoundaryPanel();
   }
 
-  public void onLeave(Widget draggable, DragController dragController) {
-    super.onLeave(draggable, dragController);
+  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
+    super.onLeave(reference, draggable, dragController);
     currentBoundaryPanel = null;
   }
 

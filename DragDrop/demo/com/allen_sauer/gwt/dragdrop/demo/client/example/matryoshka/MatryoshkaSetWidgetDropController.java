@@ -62,8 +62,8 @@ public class MatryoshkaSetWidgetDropController extends SimpleDropController {
     }
   }
 
-  public void onLeave(Widget draggable, DragController dragController) {
-    super.onLeave(draggable, dragController);
+  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
+    super.onLeave(reference, draggable, dragController);
     dropTarget.removeStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE);
   }
 

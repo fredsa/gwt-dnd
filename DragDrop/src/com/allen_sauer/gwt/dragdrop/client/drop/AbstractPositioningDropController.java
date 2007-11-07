@@ -63,14 +63,14 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     positioner = newPositioner(draggable);
   }
 
-  public void onLeave(Widget draggable, DragController dragController) {
-    super.onLeave(draggable, dragController);
+  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
+    super.onLeave(reference, draggable, dragController);
     positioner.removeFromParent();
   }
 
   /**
-   * Called in {@link #onEnter(Widget, Widget, DragController)} to create a new
-   * positioner widget.
+   * Called in {@link AbstractPositioningDropController#onEnter(Widget, Widget, DragController)}
+   * to create a new positioner widget.
    * 
    * @param reference the reference widget whose size or other attributes we can copy
    * @return the newly created widget
@@ -81,7 +81,7 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     SimplePanel outer = new SimplePanel();
     outer.addStyleName(CSS_DRAGDROP_POSITIONER);
 
-    // place off screen for border calculation calculation
+    // place off screen for border calculation
     RootPanel.get().add(outer, -500, -500);
 
     // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid

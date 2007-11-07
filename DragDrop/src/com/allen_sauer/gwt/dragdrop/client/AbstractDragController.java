@@ -23,7 +23,10 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * {@link DragController} which performs the bare essentials such as
@@ -52,8 +55,9 @@ public abstract class AbstractDragController implements DragController {
    */
   protected static final String CSS_HANDLE;
 
-  private static HashMap dragHandles = new HashMap();
+  private static final String CSS_SELECTED = "dragdrop-selected";
 
+  private static HashMap dragHandles = new HashMap();
   private static final String PRIVATE_CSS_DRAGGABLE = "dragdrop-draggable";
   private static final String PRIVATE_CSS_DRAGGING = "dragdrop-dragging";
   private static final String PRIVATE_CSS_HANDLE = "dragdrop-handle";
@@ -71,6 +75,8 @@ public abstract class AbstractDragController implements DragController {
   private DropControllerCollection dropControllerCollection;
   private ArrayList dropControllerList = new ArrayList();
   private MouseDragHandler mouseDragHandler;
+  private boolean multipleSelectionAllowed;
+  private final List selectedWidgetList = new ArrayList();
   private TargetSelectionMethod targetSelectionMethod;
 
   /**
@@ -102,17 +108,26 @@ public abstract class AbstractDragController implements DragController {
     dragHandlers.add(handler);
   }
 
+  public void clearSelection() {
+    for (Iterator iterator = selectedWidgetList.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      widget.removeStyleName(CSS_SELECTED);
+      iterator.remove();
+    }
+  }
+
   public void dragEnd(Widget draggable, Widget dropTarget) {
     draggable.removeStyleName(PRIVATE_CSS_DRAGGING);
   }
 
-  public void dragStart(Widget draggable) {
+  public Widget dragStart(Widget draggable) {
     this.draggable = draggable;
     resetCache();
     if (dragHandlers != null) {
       dragHandlers.fireDragStart(draggable);
     }
     draggable.addStyleName(PRIVATE_CSS_DRAGGING);
+    return draggable;
   }
 
   public boolean getBehaviorBoundaryPanelDrop() {
@@ -123,6 +138,10 @@ public abstract class AbstractDragController implements DragController {
     return mouseDragHandler.isConstrainedToBoundaryPanel();
   }
 
+  public boolean getBehaviorMultipleSelection() {
+    return multipleSelectionAllowed;
+  }
+
   public TargetSelectionMethod getBehaviorTargetSelection() {
     return targetSelectionMethod;
   }
@@ -131,9 +150,10 @@ public abstract class AbstractDragController implements DragController {
     return boundaryPanel;
   }
 
-  /**
-   * @deprecated No longer a part gwt-dnd 2.x API; use {@link #getIntersectDropController(Widget, int, int)} intead.
-   */
+  public final DropControllerCollection getDropControllerCollection() {
+    throw new UnsupportedOperationException();
+  }
+
   public final DropController getIntersectDropController(Widget widget) {
     throw new UnsupportedOperationException();
   }
@@ -141,6 +161,14 @@ public abstract class AbstractDragController implements DragController {
   public DropController getIntersectDropController(Widget widget, int x, int y) {
     DropController dropController = dropControllerCollection.getIntersectDropController(widget, x, y, boundaryPanel);
     return dropController != null ? dropController : boundaryDropController;
+  }
+
+  public final Widget getMovableWidget() {
+    throw new UnsupportedOperationException();
+  }
+
+  public Collection getSelectedWidgets() {
+    return selectedWidgetList;
   }
 
   /**
@@ -230,6 +258,11 @@ public abstract class AbstractDragController implements DragController {
     mouseDragHandler.setConstrainedToBoundaryPanel(constrainedToBoundaryPanel);
   }
 
+  public void setBehaviorMultipleSelection(boolean multipleSelectionAllowed) {
+    this.multipleSelectionAllowed = multipleSelectionAllowed;
+    clearSelection();
+  }
+
   public void setBehaviorTargetSelection(TargetSelectionMethod targetSelectionMethod) {
     this.targetSelectionMethod = targetSelectionMethod;
     if (targetSelectionMethod == TargetSelectionMethod.WIDGET_CENTER) {
@@ -241,26 +274,24 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
-  /**
-   * @deprecated Use {@link #setBehaviorConstrainedToBoundaryPanel(boolean)} instead.
-   */
   public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
     setBehaviorConstrainedToBoundaryPanel(constrainWidgetToBoundaryPanel);
   }
 
-  public void unregisterDropController(DropController dropController) {
-    dropControllerList.remove(dropController);
+  public void toggleSelection(Widget draggable) {
+    if (selectedWidgetList.remove(draggable)) {
+      draggable.removeStyleName(CSS_SELECTED);
+    } else if (multipleSelectionAllowed) {
+      selectedWidgetList.add(draggable);
+      draggable.addStyleName(CSS_SELECTED);
+    } else {
+      clearSelection();
+      selectedWidgetList.add(draggable);
+    }
   }
 
-  /**
-   * Allow subclasses ability to override implementing
-   * {@link DropControllerCollection} to support custom intersection logic.
-   * 
-   * @return a new DropControllerCollection
-   * @deprecated No longer part of gwt-dnd 2.x API. Override {@link #registerDropController(DropController)}, {@link #unregisterDropController(DropController)}, {@link #resetCache()}, etc. instead
-  */
-  protected final DropControllerCollection getDropControllerCollection() {
-    throw new UnsupportedOperationException();
+  public void unregisterDropController(DropController dropController) {
+    dropControllerList.remove(dropController);
   }
 
   /**
@@ -284,23 +315,23 @@ public abstract class AbstractDragController implements DragController {
   }
 
   /**
-  * @deprecated Method has been moved down to {@link PickupDragController#restoreDraggableLocation(Widget)}
+  * @deprecated Method has been replaced by {@link PickupDragController#restoreSelectedWidgetsLocation()}
   */
-  protected void restoreDraggableLocation(Widget draggable) {
+  protected final void restoreDraggableLocation(Widget draggable) {
     throw new UnsupportedOperationException();
   }
 
   /**
-   * @deprecated Method has been moved down to {@link PickupDragController#restoreDraggableStyle(Widget)}
+   * @deprecated Method has been moved down to {@link PickupDragController#restoreSelectedWidgetsStyle()}
    */
-  protected void restoreDraggableStyle(Widget draggable) {
+  protected final void restoreDraggableStyle(Widget draggable) {
     throw new UnsupportedOperationException();
   }
 
   /**
-   * @deprecated Method has been moved down to {@link PickupDragController#saveDraggableLocationAndStyle(Widget)}
+   * @deprecated Method has been moved down to {@link PickupDragController#saveSelectedWidgetsLocationAndStyle()}
    */
-  protected void saveDraggableLocationAndStyle(Widget draggable) {
+  protected final void saveDraggableLocationAndStyle(Widget draggable) {
     throw new UnsupportedOperationException();
   }
 }
