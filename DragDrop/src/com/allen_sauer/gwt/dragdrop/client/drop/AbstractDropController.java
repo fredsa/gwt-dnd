@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 
@@ -71,50 +72,73 @@ public abstract class AbstractDropController implements DropController {
 
   /**
    * When overriding this method's drop behavior, be sure to also override
-   * {@link #makeDragEndEvent(Widget, Widget, DragController)}, which is
+   * {@link #makeDragEndEvent(DragContext)}, which is
    * called as a part of this method invocation to create the return value.
-   * 
-   * @see com.allen_sauer.gwt.dragdrop.client.drop.DropController#onDrop(com.google.gwt.user.client.ui.Widget, Widget, com.allen_sauer.gwt.dragdrop.client.DragController)
    */
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
+  public DragEndEvent onDrop(DragContext context) {
     dropTarget.removeStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
-    return makeDragEndEvent(reference, draggable, dragController);
+    return makeDragEndEvent(context);
   }
 
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
+  public final DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
+    throw new UnsupportedOperationException();
+  }
+
+  public void onEnter(DragContext context) {
     dropTarget.addStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
+  }
+
+  public final void onEnter(Widget reference, Widget draggable, DragController dragController) {
+    throw new UnsupportedOperationException();
+  }
+
+  public void onLeave(DragContext context) {
+    dropTarget.removeStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
   }
 
   public final void onLeave(Widget draggable, DragController dragController) {
     throw new UnsupportedOperationException();
   }
 
-  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
-    dropTarget.removeStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
+  public final void onLeave(Widget reference, Widget draggable, DragController dragController) {
+    throw new UnsupportedOperationException();
   }
 
-  public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
+  public void onMove(DragContext context) {
+  }
+
+  public final void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
+    throw new UnsupportedOperationException();
   }
 
   public final void onMove(Widget reference, Widget draggable, DragController dragController) {
     throw new UnsupportedOperationException();
   }
 
-  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
+  public void onPreviewDrop(DragContext context) throws VetoDropException {
+  }
+
+  public final void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
+    throw new UnsupportedOperationException();
   }
 
   /**
-   * Called by {@link AbstractDropController#onDrop(Widget, Widget, DragController)} to
+   * Called by {@link AbstractDropController#onDrop(DragContext)} to
    * generate a {@link DragEndEvent}. Implementing classes should override this method when
-   * then override the {@link AbstractDropController#onDrop(Widget, Widget, DragController)}
+   * then override the {@link AbstractDropController#onDrop(DragContext)}
    * behavior.
    * 
-   * @param reference the reference widget from {@link #onDrop(Widget, Widget, DragController)}
-   * @param draggable the draggable widget from {@link #onDrop(Widget, Widget, DragController)}
-   * @param dragController the dragController from {@link #onDrop(Widget, Widget, DragController)}
+   * @param context the current drag context from {@link #onDrop(DragContext)}
    * @return the new DragEndEvent
    */
-  protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
-    return new DragEndEvent(draggable, dropTarget);
+  protected DragEndEvent makeDragEndEvent(DragContext context) {
+    return new DragEndEvent(context);
+  }
+
+  /**
+   * @deprecated Use {@link #makeDragEndEvent(DragContext)} instead.
+   */
+  protected final DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
+    throw new UnsupportedOperationException();
   }
 }

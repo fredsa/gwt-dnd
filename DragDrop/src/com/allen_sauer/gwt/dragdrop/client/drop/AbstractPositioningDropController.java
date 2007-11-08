@@ -21,7 +21,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
@@ -52,24 +52,24 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
     return positioner;
   }
 
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    DragEndEvent event = super.onDrop(reference, draggable, dragController);
+  public DragEndEvent onDrop(DragContext context) {
+    DragEndEvent event = super.onDrop(context);
     positioner.removeFromParent();
     return event;
   }
 
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
-    positioner = newPositioner(draggable);
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
+    positioner = newPositioner(context.draggable);
   }
 
-  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
-    super.onLeave(reference, draggable, dragController);
+  public void onLeave(DragContext context) {
+    super.onLeave(context);
     positioner.removeFromParent();
   }
 
   /**
-   * Called in {@link AbstractPositioningDropController#onEnter(Widget, Widget, DragController)}
+   * Called in {@link AbstractPositioningDropController#onEnter(DragContext)}
    * to create a new positioner widget.
    * 
    * @param reference the reference widget whose size or other attributes we can copy

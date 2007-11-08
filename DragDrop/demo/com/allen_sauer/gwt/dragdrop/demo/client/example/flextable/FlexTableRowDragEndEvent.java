@@ -15,8 +15,7 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.flextable;
 
-import com.google.gwt.user.client.ui.FlexTable;
-
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 
 /**
@@ -24,11 +23,10 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
  * are {@link com.google.gwt.user.client.ui.IndexedPanel IndexedPanels}.
  */
 public class FlexTableRowDragEndEvent extends DragEndEvent {
-
   private int row;
 
-  public FlexTableRowDragEndEvent(Object source, FlexTable flexTable, int row) {
-    super(source, flexTable);
+  public FlexTableRowDragEndEvent(DragContext context, int row) {
+    super(context);
     this.row = row;
   }
 

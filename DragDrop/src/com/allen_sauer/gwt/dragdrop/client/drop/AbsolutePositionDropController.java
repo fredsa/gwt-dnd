@@ -20,7 +20,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.AbsolutePositionDragEndEvent;
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
@@ -63,8 +63,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     constrainedWidgetMove(widget, widget, widget);
   }
 
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+  public DragEndEvent onDrop(DragContext context) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       Location dropLocation = (Location) dropLocations.get(widget);
 
@@ -73,42 +73,42 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     dropLocations = null;
 
     // constrain the position before creating the DragEndEvent
-    DragEndEvent event = super.onDrop(reference, draggable, dragController);
+    DragEndEvent event = super.onDrop(context);
     return event;
   }
 
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
-    currentBoundaryPanel = dragController.getBoundaryPanel();
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
+    currentBoundaryPanel = context.dragController.getBoundaryPanel();
   }
 
-  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
-    super.onLeave(reference, draggable, dragController);
+  public void onLeave(DragContext context) {
+    super.onLeave(context);
     currentBoundaryPanel = null;
   }
 
-  public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
-    super.onMove(x, y, reference, draggable, dragController);
-    constrainedWidgetMove(reference, draggable, getPositioner());
+  public void onMove(DragContext context) {
+    super.onMove(context);
+    constrainedWidgetMove(context.movableWidget, context.draggable, getPositioner());
   }
 
-  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
-    super.onPreviewDrop(reference, draggable, dragController);
+  public void onPreviewDrop(DragContext context) throws VetoDropException {
+    super.onPreviewDrop(context);
 
-    WidgetLocation referenceLocation = new WidgetLocation(reference, currentBoundaryPanel);
+    WidgetLocation referenceLocation = new WidgetLocation(context.movableWidget, currentBoundaryPanel);
 
     // temporarily store widget drop location for use in onDrop()
     dropLocations = new HashMap();
 
-    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       Location dropLocation;
-      if (DOMUtil.isOrContains(reference.getElement(), widget.getElement())) {
+      if (DOMUtil.isOrContains(context.movableWidget.getElement(), widget.getElement())) {
         // the selected widget itself is being dragged (possibly inside a containing panel)
         dropLocation = getConstrainedLocation(widget, widget, widget);
       } else {
         // the selected widget is not being dragged; a drag proxy much be in use
-        WidgetLocation relativeLocation = new WidgetLocation(widget, draggable);
+        WidgetLocation relativeLocation = new WidgetLocation(widget, context.draggable);
 
         // Use helper widget to determine constrained location
         currentBoundaryPanel.add(helperWidget, referenceLocation.getLeft() + relativeLocation.getLeft(), referenceLocation.getTop()
@@ -131,7 +131,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    * @param reference widget whose location is the desired drop location
    * @param draggable actual draggable widget
    * @param widget positioner or the draggable widget to be moved
-   * @return location where widget can be placed or null if no compatible
+   * @return location where widget can be placed or <code>null</code> if no compatible
    *         location found
    */
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
@@ -142,9 +142,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     return referenceLocation;
   }
 
-  protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
-    Location location = new WidgetLocation(draggable, dropTarget);
-    return new AbsolutePositionDragEndEvent(draggable, dropTarget, location.getLeft(), location.getTop());
+  protected DragEndEvent makeDragEndEvent(DragContext context) {
+    Location location = new WidgetLocation(context.draggable, dropTarget);
+    return new AbsolutePositionDragEndEvent(context, location.getLeft(), location.getTop());
   }
 
   private void constrainedWidgetMove(Widget reference, Widget draggable, Widget widget) {

@@ -20,8 +20,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
-import java.util.Collection;
-
 /**
  * Common interface which all drag controllers much implement.
  * 
@@ -68,10 +66,11 @@ public interface DragController extends FiresDragEvents {
 
   /**
    * Callback method for {@link MouseDragHandler}.
-   * 
-   * @param draggable widget which was being dragged
-   * @param dropTarget widget on which draggable was dropped. <code>null</code>
-   *            if drag was cancelled
+   */
+  void dragEnd();
+
+  /**
+   * @deprecated Use {@link #dragEnd()} instead.
    */
   void dragEnd(Widget draggable, Widget dropTarget);
 
@@ -79,10 +78,14 @@ public interface DragController extends FiresDragEvents {
   * Callback method for {@link MouseDragHandler} when a drag operation
   * is initiated for this drag controller.
   * 
-  * @param draggable widget which was being dragged
   * @return a movable panel containing the draggable or suitable proxy
   */
-  Widget dragStart(Widget draggable);
+  Widget dragStart();
+
+  /**
+   * @deprecated Used {@link #dragStart()} instead.
+   */
+  void dragStart(Widget draggable);
 
   /**
    * Whether or not dropping on the boundary panel is permitted.
@@ -144,13 +147,6 @@ public interface DragController extends FiresDragEvents {
   Widget getMovableWidget();
 
   /**
-   * Determine the widgets which are currently selected.
-   * 
-   * @return the selected widget collection
-   */
-  Collection getSelectedWidgets();
-
-  /**
    * Enable dragging on widget. Call this method for each widget that
    * you would like to make draggable under this drag controller.
    * 
@@ -185,16 +181,24 @@ public interface DragController extends FiresDragEvents {
   /**
    * Callback method for {@link MouseDragHandler}.
    * 
-   * @param draggable widget which was being dragged
    * @throws VetoDragException if the proposed operation is unacceptable
+   */
+  void previewDragEnd() throws VetoDragException;
+
+  /**
+   * @deprecated Used {@link #previewDragEnd()} instead.
    */
   void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException;
 
   /**
    * Callback method for {@link MouseDragHandler}.
    * 
-   * @param draggable widget which was being dragged
    * @throws VetoDragException if the proposed operation is unacceptable
+   */
+  void previewDragStart() throws VetoDragException;
+
+  /**
+   * @deprecated Used {@link #previewDragStart()} instead.
    */
   void previewDragStart(Widget draggable) throws VetoDragException;
 

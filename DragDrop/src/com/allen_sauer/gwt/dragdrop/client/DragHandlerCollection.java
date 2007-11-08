@@ -27,7 +27,6 @@ import java.util.Iterator;
  * {@link com.allen_sauer.gwt.dragdrop.client.DragHandler}.
  */
 public class DragHandlerCollection extends ArrayList {
-
   /**
    * Fires a {@link DragHandler#onDragEnd(DragEndEvent)} on all handlers in the
    * collection.
@@ -42,13 +41,13 @@ public class DragHandlerCollection extends ArrayList {
   }
 
   /**
-   * Fires a {@link DragHandler#onDragStart(DragStartEvent)} on all handlers in
+   * Fires a {@link DragHandler#onDragStart(DragContext)} on all handlers in
    * the collection.
    * 
-   * @param sender the object sending the event
+   * @param context current drag context
    */
-  public void fireDragStart(Widget sender) {
-    DragStartEvent event = new DragStartEvent(sender);
+  public void fireDragStart(DragContext context) {
+    DragStartEvent event = new DragStartEvent(context);
 
     for (Iterator it = iterator(); it.hasNext();) {
       DragHandler handler = (DragHandler) it.next();
@@ -57,16 +56,21 @@ public class DragHandlerCollection extends ArrayList {
   }
 
   /**
-   * Fires a {@link DragHandler#onPreviewDragEnd(DragEndEvent)} on all handlers
+   * @deprecated Use {@link #fireDragStart(DragContext)} instead.
+   */
+  public void fireDragStart(Widget sender) {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * Fires a {@link DragHandler#onPreviewDragEnd(DragContext)} on all handlers
    * in the collection.
    * 
-   * @param sender the object sending the event
-   * @param dropTarget the widget on which the drag operation terminated.
-   *            <code>null</code> if drag was cancelled
+   * @param context current drag context
    * @throws VetoDragException if the proposed operation is unacceptable
    */
-  public void firePreviewDragEnd(Widget sender, Widget dropTarget) throws VetoDragException {
-    DragEndEvent event = new DragEndEvent(sender, dropTarget);
+  public void firePreviewDragEnd(DragContext context) throws VetoDragException {
+    DragEndEvent event = new DragEndEvent(context);
 
     for (Iterator it = iterator(); it.hasNext();) {
       DragHandler handler = (DragHandler) it.next();
@@ -75,19 +79,33 @@ public class DragHandlerCollection extends ArrayList {
   }
 
   /**
-   * Fires a {@link DragHandler#onPreviewDragStart(DragStartEvent)} on all
+   * @deprecated Use {@link #firePreviewDragEnd(DragContext)} instead.
+   */
+  public final void firePreviewDragEnd(Widget sender, Widget dropTarget) throws VetoDragException {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * Fires a {@link DragHandler#onPreviewDragStart(DragContext)} on all
    * handlers in the collection.
    * 
-   * @param sender the object sending the event
+   * @param context current drag context
    * @throws VetoDragException if the proposed operation is unacceptable
    */
-  public void firePreviewDragStart(Widget sender) throws VetoDragException {
-    DragStartEvent event = new DragStartEvent(sender);
+  public void firePreviewDragStart(DragContext context) throws VetoDragException {
+    DragStartEvent event = new DragStartEvent(context);
 
     for (Iterator it = iterator(); it.hasNext();) {
       DragHandler handler = (DragHandler) it.next();
       handler.onPreviewDragStart(event);
     }
+  }
+
+  /**
+   * @deprecated Use {@link #firePreviewDragStart(DragContext)} instead.
+   */
+  public void firePreviewDragStart(Widget sender) throws VetoDragException {
+    throw new UnsupportedOperationException();
   }
 
 }

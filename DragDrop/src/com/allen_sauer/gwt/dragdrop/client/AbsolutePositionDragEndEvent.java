@@ -15,8 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.google.gwt.user.client.ui.Widget;
-
 /**
  * {@link DragEndEvent} containing information about the end of a drag for drop
  * targets which are
@@ -26,8 +24,8 @@ public class AbsolutePositionDragEndEvent extends DragEndEvent {
   private int x;
   private int y;
 
-  public AbsolutePositionDragEndEvent(Object source, Widget dropTarget, int x, int y) {
-    super(source, dropTarget);
+  public AbsolutePositionDragEndEvent(DragContext context, int x, int y) {
+    super(context);
     this.x = x;
     this.y = y;
   }

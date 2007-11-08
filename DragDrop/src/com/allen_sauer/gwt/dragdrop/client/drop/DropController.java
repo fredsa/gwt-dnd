@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 
@@ -40,16 +41,15 @@ public interface DropController {
    * target. Implementing classes must attach the draggable widget to our drop
    * target in a suitable manner.
    * 
-   * @see #onPreviewDrop(Widget, Widget, DragController)
+   * @see #onPreviewDrop(DragContext)
    * 
-   * @param reference the widget (either the actual draggable widget or a
-   *            suitable proxy widget) which is physically currently at the
-   *            desired drop position
-   * @param draggable the actual draggable widget to which the drop operation
-   *            applies
-   * @param dragController the {@link DragController} coordinating the current
-   *            drag-and-drop operation
+   * @param context the current drag context
    * @return event representing the drop action
+   */
+  DragEndEvent onDrop(DragContext context);
+
+  /**
+   * @deprecated Use {@link #onDrop(DragContext)} instead.
    */
   DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController);
 
@@ -60,73 +60,71 @@ public interface DropController {
    * intersect with the widget. If there are, the widget engages with the
    * descendant drop target instead.
    * 
-   * @see #onLeave(Widget, Widget, DragController)
+   * @see #onLeave(DragContext)
    * 
-   * @param reference the widget (either the actual draggable widget or a
-   *            suitable proxy widget) which is currently engaging
-   *            (intersecting) with our drop target
-   * @param draggable the actual draggable widget to which the eventual drop
-   *            operation would apply
-   * @param dragController the {@link DragController} coordinating the current
-   *            drag-and-drop operation
+   * @param context the current drag context
+   */
+  void onEnter(DragContext context);
+
+  /**
+   * @deprecated Use {@link #onEnter(DragContext)} instead.
    */
   void onEnter(Widget reference, Widget draggable, DragController dragController);
 
   /**
-   * @deprecated Used {@link #onLeave(Widget, Widget, DragController)} instead.
+   * Called when the reference widget stops engaging our drop target by leaving
+   * the area of the page occupied by our drop target.
+   * 
+   * @see #onEnter(DragContext)
+   * 
+   * @param context the current drag context
+   */
+  void onLeave(DragContext context);
+
+  /**
+   * @deprecated Used {@link #onLeave(DragContext)} instead.
    */
   void onLeave(Widget draggable, DragController dragController);
 
   /**
-   * Called when the reference widget stops engaging our drop target by leaving
-   * the area of the page occupied by our drop target.
-   * @param reference TODO
-   * @param draggable the actual draggable widget to which the eventual drop
-   *            operation would've applied
-   * @param dragController the {@link DragController} coordinating the current
-   *            drag-and-drop operation
-   * @see #onEnter(Widget, Widget, DragController)
+   * @deprecated Use {@link #onLeave(DragContext)} instead.
    */
   void onLeave(Widget reference, Widget draggable, DragController dragController);
 
   /**
    * Called with each mouse movement while the reference widget is engaging our
-   * drop target. {@link #onEnter(Widget, Widget, DragController)} is called
+   * drop target. {@link #onEnter(DragContext)} is called
    * before this method is called.
    * 
-   * @param x offset left relative to document body
-   * @param y offset top relative to document body
-   * @param reference the widget (either the actual draggable widget or a
-   *            suitable proxy widget) which is currently engaging
-   *            (intersecting) with our drop target
-   * @param draggable the actual draggable widget to which the eventual drop
-   *            operation would apply
-   * @param dragController the {@link DragController} coordinating the current
-   *            drag-and-drop operation
+   * @see #onEnter(DragContext)
+   * @see #onLeave(DragContext)
    * 
-   * @see #onEnter(Widget, Widget, DragController)
-   * @see #onLeave(Widget, Widget, DragController)
+   * @param context the current drag context
+   */
+  void onMove(DragContext context);
+
+  /**
+   * @deprecated Use {@link #onMove(DragContext)} instead.
    */
   void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController);
 
   /**
-   * @deprecated No longer a part gwt-dnd 2.x API; use {@link #onMove(int, int, Widget, Widget, DragController)} intead.
+   * @deprecated Use {@link #onMove(DragContext)} instead.
    */
   void onMove(Widget reference, Widget draggable, DragController dragController);
 
   /**
-   * Called just prior to {@link #onDrop(Widget, Widget, DragController)} to
+   * Called just prior to {@link #onDrop(DragContext)} to
    * allow the drop operation to be cancelled by throwing a
    * {@link VetoDropException}.
    * 
-   * @param reference the widget (either the actual draggable widget or a
-   *            suitable proxy widget) which is physically currently at the
-   *            desired drop position
-   * @param draggable the actual draggable widget to which the drop operation
-   *            applies
-   * @param dragController the {@link DragController} coordinating the current
-   *            drag-and-drop operation
+   * @param context the current drag context
    * @throws VetoDropException when the proposed drop operation is unacceptable
+   */
+  void onPreviewDrop(DragContext context) throws VetoDropException;
+
+  /**
+   * @deprecated Use {@link #onPreviewDrop(DragContext)} instead.
    */
   void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException;
 }
