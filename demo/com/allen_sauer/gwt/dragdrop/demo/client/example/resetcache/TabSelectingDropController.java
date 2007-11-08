@@ -22,7 +22,7 @@ import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.AbstractDragController;
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractDropController;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
@@ -39,13 +39,13 @@ public class TabSelectingDropController extends AbstractDropController {
     this.tabIndex = tabIndex;
   }
 
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    DragEndEvent dragEndEvent = super.onDrop(reference, draggable, dragController);
+  public DragEndEvent onDrop(DragContext context) {
+    DragEndEvent dragEndEvent = super.onDrop(context);
 
     // assume content widget is an AbsolutePanel for now
     AbsolutePanel absolutePanel = (AbsolutePanel) tabPanel.getWidget(tabIndex);
 
-    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
 
       // temporarily (invisibly) add draggable to get its dimensions
@@ -63,13 +63,14 @@ public class TabSelectingDropController extends AbstractDropController {
     return dragEndEvent;
   }
 
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
     tabPanel.selectTab(tabIndex);
-    ((AbstractDragController) dragController).resetCache();
+    ((AbstractDragController) context.dragController).resetCache();
   }
 
-  protected DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
-    return new DragEndEvent(draggable, tabPanel.getWidget(tabIndex));
+  protected DragEndEvent makeDragEndEvent(DragContext context) {
+    // TODO provide tabPanel.getWidget(tabIndex) as the real dropTarget for DragEndEvent
+    return new DragEndEvent(context);
   }
 }

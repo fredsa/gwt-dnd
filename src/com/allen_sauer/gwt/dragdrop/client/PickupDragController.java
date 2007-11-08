@@ -60,7 +60,6 @@ public class PickupDragController extends AbstractDragController {
     CSS_MOVABLE_PANEL = PRIVATE_CSS_MOVABLE_PANEL;
     CSS_PROXY = PRIVATE_CSS_PROXY;
   }
-  private Widget currentDraggable;
   private Widget draggableProxy;
   private boolean dragProxyEnabled = false;
   private Widget movablePanel;
@@ -81,53 +80,48 @@ public class PickupDragController extends AbstractDragController {
     super(boundaryPanel, allowDroppingOnBoundaryPanel);
   }
 
-  public void dragEnd(Widget draggable, Widget dropTarget) {
-    super.dragEnd(draggable, dropTarget);
-    // in case MouseDragHandler calls us twice due to DropController exception
-    if (currentDraggable != null) {
-      currentDraggable = null;
-      if (draggableProxy != null) {
-        draggableProxy.removeFromParent();
-        draggableProxy = null;
-      } else {
-        if (dropTarget == null) {
-          restoreSelectedWidgetsLocation();
-        }
+  public void dragEnd() {
+    super.dragEnd();
+    if (draggableProxy != null) {
+      draggableProxy.removeFromParent();
+      draggableProxy = null;
+    } else {
+      if (context.dropController == null) {
+        restoreSelectedWidgetsLocation();
       }
-      restoreSelectedWidgetsStyle();
-      movablePanel.removeFromParent();
-      movablePanel = null;
     }
+    restoreSelectedWidgetsStyle();
+    movablePanel.removeFromParent();
+    movablePanel = null;
   }
 
-  public Widget dragStart(Widget draggable) {
-    super.dragStart(draggable);
-    currentDraggable = draggable;
+  public Widget dragStart() {
+    super.dragStart();
 
     saveSelectedWidgetsLocationAndStyle();
     if (getBehaviorDragProxy()) {
-      movablePanel = newDragProxy(draggable);
+      movablePanel = newDragProxy(context);
     } else {
       AbsolutePanel container = new AbsolutePanel();
       DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
 
       // TODO better way to deal with constrained to boundary panel behavior
-      container.setPixelSize(draggable.getOffsetWidth(), draggable.getOffsetHeight());
+      container.setPixelSize(context.draggable.getOffsetWidth(), context.draggable.getOffsetHeight());
 
-      for (Iterator iterator = getSelectedWidgets().iterator(); iterator.hasNext();) {
+      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
         Widget widget = (Widget) iterator.next();
-        if (widget != draggable) {
-          WidgetArea widgetArea = new WidgetArea(widget, draggable);
+        if (widget != context.draggable) {
+          WidgetArea widgetArea = new WidgetArea(widget, context.draggable);
           container.add(widget, widgetArea.getLeft(), widgetArea.getTop());
         }
       }
-      container.add(draggable, 0, 0);
+      container.add(context.draggable, 0, 0);
       movablePanel = container;
     }
     movablePanel.addStyleName(PRIVATE_CSS_MOVABLE_PANEL);
 
     // add movablePanel to boundary panel
-    WidgetLocation currentDraggableLocation = new WidgetLocation(currentDraggable, getBoundaryPanel());
+    WidgetLocation currentDraggableLocation = new WidgetLocation(context.draggable, getBoundaryPanel());
     getBoundaryPanel().add(movablePanel, currentDraggableLocation.getLeft(), currentDraggableLocation.getTop());
 
     return movablePanel;
@@ -170,7 +164,7 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * @deprecated Use {@link #newDragProxy(Widget)} and {@link #setBehaviorDragProxy(boolean)} instead.
+   * @deprecated Use {@link #newDragProxy(DragContext)} and {@link #setBehaviorDragProxy(boolean)} instead.
    */
   protected final Widget maybeNewDraggableProxy(Widget draggable) {
     throw new UnsupportedOperationException();
@@ -180,16 +174,16 @@ public class PickupDragController extends AbstractDragController {
    * Called by {@link PickupDragController#dragStart(Widget)} when {@link #getBehaviorDragProxy()}
    * returns <code>true</code> to allow subclasses to provide their own drag proxies.
    * 
-   * @param draggable the draggable widget
+   * @param context the current drag context
    * @return a new drag proxy
    */
-  protected Widget newDragProxy(Widget draggable) {
+  protected Widget newDragProxy(DragContext context) {
     AbsolutePanel container = new AbsolutePanel();
     DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
 
-    for (Iterator iterator = getSelectedWidgets().iterator(); iterator.hasNext();) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
-      WidgetArea widgetArea = new WidgetArea(widget, draggable);
+      WidgetArea widgetArea = new WidgetArea(widget, context.draggable);
       Widget proxy = new SimplePanel();
       proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
       proxy.addStyleName(PRIVATE_CSS_PROXY);
@@ -201,12 +195,11 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Restore the selected widgets to their original location.
-   * 
    * @see #saveSelectedWidgetsLocationAndStyle()
    * @see #restoreSelectedWidgetsStyle()
    */
   protected void restoreSelectedWidgetsLocation() {
-    for (Iterator iterator = getSelectedWidgets().iterator(); iterator.hasNext();) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       SavedWidgetInfo info = (SavedWidgetInfo) savedWidgetInfoMap.get(widget);
 
@@ -231,12 +224,11 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Restore the selected widgets with their original style.
-   * 
    * @see #saveSelectedWidgetsLocationAndStyle()
    * @see #restoreSelectedWidgetsLocation()
    */
   protected void restoreSelectedWidgetsStyle() {
-    for (Iterator iterator = getSelectedWidgets().iterator(); iterator.hasNext();) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       SavedWidgetInfo info = (SavedWidgetInfo) savedWidgetInfoMap.get(widget);
 
@@ -249,12 +241,11 @@ public class PickupDragController extends AbstractDragController {
   /**
    * Save the selected widgets' current location in case they much
    * be restored due to a canceled drop.
-   * 
    * @see #restoreSelectedWidgetsLocation()
    */
   protected void saveSelectedWidgetsLocationAndStyle() {
     savedWidgetInfoMap = new HashMap();
-    for (Iterator iterator = getSelectedWidgets().iterator(); iterator.hasNext();) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
 
       SavedWidgetInfo info = new SavedWidgetInfo();

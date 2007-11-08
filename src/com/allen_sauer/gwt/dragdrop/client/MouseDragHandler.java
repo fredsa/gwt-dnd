@@ -19,7 +19,6 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Event;
-import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -41,26 +40,21 @@ import java.util.HashMap;
 class MouseDragHandler implements MouseListener {
   private int boundaryOffsetX;
   private int boundaryOffsetY;
-  private AbsolutePanel boundaryPanel;
   private FocusPanel capturingWidget;
   private boolean constrainedToBoundaryPanel = false;
+  private final DragContext context;
   private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
-  private DragController dragController;
-  private Widget draggable;
   private boolean dragging;
   private HashMap dragHandleMap = new HashMap();
-  private DropController dropController;
   private int maxLeft;
   private int maxTop;
   private boolean mouseDown;
   private int mouseDownOffsetX;
   private int mouseDownOffsetY;
   private Widget mouseDownWidget;
-  private Widget movableWidget;
 
-  MouseDragHandler(DragController dragController) {
-    this.dragController = dragController;
-    boundaryPanel = dragController.getBoundaryPanel();
+  MouseDragHandler(DragContext context) {
+    this.context = context;
     initCapturingWidget();
   }
 
@@ -79,12 +73,11 @@ class MouseDragHandler implements MouseListener {
 
     // mouse down (not first mouse move) determines draggable widget
     mouseDownWidget = sender;
-    draggable = (Widget) dragHandleMap.get(mouseDownWidget);
-    if (draggable == null) {
-      assert draggable != null;
-    }
-    if (!DOM.eventGetCtrlKey(event) && !dragController.getSelectedWidgets().contains(mouseDownWidget)) {
-      dragController.clearSelection();
+    context.draggable = (Widget) dragHandleMap.get(mouseDownWidget);
+    assert context.draggable != null;
+
+    if (!DOM.eventGetCtrlKey(event) && !context.selectedWidgets.contains(mouseDownWidget)) {
+      context.dragController.clearSelection();
     }
     DeferredCommand.addCommand(new Command() {
       public void execute() {
@@ -115,8 +108,8 @@ class MouseDragHandler implements MouseListener {
     } else {
       if (mouseDown) {
         DOMUtil.cancelAllDocumentSelections();
-        if (!dragController.getSelectedWidgets().contains(draggable)) {
-          dragController.toggleSelection(draggable);
+        if (!context.selectedWidgets.contains(context.draggable)) {
+          context.dragController.toggleSelection(context.draggable);
         }
         startDragging();
 
@@ -147,7 +140,9 @@ class MouseDragHandler implements MouseListener {
     }
     mouseDown = false;
     if (!dragging) {
-      dragController.toggleSelection(draggable);
+      Widget widget = (Widget) dragHandleMap.get(sender);
+      context.dragController.toggleSelection(widget);
+      DOMUtil.cancelAllDocumentSelections();
       return;
     }
     // TODO Remove Safari workaround after GWT issue 1807 fixed
@@ -170,21 +165,23 @@ class MouseDragHandler implements MouseListener {
       desiredTop = Math.max(0, Math.min(desiredTop, maxTop));
     }
 
-    DOMUtil.fastSetElementPosition(movableWidget.getElement(), desiredLeft, desiredTop);
+    DOMUtil.fastSetElementPosition(context.movableWidget.getElement(), desiredLeft, desiredTop);
 
-    DropController newDropController = dragController.getIntersectDropController(movableWidget, x, y);
-    if (dropController != newDropController) {
-      if (dropController != null) {
-        dropController.onLeave(movableWidget, draggable, dragController);
+    DropController newDropController = context.dragController.getIntersectDropController(context.movableWidget, x, y);
+    if (context.dropController != newDropController) {
+      if (context.dropController != null) {
+        context.dropController.onLeave(context);
       }
-      dropController = newDropController;
-      if (dropController != null) {
-        dropController.onEnter(movableWidget, draggable, dragController);
+      context.dropController = newDropController;
+      if (context.dropController != null) {
+        context.dropController.onEnter(context);
       }
     }
 
-    if (dropController != null) {
-      dropController.onMove(x, y, movableWidget, draggable, dragController);
+    if (context.dropController != null) {
+      context.mouseX = x;
+      context.mouseY = y;
+      context.dropController.onMove(context);
     }
   }
 
@@ -213,36 +210,41 @@ class MouseDragHandler implements MouseListener {
   }
 
   private void cancelDrag() {
-    // Do this first so it always happens
+    try {
+      if (context.dropController != null) {
+        context.dropController.onLeave(context);
+      }
+
+      context.dropController = null;
+      context.dragController.dragEnd();
+
+      DragEndEvent canceledDragEndEvent = new DragEndEvent(context);
+      context.dragController.notifyDragEnd(canceledDragEndEvent);
+    } finally {
+      cleanup();
+    }
+  }
+
+  private void cleanup() {
     DOM.releaseCapture(capturingWidget.getElement());
     dragging = false;
-
-    if (dropController != null) {
-      dropController.onLeave(movableWidget, draggable, dragController);
-    }
-    dropController = null;
-
-    dragController.dragEnd(draggable, null);
-    DragEndEvent dragEndEvent = new DragEndEvent(draggable, null);
-    dragController.notifyDragEnd(dragEndEvent);
+    context.dropController = null;
   }
 
   private void drop(int x, int y) {
     try {
-      DOM.releaseCapture(capturingWidget.getElement());
-
       actualMove(x, y);
       dragging = false;
 
       // Is there a DropController willing to handle our request?
-      if (dropController == null) {
+      if (context.dropController == null) {
         cancelDrag();
         return;
       }
 
       // Does the DragController allow the drop?
       try {
-        dragController.previewDragEnd(draggable, dropController.getDropTarget());
+        context.dragController.previewDragEnd();
       } catch (VetoDragException ex) {
         cancelDrag();
         return;
@@ -250,28 +252,23 @@ class MouseDragHandler implements MouseListener {
 
       // Does the DropController allow the drop?
       try {
-        dropController.onPreviewDrop(movableWidget, draggable, dragController);
+        context.dropController.onPreviewDrop(context);
       } catch (VetoDropException ex) {
         cancelDrag();
         return;
       }
 
       // remove movable panel, cleanup styles, etc.
-      dragController.dragEnd(draggable, dropController.getDropTarget());
+      context.dragController.dragEnd();
 
       // use state information from earlier onPreviewDrop to attached draggable
       // to dropTarget
-      DragEndEvent dragEndEvent = dropController.onDrop(movableWidget, draggable, dragController);
+      DragEndEvent dragEndEvent = context.dropController.onDrop(context);
 
       // notify listeners
-      dragController.notifyDragEnd(dragEndEvent);
-
-    } catch (RuntimeException ex) {
-      // cleanup in case anything goes wrong
-      cancelDrag();
-      throw ex;
+      context.dragController.notifyDragEnd(dragEndEvent);
     } finally {
-      dropController = null;
+      cleanup();
     }
   }
 
@@ -286,25 +283,25 @@ class MouseDragHandler implements MouseListener {
 
   private void startDragging() {
     try {
-      dragController.previewDragStart(draggable);
+      context.dragController.previewDragStart();
     } catch (VetoDragException ex) {
       return;
     }
-    movableWidget = dragController.dragStart(draggable);
+    context.movableWidget = context.dragController.dragStart();
 
     // adjust mouse down offsets in case mouseDownWidget shares movableWidget with multiple draggables
-    WidgetLocation mouseDownLocation = new WidgetLocation(mouseDownWidget, movableWidget);
+    WidgetLocation mouseDownLocation = new WidgetLocation(mouseDownWidget, context.movableWidget);
     mouseDownOffsetX += mouseDownLocation.getLeft();
     mouseDownOffsetY += mouseDownLocation.getTop();
 
     // calculate the max (x, y) for use during dragging
-    maxLeft = DOMUtil.getClientWidth(boundaryPanel.getElement()) - movableWidget.getOffsetWidth();
-    maxTop = DOMUtil.getClientHeight(boundaryPanel.getElement()) - movableWidget.getOffsetHeight();
+    maxLeft = DOMUtil.getClientWidth(context.boundaryPanel.getElement()) - context.movableWidget.getOffsetWidth();
+    maxTop = DOMUtil.getClientHeight(context.boundaryPanel.getElement()) - context.movableWidget.getOffsetHeight();
 
     // one time calculation of boundary panel location for efficiency during dragging
-    Location location = new WidgetLocation(boundaryPanel, null);
-    boundaryOffsetX = location.getLeft() + DOMUtil.getBorderLeft(boundaryPanel.getElement());
-    boundaryOffsetY = location.getTop() + DOMUtil.getBorderTop(boundaryPanel.getElement());
+    Location location = new WidgetLocation(context.boundaryPanel, null);
+    boundaryOffsetX = location.getLeft() + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
+    boundaryOffsetY = location.getTop() + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
 
     DOM.setCapture(capturingWidget.getElement());
     dragging = true;

@@ -15,8 +15,6 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
-import com.google.gwt.user.client.ui.Widget;
-
 /**
  * {@link DragEndEvent} containing information about the end of a drag for drop
  * targets which are
@@ -25,8 +23,8 @@ import com.google.gwt.user.client.ui.Widget;
 public class IndexedDragEndEvent extends DragEndEvent {
   private int index;
 
-  public IndexedDragEndEvent(Object source, Widget dropTarget, int index) {
-    super(source, dropTarget);
+  public IndexedDragEndEvent(DragContext context, int index) {
+    super(context);
     this.index = index;
   }
 

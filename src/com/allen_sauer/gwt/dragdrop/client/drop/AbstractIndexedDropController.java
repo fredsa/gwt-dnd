@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.IndexedDragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.DragController.TargetSelectionMethod;
@@ -49,34 +49,34 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     this.dropTarget = dropTarget;
   }
 
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    super.onDrop(reference, draggable, dragController);
+  public DragEndEvent onDrop(DragContext context) {
+    super.onDrop(context);
     assert dropIndex != -1 : "Should not happen after onPreviewDrop did not veto";
-    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       insert(widget, dropIndex);
     }
-    return new IndexedDragEndEvent(draggable, (Panel) dropTarget, dropIndex);
+    return new IndexedDragEndEvent(context, dropIndex);
   }
 
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
-    targetSelectionMethod = dragController.getBehaviorTargetSelection();
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
+    targetSelectionMethod = context.dragController.getBehaviorTargetSelection();
   }
 
-  public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
-    super.onMove(x, y, reference, reference, dragController);
+  public void onMove(DragContext context) {
+    super.onMove(context);
     if (targetSelectionMethod == TargetSelectionMethod.MOUSE_POSITION) {
-      onMove(x, y);
+      onMove(context.mouseX, context.mouseY);
     } else if (targetSelectionMethod == TargetSelectionMethod.WIDGET_CENTER) {
-      onMove(reference);
+      onMove(context.movableWidget);
     } else {
       throw new IllegalStateException();
     }
   }
 
-  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
-    super.onPreviewDrop(reference, draggable, dragController);
+  public void onPreviewDrop(DragContext context) throws VetoDropException {
+    super.onPreviewDrop(context);
     dropIndex = dropTarget.getWidgetIndex(getPositioner());
     if (dropIndex == -1) {
       throw new VetoDropException();

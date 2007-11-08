@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
@@ -82,14 +82,14 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     this.dropTarget = dropTarget;
   }
 
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
     lastGoodLocation = null;
-    currentBoundaryPanel = dragController.getBoundaryPanel();
+    currentBoundaryPanel = context.dragController.getBoundaryPanel();
   }
 
-  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
-    super.onLeave(reference, draggable, dragController);
+  public void onLeave(DragContext context) {
+    super.onLeave(context);
     currentBoundaryPanel = null;
   }
 

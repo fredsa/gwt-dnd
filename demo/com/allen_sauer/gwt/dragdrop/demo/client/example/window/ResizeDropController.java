@@ -16,9 +16,8 @@
 package com.allen_sauer.gwt.dragdrop.demo.client.example.window;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 
 final class ResizeDropController extends BoundaryDropController {
@@ -30,22 +29,22 @@ final class ResizeDropController extends BoundaryDropController {
     super(boundaryPanel, false);
   }
 
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
-    windowPanel = ((ResizeDragController) dragController).getWindowPanel();
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
+    windowPanel = ((ResizeDragController) context.dragController).getWindowPanel();
   }
 
-  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
-    super.onLeave(reference, draggable, dragController);
+  public void onLeave(DragContext context) {
+    super.onLeave(context);
     windowPanel = null;
   }
 
-  public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
-    super.onMove(x, y, reference, draggable, dragController);
+  public void onMove(DragContext context) {
+    super.onMove(context);
 
-    int direction = ((ResizeDragController) dragController).getDirection(draggable).directionBits;
+    int direction = ((ResizeDragController) context.dragController).getDirection(context.draggable).directionBits;
     if ((direction & WindowPanel.DIRECTION_NORTH) != 0) {
-      int delta = draggable.getAbsoluteTop() - reference.getAbsoluteTop();
+      int delta = context.draggable.getAbsoluteTop() - context.movableWidget.getAbsoluteTop();
       if (delta != 0) {
         int contentHeight = windowPanel.getContentHeight();
         int newHeight = Math.max(contentHeight + delta, MIN_WIDGET_SIZE);
@@ -55,13 +54,13 @@ final class ResizeDropController extends BoundaryDropController {
         windowPanel.setContentSize(windowPanel.getContentWidth(), newHeight);
       }
     } else if ((direction & WindowPanel.DIRECTION_SOUTH) != 0) {
-      int delta = reference.getAbsoluteTop() - draggable.getAbsoluteTop();
+      int delta = context.movableWidget.getAbsoluteTop() - context.draggable.getAbsoluteTop();
       if (delta != 0) {
         windowPanel.setContentSize(windowPanel.getContentWidth(), windowPanel.getContentHeight() + delta);
       }
     }
     if ((direction & WindowPanel.DIRECTION_WEST) != 0) {
-      int delta = draggable.getAbsoluteLeft() - reference.getAbsoluteLeft();
+      int delta = context.draggable.getAbsoluteLeft() - context.movableWidget.getAbsoluteLeft();
       if (delta != 0) {
         int contentWidth = windowPanel.getContentWidth();
         int newWidth = Math.max(contentWidth + delta, MIN_WIDGET_SIZE);
@@ -71,7 +70,7 @@ final class ResizeDropController extends BoundaryDropController {
         windowPanel.setContentSize(newWidth, windowPanel.getContentHeight());
       }
     } else if ((direction & WindowPanel.DIRECTION_EAST) != 0) {
-      int delta = reference.getAbsoluteLeft() - draggable.getAbsoluteLeft();
+      int delta = context.movableWidget.getAbsoluteLeft() - context.draggable.getAbsoluteLeft();
       if (delta != 0) {
         windowPanel.setContentSize(windowPanel.getContentWidth() + delta, windowPanel.getContentHeight());
       }

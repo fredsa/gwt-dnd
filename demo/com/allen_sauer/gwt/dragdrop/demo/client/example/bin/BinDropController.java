@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.bin;
 
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
@@ -39,31 +39,31 @@ final class BinDropController extends SimpleDropController {
     this.bin = bin;
   }
 
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    DragEndEvent event = super.onDrop(reference, draggable, dragController);
-    reference.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+  public DragEndEvent onDrop(DragContext context) {
+    DragEndEvent event = super.onDrop(context);
+    context.movableWidget.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
     bin.setEngaged(false);
-    for (Iterator iterator = dragController.getSelectedWidgets().iterator(); iterator.hasNext();) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       bin.eatWidget(widget);
     }
     return event;
   }
 
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
-    reference.addStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
+    context.movableWidget.addStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
     bin.setEngaged(true);
   }
 
-  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
-    super.onLeave(reference, draggable, dragController);
-    reference.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+  public void onLeave(DragContext context) {
+    super.onLeave(context);
+    context.draggable.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
     bin.setEngaged(false);
   }
 
-  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
-    super.onPreviewDrop(reference, draggable, dragController);
+  public void onPreviewDrop(DragContext context) throws VetoDropException {
+    super.onPreviewDrop(context);
     if (!bin.isWidgetEater()) {
       throw new VetoDropException();
     }

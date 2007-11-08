@@ -23,10 +23,8 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * {@link DragController} which performs the bare essentials such as
@@ -68,15 +66,14 @@ public abstract class AbstractDragController implements DragController {
     CSS_HANDLE = PRIVATE_CSS_HANDLE;
   }
 
+  protected final DragContext context;
   private BoundaryDropController boundaryDropController;
   private AbsolutePanel boundaryPanel;
-  private Widget draggable;
   private DragHandlerCollection dragHandlers;
   private DropControllerCollection dropControllerCollection;
   private ArrayList dropControllerList = new ArrayList();
   private MouseDragHandler mouseDragHandler;
   private boolean multipleSelectionAllowed;
-  private final List selectedWidgetList = new ArrayList();
   private TargetSelectionMethod targetSelectionMethod;
 
   /**
@@ -97,7 +94,8 @@ public abstract class AbstractDragController implements DragController {
     this.boundaryPanel = boundaryPanel != null ? boundaryPanel : RootPanel.get();
     boundaryDropController = newBoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
     registerDropController(boundaryDropController);
-    mouseDragHandler = new MouseDragHandler(this);
+    context = new DragContext(this);
+    mouseDragHandler = new MouseDragHandler(context);
     setBehaviorTargetSelection(TargetSelectionMethod.MOUSE_POSITION);
   }
 
@@ -109,25 +107,32 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void clearSelection() {
-    for (Iterator iterator = selectedWidgetList.iterator(); iterator.hasNext();) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       widget.removeStyleName(CSS_SELECTED);
       iterator.remove();
     }
   }
 
-  public void dragEnd(Widget draggable, Widget dropTarget) {
-    draggable.removeStyleName(PRIVATE_CSS_DRAGGING);
+  public void dragEnd() {
+    context.draggable.removeStyleName(PRIVATE_CSS_DRAGGING);
   }
 
-  public Widget dragStart(Widget draggable) {
-    this.draggable = draggable;
+  public final void dragEnd(Widget draggable, Widget dropTarget) {
+    throw new UnsupportedOperationException();
+  }
+
+  public Widget dragStart() {
     resetCache();
     if (dragHandlers != null) {
-      dragHandlers.fireDragStart(draggable);
+      dragHandlers.fireDragStart(context);
     }
-    draggable.addStyleName(PRIVATE_CSS_DRAGGING);
-    return draggable;
+    context.draggable.addStyleName(PRIVATE_CSS_DRAGGING);
+    return context.draggable;
+  }
+
+  public final void dragStart(Widget draggable) {
+    throw new UnsupportedOperationException();
   }
 
   public boolean getBehaviorBoundaryPanelDrop() {
@@ -165,10 +170,6 @@ public abstract class AbstractDragController implements DragController {
 
   public final Widget getMovableWidget() {
     throw new UnsupportedOperationException();
-  }
-
-  public Collection getSelectedWidgets() {
-    return selectedWidgetList;
   }
 
   /**
@@ -224,16 +225,24 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
-  public void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {
+  public void previewDragEnd() throws VetoDragException {
     if (dragHandlers != null) {
-      dragHandlers.firePreviewDragEnd(draggable, dropTarget);
+      dragHandlers.firePreviewDragEnd(context);
     }
   }
 
-  public void previewDragStart(Widget draggable) throws VetoDragException {
+  public final void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {
+    throw new UnsupportedOperationException();
+  }
+
+  public void previewDragStart() throws VetoDragException {
     if (dragHandlers != null) {
-      dragHandlers.firePreviewDragStart(draggable);
+      dragHandlers.firePreviewDragStart(context);
     }
+  }
+
+  public final void previewDragStart(Widget draggable) throws VetoDragException {
+    throw new UnsupportedOperationException();
   }
 
   public final void registerDropController(DropController dropController) {
@@ -247,7 +256,7 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void resetCache() {
-    dropControllerCollection.resetCache(boundaryPanel, draggable);
+    dropControllerCollection.resetCache(boundaryPanel, context.draggable);
   }
 
   public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
@@ -260,7 +269,11 @@ public abstract class AbstractDragController implements DragController {
 
   public void setBehaviorMultipleSelection(boolean multipleSelectionAllowed) {
     this.multipleSelectionAllowed = multipleSelectionAllowed;
-    clearSelection();
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      widget.removeStyleName(CSS_SELECTED);
+      iterator.remove();
+    }
   }
 
   public void setBehaviorTargetSelection(TargetSelectionMethod targetSelectionMethod) {
@@ -279,14 +292,15 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void toggleSelection(Widget draggable) {
-    if (selectedWidgetList.remove(draggable)) {
+    assert draggable != null;
+    if (context.selectedWidgets.remove(draggable)) {
       draggable.removeStyleName(CSS_SELECTED);
     } else if (multipleSelectionAllowed) {
-      selectedWidgetList.add(draggable);
+      context.selectedWidgets.add(draggable);
       draggable.addStyleName(CSS_SELECTED);
     } else {
-      clearSelection();
-      selectedWidgetList.add(draggable);
+      context.selectedWidgets.clear();
+      context.selectedWidgets.add(draggable);
     }
   }
 

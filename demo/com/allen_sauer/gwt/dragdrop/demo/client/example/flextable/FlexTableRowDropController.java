@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractPositioningDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
@@ -40,26 +40,26 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     this.flexTable = flexTable;
   }
 
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    super.onDrop(reference, draggable, dragController);
-    FlexTableRowDragController trDragController = (FlexTableRowDragController) dragController;
+  public DragEndEvent onDrop(DragContext context) {
+    super.onDrop(context);
+    FlexTableRowDragController trDragController = (FlexTableRowDragController) context.dragController;
     FlexTableUtil.moveRow(trDragController.getDraggableTable(), flexTable, trDragController.getDragRow(), targetRow + 1);
-    return new FlexTableRowDragEndEvent(draggable, flexTable, targetRow + 1);
+    return new FlexTableRowDragEndEvent(context, targetRow + 1);
   }
 
-  public void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
-    super.onMove(x, y, reference, draggable, dragController);
-    int row = determineRow(reference);
+  public void onMove(DragContext context) {
+    super.onMove(context);
+    int row = determineRow(context.movableWidget);
     Widget w = flexTable.getWidget(row == -1 ? 0 : row, 0);
-    Location widgetLocation = new WidgetLocation(w, dragController.getBoundaryPanel());
-    Location tableLocation = new WidgetLocation(flexTable, dragController.getBoundaryPanel());
-    dragController.getBoundaryPanel().add(getPositioner(), tableLocation.getLeft(),
+    Location widgetLocation = new WidgetLocation(w, context.dragController.getBoundaryPanel());
+    Location tableLocation = new WidgetLocation(flexTable, context.dragController.getBoundaryPanel());
+    context.dragController.getBoundaryPanel().add(getPositioner(), tableLocation.getLeft(),
         widgetLocation.getTop() + (row == -1 ? 0 : w.getOffsetHeight()));
   }
 
-  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
-    super.onPreviewDrop(reference, draggable, dragController);
-    targetRow = determineRow(reference);
+  public void onPreviewDrop(DragContext context) throws VetoDropException {
+    super.onPreviewDrop(context);
+    targetRow = determineRow(context.movableWidget);
   }
 
   protected Widget newPositioner(Widget reference) {

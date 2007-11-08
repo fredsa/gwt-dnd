@@ -39,15 +39,15 @@ final class ResizeDragController extends AbstractDragController {
     DOM.setStyleAttribute(dummyMovableWidget.getElement(), "visibility", "hidden");
   }
 
-  public void dragEnd(Widget draggable, Widget dropTarget) {
-    super.dragEnd(draggable, dropTarget);
+  public void dragEnd() {
+    super.dragEnd();
     dummyMovableWidget.removeFromParent();
   }
 
-  public Widget dragStart(Widget draggable) {
-    super.dragStart(draggable);
-    windowPanel = (WindowPanel) draggable.getParent().getParent();
-    Location location = new WidgetLocation(draggable, getBoundaryPanel());
+  public Widget dragStart() {
+    super.dragStart();
+    windowPanel = (WindowPanel) context.draggable.getParent().getParent();
+    Location location = new WidgetLocation(context.draggable, getBoundaryPanel());
     getBoundaryPanel().add(dummyMovableWidget, location.getLeft(), location.getTop());
     return dummyMovableWidget;
   }
@@ -65,7 +65,7 @@ final class ResizeDragController extends AbstractDragController {
     directionMap.put(widget, direction);
   }
 
-  public void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {
+  public void previewDragEnd() throws VetoDragException {
     // we don't actually use the drop side of the drag-and-drop operation
     throw new VetoDragException();
   }

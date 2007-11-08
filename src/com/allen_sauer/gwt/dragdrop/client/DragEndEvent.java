@@ -25,29 +25,35 @@ import java.util.EventObject;
  * {@link EventObject} containing information about the end of a drag.
  */
 public class DragEndEvent extends EventObject {
-  private Widget dropTarget;
+  private final DragContext context;
 
-  public DragEndEvent(Object source, Widget dropTarget) {
-    super(source);
-    this.dropTarget = dropTarget;
+  public DragEndEvent(DragContext context) {
+    super(context.draggable);
+    this.context = context;
   }
 
   /**
-   * Get the drop target at which the drag operation terminated or
-   * <code>null</code> if the drop was disallowed.
+   * Determine the drag context at the end of the drag operation.
    * 
-   * @return the drop target widget if the drop was successful or
-   *         <code>null</code> if the drop was disallowed
+   * @return the drag context
+   */
+  public DragContext getContext() {
+    return context;
+  }
+
+  /**
+   * @deprecated Use {@link #getContext()} instead.
    */
   public Widget getDropTarget() {
-    return dropTarget;
+    return context.dropController == null ? null : context.dropController.getDropTarget();
   }
 
   /**
    * Return a string representation of this event.
    */
   public String toString() {
-    String dropTargetText = dropTarget != null ? "dropTarget=" + StringUtil.getShortTypeName(dropTarget) : "[cancelled]";
+    String dropTargetText = context.dropController != null ? "dropTarget="
+        + StringUtil.getShortTypeName(context.dropController.getDropTarget()) : "[cancelled]";
     return "DragEndEvent(" + dropTargetText + ", source=" + StringUtil.getShortTypeName(getSource()) + ")";
   }
 }

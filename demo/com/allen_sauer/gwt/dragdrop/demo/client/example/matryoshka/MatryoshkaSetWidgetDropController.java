@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
@@ -47,28 +47,28 @@ public class MatryoshkaSetWidgetDropController extends SimpleDropController {
     this.dropTarget = dropTarget;
   }
 
-  public DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
-    DragEndEvent dragEndEvent = super.onDrop(reference, draggable, dragController);
+  public DragEndEvent onDrop(DragContext context) {
+    DragEndEvent dragEndEvent = super.onDrop(context);
     makeLastChild(dropTarget);
-    dropTarget.setWidget(draggable);
+    dropTarget.setWidget(context.draggable);
     dropTarget.removeStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE);
     return dragEndEvent;
   }
 
-  public void onEnter(Widget reference, Widget draggable, DragController dragController) {
-    super.onEnter(reference, draggable, dragController);
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
     if (dropTarget.getWidget() == null) {
       dropTarget.addStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE);
     }
   }
 
-  public void onLeave(Widget reference, Widget draggable, DragController dragController) {
-    super.onLeave(reference, draggable, dragController);
+  public void onLeave(DragContext context) {
+    super.onLeave(context);
     dropTarget.removeStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE);
   }
 
-  public void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
-    super.onPreviewDrop(reference, draggable, dragController);
+  public void onPreviewDrop(DragContext context) throws VetoDropException {
+    super.onPreviewDrop(context);
     if (dropTarget.getWidget() != null) {
       throw new VetoDropException();
     }

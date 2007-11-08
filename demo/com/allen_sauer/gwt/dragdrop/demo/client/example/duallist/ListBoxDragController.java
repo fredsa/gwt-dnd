@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.duallist;
 
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
@@ -33,13 +34,9 @@ public class ListBoxDragController extends PickupDragController {
     setBehaviorDragProxy(true);
   }
 
-  public void dragEnd(Widget draggable, Widget dropTarget) {
-    super.dragEnd(draggable, dropTarget);
-  }
-
-  public Widget dragStart(Widget draggable) {
-    currentDraggableListBox = (MouseListBox) draggable;
-    return super.dragStart(draggable);
+  public Widget dragStart() {
+    currentDraggableListBox = (MouseListBox) context.draggable;
+    return super.dragStart();
   }
 
   public MouseListBox getCurrentDraggableListBox() {
@@ -52,11 +49,11 @@ public class ListBoxDragController extends PickupDragController {
     currentDraggableListBox = null;
   }
 
-  public void previewDragStart(Widget draggable) throws VetoDragException {
-    if (((MouseListBox) draggable).getSelectedWidgetCount() == 0) {
+  public void previewDragEnd() throws VetoDragException {
+    if (((MouseListBox) context.draggable).getSelectedWidgetCount() == 0) {
       throw new VetoDragException();
     }
-    super.previewDragStart(draggable);
+    super.previewDragEnd();
   }
 
   public void setBehaviorDragProxy(boolean dragProxyEnabled) {
@@ -67,7 +64,7 @@ public class ListBoxDragController extends PickupDragController {
     super.setBehaviorDragProxy(dragProxyEnabled);
   }
 
-  protected Widget newDragProxy(Widget draggable) {
+  protected Widget newDragProxy(DragContext context) {
     MouseListBox proxyMouseListBox = new MouseListBox(currentDraggableListBox.getSelectedWidgetCount());
     proxyMouseListBox.setWidth(currentDraggableListBox.getOffsetWidth() + "px");
     proxyMouseListBox.addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_DRAG_PROXY);

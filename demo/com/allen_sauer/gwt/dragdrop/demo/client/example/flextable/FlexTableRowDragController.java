@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
@@ -37,17 +38,17 @@ public final class FlexTableRowDragController extends PickupDragController {
     setBehaviorDragProxy(true);
   }
 
-  public void dragEnd(Widget draggable, Widget dropTarget) {
+  public void dragEnd() {
     draggableTable.getRowFormatter().removeStyleName(dragRow, CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING);
-    super.dragEnd(draggable, dropTarget);
+    super.dragEnd();
   }
 
-  public Widget dragStart(Widget draggable) {
-    draggableTable = (FlexTable) draggable.getParent();
-    dragRow = getWidgetRow(draggable, draggableTable);
+  public Widget dragStart() {
+    draggableTable = (FlexTable) context.draggable.getParent();
+    dragRow = getWidgetRow(context.draggable, draggableTable);
     draggableTable.getRowFormatter().addStyleName(dragRow, CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING);
 
-    return super.dragStart(draggable);
+    return super.dragStart();
   }
 
   public FlexTable getDraggableTable() {
@@ -79,7 +80,7 @@ public final class FlexTableRowDragController extends PickupDragController {
     return super.newBoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
   }
 
-  protected Widget newDragProxy(Widget draggable) {
+  protected Widget newDragProxy(DragContext context) {
     FlexTable proxy;
     proxy = new FlexTable();
     proxy.addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY);
