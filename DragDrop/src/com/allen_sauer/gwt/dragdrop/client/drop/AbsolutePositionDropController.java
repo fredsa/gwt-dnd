@@ -135,10 +135,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    *         location found
    */
   protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
-    Area referenceArea = new WidgetArea(reference, currentBoundaryPanel);
     WidgetLocation referenceLocation = new WidgetLocation(reference, dropTarget);
-    referenceLocation.constrain(0, 0, DOMUtil.getClientWidth(dropTarget.getElement()) - referenceArea.getWidth(),
-        DOMUtil.getClientHeight(dropTarget.getElement()) - referenceArea.getHeight());
+    referenceLocation.constrain(0, 0, DOMUtil.getClientWidth(dropTarget.getElement()) - reference.getOffsetWidth(),
+        DOMUtil.getClientHeight(dropTarget.getElement()) - reference.getOffsetHeight());
     return referenceLocation;
   }
 
