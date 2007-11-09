@@ -73,7 +73,8 @@ public interface DropController {
 
   /**
    * Called when the reference widget stops engaging our drop target by leaving
-   * the area of the page occupied by our drop target.
+   * the area of the page occupied by our drop target, or after {@link #onDrop(DragContext)}
+   * to allow for any cleanup.
    * 
    * @see #onEnter(DragContext)
    * 

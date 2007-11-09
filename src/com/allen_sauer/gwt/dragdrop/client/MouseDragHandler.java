@@ -265,6 +265,9 @@ class MouseDragHandler implements MouseListener {
       // to dropTarget
       DragEndEvent dragEndEvent = context.dropController.onDrop(context);
 
+      // Allow drop controller to cleanup
+      context.dropController.onLeave(context);
+
       // notify listeners
       context.dragController.notifyDragEnd(dragEndEvent);
     } finally {

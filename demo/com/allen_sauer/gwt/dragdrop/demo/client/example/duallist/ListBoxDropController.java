@@ -32,14 +32,14 @@ public class ListBoxDropController extends AbstractDropController {
   }
 
   public DragEndEvent onDrop(DragContext context) {
-    MouseListBox from = ((ListBoxDragController) context.dragController).getCurrentDraggableListBox();
+    MouseListBox from = (MouseListBox) context.draggable;
     DualListBox.copyOrmoveItems(from, mouseListBox, true, DualListBox.OPERATION_MOVE);
     return super.onDrop(context);
   }
 
   public void onPreviewDrop(DragContext context) throws VetoDropException {
     super.onPreviewDrop(context);
-    MouseListBox from = ((ListBoxDragController) context.dragController).getCurrentDraggableListBox();
+    MouseListBox from = (MouseListBox) context.draggable;
     // TODO avoid this
     if (from == mouseListBox) {
       throw new VetoDropException();

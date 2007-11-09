@@ -18,7 +18,6 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.duallist;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 
@@ -27,26 +26,10 @@ import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
  */
 public class ListBoxDragController extends PickupDragController {
   private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_DRAG_PROXY = "demo-DualListExample-drag-proxy";
-  private MouseListBox currentDraggableListBox;
 
   public ListBoxDragController(DualListBox dualListBox) {
     super(dualListBox, false);
     setBehaviorDragProxy(true);
-  }
-
-  public Widget dragStart() {
-    currentDraggableListBox = (MouseListBox) context.draggable;
-    return super.dragStart();
-  }
-
-  public MouseListBox getCurrentDraggableListBox() {
-    return currentDraggableListBox;
-  }
-
-  public void notifyDragEnd(DragEndEvent dragEndEvent) {
-    super.notifyDragEnd(dragEndEvent);
-    // cleanup
-    currentDraggableListBox = null;
   }
 
   public void previewDragEnd() throws VetoDragException {
@@ -65,6 +48,7 @@ public class ListBoxDragController extends PickupDragController {
   }
 
   protected Widget newDragProxy(DragContext context) {
+    MouseListBox currentDraggableListBox = (MouseListBox) context.draggable;
     MouseListBox proxyMouseListBox = new MouseListBox(currentDraggableListBox.getSelectedWidgetCount());
     proxyMouseListBox.setWidth(currentDraggableListBox.getOffsetWidth() + "px");
     proxyMouseListBox.addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_DRAG_PROXY);

@@ -51,7 +51,6 @@ public class MatryoshkaSetWidgetDropController extends SimpleDropController {
     DragEndEvent dragEndEvent = super.onDrop(context);
     makeLastChild(dropTarget);
     dropTarget.setWidget(context.draggable);
-    dropTarget.removeStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE);
     return dragEndEvent;
   }
 
