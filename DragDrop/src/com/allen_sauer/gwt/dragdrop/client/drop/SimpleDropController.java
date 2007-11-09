@@ -22,7 +22,6 @@ import com.google.gwt.user.client.ui.Widget;
  * location sensitive dropping see {@link AbsolutePositionDropController}.
  */
 public class SimpleDropController extends AbstractDropController {
-
   public SimpleDropController(Widget dropTarget) {
     super(dropTarget);
   }

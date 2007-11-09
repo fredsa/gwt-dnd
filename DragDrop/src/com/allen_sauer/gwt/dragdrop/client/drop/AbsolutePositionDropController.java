@@ -36,9 +36,7 @@ import java.util.Iterator;
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
   private static final Widget helperWidget = new SimplePanel();
-  private AbsolutePanel currentBoundaryPanel;
   private final HashMap dropLocations = new HashMap();
-
   private final AbsolutePanel dropTarget;
 
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {
@@ -58,78 +56,55 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    */
   public void drop(Widget widget, int left, int top) {
     dropTarget.add(widget, left, top);
-    constrainedWidgetMove(widget, widget, widget);
+    constrainedWidgetMove(widget, widget);
   }
 
   public DragEndEvent onDrop(DragContext context) {
     for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       Location dropLocation = (Location) dropLocations.get(widget);
-
       dropTarget.add(widget, dropLocation.getLeft(), dropLocation.getTop());
     }
     dropLocations.clear();
-
-    // constrain the position before creating the DragEndEvent
-    DragEndEvent event = super.onDrop(context);
-    return event;
-  }
-
-  public void onEnter(DragContext context) {
-    super.onEnter(context);
-    currentBoundaryPanel = context.dragController.getBoundaryPanel();
-  }
-
-  public void onLeave(DragContext context) {
-    super.onLeave(context);
-    currentBoundaryPanel = null;
+    return makeDragEndEvent(context);
   }
 
   public void onMove(DragContext context) {
-    super.onMove(context);
-    constrainedWidgetMove(context.movableWidget, context.draggable, getPositioner());
+    constrainedWidgetMove(context.movableWidget, getPositioner());
   }
 
   public void onPreviewDrop(DragContext context) throws VetoDropException {
-    super.onPreviewDrop(context);
+    WidgetLocation referenceLocation = new WidgetLocation(context.movableWidget, context.boundaryPanel);
 
-    WidgetLocation referenceLocation = new WidgetLocation(context.movableWidget, currentBoundaryPanel);
-
-    // temporarily store widget drop location for use in onDrop()
+    // temporarily store widget drop locations for use in onDrop()
     dropLocations.clear();
 
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
-      WidgetLocation relativeLocation = new WidgetLocation(widget, context.draggable);
+    try {
+      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+        Widget widget = (Widget) iterator.next();
+        WidgetLocation relativeLocation = new WidgetLocation(widget, context.draggable);
 
-      // Use helper widget to determine constrained location
-      currentBoundaryPanel.add(helperWidget, referenceLocation.getLeft() + relativeLocation.getLeft(), referenceLocation.getTop()
-          + relativeLocation.getTop());
-      helperWidget.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
-      Location dropLocation = getConstrainedLocation(helperWidget, widget, widget);
-      helperWidget.removeFromParent();
-      if (dropLocation == null) {
-        throw new VetoDropException();
+        // Use helper widget to determine constrained location
+        context.boundaryPanel.add(helperWidget, referenceLocation.getLeft() + relativeLocation.getLeft(),
+            referenceLocation.getTop() + relativeLocation.getTop());
+        helperWidget.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
+        Location dropLocation = getConstrainedLocation(helperWidget);
+        if (dropLocation == null) {
+          dropLocations.clear();
+          throw new VetoDropException();
+        }
+        dropLocations.put(widget, dropLocation);
       }
-      dropLocations.put(widget, dropLocation);
+    } finally {
+      helperWidget.removeFromParent();
     }
   }
 
   /**
-   * If possible, move widget as close to the desired reference location as the
-   * constraints of this DropController allow.
-   * 
-   * @param reference widget whose location is the desired drop location
-   * @param draggable actual draggable widget
-   * @param widget positioner or the draggable widget to be moved
-   * @return location where widget can be placed or <code>null</code> if no compatible
-   *         location found
+   * @deprecated Instead override {@link #onPreviewDrop(DragContext)}, {@link #onDrop(DragContext)} and {@link #drop(Widget, int, int)}.
    */
-  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
-    WidgetLocation referenceLocation = new WidgetLocation(reference, dropTarget);
-    referenceLocation.constrain(0, 0, DOMUtil.getClientWidth(dropTarget.getElement()) - reference.getOffsetWidth(),
-        DOMUtil.getClientHeight(dropTarget.getElement()) - reference.getOffsetHeight());
-    return referenceLocation;
+  protected final Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
+    throw new UnsupportedOperationException();
   }
 
   protected DragEndEvent makeDragEndEvent(DragContext context) {
@@ -137,10 +112,17 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     return new AbsolutePositionDragEndEvent(context, location.getLeft(), location.getTop());
   }
 
-  private void constrainedWidgetMove(Widget reference, Widget draggable, Widget widget) {
-    Location location = getConstrainedLocation(reference, draggable, widget);
+  private void constrainedWidgetMove(Widget reference, Widget widget) {
+    Location location = getConstrainedLocation(reference);
     if (location != null) {
       dropTarget.add(widget, location.getLeft(), location.getTop());
     }
+  }
+
+  private Location getConstrainedLocation(Widget reference) {
+    WidgetLocation referenceLocation = new WidgetLocation(reference, dropTarget);
+    referenceLocation.constrain(0, 0, DOMUtil.getClientWidth(dropTarget.getElement()) - reference.getOffsetWidth(),
+        DOMUtil.getClientHeight(dropTarget.getElement()) - reference.getOffsetHeight());
+    return referenceLocation;
   }
 }

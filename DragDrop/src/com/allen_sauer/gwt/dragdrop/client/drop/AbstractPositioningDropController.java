@@ -22,7 +22,6 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
 /**
@@ -50,12 +49,6 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
    */
   public Widget getPositioner() {
     return positioner;
-  }
-
-  public DragEndEvent onDrop(DragContext context) {
-    DragEndEvent event = super.onDrop(context);
-    positioner.removeFromParent();
-    return event;
   }
 
   public void onEnter(DragContext context) {

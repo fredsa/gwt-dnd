@@ -76,7 +76,6 @@ public abstract class AbstractDropController implements DropController {
    * called as a part of this method invocation to create the return value.
    */
   public DragEndEvent onDrop(DragContext context) {
-    dropTarget.removeStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
     return makeDragEndEvent(context);
   }
 

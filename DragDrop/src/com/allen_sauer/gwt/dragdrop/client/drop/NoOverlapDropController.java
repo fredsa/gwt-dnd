@@ -16,16 +16,21 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
+import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 /**
@@ -73,7 +78,8 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     }
   }
 
-  private AbsolutePanel currentBoundaryPanel;
+  private static final Widget helperWidget = new SimplePanel();
+  private final HashMap dropLocations = new HashMap();
   private final AbsolutePanel dropTarget;
   private Location lastGoodLocation;
 
@@ -82,23 +88,55 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     this.dropTarget = dropTarget;
   }
 
+  public void drop(Widget widget, int left, int top) {
+    dropTarget.add(widget, left, top);
+    constrainedWidgetMove(widget, widget);
+  }
+
+  public DragEndEvent onDrop(DragContext context) {
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      Location dropLocation = (Location) dropLocations.get(widget);
+      dropTarget.add(widget, dropLocation.getLeft(), dropLocation.getTop());
+    }
+    dropLocations.clear();
+    return makeDragEndEvent(context);
+  }
+
   public void onEnter(DragContext context) {
     super.onEnter(context);
     lastGoodLocation = null;
-    currentBoundaryPanel = context.dragController.getBoundaryPanel();
   }
 
-  public void onLeave(DragContext context) {
-    super.onLeave(context);
-    currentBoundaryPanel = null;
+  public void onMove(DragContext context) {
+    constrainedWidgetMove(context.movableWidget, getPositioner());
   }
 
-  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
-    Location location = internalGetConstrainedLocation(reference, draggable, widget);
-    if (location != null) {
-      lastGoodLocation = location;
+  public void onPreviewDrop(DragContext context) throws VetoDropException {
+    WidgetLocation referenceLocation = new WidgetLocation(context.movableWidget, context.boundaryPanel);
+
+    // temporarily store widget drop locations for use in onDrop()
+    dropLocations.clear();
+
+    try {
+      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+        Widget widget = (Widget) iterator.next();
+        WidgetLocation relativeLocation = new WidgetLocation(widget, context.draggable);
+
+        // Use helper widget to determine constrained location
+        context.boundaryPanel.add(helperWidget, referenceLocation.getLeft() + relativeLocation.getLeft(),
+            referenceLocation.getTop() + relativeLocation.getTop());
+        helperWidget.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
+        Location dropLocation = getConstrainedLocation(helperWidget);
+        if (dropLocation == null) {
+          dropLocations.clear();
+          throw new VetoDropException();
+        }
+        dropLocations.put(widget, dropLocation);
+      }
+    } finally {
+      helperWidget.removeFromParent();
     }
-    return location;
   }
 
   private boolean collision(Collection widgets, Area area) {
@@ -109,6 +147,13 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
       }
     }
     return false;
+  }
+
+  private void constrainedWidgetMove(Widget reference, Widget widget) {
+    Location location = getConstrainedLocation(reference);
+    if (location != null) {
+      dropTarget.add(widget, location.getLeft(), location.getTop());
+    }
   }
 
   private Location findBetterLocation(Area referenceArea, Collection widgets) {
@@ -149,9 +194,22 @@ public class NoOverlapDropController extends AbsolutePositionDropController {
     return newLocation;
   }
 
-  private Location internalGetConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
-    WidgetArea referenceArea = new WidgetArea(reference, currentBoundaryPanel);
-    Location referenceLocation = super.getConstrainedLocation(reference, draggable, widget);
+  private Location getConstrainedLocation(Widget reference) {
+    Location location = getConstrainedLocation2(reference);
+    if (location != null) {
+      lastGoodLocation = location;
+    }
+    return location;
+  }
+
+  private Location getConstrainedLocation2(Widget reference) {
+    Widget draggable = null;
+    Widget widget = null;
+
+    WidgetArea referenceArea = new WidgetArea(reference, dropTarget);
+    WidgetLocation referenceLocation = new WidgetLocation(reference, dropTarget);
+    referenceLocation.constrain(0, 0, DOMUtil.getClientWidth(dropTarget.getElement()) - reference.getOffsetWidth(),
+        DOMUtil.getClientHeight(dropTarget.getElement()) - reference.getOffsetHeight());
 
     // Determine where draggableArea would be if it were constrained to the dropArea
     // Also causes draggableArea to become relative to dropTarget

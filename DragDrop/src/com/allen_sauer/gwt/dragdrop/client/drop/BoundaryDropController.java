@@ -16,9 +16,8 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
 
 /**
  * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}
@@ -42,6 +41,13 @@ public class BoundaryDropController extends AbsolutePositionDropController {
     return allowDroppingOnBoundaryPanel;
   }
 
+  public void onPreviewDrop(DragContext context) throws VetoDropException {
+    if (!allowDroppingOnBoundaryPanel) {
+      throw new VetoDropException();
+    }
+    super.onPreviewDrop(context);
+  }
+
   /**
    * Set whether or not widgets may be dropped anywhere on the boundary panel.
    * Set to <code>false</code> when you only want explicitly registered drop
@@ -51,9 +57,5 @@ public class BoundaryDropController extends AbsolutePositionDropController {
    */
   public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
     this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
-  }
-
-  protected Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
-    return allowDroppingOnBoundaryPanel ? super.getConstrainedLocation(reference, draggable, widget) : null;
   }
 }
