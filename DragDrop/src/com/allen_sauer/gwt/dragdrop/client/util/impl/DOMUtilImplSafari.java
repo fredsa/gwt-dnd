@@ -25,11 +25,15 @@ import com.google.gwt.user.client.Element;
 public class DOMUtilImplSafari extends DOMUtilImplStandard {
   public native void cancelAllDocumentSelections()
   /*-{
-    try {
-      $wnd.getSelection().collapse();
-    } catch(e) {
-      // ignore: Safari 3.0.4 (5523.10) on Mac OS X Version 10.5 (Leopard) is broken,
-      // causing "Error: TYPE_MISMATCH_ERR: DOM Exception 17" to be seen
+    // While all Safari/Webkit release appear to define the 'collapse' function,
+    // this function results in "Error: TYPE_MISMATCH_ERR: DOM Exception 17" 
+    // on Safari 3.0.4 (5523.10) on Mac OS X Version 10.5 (Leopard)
+    // So, newer Safari use 'removeAllRanges', older Safari fall back to 'collapse'
+    var s = $wnd.getSelection();
+    if (s.removeAllRanges) {
+      s.removeAllRanges();
+    } else {
+      s.collapse();
     }
   }-*/;
 
