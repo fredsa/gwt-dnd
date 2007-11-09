@@ -29,8 +29,14 @@ public class DragContext {
    */
   public final AbsolutePanel boundaryPanel;
 
+  /**
+   * The DragController for which this context exists.
+   */
   public final DragController dragController;
 
+  /**
+   * The primary widget currently being dragged.
+   */
   public Widget draggable;
 
   /**
@@ -38,14 +44,24 @@ public class DragContext {
    */
   public DropController dropController;
 
-  //  public Widget reference;
-
+  /**
+   * Current mouse x coordinate while dragging.
+   */
   public int mouseX;
 
+  /**
+   * Current mouse y coordinate while dragging.
+   */
   public int mouseY;
 
+  /**
+   * The widget or panel which moves around with the mouse.
+   */
   public Widget movableWidget;
 
+  /**
+   * List of currently selected widgets.
+   */
   public List selectedWidgets = new ArrayList();
 
   DragContext(DragController dragController) {

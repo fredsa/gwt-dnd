@@ -51,10 +51,10 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     super.onMove(context);
     int row = determineRow(context.movableWidget);
     Widget w = flexTable.getWidget(row == -1 ? 0 : row, 0);
-    Location widgetLocation = new WidgetLocation(w, context.dragController.getBoundaryPanel());
-    Location tableLocation = new WidgetLocation(flexTable, context.dragController.getBoundaryPanel());
-    context.dragController.getBoundaryPanel().add(getPositioner(), tableLocation.getLeft(),
-        widgetLocation.getTop() + (row == -1 ? 0 : w.getOffsetHeight()));
+    Location widgetLocation = new WidgetLocation(w, context.boundaryPanel);
+    Location tableLocation = new WidgetLocation(flexTable, context.boundaryPanel);
+    context.boundaryPanel.add(getPositioner(), tableLocation.getLeft(), widgetLocation.getTop()
+        + (row == -1 ? 0 : w.getOffsetHeight()));
   }
 
   public void onPreviewDrop(DragContext context) throws VetoDropException {
