@@ -27,7 +27,10 @@ public class DOMUtilImplSafari extends DOMUtilImplStandard {
   /*-{
     try {
       $wnd.getSelection().collapse();
-    } catch(e) { throw new Error("unselect exception:\n" + e); }
+    } catch(e) {
+      // ignore: Safari 3.0.4 (5523.10) on Mac OS X Version 10.5 (Leopard) is broken,
+      // causing "Error: TYPE_MISMATCH_ERR: DOM Exception 17" to be seen
+    }
   }-*/;
 
   public native int getBorderLeft(Element elem)
