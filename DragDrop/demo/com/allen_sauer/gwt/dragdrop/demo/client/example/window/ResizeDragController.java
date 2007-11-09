@@ -47,8 +47,8 @@ final class ResizeDragController extends AbstractDragController {
   public Widget dragStart() {
     super.dragStart();
     windowPanel = (WindowPanel) context.draggable.getParent().getParent();
-    Location location = new WidgetLocation(context.draggable, getBoundaryPanel());
-    getBoundaryPanel().add(dummyMovableWidget, location.getLeft(), location.getTop());
+    Location location = new WidgetLocation(context.draggable, context.boundaryPanel);
+    context.boundaryPanel.add(dummyMovableWidget, location.getLeft(), location.getTop());
     return dummyMovableWidget;
   }
 
@@ -74,6 +74,6 @@ final class ResizeDragController extends AbstractDragController {
     if (allowDroppingOnBoundaryPanel) {
       throw new IllegalArgumentException();
     }
-    return new ResizeDropController(getBoundaryPanel());
+    return new ResizeDropController(boundaryPanel);
   }
 }

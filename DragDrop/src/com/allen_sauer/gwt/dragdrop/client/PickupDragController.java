@@ -121,8 +121,8 @@ public class PickupDragController extends AbstractDragController {
     movablePanel.addStyleName(PRIVATE_CSS_MOVABLE_PANEL);
 
     // add movablePanel to boundary panel
-    WidgetLocation currentDraggableLocation = new WidgetLocation(context.draggable, getBoundaryPanel());
-    getBoundaryPanel().add(movablePanel, currentDraggableLocation.getLeft(), currentDraggableLocation.getTop());
+    WidgetLocation currentDraggableLocation = new WidgetLocation(context.draggable, context.boundaryPanel);
+    context.boundaryPanel.add(movablePanel, currentDraggableLocation.getLeft(), currentDraggableLocation.getTop());
 
     return movablePanel;
   }
