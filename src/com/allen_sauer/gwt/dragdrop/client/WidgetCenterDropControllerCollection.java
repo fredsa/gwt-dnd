@@ -62,7 +62,7 @@ final class WidgetCenterDropControllerCollection extends DropControllerCollectio
     Location widgetCenter = widgetArea.getCenter();
     Candidate result = null;
     int closestCenterDistanceToEdge = Integer.MAX_VALUE;
-    for (int i = 0; i < sortedCandidates.length; i++) {
+    for (int i = sortedCandidates.length - 1; i >= 0; i--) {
       Candidate candidate = sortedCandidates[i];
       Area targetArea = candidate.getTargetArea();
       if (targetArea.intersects(widgetArea)) {
