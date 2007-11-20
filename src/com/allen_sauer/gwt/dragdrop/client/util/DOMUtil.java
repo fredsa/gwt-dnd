@@ -41,7 +41,7 @@ public class DOMUtil {
    * TODO replace with DOM.isOrHasChild after GWT Issue 1218 is addressed
    */
   public static boolean contains(Element parent, Element child) {
-    return impl.contains(parent, child);
+    return impl.isOrContains(parent, child);
   }
 
   public static native void fastSetElementPosition(Element elem, int left, int top)
