@@ -54,6 +54,11 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
     } catch(e) { throw new Error("getClientWidth exception:\n" + e); }
   }-*/;
 
+  public native boolean isOrContains(Element parent, Element child)
+  /*-{
+    return parent.contains(child);
+  }-*/;
+
   public native void unselect()
   /*-{
     try {

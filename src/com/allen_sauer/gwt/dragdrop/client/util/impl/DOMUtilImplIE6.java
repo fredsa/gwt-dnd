@@ -47,6 +47,11 @@ public class DOMUtilImplIE6 extends DOMUtilImpl {
     return widget.getOffsetWidth() - getClientWidth(widget.getElement());
   }
 
+  public native boolean isOrContains(Element parent, Element child)
+  /*-{
+    return (parent.uniqueID == child.uniqueID) || parent.contains(child);
+  }-*/;
+
   public native void unselect()
   /*-{
     $doc.selection.empty();
