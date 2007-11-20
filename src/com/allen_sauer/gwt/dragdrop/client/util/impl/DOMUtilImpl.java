@@ -76,14 +76,6 @@ public abstract class DOMUtilImpl {
   }
 
   /**
-   * @see DOMUtil#isOrContains(Element, Element)
-   */
-  public native boolean isOrContains(Element parent, Element child)
-  /*-{
-    return parent.contains(child);
-  }-*/;
-
-  /**
    * @see DOMUtil#setStatus(String)
    */
   public final native void setStatus(String text)
