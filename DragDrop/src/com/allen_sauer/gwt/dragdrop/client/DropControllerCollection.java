@@ -15,9 +15,12 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
@@ -44,7 +47,21 @@ abstract class DropControllerCollection {
 
     public int compareTo(Object arg0) {
       Candidate other = (Candidate) arg0;
-      return DOMUtil.isOrContains(getDropTarget().getElement(), other.getDropTarget().getElement()) ? 1 : -1;
+
+      // TODO remove workaround for GWT issue 1583 (non-stable Arrays.sort), which should be fixed in GWT 1.5
+      if (dropController instanceof BoundaryDropController) {
+        return -1;
+      } else if (other.dropController instanceof BoundaryDropController) {
+        return 1;
+      }
+
+      Element myElement = getDropTarget().getElement();
+      Element otherElement = other.getDropTarget().getElement();
+      if (DOM.compare(myElement, otherElement)) {
+        return 0;
+      } else {
+        return DOMUtil.isOrContains(myElement, otherElement) ? -1 : 1;
+      }
     }
 
     DropController getDropController() {

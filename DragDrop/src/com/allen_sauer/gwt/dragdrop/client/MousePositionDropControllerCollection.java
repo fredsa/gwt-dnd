@@ -60,7 +60,7 @@ final class MousePositionDropControllerCollection extends DropControllerCollecti
    */
   DropController getIntersectDropController(Widget widget, int x, int y, Panel boundaryPanel) {
     Location location = new CoordinateLocation(x, y);
-    for (int i = 0; i < sortedCandidates.length; i++) {
+    for (int i = sortedCandidates.length - 1; i >= 0; i--) {
       Candidate candidate = sortedCandidates[i];
       Area targetArea = candidate.getTargetArea();
       if (targetArea.intersects(location)) {
