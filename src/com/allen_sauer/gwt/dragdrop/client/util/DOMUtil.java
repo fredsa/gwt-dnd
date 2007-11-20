@@ -31,19 +31,6 @@ public class DOMUtil {
     impl = (DOMUtilImpl) GWT.create(DOMUtilImpl.class);
   }
 
-  /**
-   * Determine whether one element is contained by another.
-   *
-   * @param parent the potential parent element
-   * @param child the potential child element
-   * @return <code>true</code> if the relationship holds
-   * 
-   * TODO replace with DOM.isOrHasChild after GWT Issue 1218 is addressed
-   */
-  public static boolean contains(Element parent, Element child) {
-    return impl.isOrContains(parent, child);
-  }
-
   public static native void fastSetElementPosition(Element elem, int left, int top)
   /*-{
     elem.style.left = left + "px";
@@ -118,6 +105,19 @@ public class DOMUtil {
    */
   public static int getVerticalBorders(Widget widget) {
     return impl.getVerticalBorders(widget);
+  }
+
+  /**
+   * Determine whether one element is contained by another.
+   *
+   * @param parent the potential parent element
+   * @param child the potential child element
+   * @return <code>true</code> if the relationship holds
+   * 
+   * TODO replace with DOM.isOrHasChild after GWT Issue 1218 is addressed
+   */
+  public static boolean isOrContains(Element parent, Element child) {
+    return impl.isOrContains(parent, child);
   }
 
   public static void setStatus(String text) {

@@ -15,9 +15,12 @@
  */
 package com.allen_sauer.gwt.dragdrop.client;
 
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
@@ -49,7 +52,21 @@ public class DropControllerCollection {
 
     public int compareTo(Object arg0) {
       Candidate other = (Candidate) arg0;
-      return DOMUtil.contains(getDropTarget().getElement(), other.getDropTarget().getElement()) ? 1 : -1;
+
+      // TODO remove workaround for GWT issue 1583 (non-stable Arrays.sort), which should be fixed in GWT 1.5
+      if (dropController instanceof BoundaryDropController) {
+        return -1;
+      } else if (other.dropController instanceof BoundaryDropController) {
+        return 1;
+      }
+
+      Element myElement = getDropTarget().getElement();
+      Element otherElement = other.getDropTarget().getElement();
+      if (DOM.compare(myElement, otherElement)) {
+        return 0;
+      } else {
+        return DOMUtil.isOrContains(myElement, otherElement) ? -1 : 1;
+      }
     }
 
     public DropController getDropController() {
@@ -93,14 +110,15 @@ public class DropControllerCollection {
     Area widgetArea = new WidgetArea(widget, null);
     Location widgetCenter = widgetArea.getCenter();
     Candidate result = null;
+    String t = "";
     int closestCenterDistanceToEdge = Integer.MAX_VALUE;
-    for (int i = 0; i < sortedCandidates.length; i++) {
+    for (int i = sortedCandidates.length - 1; i >= 0; i--) {
       Candidate candidate = sortedCandidates[i];
       Area targetArea = candidate.getTargetArea();
       if (targetArea.intersects(widgetArea)) {
         int widgetCenterDistanceToTargetEdge = targetArea.distanceToEdge(widgetCenter);
         if (widgetCenterDistanceToTargetEdge <= closestCenterDistanceToEdge) {
-          if (result == null || !DOMUtil.contains(candidate.getDropTarget().getElement(), result.getDropTarget().getElement())) {
+          if (result == null || !DOMUtil.isOrContains(candidate.getDropTarget().getElement(), result.getDropTarget().getElement())) {
             closestCenterDistanceToEdge = widgetCenterDistanceToTargetEdge;
             result = candidate;
           }
@@ -130,7 +148,7 @@ public class DropControllerCollection {
     for (Iterator iterator = iterator(); iterator.hasNext();) {
       DropController dropController = (DropController) iterator.next();
       Candidate candidate = new Candidate(dropController);
-      if (!DOMUtil.contains(draggable.getElement(), candidate.getDropTarget().getElement())) {
+      if (!DOMUtil.isOrContains(draggable.getElement(), candidate.getDropTarget().getElement())) {
         if (candidate.getTargetArea().intersects(boundaryArea)) {
           list.add(candidate);
         }
