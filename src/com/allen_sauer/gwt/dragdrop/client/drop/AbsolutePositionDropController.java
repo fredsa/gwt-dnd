@@ -57,6 +57,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   final AbsolutePanel dropTarget;
   int dropTargetClientHeight;
   int dropTargetClientWidth;
+  private int dropTargetOffsetX;
+  private int dropTargetOffsetY;
 
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {
     super(dropTarget);
@@ -93,6 +95,11 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     assert draggableList.size() == 0;
     dropTargetClientWidth = DOMUtil.getClientWidth(dropTarget.getElement());
     dropTargetClientHeight = DOMUtil.getClientHeight(dropTarget.getElement());
+
+    Location widgetLocation = new WidgetLocation(dropTarget, null);
+    dropTargetOffsetX = widgetLocation.getLeft() + DOMUtil.getBorderLeft(dropTarget.getElement());
+    dropTargetOffsetY = widgetLocation.getTop() + DOMUtil.getBorderTop(dropTarget.getElement());
+
     int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
     int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
     for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
@@ -116,11 +123,10 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   public void onMove(DragContext context) {
     super.onMove(context);
-    WidgetLocation referenceLocation = new WidgetLocation(context.draggable, dropTarget);
     for (Iterator iterator = draggableList.iterator(); iterator.hasNext();) {
       Draggable draggable = (Draggable) iterator.next();
-      draggable.desiredX = referenceLocation.getLeft() + draggable.relativeX;
-      draggable.desiredY = referenceLocation.getTop() + draggable.relativeY;
+      draggable.desiredX = context.desiredDraggableX - dropTargetOffsetX + draggable.relativeX;
+      draggable.desiredY = context.desiredDraggableY - dropTargetOffsetY + draggable.relativeY;
       draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth - draggable.offsetWidth));
       draggable.desiredY = Math.max(0, Math.min(draggable.desiredY, dropTargetClientHeight - draggable.offsetHeight));
       dropTarget.add(draggable.positioner, draggable.desiredX, draggable.desiredY);
