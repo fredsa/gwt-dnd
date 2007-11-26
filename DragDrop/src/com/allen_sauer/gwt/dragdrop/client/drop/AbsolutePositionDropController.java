@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,8 +56,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   final AbsolutePanel dropTarget;
   int dropTargetClientHeight;
   int dropTargetClientWidth;
-  private int dropTargetOffsetX;
-  private int dropTargetOffsetY;
+  int dropTargetOffsetX;
+  int dropTargetOffsetY;
 
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {
     super(dropTarget);
@@ -93,12 +92,11 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   public void onEnter(DragContext context) {
     super.onEnter(context);
     assert draggableList.size() == 0;
+
     dropTargetClientWidth = DOMUtil.getClientWidth(dropTarget.getElement());
     dropTargetClientHeight = DOMUtil.getClientHeight(dropTarget.getElement());
-
-    Location widgetLocation = new WidgetLocation(dropTarget, null);
-    dropTargetOffsetX = widgetLocation.getLeft() + DOMUtil.getBorderLeft(dropTarget.getElement());
-    dropTargetOffsetY = widgetLocation.getTop() + DOMUtil.getBorderTop(dropTarget.getElement());
+    dropTargetOffsetX = dropTarget.getAbsoluteLeft() + DOMUtil.getBorderLeft(dropTarget.getElement());
+    dropTargetOffsetY = dropTarget.getAbsoluteTop() + DOMUtil.getBorderTop(dropTarget.getElement());
 
     int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
     int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
