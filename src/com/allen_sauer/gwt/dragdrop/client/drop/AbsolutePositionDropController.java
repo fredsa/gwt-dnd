@@ -16,17 +16,17 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.AbsolutePositionDragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -35,9 +35,28 @@ import java.util.Iterator;
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
-  private static final Widget helperWidget = new SimplePanel();
-  private final HashMap dropLocations = new HashMap();
-  private final AbsolutePanel dropTarget;
+  static class Draggable {
+    public int desiredX;
+    public int desiredY;
+    public int relativeX;
+    public int relativeY;
+    final int offsetHeight;
+    final int offsetWidth;
+    Widget positioner;
+    final Widget widget;
+
+    public Draggable(Widget widget) {
+      this.widget = widget;
+      offsetWidth = widget.getOffsetWidth();
+      offsetHeight = widget.getOffsetHeight();
+    }
+  }
+
+  private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
+  final ArrayList draggableList = new ArrayList();
+  final AbsolutePanel dropTarget;
+  int dropTargetClientHeight;
+  int dropTargetClientWidth;
 
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {
     super(dropTarget);
@@ -55,74 +74,86 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    *            target
    */
   public void drop(Widget widget, int left, int top) {
+    left = Math.max(0, Math.min(left, dropTarget.getOffsetWidth() - widget.getOffsetWidth()));
+    top = Math.max(0, Math.min(top, dropTarget.getOffsetHeight() - widget.getOffsetHeight()));
     dropTarget.add(widget, left, top);
-    constrainedWidgetMove(widget, widget);
   }
 
-  public DragEndEvent onDrop(DragContext context) {
+  public void onDrop(DragContext context) {
+    for (Iterator iterator = draggableList.iterator(); iterator.hasNext();) {
+      Draggable draggable = (Draggable) iterator.next();
+      draggable.positioner.removeFromParent();
+      dropTarget.add(draggable.widget, draggable.desiredX, draggable.desiredY);
+    }
+    super.onDrop(context);
+  }
+
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
+    assert draggableList.size() == 0;
+    dropTargetClientWidth = DOMUtil.getClientWidth(dropTarget.getElement());
+    dropTargetClientHeight = DOMUtil.getClientHeight(dropTarget.getElement());
+    int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
+    int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
     for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
-      Location dropLocation = (Location) dropLocations.get(widget);
-      dropTarget.add(widget, dropLocation.getLeft(), dropLocation.getTop());
+      Draggable draggable = new Draggable(widget);
+      draggable.positioner = makePositioner(widget);
+      draggable.relativeX = widget.getAbsoluteLeft() - draggableAbsoluteLeft;
+      draggable.relativeY = widget.getAbsoluteTop() - draggableAbsoluteTop;
+      draggableList.add(draggable);
     }
-    dropLocations.clear();
-    return makeDragEndEvent(context);
+  }
+
+  public void onLeave(DragContext context) {
+    for (Iterator iterator = draggableList.iterator(); iterator.hasNext();) {
+      Draggable draggable = (Draggable) iterator.next();
+      draggable.positioner.removeFromParent();
+    }
+    draggableList.clear();
+    super.onLeave(context);
   }
 
   public void onMove(DragContext context) {
-    constrainedWidgetMove(context.movableWidget, getPositioner());
-  }
-
-  public void onPreviewDrop(DragContext context) throws VetoDropException {
-    WidgetLocation referenceLocation = new WidgetLocation(context.movableWidget, context.boundaryPanel);
-
-    // temporarily store widget drop locations for use in onDrop()
-    dropLocations.clear();
-
-    try {
-      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-        Widget widget = (Widget) iterator.next();
-        WidgetLocation relativeLocation = new WidgetLocation(widget, context.draggable);
-
-        // Use helper widget to determine constrained location
-        context.boundaryPanel.add(helperWidget, referenceLocation.getLeft() + relativeLocation.getLeft(),
-            referenceLocation.getTop() + relativeLocation.getTop());
-        helperWidget.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
-        Location dropLocation = getConstrainedLocation(helperWidget);
-        if (dropLocation == null) {
-          dropLocations.clear();
-          throw new VetoDropException();
-        }
-        dropLocations.put(widget, dropLocation);
-      }
-    } finally {
-      helperWidget.removeFromParent();
+    super.onMove(context);
+    WidgetLocation referenceLocation = new WidgetLocation(context.draggable, dropTarget);
+    for (Iterator iterator = draggableList.iterator(); iterator.hasNext();) {
+      Draggable draggable = (Draggable) iterator.next();
+      draggable.desiredX = referenceLocation.getLeft() + draggable.relativeX;
+      draggable.desiredY = referenceLocation.getTop() + draggable.relativeY;
+      draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth - draggable.offsetWidth));
+      draggable.desiredY = Math.max(0, Math.min(draggable.desiredY, dropTargetClientHeight - draggable.offsetHeight));
+      dropTarget.add(draggable.positioner, draggable.desiredX, draggable.desiredY);
     }
   }
 
   /**
-   * @deprecated Instead override {@link #onPreviewDrop(DragContext)}, {@link #onDrop(DragContext)} and {@link #drop(Widget, int, int)}.
+   * @deprecated No longer a part of the API.
    */
   protected final Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
     throw new UnsupportedOperationException();
   }
 
-  protected DragEndEvent makeDragEndEvent(DragContext context) {
-    Location location = new WidgetLocation(context.draggable, dropTarget);
-    return new AbsolutePositionDragEndEvent(context, location.getLeft(), location.getTop());
-  }
+  Widget makePositioner(Widget reference) {
+    // Use two widgets so that setPixelSize() consistently affects dimensions
+    // excluding positioner border in quirks and strict modes
+    SimplePanel outer = new SimplePanel();
+    outer.addStyleName(CSS_DRAGDROP_POSITIONER);
 
-  private void constrainedWidgetMove(Widget reference, Widget widget) {
-    Location location = getConstrainedLocation(reference);
-    if (location != null) {
-      dropTarget.add(widget, location.getLeft(), location.getTop());
-    }
-  }
+    // place off screen for border calculation
+    RootPanel.get().add(outer, -500, -500);
 
-  private Location getConstrainedLocation(Widget reference) {
-    WidgetLocation referenceLocation = new WidgetLocation(reference, dropTarget);
-    referenceLocation.constrain(0, 0, DOMUtil.getClientWidth(dropTarget.getElement()) - reference.getOffsetWidth(),
-        DOMUtil.getClientHeight(dropTarget.getElement()) - reference.getOffsetHeight());
-    return referenceLocation;
+    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid
+    // DOMUtil.getVerticalBorders(outer)
+    outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
+
+    SimplePanel inner = new SimplePanel();
+    int offsetWidth = reference.getOffsetWidth() - DOMUtil.getHorizontalBorders(outer);
+    int offsetHeight = reference.getOffsetHeight() - DOMUtil.getVerticalBorders(outer);
+    inner.setPixelSize(offsetWidth, offsetHeight);
+
+    outer.setWidget(inner);
+
+    return outer;
   }
 }

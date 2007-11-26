@@ -16,14 +16,15 @@
 package com.allen_sauer.gwt.dragdrop.demo.client.example.flextable;
 
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractPositioningDropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
+import com.allen_sauer.gwt.dragdrop.client.util.LocationWidgetComparator;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 /**
@@ -33,6 +34,25 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
   private static final String CSS_DEMO_TABLE_POSITIONER = "demo-table-positioner";
 
   private FlexTable flexTable;
+  private IndexedPanel flexTableRowsAsIndexPanel = new IndexedPanel() {
+    public Widget getWidget(int index) {
+      return flexTable.getWidget(index, 0);
+    }
+
+    public int getWidgetCount() {
+      return flexTable.getRowCount();
+    }
+
+    public int getWidgetIndex(Widget child) {
+      throw new UnsupportedOperationException();
+    }
+
+    public boolean remove(int index) {
+      throw new UnsupportedOperationException();
+    }
+  };
+
+  private Widget positioner;
   private int targetRow;
 
   public FlexTableRowDropController(FlexTable flexTable) {
@@ -40,53 +60,39 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     this.flexTable = flexTable;
   }
 
-  public DragEndEvent onDrop(DragContext context) {
-    super.onDrop(context);
+  public void onDrop(DragContext context) {
     FlexTableRowDragController trDragController = (FlexTableRowDragController) context.dragController;
     FlexTableUtil.moveRow(trDragController.getDraggableTable(), flexTable, trDragController.getDragRow(), targetRow + 1);
-    return new FlexTableRowDragEndEvent(context, targetRow + 1);
+    super.onDrop(context);
+  }
+
+  public void onEnter(DragContext context) {
+    super.onEnter(context);
+    positioner = newPositioner(context);
+  }
+
+  public void onLeave(DragContext context) {
+    positioner.removeFromParent();
+    positioner = null;
+    super.onLeave(context);
   }
 
   public void onMove(DragContext context) {
     super.onMove(context);
-    int row = determineRow(context.movableWidget);
-    Widget w = flexTable.getWidget(row == -1 ? 0 : row, 0);
+    targetRow = DOMUtil.findIntersect(flexTableRowsAsIndexPanel, context.makeMouseLocation(),
+        LocationWidgetComparator.BOTTOM_HALF_COMPARATOR) - 1;
+
+    Widget w = flexTable.getWidget(targetRow == -1 ? 0 : targetRow, 0);
     Location widgetLocation = new WidgetLocation(w, context.boundaryPanel);
     Location tableLocation = new WidgetLocation(flexTable, context.boundaryPanel);
-    context.boundaryPanel.add(getPositioner(), tableLocation.getLeft(), widgetLocation.getTop()
-        + (row == -1 ? 0 : w.getOffsetHeight()));
+    context.boundaryPanel.add(positioner, tableLocation.getLeft(), widgetLocation.getTop()
+        + (targetRow == -1 ? 0 : w.getOffsetHeight()));
   }
 
-  public void onPreviewDrop(DragContext context) throws VetoDropException {
-    super.onPreviewDrop(context);
-    targetRow = determineRow(context.movableWidget);
-  }
-
-  protected Widget newPositioner(Widget reference) {
+  Widget newPositioner(DragContext context) {
     Widget p = new SimplePanel();
     p.addStyleName(CSS_DEMO_TABLE_POSITIONER);
     p.setPixelSize(flexTable.getOffsetWidth(), 1);
     return p;
-  }
-
-  /**
-   * Determines where the reference widget is in relation to the rows of our
-   * drop target. Use the middle of the reference widget and the middle of the
-   * rows to decide to insert-before or insert-after.
-   * 
-   * @param reference widget whose position we compare to
-   * @return row number after which insertion is desired, or -1 to insert before
-   *         row 0
-   */
-  private int determineRow(Widget reference) {
-    int refY = reference.getAbsoluteTop() + reference.getOffsetHeight() / 2;
-    for (int row = flexTable.getRowCount() - 1; row >= 0; row--) {
-      Widget w = flexTable.getWidget(row, 0);
-      int y = w.getAbsoluteTop() + w.getOffsetHeight() / 2;
-      if (y < refY) {
-        return row;
-      }
-    }
-    return -1;
   }
 }

@@ -15,49 +15,64 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.window;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.AbstractDragController;
-import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.window.WindowPanel.DirectionConstant;
 
 import java.util.HashMap;
 
 final class ResizeDragController extends AbstractDragController {
+  private static final int MIN_WIDGET_SIZE = 10;
+
   private HashMap directionMap = new HashMap();
-  private Widget dummyMovableWidget = new HTML();
   private WindowPanel windowPanel;
 
   public ResizeDragController(AbsolutePanel boundaryPanel) {
-    super(boundaryPanel, false);
-    DOM.setStyleAttribute(dummyMovableWidget.getElement(), "visibility", "hidden");
+    super(boundaryPanel);
   }
 
-  public void dragEnd() {
-    super.dragEnd();
-    dummyMovableWidget.removeFromParent();
+  public void dragMove() {
+    int direction = ((ResizeDragController) context.dragController).getDirection(context.draggable).directionBits;
+    if ((direction & WindowPanel.DIRECTION_NORTH) != 0) {
+      int delta = context.draggable.getAbsoluteTop() - context.desiredDraggableY;
+      if (delta != 0) {
+        int contentHeight = windowPanel.getContentHeight();
+        int newHeight = Math.max(contentHeight + delta, MIN_WIDGET_SIZE);
+        if (newHeight != contentHeight) {
+          windowPanel.moveBy(0, contentHeight - newHeight);
+        }
+        windowPanel.setContentSize(windowPanel.getContentWidth(), newHeight);
+      }
+    } else if ((direction & WindowPanel.DIRECTION_SOUTH) != 0) {
+      int delta = context.desiredDraggableY - context.draggable.getAbsoluteTop();
+      if (delta != 0) {
+        windowPanel.setContentSize(windowPanel.getContentWidth(), windowPanel.getContentHeight() + delta);
+      }
+    }
+    if ((direction & WindowPanel.DIRECTION_WEST) != 0) {
+      int delta = context.draggable.getAbsoluteLeft() - context.desiredDraggableX;
+      if (delta != 0) {
+        int contentWidth = windowPanel.getContentWidth();
+        int newWidth = Math.max(contentWidth + delta, MIN_WIDGET_SIZE);
+        if (newWidth != contentWidth) {
+          windowPanel.moveBy(contentWidth - newWidth, 0);
+        }
+        windowPanel.setContentSize(newWidth, windowPanel.getContentHeight());
+      }
+    } else if ((direction & WindowPanel.DIRECTION_EAST) != 0) {
+      int delta = context.desiredDraggableX - context.draggable.getAbsoluteLeft();
+      if (delta != 0) {
+        windowPanel.setContentSize(windowPanel.getContentWidth() + delta, windowPanel.getContentHeight());
+      }
+    }
   }
 
-  public Widget dragStart() {
+  public void dragStart() {
     super.dragStart();
     windowPanel = (WindowPanel) context.draggable.getParent().getParent();
-    Location location = new WidgetLocation(context.draggable, context.boundaryPanel);
-    context.boundaryPanel.add(dummyMovableWidget, location.getLeft(), location.getTop());
-    return dummyMovableWidget;
-  }
-
-  public DirectionConstant getDirection(Widget draggable) {
-    return (DirectionConstant) directionMap.get(draggable);
-  }
-
-  public WindowPanel getWindowPanel() {
-    return windowPanel;
   }
 
   public void makeDraggable(Widget widget, WindowPanel.DirectionConstant direction) {
@@ -65,15 +80,14 @@ final class ResizeDragController extends AbstractDragController {
     directionMap.put(widget, direction);
   }
 
-  public void previewDragEnd() throws VetoDragException {
-    // we don't actually use the drop side of the drag-and-drop operation
-    throw new VetoDragException();
-  }
-
   protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
     if (allowDroppingOnBoundaryPanel) {
       throw new IllegalArgumentException();
     }
-    return new ResizeDropController(boundaryPanel);
+    return new BoundaryDropController(boundaryPanel, false);
+  }
+
+  private DirectionConstant getDirection(Widget draggable) {
+    return (DirectionConstant) directionMap.get(draggable);
   }
 }

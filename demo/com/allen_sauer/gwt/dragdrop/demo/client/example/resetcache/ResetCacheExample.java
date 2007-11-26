@@ -23,7 +23,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
@@ -34,7 +34,7 @@ public final class ResetCacheExample extends Example {
 
   private AbsolutePositionDropController containerDropController;
 
-  public ResetCacheExample(DragController dragController) {
+  public ResetCacheExample(PickupDragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_CACHE_EXAMPLE);
 

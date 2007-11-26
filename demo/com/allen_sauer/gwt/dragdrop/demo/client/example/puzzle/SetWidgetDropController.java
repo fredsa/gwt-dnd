@@ -18,7 +18,6 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.puzzle;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
@@ -34,16 +33,15 @@ public class SetWidgetDropController extends SimpleDropController {
     this.dropTarget = dropTarget;
   }
 
-  public DragEndEvent onDrop(DragContext context) {
-    DragEndEvent dragEndEvent = super.onDrop(context);
+  public void onDrop(DragContext context) {
     dropTarget.setWidget(context.draggable);
-    return dragEndEvent;
+    super.onDrop(context);
   }
 
   public void onPreviewDrop(DragContext context) throws VetoDropException {
-    super.onPreviewDrop(context);
     if (dropTarget.getWidget() != null) {
       throw new VetoDropException();
     }
+    super.onPreviewDrop(context);
   }
 }

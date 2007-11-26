@@ -40,7 +40,6 @@ import com.allen_sauer.gwt.dragdrop.demo.client.example.flowpanel.FlowPanelExamp
 import com.allen_sauer.gwt.dragdrop.demo.client.example.grid.GridConstrainedExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.indexedpanel.IndexedPanelExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.matryoshka.MatryoshkaExample;
-import com.allen_sauer.gwt.dragdrop.demo.client.example.nooverlap.NoOverlapExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.puzzle.PuzzleExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.resetcache.ResetCacheExample;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.window.WindowExample;
@@ -124,9 +123,9 @@ public final class DragDropDemo implements EntryPoint {
     VerticalPanel configurationPanel = new VerticalPanel();
     configurationPanel.setWidth("200px");
     configurationPanel.add(new DragProxyBehaviorPanel(dragController));
-    configurationPanel.add(new TargetSelectionBehaviorPanel(dragController));
     configurationPanel.add(new ConstrainedToBoundaryBehaviorPanel(dragController));
     configurationPanel.add(new MultipleSelectionBehaviorPanel(dragController));
+    configurationPanel.add(new DragStartSensitivityBehaviorPanel(dragController));
     boundaryPanel.add(configurationPanel, 10, 0);
 
     // Create some draggable widgets to play with
@@ -158,15 +157,13 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new FlowPanelExample(dragController));
 
     examples.add(new IndexedPanelExample(demoDragHandler));
-    examples.add(new NoOverlapExample(dragController));
     examples.add(new FlexTableRowExample(demoDragHandler));
     examples.add(new WindowExample(demoDragHandler));
-
     examples.add(new DragHandleExample(demoDragHandler));
+
     examples.add(new DualListExample(demoDragHandler));
     examples.add(new PuzzleExample(demoDragHandler));
     examples.add(new MatryoshkaExample(demoDragHandler));
-
     examples.add(new ResetCacheExample(dragController));
 
     // select the first example

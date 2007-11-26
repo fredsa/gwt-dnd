@@ -23,14 +23,20 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.client.util.Area;
+import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * Package private helper implementation class for {@link AbstractDragController}
  * to track all relevant {@link DropController DropControllers}.
  */
-abstract class DropControllerCollection {
+class DropControllerCollection {
   protected static class Candidate implements Comparable {
     private final DropController dropController;
     private Area targetArea;
@@ -77,28 +83,36 @@ abstract class DropControllerCollection {
     }
   }
 
+  private final ArrayList dropControllerList;
+  private Candidate[] sortedCandidates;
+
   /**
    * Default constructor.
    */
-  protected DropControllerCollection() {
+  DropControllerCollection(ArrayList dropControllerList) {
+    this.dropControllerList = dropControllerList;
   }
 
   /**
    * Determines which DropController represents the deepest DOM descendant
-   * drop target located at the provided location <code>(x, y)</code> or which suitably
-   * intersects with <code>widget</code>.
+   * drop target located at the provided location <code>(x, y)</code>.
    * 
-   * @param widget draggable or its proxy widget
    * @param x offset left relative to document body
    * @param y offset top relative to document body
-   * @param boundaryPanel the panel which provides the boundaries for the drag
-   *                      controller. Drop targets must be within this are to be
-   *                      considered
-   * 
    * @return a drop controller for the intersecting drop target or <code>null</code> if none
    *         are applicable
    */
-  abstract DropController getIntersectDropController(Widget widget, int x, int y, Panel boundaryPanel);
+  DropController getIntersectDropController(int x, int y) {
+    Location location = new CoordinateLocation(x, y);
+    for (int i = sortedCandidates.length - 1; i >= 0; i--) {
+      Candidate candidate = sortedCandidates[i];
+      Area targetArea = candidate.getTargetArea();
+      if (targetArea.intersects(location)) {
+        return candidate.getDropController();
+      }
+    }
+    return null;
+  }
 
   /**
    * Cache a list of eligible drop controllers, sorted by relative DOM positions
@@ -109,5 +123,22 @@ abstract class DropControllerCollection {
    *            considerations
    * @param draggable
    */
-  abstract void resetCache(Panel boundaryPanel, Widget draggable);
+  void resetCache(Panel boundaryPanel, Widget draggable) {
+    WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
+
+    ArrayList list = new ArrayList();
+    for (Iterator iterator = dropControllerList.iterator(); iterator.hasNext();) {
+      DropController dropController = (DropController) iterator.next();
+      Candidate candidate = new Candidate(dropController);
+      if (DOMUtil.isOrContains(draggable.getElement(), candidate.getDropTarget().getElement())) {
+        continue;
+      }
+      if (candidate.getTargetArea().intersects(boundaryArea)) {
+        list.add(candidate);
+      }
+    }
+
+    sortedCandidates = (Candidate[]) list.toArray(new Candidate[] {});
+    Arrays.sort(sortedCandidates);
+  }
 }

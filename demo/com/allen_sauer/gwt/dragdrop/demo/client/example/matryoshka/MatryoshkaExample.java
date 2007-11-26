@@ -17,7 +17,6 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.matryoshka;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
@@ -46,7 +45,7 @@ public final class MatryoshkaExample extends Example {
         * (CELL_HEIGHT + CELL_SPACER) + 2 * CELL_SPACER);
 
     // initialize our drag controller
-    DragController dragController = new PickupDragController(boundaryPanel, true);
+    PickupDragController dragController = new PickupDragController(boundaryPanel, true);
     dragController.addDragHandler(demoDragHandler);
 
     // create our grid of draggable drop target widgets

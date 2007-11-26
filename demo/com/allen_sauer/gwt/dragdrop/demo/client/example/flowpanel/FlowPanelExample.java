@@ -19,7 +19,7 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.FlowPanelDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
@@ -34,7 +34,7 @@ public final class FlowPanelExample extends Example {
 
   private FlowPanel flowPanelDropTarget;
 
-  public FlowPanelExample(DragController dragController) {
+  public FlowPanelExample(PickupDragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_FLOW_PANEL_EXAMPLE);
     flowPanelDropTarget = new FlowPanel();

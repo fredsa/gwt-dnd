@@ -81,8 +81,7 @@ public final class WindowExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {
-        WindowExample.class, WindowController.class, WindowPanel.class, ResizeDropController.class, ResizeDragController.class,};
+    return new Class[] {WindowExample.class, WindowController.class, WindowPanel.class, ResizeDragController.class,};
   }
 
   private Frame getIframe(String url) {

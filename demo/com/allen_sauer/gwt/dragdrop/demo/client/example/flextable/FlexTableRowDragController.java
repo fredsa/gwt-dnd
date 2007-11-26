@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 
@@ -28,7 +27,6 @@ import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
  * Allows table rows to dragged by their handle.
  */
 public final class FlexTableRowDragController extends PickupDragController {
-  private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING = "demo-FlexTableRowExample-dragging";
   private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY = "demo-FlexTableRowExample-table-proxy";
   private FlexTable draggableTable;
   private int dragRow;
@@ -39,28 +37,8 @@ public final class FlexTableRowDragController extends PickupDragController {
   }
 
   public void dragEnd() {
-    draggableTable.getRowFormatter().removeStyleName(dragRow, CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING);
     super.dragEnd();
-  }
 
-  public Widget dragStart() {
-    draggableTable = (FlexTable) context.draggable.getParent();
-    dragRow = getWidgetRow(context.draggable, draggableTable);
-    draggableTable.getRowFormatter().addStyleName(dragRow, CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_DRAGGING);
-
-    return super.dragStart();
-  }
-
-  public FlexTable getDraggableTable() {
-    return draggableTable;
-  }
-
-  public int getDragRow() {
-    return dragRow;
-  }
-
-  public void notifyDragEnd(DragEndEvent dragEndEvent) {
-    super.notifyDragEnd(dragEndEvent);
     // cleanup
     draggableTable = null;
   }
@@ -84,20 +62,18 @@ public final class FlexTableRowDragController extends PickupDragController {
     FlexTable proxy;
     proxy = new FlexTable();
     proxy.addStyleName(CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY);
+    draggableTable = (FlexTable) context.draggable.getParent();
+    dragRow = getWidgetRow(context.draggable, draggableTable);
     FlexTableUtil.copyRow(draggableTable, proxy, dragRow, 0);
     return proxy;
   }
 
-  protected void restoreSelectedWidgetsLocation() {
-    // Nothing to restore because we use a drag proxy
+  FlexTable getDraggableTable() {
+    return draggableTable;
   }
 
-  protected void restoreSelectedWidgetsStyle() {
-    // Nothing to restore because we use a drag proxy
-  }
-
-  protected void saveSelectedWidgetsLocationAndStyle() {
-    // Nothing to save because we use a drag proxy
+  int getDragRow() {
+    return dragRow;
   }
 
   private int getWidgetRow(Widget widget, FlexTable table) {

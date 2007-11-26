@@ -18,15 +18,13 @@ package com.allen_sauer.gwt.dragdrop.client.util.impl;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
-
 /**
  * {@link com.allen_sauer.gwt.dragdrop.client.util.DOMUtil} default
  * cross-browser implementation.
  */
 public abstract class DOMUtilImpl {
   /**
-   * @see DOMUtil#cancelAllDocumentSelections()
+   * @see com.allen_sauer.gwt.dragdrop.client.util.DOMUtil#cancelAllDocumentSelections()
    */
   public native void cancelAllDocumentSelections()
   /*-{
@@ -34,34 +32,34 @@ public abstract class DOMUtilImpl {
   }-*/;
 
   /**
-   * @see DOMUtil#getBorderLeft(Element)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.DOMUtil#getBorderLeft(Element)
    */
   public abstract int getBorderLeft(Element elem);
 
   /**
-   * @see DOMUtil#getBorderTop(Element)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.DOMUtil#getBorderTop(Element)
    */
   public abstract int getBorderTop(Element elem);
 
   /**
-   * @see DOMUtil#getClientHeight(Element)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.DOMUtil#getClientHeight(Element)
    */
   public abstract int getClientHeight(Element elem);
 
   /**
-   * @see DOMUtil#getClientWidth(Element)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.DOMUtil#getClientWidth(Element)
    */
   public abstract int getClientWidth(Element elem);
 
   /**
-   * @see DOMUtil#getHorizontalBorders(Widget)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.DOMUtil#getHorizontalBorders(Widget)
    */
   public final int getHorizontalBorders(Widget widget) {
     return widget.getOffsetWidth() - getClientWidth(widget.getElement());
   }
 
   /**
-   * @see DOMUtil#getNodeName(Element)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.DOMUtil#getNodeName(Element)
    */
   public final native String getNodeName(Element elem)
   /*-{
@@ -69,7 +67,7 @@ public abstract class DOMUtilImpl {
   }-*/;
 
   /**
-   * @see DOMUtil#getVerticalBorders(Widget)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.DOMUtil#getVerticalBorders(Widget)
    */
   public final int getVerticalBorders(Widget widget) {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
@@ -78,7 +76,7 @@ public abstract class DOMUtilImpl {
   public abstract boolean isOrContains(Element parent, Element child);
 
   /**
-   * @see DOMUtil#setStatus(String)
+   * @see com.allen_sauer.gwt.dragdrop.client.util.DOMUtil#setStatus(String)
    */
   public final native void setStatus(String text)
   /*-{

@@ -16,6 +16,8 @@
 package com.allen_sauer.gwt.dragdrop.client.drop;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
 
@@ -57,5 +59,13 @@ public class BoundaryDropController extends AbsolutePositionDropController {
    */
   public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
     this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
+  }
+
+  Widget makePositioner(Widget reference) {
+    if (allowDroppingOnBoundaryPanel) {
+      return super.makePositioner(reference);
+    } else {
+      return new SimplePanel();
+    }
   }
 }

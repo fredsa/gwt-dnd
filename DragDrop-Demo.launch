@@ -23,5 +23,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.GWTShell"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-out www com.allen_sauer.gwt.dragdrop.demo.DragDropDemo/DragDropDemo.html&#13;&#10;-style PRETTY&#13;&#10;-whitelist ^http[:][/][/]code[.]google[.]com/*"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="DragDrop"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-enableassertions"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-enableassertions&#13;&#10;-Dgwt.shell.endquick="/>
 </launchConfiguration>
