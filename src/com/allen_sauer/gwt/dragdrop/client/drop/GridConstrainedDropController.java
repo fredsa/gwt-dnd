@@ -19,7 +19,6 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
 import java.util.Iterator;
 
@@ -47,11 +46,10 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
 
   public void onMove(DragContext context) {
     super.onMove(context);
-    WidgetLocation referenceLocation = new WidgetLocation(context.draggable, dropTarget);
     for (Iterator iterator = draggableList.iterator(); iterator.hasNext();) {
       Draggable draggable = (Draggable) iterator.next();
-      draggable.desiredX = referenceLocation.getLeft() + draggable.relativeX;
-      draggable.desiredY = referenceLocation.getTop() + draggable.relativeY;
+      draggable.desiredX = context.desiredDraggableX - dropTargetOffsetX + draggable.relativeX;
+      draggable.desiredY = context.desiredDraggableY - dropTargetOffsetY + draggable.relativeY;
       draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth - draggable.offsetWidth));
       draggable.desiredY = Math.max(0, Math.min(draggable.desiredY, dropTargetClientHeight - draggable.offsetHeight));
       draggable.desiredX = Math.round((float) draggable.desiredX / gridX) * gridX;
