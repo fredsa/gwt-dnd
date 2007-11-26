@@ -16,8 +16,8 @@
 package com.allen_sauer.gwt.dragdrop.demo.client.example.duallist;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractDropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
 /**
  * DropController for {@link DualListExample}.
@@ -36,11 +36,11 @@ public class ListBoxDropController extends AbstractDropController {
     super.onDrop(context);
   }
 
-  public void onPreviewDrop(DragContext context) throws VetoDropException {
+  public void onPreviewDrop(DragContext context) throws VetoDragException {
     MouseListBox from = (MouseListBox) context.draggable;
     // TODO avoid this
     if (from == mouseListBox) {
-      throw new VetoDropException();
+      throw new VetoDragException();
     }
     super.onPreviewDrop(context);
   }

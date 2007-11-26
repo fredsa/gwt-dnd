@@ -18,8 +18,8 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.bin;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
 import java.util.Iterator;
 
@@ -63,10 +63,10 @@ final class BinDropController extends SimpleDropController {
     super.onLeave(context);
   }
 
-  public void onPreviewDrop(DragContext context) throws VetoDropException {
+  public void onPreviewDrop(DragContext context) throws VetoDragException {
     super.onPreviewDrop(context);
     if (!bin.isWidgetEater()) {
-      throw new VetoDropException();
+      throw new VetoDragException();
     }
   }
 }
