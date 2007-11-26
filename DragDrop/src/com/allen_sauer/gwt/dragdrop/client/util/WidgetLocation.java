@@ -32,12 +32,12 @@ public class WidgetLocation extends AbstractLocation {
   private int widgetTop;
 
   /**
-   * Determine location of widget relative boundaryPanel such that
-   * <code>boundaryPanel.add(widget, location.getLeft(), location.getTop())</code>
-   * leaves the object in the exact same location on the screen. Note that
-   * boundaryPanel need not be the parent node, or even an ancestor of widget.
-   * Therefore coordinates returned may be negative or may exceed the dimensions
-   * of boundaryPanel.
+   * Determine location of <code>widget</code> relative to <code>reference</code>,
+   * such that <code>referencePanel.add(widget, location.getLeft(), location.getTop())</code>
+   * leaves the widget in the exact same location on the screen. Note that
+   * <code>reference</code> need not be the parent node, or even an ancestor of
+   * <code>widget</code>. Therefore coordinates returned may be negative or may
+   * exceed the dimensions of <code>reference</code>.
    * 
    * @param widget the widget whose coordinates we seek
    * @param reference the widget relative to which we seek our coordinates

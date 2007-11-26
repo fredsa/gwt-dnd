@@ -31,6 +31,6 @@ public class DragStartEvent extends EventObject {
    * Return a string representation of this event.
    */
   public String toString() {
-    return "DragStartEvent(source=" + StringUtil.getShortTypeName(getSource()) + ")";
+    return "DragStartEvent(context=" + StringUtil.getShortTypeName(getSource()) + ")";
   }
 }

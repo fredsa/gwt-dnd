@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.matryoshka;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.FocusPanel;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
 /**
@@ -26,10 +26,10 @@ import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
  */
 public class RGBFocusPanel extends FocusPanel {
   private static final String CSS_DEMO_RGB_FOCUS_PANEL = "demo-rgb-focus-panel";
-  private final DragController dragController;
+  private final PickupDragController dragController;
   private DropController dropController = new MatryoshkaSetWidgetDropController(this);
 
-  public RGBFocusPanel(DragController dragController, int width, int height, int red, int green, int blue) {
+  public RGBFocusPanel(PickupDragController dragController, int width, int height, int red, int green, int blue) {
     this.dragController = dragController;
     addStyleName(CSS_DEMO_RGB_FOCUS_PANEL);
     DOM.setStyleAttribute(getElement(), "backgroundColor", "rgb(" + red + ", " + green + ", " + blue + ")");

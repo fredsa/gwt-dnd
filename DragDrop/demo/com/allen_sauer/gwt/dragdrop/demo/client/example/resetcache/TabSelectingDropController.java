@@ -23,7 +23,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.AbstractDragController;
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractDropController;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 
@@ -39,9 +38,7 @@ public class TabSelectingDropController extends AbstractDropController {
     this.tabIndex = tabIndex;
   }
 
-  public DragEndEvent onDrop(DragContext context) {
-    DragEndEvent dragEndEvent = super.onDrop(context);
-
+  public void onDrop(DragContext context) {
     // assume content widget is an AbsolutePanel for now
     AbsolutePanel absolutePanel = (AbsolutePanel) tabPanel.getWidget(tabIndex);
 
@@ -58,19 +55,12 @@ public class TabSelectingDropController extends AbstractDropController {
       absolutePanel.add(widget, left, top);
       DOM.setStyleAttribute(widget.getElement(), "visibility", "");
     }
-
-    // return drag end event, which will have come from our makeDragEndEvent()
-    return dragEndEvent;
+    super.onDrop(context);
   }
 
   public void onEnter(DragContext context) {
     super.onEnter(context);
     tabPanel.selectTab(tabIndex);
     ((AbstractDragController) context.dragController).resetCache();
-  }
-
-  protected DragEndEvent makeDragEndEvent(DragContext context) {
-    // TODO provide tabPanel.getWidget(tabIndex) as the real dropTarget for DragEndEvent
-    return new DragEndEvent(context);
   }
 }

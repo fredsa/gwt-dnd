@@ -27,7 +27,7 @@ import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
  */
 public abstract class AbstractDropController implements DropController {
   /**
-   * @deprecated Use {@link #PRIVATE_CSS_DROP_TARGET_ENGAGE} instead
+   * @deprecated Instead selectively use your own CSS classes.
    */
   protected static final String CSS_DROP_TARGET_ENGAGE;
 
@@ -46,7 +46,7 @@ public abstract class AbstractDropController implements DropController {
   }
 
   /**
-   * @deprecated No longer part of gwt-dnd 2.x API.
+   * @deprecated No longer a part of the API.
    */
   public DragController getCurrentDragController() {
     throw new UnsupportedOperationException();
@@ -57,26 +57,20 @@ public abstract class AbstractDropController implements DropController {
   }
 
   /**
-   * @deprecated Never part of the a released API.
+   * @deprecated Never part of the released API.
    */
   public final String getDropTargetEngageStyleName() {
     throw new UnsupportedOperationException();
   }
 
   /**
-   * @deprecated No longer part of gwt-dnd 2.x API.
+   * @deprecated No longer a part of the API.
    */
   public final String getDropTargetStyleName() {
     throw new UnsupportedOperationException();
   }
 
-  /**
-   * When overriding this method's drop behavior, be sure to also override
-   * {@link #makeDragEndEvent(DragContext)}, which is
-   * called as a part of this method invocation to create the return value.
-   */
-  public DragEndEvent onDrop(DragContext context) {
-    return makeDragEndEvent(context);
+  public void onDrop(DragContext context) {
   }
 
   public final DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController) {
@@ -122,20 +116,14 @@ public abstract class AbstractDropController implements DropController {
   }
 
   /**
-   * Called by {@link AbstractDropController#onDrop(DragContext)} to
-   * generate a {@link DragEndEvent}. Implementing classes should override this method when
-   * then override the {@link AbstractDropController#onDrop(DragContext)}
-   * behavior.
-   * 
-   * @param context the current drag context from {@link #onDrop(DragContext)}
-   * @return the new DragEndEvent
+   * @deprecated No longer a part of the API.
    */
-  protected DragEndEvent makeDragEndEvent(DragContext context) {
-    return new DragEndEvent(context);
+  protected final DragEndEvent makeDragEndEvent(DragContext context) {
+    throw new UnsupportedOperationException();
   }
 
   /**
-   * @deprecated Use {@link #makeDragEndEvent(DragContext)} instead.
+   * @deprecated No longer a part of the API.
    */
   protected final DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
     throw new UnsupportedOperationException();

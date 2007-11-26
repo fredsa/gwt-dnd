@@ -19,13 +19,13 @@ import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 
 class MultipleSelectionBehaviorPanel extends BehaviorPanel {
-  public MultipleSelectionBehaviorPanel(final DragController dragController) {
+  public MultipleSelectionBehaviorPanel(final PickupDragController dragController) {
     super("Multiple Selections", "getBehaviorMultipleSelection() / setBehaviorMultipleSelection(boolean)");
 
-    final RadioButton constrainedButton = newButton("Allow via <code>CTRL</code>-click",
+    final RadioButton constrainedButton = newButton("Allow via <code>CTRL</code>/<code>META</code>-click",
         "DragController#setBehaviorMultipleSelection(true)");
     final RadioButton unconstrainedButton = newButton("Single widget drag only",
         "DragController#setBehaviorMultipleSelection(false)");

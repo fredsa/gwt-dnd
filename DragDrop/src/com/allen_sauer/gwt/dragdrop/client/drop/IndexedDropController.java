@@ -18,11 +18,17 @@ package com.allen_sauer.gwt.dragdrop.client.drop;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IndexedPanel;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.util.Location;
-import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
+import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
+import com.allen_sauer.gwt.dragdrop.client.util.LocationWidgetComparator;
+
+import java.util.Iterator;
 
 /**
  * A {@link DropController} for instances of {@link IndexedPanel}.
@@ -32,7 +38,7 @@ import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
 public class IndexedDropController extends AbstractIndexedDropController {
-  private static final String CSS_DRAGDROP_INDEXED_POSITIONER = "dragdrop-indexed-positioner";
+  private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
 
   private IndexedPanel dropTarget;
 
@@ -44,50 +50,58 @@ public class IndexedDropController extends AbstractIndexedDropController {
     this.dropTarget = dropTarget;
   }
 
+  protected LocationWidgetComparator getLocationWidgetComparator() {
+    if (dropTarget instanceof HorizontalPanel) {
+      return LocationWidgetComparator.RIGHT_HALF_COMPARATOR;
+    } else {
+      return LocationWidgetComparator.BOTTOM_HALF_COMPARATOR;
+    }
+  }
+
   // TODO remove after enhancement for issue 1112 provides InsertPanel interface
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
   protected void insert(Widget widget, int beforeIndex) {
     if (dropTarget instanceof HorizontalPanel) {
       ((HorizontalPanel) dropTarget).insert(widget, beforeIndex);
-    } else if (dropTarget instanceof VerticalPanel) {
+    } else {
       ((VerticalPanel) dropTarget).insert(widget, beforeIndex);
-    } else {
-      throw new RuntimeException("Method insert(Widget widget, int beforeIndex) not supported by " + GWT.getTypeName(dropTarget));
     }
   }
 
-  /**
-   * Determine whether or not <code>location</code> indicates insertion
-   * following widget.
-   * 
-   * <ul>
-   *    <li>When <code>dropTarget instanceof HorizontalPanel</code>,
-   *        determine if location is to the right of area's center.
-   *    </li>
-   *    <li>When <code>dropTarget instanceof VerticalPanel</code>,
-   *        determine if location is below area'a center.
-   *    </li>
-   *    <li>Otherwise default to
-   *        <code>{@link WidgetArea#inBottomRight(Location)}</code>.
-   *    </li>
-   * </ul>
-   * 
-   * @param location the location to consider
-   * @return true if the location is indicates an index position following the widget
-   */
-  protected boolean locationIndicatesIndexFollowingWidget(WidgetArea widgetArea, Location location) {
+  Widget newPositioner(DragContext context) {
+    // Use two widgets so that setPixelSize() consistently affects dimensions
+    // excluding positioner border in quirks and strict modes
+    SimplePanel outer = new SimplePanel();
+    outer.addStyleName(CSS_DRAGDROP_POSITIONER);
+
+    // place off screen for border calculation
+    RootPanel.get().add(outer, -500, -500);
+
+    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid
+    // DOMUtil.getVerticalBorders(outer)
+    outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
+
+    int width = 0;
+    int height = 0;
     if (dropTarget instanceof HorizontalPanel) {
-      return location.getLeft() > widgetArea.getLeft() + widgetArea.getWidth() / 2;
-    } else if (dropTarget instanceof VerticalPanel) {
-      return location.getTop() > widgetArea.getTop() + widgetArea.getHeight() / 2;
+      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+        Widget widget = (Widget) iterator.next();
+        width += widget.getOffsetWidth();
+        height = Math.max(height, widget.getOffsetHeight());
+      }
     } else {
-      return widgetArea.inBottomRight(location);
+      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+        Widget widget = (Widget) iterator.next();
+        width = Math.max(width, widget.getOffsetWidth());
+        height += widget.getOffsetHeight();
+      }
     }
-  }
 
-  protected Widget newPositioner(Widget reference) {
-    Widget positioner = super.newPositioner(reference);
-    positioner.addStyleName(CSS_DRAGDROP_INDEXED_POSITIONER);
-    return positioner;
+    SimplePanel inner = new SimplePanel();
+    inner.setPixelSize(width - DOMUtil.getHorizontalBorders(outer), height - DOMUtil.getVerticalBorders(outer));
+
+    outer.setWidget(inner);
+
+    return outer;
   }
 }

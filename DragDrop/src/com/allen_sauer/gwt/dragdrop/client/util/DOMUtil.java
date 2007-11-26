@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dragdrop.client.util;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.util.impl.DOMUtilImpl;
@@ -41,7 +41,7 @@ public class DOMUtil {
 
   /**
    * Set an element's location as fast as possible, avoiding some of the overhead in
-   * {@link AbsolutePanel#setWidgetPosition(Widget, int, int)}.
+   * {@link com.google.gwt.user.client.ui.AbsolutePanel#setWidgetPosition(Widget, int, int)}.
    * 
    * @param elem the element's whose position is to be modified
    * @param left the left pixel offset
@@ -52,6 +52,55 @@ public class DOMUtil {
     elem.style.left = left + "px";
     elem.style.top = top + "px";
   }-*/;
+
+  /**
+   * TODO Handle LTR case once Bidi support is part of GWT.
+   */
+  public static int findIntersect(IndexedPanel parent, Location location, LocationWidgetComparator comparator) {
+    int widgetCount = parent.getWidgetCount();
+
+    // short circuit in case dropTarget has no children
+    if (widgetCount == 0) {
+      return 0;
+    }
+
+    // binary search over range of widgets to find intersection
+    int low = 0;
+    int high = widgetCount;
+
+    while (true) {
+      int mid = (low + high) / 2;
+      assert mid >= low;
+      assert mid < high;
+      WidgetArea midArea = new WidgetArea(parent.getWidget(mid), null);
+      if (mid == low) {
+        if (mid == 0) {
+          if (comparator.locationIndicatesIndexFollowingWidget(midArea, location)) {
+            return high;
+          } else {
+            return mid;
+          }
+        } else {
+          return high;
+        }
+      }
+      if (midArea.getBottom() < location.getTop()) {
+        low = mid;
+      } else if (midArea.getTop() > location.getTop()) {
+        high = mid;
+      } else if (midArea.getRight() < location.getLeft()) {
+        low = mid;
+      } else if (midArea.getLeft() > location.getLeft()) {
+        high = mid;
+      } else {
+        if (comparator.locationIndicatesIndexFollowingWidget(midArea, location)) {
+          return mid + 1;
+        } else {
+          return mid;
+        }
+      }
+    }
+  }
 
   /**
    * Gets an element's CSS based 'border-left-width' in pixels or <code>0</code>

@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.bin;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
@@ -31,7 +31,7 @@ public final class BinExample extends Example {
 
   private AbsolutePositionDropController dropController;
 
-  public BinExample(DragController dragController) {
+  public BinExample(PickupDragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_BIN_EXAMPLE);
 

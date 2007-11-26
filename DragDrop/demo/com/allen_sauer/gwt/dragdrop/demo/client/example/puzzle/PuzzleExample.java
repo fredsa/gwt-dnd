@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.DraggableFactory;
@@ -38,7 +37,7 @@ public class PuzzleExample extends Example {
   private static final int IMAGE_HEIGHT = 58;
   private static final int IMAGE_WIDTH = 65;
   private static final int ROWS = 4;
-  private DragController dragController;
+  private PickupDragController dragController;
 
   public PuzzleExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_PUZZLE_EXAMPLE);

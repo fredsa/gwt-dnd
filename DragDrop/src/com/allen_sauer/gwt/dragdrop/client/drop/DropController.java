@@ -44,12 +44,11 @@ public interface DropController {
    * @see #onPreviewDrop(DragContext)
    * 
    * @param context the current drag context
-   * @return event representing the drop action
    */
-  DragEndEvent onDrop(DragContext context);
+  void onDrop(DragContext context);
 
   /**
-   * @deprecated Use {@link #onDrop(DragContext)} instead.
+   * @deprecated Use {@link #onDrop(DragContext)} and {@link #onLeave(DragContext)} instead.
    */
   DragEndEvent onDrop(Widget reference, Widget draggable, DragController dragController);
 

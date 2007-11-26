@@ -30,6 +30,7 @@ public class DragEndEvent extends EventObject {
   public DragEndEvent(DragContext context) {
     super(context.draggable);
     this.context = context;
+    assert context.finalDropController == null == (context.vetoException != null);
   }
 
   /**
@@ -52,8 +53,12 @@ public class DragEndEvent extends EventObject {
    * Return a string representation of this event.
    */
   public String toString() {
-    String dropTargetText = context.dropController != null ? "dropTarget="
-        + StringUtil.getShortTypeName(context.dropController.getDropTarget()) : "[cancelled]";
-    return "DragEndEvent(" + dropTargetText + ", source=" + StringUtil.getShortTypeName(getSource()) + ")";
+    String dropTargetText;
+    if (context.finalDropController != null) {
+      dropTargetText = "dropTarget=" + StringUtil.getShortTypeName(context.finalDropController.getDropTarget());
+    } else {
+      dropTargetText = "[cancelled: " + context.vetoException + "]";
+    }
+    return "DragEndEvent(" + dropTargetText + ", context=" + StringUtil.getShortTypeName(getSource()) + ")";
   }
 }

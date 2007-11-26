@@ -31,17 +31,26 @@ public class DragHandlerCollection extends ArrayList {
    * Fires a {@link DragHandler#onDragEnd(DragEndEvent)} on all handlers in the
    * collection.
    * 
-   * @param dragEndEvent the event to pass
+   * @param context current drag context
    */
-  public void fireDragEnd(DragEndEvent dragEndEvent) {
+  public void fireDragEnd(DragContext context) {
+    DragEndEvent event = new DragEndEvent(context);
+
     for (Iterator it = iterator(); it.hasNext();) {
       DragHandler handler = (DragHandler) it.next();
-      handler.onDragEnd(dragEndEvent);
+      handler.onDragEnd(event);
     }
   }
 
   /**
-   * Fires a {@link DragHandler#onDragStart(DragContext)} on all handlers in
+   * @deprecated Use {@link #fireDragEnd(DragContext)} instead.
+   */
+  public void fireDragEnd(DragEndEvent dragEndEvent) {
+    throw new UnsupportedOperationException();
+  }
+
+  /**
+   * Fires a {@link DragHandler#onDragStart(DragStartEvent)} on all handlers in
    * the collection.
    * 
    * @param context current drag context
@@ -63,7 +72,7 @@ public class DragHandlerCollection extends ArrayList {
   }
 
   /**
-   * Fires a {@link DragHandler#onPreviewDragEnd(DragContext)} on all handlers
+   * Fires a {@link DragHandler#onPreviewDragEnd(DragEndEvent)} on all handlers
    * in the collection.
    * 
    * @param context current drag context
@@ -86,7 +95,7 @@ public class DragHandlerCollection extends ArrayList {
   }
 
   /**
-   * Fires a {@link DragHandler#onPreviewDragStart(DragContext)} on all
+   * Fires a {@link DragHandler#onPreviewDragStart(DragStartEvent)} on all
    * handlers in the collection.
    * 
    * @param context current drag context
@@ -107,5 +116,4 @@ public class DragHandlerCollection extends ArrayList {
   public void firePreviewDragStart(Widget sender) throws VetoDragException {
     throw new UnsupportedOperationException();
   }
-
 }

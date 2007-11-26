@@ -19,6 +19,8 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
+import com.allen_sauer.gwt.dragdrop.client.util.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,16 @@ public class DragContext {
   public final AbsolutePanel boundaryPanel;
 
   /**
+   * Desired x coordinate of draggable due to mouse dragging.
+   */
+  public int desiredDraggableX;
+
+  /**
+   * Desired y coordinate of draggable due to mouse dragging.
+   */
+  public int desiredDraggableY;
+
+  /**
    * The DragController for which this context exists.
    */
   public final DragController dragController;
@@ -39,33 +51,30 @@ public class DragContext {
    */
   public Widget draggable;
 
-  /**
-   * TODO document that at end null means drop not allowed
-   */
   public DropController dropController;
 
-  /**
-   * Current mouse x coordinate while dragging.
-   */
-  public int mouseX;
-
-  /**
-   * Current mouse y coordinate while dragging.
-   */
-  public int mouseY;
+  public DropController finalDropController;
 
   /**
    * The widget or panel which moves around with the mouse.
    */
-  public Widget movableWidget;
+  //  public Widget movableWidget;
+  public int mouseX;
 
+  public int mouseY;
   /**
    * List of currently selected widgets.
    */
   public List selectedWidgets = new ArrayList();
 
+  public Exception vetoException;
+
   DragContext(DragController dragController) {
     this.dragController = dragController;
     boundaryPanel = dragController.getBoundaryPanel();
+  }
+
+  public Location makeMouseLocation() {
+    return new CoordinateLocation(mouseX, mouseY);
   }
 }

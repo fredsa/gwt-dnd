@@ -24,10 +24,15 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
+import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetLocation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -44,24 +49,31 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * @deprecated Use {@link #PRIVATE_CSS_MOVABLE_PANEL} instead
+   * @deprecated Instead selectively use your own CSS classes.
    */
   protected static final String CSS_MOVABLE_PANEL;
 
   /**
-   * @deprecated Use {@link #PRIVATE_CSS_PROXY} instead
+   * @deprecated Instead selectively use your own CSS classes.
    */
   protected static final String CSS_PROXY;
   private static final String PRIVATE_CSS_MOVABLE_PANEL = "dragdrop-movable-panel";
-
   private static final String PRIVATE_CSS_PROXY = "dragdrop-proxy";
 
   static {
     CSS_MOVABLE_PANEL = PRIVATE_CSS_MOVABLE_PANEL;
     CSS_PROXY = PRIVATE_CSS_PROXY;
   }
-  private Widget draggableProxy;
+
+  private BoundaryDropController boundaryDropController;
+  private int boundaryOffsetX;
+  private int boundaryOffsetY;
   private boolean dragProxyEnabled = false;
+  private DropControllerCollection dropControllerCollection;
+  private ArrayList dropControllerList = new ArrayList();
+  private int dropTargetClientHeight;
+  private int dropTargetClientWidth;
+
   private Widget movablePanel;
 
   private HashMap savedWidgetInfoMap;
@@ -71,48 +83,94 @@ public class PickupDragController extends AbstractDragController {
    * suitable proxy to be temporarily picked up and moved around the specified
    * boundary panel.
    * 
+   * <p>
+   * Note: An implicit {@link BoundaryDropController} is created and registered
+   * automatically.
+   * </p>
+   * 
    * @param boundaryPanel the desired boundary panel or null if entire page is
    *            to be included
    * @param allowDroppingOnBoundaryPanel whether or not boundary panel should
    *            allow dropping
    */
   public PickupDragController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
-    super(boundaryPanel, allowDroppingOnBoundaryPanel);
+    super(boundaryPanel);
+    boundaryDropController = newBoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
+    registerDropController(boundaryDropController);
+    dropControllerCollection = new DropControllerCollection(dropControllerList);
   }
 
   public void dragEnd() {
-    super.dragEnd();
-    if (draggableProxy != null) {
-      draggableProxy.removeFromParent();
-      draggableProxy = null;
-    } else {
-      if (context.dropController == null) {
+    if (context.vetoException != null) {
+      if (!getBehaviorDragProxy()) {
         restoreSelectedWidgetsLocation();
       }
+    } else {
+      context.dropController.onDrop(context);
     }
-    restoreSelectedWidgetsStyle();
+    context.dropController.onLeave(context);
+    context.dropController = null;
+
+    if (!getBehaviorDragProxy()) {
+      restoreSelectedWidgetsStyle();
+    }
     movablePanel.removeFromParent();
     movablePanel = null;
+    super.dragEnd();
   }
 
-  public Widget dragStart() {
+  public void dragMove() {
+    int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
+    int desiredTop = context.desiredDraggableY - boundaryOffsetY;
+    if (getBehaviorConstrainedToBoundaryPanel()) {
+      String t = desiredLeft + ", " + desiredTop;
+      desiredLeft = Math.max(0, Math.min(desiredLeft, dropTargetClientWidth - context.draggable.getOffsetWidth()));
+      desiredTop = Math.max(0, Math.min(desiredTop, dropTargetClientHeight - context.draggable.getOffsetHeight()));
+      t += " / " + desiredLeft + ", " + desiredTop;
+      DOMUtil.setStatus(t);
+    }
+
+    DOMUtil.fastSetElementPosition(movablePanel.getElement(), desiredLeft, desiredTop);
+
+    DropController newDropController = getIntersectDropController(context.mouseX, context.mouseY);
+    if (context.dropController != newDropController) {
+      if (context.dropController != null) {
+        context.dropController.onLeave(context);
+      }
+      context.dropController = newDropController;
+      if (context.dropController != null) {
+        context.dropController.onEnter(context);
+      }
+    }
+
+    if (context.dropController != null) {
+      context.dropController.onMove(context);
+    }
+  }
+
+  public void dragStart() {
     super.dragStart();
 
-    saveSelectedWidgetsLocationAndStyle();
+    WidgetLocation currentDraggableLocation = new WidgetLocation(context.draggable, context.boundaryPanel);
     if (getBehaviorDragProxy()) {
       movablePanel = newDragProxy(context);
+      context.boundaryPanel.add(movablePanel, currentDraggableLocation.getLeft(), currentDraggableLocation.getTop());
     } else {
+      saveSelectedWidgetsLocationAndStyle();
       AbsolutePanel container = new AbsolutePanel();
       DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
 
-      // TODO better way to deal with constrained to boundary panel behavior
       container.setPixelSize(context.draggable.getOffsetWidth(), context.draggable.getOffsetHeight());
+      context.boundaryPanel.add(container, currentDraggableLocation.getLeft(), currentDraggableLocation.getTop());
 
+      int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
+      int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
       for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
         Widget widget = (Widget) iterator.next();
         if (widget != context.draggable) {
-          WidgetArea widgetArea = new WidgetArea(widget, context.draggable);
-          container.add(widget, widgetArea.getLeft(), widgetArea.getTop());
+          int relativeX = widget.getAbsoluteLeft() - draggableAbsoluteLeft;
+          int relativeY = widget.getAbsoluteTop() - draggableAbsoluteTop;
+          container.add(widget, relativeX, relativeY);
         }
       }
       container.add(context.draggable, 0, 0);
@@ -120,11 +178,22 @@ public class PickupDragController extends AbstractDragController {
     }
     movablePanel.addStyleName(PRIVATE_CSS_MOVABLE_PANEL);
 
-    // add movablePanel to boundary panel
-    WidgetLocation currentDraggableLocation = new WidgetLocation(context.draggable, context.boundaryPanel);
-    context.boundaryPanel.add(movablePanel, currentDraggableLocation.getLeft(), currentDraggableLocation.getTop());
+    // one time calculation of boundary panel location for efficiency during dragging
+    Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
+    boundaryOffsetX = widgetLocation.getLeft() + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
+    boundaryOffsetY = widgetLocation.getTop() + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
 
-    return movablePanel;
+    dropTargetClientWidth = DOMUtil.getClientWidth(boundaryPanel.getElement());
+    dropTargetClientHeight = DOMUtil.getClientHeight(boundaryPanel.getElement());
+  }
+
+  /**
+   * Whether or not dropping on the boundary panel is permitted.
+   * 
+   * @return <code>true</code> if dropping on the boundary panel is allowed
+   */
+  public boolean getBehaviorBoundaryPanelDrop() {
+    return boundaryDropController.getBehaviorBoundaryPanelDrop();
   }
 
   /**
@@ -143,6 +212,46 @@ public class PickupDragController extends AbstractDragController {
    */
   public boolean isDragProxyEnabled() {
     return getBehaviorDragProxy();
+  }
+
+  public void previewDragEnd() throws VetoDragException {
+    // Does the DropController allow the drop?
+    try {
+      context.dropController.onPreviewDrop(context);
+      context.finalDropController = context.dropController;
+    } catch (VetoDropException ex) {
+      context.finalDropController = null;
+      // TODO merge two veto exception types?
+      throw new VetoDragException();
+    }
+  }
+
+  /**
+   * Register a new DropController, representing a new drop target, with this
+   * drag controller.
+   * 
+   * @see #unregisterDropController(DropController)
+   * 
+   * @param dropController the controller to register
+   */
+  public final void registerDropController(DropController dropController) {
+    dropControllerList.add(dropController);
+  }
+
+  public void resetCache() {
+    super.resetCache();
+    dropControllerCollection.resetCache(boundaryPanel, context.draggable);
+  }
+
+  /**
+   * Set whether or not widgets may be dropped anywhere on the boundary panel.
+   * Set to <code>false</code> when you only want explicitly registered drop
+   * controllers to accept drops. Defaults to <code>true</code>.
+   * 
+   * @param allowDroppingOnBoundaryPanel <code>true</code> to allow dropping
+   */
+  public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
+    boundaryDropController.setBehaviorBoundaryPanelDrop(allowDroppingOnBoundaryPanel);
   }
 
   /**
@@ -164,10 +273,34 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
+   * Unregister a DropController from this drag controller.
+   * 
+   * @see #registerDropController(DropController)
+   * 
+   * @param dropController the controller to register
+   */
+  public void unregisterDropController(DropController dropController) {
+    dropControllerList.remove(dropController);
+  }
+
+  /**
    * @deprecated Use {@link #newDragProxy(DragContext)} and {@link #setBehaviorDragProxy(boolean)} instead.
    */
   protected final Widget maybeNewDraggableProxy(Widget draggable) {
     throw new UnsupportedOperationException();
+  }
+
+  /**
+   * Create a new BoundaryDropController to manage our boundary panel as a drop
+   * target. To ensure that draggable widgets can only be dropped on registered
+   * drop targets, set <code>allowDroppingOnBoundaryPanel</code> to <code>false</code>.
+   *
+   * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
+   * @param allowDroppingOnBoundaryPanel whether or not dropping is allowed on the boundary panel
+   * @return the new BoundaryDropController
+   */
+  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
+    return new BoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
   }
 
   /**
@@ -276,5 +409,10 @@ public class PickupDragController extends AbstractDragController {
       }
       savedWidgetInfoMap.put(widget, info);
     }
+  }
+
+  private DropController getIntersectDropController(int x, int y) {
+    DropController dropController = dropControllerCollection.getIntersectDropController(x, y);
+    return dropController != null ? dropController : boundaryDropController;
   }
 }

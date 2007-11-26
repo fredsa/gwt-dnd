@@ -18,7 +18,6 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.bin;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
-import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
@@ -29,7 +28,6 @@ import java.util.Iterator;
  * dropped on it.
  */
 final class BinDropController extends SimpleDropController {
-
   private static final String CSS_DEMO_BIN_DRAGGABLE_ENGAGE = "demo-bin-draggable-engage";
 
   private Bin bin;
@@ -39,25 +37,30 @@ final class BinDropController extends SimpleDropController {
     this.bin = bin;
   }
 
-  public DragEndEvent onDrop(DragContext context) {
-    DragEndEvent event = super.onDrop(context);
+  public void onDrop(DragContext context) {
     for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       bin.eatWidget(widget);
     }
-    return event;
+    super.onDrop(context);
   }
 
   public void onEnter(DragContext context) {
     super.onEnter(context);
-    context.movableWidget.addStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      widget.addStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+    }
     bin.setEngaged(true);
   }
 
   public void onLeave(DragContext context) {
-    super.onLeave(context);
-    context.movableWidget.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      widget.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
+    }
     bin.setEngaged(false);
+    super.onLeave(context);
   }
 
   public void onPreviewDrop(DragContext context) throws VetoDropException {

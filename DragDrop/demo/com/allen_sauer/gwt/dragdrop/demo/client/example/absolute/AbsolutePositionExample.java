@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.absolute;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 
@@ -29,7 +29,7 @@ public final class AbsolutePositionExample extends Example {
   private static final String CSS_DEMO_ABSOLUTE_POSITION_EXAMPLE = "demo-AbsolutePositionExample";
   private AbsolutePositionDropController absolutePositionDropController;
 
-  public AbsolutePositionExample(DragController dragController) {
+  public AbsolutePositionExample(PickupDragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_ABSOLUTE_POSITION_EXAMPLE);
 

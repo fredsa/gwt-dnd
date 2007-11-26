@@ -18,7 +18,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client.example.grid;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import com.allen_sauer.gwt.dragdrop.client.DragController;
+import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.drop.GridConstrainedDropController;
 import com.allen_sauer.gwt.dragdrop.demo.client.RedBoxDraggableWidget;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
@@ -33,7 +33,7 @@ public final class GridConstrainedExample extends Example {
   private int draggableOffsetWidth;
   private GridConstrainedDropController gridConstrainedDropController;
 
-  public GridConstrainedExample(DragController dragController) {
+  public GridConstrainedExample(PickupDragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_GRID_CONSTRAINED_EXAMPLE);
 
