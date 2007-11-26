@@ -313,13 +313,14 @@ public class PickupDragController extends AbstractDragController {
     AbsolutePanel container = new AbsolutePanel();
     DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
 
+    WidgetArea draggableArea = new WidgetArea(context.draggable, null);
     for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
-      WidgetArea widgetArea = new WidgetArea(widget, context.draggable);
+      WidgetArea widgetArea = new WidgetArea(widget, null);
       Widget proxy = new SimplePanel();
       proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
       proxy.addStyleName(PRIVATE_CSS_PROXY);
-      container.add(proxy, widgetArea.getLeft(), widgetArea.getTop());
+      container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(), widgetArea.getTop() - draggableArea.getTop());
     }
 
     return container;
