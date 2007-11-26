@@ -36,10 +36,14 @@ import java.util.HashMap;
  * draggable widgets for a given {@link DragController}.
  */
 class MouseDragHandler implements MouseListener {
+  private static final int ACTIVELY_DRAGGING = 3;
+  private static final int DRAGGING_NO_MOVEMENT_YET = 2;
+  private static final int NOT_DRAGGING = 1;
+
   private FocusPanel capturingWidget;
   private final DragContext context;
   private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
-  private boolean dragging;
+  private int dragging = NOT_DRAGGING;
   private HashMap dragHandleMap = new HashMap();
   private boolean mouseDown;
   private int mouseDownOffsetX;
@@ -52,7 +56,7 @@ class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseDown(Widget sender, int x, int y) {
-    if (dragging) {
+    if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
       // Ignore additional mouse buttons depressed while still dragging
       return;
     }
@@ -103,12 +107,13 @@ class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseMove(Widget sender, int x, int y) {
-    if (dragging) {
+    if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
       // TODO remove Safari workaround after GWT issue 1807 fixed
       if (sender != capturingWidget) {
         // In Safari 1.3.2 MAC, other mouse events continue to arrive even when capturing
         return;
       }
+      dragging = ACTIVELY_DRAGGING;
     } else {
       if (mouseDown) {
         if (Math.max(Math.abs(x - mouseDownOffsetX), Math.abs(y - mouseDownOffsetY)) >= context.dragController.getBehaviorDragStartSensitivity()) {
@@ -124,7 +129,7 @@ class MouseDragHandler implements MouseListener {
           y += location.getTop();
         }
       }
-      if (!dragging) {
+      if (dragging == NOT_DRAGGING) {
         return;
       }
     }
@@ -146,14 +151,17 @@ class MouseDragHandler implements MouseListener {
       return;
     }
     mouseDown = false;
-    if (!dragging) {
-      Widget widget = (Widget) dragHandleMap.get(sender);
+
+    if (dragging != ACTIVELY_DRAGGING) {
+      Widget widget = (Widget) dragHandleMap.get(mouseDownWidget);
       if (!toggleKey(event)) {
         context.dragController.clearSelection();
       }
       context.dragController.toggleSelection(widget);
       DOMUtil.cancelAllDocumentSelections();
-      return;
+      if (dragging == NOT_DRAGGING) {
+        return;
+      }
     }
     // TODO Remove Safari workaround after GWT issue 1807 fixed
     if (sender != capturingWidget) {
@@ -193,14 +201,14 @@ class MouseDragHandler implements MouseListener {
 
   private void cleanup() {
     DOM.releaseCapture(capturingWidget.getElement());
-    dragging = false;
+    dragging = NOT_DRAGGING;
     context.dropController = null;
   }
 
   private void drop(int x, int y) {
     try {
       actualMove(x, y);
-      dragging = false;
+      dragging = NOT_DRAGGING;
 
       // Does the DragController allow the drop?
       try {
@@ -234,7 +242,7 @@ class MouseDragHandler implements MouseListener {
     context.dragController.dragStart();
 
     DOM.setCapture(capturingWidget.getElement());
-    dragging = true;
+    dragging = DRAGGING_NO_MOVEMENT_YET;
   }
 
   private boolean toggleKey(Event event) {
