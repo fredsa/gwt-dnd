@@ -20,8 +20,8 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 import com.allen_sauer.gwt.dragdrop.client.drop.SimpleDropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 
 /**
  * DropController which allows a widget to be dropped on a SimplePanel drop
@@ -64,9 +64,9 @@ public class MatryoshkaSetWidgetDropController extends SimpleDropController {
     super.onLeave(context);
   }
 
-  public void onPreviewDrop(DragContext context) throws VetoDropException {
+  public void onPreviewDrop(DragContext context) throws VetoDragException {
     if (dropTarget.getWidget() != null) {
-      throw new VetoDropException();
+      throw new VetoDragException();
     }
     super.onPreviewDrop(context);
   }

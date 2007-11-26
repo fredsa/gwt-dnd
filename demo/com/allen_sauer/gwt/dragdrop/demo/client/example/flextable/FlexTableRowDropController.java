@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractPositioningDropController;
+import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.LocationWidgetComparator;
@@ -79,7 +80,7 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
 
   public void onMove(DragContext context) {
     super.onMove(context);
-    targetRow = DOMUtil.findIntersect(flexTableRowsAsIndexPanel, context.makeMouseLocation(),
+    targetRow = DOMUtil.findIntersect(flexTableRowsAsIndexPanel, new CoordinateLocation(context.mouseX, context.mouseY),
         LocationWidgetComparator.BOTTOM_HALF_COMPARATOR) - 1;
 
     Widget w = flexTable.getWidget(targetRow == -1 ? 0 : targetRow, 0);
