@@ -90,7 +90,7 @@ class MouseDragHandler implements MouseListener {
       mouseDownOffsetX += loc1.getLeft() - loc2.getLeft();
       mouseDownOffsetY += loc1.getTop() - loc2.getTop();
     }
-    if (context.dragController.getBehaviorDragStartSensitivity() == 0) {
+    if (context.dragController.getBehaviorDragStartSensitivity() == 0 && !toggleKey(event)) {
       startDragging();
       actualMove(x + loc1.getLeft(), y + loc1.getTop());
     }
