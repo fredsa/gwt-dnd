@@ -26,7 +26,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.VetoDropException;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.Location;
 import com.allen_sauer.gwt.dragdrop.client.util.WidgetArea;
@@ -39,6 +38,9 @@ import java.util.Iterator;
 /**
  * DragController used for drag-and-drop operations where a draggable widget or
  * drag proxy is temporarily picked up and dragged around the boundary panel.
+ * Be sure to register a {@link DropController} for each drop target.
+ * 
+ * @see #registerDropController(DropController)
  */
 public class PickupDragController extends AbstractDragController {
   private static class SavedWidgetInfo {
@@ -73,9 +75,7 @@ public class PickupDragController extends AbstractDragController {
   private ArrayList dropControllerList = new ArrayList();
   private int dropTargetClientHeight;
   private int dropTargetClientWidth;
-
   private Widget movablePanel;
-
   private HashMap savedWidgetInfoMap;
 
   /**
@@ -219,10 +219,9 @@ public class PickupDragController extends AbstractDragController {
     try {
       context.dropController.onPreviewDrop(context);
       context.finalDropController = context.dropController;
-    } catch (VetoDropException ex) {
+    } catch (VetoDragException ex) {
       context.finalDropController = null;
-      // TODO merge two veto exception types?
-      throw new VetoDragException();
+      throw ex;
     }
   }
 

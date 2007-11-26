@@ -21,13 +21,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
 
 /**
- * Common interface which all drag controllers much implement.
- * 
- * <p>
- * Be sure to also create one or more
- * {@link com.allen_sauer.gwt.dragdrop.client.drop.DropController DropControllers}
- * and {@link #registerDropController(DropController) register} them.
- * </p>
+ * Common interface which all drag controllers must implement.
  */
 public interface DragController extends FiresDragEvents {
   /**
@@ -39,6 +33,9 @@ public interface DragController extends FiresDragEvents {
    */
   void addDragHandler(DragHandler handler);
 
+  /**
+   * All currently selected widgets are deselected.
+   */
   void clearSelection();
 
   /**
@@ -81,6 +78,11 @@ public interface DragController extends FiresDragEvents {
    */
   int getBehaviorDragStartSensitivity();
 
+  /**
+   * Determines whether multiple widget selection behavior is enabled.
+   * 
+   * @return <code>true</code> if multiple widget selection behavior is enabled
+   */
   boolean getBehaviorMultipleSelection();
 
   /**
@@ -194,6 +196,12 @@ public interface DragController extends FiresDragEvents {
    */
   void setBehaviorDragStartSensitivity(int pixels);
 
+  /**
+   * Sets whether multiple widgets can be selected for dragging at one time via
+   * <code>CTRL</code>/<code>META</code>-click. Defaults to <code>true</code>.
+   * 
+   * @param multipleSelectionAllowed whether multiple selections are enabled
+   */
   void setBehaviorMultipleSelection(boolean multipleSelectionAllowed);
 
   /**
@@ -201,5 +209,10 @@ public interface DragController extends FiresDragEvents {
   */
   void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel);
 
+  /**
+   * Toggle the selection of the specified widget.
+   * 
+   * @param draggable the widget whose selection is to be toggled
+   */
   void toggleSelection(Widget draggable);
 }

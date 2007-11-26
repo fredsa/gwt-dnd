@@ -33,7 +33,7 @@ import java.util.Iterator;
  * Extend this class to implement specialized drag capabilities such table
  * column or panel resizing. For classic drag-and-drop functionality, i.e. the
  * ability to pickup, move around and drop widgets, use
- * {@link PickupDragController} instead.
+ * {@link PickupDragController}.
  * </p>
  */
 public abstract class AbstractDragController implements DragController {
@@ -64,16 +64,14 @@ public abstract class AbstractDragController implements DragController {
     CSS_DRAGGING = PRIVATE_CSS_DRAGGING;
     CSS_HANDLE = PRIVATE_CSS_HANDLE;
   }
+
   protected final DragContext context;
   AbsolutePanel boundaryPanel;
   private boolean constrainedToBoundaryPanel;
   private DragHandlerCollection dragHandlers;
-
   private int dragStartPixels;
-
   private MouseDragHandler mouseDragHandler;
-
-  private boolean multipleSelectionAllowed;
+  private boolean multipleSelectionAllowed = true;
 
   /**
    * Create a new drag-and-drop controller. Drag operations will be limited to

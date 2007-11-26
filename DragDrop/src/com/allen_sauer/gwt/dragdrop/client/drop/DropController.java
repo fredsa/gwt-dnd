@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
+import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 
 /**
  * Create a DropController for each drop target on which draggable widgets can
@@ -119,9 +120,9 @@ public interface DropController {
    * {@link VetoDropException}.
    * 
    * @param context the current drag context
-   * @throws VetoDropException when the proposed drop operation is unacceptable
+   * @throws VetoDragException TODO
    */
-  void onPreviewDrop(DragContext context) throws VetoDropException;
+  void onPreviewDrop(DragContext context) throws VetoDragException;
 
   /**
    * @deprecated Use {@link #onPreviewDrop(DragContext)} instead.
