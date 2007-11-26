@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 import com.allen_sauer.gwt.dragdrop.client.DragEndEvent;
+import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 
 /**
  * Base class for typical drop controllers. Contains some basic functionality
@@ -108,7 +109,7 @@ public abstract class AbstractDropController implements DropController {
     throw new UnsupportedOperationException();
   }
 
-  public void onPreviewDrop(DragContext context) throws VetoDropException {
+  public void onPreviewDrop(DragContext context) throws VetoDragException {
   }
 
   public final void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {

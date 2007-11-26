@@ -20,13 +20,15 @@ import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
+import com.allen_sauer.gwt.dragdrop.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
 import com.allen_sauer.gwt.dragdrop.client.util.LocationWidgetComparator;
 
 import java.util.Iterator;
 
 /**
- * {@link DropController} for {@link IndexedPanel} drop targets.
+ * A {@link DropController} for {@link IndexedPanel} drop targets.
  */
 public abstract class AbstractIndexedDropController extends AbstractPositioningDropController {
   private int dropIndex;
@@ -65,7 +67,8 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
 
   public void onMove(DragContext context) {
     super.onMove(context);
-    int targetIndex = DOMUtil.findIntersect(dropTarget, context.makeMouseLocation(), getLocationWidgetComparator());
+    int targetIndex = DOMUtil.findIntersect(dropTarget, new CoordinateLocation(context.mouseX, context.mouseY),
+        getLocationWidgetComparator());
 
     // check that positioner not already in the correct location
     int positionerIndex = dropTarget.getWidgetIndex(positioner);
@@ -82,10 +85,10 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     }
   }
 
-  public void onPreviewDrop(DragContext context) throws VetoDropException {
+  public void onPreviewDrop(DragContext context) throws VetoDragException {
     dropIndex = dropTarget.getWidgetIndex(positioner);
     if (dropIndex == -1) {
-      throw new VetoDropException();
+      throw new VetoDragException();
     }
     super.onPreviewDrop(context);
   }

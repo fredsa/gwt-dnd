@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
+import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 
 /**
  * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}
@@ -43,9 +44,9 @@ public class BoundaryDropController extends AbsolutePositionDropController {
     return allowDroppingOnBoundaryPanel;
   }
 
-  public void onPreviewDrop(DragContext context) throws VetoDropException {
+  public void onPreviewDrop(DragContext context) throws VetoDragException {
     if (!allowDroppingOnBoundaryPanel) {
-      throw new VetoDropException();
+      throw new VetoDragException();
     }
     super.onPreviewDrop(context);
   }
