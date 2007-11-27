@@ -57,7 +57,7 @@ public final class FlexTableRowExample extends Example {
 
   public Class[] getInvolvedClasses() {
     return new Class[] {
-        FlexTableRowExample.class, FlexTableRowDropController.class, FlexTableRowDragController.class,
-        FlexTableRowDragEndEvent.class, DemoFlexTable.class, FlexTableUtil.class,};
+        FlexTableRowExample.class, FlexTableRowDropController.class, FlexTableRowDragController.class, DemoFlexTable.class,
+        FlexTableUtil.class,};
   }
 }

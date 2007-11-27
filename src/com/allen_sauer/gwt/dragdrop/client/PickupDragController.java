@@ -233,7 +233,7 @@ public class PickupDragController extends AbstractDragController {
    * 
    * @param dropController the controller to register
    */
-  public final void registerDropController(DropController dropController) {
+  public void registerDropController(DropController dropController) {
     dropControllerList.add(dropController);
   }
 
@@ -303,8 +303,8 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Called by {@link PickupDragController#dragStart(Widget)} when {@link #getBehaviorDragProxy()}
-   * returns <code>true</code> to allow subclasses to provide their own drag proxies.
+   * Called by {@link PickupDragController#dragStart(Widget)} to allow subclasses to
+   * provide their own drag proxies.
    * 
    * @param context the current drag context
    * @return a new drag proxy
