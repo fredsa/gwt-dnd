@@ -112,6 +112,9 @@ public abstract class AbstractDropController implements DropController {
   public void onPreviewDrop(DragContext context) throws VetoDragException {
   }
 
+  /**
+   * @deprecated Use {@link #onPreviewDrop(DragContext)} instead.
+   */
   public final void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
     throw new UnsupportedOperationException();
   }
