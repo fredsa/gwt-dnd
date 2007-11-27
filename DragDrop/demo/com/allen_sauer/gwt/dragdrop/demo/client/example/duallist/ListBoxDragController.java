@@ -30,6 +30,7 @@ public class ListBoxDragController extends PickupDragController {
   public ListBoxDragController(DualListBox dualListBox) {
     super(dualListBox, false);
     setBehaviorDragProxy(true);
+    setBehaviorMultipleSelection(false);
   }
 
   public void previewDragEnd() throws VetoDragException {

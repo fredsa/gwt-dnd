@@ -55,6 +55,7 @@ public class PuzzleExample extends Example {
     // initialize our drag controller
     dragController = new PickupDragController(boundaryPanel, true);
     dragController.addDragHandler(demoDragHandler);
+    dragController.setBehaviorMultipleSelection(false);
 
     // create our grid
     for (int i = 0; i < COLUMNS; i++) {

@@ -46,6 +46,7 @@ public final class MatryoshkaExample extends Example {
 
     // initialize our drag controller
     PickupDragController dragController = new PickupDragController(boundaryPanel, true);
+    dragController.setBehaviorMultipleSelection(false);
     dragController.addDragHandler(demoDragHandler);
 
     // create our grid of draggable drop target widgets

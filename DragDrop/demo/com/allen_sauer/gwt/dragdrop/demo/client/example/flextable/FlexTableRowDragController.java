@@ -34,6 +34,7 @@ public final class FlexTableRowDragController extends PickupDragController {
   public FlexTableRowDragController(AbsolutePanel boundaryPanel) {
     super(boundaryPanel, false);
     setBehaviorDragProxy(true);
+    setBehaviorMultipleSelection(false);
   }
 
   public void dragEnd() {

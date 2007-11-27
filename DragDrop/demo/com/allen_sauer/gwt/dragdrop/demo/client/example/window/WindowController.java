@@ -29,9 +29,11 @@ final class WindowController {
 
     pickupDragController = new PickupDragController(boundaryPanel, true);
     pickupDragController.setBehaviorConstrainedToBoundaryPanel(true);
+    pickupDragController.setBehaviorMultipleSelection(false);
 
     resizeDragController = new ResizeDragController(boundaryPanel);
     resizeDragController.setBehaviorConstrainedToBoundaryPanel(true);
+    resizeDragController.setBehaviorMultipleSelection(false);
   }
 
   public AbsolutePanel getBoundaryPanel() {
