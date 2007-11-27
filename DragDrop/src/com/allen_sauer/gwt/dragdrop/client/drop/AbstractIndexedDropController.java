@@ -49,7 +49,7 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     assert dropIndex != -1 : "Should not happen after onPreviewDrop did not veto";
     for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
-      insert(widget, dropIndex);
+      insert(widget, dropIndex++);
     }
     super.onDrop(context);
   }
