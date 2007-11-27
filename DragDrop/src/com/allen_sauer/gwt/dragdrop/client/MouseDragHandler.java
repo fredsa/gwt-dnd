@@ -152,8 +152,14 @@ class MouseDragHandler implements MouseListener {
     }
     mouseDown = false;
 
+    // in case mouse down occurred elsewhere
+    if (mouseDownWidget == null) {
+      return;
+    }
+
     if (dragging != ACTIVELY_DRAGGING) {
       Widget widget = (Widget) dragHandleMap.get(mouseDownWidget);
+      assert widget != null;
       if (!toggleKey(event)) {
         context.dragController.clearSelection();
       }
