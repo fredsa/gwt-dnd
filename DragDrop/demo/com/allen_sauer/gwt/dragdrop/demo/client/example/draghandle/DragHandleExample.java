@@ -84,6 +84,7 @@ public class DragHandleExample extends Example {
     dragController = new PickupDragController(boundaryPanel, true);
     dragController.addDragHandler(demoDragHandler);
     dragController.setBehaviorConstrainedToBoundaryPanel(true);
+    dragController.setBehaviorMultipleSelection(false);
 
     // instantiate our drop controller
     AbsolutePositionDropController dropController = new AbsolutePositionDropController(boundaryPanel);
