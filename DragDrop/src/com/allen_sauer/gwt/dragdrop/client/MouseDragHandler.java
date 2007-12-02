@@ -88,9 +88,9 @@ class MouseDragHandler implements MouseListener {
 
     mouseDownOffsetX = x;
     mouseDownOffsetY = y;
-    WidgetLocation loc1 = new WidgetLocation(mouseDownWidget, context.boundaryPanel);
+    WidgetLocation loc1 = new WidgetLocation(mouseDownWidget, null);
     if (mouseDownWidget != context.draggable) {
-      WidgetLocation loc2 = new WidgetLocation(context.draggable, context.boundaryPanel);
+      WidgetLocation loc2 = new WidgetLocation(context.draggable, null);
       mouseDownOffsetX += loc1.getLeft() - loc2.getLeft();
       mouseDownOffsetY += loc1.getTop() - loc2.getTop();
     }
