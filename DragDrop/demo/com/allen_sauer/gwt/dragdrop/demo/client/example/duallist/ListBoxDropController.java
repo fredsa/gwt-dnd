@@ -15,30 +15,41 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.duallist;
 
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Widget;
+
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
 import com.allen_sauer.gwt.dragdrop.client.drop.AbstractDropController;
 
+import java.util.Iterator;
+
 /**
  * DropController for {@link DualListExample}.
  */
-public class ListBoxDropController extends AbstractDropController {
+class ListBoxDropController extends AbstractDropController {
   private MouseListBox mouseListBox;
 
-  public ListBoxDropController(MouseListBox mouseListBox) {
+  ListBoxDropController(MouseListBox mouseListBox) {
     super(mouseListBox);
     this.mouseListBox = mouseListBox;
   }
 
   public void onDrop(DragContext context) {
-    MouseListBox from = (MouseListBox) context.draggable;
-    DualListBox.copyOrmoveItems(from, mouseListBox, true, DualListBox.OPERATION_MOVE);
+    MouseListBox from = (MouseListBox) context.draggable.getParent().getParent();
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      if (widget.getParent().getParent() == from) {
+        HTML htmlClone = new HTML(DOM.getInnerHTML(widget.getElement()));
+        mouseListBox.add(htmlClone);
+      }
+    }
     super.onDrop(context);
   }
 
   public void onPreviewDrop(DragContext context) throws VetoDragException {
-    MouseListBox from = (MouseListBox) context.draggable;
-    // TODO avoid this
+    MouseListBox from = (MouseListBox) context.draggable.getParent().getParent();
     if (from == mouseListBox) {
       throw new VetoDragException();
     }

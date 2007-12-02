@@ -116,9 +116,9 @@ public interface DragController extends FiresDragEvents {
    * Enable dragging on widget. Call this method for each widget that
    * you would like to make draggable under this drag controller.
    * 
-   * @param widget the widget to be made draggable
+   * @param draggable the widget to be made draggable
    */
-  void makeDraggable(Widget widget);
+  void makeDraggable(Widget draggable);
 
   /**
    * Enable dragging on widget, specifying the child widget serving as a

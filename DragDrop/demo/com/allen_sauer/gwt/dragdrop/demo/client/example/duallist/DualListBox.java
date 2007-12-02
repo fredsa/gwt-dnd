@@ -27,58 +27,18 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragController;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 /**
  * Example of two lists side by side for {@link DualListExample}.
  */
 public class DualListBox extends AbsolutePanel {
-  public static final int OPERATION_COPY = 1;
-  public static final int OPERATION_MOVE = 2;
   private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_CENTER = "demo-DualListExample-center";
   private static final int LIST_SIZE = 10;
 
-  protected static void copyOrmoveItems(MouseListBox from, MouseListBox to, boolean justSelectedItems, int operation) {
-    boolean anyCopiedOrMoved = false;
-    int toItemCount = to.getWidgetCount();
-    int index = 0;
-    if (from == to) {
-      index = index * 1;
-    }
-    while (from.getWidgetCount() > index) {
-      if (!justSelectedItems || from.isItemSelected(index)) {
-        if (from == to) {
-          index = index * 1;
-        }
-        copyOrMoveItem(from, to, index, operation);
-        if (operation == OPERATION_COPY) {
-          index++;
-        }
-        anyCopiedOrMoved = true;
-      } else {
-        index++;
-      }
-    }
-    if (anyCopiedOrMoved) {
-      for (int i = 0; i < toItemCount; i++) {
-        to.setItemSelected(i, false);
-      }
-    }
-  }
-
-  private static void copyOrMoveItem(MouseListBox from, MouseListBox to, int index, int operation) {
-    to.add(from.getClonedWidget(index));
-    to.setItemSelected(to.getWidgetCount() - 1, true);
-    switch (operation) {
-      case OPERATION_COPY:
-        break;
-      case OPERATION_MOVE:
-        from.remove(index);
-        break;
-      default:
-        throw new IllegalArgumentException("" + operation);
-    }
-  }
-
   private ListBoxDragController dragController;
+
   private MouseListBox left;
   private MouseListBox right;
 
@@ -92,10 +52,8 @@ public class DualListBox extends AbsolutePanel {
     verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 
     dragController = new ListBoxDragController(this);
-    left = new MouseListBox(LIST_SIZE);
-    right = new MouseListBox(LIST_SIZE);
-    dragController.makeDraggable(left);
-    dragController.makeDraggable(right);
+    left = new MouseListBox(dragController, LIST_SIZE);
+    right = new MouseListBox(dragController, LIST_SIZE);
 
     left.setWidth(width);
     right.setWidth(width);
@@ -116,25 +74,25 @@ public class DualListBox extends AbsolutePanel {
 
     allRight.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
-        copyOrmoveItems(left, right, false, OPERATION_MOVE);
+        moveItems(left, right, false);
       }
     });
 
     allLeft.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
-        copyOrmoveItems(right, left, false, OPERATION_MOVE);
+        moveItems(right, left, false);
       }
     });
 
     oneRight.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
-        copyOrmoveItems(left, right, true, OPERATION_MOVE);
+        moveItems(left, right, true);
       }
     });
 
     oneLeft.addClickListener(new ClickListener() {
       public void onClick(Widget sender) {
-        copyOrmoveItems(right, left, true, OPERATION_MOVE);
+        moveItems(right, left, true);
       }
     });
 
@@ -159,5 +117,15 @@ public class DualListBox extends AbsolutePanel {
 
   public DragController getDragController() {
     return dragController;
+  }
+
+  protected void moveItems(MouseListBox from, MouseListBox to, boolean justSelectedItems) {
+    ArrayList widgetList = justSelectedItems ? dragController.getSelectedWidgets(from) : from.widgetList();
+    for (Iterator iterator = widgetList.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      // TODO let widget.removeFromParent() take care of from.remove()
+      from.remove(widget);
+      to.add(widget);
+    }
   }
 }

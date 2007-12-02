@@ -44,12 +44,11 @@ public final class DualListExample extends Example {
   }
 
   public String getDescription() {
-    return "Allow drag and drop between two lists.";
+    return "Allow drag and drop between two lists. Use <code>CTRL</code>/<code>META</code>-click to toggle selection of items.";
   }
 
   public Class[] getInvolvedClasses() {
     return new Class[] {
-        DualListExample.class, ListBoxDragController.class, ListBoxDropController.class, MouseListBox.class, DualListBox.class,
-        DualListBoxItem.class,};
+        DualListExample.class, ListBoxDragController.class, ListBoxDropController.class, MouseListBox.class, DualListBox.class,};
   }
 }

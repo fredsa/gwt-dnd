@@ -131,7 +131,6 @@ DIV.demo-main-boundary-panel {
   border: 1px solid blue;
   filter: alpha(opacity = 50);
   opacity: 0.5;
-  -moz-opacity: 0.5;
 }
 
 .demo-FlexTableRowExample .demo-flextable .dragdrop-handle {
@@ -153,9 +152,8 @@ DIV.demo-main-boundary-panel {
 .demo-FlexTableRowExample .dragdrop-selected ,
 .demo-FlexTableRowExample .dragdrop-dragging ,
 .demo-FlexTableRowExample .dragdrop-proxy {
-  filter: alpha(opacity = 100);
+  filter: alpha(enabled = false);
   opacity: 1.0;
-  -moz-opacity: 1.0;
 }
 
 /* ------------ WindowExample ------------ */
@@ -243,11 +241,27 @@ DIV.demo-main-boundary-panel {
 }
 
 /* ------------ DualListExample ------------ */
+.demo-DualListExample .dragdrop-selected ,
+.demo-DualListExample .dragdrop-dragging ,
+.demo-DualListExample .dragdrop-proxy {
+  filter: alpha(enabled = false);
+  opacity: 1.0;
+}
+
 .demo-DualListExample .dragdrop-boundary {
   border: none;
   background-color: transparent;
 }
 
+.demo-DualListExample .demo-MouseListBox {
+  border: 1px solid gray;
+  background-color: white;
+}
+
+.demo-DualListExample .dragdrop-movable-panel {
+  border: none;
+}
+  
 .demo-DualListExample-center {
   margin: 0.4em;
 }
@@ -260,19 +274,16 @@ DIV.demo-main-boundary-panel {
   width: 4em;
 }
 
+.demo-DualListExample-item {
+}
+
 .demo-DualListExample-item-has-content {
   cursor: pointer;
 }
 
-.demo-DualListExample-item-selected {
+.demo-DualListExample .dragdrop-selected ,
+.demo-DualListExample .dragdrop-movable-panel .demo-DualListExample-item-has-content {
   background-color: blue;
-}
-
-.demo-DualListExample .dragdrop-dragging ,
-.demo-DualListExample .demo-DualListExample-drag-proxy {
-  filter: alpha(opacity = 100);
-  opacity: 1.0;
-  -moz-opacity: 1.0;
 }
 
 /* ------------ PuzzleExample ------------ */
@@ -327,10 +338,9 @@ DIV.demo-main-boundary-panel {
   width: 5em;
   text-align: center;
 }
-  
+
 /* ------------ General Demo CSS ------------ */
 .demo-main-boundary-panel .demo-example-description {
-  font-size: 0.9em;
   border-bottom: 1px solid #87B3FF;
   padding: 0.5em 0.3em;
 }

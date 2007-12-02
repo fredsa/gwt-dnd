@@ -15,118 +15,123 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.duallist;
 
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.ClickListener;
-import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import java.util.ArrayList;
 
 /**
  * Either left or right hand side of a {@link DualListBox}.
  */
-public class MouseListBox extends FocusPanel {
-  private static class ItemClickListener implements ClickListener {
-    public void onClick(Widget sender) {
-      DualListBoxItem item = (DualListBoxItem) sender.getParent();
-      item.setSelected(!item.isSelected());
+class MouseListBox extends Composite {
+  private static final class SpacerHTML extends HTML {
+    public SpacerHTML() {
+      super("&nbsp;");
     }
   }
+
+  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM = "demo-DualListExample-item";
+  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_HAS_CONTENT = "demo-DualListExample-item-has-content";
 
   private static final String CSS_DEMO_MOUSELISTBOX = "demo-MouseListBox";
-  private static ItemClickListener itemClickListener = new ItemClickListener();
-
-  private VerticalPanel verticalPanel = new VerticalPanel();
+  private ListBoxDragController dragController;
+  private Grid grid;
   private int widgetCount = 0;
 
-  public MouseListBox(int size) {
+  /**
+   * Used by {@link ListBoxDragController} to create a draggable listbox
+   * containing the selected items.
+   */
+  MouseListBox(int size) {
+    grid = new Grid(size, 1);
+    initWidget(grid);
+    grid.setCellPadding(0);
+    grid.setCellSpacing(0);
     addStyleName(CSS_DEMO_MOUSELISTBOX);
-    super.add(verticalPanel);
     for (int i = 0; i < size; i++) {
-      DualListBoxItem item = new DualListBoxItem();
-      verticalPanel.add(item);
+      grid.getCellFormatter().addStyleName(i, 0, CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM);
+      setWidget(i, null);
     }
   }
 
-  public void add(String text) {
+  /**
+   * Used by {@link DualListBox} to create the left and right list boxes.
+   */
+  MouseListBox(ListBoxDragController dragController, int size) {
+    this(size);
+    this.dragController = dragController;
+  }
+
+  void add(String text) {
     add(new Label(text));
   }
 
-  public void add(Widget widget) {
-    DualListBoxItem item = (DualListBoxItem) verticalPanel.getWidget(widgetCount);
-    item.setWrappedWidget(widget);
-    item.addClickListener(itemClickListener);
-    widgetCount++;
+  void add(Widget widget) {
+    setWidget(widgetCount++, widget);
   }
 
-  public Widget getClonedWidget(int index) {
-    HTML html = new HTML();
-    Widget widget = getWidget(index);
-    html.setHTML(DOM.getInnerHTML(widget.getElement()));
-    return html;
-  }
-
-  public int getSelectedWidgetCount() {
-    int count = 0;
-    for (int i = 0; i < widgetCount; i++) {
-      if (isItemSelected(i)) {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  public Widget getWidget(int index) {
-    checkIndexInRange(index);
-    DualListBoxItem item = (DualListBoxItem) verticalPanel.getWidget(index);
-    return item.getWrappedWidget();
-  }
-
-  public int getWidgetCount() {
+  int getWidgetCount() {
     return widgetCount;
   }
 
-  public boolean isItemSelected(int index) {
-    DualListBoxItem item = (DualListBoxItem) verticalPanel.getWidget(index);
-    return item.isSelected();
-  }
-
-  public void remove(int index) {
-    checkIndexInRange(index);
-    DualListBoxItem item = (DualListBoxItem) verticalPanel.getWidget(index);
-    verticalPanel.remove(index);
-    item.removeWrappedWidget();
-    item.removeClickListener(itemClickListener);
-    item.setSelected(false);
-    verticalPanel.add(item);
-    widgetCount--;
-  }
-
-  public void setHeight(String height) {
-    super.setHeight(height);
-    verticalPanel.setHeight(height);
-  }
-
-  public void setItemSelected(int index, boolean selected) {
-    checkIndexInRange(index);
-    DualListBoxItem item = (DualListBoxItem) verticalPanel.getWidget(index);
-    item.setSelected(selected);
-  }
-
-  public void setPixelSize(int width, int height) {
-    super.setPixelSize(width, height);
-    verticalPanel.setPixelSize(width, height);
-  }
-
-  public void setWidth(String width) {
-    super.setWidth(width);
-    verticalPanel.setWidth(width);
-  }
-
-  private void checkIndexInRange(int index) {
-    if (index < 0 || index >= widgetCount) {
-      throw new IllegalArgumentException();
+  boolean remove(Widget widget) {
+    int index = getWidgetIndex(widget);
+    if (index == -1) {
+      return false;
     }
+    for (int i = index; i < widgetCount - 1; i++) {
+      // explicitly remove and add widget back for correct draggability
+      setWidget(i, removeWidget(i + 1));
+    }
+    setWidget(widgetCount - 1, null);
+    widgetCount--;
+    return true;
+  }
+
+  ArrayList widgetList() {
+    ArrayList widgetList = new ArrayList();
+    for (int i = 0; i < getWidgetCount(); i++) {
+      widgetList.add(getWidget(i));
+    }
+    return widgetList;
+  }
+
+  private Widget getWidget(int index) {
+    return grid.getWidget(index, 0);
+  }
+
+  private int getWidgetIndex(Widget widget) {
+    for (int i = 0; i < getWidgetCount(); i++) {
+      if (getWidget(i) == widget) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  private Widget removeWidget(int index) {
+    Widget widget = getWidget(index);
+    if (widget != null && dragController != null && !(widget instanceof SpacerHTML)) {
+      dragController.makeNotDraggable(widget);
+    }
+    grid.getCellFormatter().removeStyleName(index, 0, CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_HAS_CONTENT);
+    grid.setWidget(index, 0, new SpacerHTML());
+    return widget;
+  }
+
+  private void setWidget(int index, Widget widget) {
+    removeWidget(index);
+    if (widget == null) {
+      widget = new SpacerHTML();
+    } else {
+      grid.getCellFormatter().addStyleName(index, 0, CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_HAS_CONTENT);
+      if (dragController != null) {
+        dragController.makeDraggable(widget);
+      }
+    }
+    grid.setWidget(index, 0, widget);
   }
 }

@@ -11,8 +11,8 @@
   zoom: 1; /* IE gain hasLayout */
 }
 
-.dragdrop-hidden {
-  visibility: hidden;
+.dragdrop-dragging {
+  zoom: normal; /* remove artifacts */
 }
 
 .dragdrop-positioner {
@@ -34,7 +34,6 @@
 .dragdrop-selected , .dragdrop-dragging , .dragdrop-proxy {
   filter: alpha(opacity = 30);
   opacity: 0.3;
-  -moz-opacity: 0.3;
 }
 
 .dragdrop-movable-panel {

@@ -15,45 +15,93 @@
  */
 package com.allen_sauer.gwt.dragdrop.demo.client.example.duallist;
 
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dragdrop.client.DragContext;
 import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
 import com.allen_sauer.gwt.dragdrop.client.VetoDragException;
+import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * DragController for {@link DualListExample}.
  */
-public class ListBoxDragController extends PickupDragController {
-  private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_DRAG_PROXY = "demo-DualListExample-drag-proxy";
-
-  public ListBoxDragController(DualListBox dualListBox) {
+class ListBoxDragController extends PickupDragController {
+  ListBoxDragController(DualListBox dualListBox) {
     super(dualListBox, false);
     setBehaviorDragProxy(true);
-    setBehaviorMultipleSelection(false);
+    setBehaviorMultipleSelection(true);
   }
 
-  public void previewDragEnd() throws VetoDragException {
-    if (((MouseListBox) context.draggable).getSelectedWidgetCount() == 0) {
+  public void dragEnd() {
+    // process drop first
+    super.dragEnd();
+
+    if (context.vetoException == null) {
+      // remove original items
+      MouseListBox currentMouseListBox = (MouseListBox) context.draggable.getParent().getParent();
+      while (!context.selectedWidgets.isEmpty()) {
+        Widget widget = (Widget) context.selectedWidgets.get(0);
+        toggleSelection(widget);
+        currentMouseListBox.remove(widget);
+      }
+    }
+  }
+
+  public void previewDragStart() throws VetoDragException {
+    super.previewDragStart();
+    if (context.selectedWidgets.isEmpty()) {
       throw new VetoDragException();
     }
-    super.previewDragEnd();
   }
 
   public void setBehaviorDragProxy(boolean dragProxyEnabled) {
     if (!dragProxyEnabled) {
-      // TODO implement drag proxy behavior
       throw new IllegalArgumentException();
     }
     super.setBehaviorDragProxy(dragProxyEnabled);
   }
 
+  public void toggleSelection(Widget draggable) {
+    super.toggleSelection(draggable);
+    MouseListBox currentMouseListBox = (MouseListBox) draggable.getParent().getParent();
+    ArrayList otherWidgets = new ArrayList();
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      if (widget.getParent().getParent() != currentMouseListBox) {
+        otherWidgets.add(widget);
+      }
+    }
+    for (Iterator iterator = otherWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      super.toggleSelection(widget);
+    }
+  }
+
   protected Widget newDragProxy(DragContext context) {
-    MouseListBox currentDraggableListBox = (MouseListBox) context.draggable;
-    MouseListBox proxyMouseListBox = new MouseListBox(currentDraggableListBox.getSelectedWidgetCount());
-    proxyMouseListBox.setWidth(currentDraggableListBox.getOffsetWidth() + "px");
-    proxyMouseListBox.addStyleName(CSS_DEMO_DUAL_LIST_EXAMPLE_DRAG_PROXY);
-    DualListBox.copyOrmoveItems(currentDraggableListBox, proxyMouseListBox, true, DualListBox.OPERATION_COPY);
+    MouseListBox currentMouseListBox = (MouseListBox) context.draggable.getParent().getParent();
+    MouseListBox proxyMouseListBox = new MouseListBox(context.selectedWidgets.size());
+    proxyMouseListBox.setWidth(DOMUtil.getClientWidth(currentMouseListBox.getElement()) + "px");
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      HTML htmlClone = new HTML(DOM.getInnerHTML(widget.getElement()));
+      proxyMouseListBox.add(htmlClone);
+    }
     return proxyMouseListBox;
+  }
+
+  ArrayList getSelectedWidgets(MouseListBox mouseListBox) {
+    ArrayList widgetList = new ArrayList();
+    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = (Widget) iterator.next();
+      if (widget.getParent().getParent() == mouseListBox) {
+        widgetList.add(widget);
+      }
+    }
+    return widgetList;
   }
 }
