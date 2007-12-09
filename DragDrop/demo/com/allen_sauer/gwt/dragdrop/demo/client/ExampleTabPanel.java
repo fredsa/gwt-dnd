@@ -16,8 +16,10 @@
 package com.allen_sauer.gwt.dragdrop.demo.client;
 
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import com.allen_sauer.gwt.dragdrop.client.util.StringUtil;
 import com.allen_sauer.gwt.dragdrop.demo.client.example.Example;
 import com.allen_sauer.gwt.dragdrop.demo.client.ui.MultiRowTabPanel;
 import com.allen_sauer.gwt.dragdrop.demo.client.util.GWTUtil;
@@ -65,6 +67,9 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
     VerticalPanel verticalPanel = new VerticalPanel();
     verticalPanel.add(describe(example.getInvolvedClasses(), example.getDescription()));
     verticalPanel.add(example);
-    add(verticalPanel, "Demo " + (getTabCount() + 1));
+    Label tabLabel = new Label("Demo " + (getTabCount() + 1));
+    tabLabel.setWordWrap(false);
+    tabLabel.setTitle(StringUtil.getShortTypeName(example) + "\n" + example.getDescription());
+    add(verticalPanel, tabLabel);
   }
 }

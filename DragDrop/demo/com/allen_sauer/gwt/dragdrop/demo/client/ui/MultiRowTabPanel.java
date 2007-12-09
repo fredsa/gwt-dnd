@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dragdrop.demo.client.ui;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SourcesTabEvents;
 import com.google.gwt.user.client.ui.TabBar;
 import com.google.gwt.user.client.ui.TabListener;
@@ -50,7 +51,7 @@ public class MultiRowTabPanel extends Composite {
     containerPanel.add(masterDeckPanel);
   }
 
-  public void add(Widget widget, String tabText) {
+  public void add(Widget widget, Label tabLabel) {
     int row = tabCount / tabsPerRow;
     while (row >= rows) {
       addRow();
@@ -58,7 +59,7 @@ public class MultiRowTabPanel extends Composite {
     tabCount++;
     masterDeckPanel.add(widget);
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);
-    tabBar.addTab(tabText, true);
+    tabBar.addTab(tabLabel);
   }
 
   public void addTabBarStyleName(String style) {

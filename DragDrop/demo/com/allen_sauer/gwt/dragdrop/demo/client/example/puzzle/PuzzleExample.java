@@ -53,7 +53,7 @@ public class PuzzleExample extends Example {
     boundaryPanel.add(flexTable, 50, 20);
 
     // initialize our drag controller
-    dragController = new PickupDragController(boundaryPanel, true);
+    dragController = new PickupDragController(boundaryPanel, false);
     dragController.addDragHandler(demoDragHandler);
     dragController.setBehaviorMultipleSelection(false);
 

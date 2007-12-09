@@ -26,7 +26,7 @@ class DragProxyBehaviorPanel extends BehaviorPanel {
     super("Drag Proxy Behavior", "getBehaviorDragProxy() / setBehaviorDragProxy(boolean)");
 
     final RadioButton classicButton = newButton("Widget is dragged", "PickupDragController#setBehaviorDragProxy(false)");
-    final RadioButton proxyButton = newButton("Use a drag proxy", "PickupDragController#setBehaviorDragProxy(true)");
+    final RadioButton proxyButton = newButton("Use drag proxies", "PickupDragController#setBehaviorDragProxy(true)");
 
     add(classicButton);
     add(proxyButton);

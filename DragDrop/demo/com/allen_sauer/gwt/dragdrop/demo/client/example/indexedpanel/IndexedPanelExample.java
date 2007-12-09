@@ -52,10 +52,12 @@ public final class IndexedPanelExample extends Example {
 
     // initialize our column drag controller
     PickupDragController columnDragController = new PickupDragController(boundaryPanel, false);
+    columnDragController.setBehaviorMultipleSelection(false);
     columnDragController.addDragHandler(demoDragHandler);
 
     // initialize our widget drag controller
     PickupDragController widgetDragController = new PickupDragController(boundaryPanel, false);
+    widgetDragController.setBehaviorMultipleSelection(false);
     widgetDragController.addDragHandler(demoDragHandler);
 
     // initialize horizontal panel to hold our columns

@@ -108,13 +108,15 @@ public final class DragDropDemo implements EntryPoint {
     dragController = new PickupDragController(boundaryPanel, true);
     dragController.setBehaviorMultipleSelection(true);
 
-    mainPanel.add(new HTML("<p>Here's the <a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a> 2.x library in action.</p>"));
+    mainPanel.add(new HTML(
+        "<div style='font-weight: bold; font-size: 1.2em;'><a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a>"
+            + " - Drag-and-Drop for your Google Web Toolkit projects.</div><br>"));
 
     // Umbrella example illustrating basic drag and drop behavior
     HTML boundaryDescription = ExampleTabPanel.describe(new Class[] {
         DragDropDemo.class, PickupDragController.class, BoundaryDropController.class,},
-        "Most of our example drag operations are constrained to the panel below."
-            + " Try to drag one of the widgets outside this area.");
+        "Most of the example drag operations are constrained to the panel below."
+            + " Try to drag one of the widgets outside the area below.");
     boundaryDescription.addStyleName(CSS_DEMO_BOUNDARY);
     mainPanel.add(boundaryDescription);
     mainPanel.add(boundaryPanel);
@@ -122,10 +124,10 @@ public final class DragDropDemo implements EntryPoint {
     // Add configuration panel for main drag controller
     VerticalPanel configurationPanel = new VerticalPanel();
     configurationPanel.setWidth("200px");
-    configurationPanel.add(new DragProxyBehaviorPanel(dragController));
-    configurationPanel.add(new ConstrainedToBoundaryBehaviorPanel(dragController));
     configurationPanel.add(new MultipleSelectionBehaviorPanel(dragController));
     configurationPanel.add(new DragStartSensitivityBehaviorPanel(dragController));
+    configurationPanel.add(new DragProxyBehaviorPanel(dragController));
+    configurationPanel.add(new ConstrainedToBoundaryBehaviorPanel(dragController));
     boundaryPanel.add(configurationPanel, 10, 0);
 
     // Create some draggable widgets to play with
