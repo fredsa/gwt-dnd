@@ -1,0 +1,14 @@
+<module>
+
+	<!-- Inherit the core Web Toolkit stuff.                  -->
+	<inherits name='com.google.gwt.user.User'/>
+
+	<!-- Inherit gwt-dnd support                              -->
+	<inherits name='com.allen_sauer.gwt.dnd.DragAndDrop'/>
+		
+	<!-- Specify the app entry point class.                   -->
+	<entry-point class='com.mycompany.client.MyApplication'/>
+  
+  <stylesheet src='MyApplication.css'/>
+  
+</module>

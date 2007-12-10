@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jardesc>
+<jar path="C:/fred/java/lib/gwt-dnd/gwt-dnd-0.0.0-javadoc.jar"/>
+<options buildIfNeeded="true" compress="true" descriptionLocation="/DragAndDrop/GWT-DND-JAVADOC.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+<storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+<selectedProjects/>
+<manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+<sealing sealJar="false">
+<packagesToSeal/>
+<packagesToUnSeal/>
+</sealing>
+</manifest>
+<selectedElements exportClassFiles="false" exportJavaFiles="true" exportOutputFolder="false">
+<file path="/DragAndDrop/LICENSE"/>
+<folder path="/DragAndDrop/javadoc"/>
+</selectedElements>
+</jardesc>

@@ -1,0 +1,11 @@
+<module>
+
+	<inherits name="com.allen_sauer.gwt.dnd.DragAndDrop"/>
+
+	<entry-point class="com.allen_sauer.gwt.dnd.test.client.DragAndDropTest"/>
+  
+  <public path="public"/>
+
+  <stylesheet src="DragAndDropTest.css"/>
+  
+</module>
