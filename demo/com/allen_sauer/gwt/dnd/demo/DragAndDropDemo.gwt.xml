@@ -1,6 +1,6 @@
 <module>
 
-	<inherits name="com.allen_sauer.gwt.dnd.DragAndDrop"/>
+	<inherits name="com.allen_sauer.gwt.dnd.gwt-dnd"/>
 
 	<entry-point class="com.allen_sauer.gwt.dnd.demo.client.DragAndDropDemo"/>
   
