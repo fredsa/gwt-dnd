@@ -46,24 +46,32 @@ public abstract class AbstractDragController implements DragController {
    * @deprecated Instead selectively use your own CSS classes.
    */
   protected static final String CSS_DRAGGING;
-
   /**
    * @deprecated Instead selectively use your own CSS classes.
    */
   protected static final String CSS_HANDLE;
 
   private static final String CSS_SELECTED = "dragdrop-selected";
+
   private static HashMap dragHandles = new HashMap();
+
   private static final String PRIVATE_CSS_DRAGGABLE = "dragdrop-draggable";
   private static final String PRIVATE_CSS_DRAGGING = "dragdrop-dragging";
-
   private static final String PRIVATE_CSS_HANDLE = "dragdrop-handle";
+  static {
+    setVersion();
+  }
 
   static {
     CSS_DRAGGABLE = PRIVATE_CSS_DRAGGABLE;
     CSS_DRAGGING = PRIVATE_CSS_DRAGGING;
     CSS_HANDLE = PRIVATE_CSS_HANDLE;
   }
+
+  private static native void setVersion()
+  /*-{
+    $wnd.GWT_DND_VERSION = "2.0.2";
+  }-*/;
 
   protected final DragContext context;
   AbsolutePanel boundaryPanel;
