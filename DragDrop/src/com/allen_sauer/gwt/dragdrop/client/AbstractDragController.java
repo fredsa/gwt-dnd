@@ -71,7 +71,7 @@ public abstract class AbstractDragController implements DragController {
   private DragHandlerCollection dragHandlers;
   private int dragStartPixels;
   private MouseDragHandler mouseDragHandler;
-  private boolean multipleSelectionAllowed = true;
+  private boolean multipleSelectionAllowed = false;
 
   /**
    * Create a new drag-and-drop controller. Drag operations will be limited to

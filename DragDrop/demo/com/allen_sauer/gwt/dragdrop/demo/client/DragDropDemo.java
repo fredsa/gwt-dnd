@@ -106,7 +106,7 @@ public final class DragDropDemo implements EntryPoint {
 
     // instantiate the common drag controller used the less specific examples
     dragController = new PickupDragController(boundaryPanel, true);
-    dragController.setBehaviorMultipleSelection(true);
+    dragController.setBehaviorMultipleSelection(false);
 
     mainPanel.add(new HTML(
         "<div style='font-weight: bold; font-size: 1.2em;'><a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a>"
