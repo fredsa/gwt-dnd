@@ -21,7 +21,7 @@ import com.allen_sauer.gwt.dnd.demo.client.DragAndDropDemo;
  * Shared utility methods for examples.
  */
 public class GWTUtil {
-  private static final String SUBVERSION_TRUNK = "http://gwt-dnd.googlecode.com/svn/trunk/DragDrop/";
+  private static final String SUBVERSION_TRUNK = "http://gwt-dnd.googlecode.com/svn/trunk/DragAndDrop/";
 
   public static String getClassAnchorHTML(Class clazz) {
     String className = getClassName(clazz);
