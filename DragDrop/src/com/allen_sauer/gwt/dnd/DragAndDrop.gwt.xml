@@ -1,8 +1,8 @@
 <module>
 
-  <inherits name='com.google.gwt.user.User'/>
+  <inherits name="com.google.gwt.user.User"/>
 
-  <stylesheet src='DragAndDrop.css'/>
+  <stylesheet src="DragAndDrop.css"/>
 
   <replace-with class="com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImplOpera">
     <when-type-is class="com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImpl"/>

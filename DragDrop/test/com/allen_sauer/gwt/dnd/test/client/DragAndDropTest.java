@@ -27,7 +27,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 /**
  * EntryPoint class for demonstrating and testing drag-and-drop library.
  */
-public final class DragDropTest implements EntryPoint {
+public final class DragAndDropTest implements EntryPoint {
   private static native String getCompatMode()
   /*-{
     return $doc.compatMode;
@@ -67,6 +67,6 @@ public final class DragDropTest implements EntryPoint {
   }
 
   public void onModuleLoad2() {
-    RootPanel.get().add(new HTML("DragDropTest is in <b>" + getCompatMode() + "</b> mode."));
+    RootPanel.get().add(new HTML("DragAndDropTest is in <b>" + getCompatMode() + "</b> mode."));
   }
 }

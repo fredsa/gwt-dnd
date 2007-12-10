@@ -123,11 +123,8 @@ public class PickupDragController extends AbstractDragController {
     int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
     int desiredTop = context.desiredDraggableY - boundaryOffsetY;
     if (getBehaviorConstrainedToBoundaryPanel()) {
-      String t = desiredLeft + ", " + desiredTop;
       desiredLeft = Math.max(0, Math.min(desiredLeft, dropTargetClientWidth - context.draggable.getOffsetWidth()));
       desiredTop = Math.max(0, Math.min(desiredTop, dropTargetClientHeight - context.draggable.getOffsetHeight()));
-      t += " / " + desiredLeft + ", " + desiredTop;
-      DOMUtil.setStatus(t);
     }
 
     DOMUtil.fastSetElementPosition(movablePanel.getElement(), desiredLeft, desiredTop);

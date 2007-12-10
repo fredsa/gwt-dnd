@@ -15,7 +15,7 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.util;
 
-import com.allen_sauer.gwt.dnd.demo.client.DragDropDemo;
+import com.allen_sauer.gwt.dnd.demo.client.DragAndDropDemo;
 
 /**
  * Shared utility methods for examples.
@@ -26,7 +26,7 @@ public class GWTUtil {
   public static String getClassAnchorHTML(Class clazz) {
     String className = getClassName(clazz);
     String url = SUBVERSION_TRUNK;
-    if (className.startsWith(DragDropDemo.DEMO_CLIENT_PACKAGE)) {
+    if (className.startsWith(DragAndDropDemo.DEMO_CLIENT_PACKAGE)) {
       url += "demo/";
     } else {
       url += "src/";

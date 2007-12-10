@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.DragController;
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 
 class DragStartSensitivityBehaviorPanel extends BehaviorPanel {
   private final DragController dragController;
@@ -67,7 +66,6 @@ class DragStartSensitivityBehaviorPanel extends BehaviorPanel {
   private void fix() {
     try {
       dragController.setBehaviorDragStartSensitivity(Integer.parseInt(textBox.getText()));
-      DOMUtil.setStatus("" + dragController.getBehaviorDragStartSensitivity());
     } catch (NumberFormatException ex) {
       // ignore
     }
