@@ -26,10 +26,10 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
-import com.allen_sauer.gwt.dragdrop.client.PickupDragController;
-import com.allen_sauer.gwt.dragdrop.client.drop.AbsolutePositionDropController;
-import com.allen_sauer.gwt.dragdrop.client.drop.DropController;
-import com.allen_sauer.gwt.dragdrop.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.PickupDragController;
+import com.allen_sauer.gwt.dnd.client.drop.AbsolutePositionDropController;
+import com.allen_sauer.gwt.dnd.client.drop.DropController;
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 
 public class MyApplication implements EntryPoint {
   public void onModuleLoad() {
