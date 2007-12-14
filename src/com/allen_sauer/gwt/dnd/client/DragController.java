@@ -191,6 +191,8 @@ public interface DragController extends FiresDragEvents {
   /**
    * Sets the number of pixels the mouse must be moved in either horizontal or vertical
    * direction in order to initiate a drag operation. Defaults to <code>0</code> (zero).
+   * Use a value of at least <code>1</code> (one) in order to allow registered click
+   * listeners to receive click events.
    * 
    * @param pixels number of pixels or <code>0</code> (zero) to start dragging on mouse down
    */
