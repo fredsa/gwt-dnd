@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 
-HTML {
+HTML { /* Workaround for GWT issue 1932 */
   margin: 0px !important;
   border: none !important;
 }
