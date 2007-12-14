@@ -104,7 +104,7 @@ public class WidgetLocation extends AbstractLocation {
 
   private void internalSetWidget(Widget widget) {
     //    this.widget = widget;
-    if (widget == null) {
+    if (widget == null || widget == RootPanel.get()) {
       widgetLeft = 0;
       widgetTop = 0;
     } else {

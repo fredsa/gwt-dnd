@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.Location;
+import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -95,8 +96,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
     dropTargetClientWidth = DOMUtil.getClientWidth(dropTarget.getElement());
     dropTargetClientHeight = DOMUtil.getClientHeight(dropTarget.getElement());
-    dropTargetOffsetX = dropTarget.getAbsoluteLeft() + DOMUtil.getBorderLeft(dropTarget.getElement());
-    dropTargetOffsetY = dropTarget.getAbsoluteTop() + DOMUtil.getBorderTop(dropTarget.getElement());
+    WidgetLocation dropTargetLocation = new WidgetLocation(dropTarget, null);
+    dropTargetOffsetX = dropTargetLocation.getLeft() + DOMUtil.getBorderLeft(dropTarget.getElement());
+    dropTargetOffsetY = dropTargetLocation.getTop() + DOMUtil.getBorderTop(dropTarget.getElement());
 
     int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
     int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
