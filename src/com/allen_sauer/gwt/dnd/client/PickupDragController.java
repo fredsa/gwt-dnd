@@ -88,8 +88,8 @@ public class PickupDragController extends AbstractDragController {
    * automatically.
    * </p>
    * 
-   * @param boundaryPanel the desired boundary panel or null if entire page is
-   *            to be included
+   * @param boundaryPanel the desired boundary panel or <code>RootPanel.get()</code>
+   *                      if entire document body is to be the boundary
    * @param allowDroppingOnBoundaryPanel whether or not boundary panel should
    *            allow dropping
    */
@@ -123,8 +123,10 @@ public class PickupDragController extends AbstractDragController {
     int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
     int desiredTop = context.desiredDraggableY - boundaryOffsetY;
     if (getBehaviorConstrainedToBoundaryPanel()) {
-      desiredLeft = Math.max(0, Math.min(desiredLeft, dropTargetClientWidth - context.draggable.getOffsetWidth()));
-      desiredTop = Math.max(0, Math.min(desiredTop, dropTargetClientHeight - context.draggable.getOffsetHeight()));
+      desiredLeft = Math.max(0, Math.min(desiredLeft, dropTargetClientWidth
+          - context.draggable.getOffsetWidth()));
+      desiredTop = Math.max(0, Math.min(desiredTop, dropTargetClientHeight
+          - context.draggable.getOffsetHeight()));
     }
 
     DOMUtil.fastSetElementPosition(movablePanel.getElement(), desiredLeft, desiredTop);
@@ -148,17 +150,21 @@ public class PickupDragController extends AbstractDragController {
   public void dragStart() {
     super.dragStart();
 
-    WidgetLocation currentDraggableLocation = new WidgetLocation(context.draggable, context.boundaryPanel);
+    WidgetLocation currentDraggableLocation = new WidgetLocation(context.draggable,
+        context.boundaryPanel);
     if (getBehaviorDragProxy()) {
       movablePanel = newDragProxy(context);
-      context.boundaryPanel.add(movablePanel, currentDraggableLocation.getLeft(), currentDraggableLocation.getTop());
+      context.boundaryPanel.add(movablePanel, currentDraggableLocation.getLeft(),
+          currentDraggableLocation.getTop());
     } else {
       saveSelectedWidgetsLocationAndStyle();
       AbsolutePanel container = new AbsolutePanel();
       DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
 
-      container.setPixelSize(context.draggable.getOffsetWidth(), context.draggable.getOffsetHeight());
-      context.boundaryPanel.add(container, currentDraggableLocation.getLeft(), currentDraggableLocation.getTop());
+      container.setPixelSize(context.draggable.getOffsetWidth(),
+          context.draggable.getOffsetHeight());
+      context.boundaryPanel.add(container, currentDraggableLocation.getLeft(),
+          currentDraggableLocation.getTop());
 
       int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
       int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
@@ -177,8 +183,10 @@ public class PickupDragController extends AbstractDragController {
 
     // one time calculation of boundary panel location for efficiency during dragging
     Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
-    boundaryOffsetX = widgetLocation.getLeft() + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
-    boundaryOffsetY = widgetLocation.getTop() + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
+    boundaryOffsetX = widgetLocation.getLeft()
+        + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
+    boundaryOffsetY = widgetLocation.getTop()
+        + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
 
     dropTargetClientWidth = DOMUtil.getClientWidth(boundaryPanel.getElement());
     dropTargetClientHeight = DOMUtil.getClientHeight(boundaryPanel.getElement());
@@ -295,7 +303,8 @@ public class PickupDragController extends AbstractDragController {
    * @param allowDroppingOnBoundaryPanel whether or not dropping is allowed on the boundary panel
    * @return the new BoundaryDropController
    */
-  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
+  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
+      boolean allowDroppingOnBoundaryPanel) {
     return new BoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
   }
 
@@ -317,7 +326,8 @@ public class PickupDragController extends AbstractDragController {
       Widget proxy = new SimplePanel();
       proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
       proxy.addStyleName(PRIVATE_CSS_PROXY);
-      container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(), widgetArea.getTop() - draggableArea.getTop());
+      container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(), widgetArea.getTop()
+          - draggableArea.getTop());
     }
 
     return container;
@@ -336,7 +346,8 @@ public class PickupDragController extends AbstractDragController {
       // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
       // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
       if (info.initialDraggableParent instanceof AbsolutePanel) {
-        ((AbsolutePanel) info.initialDraggableParent).add(widget, info.initialDraggableParentLocation.getLeft(),
+        ((AbsolutePanel) info.initialDraggableParent).add(widget,
+            info.initialDraggableParentLocation.getLeft(),
             info.initialDraggableParentLocation.getTop());
       } else if (info.initialDraggableParent instanceof HorizontalPanel) {
         ((HorizontalPanel) info.initialDraggableParent).insert(widget, info.initialDraggableIndex);
@@ -347,7 +358,8 @@ public class PickupDragController extends AbstractDragController {
       } else if (info.initialDraggableParent instanceof SimplePanel) {
         ((SimplePanel) info.initialDraggableParent).setWidget(widget);
       } else {
-        throw new RuntimeException("Unable to handle initialDraggableParent " + GWT.getTypeName(info.initialDraggableParent));
+        throw new RuntimeException("Unable to handle initialDraggableParent "
+            + GWT.getTypeName(info.initialDraggableParent));
       }
     }
   }
@@ -384,7 +396,8 @@ public class PickupDragController extends AbstractDragController {
       // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
       // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
       if (info.initialDraggableParent instanceof AbsolutePanel) {
-        info.initialDraggableParentLocation = new WidgetLocation(widget, info.initialDraggableParent);
+        info.initialDraggableParentLocation = new WidgetLocation(widget,
+            info.initialDraggableParent);
       } else if (info.initialDraggableParent instanceof HorizontalPanel) {
         info.initialDraggableIndex = ((HorizontalPanel) info.initialDraggableParent).getWidgetIndex(widget);
       } else if (info.initialDraggableParent instanceof VerticalPanel) {
