@@ -95,6 +95,7 @@ public class PickupDragController extends AbstractDragController {
    */
   public PickupDragController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
     super(boundaryPanel);
+    assert boundaryPanel != null : "Use 'RootPanel.get()' instead of 'null'.";
     boundaryDropController = newBoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
     registerDropController(boundaryDropController);
     dropControllerCollection = new DropControllerCollection(dropControllerList);
