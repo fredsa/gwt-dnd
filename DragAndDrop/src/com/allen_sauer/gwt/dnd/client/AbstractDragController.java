@@ -16,7 +16,6 @@
 package com.allen_sauer.gwt.dnd.client;
 
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
@@ -85,11 +84,12 @@ public abstract class AbstractDragController implements DragController {
    * Create a new drag-and-drop controller. Drag operations will be limited to
    * the specified boundary panel.
    * 
-   * @param boundaryPanel the desired boundary panel or null if entire page is
-   *            to be included
+   * @param boundaryPanel the desired boundary panel or <code>RootPanel.get()</code>
+   *                      if entire document body is to be the boundary
    */
   public AbstractDragController(AbsolutePanel boundaryPanel) {
-    this.boundaryPanel = boundaryPanel != null ? boundaryPanel : RootPanel.get();
+    assert boundaryPanel != null : "Use 'RootPanel.get()' instead of 'null'.";
+    this.boundaryPanel = boundaryPanel;
     context = new DragContext(this);
     mouseDragHandler = new MouseDragHandler(context);
   }
