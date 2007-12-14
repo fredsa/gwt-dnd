@@ -1,5 +1,10 @@
 @CHARSET "UTF-8";
 
+HTML {
+  margin: 0px !important;
+  border: none !important;
+}
+
 .dragdrop-handle {
   cursor: move;
   user-select: none;
