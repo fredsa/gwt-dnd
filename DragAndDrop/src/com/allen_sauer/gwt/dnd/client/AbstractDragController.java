@@ -69,7 +69,7 @@ public abstract class AbstractDragController implements DragController {
 
   private static native void setVersion()
   /*-{
-    $wnd.GWT_DND_VERSION = "2.0.2";
+    $wnd.GWT_DND_VERSION = "2.0.3";
   }-*/;
 
   protected final DragContext context;
