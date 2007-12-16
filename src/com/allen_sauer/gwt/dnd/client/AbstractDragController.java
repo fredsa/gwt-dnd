@@ -57,6 +57,7 @@ public abstract class AbstractDragController implements DragController {
   private static final String PRIVATE_CSS_DRAGGABLE = "dragdrop-draggable";
   private static final String PRIVATE_CSS_DRAGGING = "dragdrop-dragging";
   private static final String PRIVATE_CSS_HANDLE = "dragdrop-handle";
+
   static {
     setVersion();
   }
@@ -69,7 +70,7 @@ public abstract class AbstractDragController implements DragController {
 
   private static native void setVersion()
   /*-{
-    $wnd.GWT_DND_VERSION = "2.0.3";
+    $GWT_DND_VERSION = "@GWT_DND_VERSION@";
   }-*/;
 
   protected final DragContext context;
