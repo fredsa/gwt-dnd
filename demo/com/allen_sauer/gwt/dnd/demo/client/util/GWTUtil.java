@@ -15,18 +15,18 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.util;
 
-import com.allen_sauer.gwt.dnd.demo.client.DragAndDropDemo;
+import com.allen_sauer.gwt.dnd.demo.client.DragDropDemo;
 
 /**
  * Shared utility methods for examples.
  */
 public class GWTUtil {
-  private static final String SUBVERSION_TRUNK = "http://gwt-dnd.googlecode.com/svn/trunk/DragAndDrop/";
+  private static final String SUBVERSION_TRUNK = "http://gwt-dnd.googlecode.com/svn/trunk/DragDrop/";
 
   public static String getClassAnchorHTML(Class clazz) {
     String className = getClassName(clazz);
     String url = SUBVERSION_TRUNK;
-    if (className.startsWith(DragAndDropDemo.DEMO_CLIENT_PACKAGE)) {
+    if (className.startsWith(DragDropDemo.DEMO_CLIENT_PACKAGE)) {
       url += "demo/";
     } else {
       url += "src/";

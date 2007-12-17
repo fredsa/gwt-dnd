@@ -153,14 +153,14 @@
 				<fileset file="${gwt.dev.jar}" />
 			</sourcefiles>
 
-			<targetfiles path="build/www/com.allen_sauer.gwt.dnd.demo.DragAndDropDemo/DragAndDrop.nocache.html" />
+			<targetfiles path="build/www/com.allen_sauer.gwt.dnd.demo.DragDropDemo/DragDrop.nocache.html" />
 			<sequential>
 				<mkdir dir="build/www" />
 				<java dir="build" classname="com.google.gwt.dev.GWTCompiler" classpath="build/src:build/demo:${gwt.user.jar}:${gwt.dev.jar}" fork="yes" failonerror="true">
 					<arg value="-out" />
 					<arg path="build/www" />
 
-					<arg value="com.allen_sauer.gwt.dnd.demo.DragAndDropDemo" />
+					<arg value="com.allen_sauer.gwt.dnd.demo.DragDropDemo" />
 
 					<arg value="-style" />
 					<arg value="PRETTY" />
