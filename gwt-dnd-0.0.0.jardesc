@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jardesc>
 <jar path="C:/fred/java/lib/gwt-dnd/gwt-dnd-0.0.0.jar"/>
-<options buildIfNeeded="true" compress="false" descriptionLocation="/DragAndDrop/GWT-DND.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+<options buildIfNeeded="true" compress="false" descriptionLocation="/DragDrop/gwt-dnd-0.0.0.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
 <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
 <selectedProjects/>
 <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
-<file path="/DragAndDrop/LICENSE"/>
-<javaElement handleIdentifier="=DragAndDrop/src&lt;com.allen_sauer.gwt.dnd"/>
-<javaElement handleIdentifier="=DragAndDrop/src&lt;com.allen_sauer.gwt.dnd.client"/>
-<javaElement handleIdentifier="=DragAndDrop/src&lt;com.allen_sauer.gwt.dnd.client.drop"/>
-<javaElement handleIdentifier="=DragAndDrop/src&lt;com.allen_sauer.gwt.dnd.client.temp"/>
-<javaElement handleIdentifier="=DragAndDrop/src&lt;com.allen_sauer.gwt.dnd.client.util"/>
-<javaElement handleIdentifier="=DragAndDrop/src&lt;com.allen_sauer.gwt.dnd.client.util.impl"/>
+<file path="/DragDrop/LICENSE"/>
+<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd"/>
+<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client"/>
+<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client.drop"/>
+<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client.temp"/>
+<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client.util"/>
+<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client.util.impl"/>
 </selectedElements>
 </jardesc>
