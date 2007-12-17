@@ -1,7 +1,7 @@
 draggable
 proxy
 positioner
-dragdrop
+draganddrop
 gwt
 com
 callback

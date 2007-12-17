@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>DragDrop</name>
-	<comment>DragDrop project</comment>
+	<comment>gwt-dnd - Drag-and-Drop support for your Google Web Toolkit applications</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -24,7 +24,7 @@
 		<link>
 			<name>user-src</name>
 			<type>2</type>
-			<locationURI>GWT_TRUNK/user/src</locationURI>
+			<location>C:/fred/gwt/trunk/user/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>
