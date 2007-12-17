@@ -17,10 +17,10 @@
 
 	<inherits name="com.allen_sauer.gwt.dnd.gwt-dnd"/>
 
-	<entry-point class="com.allen_sauer.gwt.dnd.demo.client.DragAndDropDemo"/>
+	<entry-point class="com.allen_sauer.gwt.dnd.demo.client.DragDropDemo"/>
   
   <public path="public"/>
 
-  <stylesheet src="DragAndDropDemo.css"/>
+  <stylesheet src="DragDropDemo.css"/>
   
 </module>

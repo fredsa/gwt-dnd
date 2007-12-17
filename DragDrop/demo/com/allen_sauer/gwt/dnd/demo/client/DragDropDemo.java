@@ -48,8 +48,8 @@ import com.allen_sauer.gwt.dnd.demo.client.util.GWTUtil;
 /**
  * EntryPoint class for demonstrating and testing gwt-dnd.
  */
-public final class DragAndDropDemo implements EntryPoint {
-  public static final String DEMO_CLIENT_PACKAGE = GWTUtil.getPackageName(DragAndDropDemo.class);
+public final class DragDropDemo implements EntryPoint {
+  public static final String DEMO_CLIENT_PACKAGE = GWTUtil.getPackageName(DragDropDemo.class);
 
   private static final String CSS_DEMO_BOUNDARY = "demo-boundary";
   private static final String CSS_DEMO_EVENT_TEXT_AREA = "demo-event-text-area";
@@ -114,7 +114,7 @@ public final class DragAndDropDemo implements EntryPoint {
 
     // Umbrella example illustrating basic drag and drop behavior
     HTML boundaryDescription = ExampleTabPanel.describe(new Class[] {
-        DragAndDropDemo.class, PickupDragController.class, BoundaryDropController.class,},
+        DragDropDemo.class, PickupDragController.class, BoundaryDropController.class,},
         "Most of the example drag operations are constrained to the panel below."
             + " Try to drag one of the widgets outside the area below.");
     boundaryDescription.addStyleName(CSS_DEMO_BOUNDARY);
