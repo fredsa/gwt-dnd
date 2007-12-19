@@ -33,7 +33,7 @@ import java.util.Iterator;
 public abstract class AbstractIndexedDropController extends AbstractPositioningDropController {
   private int dropIndex;
   private IndexedPanel dropTarget;
-  private Widget positioner;
+  private Widget positioner = null;
 
   /**
    * @see FlowPanelDropController#FlowPanelDropController(com.google.gwt.user.client.ui.FlowPanel)

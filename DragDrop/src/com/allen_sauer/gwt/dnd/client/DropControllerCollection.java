@@ -50,7 +50,7 @@ class DropControllerCollection {
       }
       targetArea = new WidgetArea(target, null);
     }
-
+    
     public int compareTo(Object arg0) {
       Candidate other = (Candidate) arg0;
 
@@ -84,7 +84,7 @@ class DropControllerCollection {
   }
 
   private final ArrayList dropControllerList;
-  private Candidate[] sortedCandidates;
+  private Candidate[] sortedCandidates = null;
 
   /**
    * Default constructor.
@@ -138,7 +138,7 @@ class DropControllerCollection {
       }
     }
 
-    sortedCandidates = (Candidate[]) list.toArray(new Candidate[] {});
+    sortedCandidates = (Candidate[]) list.toArray(new Candidate[list.size()]);
     Arrays.sort(sortedCandidates);
   }
 }
