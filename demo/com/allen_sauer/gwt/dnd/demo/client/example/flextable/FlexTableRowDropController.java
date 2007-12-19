@@ -53,7 +53,7 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     }
   };
 
-  private Widget positioner;
+  private Widget positioner = null;
   private int targetRow;
 
   public FlexTableRowDropController(FlexTable flexTable) {

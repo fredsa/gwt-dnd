@@ -42,7 +42,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     public int relativeY;
     final int offsetHeight;
     final int offsetWidth;
-    Widget positioner;
+    Widget positioner = null;
     final Widget widget;
 
     public Draggable(Widget widget) {

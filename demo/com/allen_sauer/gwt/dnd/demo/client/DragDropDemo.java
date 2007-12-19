@@ -65,7 +65,7 @@ public final class DragDropDemo implements EntryPoint {
         String text = "Uncaught exception: ";
         while (throwable != null) {
           StackTraceElement[] stackTraceElements = throwable.getStackTrace();
-          text += new String(throwable.toString() + "\n");
+          text += throwable.toString() + "\n";
           for (int i = 0; i < stackTraceElements.length; i++) {
             text += "    at " + stackTraceElements[i] + "\n";
           }

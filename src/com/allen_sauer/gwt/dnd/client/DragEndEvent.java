@@ -25,7 +25,7 @@ import java.util.EventObject;
  * {@link EventObject} containing information about the end of a drag.
  */
 public class DragEndEvent extends EventObject {
-  private final DragContext context;
+  private final transient DragContext context;
 
   public DragEndEvent(DragContext context) {
     super(context.draggable);

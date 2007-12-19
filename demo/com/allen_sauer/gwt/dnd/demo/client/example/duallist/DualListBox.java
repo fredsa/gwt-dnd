@@ -41,6 +41,10 @@ public class DualListBox extends AbsolutePanel {
 
   private MouseListBox left;
   private MouseListBox right;
+  private Button oneRight;
+  private Button oneLeft;
+  private Button allRight;
+  private Button allLeft;
 
   public DualListBox(int visibleItems, String width) {
     HorizontalPanel horizontalPanel = new HorizontalPanel();
@@ -62,10 +66,10 @@ public class DualListBox extends AbsolutePanel {
     horizontalPanel.add(verticalPanel);
     horizontalPanel.add(right);
 
-    Button oneRight = new Button("&gt;");
-    Button oneLeft = new Button("&lt;");
-    Button allRight = new Button("&gt;&gt;");
-    Button allLeft = new Button("&lt;&lt;");
+    oneRight = new Button("&gt;");
+    oneLeft = new Button("&lt;");
+    allRight = new Button("&gt;&gt;");
+    allLeft = new Button("&lt;&lt;");
     verticalPanel.add(oneRight);
     verticalPanel.add(oneLeft);
     verticalPanel.add(new HTML("&nbsp;"));

@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
@@ -40,9 +39,6 @@ public class FlowPanelDropController extends AbstractIndexedDropController {
    */
   public FlowPanelDropController(FlowPanel dropTarget) {
     super(dropTarget);
-    if (!(dropTarget instanceof FlowPanel)) {
-      throw new IllegalArgumentException(GWT.getTypeName(dropTarget) + " is not currently supported by this controller");
-    }
     this.dropTarget = dropTarget;
   }
 
