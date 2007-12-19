@@ -1,2 +1,7 @@
 @CHARSET "UTF-8";
 
+* {
+  xborder: 1px solid black;
+  xmargin: 5px;
+  xpadding: 10px;
+}

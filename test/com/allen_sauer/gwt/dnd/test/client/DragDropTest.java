@@ -20,9 +20,15 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.ScrollPanel;
+
+import com.allen_sauer.gwt.dnd.client.PickupDragController;
+import com.allen_sauer.gwt.dnd.client.drop.AbsolutePositionDropController;
 
 /**
  * EntryPoint class for demonstrating and testing drag-and-drop library.
@@ -68,5 +74,46 @@ public final class DragDropTest implements EntryPoint {
 
   public void onModuleLoad2() {
     RootPanel.get().add(new HTML("DragDropTest is in <b>" + getCompatMode() + "</b> mode."));
+
+    int depth = 2;
+
+    PickupDragController dragController = new PickupDragController(RootPanel.get(), true);
+    ScrollPanel scrollPanel1 = new ScrollPanel();
+    DOM.setStyleAttribute(scrollPanel1.getElement(), "position", "relative");
+    scrollPanel1.setPixelSize(300, 300);
+
+    ScrollPanel scrollPanel2 = new ScrollPanel();
+    DOM.setStyleAttribute(scrollPanel2.getElement(), "position", "relative");
+    scrollPanel2.setPixelSize(400, 400);
+
+    AbsolutePanel absolutePanel = new AbsolutePanel();
+    absolutePanel.setPixelSize(600, 600);
+
+    AbsolutePositionDropController dropController = new AbsolutePositionDropController(
+        absolutePanel);
+    dragController.registerDropController(dropController);
+
+    for (int i = 0; i < 10; i++) {
+      Label label = new Label("drag me");
+      absolutePanel.add(label, i * 60, i * 60);
+      dragController.makeDraggable(label);
+    }
+
+    RootPanel.get().add(scrollPanel1);
+
+    if (depth >= 1) {
+      scrollPanel1.setWidget(absolutePanel);
+
+      scrollPanel1.setHorizontalScrollPosition(50);
+      scrollPanel1.setScrollPosition(50);
+    }
+
+    if (depth >= 2) {
+      scrollPanel1.setWidget(scrollPanel2);
+      scrollPanel2.setWidget(absolutePanel);
+
+      scrollPanel2.setHorizontalScrollPosition(200);
+      scrollPanel2.setScrollPosition(200);
+    }
   }
 }
