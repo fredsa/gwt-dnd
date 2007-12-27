@@ -252,6 +252,6 @@ class MouseDragHandler implements MouseListener {
   }
 
   private boolean toggleKey(Event event) {
-    return DOM.eventGetCtrlKey(event) || DOM.eventGetCtrlKey(event);
+    return DOM.eventGetCtrlKey(event) || DOM.eventGetMetaKey(event);
   }
 }
