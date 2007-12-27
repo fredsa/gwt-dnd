@@ -4,11 +4,29 @@
 		<!-- Global Properties -->
 		<property environment="env" />
 
+		<!-- gwt-dnd.libdir property -->
+		<input addproperty="gwt-dnd.libdir" defaultvalue="/fred/java/lib/gwt-dnd" message="gwt-dnd library directory" />
+
 		<!-- gwt-dnd.version property -->
-		<condition property="gwt-dnd.version" value="${env.GWT_DND_VERSION}" else="0.0.0">
-			<isset property="env.GWT_DND_VERSION" />
+		<input addproperty="gwt-dnd.version" defaultvalue="0.0.0" message="gwt-dnd library version" />
+
+		<!-- gwt-dnd.jar property -->
+		<property name="gwt-dnd.jar" value="gwt-dnd-${gwt-dnd.version}.jar" />
+
+		<!-- gwt-dnd.javadoc-jar property -->
+		<property name="gwt-dnd.javadoc-jar" value="gwt-dnd-${gwt-dnd.version}-javadoc.jar" />
+
+		<!-- Prevent overwriting existing libraries -->
+		<available file="${gwt-dnd.libdir}/${gwt-dnd.jar}" property="gwt-dnd.jar-exists" />
+		<condition property="gwt-dnd.fail-overwrite">
+			<and>
+				<not>
+					<equals arg1="${gwt-dnd.version}" arg2="0.0.0" />
+				</not>
+				<isset property="gwt-dnd.jar-exists" />
+			</and>
 		</condition>
-		<fail unless="gwt-dnd.version" message="Please set gwt-dnd.version property" />
+		<fail if="gwt-dnd.fail-overwrite" message="Cannot overwrite existing jar file ${gwt-dnd.libdir}/${gwt-dnd.jar}" />
 
 		<!-- build.host.platform property -->
 		<condition property="build.host.islinux">
@@ -175,12 +193,12 @@
 	<target name="dist" depends="build,javadoc">
 		<mkdir dir="build/dist" />
 
-		<jar destfile="build/dist/gwt-dnd-${gwt-dnd.version}.jar">
+		<jar destfile="build/dist/${gwt-dnd.jar}">
 			<fileset dir="build/out/src" />
 		</jar>
-		<jar basedir="build/javadoc" destfile="build/dist/gwt-dnd-${gwt-dnd.version}-javadoc.jar" />
+		<jar basedir="build/javadoc" destfile="build/dist/${gwt-dnd.javadoc-jar}" />
 
-		<copy todir="/fred/java/lib/gwt-dnd/">
+		<copy todir="${gwt-dnd.libdir}">
 			<fileset dir="build/dist" />
 		</copy>
 	</target>
