@@ -19,3 +19,4 @@ fred
 sauer
 instanceof
 proxies
+palette
