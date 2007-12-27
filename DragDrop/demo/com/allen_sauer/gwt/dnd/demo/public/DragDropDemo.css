@@ -261,7 +261,7 @@ DIV.demo-main-boundary-panel {
 .demo-DualListExample .dragdrop-movable-panel {
   border: none;
 }
-  
+
 .demo-DualListExample-center {
   margin: 0.4em;
 }
@@ -272,9 +272,6 @@ DIV.demo-main-boundary-panel {
 
 .demo-DualListExample-center BUTTON {
   width: 4em;
-}
-
-.demo-DualListExample-item {
 }
 
 .demo-DualListExample-item-has-content {
@@ -337,6 +334,39 @@ DIV.demo-main-boundary-panel {
   border: 1px solid black;
   width: 5em;
   text-align: center;
+}
+
+/* ------------ PaletteWidget ------------ */
+.demo-PaletteExample .dragdrop-dragging {
+  filter: alpha(enabled = false);
+  opacity: 1.0;
+}
+
+.demo-PaletteWidget {
+  display: inline;
+  margin: auto;
+}
+
+.demo-PaletteWidget-widget {
+  display: inline;
+  margin: auto;
+  padding: 2px;
+}
+
+.demo-PaletteWidget-shim {
+  opacity: 0.1;
+  filter: alpha(opacity = 10);
+  background-color: #0000FF; /* blue */
+}
+
+.demo-PalettePanel {
+  padding: 4px;
+  background-color: white;
+  border: 1px solid #0000FF; /* blue */
+}
+
+.demo-PalettePanel-header {
+  font-weight: bold;
 }
 
 /* ------------ General Demo CSS ------------ */

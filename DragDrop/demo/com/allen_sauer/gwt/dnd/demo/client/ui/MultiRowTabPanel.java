@@ -71,6 +71,7 @@ public class MultiRowTabPanel extends Composite {
   }
 
   public void selectTab(int index) {
+    // TODO Account for tab bars having been rotated out of their original position
     int row = index / tabsPerRow;
     int tabIndex = index % tabsPerRow;
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);

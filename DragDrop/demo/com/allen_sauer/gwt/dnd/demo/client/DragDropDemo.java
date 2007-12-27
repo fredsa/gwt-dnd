@@ -40,6 +40,7 @@ import com.allen_sauer.gwt.dnd.demo.client.example.flowpanel.FlowPanelExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.grid.GridConstrainedExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.indexedpanel.IndexedPanelExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.matryoshka.MatryoshkaExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.palette.PaletteExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.puzzle.PuzzleExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.resetcache.ResetCacheExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.window.WindowExample;
@@ -167,6 +168,8 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new PuzzleExample(demoDragHandler));
     examples.add(new MatryoshkaExample(demoDragHandler));
     examples.add(new ResetCacheExample(dragController));
+
+    examples.add(new PaletteExample(demoDragHandler));
 
     // select the first example
     examples.selectTab(Random.nextInt(examples.getTabCount() - 1));
