@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dnd.client.drop;
 
 import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
@@ -67,8 +68,8 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
 
   public void onMove(DragContext context) {
     super.onMove(context);
-    int targetIndex = DOMUtil.findIntersect(dropTarget, new CoordinateLocation(context.mouseX, context.mouseY),
-        getLocationWidgetComparator());
+    int targetIndex = DOMUtil.findIntersect(dropTarget, new CoordinateLocation(context.mouseX,
+        context.mouseY), getLocationWidgetComparator());
 
     // check that positioner not already in the correct location
     int positionerIndex = dropTarget.getWidgetIndex(positioner);
@@ -105,5 +106,16 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
    */
   protected abstract void insert(Widget widget, int beforeIndex);
 
-  abstract Widget newPositioner(DragContext context);
+  /**
+   * Called by {@link AbstractIndexedDropController#onEnter(DragContext)} to create a new
+   * positioner widget for this indexed drop target. Override this method to customize
+   * the look and feel of your positioner. The positioner widget may not have any CSS
+   * borders or margins, although there are no such restrictions on the children of the
+   * positioner widget. If borders and/or margins are desired, wrap that widget in a
+   * {@link SimplePanel} with a <code>0px</code> border and margin.
+   * 
+   * @param context The current drag context.
+   * @return a new positioner widget
+   */
+  protected abstract Widget newPositioner(DragContext context);
 }

@@ -45,7 +45,8 @@ public class IndexedDropController extends AbstractIndexedDropController {
   public IndexedDropController(IndexedPanel dropTarget) {
     super(dropTarget);
     if (!(dropTarget instanceof HorizontalPanel) && !(dropTarget instanceof VerticalPanel)) {
-      throw new IllegalArgumentException(GWT.getTypeName(dropTarget) + " is not currently supported by this controller");
+      throw new IllegalArgumentException(GWT.getTypeName(dropTarget)
+          + " is not currently supported by this controller");
     }
     this.dropTarget = dropTarget;
   }
@@ -68,7 +69,7 @@ public class IndexedDropController extends AbstractIndexedDropController {
     }
   }
 
-  Widget newPositioner(DragContext context) {
+  protected Widget newPositioner(DragContext context) {
     // Use two widgets so that setPixelSize() consistently affects dimensions
     // excluding positioner border in quirks and strict modes
     SimplePanel outer = new SimplePanel();
@@ -98,7 +99,8 @@ public class IndexedDropController extends AbstractIndexedDropController {
     }
 
     SimplePanel inner = new SimplePanel();
-    inner.setPixelSize(width - DOMUtil.getHorizontalBorders(outer), height - DOMUtil.getVerticalBorders(outer));
+    inner.setPixelSize(width - DOMUtil.getHorizontalBorders(outer), height
+        - DOMUtil.getVerticalBorders(outer));
 
     outer.setWidget(inner);
 
