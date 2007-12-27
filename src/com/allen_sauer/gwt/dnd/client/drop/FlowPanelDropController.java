@@ -52,7 +52,7 @@ public class FlowPanelDropController extends AbstractIndexedDropController {
     dropTarget.insert(widget, beforeIndex);
   }
 
-  Widget newPositioner(DragContext context) {
+  protected Widget newPositioner(DragContext context) {
     HTML positioner = new HTML("&#x203B;");
     positioner.addStyleName(CSS_DRAGDROP_FLOW_PANEL_POSITIONER);
     return positioner;
