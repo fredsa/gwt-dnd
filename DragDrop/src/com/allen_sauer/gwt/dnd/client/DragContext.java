@@ -48,7 +48,7 @@ public class DragContext {
   public final DragController dragController;
 
   /**
-   * The primary widget currently being dragged.
+   * The primary widget currently being dragged or <code>null</code> when not dragging.
    */
   public Widget draggable;
 

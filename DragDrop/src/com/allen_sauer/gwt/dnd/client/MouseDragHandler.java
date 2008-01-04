@@ -178,6 +178,7 @@ class MouseDragHandler implements MouseListener {
     }
     // Proceed with the drop
     drop(x, y);
+    context.draggable = null;
   }
 
   void actualMove(int x, int y) {
