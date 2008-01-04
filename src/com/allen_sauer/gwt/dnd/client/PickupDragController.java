@@ -245,7 +245,7 @@ public class PickupDragController extends AbstractDragController {
 
   public void resetCache() {
     super.resetCache();
-    dropControllerCollection.resetCache(boundaryPanel, context.draggable);
+    dropControllerCollection.resetCache(boundaryPanel, context);
   }
 
   /**

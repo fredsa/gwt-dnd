@@ -50,7 +50,7 @@ class DropControllerCollection {
       }
       targetArea = new WidgetArea(target, null);
     }
-    
+
     public int compareTo(Object arg0) {
       Candidate other = (Candidate) arg0;
 
@@ -116,28 +116,30 @@ class DropControllerCollection {
 
   /**
    * Cache a list of eligible drop controllers, sorted by relative DOM positions
-   * of their respective drop targets. Should be called at the beginning of each
-   * drag operation, or whenever drop target eligibility has changed.
+   * of their respective drop targets. Called at the beginning of each drag operation,
+   * or whenever drop target eligibility has changed while dragging.
    * 
-   * @param boundaryPanel boundary area for drop target eligibility
-   *            considerations
-   * @param draggable
+   * @param boundaryPanel boundary area for drop target eligibility considerations
+   * @param context the current drag context
    */
-  void resetCache(Panel boundaryPanel, Widget draggable) {
-    WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
-
+  void resetCache(Panel boundaryPanel, DragContext context) {
     ArrayList list = new ArrayList();
-    for (Iterator iterator = dropControllerList.iterator(); iterator.hasNext();) {
-      DropController dropController = (DropController) iterator.next();
-      Candidate candidate = new Candidate(dropController);
-      if (DOMUtil.isOrContains(draggable.getElement(), candidate.getDropTarget().getElement())) {
-        continue;
-      }
-      if (candidate.getTargetArea().intersects(boundaryArea)) {
-        list.add(candidate);
+
+    if (context.draggable != null) {
+      WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
+      for (Iterator iterator = dropControllerList.iterator(); iterator.hasNext();) {
+        DropController dropController = (DropController) iterator.next();
+        Candidate candidate = new Candidate(dropController);
+        if (DOMUtil.isOrContains(context.draggable.getElement(),
+            candidate.getDropTarget().getElement())) {
+          continue;
+        }
+        if (candidate.getTargetArea().intersects(boundaryArea)) {
+          list.add(candidate);
+        }
       }
     }
-
+    
     sortedCandidates = (Candidate[]) list.toArray(new Candidate[list.size()]);
     Arrays.sort(sortedCandidates);
   }
