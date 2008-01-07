@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -374,10 +374,7 @@ public class PickupDragController extends AbstractDragController {
     for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       SavedWidgetInfo info = (SavedWidgetInfo) savedWidgetInfoMap.get(widget);
-
-      if (info.initialDraggableMargin != null && info.initialDraggableMargin.length() != 0) {
-        DOM.setStyleAttribute(widget.getElement(), "margin", info.initialDraggableMargin);
-      }
+      DOM.setStyleAttribute(widget.getElement(), "margin", info.initialDraggableMargin);
     }
   }
 
@@ -415,9 +412,8 @@ public class PickupDragController extends AbstractDragController {
       }
 
       info.initialDraggableMargin = DOM.getStyleAttribute(widget.getElement(), "margin");
-      if (info.initialDraggableMargin != null && info.initialDraggableMargin.length() != 0) {
-        DOM.setStyleAttribute(widget.getElement(), "margin", "0px");
-      }
+      // set explicit margin to override any stylesheet based settings
+      DOM.setStyleAttribute(widget.getElement(), "margin", "0px");
       savedWidgetInfoMap.put(widget, info);
     }
   }
