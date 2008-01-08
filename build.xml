@@ -65,8 +65,8 @@
 
 
 		<!-- gwt.location property -->
-		<condition property="gwt.location" value="${env.GWT_PLATFORM}">
-			<isset property="env.GWT_PLATFORM" />
+		<condition property="gwt.location" value="${env.GWT_HOME}">
+			<isset property="env.GWT_HOME" />
 		</condition>
 		<fail message="can't find gwt, please set gwt.location property" unless="gwt.location" />
 
