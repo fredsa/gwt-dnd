@@ -55,10 +55,12 @@ public class DragEndEvent extends EventObject {
   public String toString() {
     String dropTargetText;
     if (context.finalDropController != null) {
-      dropTargetText = "dropTarget=" + StringUtil.getShortTypeName(context.finalDropController.getDropTarget());
+      dropTargetText = "dropTarget="
+          + StringUtil.getShortTypeName(context.finalDropController.getDropTarget());
     } else {
       dropTargetText = "[cancelled: " + context.vetoException + "]";
     }
-    return "DragEndEvent(" + dropTargetText + ", context=" + StringUtil.getShortTypeName(getSource()) + ")";
+    return "DragEndEvent(" + dropTargetText + ", context="
+        + StringUtil.getShortTypeName(getSource()) + ")";
   }
 }

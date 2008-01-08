@@ -101,7 +101,8 @@ public abstract class AbstractDropController implements DropController {
   public void onMove(DragContext context) {
   }
 
-  public final void onMove(int x, int y, Widget reference, Widget draggable, DragController dragController) {
+  public final void onMove(int x, int y, Widget reference, Widget draggable,
+      DragController dragController) {
     throw new UnsupportedOperationException();
   }
 
@@ -115,7 +116,8 @@ public abstract class AbstractDropController implements DropController {
   /**
    * @deprecated Use {@link #onPreviewDrop(DragContext)} instead.
    */
-  public final void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException {
+  public final void onPreviewDrop(Widget reference, Widget draggable, DragController dragController)
+      throws VetoDropException {
     throw new UnsupportedOperationException();
   }
 
@@ -129,7 +131,8 @@ public abstract class AbstractDropController implements DropController {
   /**
    * @deprecated No longer a part of the API.
    */
-  protected final DragEndEvent makeDragEndEvent(Widget reference, Widget draggable, DragController dragController) {
+  protected final DragEndEvent makeDragEndEvent(Widget reference, Widget draggable,
+      DragController dragController) {
     throw new UnsupportedOperationException();
   }
 }

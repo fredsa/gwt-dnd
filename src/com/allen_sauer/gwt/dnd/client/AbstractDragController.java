@@ -290,7 +290,8 @@ public abstract class AbstractDragController implements DragController {
   /**
    * @deprecated Use {@link PickupDragController#newBoundaryDropController(AbsolutePanel, boolean)} instead.
    */
-  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDropping) {
+  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
+      boolean allowDropping) {
     throw new UnsupportedOperationException();
   }
 

@@ -74,15 +74,16 @@ public abstract class AbstractArea implements Area {
   }
 
   public boolean intersects(Area targetArea) {
-    if (getRight() < targetArea.getLeft() || getLeft() > targetArea.getRight() || getBottom() < targetArea.getTop()
-        || getTop() > targetArea.getBottom()) {
+    if (getRight() < targetArea.getLeft() || getLeft() > targetArea.getRight()
+        || getBottom() < targetArea.getTop() || getTop() > targetArea.getBottom()) {
       return false;
     }
     return true;
   }
 
   public boolean intersects(Location location) {
-    return left <= location.getLeft() && location.getLeft() <= right && top <= location.getTop() && location.getTop() <= bottom;
+    return left <= location.getLeft() && location.getLeft() <= right && top <= location.getTop()
+        && location.getTop() <= bottom;
   }
 
   public void moveTo(Location location) {

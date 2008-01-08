@@ -50,8 +50,10 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
       Draggable draggable = (Draggable) iterator.next();
       draggable.desiredX = context.desiredDraggableX - dropTargetOffsetX + draggable.relativeX;
       draggable.desiredY = context.desiredDraggableY - dropTargetOffsetY + draggable.relativeY;
-      draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth - draggable.offsetWidth));
-      draggable.desiredY = Math.max(0, Math.min(draggable.desiredY, dropTargetClientHeight - draggable.offsetHeight));
+      draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth
+          - draggable.offsetWidth));
+      draggable.desiredY = Math.max(0, Math.min(draggable.desiredY, dropTargetClientHeight
+          - draggable.offsetHeight));
       draggable.desiredX = Math.round((float) draggable.desiredX / gridX) * gridX;
       draggable.desiredY = Math.round((float) draggable.desiredY / gridY) * gridY;
       dropTarget.add(draggable.positioner, draggable.desiredX, draggable.desiredY);

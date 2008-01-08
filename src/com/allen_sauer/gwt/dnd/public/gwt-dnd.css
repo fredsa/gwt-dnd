@@ -14,6 +14,7 @@ HTML { /* Workaround for GWT issue 1932 */
 
 .dragdrop-draggable {
   zoom: 1; /* IE gain hasLayout */
+  margin: 0px !important;
 }
 
 .dragdrop-dragging {
@@ -22,6 +23,7 @@ HTML { /* Workaround for GWT issue 1932 */
 
 .dragdrop-positioner {
   border: 1px dashed #1E90FF; /* blue */
+  margin: 0px !important;
   zoom: 1; /* IE gain hasLayout */
   z-index: 100;
 }
@@ -36,11 +38,13 @@ HTML { /* Workaround for GWT issue 1932 */
 .dragdrop-proxy {
   background-color: #77AAFF; /* light blue */
 }
-.dragdrop-selected , .dragdrop-dragging , .dragdrop-proxy {
+.dragdrop-selected,.dragdrop-dragging,.dragdrop-proxy {
   filter: alpha(opacity = 30);
   opacity: 0.3;
 }
 
 .dragdrop-movable-panel {
   z-index: 200;
+  margin: 0px !important;
+  border: none !important;
 }

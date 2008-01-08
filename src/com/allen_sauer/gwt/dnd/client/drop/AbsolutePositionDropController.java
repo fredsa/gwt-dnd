@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -15,6 +15,7 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -97,7 +98,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     dropTargetClientWidth = DOMUtil.getClientWidth(dropTarget.getElement());
     dropTargetClientHeight = DOMUtil.getClientHeight(dropTarget.getElement());
     WidgetLocation dropTargetLocation = new WidgetLocation(dropTarget, null);
-    dropTargetOffsetX = dropTargetLocation.getLeft() + DOMUtil.getBorderLeft(dropTarget.getElement());
+    dropTargetOffsetX = dropTargetLocation.getLeft()
+        + DOMUtil.getBorderLeft(dropTarget.getElement());
     dropTargetOffsetY = dropTargetLocation.getTop() + DOMUtil.getBorderTop(dropTarget.getElement());
 
     int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
@@ -127,8 +129,10 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
       Draggable draggable = (Draggable) iterator.next();
       draggable.desiredX = context.desiredDraggableX - dropTargetOffsetX + draggable.relativeX;
       draggable.desiredY = context.desiredDraggableY - dropTargetOffsetY + draggable.relativeY;
-      draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth - draggable.offsetWidth));
-      draggable.desiredY = Math.max(0, Math.min(draggable.desiredY, dropTargetClientHeight - draggable.offsetHeight));
+      draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth
+          - draggable.offsetWidth));
+      draggable.desiredY = Math.max(0, Math.min(draggable.desiredY, dropTargetClientHeight
+          - draggable.offsetHeight));
       dropTarget.add(draggable.positioner, draggable.desiredX, draggable.desiredY);
     }
   }
@@ -145,6 +149,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     // excluding positioner border in quirks and strict modes
     SimplePanel outer = new SimplePanel();
     outer.addStyleName(CSS_DRAGDROP_POSITIONER);
+    DOM.setStyleAttribute(outer.getElement(), "margin", "0px");
 
     // place off screen for border calculation
     RootPanel.get().add(outer, -500, -500);
@@ -154,6 +159,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
 
     SimplePanel inner = new SimplePanel();
+    DOM.setStyleAttribute(inner.getElement(), "margin", "0px");
+    DOM.setStyleAttribute(inner.getElement(), "border", "none");
     int offsetWidth = reference.getOffsetWidth() - DOMUtil.getHorizontalBorders(outer);
     int offsetHeight = reference.getOffsetHeight() - DOMUtil.getVerticalBorders(outer);
     inner.setPixelSize(offsetWidth, offsetHeight);
