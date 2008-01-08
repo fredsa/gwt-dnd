@@ -139,7 +139,7 @@ class DropControllerCollection {
         }
       }
     }
-    
+
     sortedCandidates = (Candidate[]) list.toArray(new Candidate[list.size()]);
     Arrays.sort(sortedCandidates);
   }

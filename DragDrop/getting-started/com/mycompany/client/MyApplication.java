@@ -78,7 +78,7 @@ public class MyApplication implements EntryPoint {
 
     // Add both panels to the root panel
     RootPanel.get().add(boundaryPanel);
-    boundaryPanel.add(targetPanel, 10, 10);
+    boundaryPanel.add(targetPanel, 40, 40);
 
     // Create a DragController for each logical area where a set of draggable
     // widgets and drop targets will be allowed to interact with one another.
@@ -108,8 +108,10 @@ public class MyApplication implements EntryPoint {
       targetPanel.add(label, 0, 0);
 
       // determine random label location within target panel
-      int left = Random.nextInt(DOMUtil.getClientWidth(targetPanel.getElement()) - label.getOffsetWidth());
-      int top = Random.nextInt(DOMUtil.getClientHeight(targetPanel.getElement()) - label.getOffsetHeight());
+      int left = Random.nextInt(DOMUtil.getClientWidth(targetPanel.getElement())
+          - label.getOffsetWidth());
+      int top = Random.nextInt(DOMUtil.getClientHeight(targetPanel.getElement())
+          - label.getOffsetHeight());
 
       // move the label
       targetPanel.setWidgetPosition(label, left, top);

@@ -22,3 +22,4 @@ proxies
 palette
 apache
 stylesheet
+dragdrop

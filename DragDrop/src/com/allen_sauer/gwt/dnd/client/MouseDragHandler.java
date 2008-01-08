@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -236,6 +236,8 @@ class MouseDragHandler implements MouseListener {
     RootPanel.get().add(capturingWidget, 0, 0);
     capturingWidget.addMouseListener(this);
     DOM.setStyleAttribute(capturingWidget.getElement(), "visibility", "hidden");
+    DOM.setStyleAttribute(capturingWidget.getElement(), "margin", "0px");
+    DOM.setStyleAttribute(capturingWidget.getElement(), "border", "none");
   }
 
   private void startDragging() {

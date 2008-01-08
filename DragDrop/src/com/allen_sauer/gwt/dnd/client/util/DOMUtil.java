@@ -56,7 +56,8 @@ public class DOMUtil {
   /**
    * TODO Handle LTR case once Bidi support is part of GWT.
    */
-  public static int findIntersect(IndexedPanel parent, Location location, LocationWidgetComparator comparator) {
+  public static int findIntersect(IndexedPanel parent, Location location,
+      LocationWidgetComparator comparator) {
     int widgetCount = parent.getWidgetCount();
 
     // short circuit in case dropTarget has no children

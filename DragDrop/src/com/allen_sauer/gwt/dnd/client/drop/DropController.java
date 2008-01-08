@@ -127,5 +127,6 @@ public interface DropController {
   /**
    * @deprecated Use {@link #onPreviewDrop(DragContext)} instead.
    */
-  void onPreviewDrop(Widget reference, Widget draggable, DragController dragController) throws VetoDropException;
+  void onPreviewDrop(Widget reference, Widget draggable, DragController dragController)
+      throws VetoDropException;
 }

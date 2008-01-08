@@ -45,7 +45,6 @@ import java.util.Iterator;
 public class PickupDragController extends AbstractDragController {
   private static class SavedWidgetInfo {
     int initialDraggableIndex;
-    String initialDraggableMargin;
     Widget initialDraggableParent;
     Location initialDraggableParentLocation;
   }
@@ -367,15 +366,13 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Restore the selected widgets with their original style.
+   * 
+   * @deprecated This method may be removed in the future
+   * 
    * @see #saveSelectedWidgetsLocationAndStyle()
    * @see #restoreSelectedWidgetsLocation()
    */
   protected void restoreSelectedWidgetsStyle() {
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
-      SavedWidgetInfo info = (SavedWidgetInfo) savedWidgetInfoMap.get(widget);
-      DOM.setStyleAttribute(widget.getElement(), "margin", info.initialDraggableMargin);
-    }
   }
 
   /**
@@ -410,10 +407,6 @@ public class PickupDragController extends AbstractDragController {
                 + GWT.getTypeName(info.initialDraggableParent)
                 + "'; Please create your own DragController and override saveDraggableLocationAndStyle() and restoreDraggableLocation()");
       }
-
-      info.initialDraggableMargin = DOM.getStyleAttribute(widget.getElement(), "margin");
-      // set explicit margin to override any stylesheet based settings
-      DOM.setStyleAttribute(widget.getElement(), "margin", "0px");
       savedWidgetInfoMap.put(widget, info);
     }
   }
