@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -24,7 +24,11 @@ import com.google.gwt.user.client.Element;
 public class DOMUtilImplIE6 extends DOMUtilImpl {
   public native void cancelAllDocumentSelections()
   /*-{
-    $doc.selection.empty();
+    try {
+      $doc.selection.empty();
+    } catch(e) {
+      // ignore 'Unknown runtime error'
+    }
   }-*/;
 
   public native int getBorderLeft(Element elem)
