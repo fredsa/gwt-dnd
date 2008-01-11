@@ -190,6 +190,17 @@
 		<javadoc access="protected" classpath="${gwt.user.jar}:{gwt.dev.jar}" destdir="build/javadoc" doctitle="gwt-dnd - Drag-and-drop for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.4" sourcepath="build/demo" />
 	</target>
 
+	<target name="tag">
+		<exec executable="svn">
+			<arg value="info"/>
+		</exec>
+		<echo message="" />
+		<echo message="*********************************************************************************" />
+		<echo message="svn cp . https://gwt-log.googlecode.com/svn/tags/gwt-log-${gwt-log.version}-r____" />
+		<echo message="*********************************************************************************" />
+		<echo message="" />
+	</target>
+
 	<target name="dist" depends="build,javadoc">
 		<mkdir dir="build/dist" />
 
@@ -201,6 +212,8 @@
 		<copy todir="${gwt-dnd.libdir}">
 			<fileset dir="build/dist" />
 		</copy>
+
+		<antcall target="tag" />
 	</target>
 
 	<target name="clean">
