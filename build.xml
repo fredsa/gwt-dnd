@@ -193,6 +193,7 @@
 	<target name="tag">
 		<exec executable="svn">
 			<arg value="info"/>
+			<arg value="https://gwt-dnd.googlecode.com/svn/trunk"/>
 		</exec>
 		<echo message="" />
 		<echo message="*********************************************************************************" />
