@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -46,7 +46,7 @@ public class DragEndEvent extends EventObject {
    * @deprecated Use {@link #getContext()} instead.
    */
   public Widget getDropTarget() {
-    return context.dropController == null ? null : context.dropController.getDropTarget();
+    return context.finalDropController == null ? null : context.finalDropController.getDropTarget();
   }
 
   /**
