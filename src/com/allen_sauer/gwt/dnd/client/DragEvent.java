@@ -15,23 +15,31 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
+import com.allen_sauer.gwt.dnd.client.util.StringUtil;
+
 import java.util.EventObject;
 
 /**
- * {@link EventObject} containing information about the start of a drag.
+ * Common implementation class for {@link DragStartEvent} and {@link DragEndEvent}.
  */
-public class DragStartEvent extends DragEvent {
-  public DragStartEvent(DragContext context) {
-    super(context);
-    assert context.vetoException == null;
-    assert context.dropController == null;
-    assert context.finalDropController == null;
+abstract class DragEvent extends EventObject {
+  final transient DragContext context;
+
+  DragEvent(DragContext context) {
+    super(context.draggable);
+    this.context = context;
   }
 
   /**
-   * Return a string representation of this event.
+   * Get the drag context for the drag operation.
+   * 
+   * @return the drag context
    */
-  public String toString() {
-    return "DragStartEvent(source=" + getSourceShortTypeName() + ")";
+  public DragContext getContext() {
+    return context;
+  }
+
+  String getSourceShortTypeName() {
+    return StringUtil.getShortTypeName(getSource());
   }
 }

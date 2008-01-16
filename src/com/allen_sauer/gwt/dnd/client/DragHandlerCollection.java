@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,92 +28,101 @@ import java.util.Iterator;
  */
 public class DragHandlerCollection extends ArrayList {
   /**
+   * @deprecated Use {@link #fireDragEnd(DragEndEvent)} instead.
+   */
+  public final void fireDragEnd(DragContext context) {
+  }
+
+  /**
    * Fires a {@link DragHandler#onDragEnd(DragEndEvent)} on all handlers in the
    * collection.
    * 
-   * @param context current drag context
+   * @param dragEndEvent the event
    */
-  public void fireDragEnd(DragContext context) {
-    DragEndEvent event = new DragEndEvent(context);
-
+  public void fireDragEnd(DragEndEvent dragEndEvent) {
     for (Iterator it = iterator(); it.hasNext();) {
       DragHandler handler = (DragHandler) it.next();
-      handler.onDragEnd(event);
+      handler.onDragEnd(dragEndEvent);
     }
   }
 
   /**
-   * @deprecated Use {@link #fireDragEnd(DragContext)} instead.
+   * @deprecated Use {@link #fireDragStart(DragStartEvent)} instead.
    */
-  public void fireDragEnd(DragEndEvent dragEndEvent) {
-    throw new UnsupportedOperationException();
+  public final void fireDragStart(DragContext context) {
   }
 
   /**
    * Fires a {@link DragHandler#onDragStart(DragStartEvent)} on all handlers in
    * the collection.
    * 
-   * @param context current drag context
+   * @param dragStartEvent the event
    */
-  public void fireDragStart(DragContext context) {
-    DragStartEvent event = new DragStartEvent(context);
-
+  public void fireDragStart(DragStartEvent dragStartEvent) {
     for (Iterator it = iterator(); it.hasNext();) {
       DragHandler handler = (DragHandler) it.next();
-      handler.onDragStart(event);
+      handler.onDragStart(dragStartEvent);
     }
   }
 
   /**
-   * @deprecated Use {@link #fireDragStart(DragContext)} instead.
+   * @deprecated Use {@link #fireDragStart(DragStartEvent)} instead.
    */
-  public void fireDragStart(Widget sender) {
+  public final void fireDragStart(Widget sender) {
     throw new UnsupportedOperationException();
+  }
+
+  /**
+   * @deprecated Use {@link #firePreviewDragEnd(DragEndEvent)} instead.
+   */
+  public final void firePreviewDragEnd(DragContext context) throws VetoDragException {
   }
 
   /**
    * Fires a {@link DragHandler#onPreviewDragEnd(DragEndEvent)} on all handlers
    * in the collection.
    * 
-   * @param context current drag context
+   * @param dragEndEvent the event
    * @throws VetoDragException if the proposed operation is unacceptable
    */
-  public void firePreviewDragEnd(DragContext context) throws VetoDragException {
-    DragEndEvent event = new DragEndEvent(context);
-
+  public void firePreviewDragEnd(DragEndEvent dragEndEvent) throws VetoDragException {
     for (Iterator it = iterator(); it.hasNext();) {
       DragHandler handler = (DragHandler) it.next();
-      handler.onPreviewDragEnd(event);
+      handler.onPreviewDragEnd(dragEndEvent);
     }
   }
 
   /**
-   * @deprecated Use {@link #firePreviewDragEnd(DragContext)} instead.
+   * @deprecated Use {@link #firePreviewDragEnd(DragEndEvent)} instead.
    */
   public final void firePreviewDragEnd(Widget sender, Widget dropTarget) throws VetoDragException {
     throw new UnsupportedOperationException();
   }
 
   /**
+   * @deprecated Use {@link #firePreviewDragStart(DragStartEvent)} instead.
+   */
+  public final void firePreviewDragStart(DragContext context) throws VetoDragException {
+  }
+
+  /**
    * Fires a {@link DragHandler#onPreviewDragStart(DragStartEvent)} on all
    * handlers in the collection.
    * 
-   * @param context current drag context
+   * @param dragStartEvent the event
    * @throws VetoDragException if the proposed operation is unacceptable
    */
-  public void firePreviewDragStart(DragContext context) throws VetoDragException {
-    DragStartEvent event = new DragStartEvent(context);
-
+  public void firePreviewDragStart(DragStartEvent dragStartEvent) throws VetoDragException {
     for (Iterator it = iterator(); it.hasNext();) {
       DragHandler handler = (DragHandler) it.next();
-      handler.onPreviewDragStart(event);
+      handler.onPreviewDragStart(dragStartEvent);
     }
   }
 
   /**
-   * @deprecated Use {@link #firePreviewDragStart(DragContext)} instead.
+   * @deprecated Use {@link #firePreviewDragStart(DragStartEvent)} instead.
    */
-  public void firePreviewDragStart(Widget sender) throws VetoDragException {
+  public final void firePreviewDragStart(Widget sender) throws VetoDragException {
     throw new UnsupportedOperationException();
   }
 }

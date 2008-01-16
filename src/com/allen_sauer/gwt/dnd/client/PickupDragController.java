@@ -220,6 +220,8 @@ public class PickupDragController extends AbstractDragController {
   }
 
   public void previewDragEnd() throws VetoDragException {
+    assert context.finalDropController == null;
+    assert context.vetoException == null;
     // Does the DropController allow the drop?
     try {
       context.dropController.onPreviewDrop(context);
@@ -227,8 +229,9 @@ public class PickupDragController extends AbstractDragController {
     } catch (VetoDragException ex) {
       context.finalDropController = null;
       throw ex;
+    } finally {
+      super.previewDragEnd();
     }
-    super.previewDragEnd();
   }
 
   /**
