@@ -228,6 +228,7 @@ public class PickupDragController extends AbstractDragController {
       context.finalDropController = null;
       throw ex;
     }
+    super.previewDragEnd();
   }
 
   /**
