@@ -76,7 +76,9 @@ public abstract class AbstractDragController implements DragController {
   protected final DragContext context;
   AbsolutePanel boundaryPanel;
   private boolean constrainedToBoundaryPanel;
+  private DragEndEvent dragEndEvent;
   private DragHandlerCollection dragHandlers;
+  private DragStartEvent dragStartEvent;
   private int dragStartPixels;
   private MouseDragHandler mouseDragHandler;
   private boolean multipleSelectionAllowed = false;
@@ -111,10 +113,13 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void dragEnd() {
+    assert context.finalDropController == null == (context.vetoException != null);
     context.draggable.removeStyleName(PRIVATE_CSS_DRAGGING);
     if (dragHandlers != null) {
-      dragHandlers.fireDragEnd(context);
+      dragHandlers.fireDragEnd(dragEndEvent);
+      dragEndEvent = null;
     }
+    assert dragEndEvent == null;
   }
 
   public final void dragEnd(Widget draggable, Widget dropTarget) {
@@ -124,9 +129,11 @@ public abstract class AbstractDragController implements DragController {
   public void dragStart() {
     resetCache();
     if (dragHandlers != null) {
-      dragHandlers.fireDragStart(context);
+      dragHandlers.fireDragStart(dragStartEvent);
+      dragStartEvent = null;
     }
     context.draggable.addStyleName(PRIVATE_CSS_DRAGGING);
+    assert dragStartEvent == null;
   }
 
   public final void dragStart(Widget draggable) {
@@ -217,8 +224,10 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void previewDragEnd() throws VetoDragException {
+    assert dragEndEvent == null;
     if (dragHandlers != null) {
-      dragHandlers.firePreviewDragEnd(context);
+      dragEndEvent = new DragEndEvent(context);
+      dragHandlers.firePreviewDragEnd(dragEndEvent);
     }
   }
 
@@ -227,8 +236,10 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void previewDragStart() throws VetoDragException {
+    assert dragStartEvent == null;
     if (dragHandlers != null) {
-      dragHandlers.firePreviewDragStart(context);
+      dragStartEvent = new DragStartEvent(context);
+      dragHandlers.firePreviewDragStart(dragStartEvent);
     }
   }
 

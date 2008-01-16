@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dnd.client;
 
 import com.google.gwt.user.client.ui.Widget;
 
+import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 
 import java.util.EventObject;
@@ -24,29 +25,17 @@ import java.util.EventObject;
 /**
  * {@link EventObject} containing information about the end of a drag.
  */
-public class DragEndEvent extends EventObject {
-  private final transient DragContext context;
-
+public class DragEndEvent extends DragEvent {
   public DragEndEvent(DragContext context) {
-    super(context.draggable);
-    this.context = context;
-    assert context.finalDropController == null == (context.vetoException != null);
+    super(context);
   }
 
   /**
-   * Determine the drag context at the end of the drag operation.
-   * 
-   * @return the drag context
-   */
-  public DragContext getContext() {
-    return context;
-  }
-
-  /**
-   * @deprecated Use {@link #getContext()} instead.
+   * @deprecated Use {@link #getContext()}.{@link DragContext#finalDropController finalDropController}.{@link DropController#getDropTarget() getDropTarget()} instead.
    */
   public Widget getDropTarget() {
-    return context.finalDropController == null ? null : context.finalDropController.getDropTarget();
+    DropController finalDropController = context.finalDropController;
+    return finalDropController == null ? null : finalDropController.getDropTarget();
   }
 
   /**
@@ -58,9 +47,8 @@ public class DragEndEvent extends EventObject {
       dropTargetText = "dropTarget="
           + StringUtil.getShortTypeName(context.finalDropController.getDropTarget());
     } else {
-      dropTargetText = "[cancelled: " + context.vetoException + "]";
+      dropTargetText = "[cancelled]";
     }
-    return "DragEndEvent(" + dropTargetText + ", context="
-        + StringUtil.getShortTypeName(getSource()) + ")";
+    return "DragEndEvent(" + dropTargetText + ", source=" + getSourceShortTypeName() + ")";
   }
 }

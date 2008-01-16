@@ -83,8 +83,12 @@ public class DragContext {
   public List selectedWidgets = new ArrayList();
 
   /**
-   * Exception which caused the drag to be canceled, or <code>null</code>
-   * if the drag was successful.
+   * At the end of a drag operation this fields will contain either the
+   * {@link VetoDragException} which caused the drag to be cancelled, or
+   * <code>null</code> if the drag was successful. Note that while the
+   * value of this field will still be <code>null</code> in
+   * {@link DragHandler#onPreviewDragEnd(DragEndEvent)}, the value will
+   * be available in {@link DragHandler#onDragEnd(DragEndEvent)}.
    */
   public Exception vetoException;
 
