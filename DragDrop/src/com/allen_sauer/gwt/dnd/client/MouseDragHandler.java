@@ -177,8 +177,11 @@ class MouseDragHandler implements MouseListener {
       y += location.getTop();
     }
     // Proceed with the drop
-    drop(x, y);
-    context.draggable = null;
+    try {
+      drop(x, y);
+    } finally {
+      dragEndCleanup();
+    }
   }
 
   void actualMove(int x, int y) {
@@ -206,28 +209,24 @@ class MouseDragHandler implements MouseListener {
     ((SourcesMouseEvents) dragHandle).removeMouseListener(this);
   }
 
-  private void cleanup() {
+  private void dragEndCleanup() {
     DOM.releaseCapture(capturingWidget.getElement());
     dragging = NOT_DRAGGING;
-    context.dropController = null;
+    context.dragEndCleanup();
   }
 
   private void drop(int x, int y) {
+    actualMove(x, y);
+    dragging = NOT_DRAGGING;
+
+    // Does the DragController allow the drop?
     try {
-      actualMove(x, y);
-      dragging = NOT_DRAGGING;
-
-      // Does the DragController allow the drop?
-      try {
-        context.dragController.previewDragEnd();
-      } catch (VetoDragException ex) {
-        context.vetoException = ex;
-      }
-
-      context.dragController.dragEnd();
-    } finally {
-      cleanup();
+      context.dragController.previewDragEnd();
+    } catch (VetoDragException ex) {
+      context.vetoException = ex;
     }
+
+    context.dragController.dragEnd();
   }
 
   private void initCapturingWidget() {
@@ -241,7 +240,7 @@ class MouseDragHandler implements MouseListener {
   }
 
   private void startDragging() {
-    context.vetoException = null;
+    context.dragStartCleanup();
     try {
       context.dragController.previewDragStart();
     } catch (VetoDragException ex) {
