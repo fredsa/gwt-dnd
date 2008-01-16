@@ -52,8 +52,17 @@ public class DragContext {
    */
   public Widget draggable;
 
+  /**
+   * The currently engaged drop controller or <code>null</code> when not dragging,
+   * or when the drag controller does not utilize drop controllers.
+   */
   public DropController dropController;
 
+  /**
+   * The drop controller which participated in the final drop, or <code>null</code>
+   * before the final drop has occurred, or when the drag controller does not utilize
+   * drop controllers.
+   */
   public DropController finalDropController;
 
   /**
@@ -67,17 +76,39 @@ public class DragContext {
   public int mouseY;
 
   /**
-   * List of currently selected widgets.
+   * List of currently selected widgets. List will contain at most
+   * one widget when {@link DragController#setBehaviorMultipleSelection(boolean)}
+   * is disabled.
    */
   public List selectedWidgets = new ArrayList();
 
   /**
-   * Exception which caused the drag to be canceled.
+   * Exception which caused the drag to be canceled, or <code>null</code>
+   * if the drag was successful.
    */
   public Exception vetoException;
 
   DragContext(DragController dragController) {
     this.dragController = dragController;
     boundaryPanel = dragController.getBoundaryPanel();
+  }
+
+  /**
+   * Called by {@link MouseDragHandler#cleanup} at the end of a drag operation
+   * to cleanup state.
+   */
+  public void dragEndCleanup() {
+    dropController = null;
+    draggable = null;
+  }
+
+  /**
+   * Called by {@link MouseDragHandler#startDragging} at the start of a drag operation
+   * to initialize state.
+   */
+  public void dragStartCleanup() {
+    assert dropController == null;
+    finalDropController = null;
+    vetoException = null;
   }
 }
