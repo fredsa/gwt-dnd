@@ -59,7 +59,8 @@ public final class DemoDragHandler implements DragHandler {
   }
 
   private void log(String text, String color) {
-    eventTextArea.setHTML(eventTextArea.getHTML() + (eventTextArea.getHTML().length() == 0 ? "" : "<br>") + "<span style='color:"
-        + color + "'>" + text + "</span>");
+    eventTextArea.setHTML(eventTextArea.getHTML()
+        + (eventTextArea.getHTML().length() == 0 ? "" : "<br>") + "<span style='color :" + color
+        + "'>" + text + "</span>");
   }
 }
