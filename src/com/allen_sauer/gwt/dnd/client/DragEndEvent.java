@@ -20,10 +20,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 
-import java.util.EventObject;
-
 /**
- * {@link EventObject} containing information about the end of a drag.
+ * {@link java.util.EventObject} containing information about the end of a drag.
  */
 public class DragEndEvent extends DragEvent {
   public DragEndEvent(DragContext context) {

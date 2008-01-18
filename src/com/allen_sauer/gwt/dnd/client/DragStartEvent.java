@@ -15,10 +15,8 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import java.util.EventObject;
-
 /**
- * {@link EventObject} containing information about the start of a drag.
+ * {@link java.util.EventObject} containing information about the start of a drag.
  */
 public class DragStartEvent extends DragEvent {
   public DragStartEvent(DragContext context) {
