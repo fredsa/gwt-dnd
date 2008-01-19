@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -20,7 +20,6 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.client.util.Area;
 import com.allen_sauer.gwt.dnd.client.util.CoordinateLocation;
@@ -54,19 +53,16 @@ class DropControllerCollection {
     public int compareTo(Object arg0) {
       Candidate other = (Candidate) arg0;
 
-      // TODO remove workaround for GWT issue 1583 (non-stable Arrays.sort), which should be fixed in GWT 1.5
-      if (dropController instanceof BoundaryDropController) {
-        return -1;
-      } else if (other.dropController instanceof BoundaryDropController) {
-        return 1;
-      }
-
       Element myElement = getDropTarget().getElement();
       Element otherElement = other.getDropTarget().getElement();
       if (DOM.compare(myElement, otherElement)) {
         return 0;
+      } else if (DOM.isOrHasChild(myElement, otherElement)) {
+        return -1;
+      } else if (DOM.isOrHasChild(otherElement, myElement)) {
+        return 1;
       } else {
-        return DOMUtil.isOrContains(myElement, otherElement) ? -1 : 1;
+        return 0;
       }
     }
 
