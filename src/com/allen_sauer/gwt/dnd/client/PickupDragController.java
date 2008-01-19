@@ -101,6 +101,7 @@ public class PickupDragController extends AbstractDragController {
   }
 
   public void dragEnd() {
+    assert context.finalDropController == null == (context.vetoException != null);
     if (context.vetoException != null) {
       if (!getBehaviorDragProxy()) {
         restoreSelectedWidgetsLocation();
