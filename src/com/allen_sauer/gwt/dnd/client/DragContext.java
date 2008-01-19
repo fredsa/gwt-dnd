@@ -98,7 +98,7 @@ public class DragContext {
   }
 
   /**
-   * Called by {@link MouseDragHandler#cleanup} at the end of a drag operation
+   * Called by {@link MouseDragHandler#dragEndCleanup} at the end of a drag operation
    * to cleanup state.
    */
   public void dragEndCleanup() {
