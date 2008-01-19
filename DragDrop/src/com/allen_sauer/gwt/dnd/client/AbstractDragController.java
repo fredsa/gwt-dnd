@@ -113,7 +113,6 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void dragEnd() {
-    assert context.finalDropController == null == (context.vetoException != null);
     context.draggable.removeStyleName(PRIVATE_CSS_DRAGGING);
     if (dragHandlers != null) {
       dragHandlers.fireDragEnd(dragEndEvent);
