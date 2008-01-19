@@ -197,7 +197,7 @@
 		</exec>
 		<echo message="" />
 		<echo message="*********************************************************************************" />
-		<echo message="svn cp . https://gwt-log.googlecode.com/svn/tags/gwt-log-${gwt-log.version}-r____" />
+		<echo message="svn cp . https://gwt-dnd.googlecode.com/svn/tags/gwt-dnd-${gwt-dnd.version}-r____" />
 		<echo message="*********************************************************************************" />
 		<echo message="" />
 	</target>
