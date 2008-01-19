@@ -29,7 +29,7 @@ public class DragEndEvent extends DragEvent {
   }
 
   /**
-   * @deprecated Use {@link #getContext()}.{@link DragContext#finalDropController finalDropController}.{@link DropController#getDropTarget() getDropTarget()} instead.
+   * @deprecated Use {@link DragEvent#getContext() getContext()}.{@link DragContext#finalDropController finalDropController}.{@link DropController#getDropTarget() getDropTarget()} instead.
    */
   public Widget getDropTarget() {
     DropController finalDropController = context.finalDropController;
