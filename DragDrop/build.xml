@@ -4,76 +4,77 @@
 		<!-- Global Properties -->
 		<property environment="env" />
 
-    <!-- build.host.platform property -->
-    <condition property="build.host.islinux">
-      <and>
-        <os family="unix" />
-        <not>
-          <contains string="${os.name}" substring="mac" casesensitive="false" />
-        </not>
-      </and>
-    </condition>
-    <condition property="build.host.platform" value="linux">
-      <isset property="build.host.islinux" />
-    </condition>
+		<!-- build.host.platform property -->
+		<condition property="build.host.islinux">
+			<and>
+				<os family="unix" />
+				<not>
+					<contains string="${os.name}" substring="mac" casesensitive="false" />
+				</not>
+			</and>
+		</condition>
+		<condition property="build.host.platform" value="linux">
+			<isset property="build.host.islinux" />
+		</condition>
 
-    <condition property="build.host.ismac">
-      <and>
-        <os family="unix" />
-        <contains string="${os.name}" substring="mac" casesensitive="false" />
-      </and>
-    </condition>
-    <condition property="build.host.platform" value="mac">
-      <isset property="build.host.ismac" />
-    </condition>
+		<condition property="build.host.ismac">
+			<and>
+				<os family="unix" />
+				<contains string="${os.name}" substring="mac" casesensitive="false" />
+			</and>
+		</condition>
+		<condition property="build.host.platform" value="mac">
+			<isset property="build.host.ismac" />
+		</condition>
 
-    <condition property="build.host.iswindows">
-      <os family="windows" />
-    </condition>
-    <condition property="build.host.platform" value="windows">
-      <isset property="build.host.iswindows" />
-    </condition>
-    <fail unless="build.host.platform" message="Building on ${os.name} is not supported" />
+		<condition property="build.host.iswindows">
+			<os family="windows" />
+		</condition>
+		<condition property="build.host.platform" value="windows">
+			<isset property="build.host.iswindows" />
+		</condition>
+		<fail unless="build.host.platform" message="Building on ${os.name} is not supported" />
 
-    <condition property="junit.platform.args" value="-XstartOnFirstThread" else="">
-      <equals arg1="${build.host.platform}" arg2="mac" casesensitive="false" />
-    </condition>
+		<condition property="junit.platform.args" value="-XstartOnFirstThread" else="">
+			<equals arg1="${build.host.platform}" arg2="mac" casesensitive="false" />
+		</condition>
 
 
-    <!-- gwt.location property -->
-    <condition property="gwt.location.default" value="${env.GWT14_HOME}" else="">
-      <isset property="env.GWT14_HOME" />
-    </condition>
-    <input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT 1.4 install directory" />
+		<!-- gwt.location property -->
+		<condition property="gwt.location.default" value="${env.GWT14_HOME}" else="">
+			<isset property="env.GWT14_HOME" />
+		</condition>
+		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT 1.4 install directory" />
 
-    <!-- gwt.tools property -->
-    <condition property="gwt.tools" value="${env.GWT_TOOLS}" else="${gwt.root}/../tools">
-      <isset property="env.GWT_TOOLS" />
-    </condition>
-    <fail message="can't find gwt tools, please set gwt.tools property" unless="gwt.tools" />
+		<!-- gwt.tools property -->
+		<condition property="gwt.tools" value="${env.GWT_TOOLS}" else="${gwt.root}/../tools">
+			<isset property="env.GWT_TOOLS" />
+		</condition>
+		<fail message="can't find gwt tools, please set gwt.tools property" unless="gwt.tools" />
 
-    <!-- gwt tools stuff -->
-    <property name="gwt.tools.lib" location="${gwt.tools}/lib" />
-    <property name="gwt.tools.antlib" location="${gwt.tools}/antlib" />
+		<!-- gwt tools stuff -->
+		<property name="gwt.tools.lib" location="${gwt.tools}/lib" />
+		<property name="gwt.tools.antlib" location="${gwt.tools}/antlib" />
 
-    <!-- javac defaults -->
-    <property name="javac.debug" value="true" />
-    <property name="javac.debuglevel" value="lines,vars,source" />
-    <property name="javac.encoding" value="utf-8" />
-    <property name="javac.nowarn" value="true" />
-    <property name="javac.source" value="1.4" />
-    <property name="javac.target" value="1.4" />
+		<!-- javac defaults -->
+		<property name="javac.debug" value="true" />
+		<property name="javac.debuglevel" value="lines,vars,source" />
+		<property name="javac.encoding" value="utf-8" />
+		<property name="javac.nowarn" value="true" />
+		<property name="javac.source" value="1.4" />
+		<property name="javac.target" value="1.4" />
 
-    <!-- gwt jars -->
-    <property name="gwt.user.jar" location="${gwt.location}/gwt-user.jar" />
-    <property name="gwt.dev.jar" location="${gwt.location}/gwt-dev-${build.host.platform}.jar" />
+		<!-- gwt jars -->
+		<property name="gwt.user.jar" location="${gwt.location}/gwt-user.jar" />
+		<property name="gwt.dev.jar" location="${gwt.location}/gwt-dev-${build.host.platform}.jar" />
 
-    <!-- Pulls in tasks defined in ant-contrib, i.e. foreach -->
-    <taskdef resource="net/sf/antcontrib/antlib.xml">
-      <classpath>
-        <pathelement location="${gwt.tools.antlib}/ant-contrib-1.0b3.jar" />
-      </classpath>
-    </taskdef>
+		<!-- Pulls in tasks defined in ant-contrib, i.e. foreach -->
+		<taskdef resource="net/sf/antcontrib/antlib.xml">
+			<classpath>
+				<pathelement location="${gwt.tools.antlib}/ant-contrib-1.0b3.jar" />
+			</classpath>
+		</taskdef>
+
 
 		<!-- gwt-dnd.libdir property -->
 		<input addproperty="gwt-dnd.libdir" defaultvalue="/fred/java/lib/gwt-dnd" message="gwt-dnd library directory" />
