@@ -104,6 +104,9 @@ class MouseDragHandler implements MouseListener {
   }
 
   public void onMouseLeave(Widget sender) {
+    if (mouseDown && dragging == NOT_DRAGGING) {
+      startDragging();
+    }
   }
 
   public void onMouseMove(Widget sender, int x, int y) {
