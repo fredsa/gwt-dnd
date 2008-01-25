@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -16,6 +16,7 @@
 package com.allen_sauer.gwt.dnd.client.util;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -26,6 +27,7 @@ import com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImpl;
  * Provides DOM utility methods.
  */
 public class DOMUtil {
+  public static final boolean DEBUG = false;
   private static DOMUtilImpl impl;
 
   static {
@@ -65,6 +67,12 @@ public class DOMUtil {
       return 0;
     }
 
+    if (DEBUG) {
+      for (int i = 0; i < widgetCount; i++) {
+        debugWidgetWithColor(parent, i, "white");
+      }
+    }
+
     // binary search over range of widgets to find intersection
     int low = 0;
     int high = widgetCount;
@@ -73,30 +81,40 @@ public class DOMUtil {
       int mid = (low + high) / 2;
       assert mid >= low;
       assert mid < high;
-      WidgetArea midArea = new WidgetArea(parent.getWidget(mid), null);
+      Widget widget = parent.getWidget(mid);
+      WidgetArea midArea = new WidgetArea(widget, null);
       if (mid == low) {
         if (mid == 0) {
           if (comparator.locationIndicatesIndexFollowingWidget(midArea, location)) {
+            debugWidgetWithColor(parent, high, "green");
             return high;
           } else {
+            debugWidgetWithColor(parent, mid, "green");
             return mid;
           }
         } else {
+          debugWidgetWithColor(parent, high, "green");
           return high;
         }
       }
       if (midArea.getBottom() < location.getTop()) {
+        debugWidgetWithColor(parent, mid, "blue");
         low = mid;
       } else if (midArea.getTop() > location.getTop()) {
+        debugWidgetWithColor(parent, mid, "red");
         high = mid;
       } else if (midArea.getRight() < location.getLeft()) {
+        debugWidgetWithColor(parent, mid, "blue");
         low = mid;
       } else if (midArea.getLeft() > location.getLeft()) {
+        debugWidgetWithColor(parent, mid, "red");
         high = mid;
       } else {
         if (comparator.locationIndicatesIndexFollowingWidget(midArea, location)) {
+          debugWidgetWithColor(parent, mid + 1, "green");
           return mid + 1;
         } else {
+          debugWidgetWithColor(parent, mid, "green");
           return mid;
         }
       }
@@ -199,5 +217,11 @@ public class DOMUtil {
    */
   public static void setStatus(String text) {
     impl.setStatus(text);
+  }
+
+  private static final void debugWidgetWithColor(IndexedPanel parent, int index, String color) {
+    if (DEBUG) {
+      DOM.setStyleAttribute(parent.getWidget(index).getElement(), "border", "2px solid " + color);
+    }
   }
 }
