@@ -110,6 +110,7 @@
 
 		<copy todir="build/src">
 			<fileset file="LICENSE" />
+			<fileset file="NOTICE" />
 			<fileset dir="src" />
 			<filterset>
 				<filter token="GWT_DND_VERSION" value="${gwt-dnd.version}" />
@@ -145,6 +146,7 @@
 		<copy todir="build/out/src">
 			<fileset dir="build/src">
 				<include name="**/LICENSE" />
+				<include name="**/NOTICE" />
 				<include name="**/*.java" />
 				<include name="**/*.gwt.xml" />
 				<include name="**/public/**" />
@@ -154,6 +156,7 @@
 		<copy todir="build/out/demo">
 			<fileset dir="build/demo">
 				<include name="**/LICENSE" />
+				<include name="**/NOTICE" />
 				<include name="**/*.java" />
 				<include name="**/*.gwt.xml" />
 				<include name="**/public/**" />
