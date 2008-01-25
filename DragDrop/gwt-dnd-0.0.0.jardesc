@@ -7,11 +7,6 @@
 <selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
 <file path="/DragDrop/LICENSE"/>
 <file path="/DragDrop/NOTICE"/>
-<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd"/>
-<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client"/>
-<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client.drop"/>
-<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client.temp"/>
-<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client.util"/>
-<javaElement handleIdentifier="=DragDrop/src&lt;com.allen_sauer.gwt.dnd.client.util.impl"/>
+<javaElement handleIdentifier="=DragDrop/src"/>
 </selectedElements>
 </jardesc>
