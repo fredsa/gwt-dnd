@@ -79,6 +79,16 @@
 		<!-- gwt-dnd.libdir property -->
 		<input addproperty="gwt-dnd.libdir" defaultvalue="/fred/java/lib/gwt-dnd" message="gwt-dnd library directory" />
 
+    <for param="file">
+      <fileset dir="${gwt-dnd.libdir}">
+        <include name="gwt-dnd-*.*.*.jar" />
+        <exclude name="gwt-dnd-*.*.*-*.jar" />
+      </fileset>
+      <sequential>
+        <echo message="@{file}" />
+      </sequential>
+    </for>
+
 		<!-- gwt-dnd.version property -->
 		<input addproperty="gwt-dnd.version" defaultvalue="0.0.0" message="gwt-dnd library version" />
 
