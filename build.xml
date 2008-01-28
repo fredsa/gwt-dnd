@@ -211,9 +211,9 @@
 			<arg value="https://gwt-dnd.googlecode.com/svn/trunk" />
 		</exec>
 		<echo message="" />
-		<echo message="*********************************************************************************" />
-		<echo message="svn cp . https://gwt-dnd.googlecode.com/svn/tags/gwt-dnd-${gwt-dnd.version}-r____" />
-		<echo message="*********************************************************************************" />
+		<echo message="*****************************************************************************************************" />
+		<echo message="svn -m 'for prosterity' cp . https://gwt-dnd.googlecode.com/svn/tags/gwt-dnd-${gwt-dnd.version}-r____" />
+		<echo message="*****************************************************************************************************" />
 		<echo message="" />
 	</target>
 
