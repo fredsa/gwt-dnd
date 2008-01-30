@@ -32,7 +32,11 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  */
 public final class WindowExample extends Example {
   private static final String CSS_DEMO_RESIZE_EXAMPLE = "demo-WindowExample";
-  private static final String GWT_DND_HOME_PAGE = "http://code.google.com/p/gwt-dnd/";
+
+  /**
+   * Note: don't use Google Code Project Hosting or other urchin enabled site
+   */
+  private static final String GWT_DND_HOME_PAGE = "http://google.com/"; 
 
   public WindowExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_RESIZE_EXAMPLE);
