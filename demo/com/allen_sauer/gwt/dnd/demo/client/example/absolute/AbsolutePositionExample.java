@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -26,7 +26,9 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * example.
  */
 public final class AbsolutePositionExample extends Example {
+
   private static final String CSS_DEMO_ABSOLUTE_POSITION_EXAMPLE = "demo-AbsolutePositionExample";
+
   private AbsolutePositionDropController absolutePositionDropController;
 
   public AbsolutePositionExample(PickupDragController dragController) {

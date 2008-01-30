@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -20,12 +20,13 @@ package com.allen_sauer.gwt.dnd.client.util;
  * calculations.
  */
 public interface Area {
+
   /**
    * Clone our area.
    * 
    * @return the new area
    */
-  public abstract Area copyOf();
+  Area copyOf();
 
   /**
    * Determine the shortest distance from the location to the edge of the area.
@@ -35,63 +36,63 @@ public interface Area {
    * @param location the reference location
    * @return shortest distance to edge of area
    */
-  public int distanceToEdge(Location location);
+  int distanceToEdge(Location location);
 
   /**
    * Get the area's bottom coordinate in pixels.
    * 
    * @return the bottom coordinate in pixels
    */
-  public abstract int getBottom();
+  int getBottom();
 
   /**
    * Get the area's center Location.
    * 
    * @return the area's center Location
    */
-  public abstract Location getCenter();
+  Location getCenter();
 
   /**
-   * Get the area's height
+   * Get the area's height.
    * 
    * @return the area's height in pixels
    */
-  public abstract int getHeight();
+  int getHeight();
 
   /**
    * Get the area's left coordinate in pixels.
    * 
    * @return the left coordinate in pixels
    */
-  public abstract int getLeft();
+  int getLeft();
 
   /**
    * Get the area's right coordinate in pixels.
    * 
    * @return the right coordinate in pixels
    */
-  public abstract int getRight();
+  int getRight();
 
   /**
    * Determine area (width * height).
    * 
    * @return size of area
    */
-  public abstract int getSize();
+  int getSize();
 
   /**
    * Get the area's top coordinate in pixels.
    * 
    * @return the top coordinate in pixels
    */
-  public abstract int getTop();
+  int getTop();
 
   /**
-   * Get the area's width
+   * Get the area's width.
    * 
    * @return the area's width in pixels
    */
-  public abstract int getWidth();
+  int getWidth();
 
   /**
    * Determine if location is to the bottom-right of the following 45 degree
@@ -110,15 +111,15 @@ public interface Area {
    * @param location the location to consider
    * @return true if the location is to below the 45 degree line
    */
-  public abstract boolean inBottomRight(Location location);
+  boolean inBottomRight(Location location);
 
   /**
-   * Determine if the target area intersects our area
+   * Determine if the target area intersects our area.
    * 
    * @param targetArea the area to compare to
    * @return true if target area intersects our area
    */
-  public abstract boolean intersects(Area targetArea);
+  boolean intersects(Area targetArea);
 
   /**
    * Determine if the provided location intersects with our area.
@@ -126,12 +127,12 @@ public interface Area {
    * @param location the location to examine
    * @return true if the location falls within our area
    */
-  public abstract boolean intersects(Location location);
+  boolean intersects(Location location);
 
   /**
    * Translate our top left position to the new location.
    * 
    * @param location the position to translate to
    */
-  public abstract void moveTo(Location location);
+  void moveTo(Location location);
 }

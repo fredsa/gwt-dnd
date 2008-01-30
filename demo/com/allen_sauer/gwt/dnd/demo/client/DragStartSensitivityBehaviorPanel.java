@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -26,11 +26,14 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dnd.client.DragController;
 
 class DragStartSensitivityBehaviorPanel extends BehaviorPanel {
+
   private final DragController dragController;
+
   private TextBox textBox;
 
   public DragStartSensitivityBehaviorPanel(final DragController dragController) {
-    super("Drag Start Sensitivity", "getBehaviorDragStartSensitivity() / setBehaviorDragStartSensitivity(int)");
+    super("Drag Start Sensitivity",
+        "getBehaviorDragStartSensitivity() / setBehaviorDragStartSensitivity(int)");
     this.dragController = dragController;
 
     HorizontalPanel panel = new HorizontalPanel();
@@ -46,17 +49,20 @@ class DragStartSensitivityBehaviorPanel extends BehaviorPanel {
     textBox.setText("" + dragController.getBehaviorDragStartSensitivity());
 
     textBox.addKeyboardListener(new KeyboardListenerAdapter() {
+
       public void onKeyUp(Widget sender, char keyCode, int modifiers) {
         fix();
       }
     });
     textBox.addClickListener(new ClickListener() {
+
       public void onClick(Widget sender) {
         fix();
         textBox.selectAll();
       }
     });
     textBox.addChangeListener(new ChangeListener() {
+
       public void onChange(Widget sender) {
         fix();
       }

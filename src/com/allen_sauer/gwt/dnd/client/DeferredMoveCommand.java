@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -24,12 +24,17 @@ import com.google.gwt.user.client.DeferredCommand;
  * platforms.
  */
 class DeferredMoveCommand implements Command {
+
   private static final int PERFORMANCE_THRESHOLD_MILLIS = 80;
 
   private long mostRecentTotalTime;
+
   private MouseDragHandler mouseDragHandler;
+
   private long scheduledTimeMillis;
+
   private int x;
+
   private int y;
 
   DeferredMoveCommand(MouseDragHandler mouseDragHandler) {

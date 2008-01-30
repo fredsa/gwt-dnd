@@ -23,58 +23,34 @@ import com.google.gwt.user.client.ui.Widget;
  * cross-browser implementation.
  */
 public abstract class DOMUtilImpl {
-  /**
-   * @see com.allen_sauer.gwt.dnd.client.util.DOMUtil#cancelAllDocumentSelections()
-   */
+
+  // CHECKSTYLE_JAVADOC_OFF
+
   public abstract void cancelAllDocumentSelections();
 
-  /**
-   * @see com.allen_sauer.gwt.dnd.client.util.DOMUtil#getBorderLeft(Element)
-   */
   public abstract int getBorderLeft(Element elem);
 
-  /**
-   * @see com.allen_sauer.gwt.dnd.client.util.DOMUtil#getBorderTop(Element)
-   */
   public abstract int getBorderTop(Element elem);
 
-  /**
-   * @see com.allen_sauer.gwt.dnd.client.util.DOMUtil#getClientHeight(Element)
-   */
   public abstract int getClientHeight(Element elem);
 
-  /**
-   * @see com.allen_sauer.gwt.dnd.client.util.DOMUtil#getClientWidth(Element)
-   */
   public abstract int getClientWidth(Element elem);
 
-  /**
-   * @see com.allen_sauer.gwt.dnd.client.util.DOMUtil#getHorizontalBorders(Widget)
-   */
   public final int getHorizontalBorders(Widget widget) {
     return widget.getOffsetWidth() - getClientWidth(widget.getElement());
   }
 
-  /**
-   * @see com.allen_sauer.gwt.dnd.client.util.DOMUtil#getNodeName(Element)
-   */
   public final native String getNodeName(Element elem)
   /*-{
     return elem.nodeName;
   }-*/;
 
-  /**
-   * @see com.allen_sauer.gwt.dnd.client.util.DOMUtil#getVerticalBorders(Widget)
-   */
   public final int getVerticalBorders(Widget widget) {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
   }
 
   public abstract boolean isOrContains(Element parent, Element child);
 
-  /**
-   * @see com.allen_sauer.gwt.dnd.client.util.DOMUtil#setStatus(String)
-   */
   public final native void setStatus(String text)
   /*-{
      $wnd.status = text;

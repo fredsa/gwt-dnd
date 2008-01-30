@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -34,7 +34,8 @@ public class FlexTableUtil {
    * @param sourceRow the index of the source row
    * @param targetRow the index before which to insert the copied row
    */
-  public static void copyRow(FlexTable sourceTable, FlexTable targetTable, int sourceRow, int targetRow) {
+  public static void copyRow(FlexTable sourceTable, FlexTable targetTable, int sourceRow,
+      int targetRow) {
     targetTable.insertRow(targetRow);
     for (int col = 0; col < sourceTable.getCellCount(sourceRow); col++) {
       HTML html = new HTML(sourceTable.getHTML(sourceRow, col));
@@ -55,7 +56,8 @@ public class FlexTableUtil {
    * @param sourceRow the index of the source row
    * @param targetRow the index before which to insert the moved row
    */
-  public static void moveRow(FlexTable sourceTable, FlexTable targetTable, int sourceRow, int targetRow) {
+  public static void moveRow(FlexTable sourceTable, FlexTable targetTable, int sourceRow,
+      int targetRow) {
     if (sourceTable == targetTable && sourceRow >= targetRow) {
       sourceRow++;
     }
@@ -81,7 +83,8 @@ public class FlexTableUtil {
    * @param sourceRow
    * @param targetRow
    */
-  private static void copyRowStyle(FlexTable sourceTable, FlexTable targetTable, int sourceRow, int targetRow) {
+  private static void copyRowStyle(FlexTable sourceTable, FlexTable targetTable, int sourceRow,
+      int targetRow) {
     String rowStyle = sourceTable.getRowFormatter().getStyleName(sourceRow);
     targetTable.getRowFormatter().setStyleName(targetRow, rowStyle);
   }

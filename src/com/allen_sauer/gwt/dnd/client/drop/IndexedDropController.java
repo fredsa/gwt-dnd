@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -38,10 +38,22 @@ import java.util.Iterator;
  * TODO VerticalPanel performance is slow because of positioner DOM manipulation
  */
 public class IndexedDropController extends AbstractIndexedDropController {
+
+  /**
+   * Label for IE quirks mode workaround.
+   */
   private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
 
+  /**
+   * The indexed panel drop target.
+   */
   private IndexedPanel dropTarget;
 
+  /**
+   * Construct an indexed panel drop controller.
+   * 
+   * @param dropTarget the indexed panel drop target
+   */
   public IndexedDropController(IndexedPanel dropTarget) {
     super(dropTarget);
     if (!(dropTarget instanceof HorizontalPanel) && !(dropTarget instanceof VerticalPanel)) {

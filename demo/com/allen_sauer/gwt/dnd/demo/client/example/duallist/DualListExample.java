@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -23,6 +23,7 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * lists.
  */
 public final class DualListExample extends Example {
+
   private static final String CSS_DEMO_DUAL_LIST_EXAMPLE = "demo-DualListExample";
 
   public DualListExample(DemoDragHandler demoDragHandler) {
@@ -49,6 +50,7 @@ public final class DualListExample extends Example {
 
   public Class[] getInvolvedClasses() {
     return new Class[] {
-        DualListExample.class, ListBoxDragController.class, ListBoxDropController.class, MouseListBox.class, DualListBox.class,};
+        DualListExample.class, ListBoxDragController.class, ListBoxDropController.class,
+        MouseListBox.class, DualListBox.class,};
   }
 }

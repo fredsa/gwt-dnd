@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -29,7 +29,9 @@ import com.allen_sauer.gwt.dnd.demo.client.util.GWTUtil;
  * for each example.
  */
 public final class ExampleTabPanel extends MultiRowTabPanel {
+
   private static final String CSS_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
+
   private static final String CSS_DEMO_EXAMPLE_TAB_PANEL_TAB_BAR = "demo-ExampleTabPanel-tab-bar";
 
   /**

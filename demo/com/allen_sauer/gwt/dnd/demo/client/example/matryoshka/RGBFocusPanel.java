@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -25,14 +25,19 @@ import com.allen_sauer.gwt.dnd.client.drop.DropController;
  * Colorful panel for dragging and dropping.
  */
 public class RGBFocusPanel extends FocusPanel {
+
   private static final String CSS_DEMO_RGB_FOCUS_PANEL = "demo-rgb-focus-panel";
+
   private final PickupDragController dragController;
+
   private DropController dropController = new MatryoshkaSetWidgetDropController(this);
 
-  public RGBFocusPanel(PickupDragController dragController, int width, int height, int red, int green, int blue) {
+  public RGBFocusPanel(PickupDragController dragController, int width, int height, int red,
+      int green, int blue) {
     this.dragController = dragController;
     addStyleName(CSS_DEMO_RGB_FOCUS_PANEL);
-    DOM.setStyleAttribute(getElement(), "backgroundColor", "rgb(" + red + ", " + green + ", " + blue + ")");
+    DOM.setStyleAttribute(getElement(), "backgroundColor", "rgb(" + red + ", " + green + ", "
+        + blue + ")");
   }
 
   protected void onLoad() {

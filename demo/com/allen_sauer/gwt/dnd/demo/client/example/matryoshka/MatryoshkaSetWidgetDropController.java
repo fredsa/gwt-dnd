@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -29,6 +29,7 @@ import com.allen_sauer.gwt.dnd.client.drop.SimpleDropController;
  * parent widget to the top of stack by re-attaching it to the grandparent.
  */
 public class MatryoshkaSetWidgetDropController extends SimpleDropController {
+
   private static final String CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE = "demo-MatryoshkaExample-dropTarget-engage";
 
   private static void makeLastChild(Widget child) {

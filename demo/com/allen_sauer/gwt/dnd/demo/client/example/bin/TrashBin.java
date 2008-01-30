@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -21,7 +21,9 @@ import com.google.gwt.user.client.ui.Widget;
  * Panel which updates its label to display the number of items in the trash.
  */
 final class TrashBin extends Bin {
+
   private static final String CSS_DEMO_TRASHBIN = "demo-trashbin";
+
   private static final String CSS_DEMO_TRASHBIN_ENGAGE = "demo-trashbin-engage";
 
   private int count;
@@ -56,6 +58,7 @@ final class TrashBin extends Bin {
     } else {
       text = "contains " + count + " item" + (count == 1 ? "" : "s");
     }
-    setHTML("<b>Trash Bin</b><br>\n" + "(" + text + ")<br>\n<br>\n" + "<i>try dropping something on me</i>");
+    setHTML("<b>Trash Bin</b><br>\n" + "(" + text + ")<br>\n<br>\n"
+        + "<i>try dropping something on me</i>");
   }
 }

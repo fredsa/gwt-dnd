@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -21,12 +21,27 @@ import com.allen_sauer.gwt.dnd.demo.client.DragDropDemo;
  * Shared utility methods for examples.
  */
 public class GWTUtil {
+
+  /**
+   * Base java package for demo client code, used by {@link #getClassAnchorHTML(Class)}.
+   */
+  public static final String DEMO_CLIENT_PACKAGE = GWTUtil.getPackageName(DragDropDemo.class);
+
+  /**
+   * Base Subversion URL for DragDrop project.
+   */
   private static final String SUBVERSION_TRUNK = "http://gwt-dnd.googlecode.com/svn/trunk/DragDrop/";
 
+  /**
+   * Determine Subversion URL for provided class literal, to be used in HTML anchors.
+   * 
+   * @param clazz a class literal
+   * @return the Subversion URL
+   */
   public static String getClassAnchorHTML(Class clazz) {
     String className = getClassName(clazz);
     String url = SUBVERSION_TRUNK;
-    if (className.startsWith(DragDropDemo.DEMO_CLIENT_PACKAGE)) {
+    if (className.startsWith(DEMO_CLIENT_PACKAGE)) {
       url += "demo/";
     } else {
       url += "src/";
@@ -36,6 +51,12 @@ public class GWTUtil {
     return "<code><a target='_blank' href='" + url + "'>" + baseName + ".java</a></code>";
   }
 
+  /**
+   * Determine the java package name for the provided class literal.
+   * 
+   * @param clazz the class literal
+   * @return the java package name
+   */
   public static String getPackageName(Class clazz) {
     String className = getClassName(clazz);
     return className.substring(0, className.lastIndexOf('.'));

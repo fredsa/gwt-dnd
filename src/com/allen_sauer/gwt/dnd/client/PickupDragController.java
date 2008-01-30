@@ -43,10 +43,30 @@ import java.util.Iterator;
  * @see #registerDropController(DropController)
  */
 public class PickupDragController extends AbstractDragController {
+
+  /**
+   * Private implementation class to store widget information while dragging.
+   */
   private static class SavedWidgetInfo {
+
+    /**
+     * The initial draggable index for indexed panel parents.
+     */
     int initialDraggableIndex;
+
+    /**
+     * Initial draggable CSS margin.
+     */
     String initialDraggableMargin;
+
+    /**
+     * Initial draggable parent widget.
+     */
     Widget initialDraggableParent;
+
+    /**
+     * Initial location for absolute panel parents.
+     */
     Location initialDraggableParentLocation;
   }
 
@@ -59,7 +79,15 @@ public class PickupDragController extends AbstractDragController {
    * @deprecated Instead selectively use your own CSS classes.
    */
   protected static final String CSS_PROXY;
+
+  /**
+   * CSS style name applied to movable panels.
+   */
   private static final String PRIVATE_CSS_MOVABLE_PANEL = "dragdrop-movable-panel";
+
+  /**
+   * CSS style name applied to drag proxies.
+   */
   private static final String PRIVATE_CSS_PROXY = "dragdrop-proxy";
 
   static {
@@ -67,15 +95,27 @@ public class PickupDragController extends AbstractDragController {
     CSS_PROXY = PRIVATE_CSS_PROXY;
   }
 
+  /**
+   * The implicit boundary drop controller.
+   */
   private BoundaryDropController boundaryDropController;
+
   private int boundaryOffsetX;
+
   private int boundaryOffsetY;
+
   private boolean dragProxyEnabled = false;
+
   private DropControllerCollection dropControllerCollection;
+
   private ArrayList dropControllerList = new ArrayList();
+
   private int dropTargetClientHeight;
+
   private int dropTargetClientWidth;
+
   private Widget movablePanel;
+
   private HashMap savedWidgetInfoMap;
 
   /**

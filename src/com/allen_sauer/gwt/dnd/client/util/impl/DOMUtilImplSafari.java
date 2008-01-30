@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -23,6 +23,9 @@ import com.google.gwt.user.client.Element;
  * Webkit/Safari.
  */
 public class DOMUtilImplSafari extends DOMUtilImplStandard {
+
+  // CHECKSTYLE_JAVADOC_OFF
+
   public native void cancelAllDocumentSelections()
   /*-{
     // While all Safari/Webkit release appear to define the 'collapse' function,

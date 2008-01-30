@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -27,15 +27,25 @@ import com.google.gwt.user.client.ui.Widget;
 import java.util.HashMap;
 
 public class MultiRowTabPanel extends Composite {
+
   private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_BOTTOM = "demo-MultiRowTabPanel-bottom";
+
   private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_FIRST = "demo-MultiRowTabPanel-first";
+
   private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_LAST = "demo-MultiRowTabPanel-last";
+
   private DeckPanel masterDeckPanel;
+
   private int rows = 0;
+
   private int selectedRow = -1;
+
   private HashMap tabBarIndexOffsetMap = new HashMap();
+
   private StylableVerticalPanel tabBarsVerticalPanel;
+
   private int tabCount;
+
   private final int tabsPerRow;
 
   public MultiRowTabPanel(int tabsPerRow) {
@@ -82,6 +92,7 @@ public class MultiRowTabPanel extends Composite {
     TabBar tabBar = new TabBar();
     tabBarsVerticalPanel.add(tabBar);
     tabBar.addTabListener(new TabListener() {
+
       public boolean onBeforeTabSelected(SourcesTabEvents sender, int tabIndex) {
         return true;
       }
@@ -106,11 +117,13 @@ public class MultiRowTabPanel extends Composite {
   }
 
   private void setTabBarFirstLastStyleNames() {
-    tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(0), CSS_DEMO_MULTI_ROW_TAB_PANEL_FIRST);
+    tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(0),
+        CSS_DEMO_MULTI_ROW_TAB_PANEL_FIRST);
     for (int i = 1; i < rows - 1; i++) {
       tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(i), "");
     }
-    tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(rows - 1), CSS_DEMO_MULTI_ROW_TAB_PANEL_LAST);
+    tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(rows - 1),
+        CSS_DEMO_MULTI_ROW_TAB_PANEL_LAST);
   }
 
   private void whenTabSelected(int row, int tabIndex) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -32,13 +32,21 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * within a column or between columns.
  */
 public final class IndexedPanelExample extends Example {
+
   private static final int COLUMNS = 3;
+
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE = "demo-IndexedPanelExample";
+
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_COLUMN_COMPOSITE = "demo-IndexedPanelExample-column-composite";
+
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER = "demo-IndexedPanelExample-container";
+
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_HEADING = "demo-IndexedPanelExample-heading";
+
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET = "demo-IndexedPanelExample-widget";
+
   private static final int ROWS = 4;
+
   private static final int SPACING = 0;
 
   public IndexedPanelExample(DemoDragHandler demoDragHandler) {
@@ -83,7 +91,8 @@ public final class IndexedPanelExample extends Example {
       horizontalPanel.add(columnCompositePanel);
 
       // initialize a widget drop controller for the current column
-      NoInsertAtEndIndexedDropController widgetDropController = new NoInsertAtEndIndexedDropController(verticalPanel);
+      NoInsertAtEndIndexedDropController widgetDropController = new NoInsertAtEndIndexedDropController(
+          verticalPanel);
       widgetDragController.registerDropController(widgetDropController);
 
       // Put together the column pieces
@@ -119,6 +128,8 @@ public final class IndexedPanelExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {IndexedPanelExample.class, NoInsertAtEndIndexedDropController.class, PickupDragController.class,};
+    return new Class[] {
+        IndexedPanelExample.class, NoInsertAtEndIndexedDropController.class,
+        PickupDragController.class,};
   }
 }

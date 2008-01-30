@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -30,13 +30,21 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * eligible drop targets being considered.
  */
 public class PuzzleExample extends Example {
+
   private static final int COLUMNS = 4;
+
   private static final String CSS_DEMO_PUZZLE_CELL = "demo-PuzzleExample-cell";
+
   private static final String CSS_DEMO_PUZZLE_EXAMPLE = "demo-PuzzleExample";
+
   private static final String CSS_DEMO_PUZZLE_TABLE = "demo-PuzzleExample-table";
+
   private static final int IMAGE_HEIGHT = 58;
+
   private static final int IMAGE_WIDTH = 65;
+
   private static final int ROWS = 4;
+
   private PickupDragController dragController;
 
   public PuzzleExample(DemoDragHandler demoDragHandler) {
@@ -83,10 +91,11 @@ public class PuzzleExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {PuzzleExample.class, SetWidgetDropController.class, PickupDragController.class,};
+    return new Class[] {
+        PuzzleExample.class, SetWidgetDropController.class, PickupDragController.class,};
   }
 
   protected Widget createDraggable() {
-    return DraggableFactory.createDraggableImage(dragController);
+    return DraggableFactory.createDraggablePumpkinImage(dragController);
   }
 }

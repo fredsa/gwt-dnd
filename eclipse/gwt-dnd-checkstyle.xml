@@ -17,8 +17,6 @@
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <module name="JavadocType">
-            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="info"/>
-            <property name="severity" value="ignore"/>
             <property name="scope" value="protected"/>
         </module>
         <module name="PackageName">
@@ -57,7 +55,7 @@
         <module name="JavadocStyle">
             <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Well formed java docs"/>
             <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="info"/>
-            <property name="severity" value="ignore"/>
+            <property name="severity" value="info"/>
             <property name="checkHtml" value="false"/>
             <property name="tokens" value="CLASS_DEF,CTOR_DEF,INTERFACE_DEF,METHOD_DEF,VARIABLE_DEF"/>
         </module>
@@ -66,7 +64,7 @@
         </module>
         <module name="JavadocMethod">
             <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="info"/>
-            <property name="severity" value="info"/>
+            <property name="severity" value="ignore"/>
             <property name="scope" value="protected"/>
             <property name="allowUndeclaredRTE" value="true"/>
             <property name="allowMissingParamTags" value="true"/>
@@ -163,14 +161,34 @@
             <property name="message" value="No one line javadoc comments"/>
             <property name="illegalPattern" value="true"/>
         </module>
+        <module name="NoWhitespaceAfter">
+            <property name="severity" value="error"/>
+            <property name="allowLineBreaks" value="false"/>
+            <property name="tokens" value="BNOT,DEC,DOT,INC,LNOT,UNARY_MINUS,UNARY_PLUS"/>
+        </module>
+        <module name="WhitespaceAfter">
+            <property name="tokens" value="TYPECAST"/>
+        </module>
+        <module name="TypecastParenPad">
+            <property name="severity" value="error"/>
+            <property name="tokens" value="RPAREN,TYPECAST"/>
+        </module>
+        <module name="ParenPad"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceBefore">
+            <property name="severity" value="error"/>
+            <property name="tokens" value="SEMI,DOT,POST_DEC,POST_INC"/>
+        </module>
+        <module name="RedundantModifier"/>
+        <module name="EqualsHashCode"/>
         <module name="RegexpHeader">
             <property name="severity" value="ignore"/>
         </module>
         <module name="JavadocMethod">
-            <property name="severity" value="ignore"/>
+            <property name="scope" value="protected"/>
         </module>
         <module name="JavadocVariable">
-            <property name="severity" value="ignore"/>
+            <property name="scope" value="protected"/>
         </module>
         <module name="AvoidNestedBlocks"/>
         <module name="EqualsHashCode"/>
@@ -198,9 +216,7 @@
         <module name="ArrayTrailingComma"/>
         <module name="UnnecessaryParentheses"/>
     </module>
-    <module name="PackageHtml">
-        <property name="severity" value="ignore"/>
-    </module>
+    <module name="PackageHtml"/>
     <module name="SuppressionCommentFilter">
         <property name="offCommentFormat" value="CHECKSTYLE_OFF"/>
         <property name="onCommentFormat" value="CHECKSTYLE_ON"/>
@@ -211,5 +227,12 @@
         <property name="onCommentFormat" value="CHECKSTYLE_NAMING_ON"/>
         <property name="checkFormat" value=".*Name.*"/>
         <property name="messageFormat" value=".*name.*"/>
+    </module>
+    <module name="SuppressionCommentFilter">
+        <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Avoid Javadoc checking"/>
+        <property name="offCommentFormat" value="CHECKSTYLE_JAVADOC_OFF"/>
+        <property name="onCommentFormat" value="CHECKSTYLE_JAVADOC_ON"/>
+        <property name="checkFormat" value=".*Javadoc.*"/>
+        <property name="messageFormat" value=".*javadoc.*"/>
     </module>
 </module>

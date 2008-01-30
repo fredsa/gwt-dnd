@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -34,10 +34,15 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * interact normally with the mouse.
  */
 public class DragHandleExample extends Example {
+
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE = "demo-DragHandleExample";
+
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_HEADER = "demo-DragHandleExample-header";
+
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_PANEL = "demo-DragHandleExample-panel";
+
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA = "demo-DragHandleExample-textarea";
+
   private PickupDragController dragController;
 
   public DragHandleExample(DemoDragHandler demoDragHandler) {
@@ -53,8 +58,9 @@ public class DragHandleExample extends Example {
     header.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_HEADER);
 
     // add some text
-    HTML content = new HTML("This is a <code>VerticalPanel</code> which can be dragged by its header,"
-        + " i.e. the title/header widget.");
+    HTML content = new HTML(
+        "This is a <code>VerticalPanel</code> which can be dragged by its header,"
+            + " i.e. the title/header widget.");
 
     // add an editable text area
     final TextArea textArea = new TextArea();
@@ -65,6 +71,7 @@ public class DragHandleExample extends Example {
     // add a clickable button
     Button button = new Button("Click me");
     button.addClickListener(new ClickListener() {
+
       public void onClick(Widget sender) {
         textArea.setText(textArea.getText() + " Click!");
       }
@@ -87,7 +94,8 @@ public class DragHandleExample extends Example {
     dragController.setBehaviorMultipleSelection(false);
 
     // instantiate our drop controller
-    AbsolutePositionDropController dropController = new AbsolutePositionDropController(boundaryPanel);
+    AbsolutePositionDropController dropController = new AbsolutePositionDropController(
+        boundaryPanel);
     dragController.registerDropController(dropController);
 
     // make the panel draggable by its header
@@ -99,6 +107,7 @@ public class DragHandleExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {DragHandleExample.class, PickupDragController.class, AbsolutePositionDropController.class,};
+    return new Class[] {
+        DragHandleExample.class, PickupDragController.class, AbsolutePositionDropController.class,};
   }
 }

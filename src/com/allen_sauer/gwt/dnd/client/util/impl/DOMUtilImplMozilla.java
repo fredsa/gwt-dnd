@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -22,6 +22,9 @@ import com.google.gwt.user.client.Element;
  * Mozilla.
  */
 public class DOMUtilImplMozilla extends DOMUtilImplStandard {
+
+  // CHECKSTYLE_JAVADOC_OFF
+
   public native boolean isOrContains(Element parent, Element child)
   /*-{
     return parent.isSameNode(child) || !!(parent.compareDocumentPosition(child) & 16);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,8 +28,11 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * example.
  */
 public final class FlowPanelExample extends Example {
+
   private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE = "demo-FlowPanelExample";
+
   private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE_DRAGGABLE = "demo-FlowPanelExample-draggable";
+
   private static final String CSS_DEMO_FLOW_PANEL_EXAMPLE_LABEL = "demo-FlowPanelExample-label";
 
   private FlowPanel flowPanelDropTarget;
@@ -40,7 +43,8 @@ public final class FlowPanelExample extends Example {
     flowPanelDropTarget = new FlowPanel();
     flowPanelDropTarget.setWidth("400px");
     setWidget(flowPanelDropTarget);
-    FlowPanelDropController flowPanelDropController = new FlowPanelDropController(flowPanelDropTarget);
+    FlowPanelDropController flowPanelDropController = new FlowPanelDropController(
+        flowPanelDropTarget);
     dragController.registerDropController(flowPanelDropController);
   }
 

@@ -23,6 +23,7 @@ import java.util.EventObject;
  * Common implementation class for {@link DragStartEvent} and {@link DragEndEvent}.
  */
 abstract class DragEvent extends EventObject {
+
   final transient DragContext context;
 
   DragEvent(DragContext context) {

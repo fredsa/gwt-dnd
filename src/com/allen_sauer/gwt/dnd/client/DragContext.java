@@ -27,7 +27,10 @@ import java.util.List;
  * Container class for context information about the current drag operation.
  */
 public class DragContext {
+
   /**
+   * The boundary panel for this drag controller.
+   * 
    * TODO replace context.dragController.getBoundaryPanel() with context.boundaryPanel
    */
   public final AbsolutePanel boundaryPanel;

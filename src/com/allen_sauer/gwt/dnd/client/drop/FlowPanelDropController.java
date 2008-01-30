@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,6 +28,7 @@ import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
  * @see IndexedDropController
  */
 public class FlowPanelDropController extends AbstractIndexedDropController {
+
   private static final String CSS_DRAGDROP_FLOW_PANEL_POSITIONER = "dragdrop-flow-panel-positioner";
 
   private FlowPanel dropTarget;

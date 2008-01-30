@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -20,8 +20,11 @@ import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 
 final class WindowController {
+
   private final AbsolutePanel boundaryPanel;
+
   private PickupDragController pickupDragController;
+
   private ResizeDragController resizeDragController;
 
   WindowController(AbsolutePanel boundaryPanel) {

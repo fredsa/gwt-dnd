@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -29,7 +29,9 @@ import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import java.util.Iterator;
 
 public class TabSelectingDropController extends AbstractDropController {
+
   private final int tabIndex;
+
   private final TabPanel tabPanel;
 
   public TabSelectingDropController(Widget tabWidgetDropTarget, TabPanel tabPanel, int tabIndex) {
@@ -50,8 +52,10 @@ public class TabSelectingDropController extends AbstractDropController {
       absolutePanel.add(widget, 0, 0);
 
       // move widget to random location, and restore visibility
-      int left = Random.nextInt(DOMUtil.getClientWidth(absolutePanel.getElement()) - widget.getOffsetWidth());
-      int top = Random.nextInt(DOMUtil.getClientHeight(absolutePanel.getElement()) - widget.getOffsetHeight());
+      int left = Random.nextInt(DOMUtil.getClientWidth(absolutePanel.getElement())
+          - widget.getOffsetWidth());
+      int top = Random.nextInt(DOMUtil.getClientHeight(absolutePanel.getElement())
+          - widget.getOffsetHeight());
       absolutePanel.add(widget, left, top);
       DOM.setStyleAttribute(widget.getElement(), "visibility", "");
     }

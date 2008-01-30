@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,7 +28,9 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * Example of a widget palette that creates widget copies on demand.
  */
 public final class PaletteExample extends Example {
+
   private static final String CSS_DEMO_PALETTE_EXAMPLE = "demo-PaletteExample";
+
   private PickupDragController dragController;
 
   public PaletteExample(DemoDragHandler demoDragHandler) {

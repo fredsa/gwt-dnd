@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -17,7 +17,6 @@ package com.allen_sauer.gwt.dnd.client.drop;
 
 import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
@@ -32,8 +31,11 @@ import java.util.Iterator;
  * A {@link DropController} for {@link IndexedPanel} drop targets.
  */
 public abstract class AbstractIndexedDropController extends AbstractPositioningDropController {
+
   private int dropIndex;
+
   private IndexedPanel dropTarget;
+
   private Widget positioner = null;
 
   /**
@@ -112,7 +114,7 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
    * the look and feel of your positioner. The positioner widget may not have any CSS
    * borders or margins, although there are no such restrictions on the children of the
    * positioner widget. If borders and/or margins are desired, wrap that widget in a
-   * {@link SimplePanel} with a <code>0px</code> border and margin.
+   * {@link com.google.gwt.user.client.ui.SimplePanel} with a <code>0px</code> border and margin.
    * 
    * @param context The current drag context.
    * @return a new positioner widget

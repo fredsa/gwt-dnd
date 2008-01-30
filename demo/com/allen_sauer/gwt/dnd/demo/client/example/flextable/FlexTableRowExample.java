@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -24,6 +24,7 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * {@link FlexTableRowDropController} example.
  */
 public final class FlexTableRowExample extends Example {
+
   private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE = "demo-FlexTableRowExample";
 
   public FlexTableRowExample(DemoDragHandler demoDragHandler) {
@@ -35,7 +36,8 @@ public final class FlexTableRowExample extends Example {
     setWidget(tableExamplePanel);
 
     // instantiate our drag controller
-    FlexTableRowDragController tableRowDragController = new FlexTableRowDragController(tableExamplePanel);
+    FlexTableRowDragController tableRowDragController = new FlexTableRowDragController(
+        tableExamplePanel);
     tableRowDragController.addDragHandler(demoDragHandler);
 
     // instantiate two flex tables
@@ -57,7 +59,7 @@ public final class FlexTableRowExample extends Example {
 
   public Class[] getInvolvedClasses() {
     return new Class[] {
-        FlexTableRowExample.class, FlexTableRowDropController.class, FlexTableRowDragController.class, DemoFlexTable.class,
-        FlexTableUtil.class,};
+        FlexTableRowExample.class, FlexTableRowDropController.class,
+        FlexTableRowDragController.class, DemoFlexTable.class, FlexTableUtil.class,};
   }
 }
