@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,9 +28,13 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * example.
  */
 public final class GridConstrainedExample extends Example {
+
   private static final String CSS_DEMO_GRID_CONSTRAINED_EXAMPLE = "demo-GridConstrainedExample";
+
   private int draggableOffsetHeight;
+
   private int draggableOffsetWidth;
+
   private GridConstrainedDropController gridConstrainedDropController;
 
   public GridConstrainedExample(PickupDragController dragController) {
@@ -45,8 +49,8 @@ public final class GridConstrainedExample extends Example {
     setWidget(gridConstrainedDropTarget);
 
     // instantiate our drop controller
-    gridConstrainedDropController = new GridConstrainedDropController(gridConstrainedDropTarget, draggableOffsetWidth,
-        draggableOffsetHeight);
+    gridConstrainedDropController = new GridConstrainedDropController(gridConstrainedDropTarget,
+        draggableOffsetWidth, draggableOffsetHeight);
     dragController.registerDropController(gridConstrainedDropController);
 
     // set our drop target size to a multiple of the draggable size
@@ -54,8 +58,8 @@ public final class GridConstrainedExample extends Example {
   }
 
   public String getDescription() {
-    return "Drops (moves) are constrained to a (" + draggableOffsetWidth + " x " + draggableOffsetHeight
-        + ") grid on the gray drop target.";
+    return "Drops (moves) are constrained to a (" + draggableOffsetWidth + " x "
+        + draggableOffsetHeight + ") grid on the gray drop target.";
   }
 
   public Class[] getInvolvedClasses() {
@@ -64,7 +68,8 @@ public final class GridConstrainedExample extends Example {
 
   protected void onInitialLoad() {
     gridConstrainedDropController.drop(createDraggable(), 0, 0);
-    gridConstrainedDropController.drop(createDraggable(), draggableOffsetWidth, draggableOffsetHeight);
+    gridConstrainedDropController.drop(createDraggable(), draggableOffsetWidth,
+        draggableOffsetHeight);
   }
 
   private void determineRedBoxDimensions() {

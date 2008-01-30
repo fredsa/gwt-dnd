@@ -36,14 +36,23 @@ import java.util.Iterator;
  * {@link com.google.gwt.user.client.ui.AbsolutePanel} drop target.
  */
 public class AbsolutePositionDropController extends AbstractPositioningDropController {
+
   static class Draggable {
+
     public int desiredX;
+
     public int desiredY;
+
     public int relativeX;
+
     public int relativeY;
+
     final int offsetHeight;
+
     final int offsetWidth;
+
     Widget positioner = null;
+
     final Widget widget;
 
     public Draggable(Widget widget) {
@@ -54,11 +63,17 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   }
 
   private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
+
   final ArrayList draggableList = new ArrayList();
+
   final AbsolutePanel dropTarget;
+
   int dropTargetClientHeight;
+
   int dropTargetClientWidth;
+
   int dropTargetOffsetX;
+
   int dropTargetOffsetY;
 
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {

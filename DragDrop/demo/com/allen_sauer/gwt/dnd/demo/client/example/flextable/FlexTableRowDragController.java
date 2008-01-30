@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -27,8 +27,11 @@ import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
  * Allows table rows to dragged by their handle.
  */
 public final class FlexTableRowDragController extends PickupDragController {
+
   private static final String CSS_DEMO_FLEX_TABLE_ROW_EXAMPLE_TABLE_PROXY = "demo-FlexTableRowExample-table-proxy";
+
   private FlexTable draggableTable;
+
   private int dragRow;
 
   public FlexTableRowDragController(AbsolutePanel boundaryPanel) {
@@ -52,7 +55,8 @@ public final class FlexTableRowDragController extends PickupDragController {
     super.setBehaviorDragProxy(dragProxyEnabled);
   }
 
-  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
+  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
+      boolean allowDroppingOnBoundaryPanel) {
     if (allowDroppingOnBoundaryPanel) {
       throw new IllegalArgumentException();
     }

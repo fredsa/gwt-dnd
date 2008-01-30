@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -25,12 +25,25 @@ import com.allen_sauer.gwt.dnd.demo.client.RedBoxDraggableWidget;
  * Shared utility methods to produce draggable widgets.
  */
 public class DraggableFactory {
-  public static Widget createDraggableImage(DragController dragController) {
+
+  /**
+   * Create a new draggable pumpkin image.
+   * 
+   * @param dragController the drag controller
+   * @return the new widget
+   */
+  public static Widget createDraggablePumpkinImage(DragController dragController) {
     Image image = new Image("images/99pumpkin2-65x58.jpg");
     dragController.makeDraggable(image);
     return image;
   }
 
+  /**
+   * Create a new draggable red box widget.
+   * 
+   * @param dragController the drag controller
+   * @return the new widget
+   */
   public static Widget createDraggableRedBox(DragController dragController) {
     Widget redBox = new RedBoxDraggableWidget();
     dragController.makeDraggable(redBox);

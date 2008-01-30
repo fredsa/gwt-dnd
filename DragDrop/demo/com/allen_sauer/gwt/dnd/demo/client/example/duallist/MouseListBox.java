@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -27,18 +27,24 @@ import java.util.ArrayList;
  * Either left or right hand side of a {@link DualListBox}.
  */
 class MouseListBox extends Composite {
+
   private static final class SpacerHTML extends HTML {
+
     public SpacerHTML() {
       super("&nbsp;");
     }
   }
 
   private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM = "demo-DualListExample-item";
+
   private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_ITEM_HAS_CONTENT = "demo-DualListExample-item-has-content";
 
   private static final String CSS_DEMO_MOUSELISTBOX = "demo-MouseListBox";
+
   private ListBoxDragController dragController;
+
   private Grid grid;
+
   private int widgetCount = 0;
 
   /**

@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,8 +28,11 @@ import com.allen_sauer.gwt.dnd.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 
 public final class ResetCacheExample extends Example {
+
   private static final String CSS_DEMO_CACHE_EXAMPLE = "demo-ResetCacheExample";
+
   private static final String CSS_DEMO_CACHE_EXAMPLE_DRAGGABLE = "demo-ResetCacheExample-draggable";
+
   private static final String CSS_DEMO_CACHE_EXAMPLE_TAB_PANEL = "demo-ResetCacheExample-TabPanel";
 
   private AbsolutePositionDropController containerDropController;
@@ -65,7 +68,8 @@ public final class ResetCacheExample extends Example {
       tabPanel.add(contentPanel, tabWidget);
 
       // add drop controller to allow automatic tab selection and dropping on tab
-      TabSelectingDropController tabSelectingDropController = new TabSelectingDropController(tabWidget, tabPanel, i);
+      TabSelectingDropController tabSelectingDropController = new TabSelectingDropController(
+          tabWidget, tabPanel, i);
       dragController.registerDropController(tabSelectingDropController);
 
       // create a sample draggable
@@ -97,6 +101,8 @@ public final class ResetCacheExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {ResetCacheExample.class, TabSelectingDropController.class, AbsolutePositionDropController.class,};
+    return new Class[] {
+        ResetCacheExample.class, TabSelectingDropController.class,
+        AbsolutePositionDropController.class,};
   }
 }

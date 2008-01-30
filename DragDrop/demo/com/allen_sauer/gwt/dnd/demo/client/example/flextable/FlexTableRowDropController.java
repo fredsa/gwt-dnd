@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -32,10 +32,13 @@ import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
  * Allows one or more table rows to be dropped into an existing table.
  */
 public final class FlexTableRowDropController extends AbstractPositioningDropController {
+
   private static final String CSS_DEMO_TABLE_POSITIONER = "demo-table-positioner";
 
   private FlexTable flexTable;
+
   private IndexedPanel flexTableRowsAsIndexPanel = new IndexedPanel() {
+
     public Widget getWidget(int index) {
       return flexTable.getWidget(index, 0);
     }
@@ -54,6 +57,7 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
   };
 
   private Widget positioner = null;
+
   private int targetRow;
 
   public FlexTableRowDropController(FlexTable flexTable) {
@@ -63,7 +67,8 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
 
   public void onDrop(DragContext context) {
     FlexTableRowDragController trDragController = (FlexTableRowDragController) context.dragController;
-    FlexTableUtil.moveRow(trDragController.getDraggableTable(), flexTable, trDragController.getDragRow(), targetRow + 1);
+    FlexTableUtil.moveRow(trDragController.getDraggableTable(), flexTable,
+        trDragController.getDragRow(), targetRow + 1);
     super.onDrop(context);
   }
 
@@ -80,8 +85,8 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
 
   public void onMove(DragContext context) {
     super.onMove(context);
-    targetRow = DOMUtil.findIntersect(flexTableRowsAsIndexPanel, new CoordinateLocation(context.mouseX, context.mouseY),
-        LocationWidgetComparator.BOTTOM_HALF_COMPARATOR) - 1;
+    targetRow = DOMUtil.findIntersect(flexTableRowsAsIndexPanel, new CoordinateLocation(
+        context.mouseX, context.mouseY), LocationWidgetComparator.BOTTOM_HALF_COMPARATOR) - 1;
 
     Widget w = flexTable.getWidget(targetRow == -1 ? 0 : targetRow, 0);
     Location widgetLocation = new WidgetLocation(w, context.boundaryPanel);

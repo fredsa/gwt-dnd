@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -25,10 +25,18 @@ import com.allen_sauer.gwt.dnd.client.util.StringUtil;
  * Allows the user to select the desired drag behavior for this demonstration.
  */
 class BehaviorPanel extends VerticalPanel {
+
+  /**
+   * CSS style name applied to heading HTML.
+   */
   private static final String CSS_DEMO_BEHAVIOR_HEADING = "demo-behavior-heading";
+
+  /**
+   * CSS style name applied to entire behavior panel.
+   */
   private static final String CSS_DEMO_BEHAVIOR_SELECTION = "demo-behavior-panel";
 
-  public BehaviorPanel(String headingHTML, String tooltip) {
+  BehaviorPanel(String headingHTML, String tooltip) {
     addStyleName(CSS_DEMO_BEHAVIOR_SELECTION);
     HTML heading = new HTML(headingHTML);
     heading.addStyleName(CSS_DEMO_BEHAVIOR_HEADING);

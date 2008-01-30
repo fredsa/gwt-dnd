@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.Widget;
  * valid is determined by the implementing subclass.
  */
 public abstract class AbstractPositioningDropController extends AbstractDropController {
+
   static final String CSS_DRAGDROP_POSITIONER = "dragdrop-positioner";
 
   public AbstractPositioningDropController(Panel dropTarget) {

@@ -22,6 +22,9 @@ import com.google.gwt.user.client.Element;
  * IE.
  */
 public class DOMUtilImplIE6 extends DOMUtilImpl {
+
+  // CHECKSTYLE_JAVADOC_OFF
+
   public native void cancelAllDocumentSelections()
   /*-{
     try {

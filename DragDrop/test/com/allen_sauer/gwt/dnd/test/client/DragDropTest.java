@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -28,6 +28,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * EntryPoint class for demonstrating and testing drag-and-drop library.
  */
 public final class DragDropTest implements EntryPoint {
+
   private static native String getCompatMode()
   /*-{
     return $doc.compatMode;
@@ -36,6 +37,7 @@ public final class DragDropTest implements EntryPoint {
   public void onModuleLoad() {
     // set uncaught exception handler
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
+
       public void onUncaughtException(Throwable throwable) {
         String text = "Uncaught exception: ";
         while (throwable != null) {
@@ -60,6 +62,7 @@ public final class DragDropTest implements EntryPoint {
 
     // use a deferred command so that the handler catches onModuleLoad2() exceptions
     DeferredCommand.addCommand(new Command() {
+
       public void execute() {
         onModuleLoad2();
       }

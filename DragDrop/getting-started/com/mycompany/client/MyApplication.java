@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -31,10 +31,18 @@ import com.allen_sauer.gwt.dnd.client.drop.AbsolutePositionDropController;
 import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 
+/**
+ * Illustrative example.
+ */
 public class MyApplication implements EntryPoint {
+
+  /**
+   * Main entry point method.
+   */
   public void onModuleLoad() {
     // set uncaught exception handler
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
+
       public void onUncaughtException(Throwable throwable) {
         String text = "Uncaught exception: ";
         while (throwable != null) {
@@ -59,12 +67,16 @@ public class MyApplication implements EntryPoint {
 
     // use a deferred command so that the handler catches onModuleLoad2() exceptions
     DeferredCommand.addCommand(new Command() {
+
       public void execute() {
         onModuleLoad2();
       }
     });
   }
 
+  /**
+   * Deferred initialization method, called from {@link #onModuleLoad()}.
+   */
   private void onModuleLoad2() {
     // Create a boundary panel to constrain all drag operations
     AbsolutePanel boundaryPanel = new AbsolutePanel();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -24,15 +24,25 @@ import com.allen_sauer.gwt.dnd.client.DragController;
  * Class representing a single drag-and-drop example.
  */
 public abstract class Example extends SimplePanel {
+
   private static final String CSS_DEMO_EXAMPLE_PANEL = "demo-example-panel";
 
   private DragController dragController;
+
   private boolean initialLoaded = false;
 
+  /**
+   * Constructor for examples which create their own drag controller.
+   */
   public Example() {
     addStyleName(CSS_DEMO_EXAMPLE_PANEL);
   }
 
+  /**
+   * Constructor for examples which utilize the common drag controller.
+   * 
+   * @param dragController the shared drag controller
+   */
   public Example(DragController dragController) {
     this();
     this.dragController = dragController;
@@ -72,9 +82,15 @@ public abstract class Example extends SimplePanel {
     return DraggableFactory.createDraggableRedBox(dragController);
   }
 
+  /**
+   * Called when {@link #onLoad()} is called for the first time.
+   */
   protected void onInitialLoad() {
   }
 
+  /**
+   * Calls {@link #onInitialLoad()} when called for the first time.
+   */
   protected void onLoad() {
     super.onLoad();
     if (!initialLoaded) {

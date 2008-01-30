@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -34,17 +34,24 @@ import java.util.Iterator;
  * Example of two lists side by side for {@link DualListExample}.
  */
 public class DualListBox extends AbsolutePanel {
+
   private static final String CSS_DEMO_DUAL_LIST_EXAMPLE_CENTER = "demo-DualListExample-center";
+
   private static final int LIST_SIZE = 10;
+
+  private Button allLeft;
+
+  private Button allRight;
 
   private ListBoxDragController dragController;
 
   private MouseListBox left;
-  private MouseListBox right;
-  private Button oneRight;
+
   private Button oneLeft;
-  private Button allRight;
-  private Button allLeft;
+
+  private Button oneRight;
+
+  private MouseListBox right;
 
   public DualListBox(int visibleItems, String width) {
     HorizontalPanel horizontalPanel = new HorizontalPanel();
@@ -77,24 +84,28 @@ public class DualListBox extends AbsolutePanel {
     verticalPanel.add(allLeft);
 
     allRight.addClickListener(new ClickListener() {
+
       public void onClick(Widget sender) {
         moveItems(left, right, false);
       }
     });
 
     allLeft.addClickListener(new ClickListener() {
+
       public void onClick(Widget sender) {
         moveItems(right, left, false);
       }
     });
 
     oneRight.addClickListener(new ClickListener() {
+
       public void onClick(Widget sender) {
         moveItems(left, right, true);
       }
     });
 
     oneLeft.addClickListener(new ClickListener() {
+
       public void onClick(Widget sender) {
         moveItems(right, left, true);
       }
@@ -124,7 +135,8 @@ public class DualListBox extends AbsolutePanel {
   }
 
   protected void moveItems(MouseListBox from, MouseListBox to, boolean justSelectedItems) {
-    ArrayList widgetList = justSelectedItems ? dragController.getSelectedWidgets(from) : from.widgetList();
+    ArrayList widgetList = justSelectedItems ? dragController.getSelectedWidgets(from)
+        : from.widgetList();
     for (Iterator iterator = widgetList.iterator(); iterator.hasNext();) {
       Widget widget = (Widget) iterator.next();
       // TODO let widget.removeFromParent() take care of from.remove()

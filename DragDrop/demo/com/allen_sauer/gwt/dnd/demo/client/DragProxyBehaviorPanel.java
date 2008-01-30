@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -22,11 +22,14 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 
 class DragProxyBehaviorPanel extends BehaviorPanel {
+
   public DragProxyBehaviorPanel(final PickupDragController dragController) {
     super("Drag Proxy Behavior", "getBehaviorDragProxy() / setBehaviorDragProxy(boolean)");
 
-    final RadioButton classicButton = newButton("Widget is dragged", "PickupDragController#setBehaviorDragProxy(false)");
-    final RadioButton proxyButton = newButton("Use drag proxies", "PickupDragController#setBehaviorDragProxy(true)");
+    final RadioButton classicButton = newButton("Widget is dragged",
+        "PickupDragController#setBehaviorDragProxy(false)");
+    final RadioButton proxyButton = newButton("Use drag proxies",
+        "PickupDragController#setBehaviorDragProxy(true)");
 
     add(classicButton);
     add(proxyButton);
@@ -38,6 +41,7 @@ class DragProxyBehaviorPanel extends BehaviorPanel {
     }
 
     ClickListener listener = new ClickListener() {
+
       public void onClick(Widget sender) {
         dragController.setBehaviorDragProxy(proxyButton.isChecked());
       }

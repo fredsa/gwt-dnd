@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -19,9 +19,13 @@ package com.allen_sauer.gwt.dnd.client.util;
  * Provides implementations for common {@link Area} calculations.
  */
 public abstract class AbstractArea implements Area {
+
   private int bottom;
+
   private int left;
+
   private int right;
+
   private int top;
 
   public Area copyOf() {

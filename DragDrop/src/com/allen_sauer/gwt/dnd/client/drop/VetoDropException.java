@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -21,6 +21,7 @@ import com.allen_sauer.gwt.dnd.client.VetoDragException;
  * @deprecated Use {@link VetoDragException} instead.
  */
 public class VetoDropException extends VetoDragException {
+
   public VetoDropException() {
     throw new UnsupportedOperationException();
   }

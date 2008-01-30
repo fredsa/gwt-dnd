@@ -36,18 +36,29 @@ import java.util.HashMap;
  * draggable widgets for a given {@link DragController}.
  */
 class MouseDragHandler implements MouseListener {
+
   private static final int ACTIVELY_DRAGGING = 3;
+
   private static final int DRAGGING_NO_MOVEMENT_YET = 2;
+
   private static final int NOT_DRAGGING = 1;
 
   private FocusPanel capturingWidget;
+
   private final DragContext context;
+
   private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
+
   private int dragging = NOT_DRAGGING;
+
   private HashMap dragHandleMap = new HashMap();
+
   private boolean mouseDown;
+
   private int mouseDownOffsetX;
+
   private int mouseDownOffsetY;
+
   private Widget mouseDownWidget;
 
   MouseDragHandler(DragContext context) {
@@ -78,6 +89,7 @@ class MouseDragHandler implements MouseListener {
       context.dragController.toggleSelection(context.draggable);
     }
     DeferredCommand.addCommand(new Command() {
+
       public void execute() {
         DOMUtil.cancelAllDocumentSelections();
       }

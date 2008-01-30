@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -29,7 +29,9 @@ import com.allen_sauer.gwt.dnd.client.HasDragHandle;
  * Widget wrapper class used by {@link PalettePanel}.
  */
 public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
+
   private FocusPanel shim = new FocusPanel();
+
   private final Widget widget;
 
   /**
@@ -72,15 +74,15 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
     return new PaletteWidget(clone);
   }
 
-  /**
-   * Cover widgets with a semi-transparent shim for proper mouse event handling
-   */
   public Widget getDragHandle() {
     return shim;
   }
 
   /**
-   * Let shim size match our size
+   * Let shim size match our size.
+   * 
+   * @param width the desired pixel width
+   * @param height the desired pixel height
    */
   public void setPixelSize(int width, int height) {
     super.setPixelSize(width, height);
@@ -88,7 +90,10 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
   }
 
   /**
-   * Let shim size match our size
+   * Let shim size match our size.
+   * 
+   * @param width the desired CSS width
+   * @param height the desired CSS height
    */
   public void setSize(String width, String height) {
     super.setSize(width, height);
@@ -96,7 +101,7 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
   }
 
   /**
-   * Adjust the shim size and attach once our widget dimensions are known
+   * Adjust the shim size and attach once our widget dimensions are known.
    */
   protected void onLoad() {
     super.onLoad();
@@ -105,7 +110,7 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
   }
 
   /**
-   * Remove the shim to allow the widget to size itself when reattached
+   * Remove the shim to allow the widget to size itself when reattached.
    */
   protected void onUnload() {
     super.onUnload();

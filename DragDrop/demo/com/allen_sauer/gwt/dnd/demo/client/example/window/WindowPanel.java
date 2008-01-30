@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -27,12 +27,15 @@ import com.allen_sauer.gwt.dnd.client.util.Location;
 import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 
 final class WindowPanel extends FocusPanel {
+
   /**
    * WindowPanel direction constant, used in
    * {@link ResizeDragController#makeDraggable(com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dnd.demo.client.example.resize.WindowPanel.DirectionConstant)}.
    */
   public static class DirectionConstant {
+
     public final int directionBits;
+
     public final String directionLetters;
 
     private DirectionConstant(int directionBits, String directionLetters) {
@@ -74,12 +77,14 @@ final class WindowPanel extends FocusPanel {
   /**
    * Specifies that resizing occur at the north-east edge.
    */
-  public static final DirectionConstant NORTH_EAST = new DirectionConstant(DIRECTION_NORTH | DIRECTION_EAST, "ne");
+  public static final DirectionConstant NORTH_EAST = new DirectionConstant(DIRECTION_NORTH
+      | DIRECTION_EAST, "ne");
 
   /**
    * Specifies that resizing occur at the north-west edge.
    */
-  public static final DirectionConstant NORTH_WEST = new DirectionConstant(DIRECTION_NORTH | DIRECTION_WEST, "nw");
+  public static final DirectionConstant NORTH_WEST = new DirectionConstant(DIRECTION_NORTH
+      | DIRECTION_WEST, "nw");
 
   /**
    * Specifies that resizing occur at the south edge.
@@ -89,12 +94,14 @@ final class WindowPanel extends FocusPanel {
   /**
    * Specifies that resizing occur at the south-east edge.
    */
-  public static final DirectionConstant SOUTH_EAST = new DirectionConstant(DIRECTION_SOUTH | DIRECTION_EAST, "se");
+  public static final DirectionConstant SOUTH_EAST = new DirectionConstant(DIRECTION_SOUTH
+      | DIRECTION_EAST, "se");
 
   /**
    * Specifies that resizing occur at the south-west edge.
    */
-  public static final DirectionConstant SOUTH_WEST = new DirectionConstant(DIRECTION_SOUTH | DIRECTION_WEST, "sw");
+  public static final DirectionConstant SOUTH_WEST = new DirectionConstant(DIRECTION_SOUTH
+      | DIRECTION_WEST, "sw");
 
   /**
    * Specifies that resizing occur at the west edge.
@@ -104,28 +111,41 @@ final class WindowPanel extends FocusPanel {
   private static final int BORDER_THICKNESS = 5;
 
   private static final String CSS_DEMO_RESIZE_EDGE = "demo-resize-edge";
+
   private static final String CSS_DEMO_RESIZE_PANEL = "demo-WindowPanel";
+
   private static final String CSS_DEMO_RESIZE_PANEL_HEADER = "demo-WindowPanel-header";
 
   private int contentHeight;
+
   private Widget contentOrScrollPanelWidget;
+
   private int contentWidth;
+
   private Widget eastWidget;
+
   private Grid grid = new Grid(3, 3);
+
   private final FocusPanel headerContainer;
+
   private final Widget headerWidget;
+
   private Widget northWidget;
+
   private Widget southWidget;
+
   private Widget westWidget;
+
   private final WindowController windowController;
 
-  public WindowPanel(final WindowController windowController, Widget headerWidget, Widget contentWidget,
-      boolean wrapContentInScrollPanel) {
+  public WindowPanel(final WindowController windowController, Widget headerWidget,
+      Widget contentWidget, boolean wrapContentInScrollPanel) {
     this.windowController = windowController;
     this.headerWidget = headerWidget;
     addStyleName(CSS_DEMO_RESIZE_PANEL);
 
-    contentOrScrollPanelWidget = wrapContentInScrollPanel ? new ScrollPanel(contentWidget) : contentWidget;
+    contentOrScrollPanelWidget = wrapContentInScrollPanel ? new ScrollPanel(contentWidget)
+        : contentWidget;
 
     headerContainer = new FocusPanel();
     headerContainer.addStyleName(CSS_DEMO_RESIZE_PANEL_HEADER);
@@ -134,6 +154,7 @@ final class WindowPanel extends FocusPanel {
     windowController.getPickupDragController().makeDraggable(this, headerContainer);
 
     addClickListener(new ClickListener() {
+
       public void onClick(Widget sender) {
         // force our panel to the top of our z-index context
         AbsolutePanel boundaryPanel = windowController.getBoundaryPanel();
@@ -199,7 +220,8 @@ final class WindowPanel extends FocusPanel {
     super.onLoad();
     if (contentOrScrollPanelWidget.getOffsetHeight() != 0) {
       headerWidget.setPixelSize(headerWidget.getOffsetWidth(), headerWidget.getOffsetHeight());
-      setContentSize(contentOrScrollPanelWidget.getOffsetWidth(), contentOrScrollPanelWidget.getOffsetHeight());
+      setContentSize(contentOrScrollPanelWidget.getOffsetWidth(),
+          contentOrScrollPanelWidget.getOffsetHeight());
     }
   }
 
@@ -208,7 +230,8 @@ final class WindowPanel extends FocusPanel {
     widget.setPixelSize(BORDER_THICKNESS, BORDER_THICKNESS);
     grid.setWidget(row, col, widget);
     windowController.getResizeDragController().makeDraggable(widget, direction);
-    grid.getCellFormatter().addStyleName(row, col, CSS_DEMO_RESIZE_EDGE + " demo-resize-" + direction.directionLetters);
+    grid.getCellFormatter().addStyleName(row, col,
+        CSS_DEMO_RESIZE_EDGE + " demo-resize-" + direction.directionLetters);
     return widget;
   }
 }

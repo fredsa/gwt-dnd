@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -22,8 +22,10 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dnd.client.DragController;
 
 class ConstrainedToBoundaryBehaviorPanel extends BehaviorPanel {
+
   public ConstrainedToBoundaryBehaviorPanel(final DragController dragController) {
-    super("Drag Operations", "getBehaviorConstrainedToBoundaryPanel() / setBehaviorConstrainedToBoundaryPanel(boolean)");
+    super("Drag Operations",
+        "getBehaviorConstrainedToBoundaryPanel() / setBehaviorConstrainedToBoundaryPanel(boolean)");
 
     final RadioButton constrainedButton = newButton("Constrained by Boundary",
         "DragController#setBehaviorConstrainedToBoundaryPanel(true)");
@@ -40,6 +42,7 @@ class ConstrainedToBoundaryBehaviorPanel extends BehaviorPanel {
     }
 
     ClickListener listener = new ClickListener() {
+
       public void onClick(Widget sender) {
         dragController.setBehaviorConstrainedToBoundaryPanel(constrainedButton.isChecked());
       }

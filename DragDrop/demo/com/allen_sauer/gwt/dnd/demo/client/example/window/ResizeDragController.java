@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -25,9 +25,11 @@ import com.allen_sauer.gwt.dnd.demo.client.example.window.WindowPanel.DirectionC
 import java.util.HashMap;
 
 final class ResizeDragController extends AbstractDragController {
+
   private static final int MIN_WIDGET_SIZE = 10;
 
   private HashMap directionMap = new HashMap();
+
   private WindowPanel windowPanel = null;
 
   public ResizeDragController(AbsolutePanel boundaryPanel) {
@@ -49,7 +51,8 @@ final class ResizeDragController extends AbstractDragController {
     } else if ((direction & WindowPanel.DIRECTION_SOUTH) != 0) {
       int delta = context.desiredDraggableY - context.draggable.getAbsoluteTop();
       if (delta != 0) {
-        windowPanel.setContentSize(windowPanel.getContentWidth(), windowPanel.getContentHeight() + delta);
+        windowPanel.setContentSize(windowPanel.getContentWidth(), windowPanel.getContentHeight()
+            + delta);
       }
     }
     if ((direction & WindowPanel.DIRECTION_WEST) != 0) {
@@ -65,7 +68,8 @@ final class ResizeDragController extends AbstractDragController {
     } else if ((direction & WindowPanel.DIRECTION_EAST) != 0) {
       int delta = context.desiredDraggableX - context.draggable.getAbsoluteLeft();
       if (delta != 0) {
-        windowPanel.setContentSize(windowPanel.getContentWidth() + delta, windowPanel.getContentHeight());
+        windowPanel.setContentSize(windowPanel.getContentWidth() + delta,
+            windowPanel.getContentHeight());
       }
     }
   }
@@ -80,7 +84,8 @@ final class ResizeDragController extends AbstractDragController {
     directionMap.put(widget, direction);
   }
 
-  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
+  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
+      boolean allowDroppingOnBoundaryPanel) {
     if (allowDroppingOnBoundaryPanel) {
       throw new IllegalArgumentException();
     }

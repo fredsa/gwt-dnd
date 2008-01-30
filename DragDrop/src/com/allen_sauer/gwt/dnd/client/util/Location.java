@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -19,19 +19,20 @@ package com.allen_sauer.gwt.dnd.client.util;
  * Class representing a location defined by left (x) and top (y) coordinates.
  */
 public interface Location {
+
   /**
    * Get x coordinate.
    * 
    * @return the left offset in pixels
    */
-  abstract int getLeft();
+  int getLeft();
 
   /**
    * Get the y coordinate.
    * 
    * @return the top offset in pixels
    */
-  abstract int getTop();
+  int getTop();
 
   /**
    * Return a new location, snapped to the grid based on a spacing

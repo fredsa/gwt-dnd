@@ -27,7 +27,9 @@ import com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImpl;
  * Provides DOM utility methods.
  */
 public class DOMUtil {
+
   public static final boolean DEBUG = false;
+
   private static DOMUtilImpl impl;
 
   static {
@@ -219,7 +221,7 @@ public class DOMUtil {
     impl.setStatus(text);
   }
 
-  private static final void debugWidgetWithColor(IndexedPanel parent, int index, String color) {
+  private static void debugWidgetWithColor(IndexedPanel parent, int index, String color) {
     if (DEBUG) {
       DOM.setStyleAttribute(parent.getWidget(index).getElement(), "border", "2px solid " + color);
     }

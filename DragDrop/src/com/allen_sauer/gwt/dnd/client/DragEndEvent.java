@@ -24,6 +24,7 @@ import com.allen_sauer.gwt.dnd.client.util.StringUtil;
  * {@link java.util.EventObject} containing information about the end of a drag.
  */
 public class DragEndEvent extends DragEvent {
+
   public DragEndEvent(DragContext context) {
     super(context);
   }

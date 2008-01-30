@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -26,11 +26,17 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * dragged into a arbitrary hierarchy of widgets.
  */
 public final class MatryoshkaExample extends Example {
+
   private static final int CELL_HEIGHT = 50;
+
   private static final int CELL_SPACER = 4;
+
   private static final int CELL_WIDTH = 50;
+
   private static final String CSS_DEMO_MATRYOSHKA_EXAMPLE = "demo-MatryoshkaExample";
+
   private static final int NUMBER_COLS = 5;
+
   private static final int NUMBER_ROWS = 5;
 
   public MatryoshkaExample(DemoDragHandler demoDragHandler) {
@@ -41,8 +47,8 @@ public final class MatryoshkaExample extends Example {
     boundaryPanel.setPixelSize(500, 300);
     setWidget(boundaryPanel);
 
-    boundaryPanel.setPixelSize((NUMBER_COLS + 3) * (CELL_WIDTH + CELL_SPACER) + 2 * CELL_SPACER, NUMBER_ROWS
-        * (CELL_HEIGHT + CELL_SPACER) + 2 * CELL_SPACER);
+    boundaryPanel.setPixelSize((NUMBER_COLS + 3) * (CELL_WIDTH + CELL_SPACER) + 2 * CELL_SPACER,
+        NUMBER_ROWS * (CELL_HEIGHT + CELL_SPACER) + 2 * CELL_SPACER);
 
     // initialize our drag controller
     PickupDragController dragController = new PickupDragController(boundaryPanel, true);
@@ -58,8 +64,10 @@ public final class MatryoshkaExample extends Example {
         int blue = 128;
 
         // instantiate a widget which automatically makes itself a drop target
-        RGBFocusPanel panel = new RGBFocusPanel(dragController, CELL_WIDTH, CELL_HEIGHT, red, green, blue);
-        boundaryPanel.add(panel, col * (CELL_WIDTH + CELL_SPACER) + CELL_SPACER, row * (CELL_HEIGHT + CELL_SPACER) + CELL_SPACER);
+        RGBFocusPanel panel = new RGBFocusPanel(dragController, CELL_WIDTH, CELL_HEIGHT, red,
+            green, blue);
+        boundaryPanel.add(panel, col * (CELL_WIDTH + CELL_SPACER) + CELL_SPACER, row
+            * (CELL_HEIGHT + CELL_SPACER) + CELL_SPACER);
 
         // make the widget draggable
         dragController.makeDraggable(panel);
@@ -73,6 +81,7 @@ public final class MatryoshkaExample extends Example {
 
   public Class[] getInvolvedClasses() {
     return new Class[] {
-        MatryoshkaExample.class, PickupDragController.class, MatryoshkaSetWidgetDropController.class, RGBFocusPanel.class,};
+        MatryoshkaExample.class, PickupDragController.class,
+        MatryoshkaSetWidgetDropController.class, RGBFocusPanel.class,};
   }
 }

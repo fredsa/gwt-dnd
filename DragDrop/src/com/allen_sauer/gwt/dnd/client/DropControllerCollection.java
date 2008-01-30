@@ -36,8 +36,11 @@ import java.util.Iterator;
  * to track all relevant {@link DropController DropControllers}.
  */
 class DropControllerCollection {
+
   protected static class Candidate implements Comparable {
+
     private final DropController dropController;
+
     private Area targetArea;
 
     Candidate(DropController dropController) {
@@ -80,6 +83,7 @@ class DropControllerCollection {
   }
 
   private final ArrayList dropControllerList;
+
   private Candidate[] sortedCandidates = null;
 
   /**

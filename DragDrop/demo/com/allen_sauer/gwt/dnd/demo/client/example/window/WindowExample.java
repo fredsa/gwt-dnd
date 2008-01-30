@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -31,12 +31,14 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * and {@link com.allen_sauer.gwt.dnd.client.DragEndEvent DragEndEvents}.
  */
 public final class WindowExample extends Example {
+
   private static final String CSS_DEMO_RESIZE_EXAMPLE = "demo-WindowExample";
 
   /**
-   * Note: don't use Google Code Project Hosting or other urchin enabled site
+   * IFRAME URL.
+   * Note: don't use Google Code Project Hosting or other urchin enabled site.
    */
-  private static final String GWT_DND_HOME_PAGE = "http://google.com/"; 
+  private static final String IFRAME_URL = "http://google.com/";
 
   public WindowExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_RESIZE_EXAMPLE);
@@ -59,7 +61,7 @@ public final class WindowExample extends Example {
 
     // create the second panel
     HTML header2 = new HTML("A draggable &amp; resizable <code>IFRAME</code>");
-    Frame iframe2 = getIframe(GWT_DND_HOME_PAGE);
+    Frame iframe2 = getIframe(IFRAME_URL);
     WindowPanel windowPanel2 = new WindowPanel(windowController, header2, iframe2, false);
     boundaryPanel.add(windowPanel2, 50, 80);
 
@@ -85,11 +87,13 @@ public final class WindowExample extends Example {
   }
 
   public Class[] getInvolvedClasses() {
-    return new Class[] {WindowExample.class, WindowController.class, WindowPanel.class, ResizeDragController.class,};
+    return new Class[] {
+        WindowExample.class, WindowController.class, WindowPanel.class, ResizeDragController.class,};
   }
 
   private Frame getIframe(String url) {
     Frame iframe = new Frame() {
+
       protected void onLoad() {
         super.onLoad();
         // IE work around for disappearing IFRAME when parent is re-attached

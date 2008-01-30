@@ -27,6 +27,7 @@ import java.util.Iterator;
  * {@link com.allen_sauer.gwt.dnd.client.DragHandler}.
  */
 public class DragHandlerCollection extends ArrayList {
+
   /**
    * @deprecated Use {@link #fireDragEnd(DragEndEvent)} instead.
    */

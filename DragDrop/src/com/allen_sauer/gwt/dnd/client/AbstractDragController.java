@@ -36,6 +36,7 @@ import java.util.Iterator;
  * </p>
  */
 public abstract class AbstractDragController implements DragController {
+
   /**
    * @deprecated Instead selectively use your own CSS classes.
    */
@@ -45,6 +46,7 @@ public abstract class AbstractDragController implements DragController {
    * @deprecated Instead selectively use your own CSS classes.
    */
   protected static final String CSS_DRAGGING;
+
   /**
    * @deprecated Instead selectively use your own CSS classes.
    */
@@ -55,7 +57,9 @@ public abstract class AbstractDragController implements DragController {
   private static HashMap dragHandles = new HashMap();
 
   private static final String PRIVATE_CSS_DRAGGABLE = "dragdrop-draggable";
+
   private static final String PRIVATE_CSS_DRAGGING = "dragdrop-dragging";
+
   private static final String PRIVATE_CSS_HANDLE = "dragdrop-handle";
 
   static {
@@ -73,14 +77,51 @@ public abstract class AbstractDragController implements DragController {
     $GWT_DND_VERSION = "@GWT_DND_VERSION@";
   }-*/;
 
+  /**
+   * The drag controller's drag context.
+   */
   protected final DragContext context;
+
+  /**
+   * The boundary panel to which all drag operations are constrained.
+   */
   AbsolutePanel boundaryPanel;
+
+  /**
+   * Whether or not widgets are physically constrained to the boundary panel.
+   */
   private boolean constrainedToBoundaryPanel;
+
+  /**
+   * The current drag end event, created in {@link #previewDragEnd()}
+   * and returned a second time in {@link #dragEnd()}.
+   */
   private DragEndEvent dragEndEvent;
+
+  /**
+   * Collection of registered drag handlers.
+   */
   private DragHandlerCollection dragHandlers;
+
+  /**
+   * The current drag start event, created in {@link #previewDragStart()}
+   * and returned a second time in {@link #dragStart()}.
+   */
   private DragStartEvent dragStartEvent;
-  private int dragStartPixels;
+
+  /**
+   * Drag sensitivity in pixels.
+   */
+  private int dragStartSensitivityPixels;
+
+  /**
+   * This drag controller's mouse drag handler.
+   */
   private MouseDragHandler mouseDragHandler;
+
+  /**
+   * Whether multiple selection behavior is enabled.
+   */
   private boolean multipleSelectionAllowed = false;
 
   /**
@@ -144,7 +185,7 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public int getBehaviorDragStartSensitivity() {
-    return dragStartPixels;
+    return dragStartSensitivityPixels;
   }
 
   public boolean getBehaviorMultipleSelection() {
@@ -261,7 +302,7 @@ public abstract class AbstractDragController implements DragController {
 
   public void setBehaviorDragStartSensitivity(int pixels) {
     assert pixels >= 0;
-    dragStartPixels = pixels;
+    dragStartSensitivityPixels = pixels;
   }
 
   public void setBehaviorMultipleSelection(boolean multipleSelectionAllowed) {

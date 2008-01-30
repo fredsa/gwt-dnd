@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 Fred Sauer
+ * Copyright 2008 Fred Sauer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class StylableVerticalPanel extends VerticalPanel {
+
   public void setCellStyleName(Widget widget, String styleName) {
     Element td = DOM.getParent(widget.getElement());
     UIObject.setStyleName(td, styleName);

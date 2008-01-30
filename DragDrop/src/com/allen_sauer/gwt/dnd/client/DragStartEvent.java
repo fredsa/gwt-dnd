@@ -19,6 +19,7 @@ package com.allen_sauer.gwt.dnd.client;
  * {@link java.util.EventObject} containing information about the start of a drag.
  */
 public class DragStartEvent extends DragEvent {
+
   public DragStartEvent(DragContext context) {
     super(context);
     assert context.vetoException == null;
