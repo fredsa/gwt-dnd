@@ -117,6 +117,7 @@ class MouseDragHandler implements MouseListener {
 
   public void onMouseLeave(Widget sender) {
     if (mouseDown && dragging == NOT_DRAGGING) {
+      // TODO DOMUtil.cancelAllDocumentSelections(); ?
       startDragging();
     }
   }
