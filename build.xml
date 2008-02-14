@@ -79,15 +79,15 @@
 		<!-- gwt-dnd.libdir property -->
 		<input addproperty="gwt-dnd.libdir" defaultvalue="/fred/java/lib/gwt-dnd" message="gwt-dnd library directory" />
 
-    <for param="file">
-      <fileset dir="${gwt-dnd.libdir}">
-        <include name="gwt-dnd-*.*.*.jar" />
-        <exclude name="gwt-dnd-*.*.*-*.jar" />
-      </fileset>
-      <sequential>
-        <echo message="@{file}" />
-      </sequential>
-    </for>
+		<for param="file">
+			<fileset dir="${gwt-dnd.libdir}">
+				<include name="gwt-dnd-*.*.*.jar" />
+				<exclude name="gwt-dnd-*.*.*-*.jar" />
+			</fileset>
+			<sequential>
+				<echo message="@{file}" />
+			</sequential>
+		</for>
 
 		<!-- gwt-dnd.version property -->
 		<input addproperty="gwt-dnd.version" defaultvalue="0.0.0" message="gwt-dnd library version" />
@@ -207,12 +207,16 @@
 
 	<target name="tag">
 		<exec executable="svn">
+			<arg value="ls" />
+			<arg value="https://gwt-dnd.googlecode.com/svn/tags/" />
+		</exec>
+		<exec executable="svn">
 			<arg value="info" />
-			<arg value="https://gwt-dnd.googlecode.com/svn/trunk" />
+			<arg value="https://gwt-dnd.googlecode.com/svn/" />
 		</exec>
 		<echo message="" />
 		<echo message="*****************************************************************************************************" />
-		<echo message="svn -m 'for prosterity' cp . https://gwt-dnd.googlecode.com/svn/tags/gwt-dnd-${gwt-dnd.version}-r____" />
+		<echo message="svn -m 'for prosterity' cp . https://gwt-dnd.googlecode.com/svn/tags/gwt-dnd-${gwt-dnd.version}-r" />
 		<echo message="*****************************************************************************************************" />
 		<echo message="" />
 	</target>
