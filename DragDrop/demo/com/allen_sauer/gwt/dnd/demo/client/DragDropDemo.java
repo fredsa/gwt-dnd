@@ -115,7 +115,7 @@ public final class DragDropDemo implements EntryPoint {
     mainPanel.add(new HTML(
         "<div style='font-weight: bold; font-size: 1.2em;'><a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a>"
             + " - Drag-and-Drop for your Google Web Toolkit projects.</div>"
-            + "<div style='font-style: italic; margin: 1em;'>by Fred Sauer</div>"));
+            + "<div style='font-style: italic; margin-bottom: 1em;'>by Fred Sauer</div>"));
 
     // Umbrella example illustrating basic drag and drop behavior
     HTML boundaryDescription = ExampleTabPanel.describe(new Class[] {
