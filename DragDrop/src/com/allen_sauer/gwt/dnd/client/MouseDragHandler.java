@@ -173,18 +173,12 @@ class MouseDragHandler implements MouseListener {
       return;
     }
 
-    if (dragging != ACTIVELY_DRAGGING) {
-      Widget widget = (Widget) dragHandleMap.get(mouseDownWidget);
-      assert widget != null;
-      if (!toggleKey(event)) {
-        context.dragController.clearSelection();
-      }
-      context.dragController.toggleSelection(widget);
-      DOMUtil.cancelAllDocumentSelections();
-      if (dragging == NOT_DRAGGING) {
-        return;
-      }
+    DOMUtil.cancelAllDocumentSelections();
+    if (dragging == NOT_DRAGGING) {
+      doSelectionToggle(event);
+      return;
     }
+
     // TODO Remove Safari workaround after GWT issue 1807 fixed
     if (sender != capturingWidget) {
       // In Safari 1.3.2 MAC does not honor capturing widget for mouse up
@@ -195,6 +189,9 @@ class MouseDragHandler implements MouseListener {
     // Proceed with the drop
     try {
       drop(x, y);
+      if (dragging != ACTIVELY_DRAGGING) {
+        doSelectionToggle(event);
+      }
     } finally {
       dragEndCleanup();
     }
@@ -225,6 +222,15 @@ class MouseDragHandler implements MouseListener {
     ((SourcesMouseEvents) dragHandle).removeMouseListener(this);
   }
 
+  private void doSelectionToggle(Event event) {
+    Widget widget = (Widget) dragHandleMap.get(mouseDownWidget);
+    assert widget != null;
+    if (!toggleKey(event)) {
+      context.dragController.clearSelection();
+    }
+    context.dragController.toggleSelection(widget);
+  }
+
   private void dragEndCleanup() {
     DOM.releaseCapture(capturingWidget.getElement());
     dragging = NOT_DRAGGING;
@@ -233,7 +239,6 @@ class MouseDragHandler implements MouseListener {
 
   private void drop(int x, int y) {
     actualMove(x, y);
-    dragging = NOT_DRAGGING;
 
     // Does the DragController allow the drop?
     try {
