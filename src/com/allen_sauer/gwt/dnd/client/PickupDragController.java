@@ -214,21 +214,16 @@ public class PickupDragController extends AbstractDragController {
       HashMap widgetLocation = new HashMap();
       for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
         Widget widget = (Widget) iterator.next();
-        if (widget != context.draggable) {
-          widgetLocation.put(widget, new CoordinateLocation(widget.getAbsoluteLeft(),
-              widget.getAbsoluteTop()));
-        }
+        widgetLocation.put(widget, new CoordinateLocation(widget.getAbsoluteLeft(),
+            widget.getAbsoluteTop()));
       }
       for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
         Widget widget = (Widget) iterator.next();
-        if (widget != context.draggable) {
-          Location location = (Location) widgetLocation.get(widget);
-          int relativeX = location.getLeft() - draggableAbsoluteLeft;
-          int relativeY = location.getTop() - draggableAbsoluteTop;
-          container.add(widget, relativeX, relativeY);
-        }
+        Location location = (Location) widgetLocation.get(widget);
+        int relativeX = location.getLeft() - draggableAbsoluteLeft;
+        int relativeY = location.getTop() - draggableAbsoluteTop;
+        container.add(widget, relativeX, relativeY);
       }
-      container.add(context.draggable, 0, 0);
       movablePanel = container;
     }
     movablePanel.addStyleName(PRIVATE_CSS_MOVABLE_PANEL);
