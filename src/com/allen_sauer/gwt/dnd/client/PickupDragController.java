@@ -217,6 +217,12 @@ public class PickupDragController extends AbstractDragController {
         widgetLocation.put(widget, new CoordinateLocation(widget.getAbsoluteLeft(),
             widget.getAbsoluteTop()));
       }
+
+      context.dropController = getIntersectDropController(context.mouseX, context.mouseY);
+      if (context.dropController != null) {
+        context.dropController.onEnter(context);
+      }
+
       for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
         Widget widget = (Widget) iterator.next();
         Location location = (Location) widgetLocation.get(widget);

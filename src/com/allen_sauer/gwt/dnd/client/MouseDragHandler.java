@@ -107,8 +107,11 @@ class MouseDragHandler implements MouseListener {
       mouseDownOffsetY += loc1.getTop() - loc2.getTop();
     }
     if (context.dragController.getBehaviorDragStartSensitivity() == 0 && !toggleKey(event)) {
+      // set context.mouseX/Y before startDragging() is called
+      context.mouseX = x + loc1.getLeft();
+      context.mouseY = y + loc1.getTop();
       startDragging();
-      actualMove(x + loc1.getLeft(), y + loc1.getTop());
+      actualMove(context.mouseX, context.mouseY);
     }
   }
 
@@ -151,12 +154,7 @@ class MouseDragHandler implements MouseListener {
     }
     // proceed with the actual drag
     DOM.eventPreventDefault(DOM.eventGetCurrentEvent());
-    //    try {
     deferredMoveCommand.scheduleOrExecute(x, y);
-    //    } catch (RuntimeException ex) {
-    //      cancelDrag();
-    //      throw ex;
-    //    }
   }
 
   public void onMouseUp(Widget sender, int x, int y) {
