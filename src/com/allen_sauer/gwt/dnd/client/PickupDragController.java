@@ -26,6 +26,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dnd.client.drop.DropController;
+import com.allen_sauer.gwt.dnd.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.Location;
 import com.allen_sauer.gwt.dnd.client.util.WidgetArea;
@@ -210,11 +211,20 @@ public class PickupDragController extends AbstractDragController {
 
       int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
       int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
+      HashMap widgetLocation = new HashMap();
       for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
         Widget widget = (Widget) iterator.next();
         if (widget != context.draggable) {
-          int relativeX = widget.getAbsoluteLeft() - draggableAbsoluteLeft;
-          int relativeY = widget.getAbsoluteTop() - draggableAbsoluteTop;
+          widgetLocation.put(widget, new CoordinateLocation(widget.getAbsoluteLeft(),
+              widget.getAbsoluteTop()));
+        }
+      }
+      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+        Widget widget = (Widget) iterator.next();
+        if (widget != context.draggable) {
+          Location location = (Location) widgetLocation.get(widget);
+          int relativeX = location.getLeft() - draggableAbsoluteLeft;
+          int relativeY = location.getTop() - draggableAbsoluteTop;
           container.add(widget, relativeX, relativeY);
         }
       }
