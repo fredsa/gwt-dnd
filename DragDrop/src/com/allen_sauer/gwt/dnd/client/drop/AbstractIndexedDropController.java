@@ -60,6 +60,9 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
   public void onEnter(DragContext context) {
     super.onEnter(context);
     positioner = newPositioner(context);
+    int targetIndex = DOMUtil.findIntersect(dropTarget, new CoordinateLocation(context.mouseX,
+        context.mouseY), getLocationWidgetComparator());
+    insert(positioner, targetIndex);
   }
 
   public void onLeave(DragContext context) {
