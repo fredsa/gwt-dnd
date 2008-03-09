@@ -51,7 +51,7 @@ class MouseDragHandler implements MouseListener {
 
   private int dragging = NOT_DRAGGING;
 
-  private HashMap dragHandleMap = new HashMap();
+  private HashMap<Widget, Widget> dragHandleMap = new HashMap<Widget, Widget>();
 
   private boolean mouseDown;
 
@@ -81,7 +81,7 @@ class MouseDragHandler implements MouseListener {
 
     // mouse down (not first mouse move) determines draggable widget
     mouseDownWidget = sender;
-    context.draggable = (Widget) dragHandleMap.get(mouseDownWidget);
+    context.draggable = dragHandleMap.get(mouseDownWidget);
     assert context.draggable != null;
 
     if (!toggleKey(event) && !context.selectedWidgets.contains(mouseDownWidget)) {
@@ -221,7 +221,7 @@ class MouseDragHandler implements MouseListener {
   }
 
   private void doSelectionToggle(Event event) {
-    Widget widget = (Widget) dragHandleMap.get(mouseDownWidget);
+    Widget widget = dragHandleMap.get(mouseDownWidget);
     assert widget != null;
     if (!toggleKey(event)) {
       context.dragController.clearSelection();

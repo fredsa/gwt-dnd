@@ -83,7 +83,7 @@ public class DragContext {
    * one widget when {@link DragController#setBehaviorMultipleSelection(boolean)}
    * is disabled.
    */
-  public List selectedWidgets = new ArrayList();
+  public List<Widget> selectedWidgets = new ArrayList<Widget>();
 
   /**
    * At the end of a drag operation this fields will contain either the

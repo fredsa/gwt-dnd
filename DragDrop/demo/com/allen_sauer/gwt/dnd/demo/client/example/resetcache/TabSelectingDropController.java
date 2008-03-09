@@ -44,8 +44,8 @@ public class TabSelectingDropController extends AbstractDropController {
     // assume content widget is an AbsolutePanel for now
     AbsolutePanel absolutePanel = (AbsolutePanel) tabPanel.getWidget(tabIndex);
 
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
 
       // temporarily (invisibly) add draggable to get its dimensions
       DOM.setStyleAttribute(widget.getElement(), "visibility", "hidden");

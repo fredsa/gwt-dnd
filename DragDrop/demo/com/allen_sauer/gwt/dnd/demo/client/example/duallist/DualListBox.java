@@ -135,10 +135,10 @@ public class DualListBox extends AbsolutePanel {
   }
 
   protected void moveItems(MouseListBox from, MouseListBox to, boolean justSelectedItems) {
-    ArrayList widgetList = justSelectedItems ? dragController.getSelectedWidgets(from)
+    ArrayList<Widget> widgetList = justSelectedItems ? dragController.getSelectedWidgets(from)
         : from.widgetList();
-    for (Iterator iterator = widgetList.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = widgetList.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       // TODO let widget.removeFromParent() take care of from.remove()
       from.remove(widget);
       to.add(widget);

@@ -39,8 +39,8 @@ final class BinDropController extends SimpleDropController {
   }
 
   public void onDrop(DragContext context) {
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       bin.eatWidget(widget);
     }
     super.onDrop(context);
@@ -48,16 +48,16 @@ final class BinDropController extends SimpleDropController {
 
   public void onEnter(DragContext context) {
     super.onEnter(context);
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       widget.addStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
     }
     bin.setEngaged(true);
   }
 
   public void onLeave(DragContext context) {
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       widget.removeStyleName(CSS_DEMO_BIN_DRAGGABLE_ENGAGE);
     }
     bin.setEngaged(false);

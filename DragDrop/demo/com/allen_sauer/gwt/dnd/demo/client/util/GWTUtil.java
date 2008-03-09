@@ -38,7 +38,7 @@ public class GWTUtil {
    * @param clazz a class literal
    * @return the Subversion URL
    */
-  public static String getClassAnchorHTML(Class clazz) {
+  public static String getClassAnchorHTML(Class<?> clazz) {
     String className = getClassName(clazz);
     String url = SUBVERSION_TRUNK;
     if (className.startsWith(DEMO_CLIENT_PACKAGE)) {
@@ -57,12 +57,12 @@ public class GWTUtil {
    * @param clazz the class literal
    * @return the java package name
    */
-  public static String getPackageName(Class clazz) {
+  public static String getPackageName(Class<?> clazz) {
     String className = getClassName(clazz);
     return className.substring(0, className.lastIndexOf('.'));
   }
 
-  private static String getClassName(Class clazz) {
+  private static String getClassName(Class<?> clazz) {
     String className = clazz.toString();
     className = className.replaceFirst(".* ", "");
     return className;

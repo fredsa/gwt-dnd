@@ -43,7 +43,7 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
    * @param description a brief description of the example
    * @return HTML widget describing the example
    */
-  public static HTML describe(Class[] classes, String description) {
+  public static HTML describe(Class<?>[] classes, String description) {
     String sourceCodeLinks = "";
     for (int i = 0; i < classes.length; i++) {
       sourceCodeLinks += GWTUtil.getClassAnchorHTML(classes[i]);

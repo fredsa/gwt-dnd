@@ -40,7 +40,7 @@ public class MultiRowTabPanel extends Composite {
 
   private int selectedRow = -1;
 
-  private HashMap tabBarIndexOffsetMap = new HashMap();
+  private HashMap<TabBar, Integer> tabBarIndexOffsetMap = new HashMap<TabBar, Integer>();
 
   private StylableVerticalPanel tabBarsVerticalPanel;
 
@@ -141,7 +141,7 @@ public class MultiRowTabPanel extends Composite {
       rotateSelectedRowToBottom();
     }
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(selectedRow);
-    Integer widgetOffset = (Integer) tabBarIndexOffsetMap.get(tabBar);
+    Integer widgetOffset = tabBarIndexOffsetMap.get(tabBar);
     masterDeckPanel.showWidget(widgetOffset.intValue() + tabIndex);
   }
 }

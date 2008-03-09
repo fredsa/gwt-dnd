@@ -28,7 +28,7 @@ final class ResizeDragController extends AbstractDragController {
 
   private static final int MIN_WIDGET_SIZE = 10;
 
-  private HashMap directionMap = new HashMap();
+  private HashMap<Widget, DirectionConstant> directionMap = new HashMap<Widget, DirectionConstant>();
 
   private WindowPanel windowPanel = null;
 
@@ -93,6 +93,6 @@ final class ResizeDragController extends AbstractDragController {
   }
 
   private DirectionConstant getDirection(Widget draggable) {
-    return (DirectionConstant) directionMap.get(draggable);
+    return directionMap.get(draggable);
   }
 }

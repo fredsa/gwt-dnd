@@ -58,7 +58,7 @@ public final class PaletteExample extends Example {
     return "Example illustrating a palette of widgets which are cloned at the start of a drag.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {PaletteExample.class, PalettePanel.class, PaletteWidget.class,};
   }
 }

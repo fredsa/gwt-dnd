@@ -15,22 +15,19 @@
  */
 package com.allen_sauer.gwt.dnd.client.util;
 
-import com.google.gwt.core.client.GWT;
-
 /**
  * Shared String utility methods.
  */
 public class StringUtil {
 
   /**
-   * Return short classname of <code>obj</code> based on
-   * string returned by {@link GWT#getTypeName(Object)}.
+   * Return short classname of <code>obj</code>.
    * 
    * @param obj the object whose name is to be determined
    * @return the short class name
    */
   public static String getShortTypeName(Object obj) {
-    String typeName = GWT.getTypeName(obj);
+    String typeName = obj.getClass().getName();
     return typeName.substring(typeName.lastIndexOf('.') + 1);
   }
 }

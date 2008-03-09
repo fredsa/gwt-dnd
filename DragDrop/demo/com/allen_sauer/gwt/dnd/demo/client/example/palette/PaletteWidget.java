@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.example.palette;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.CheckBox;
 import com.google.gwt.user.client.ui.FocusPanel;
@@ -63,7 +62,7 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
       CheckBox checkBox = (CheckBox) widget;
       clone = new CheckBox(checkBox.getHTML(), true);
     } else {
-      throw new IllegalStateException("Unhandled Widget class " + GWT.getTypeName(widget));
+      throw new IllegalStateException("Unhandled Widget class " + widget.getClass().getName());
     }
 
     // Copy a few obvious common widget properties

@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -57,7 +56,7 @@ public class IndexedDropController extends AbstractIndexedDropController {
   public IndexedDropController(IndexedPanel dropTarget) {
     super(dropTarget);
     if (!(dropTarget instanceof HorizontalPanel) && !(dropTarget instanceof VerticalPanel)) {
-      throw new IllegalArgumentException(GWT.getTypeName(dropTarget)
+      throw new IllegalArgumentException(dropTarget.getClass().getName()
           + " is not currently supported by this controller");
     }
     this.dropTarget = dropTarget;
@@ -97,14 +96,14 @@ public class IndexedDropController extends AbstractIndexedDropController {
     int width = 0;
     int height = 0;
     if (dropTarget instanceof HorizontalPanel) {
-      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-        Widget widget = (Widget) iterator.next();
+      for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+        Widget widget = iterator.next();
         width += widget.getOffsetWidth();
         height = Math.max(height, widget.getOffsetHeight());
       }
     } else {
-      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-        Widget widget = (Widget) iterator.next();
+      for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+        Widget widget = iterator.next();
         width = Math.max(width, widget.getOffsetWidth());
         height += widget.getOffsetHeight();
       }

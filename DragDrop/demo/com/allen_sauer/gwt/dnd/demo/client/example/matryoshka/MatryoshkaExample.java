@@ -79,7 +79,7 @@ public final class MatryoshkaExample extends Example {
     return "Example illustrating widgets that are both draggable and drop targets.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         MatryoshkaExample.class, PickupDragController.class,
         MatryoshkaSetWidgetDropController.class, RGBFocusPanel.class,};
