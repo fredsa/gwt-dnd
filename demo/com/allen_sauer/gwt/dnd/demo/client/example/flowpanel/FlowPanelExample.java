@@ -52,7 +52,7 @@ public final class FlowPanelExample extends Example {
     return "Allows drop to occur anywhere in a <code>IndexedFlowPanel</code>.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {FlowPanelExample.class, FlowPanelDropController.class, FlowPanel.class,};
   }
 

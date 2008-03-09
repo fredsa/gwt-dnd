@@ -127,7 +127,7 @@ public final class IndexedPanelExample extends Example {
     return "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         IndexedPanelExample.class, NoInsertAtEndIndexedDropController.class,
         PickupDragController.class,};

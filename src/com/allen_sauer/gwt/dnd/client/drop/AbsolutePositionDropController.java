@@ -64,7 +64,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
 
-  final ArrayList draggableList = new ArrayList();
+  final ArrayList<Draggable> draggableList = new ArrayList<Draggable>();
 
   final AbsolutePanel dropTarget;
 
@@ -98,8 +98,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   }
 
   public void onDrop(DragContext context) {
-    for (Iterator iterator = draggableList.iterator(); iterator.hasNext();) {
-      Draggable draggable = (Draggable) iterator.next();
+    for (Iterator<Draggable> iterator = draggableList.iterator(); iterator.hasNext();) {
+      Draggable draggable = iterator.next();
       draggable.positioner.removeFromParent();
       dropTarget.add(draggable.widget, draggable.desiredX, draggable.desiredY);
     }
@@ -119,8 +119,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
     int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
     int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       Draggable draggable = new Draggable(widget);
       draggable.positioner = makePositioner(widget);
       draggable.relativeX = widget.getAbsoluteLeft() - draggableAbsoluteLeft;
@@ -130,8 +130,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   }
 
   public void onLeave(DragContext context) {
-    for (Iterator iterator = draggableList.iterator(); iterator.hasNext();) {
-      Draggable draggable = (Draggable) iterator.next();
+    for (Iterator<Draggable> iterator = draggableList.iterator(); iterator.hasNext();) {
+      Draggable draggable = iterator.next();
       draggable.positioner.removeFromParent();
     }
     draggableList.clear();
@@ -140,8 +140,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   public void onMove(DragContext context) {
     super.onMove(context);
-    for (Iterator iterator = draggableList.iterator(); iterator.hasNext();) {
-      Draggable draggable = (Draggable) iterator.next();
+    for (Iterator<Draggable> iterator = draggableList.iterator(); iterator.hasNext();) {
+      Draggable draggable = iterator.next();
       draggable.desiredX = context.desiredDraggableX - dropTargetOffsetX + draggable.relativeX;
       draggable.desiredY = context.desiredDraggableY - dropTargetOffsetY + draggable.relativeY;
       draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth

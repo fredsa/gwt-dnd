@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -109,7 +108,7 @@ public class PickupDragController extends AbstractDragController {
 
   private DropControllerCollection dropControllerCollection;
 
-  private ArrayList dropControllerList = new ArrayList();
+  private ArrayList<DropController> dropControllerList = new ArrayList<DropController>();
 
   private int dropTargetClientHeight;
 
@@ -117,7 +116,7 @@ public class PickupDragController extends AbstractDragController {
 
   private Widget movablePanel;
 
-  private HashMap savedWidgetInfoMap;
+  private HashMap<Widget, SavedWidgetInfo> savedWidgetInfoMap;
 
   /**
    * Create a new pickup-and-move style drag controller. Allows widgets or a
@@ -211,9 +210,9 @@ public class PickupDragController extends AbstractDragController {
 
       int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
       int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
-      HashMap widgetLocation = new HashMap();
-      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-        Widget widget = (Widget) iterator.next();
+      HashMap<Widget, CoordinateLocation> widgetLocation = new HashMap<Widget, CoordinateLocation>();
+      for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+        Widget widget = iterator.next();
         widgetLocation.put(widget, new CoordinateLocation(widget.getAbsoluteLeft(),
             widget.getAbsoluteTop()));
       }
@@ -223,9 +222,9 @@ public class PickupDragController extends AbstractDragController {
         context.dropController.onEnter(context);
       }
 
-      for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-        Widget widget = (Widget) iterator.next();
-        Location location = (Location) widgetLocation.get(widget);
+      for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+        Widget widget = iterator.next();
+        Location location = widgetLocation.get(widget);
         int relativeX = location.getLeft() - draggableAbsoluteLeft;
         int relativeY = location.getTop() - draggableAbsoluteTop;
         container.add(widget, relativeX, relativeY);
@@ -377,8 +376,8 @@ public class PickupDragController extends AbstractDragController {
     DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
 
     WidgetArea draggableArea = new WidgetArea(context.draggable, null);
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       WidgetArea widgetArea = new WidgetArea(widget, null);
       Widget proxy = new SimplePanel();
       proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
@@ -396,9 +395,9 @@ public class PickupDragController extends AbstractDragController {
    * @see #restoreSelectedWidgetsStyle()
    */
   protected void restoreSelectedWidgetsLocation() {
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
-      SavedWidgetInfo info = (SavedWidgetInfo) savedWidgetInfoMap.get(widget);
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
+      SavedWidgetInfo info = savedWidgetInfoMap.get(widget);
 
       // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
       // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
@@ -416,7 +415,7 @@ public class PickupDragController extends AbstractDragController {
         ((SimplePanel) info.initialDraggableParent).setWidget(widget);
       } else {
         throw new RuntimeException("Unable to handle initialDraggableParent "
-            + GWT.getTypeName(info.initialDraggableParent));
+            + info.initialDraggableParent.getClass().getName());
       }
     }
   }
@@ -427,9 +426,9 @@ public class PickupDragController extends AbstractDragController {
    * @see #restoreSelectedWidgetsLocation()
    */
   protected void restoreSelectedWidgetsStyle() {
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
-      SavedWidgetInfo info = (SavedWidgetInfo) savedWidgetInfoMap.get(widget);
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
+      SavedWidgetInfo info = savedWidgetInfoMap.get(widget);
       DOM.setStyleAttribute(widget.getElement(), "margin", info.initialDraggableMargin);
     }
   }
@@ -440,9 +439,9 @@ public class PickupDragController extends AbstractDragController {
    * @see #restoreSelectedWidgetsLocation()
    */
   protected void saveSelectedWidgetsLocationAndStyle() {
-    savedWidgetInfoMap = new HashMap();
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    savedWidgetInfoMap = new HashMap<Widget, SavedWidgetInfo>();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
 
       SavedWidgetInfo info = new SavedWidgetInfo();
       info.initialDraggableParent = widget.getParent();
@@ -463,7 +462,7 @@ public class PickupDragController extends AbstractDragController {
       } else {
         throw new RuntimeException(
             "Unable to handle 'initialDraggableParent instanceof "
-                + GWT.getTypeName(info.initialDraggableParent)
+                + info.initialDraggableParent.getClass().getName()
                 + "'; Please create your own DragController and override saveDraggableLocationAndStyle() and restoreDraggableLocation()");
       }
 

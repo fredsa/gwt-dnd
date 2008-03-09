@@ -97,8 +97,8 @@ class MouseListBox extends Composite {
     return true;
   }
 
-  ArrayList widgetList() {
-    ArrayList widgetList = new ArrayList();
+  ArrayList<Widget> widgetList() {
+    ArrayList<Widget> widgetList = new ArrayList<Widget>();
     for (int i = 0; i < getWidgetCount(); i++) {
       widgetList.add(getWidget(i));
     }

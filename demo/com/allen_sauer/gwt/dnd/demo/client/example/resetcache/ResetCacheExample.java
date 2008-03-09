@@ -100,7 +100,7 @@ public final class ResetCacheExample extends Example {
     return "Demonstrate a use case for DragController.resetCache() due to drop target changes while dragging.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         ResetCacheExample.class, TabSelectingDropController.class,
         AbsolutePositionDropController.class,};

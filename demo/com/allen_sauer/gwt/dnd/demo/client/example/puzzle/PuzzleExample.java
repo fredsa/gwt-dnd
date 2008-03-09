@@ -90,7 +90,7 @@ public class PuzzleExample extends Example {
     return "Demonstrate image dragging and target selection when there are multiple intersecting drop targets.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         PuzzleExample.class, SetWidgetDropController.class, PickupDragController.class,};
   }

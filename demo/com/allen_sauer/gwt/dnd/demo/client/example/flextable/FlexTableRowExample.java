@@ -57,7 +57,7 @@ public final class FlexTableRowExample extends Example {
     return "Drag <code>FlexTable</code> rows by their drag handle.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         FlexTableRowExample.class, FlexTableRowDropController.class,
         FlexTableRowDragController.class, DemoFlexTable.class, FlexTableUtil.class,};

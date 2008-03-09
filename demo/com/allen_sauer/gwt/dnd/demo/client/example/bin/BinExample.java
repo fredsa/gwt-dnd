@@ -70,7 +70,7 @@ public final class BinExample extends Example {
     return "Classic drop target which simply recognizes when a draggable widget is dropped on it.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         BinExample.class, BinDropController.class, AbsolutePositionDropController.class,
         TrashBin.class, Bin.class,};

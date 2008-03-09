@@ -46,7 +46,7 @@ class ListBoxDragController extends PickupDragController {
       // remove original items
       MouseListBox currentMouseListBox = (MouseListBox) context.draggable.getParent().getParent();
       while (!context.selectedWidgets.isEmpty()) {
-        Widget widget = (Widget) context.selectedWidgets.get(0);
+        Widget widget = context.selectedWidgets.get(0);
         toggleSelection(widget);
         currentMouseListBox.remove(widget);
       }
@@ -70,15 +70,15 @@ class ListBoxDragController extends PickupDragController {
   public void toggleSelection(Widget draggable) {
     super.toggleSelection(draggable);
     MouseListBox currentMouseListBox = (MouseListBox) draggable.getParent().getParent();
-    ArrayList otherWidgets = new ArrayList();
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    ArrayList<Widget> otherWidgets = new ArrayList<Widget>();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       if (widget.getParent().getParent() != currentMouseListBox) {
         otherWidgets.add(widget);
       }
     }
-    for (Iterator iterator = otherWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = otherWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       super.toggleSelection(widget);
     }
   }
@@ -87,18 +87,18 @@ class ListBoxDragController extends PickupDragController {
     MouseListBox currentMouseListBox = (MouseListBox) context.draggable.getParent().getParent();
     MouseListBox proxyMouseListBox = new MouseListBox(context.selectedWidgets.size());
     proxyMouseListBox.setWidth(DOMUtil.getClientWidth(currentMouseListBox.getElement()) + "px");
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       HTML htmlClone = new HTML(DOM.getInnerHTML(widget.getElement()));
       proxyMouseListBox.add(htmlClone);
     }
     return proxyMouseListBox;
   }
 
-  ArrayList getSelectedWidgets(MouseListBox mouseListBox) {
-    ArrayList widgetList = new ArrayList();
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+  ArrayList<Widget> getSelectedWidgets(MouseListBox mouseListBox) {
+    ArrayList<Widget> widgetList = new ArrayList<Widget>();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       if (widget.getParent().getParent() == mouseListBox) {
         widgetList.add(widget);
       }

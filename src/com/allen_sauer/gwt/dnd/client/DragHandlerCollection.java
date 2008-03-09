@@ -26,7 +26,7 @@ import java.util.Iterator;
  * subclass of ArrayList assumes that all items added to it will be of type
  * {@link com.allen_sauer.gwt.dnd.client.DragHandler}.
  */
-public class DragHandlerCollection extends ArrayList {
+public class DragHandlerCollection extends ArrayList<DragHandler> {
 
   /**
    * @deprecated Use {@link #fireDragEnd(DragEndEvent)} instead.
@@ -41,8 +41,8 @@ public class DragHandlerCollection extends ArrayList {
    * @param dragEndEvent the event
    */
   public void fireDragEnd(DragEndEvent dragEndEvent) {
-    for (Iterator it = iterator(); it.hasNext();) {
-      DragHandler handler = (DragHandler) it.next();
+    for (Iterator<DragHandler> it = iterator(); it.hasNext();) {
+      DragHandler handler = it.next();
       handler.onDragEnd(dragEndEvent);
     }
   }
@@ -60,8 +60,8 @@ public class DragHandlerCollection extends ArrayList {
    * @param dragStartEvent the event
    */
   public void fireDragStart(DragStartEvent dragStartEvent) {
-    for (Iterator it = iterator(); it.hasNext();) {
-      DragHandler handler = (DragHandler) it.next();
+    for (Iterator<DragHandler> it = iterator(); it.hasNext();) {
+      DragHandler handler = it.next();
       handler.onDragStart(dragStartEvent);
     }
   }
@@ -87,8 +87,8 @@ public class DragHandlerCollection extends ArrayList {
    * @throws VetoDragException if the proposed operation is unacceptable
    */
   public void firePreviewDragEnd(DragEndEvent dragEndEvent) throws VetoDragException {
-    for (Iterator it = iterator(); it.hasNext();) {
-      DragHandler handler = (DragHandler) it.next();
+    for (Iterator<DragHandler> it = iterator(); it.hasNext();) {
+      DragHandler handler = it.next();
       handler.onPreviewDragEnd(dragEndEvent);
     }
   }
@@ -114,8 +114,8 @@ public class DragHandlerCollection extends ArrayList {
    * @throws VetoDragException if the proposed operation is unacceptable
    */
   public void firePreviewDragStart(DragStartEvent dragStartEvent) throws VetoDragException {
-    for (Iterator it = iterator(); it.hasNext();) {
-      DragHandler handler = (DragHandler) it.next();
+    for (Iterator<DragHandler> it = iterator(); it.hasNext();) {
+      DragHandler handler = it.next();
       handler.onPreviewDragStart(dragStartEvent);
     }
   }

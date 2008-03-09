@@ -54,7 +54,7 @@ public abstract class AbstractDragController implements DragController {
 
   private static final String CSS_SELECTED = "dragdrop-selected";
 
-  private static HashMap dragHandles = new HashMap();
+  private static HashMap<Widget, Widget> dragHandles = new HashMap<Widget, Widget>();
 
   private static final String PRIVATE_CSS_DRAGGABLE = "dragdrop-draggable";
 
@@ -146,8 +146,8 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void clearSelection() {
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       widget.removeStyleName(CSS_SELECTED);
       iterator.remove();
     }
@@ -253,7 +253,7 @@ public abstract class AbstractDragController implements DragController {
    * @param draggable the widget to no longer be draggable
    */
   public void makeNotDraggable(Widget draggable) {
-    Widget dragHandle = (Widget) dragHandles.remove(draggable);
+    Widget dragHandle = dragHandles.remove(draggable);
     mouseDragHandler.makeNotDraggable(dragHandle);
     draggable.removeStyleName(PRIVATE_CSS_DRAGGABLE);
     dragHandle.removeStyleName(PRIVATE_CSS_HANDLE);
@@ -307,8 +307,8 @@ public abstract class AbstractDragController implements DragController {
 
   public void setBehaviorMultipleSelection(boolean multipleSelectionAllowed) {
     this.multipleSelectionAllowed = multipleSelectionAllowed;
-    for (Iterator iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = (Widget) iterator.next();
+    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
+      Widget widget = iterator.next();
       widget.removeStyleName(CSS_SELECTED);
       iterator.remove();
     }

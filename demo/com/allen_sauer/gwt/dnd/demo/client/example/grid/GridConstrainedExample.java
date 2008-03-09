@@ -62,7 +62,7 @@ public final class GridConstrainedExample extends Example {
         + draggableOffsetHeight + ") grid on the gray drop target.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {GridConstrainedExample.class, GridConstrainedDropController.class,};
   }
 

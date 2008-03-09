@@ -48,8 +48,8 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
 
   public void onMove(DragContext context) {
     super.onMove(context);
-    for (Iterator iterator = draggableList.iterator(); iterator.hasNext();) {
-      Draggable draggable = (Draggable) iterator.next();
+    for (Iterator<Draggable> iterator = draggableList.iterator(); iterator.hasNext();) {
+      Draggable draggable = iterator.next();
       draggable.desiredX = context.desiredDraggableX - dropTargetOffsetX + draggable.relativeX;
       draggable.desiredY = context.desiredDraggableY - dropTargetOffsetY + draggable.relativeY;
       draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth

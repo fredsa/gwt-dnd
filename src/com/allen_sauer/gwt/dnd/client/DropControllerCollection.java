@@ -37,7 +37,7 @@ import java.util.Iterator;
  */
 class DropControllerCollection {
 
-  protected static class Candidate implements Comparable {
+  protected static class Candidate implements Comparable<Candidate> {
 
     private final DropController dropController;
 
@@ -53,12 +53,10 @@ class DropControllerCollection {
       targetArea = new WidgetArea(target, null);
     }
 
-    public int compareTo(Object arg0) {
-      Candidate other = (Candidate) arg0;
-
+    public int compareTo(Candidate other) {
       Element myElement = getDropTarget().getElement();
       Element otherElement = other.getDropTarget().getElement();
-      if (DOM.compare(myElement, otherElement)) {
+      if (myElement == otherElement) {
         return 0;
       } else if (DOM.isOrHasChild(myElement, otherElement)) {
         return -1;
@@ -82,14 +80,14 @@ class DropControllerCollection {
     }
   }
 
-  private final ArrayList dropControllerList;
+  private final ArrayList<DropController> dropControllerList;
 
   private Candidate[] sortedCandidates = null;
 
   /**
    * Default constructor.
    */
-  DropControllerCollection(ArrayList dropControllerList) {
+  DropControllerCollection(ArrayList<DropController> dropControllerList) {
     this.dropControllerList = dropControllerList;
   }
 
@@ -123,12 +121,12 @@ class DropControllerCollection {
    * @param context the current drag context
    */
   void resetCache(Panel boundaryPanel, DragContext context) {
-    ArrayList list = new ArrayList();
+    ArrayList<Candidate> list = new ArrayList<Candidate>();
 
     if (context.draggable != null) {
       WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
-      for (Iterator iterator = dropControllerList.iterator(); iterator.hasNext();) {
-        DropController dropController = (DropController) iterator.next();
+      for (Iterator<DropController> iterator = dropControllerList.iterator(); iterator.hasNext();) {
+        DropController dropController = iterator.next();
         Candidate candidate = new Candidate(dropController);
         if (DOMUtil.isOrContains(context.draggable.getElement(),
             candidate.getDropTarget().getElement())) {
@@ -140,7 +138,7 @@ class DropControllerCollection {
       }
     }
 
-    sortedCandidates = (Candidate[]) list.toArray(new Candidate[list.size()]);
+    sortedCandidates = list.toArray(new Candidate[list.size()]);
     Arrays.sort(sortedCandidates);
   }
 }

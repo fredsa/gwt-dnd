@@ -49,7 +49,7 @@ public final class AbsolutePositionExample extends Example {
     return "Draggable widgets can be placed anywhere on the gray drop target.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {AbsolutePositionExample.class, AbsolutePositionDropController.class,};
   }
 

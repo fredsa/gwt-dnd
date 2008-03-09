@@ -106,7 +106,7 @@ public class DragHandleExample extends Example {
     return "Demonstrate how a draggable widget can be dragged by a child drag handle widget.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         DragHandleExample.class, PickupDragController.class, AbsolutePositionDropController.class,};
   }

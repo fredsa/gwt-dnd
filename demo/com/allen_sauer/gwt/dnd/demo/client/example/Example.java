@@ -69,7 +69,7 @@ public abstract class Example extends SimplePanel {
    * 
    * @return an array of involved classes
    */
-  public abstract Class[] getInvolvedClasses();
+  public abstract Class<?>[] getInvolvedClasses();
 
   /**
    * Convenience method to create a default draggable widget. The widget is

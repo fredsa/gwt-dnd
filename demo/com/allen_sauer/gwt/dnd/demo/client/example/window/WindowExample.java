@@ -86,7 +86,7 @@ public final class WindowExample extends Example {
     return "Resize an embedded Widget using a composite of Grid and ScrollPanel.";
   }
 
-  public Class[] getInvolvedClasses() {
+  public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         WindowExample.class, WindowController.class, WindowPanel.class, ResizeDragController.class,};
   }
