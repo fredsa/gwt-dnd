@@ -15,9 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 
 /**
@@ -27,14 +24,6 @@ public class DragEndEvent extends DragEvent {
 
   public DragEndEvent(DragContext context) {
     super(context);
-  }
-
-  /**
-   * @deprecated Use {@link DragEvent#getContext() getContext()}.{@link DragContext#finalDropController finalDropController}.{@link DropController#getDropTarget() getDropTarget()} instead.
-   */
-  public Widget getDropTarget() {
-    DropController finalDropController = context.finalDropController;
-    return finalDropController == null ? null : finalDropController.getDropTarget();
   }
 
   /**

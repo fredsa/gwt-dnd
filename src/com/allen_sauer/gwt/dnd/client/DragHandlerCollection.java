@@ -15,8 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import com.google.gwt.user.client.ui.Widget;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -27,12 +25,6 @@ import java.util.Iterator;
  * {@link com.allen_sauer.gwt.dnd.client.DragHandler}.
  */
 public class DragHandlerCollection extends ArrayList<DragHandler> {
-
-  /**
-   * @deprecated Use {@link #fireDragEnd(DragEndEvent)} instead.
-   */
-  public final void fireDragEnd(DragContext context) {
-  }
 
   /**
    * Fires a {@link DragHandler#onDragEnd(DragEndEvent)} on all handlers in the
@@ -48,12 +40,6 @@ public class DragHandlerCollection extends ArrayList<DragHandler> {
   }
 
   /**
-   * @deprecated Use {@link #fireDragStart(DragStartEvent)} instead.
-   */
-  public final void fireDragStart(DragContext context) {
-  }
-
-  /**
    * Fires a {@link DragHandler#onDragStart(DragStartEvent)} on all handlers in
    * the collection.
    * 
@@ -64,19 +50,6 @@ public class DragHandlerCollection extends ArrayList<DragHandler> {
       DragHandler handler = it.next();
       handler.onDragStart(dragStartEvent);
     }
-  }
-
-  /**
-   * @deprecated Use {@link #fireDragStart(DragStartEvent)} instead.
-   */
-  public final void fireDragStart(Widget sender) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @deprecated Use {@link #firePreviewDragEnd(DragEndEvent)} instead.
-   */
-  public final void firePreviewDragEnd(DragContext context) throws VetoDragException {
   }
 
   /**
@@ -94,19 +67,6 @@ public class DragHandlerCollection extends ArrayList<DragHandler> {
   }
 
   /**
-   * @deprecated Use {@link #firePreviewDragEnd(DragEndEvent)} instead.
-   */
-  public final void firePreviewDragEnd(Widget sender, Widget dropTarget) throws VetoDragException {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @deprecated Use {@link #firePreviewDragStart(DragStartEvent)} instead.
-   */
-  public final void firePreviewDragStart(DragContext context) throws VetoDragException {
-  }
-
-  /**
    * Fires a {@link DragHandler#onPreviewDragStart(DragStartEvent)} on all
    * handlers in the collection.
    * 
@@ -118,12 +78,5 @@ public class DragHandlerCollection extends ArrayList<DragHandler> {
       DragHandler handler = it.next();
       handler.onPreviewDragStart(dragStartEvent);
     }
-  }
-
-  /**
-   * @deprecated Use {@link #firePreviewDragStart(DragStartEvent)} instead.
-   */
-  public final void firePreviewDragStart(Widget sender) throws VetoDragException {
-    throw new UnsupportedOperationException();
   }
 }

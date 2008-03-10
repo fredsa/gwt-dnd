@@ -18,8 +18,6 @@ package com.allen_sauer.gwt.dnd.client;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dnd.client.drop.DropController;
-
 /**
  * Common interface which all drag controllers must implement.
  */
@@ -45,11 +43,6 @@ public interface DragController extends FiresDragEvents {
   void dragEnd();
 
   /**
-   * @deprecated Use {@link #dragEnd()} instead.
-   */
-  void dragEnd(Widget draggable, Widget dropTarget);
-
-  /**
    * Callback method for {@link MouseDragHandler}.
    */
   void dragMove();
@@ -59,11 +52,6 @@ public interface DragController extends FiresDragEvents {
   * is initiated for this drag controller.
   */
   void dragStart();
-
-  /**
-   * @deprecated Used {@link #dragStart()} instead.
-   */
-  void dragStart(Widget draggable);
 
   /**
    * Determine whether or not drag operations are constrained to the boundary panel.
@@ -94,26 +82,6 @@ public interface DragController extends FiresDragEvents {
   AbsolutePanel getBoundaryPanel();
 
   /**
-   * @deprecated No longer a part of the API.
-  */
-  DropControllerCollection getDropControllerCollection();
-
-  /**
-   * @deprecated No longer a part of the API.
-   */
-  DropController getIntersectDropController(Widget widget);
-
-  /**
-   * @deprecated No longer a part of the API.
-   */
-  DropController getIntersectDropController(Widget widget, int x, int y);
-
-  /**
-  * @deprecated The movable panel is now returned by {@link #dragStart(Widget)}.
-  */
-  Widget getMovableWidget();
-
-  /**
    * Enable dragging on widget. Call this method for each widget that
    * you would like to make draggable under this drag controller.
    * 
@@ -139,11 +107,6 @@ public interface DragController extends FiresDragEvents {
   void makeNotDraggable(Widget widget);
 
   /**
-   * @deprecated No longer a part of the API.
-   */
-  void notifyDragEnd(DragEndEvent dragEndEvent);
-
-  /**
    * Callback method for {@link MouseDragHandler}.
    * 
    * @throws VetoDragException if the proposed operation is unacceptable
@@ -151,21 +114,11 @@ public interface DragController extends FiresDragEvents {
   void previewDragEnd() throws VetoDragException;
 
   /**
-   * @deprecated Used {@link #previewDragEnd()} instead.
-   */
-  void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException;
-
-  /**
    * Callback method for {@link MouseDragHandler}.
    * 
    * @throws VetoDragException if the proposed operation is unacceptable
    */
   void previewDragStart() throws VetoDragException;
-
-  /**
-   * @deprecated Used {@link #previewDragStart()} instead.
-   */
-  void previewDragStart(Widget draggable) throws VetoDragException;
 
   /**
    * Unregister drag handler.
@@ -206,11 +159,6 @@ public interface DragController extends FiresDragEvents {
    * @param multipleSelectionAllowed whether multiple selections are enabled
    */
   void setBehaviorMultipleSelection(boolean multipleSelectionAllowed);
-
-  /**
-  * @deprecated Use {@link #setBehaviorConstrainedToBoundaryPanel(boolean)} instead.
-  */
-  void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel);
 
   /**
    * Toggle the selection of the specified widget.
