@@ -49,8 +49,6 @@ public abstract class DOMUtilImpl {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
   }
 
-  public abstract boolean isOrContains(Element parent, Element child);
-
   public final native void setStatus(String text)
   /*-{
      $wnd.status = text;

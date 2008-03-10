@@ -53,9 +53,4 @@ public class DOMUtilImplIE6 extends DOMUtilImpl {
   /*-{
     return elem.clientWidth;
   }-*/;
-
-  public native boolean isOrContains(Element parent, Element child)
-  /*-{
-    return (parent.uniqueID == child.uniqueID) || parent.contains(child);
-  }-*/;
 }

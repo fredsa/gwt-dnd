@@ -88,7 +88,7 @@ public interface DropController {
    * {@link VetoDropException}.
    * 
    * @param context the current drag context
-   * @throws VetoDragException TODO
+   * @throws VetoDragException if the proposed operation is unacceptable
    */
   void onPreviewDrop(DragContext context) throws VetoDragException;
 }
