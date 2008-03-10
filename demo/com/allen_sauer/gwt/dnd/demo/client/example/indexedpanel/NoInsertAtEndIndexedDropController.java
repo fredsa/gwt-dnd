@@ -33,6 +33,7 @@ public class NoInsertAtEndIndexedDropController extends IndexedDropController {
     this.dropTarget = dropTarget;
   }
 
+  @Override
   protected void insert(Widget widget, int beforeIndex) {
     if (beforeIndex == dropTarget.getWidgetCount()) {
       beforeIndex--;

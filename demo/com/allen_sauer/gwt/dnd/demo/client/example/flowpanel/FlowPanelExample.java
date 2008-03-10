@@ -48,14 +48,17 @@ public final class FlowPanelExample extends Example {
     dragController.registerDropController(flowPanelDropController);
   }
 
+  @Override
   public String getDescription() {
     return "Allows drop to occur anywhere in a <code>IndexedFlowPanel</code>.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {FlowPanelExample.class, FlowPanelDropController.class, FlowPanel.class,};
   }
 
+  @Override
   protected void onInitialLoad() {
     for (int i = 1; i <= 25; i++) {
       FocusPanel focusPanel = new FocusPanel();

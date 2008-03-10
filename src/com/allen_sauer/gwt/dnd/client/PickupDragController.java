@@ -33,7 +33,6 @@ import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * DragController used for drag-and-drop operations where a draggable widget or
@@ -126,6 +125,7 @@ public class PickupDragController extends AbstractDragController {
     dropControllerCollection = new DropControllerCollection(dropControllerList);
   }
 
+  @Override
   public void dragEnd() {
     assert context.finalDropController == null == (context.vetoException != null);
     if (context.vetoException != null) {
@@ -174,6 +174,7 @@ public class PickupDragController extends AbstractDragController {
     }
   }
 
+  @Override
   public void dragStart() {
     super.dragStart();
 
@@ -196,8 +197,7 @@ public class PickupDragController extends AbstractDragController {
       int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
       int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
       HashMap<Widget, CoordinateLocation> widgetLocation = new HashMap<Widget, CoordinateLocation>();
-      for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-        Widget widget = iterator.next();
+      for (Widget widget : context.selectedWidgets) {
         widgetLocation.put(widget, new CoordinateLocation(widget.getAbsoluteLeft(),
             widget.getAbsoluteTop()));
       }
@@ -207,8 +207,7 @@ public class PickupDragController extends AbstractDragController {
         context.dropController.onEnter(context);
       }
 
-      for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-        Widget widget = iterator.next();
+      for (Widget widget : context.selectedWidgets) {
         Location location = widgetLocation.get(widget);
         int relativeX = location.getLeft() - draggableAbsoluteLeft;
         int relativeY = location.getTop() - draggableAbsoluteTop;
@@ -249,6 +248,7 @@ public class PickupDragController extends AbstractDragController {
     return dragProxyEnabled;
   }
 
+  @Override
   public void previewDragEnd() throws VetoDragException {
     assert context.finalDropController == null;
     assert context.vetoException == null;
@@ -276,6 +276,7 @@ public class PickupDragController extends AbstractDragController {
     dropControllerList.add(dropController);
   }
 
+  @Override
   public void resetCache() {
     super.resetCache();
     dropControllerCollection.resetCache(boundaryPanel, context);
@@ -340,8 +341,7 @@ public class PickupDragController extends AbstractDragController {
     DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
 
     WidgetArea draggableArea = new WidgetArea(context.draggable, null);
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : context.selectedWidgets) {
       WidgetArea widgetArea = new WidgetArea(widget, null);
       Widget proxy = new SimplePanel();
       proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
@@ -359,8 +359,7 @@ public class PickupDragController extends AbstractDragController {
    * @see #restoreSelectedWidgetsStyle()
    */
   protected void restoreSelectedWidgetsLocation() {
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : context.selectedWidgets) {
       SavedWidgetInfo info = savedWidgetInfoMap.get(widget);
 
       // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
@@ -390,8 +389,7 @@ public class PickupDragController extends AbstractDragController {
    * @see #restoreSelectedWidgetsLocation()
    */
   protected void restoreSelectedWidgetsStyle() {
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : context.selectedWidgets) {
       SavedWidgetInfo info = savedWidgetInfoMap.get(widget);
       DOM.setStyleAttribute(widget.getElement(), "margin", info.initialDraggableMargin);
     }
@@ -404,9 +402,7 @@ public class PickupDragController extends AbstractDragController {
    */
   protected void saveSelectedWidgetsLocationAndStyle() {
     savedWidgetInfoMap = new HashMap<Widget, SavedWidgetInfo>();
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
-
+    for (Widget widget : context.selectedWidgets) {
       SavedWidgetInfo info = new SavedWidgetInfo();
       info.initialDraggableParent = widget.getParent();
 

@@ -216,6 +216,7 @@ final class WindowPanel extends FocusPanel {
     contentOrScrollPanelWidget.setPixelSize(contentWidth, contentHeight);
   }
 
+  @Override
   protected void onLoad() {
     super.onLoad();
     if (contentOrScrollPanelWidget.getOffsetHeight() != 0) {

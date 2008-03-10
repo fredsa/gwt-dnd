@@ -57,6 +57,7 @@ public class PalettePanel extends VerticalPanel {
    * 
    * @param w the widget to remove
    */
+  @Override
   public boolean remove(Widget w) {
     int index = getWidgetIndex(w);
     if (index != -1 && w instanceof PaletteWidget) {

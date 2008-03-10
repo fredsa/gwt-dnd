@@ -66,10 +66,12 @@ public final class BinExample extends Example {
     containingPanel.add(createDraggable(), 190, 100);
   }
 
+  @Override
   public String getDescription() {
     return "Classic drop target which simply recognizes when a draggable widget is dropped on it.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         BinExample.class, BinDropController.class, AbsolutePositionDropController.class,

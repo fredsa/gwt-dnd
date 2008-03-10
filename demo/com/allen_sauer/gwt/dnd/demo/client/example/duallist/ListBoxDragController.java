@@ -25,7 +25,6 @@ import com.allen_sauer.gwt.dnd.client.VetoDragException;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * DragController for {@link DualListExample}.
@@ -38,6 +37,7 @@ class ListBoxDragController extends PickupDragController {
     setBehaviorMultipleSelection(true);
   }
 
+  @Override
   public void dragEnd() {
     // process drop first
     super.dragEnd();
@@ -53,6 +53,7 @@ class ListBoxDragController extends PickupDragController {
     }
   }
 
+  @Override
   public void previewDragStart() throws VetoDragException {
     super.previewDragStart();
     if (context.selectedWidgets.isEmpty()) {
@@ -60,6 +61,7 @@ class ListBoxDragController extends PickupDragController {
     }
   }
 
+  @Override
   public void setBehaviorDragProxy(boolean dragProxyEnabled) {
     if (!dragProxyEnabled) {
       throw new IllegalArgumentException();
@@ -67,28 +69,27 @@ class ListBoxDragController extends PickupDragController {
     super.setBehaviorDragProxy(dragProxyEnabled);
   }
 
+  @Override
   public void toggleSelection(Widget draggable) {
     super.toggleSelection(draggable);
     MouseListBox currentMouseListBox = (MouseListBox) draggable.getParent().getParent();
     ArrayList<Widget> otherWidgets = new ArrayList<Widget>();
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : context.selectedWidgets) {
       if (widget.getParent().getParent() != currentMouseListBox) {
         otherWidgets.add(widget);
       }
     }
-    for (Iterator<Widget> iterator = otherWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : otherWidgets) {
       super.toggleSelection(widget);
     }
   }
 
+  @Override
   protected Widget newDragProxy(DragContext context) {
     MouseListBox currentMouseListBox = (MouseListBox) context.draggable.getParent().getParent();
     MouseListBox proxyMouseListBox = new MouseListBox(context.selectedWidgets.size());
     proxyMouseListBox.setWidth(DOMUtil.getClientWidth(currentMouseListBox.getElement()) + "px");
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : context.selectedWidgets) {
       HTML htmlClone = new HTML(DOM.getInnerHTML(widget.getElement()));
       proxyMouseListBox.add(htmlClone);
     }
@@ -97,8 +98,7 @@ class ListBoxDragController extends PickupDragController {
 
   ArrayList<Widget> getSelectedWidgets(MouseListBox mouseListBox) {
     ArrayList<Widget> widgetList = new ArrayList<Widget>();
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : context.selectedWidgets) {
       if (widget.getParent().getParent() == mouseListBox) {
         widgetList.add(widget);
       }

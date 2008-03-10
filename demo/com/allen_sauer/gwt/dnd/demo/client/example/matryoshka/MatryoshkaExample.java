@@ -75,10 +75,12 @@ public final class MatryoshkaExample extends Example {
     }
   }
 
+  @Override
   public String getDescription() {
     return "Example illustrating widgets that are both draggable and drop targets.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         MatryoshkaExample.class, PickupDragController.class,

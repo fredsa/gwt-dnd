@@ -53,10 +53,12 @@ public final class FlexTableRowExample extends Example {
     tableRowDragController.registerDropController(flexTableRowDropController2);
   }
 
+  @Override
   public String getDescription() {
     return "Drag <code>FlexTable</code> rows by their drag handle.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         FlexTableRowExample.class, FlexTableRowDropController.class,

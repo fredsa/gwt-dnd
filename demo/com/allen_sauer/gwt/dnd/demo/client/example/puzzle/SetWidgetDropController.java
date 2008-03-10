@@ -34,11 +34,13 @@ public class SetWidgetDropController extends SimpleDropController {
     this.dropTarget = dropTarget;
   }
 
+  @Override
   public void onDrop(DragContext context) {
     dropTarget.setWidget(context.draggable);
     super.onDrop(context);
   }
 
+  @Override
   public void onPreviewDrop(DragContext context) throws VetoDragException {
     if (dropTarget.getWidget() != null) {
       throw new VetoDragException();

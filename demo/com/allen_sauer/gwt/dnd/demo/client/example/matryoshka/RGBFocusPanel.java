@@ -40,11 +40,13 @@ public class RGBFocusPanel extends FocusPanel {
         + blue + ")");
   }
 
+  @Override
   protected void onLoad() {
     super.onLoad();
     dragController.registerDropController(dropController);
   }
 
+  @Override
   protected void onUnload() {
     super.onUnload();
     dragController.unregisterDropController(dropController);

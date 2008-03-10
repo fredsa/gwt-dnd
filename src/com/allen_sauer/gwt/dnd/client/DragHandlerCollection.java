@@ -16,7 +16,6 @@
 package com.allen_sauer.gwt.dnd.client;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Helper class for controllers that accept
@@ -33,8 +32,7 @@ public class DragHandlerCollection extends ArrayList<DragHandler> {
    * @param dragEndEvent the event
    */
   public void fireDragEnd(DragEndEvent dragEndEvent) {
-    for (Iterator<DragHandler> it = iterator(); it.hasNext();) {
-      DragHandler handler = it.next();
+    for (DragHandler handler : this) {
       handler.onDragEnd(dragEndEvent);
     }
   }
@@ -46,8 +44,7 @@ public class DragHandlerCollection extends ArrayList<DragHandler> {
    * @param dragStartEvent the event
    */
   public void fireDragStart(DragStartEvent dragStartEvent) {
-    for (Iterator<DragHandler> it = iterator(); it.hasNext();) {
-      DragHandler handler = it.next();
+    for (DragHandler handler : this) {
       handler.onDragStart(dragStartEvent);
     }
   }
@@ -60,8 +57,7 @@ public class DragHandlerCollection extends ArrayList<DragHandler> {
    * @throws VetoDragException if the proposed operation is unacceptable
    */
   public void firePreviewDragEnd(DragEndEvent dragEndEvent) throws VetoDragException {
-    for (Iterator<DragHandler> it = iterator(); it.hasNext();) {
-      DragHandler handler = it.next();
+    for (DragHandler handler : this) {
       handler.onPreviewDragEnd(dragEndEvent);
     }
   }
@@ -74,8 +70,7 @@ public class DragHandlerCollection extends ArrayList<DragHandler> {
    * @throws VetoDragException if the proposed operation is unacceptable
    */
   public void firePreviewDragStart(DragStartEvent dragStartEvent) throws VetoDragException {
-    for (Iterator<DragHandler> it = iterator(); it.hasNext();) {
-      DragHandler handler = it.next();
+    for (DragHandler handler : this) {
       handler.onPreviewDragStart(dragStartEvent);
     }
   }

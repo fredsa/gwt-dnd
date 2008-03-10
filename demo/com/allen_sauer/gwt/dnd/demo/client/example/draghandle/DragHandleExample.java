@@ -102,10 +102,12 @@ public class DragHandleExample extends Example {
     dragController.makeDraggable(verticalPanel, header);
   }
 
+  @Override
   public String getDescription() {
     return "Demonstrate how a draggable widget can be dragged by a child drag handle widget.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         DragHandleExample.class, PickupDragController.class, AbsolutePositionDropController.class,};

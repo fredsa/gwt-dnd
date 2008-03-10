@@ -45,14 +45,17 @@ public final class AbsolutePositionExample extends Example {
     dragController.registerDropController(absolutePositionDropController);
   }
 
+  @Override
   public String getDescription() {
     return "Draggable widgets can be placed anywhere on the gray drop target.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {AbsolutePositionExample.class, AbsolutePositionDropController.class,};
   }
 
+  @Override
   protected void onInitialLoad() {
     absolutePositionDropController.drop(createDraggable(), 10, 30);
     absolutePositionDropController.drop(createDraggable(), 60, 8);

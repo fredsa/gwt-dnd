@@ -50,6 +50,7 @@ class DragStartSensitivityBehaviorPanel extends BehaviorPanel {
 
     textBox.addKeyboardListener(new KeyboardListenerAdapter() {
 
+      @Override
       public void onKeyUp(Widget sender, char keyCode, int modifiers) {
         fix();
       }

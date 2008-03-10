@@ -83,6 +83,7 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
    * @param width the desired pixel width
    * @param height the desired pixel height
    */
+  @Override
   public void setPixelSize(int width, int height) {
     super.setPixelSize(width, height);
     shim.setPixelSize(width, height);
@@ -94,6 +95,7 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
    * @param width the desired CSS width
    * @param height the desired CSS height
    */
+  @Override
   public void setSize(String width, String height) {
     super.setSize(width, height);
     shim.setSize(width, height);
@@ -102,6 +104,7 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
   /**
    * Adjust the shim size and attach once our widget dimensions are known.
    */
+  @Override
   protected void onLoad() {
     super.onLoad();
     shim.setPixelSize(getOffsetWidth(), getOffsetHeight());
@@ -111,6 +114,7 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
   /**
    * Remove the shim to allow the widget to size itself when reattached.
    */
+  @Override
   protected void onUnload() {
     super.onUnload();
     shim.removeFromParent();

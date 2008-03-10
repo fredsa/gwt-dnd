@@ -40,6 +40,7 @@ public final class FlexTableRowDragController extends PickupDragController {
     setBehaviorMultipleSelection(false);
   }
 
+  @Override
   public void dragEnd() {
     super.dragEnd();
 
@@ -47,6 +48,7 @@ public final class FlexTableRowDragController extends PickupDragController {
     draggableTable = null;
   }
 
+  @Override
   public void setBehaviorDragProxy(boolean dragProxyEnabled) {
     if (!dragProxyEnabled) {
       // TODO implement drag proxy behavior
@@ -55,6 +57,7 @@ public final class FlexTableRowDragController extends PickupDragController {
     super.setBehaviorDragProxy(dragProxyEnabled);
   }
 
+  @Override
   protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
       boolean allowDroppingOnBoundaryPanel) {
     if (allowDroppingOnBoundaryPanel) {
@@ -63,6 +66,7 @@ public final class FlexTableRowDragController extends PickupDragController {
     return super.newBoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
   }
 
+  @Override
   protected Widget newDragProxy(DragContext context) {
     FlexTable proxy;
     proxy = new FlexTable();

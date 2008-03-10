@@ -29,6 +29,7 @@ public class DragEndEvent extends DragEvent {
   /**
    * Return a string representation of this event.
    */
+  @Override
   public String toString() {
     String dropTargetText;
     if (context.finalDropController != null) {

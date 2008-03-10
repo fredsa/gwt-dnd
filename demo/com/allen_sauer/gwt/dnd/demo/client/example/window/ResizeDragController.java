@@ -74,6 +74,7 @@ final class ResizeDragController extends AbstractDragController {
     }
   }
 
+  @Override
   public void dragStart() {
     super.dragStart();
     windowPanel = (WindowPanel) context.draggable.getParent().getParent();

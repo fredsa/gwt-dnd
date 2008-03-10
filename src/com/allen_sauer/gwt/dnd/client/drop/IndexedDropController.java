@@ -27,8 +27,6 @@ import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 
-import java.util.Iterator;
-
 /**
  * A {@link DropController} for instances of {@link IndexedPanel}.
  * 
@@ -62,6 +60,7 @@ public class IndexedDropController extends AbstractIndexedDropController {
     this.dropTarget = dropTarget;
   }
 
+  @Override
   protected LocationWidgetComparator getLocationWidgetComparator() {
     if (dropTarget instanceof HorizontalPanel) {
       return LocationWidgetComparator.RIGHT_HALF_COMPARATOR;
@@ -72,6 +71,7 @@ public class IndexedDropController extends AbstractIndexedDropController {
 
   // TODO remove after enhancement for issue 1112 provides InsertPanel interface
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
+  @Override
   protected void insert(Widget widget, int beforeIndex) {
     if (dropTarget instanceof HorizontalPanel) {
       ((HorizontalPanel) dropTarget).insert(widget, beforeIndex);
@@ -80,6 +80,7 @@ public class IndexedDropController extends AbstractIndexedDropController {
     }
   }
 
+  @Override
   protected Widget newPositioner(DragContext context) {
     // Use two widgets so that setPixelSize() consistently affects dimensions
     // excluding positioner border in quirks and strict modes
@@ -96,14 +97,12 @@ public class IndexedDropController extends AbstractIndexedDropController {
     int width = 0;
     int height = 0;
     if (dropTarget instanceof HorizontalPanel) {
-      for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-        Widget widget = iterator.next();
+      for (Widget widget : context.selectedWidgets) {
         width += widget.getOffsetWidth();
         height = Math.max(height, widget.getOffsetHeight());
       }
     } else {
-      for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-        Widget widget = iterator.next();
+      for (Widget widget : context.selectedWidgets) {
         width = Math.max(width, widget.getOffsetWidth());
         height += widget.getOffsetHeight();
       }

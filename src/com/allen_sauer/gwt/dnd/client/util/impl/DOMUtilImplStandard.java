@@ -25,6 +25,7 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
 
   // CHECKSTYLE_JAVADOC_OFF
 
+  @Override
   public native void cancelAllDocumentSelections()
   /*-{
     try {
@@ -32,6 +33,7 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
     } catch(e) { throw new Error("unselect exception:\n" + e); }
   }-*/;
 
+  @Override
   public native int getBorderLeft(Element elem)
   /*-{
     try {
@@ -41,6 +43,7 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
     } catch(e) { throw new Error("getBorderLeft exception:\n" + e); }
   }-*/;
 
+  @Override
   public native int getBorderTop(Element elem)
   /*-{
     try {
@@ -50,6 +53,7 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
     } catch(e) { throw new Error("getBorderTop: " + e); }
   }-*/;
 
+  @Override
   public native int getClientHeight(Element elem)
   /*-{
     try {
@@ -57,6 +61,7 @@ public abstract class DOMUtilImplStandard extends DOMUtilImpl {
     } catch(e) { throw new Error("getClientHeight exception:\n" + e); }
   }-*/;
 
+  @Override
   public native int getClientWidth(Element elem)
   /*-{
     try {

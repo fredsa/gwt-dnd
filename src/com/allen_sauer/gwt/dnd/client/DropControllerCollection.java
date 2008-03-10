@@ -23,13 +23,11 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.client.util.Area;
 import com.allen_sauer.gwt.dnd.client.util.CoordinateLocation;
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.Location;
 import com.allen_sauer.gwt.dnd.client.util.WidgetArea;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 /**
  * Package private helper implementation class for {@link AbstractDragController}
@@ -125,8 +123,7 @@ class DropControllerCollection {
 
     if (context.draggable != null) {
       WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
-      for (Iterator<DropController> iterator = dropControllerList.iterator(); iterator.hasNext();) {
-        DropController dropController = iterator.next();
+      for (DropController dropController : dropControllerList) {
         Candidate candidate = new Candidate(dropController);
         if (DOM.isOrHasChild(context.draggable.getElement(), candidate.getDropTarget().getElement())) {
           continue;

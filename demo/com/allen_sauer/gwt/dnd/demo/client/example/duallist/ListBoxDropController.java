@@ -23,8 +23,6 @@ import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.VetoDragException;
 import com.allen_sauer.gwt.dnd.client.drop.AbstractDropController;
 
-import java.util.Iterator;
-
 /**
  * DropController for {@link DualListExample}.
  */
@@ -37,10 +35,10 @@ class ListBoxDropController extends AbstractDropController {
     this.mouseListBox = mouseListBox;
   }
 
+  @Override
   public void onDrop(DragContext context) {
     MouseListBox from = (MouseListBox) context.draggable.getParent().getParent();
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : context.selectedWidgets) {
       if (widget.getParent().getParent() == from) {
         HTML htmlClone = new HTML(DOM.getInnerHTML(widget.getElement()));
         mouseListBox.add(htmlClone);
@@ -49,6 +47,7 @@ class ListBoxDropController extends AbstractDropController {
     super.onDrop(context);
   }
 
+  @Override
   public void onPreviewDrop(DragContext context) throws VetoDragException {
     MouseListBox from = (MouseListBox) context.draggable.getParent().getParent();
     if (from == mouseListBox) {

@@ -28,7 +28,6 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dnd.client.DragController;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Example of two lists side by side for {@link DualListExample}.
@@ -137,8 +136,7 @@ public class DualListBox extends AbsolutePanel {
   protected void moveItems(MouseListBox from, MouseListBox to, boolean justSelectedItems) {
     ArrayList<Widget> widgetList = justSelectedItems ? dragController.getSelectedWidgets(from)
         : from.widgetList();
-    for (Iterator<Widget> iterator = widgetList.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : widgetList) {
       // TODO let widget.removeFromParent() take care of from.remove()
       from.remove(widget);
       to.add(widget);

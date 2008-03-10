@@ -33,16 +33,19 @@ final class TrashBin extends Bin {
     addStyleName(CSS_DEMO_TRASHBIN);
   }
 
+  @Override
   public void eatWidget(Widget widget) {
     widget.removeFromParent();
     count++;
     updateText();
   }
 
+  @Override
   public boolean isWidgetEater() {
     return true;
   }
 
+  @Override
   public void setEngaged(boolean engaged) {
     if (engaged) {
       addStyleName(CSS_DEMO_TRASHBIN_ENGAGE);
@@ -51,6 +54,7 @@ final class TrashBin extends Bin {
     }
   }
 
+  @Override
   protected void updateText() {
     String text;
     if (count == 0) {
