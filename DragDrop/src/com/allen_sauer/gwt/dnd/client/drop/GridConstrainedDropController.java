@@ -20,8 +20,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
 
-import java.util.Iterator;
-
 /**
  * A {@link DropController} which constrains the placement of draggable widgets
  * the grid specified in the constructor.
@@ -38,6 +36,7 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
     this.gridY = gridY;
   }
 
+  @Override
   public void drop(Widget widget, int left, int top) {
     left = Math.max(0, Math.min(left, dropTarget.getOffsetWidth() - widget.getOffsetWidth()));
     top = Math.max(0, Math.min(top, dropTarget.getOffsetHeight() - widget.getOffsetHeight()));
@@ -46,10 +45,10 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
     dropTarget.add(widget, left, top);
   }
 
+  @Override
   public void onMove(DragContext context) {
     super.onMove(context);
-    for (Iterator<Draggable> iterator = draggableList.iterator(); iterator.hasNext();) {
-      Draggable draggable = iterator.next();
+    for (Draggable draggable : draggableList) {
       draggable.desiredX = context.desiredDraggableX - dropTargetOffsetX + draggable.relativeX;
       draggable.desiredY = context.desiredDraggableY - dropTargetOffsetY + draggable.relativeY;
       draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth

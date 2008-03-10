@@ -25,6 +25,7 @@ public class DOMUtilImplIE6 extends DOMUtilImpl {
 
   // CHECKSTYLE_JAVADOC_OFF
 
+  @Override
   public native void cancelAllDocumentSelections()
   /*-{
     try {
@@ -34,21 +35,25 @@ public class DOMUtilImplIE6 extends DOMUtilImpl {
     }
   }-*/;
 
+  @Override
   public native int getBorderLeft(Element elem)
   /*-{
     return elem.clientLeft;
   }-*/;
 
+  @Override
   public native int getBorderTop(Element elem)
   /*-{
     return elem.clientTop;
   }-*/;
 
+  @Override
   public native int getClientHeight(Element elem)
   /*-{
     return elem.clientHeight;
   }-*/;
 
+  @Override
   public native int getClientWidth(Element elem)
   /*-{
     return elem.clientWidth;

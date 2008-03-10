@@ -82,10 +82,12 @@ public final class WindowExample extends Example {
     boundaryPanel.add(windowPanel4, 10, 120);
   }
 
+  @Override
   public String getDescription() {
     return "Resize an embedded Widget using a composite of Grid and ScrollPanel.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         WindowExample.class, WindowController.class, WindowPanel.class, ResizeDragController.class,};
@@ -94,6 +96,7 @@ public final class WindowExample extends Example {
   private Frame getIframe(String url) {
     Frame iframe = new Frame() {
 
+      @Override
       protected void onLoad() {
         super.onLoad();
         // IE work around for disappearing IFRAME when parent is re-attached

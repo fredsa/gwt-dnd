@@ -25,8 +25,6 @@ import com.allen_sauer.gwt.dnd.client.util.CoordinateLocation;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 
-import java.util.Iterator;
-
 /**
  * A {@link DropController} for {@link IndexedPanel} drop targets.
  */
@@ -48,15 +46,16 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     this.dropTarget = dropTarget;
   }
 
+  @Override
   public void onDrop(DragContext context) {
     assert dropIndex != -1 : "Should not happen after onPreviewDrop did not veto";
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : context.selectedWidgets) {
       insert(widget, dropIndex++);
     }
     super.onDrop(context);
   }
 
+  @Override
   public void onEnter(DragContext context) {
     super.onEnter(context);
     positioner = newPositioner(context);
@@ -65,12 +64,14 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     insert(positioner, targetIndex);
   }
 
+  @Override
   public void onLeave(DragContext context) {
     positioner.removeFromParent();
     positioner = null;
     super.onLeave(context);
   }
 
+  @Override
   public void onMove(DragContext context) {
     super.onMove(context);
     int targetIndex = DOMUtil.findIntersect(dropTarget, new CoordinateLocation(context.mouseX,
@@ -91,6 +92,7 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     }
   }
 
+  @Override
   public void onPreviewDrop(DragContext context) throws VetoDragException {
     dropIndex = dropTarget.getWidgetIndex(positioner);
     if (dropIndex == -1) {

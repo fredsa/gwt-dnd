@@ -27,7 +27,6 @@ import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * A {@link DropController} which allows a draggable widget to be placed at
@@ -96,15 +95,16 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     dropTarget.add(widget, left, top);
   }
 
+  @Override
   public void onDrop(DragContext context) {
-    for (Iterator<Draggable> iterator = draggableList.iterator(); iterator.hasNext();) {
-      Draggable draggable = iterator.next();
+    for (Draggable draggable : draggableList) {
       draggable.positioner.removeFromParent();
       dropTarget.add(draggable.widget, draggable.desiredX, draggable.desiredY);
     }
     super.onDrop(context);
   }
 
+  @Override
   public void onEnter(DragContext context) {
     super.onEnter(context);
     assert draggableList.size() == 0;
@@ -118,8 +118,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
     int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
     int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
+    for (Widget widget : context.selectedWidgets) {
       Draggable draggable = new Draggable(widget);
       draggable.positioner = makePositioner(widget);
       draggable.relativeX = widget.getAbsoluteLeft() - draggableAbsoluteLeft;
@@ -128,19 +127,19 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     }
   }
 
+  @Override
   public void onLeave(DragContext context) {
-    for (Iterator<Draggable> iterator = draggableList.iterator(); iterator.hasNext();) {
-      Draggable draggable = iterator.next();
+    for (Draggable draggable : draggableList) {
       draggable.positioner.removeFromParent();
     }
     draggableList.clear();
     super.onLeave(context);
   }
 
+  @Override
   public void onMove(DragContext context) {
     super.onMove(context);
-    for (Iterator<Draggable> iterator = draggableList.iterator(); iterator.hasNext();) {
-      Draggable draggable = iterator.next();
+    for (Draggable draggable : draggableList) {
       draggable.desiredX = context.desiredDraggableX - dropTargetOffsetX + draggable.relativeX;
       draggable.desiredY = context.desiredDraggableY - dropTargetOffsetY + draggable.relativeY;
       draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth

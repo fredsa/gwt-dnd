@@ -91,6 +91,7 @@ public abstract class Example extends SimplePanel {
   /**
    * Calls {@link #onInitialLoad()} when called for the first time.
    */
+  @Override
   protected void onLoad() {
     super.onLoad();
     if (!initialLoaded) {

@@ -54,10 +54,12 @@ public final class PaletteExample extends Example {
     boundaryPanel.add(palette, 10, 10);
   }
 
+  @Override
   public String getDescription() {
     return "Example illustrating a palette of widgets which are cloned at the start of a drag.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {PaletteExample.class, PalettePanel.class, PaletteWidget.class,};
   }

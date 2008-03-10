@@ -93,6 +93,7 @@ public class WidgetLocation extends AbstractLocation {
   //    recalculate();
   //  }
 
+  @Override
   public String toString() {
     return "(" + left + ", " + top + ")";
   }

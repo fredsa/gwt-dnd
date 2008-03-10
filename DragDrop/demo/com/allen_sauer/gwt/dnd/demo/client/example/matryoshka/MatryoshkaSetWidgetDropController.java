@@ -47,12 +47,14 @@ public class MatryoshkaSetWidgetDropController extends SimpleDropController {
     this.dropTarget = dropTarget;
   }
 
+  @Override
   public void onDrop(DragContext context) {
     makeLastChild(dropTarget);
     dropTarget.setWidget(context.draggable);
     super.onDrop(context);
   }
 
+  @Override
   public void onEnter(DragContext context) {
     super.onEnter(context);
     if (dropTarget.getWidget() == null) {
@@ -60,11 +62,13 @@ public class MatryoshkaSetWidgetDropController extends SimpleDropController {
     }
   }
 
+  @Override
   public void onLeave(DragContext context) {
     dropTarget.removeStyleName(CSS_DEMO_MATRYOSHKA_EXAMPLE_DROP_TARGET_ENGAGE);
     super.onLeave(context);
   }
 
+  @Override
   public void onPreviewDrop(DragContext context) throws VetoDragException {
     if (dropTarget.getWidget() != null) {
       throw new VetoDragException();

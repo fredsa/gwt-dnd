@@ -103,6 +103,7 @@ public abstract class AbstractArea implements Area {
    * Textual representation of this area formatted as <code>[(left, top) - (right, bottom) ]</code>.
    * @return a string representation of this area
    */
+  @Override
   public String toString() {
     return "[ (" + getLeft() + ", " + getTop() + ") - (" + getRight() + ", " + getBottom() + ") ]";
   }

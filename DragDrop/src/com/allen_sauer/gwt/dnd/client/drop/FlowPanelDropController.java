@@ -43,16 +43,19 @@ public class FlowPanelDropController extends AbstractIndexedDropController {
     this.dropTarget = dropTarget;
   }
 
+  @Override
   protected LocationWidgetComparator getLocationWidgetComparator() {
     return LocationWidgetComparator.BOTTOM_RIGHT_COMPARATOR;
   }
 
   // TODO remove after enhancement for issue 1112 provides InsertPanel interface
   // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
+  @Override
   protected void insert(Widget widget, int beforeIndex) {
     dropTarget.insert(widget, beforeIndex);
   }
 
+  @Override
   protected Widget newPositioner(DragContext context) {
     HTML positioner = new HTML("&#x203B;");
     positioner.addStyleName(CSS_DRAGDROP_FLOW_PANEL_POSITIONER);

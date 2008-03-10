@@ -69,8 +69,8 @@ public final class DragDropDemo implements EntryPoint {
         while (throwable != null) {
           StackTraceElement[] stackTraceElements = throwable.getStackTrace();
           text += throwable.toString() + "\n";
-          for (int i = 0; i < stackTraceElements.length; i++) {
-            text += "    at " + stackTraceElements[i] + "\n";
+          for (StackTraceElement element : stackTraceElements) {
+            text += "    at " + element + "\n";
           }
           throwable = throwable.getCause();
           if (throwable != null) {

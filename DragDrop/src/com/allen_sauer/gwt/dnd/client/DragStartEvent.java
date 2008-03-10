@@ -30,6 +30,7 @@ public class DragStartEvent extends DragEvent {
   /**
    * Return a string representation of this event.
    */
+  @Override
   public String toString() {
     return "DragStartEvent(source=" + getSourceShortTypeName() + ")";
   }

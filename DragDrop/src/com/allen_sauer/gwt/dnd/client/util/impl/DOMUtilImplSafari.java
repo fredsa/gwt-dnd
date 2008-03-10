@@ -25,6 +25,7 @@ public class DOMUtilImplSafari extends DOMUtilImplStandard {
 
   // CHECKSTYLE_JAVADOC_OFF
 
+  @Override
   public native void cancelAllDocumentSelections()
   /*-{
     // While all Safari/Webkit release appear to define the 'collapse' function,
@@ -39,6 +40,7 @@ public class DOMUtilImplSafari extends DOMUtilImplStandard {
     }
   }-*/;
 
+  @Override
   public native int getBorderLeft(Element elem)
   /*-{
     var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
@@ -51,6 +53,7 @@ public class DOMUtilImplSafari extends DOMUtilImplStandard {
     }
   }-*/;
 
+  @Override
   public native int getBorderTop(Element elem)
   /*-{
     var computedStyle = $doc.defaultView.getComputedStyle(elem, null);
@@ -63,11 +66,13 @@ public class DOMUtilImplSafari extends DOMUtilImplStandard {
     }
   }-*/;
 
+  @Override
   public native int getClientHeight(Element elem)
   /*-{
     return elem.clientHeight || 0;
   }-*/;
 
+  @Override
   public native int getClientWidth(Element elem)
   /*-{
     return elem.clientWidth || 0;

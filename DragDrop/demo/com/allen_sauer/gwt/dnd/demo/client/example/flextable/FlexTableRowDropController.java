@@ -65,6 +65,7 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     this.flexTable = flexTable;
   }
 
+  @Override
   public void onDrop(DragContext context) {
     FlexTableRowDragController trDragController = (FlexTableRowDragController) context.dragController;
     FlexTableUtil.moveRow(trDragController.getDraggableTable(), flexTable,
@@ -72,17 +73,20 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     super.onDrop(context);
   }
 
+  @Override
   public void onEnter(DragContext context) {
     super.onEnter(context);
     positioner = newPositioner(context);
   }
 
+  @Override
   public void onLeave(DragContext context) {
     positioner.removeFromParent();
     positioner = null;
     super.onLeave(context);
   }
 
+  @Override
   public void onMove(DragContext context) {
     super.onMove(context);
     targetRow = DOMUtil.findIntersect(flexTableRowsAsIndexPanel, new CoordinateLocation(

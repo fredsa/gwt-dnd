@@ -33,6 +33,7 @@ public final class RedBoxDraggableWidget extends HTML {
     setHTML("<i>drag me!</i> draggable widget #" + ++counter);
   }
 
+  @Override
   protected void onLoad() {
     super.onLoad();
     addStyleName(CSS_DEMO_RED_BOX_DRAGGABLE_WIDGET);

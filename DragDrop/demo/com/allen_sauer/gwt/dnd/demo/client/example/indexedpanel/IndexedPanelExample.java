@@ -123,10 +123,12 @@ public final class IndexedPanelExample extends Example {
     }
   }
 
+  @Override
   public String getDescription() {
     return "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         IndexedPanelExample.class, NoInsertAtEndIndexedDropController.class,

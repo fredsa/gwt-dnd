@@ -57,15 +57,18 @@ public final class GridConstrainedExample extends Example {
     gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 5, draggableOffsetHeight * 2);
   }
 
+  @Override
   public String getDescription() {
     return "Drops (moves) are constrained to a (" + draggableOffsetWidth + " x "
         + draggableOffsetHeight + ") grid on the gray drop target.";
   }
 
+  @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {GridConstrainedExample.class, GridConstrainedDropController.class,};
   }
 
+  @Override
   protected void onInitialLoad() {
     gridConstrainedDropController.drop(createDraggable(), 0, 0);
     gridConstrainedDropController.drop(createDraggable(), draggableOffsetWidth,

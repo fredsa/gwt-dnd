@@ -26,8 +26,6 @@ import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.drop.AbstractDropController;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 
-import java.util.Iterator;
-
 public class TabSelectingDropController extends AbstractDropController {
 
   private final int tabIndex;
@@ -40,13 +38,12 @@ public class TabSelectingDropController extends AbstractDropController {
     this.tabIndex = tabIndex;
   }
 
+  @Override
   public void onDrop(DragContext context) {
     // assume content widget is an AbsolutePanel for now
     AbsolutePanel absolutePanel = (AbsolutePanel) tabPanel.getWidget(tabIndex);
 
-    for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
-      Widget widget = iterator.next();
-
+    for (Widget widget : context.selectedWidgets) {
       // temporarily (invisibly) add draggable to get its dimensions
       DOM.setStyleAttribute(widget.getElement(), "visibility", "hidden");
       absolutePanel.add(widget, 0, 0);
@@ -62,6 +59,7 @@ public class TabSelectingDropController extends AbstractDropController {
     super.onDrop(context);
   }
 
+  @Override
   public void onEnter(DragContext context) {
     super.onEnter(context);
     tabPanel.selectTab(tabIndex);
