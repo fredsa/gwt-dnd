@@ -71,16 +71,6 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * @deprecated Instead selectively use your own CSS classes.
-   */
-  protected static final String CSS_MOVABLE_PANEL;
-
-  /**
-   * @deprecated Instead selectively use your own CSS classes.
-   */
-  protected static final String CSS_PROXY;
-
-  /**
    * CSS style name applied to movable panels.
    */
   private static final String PRIVATE_CSS_MOVABLE_PANEL = "dragdrop-movable-panel";
@@ -89,11 +79,6 @@ public class PickupDragController extends AbstractDragController {
    * CSS style name applied to drag proxies.
    */
   private static final String PRIVATE_CSS_PROXY = "dragdrop-proxy";
-
-  static {
-    CSS_MOVABLE_PANEL = PRIVATE_CSS_MOVABLE_PANEL;
-    CSS_PROXY = PRIVATE_CSS_PROXY;
-  }
 
   /**
    * The implicit boundary drop controller.
@@ -264,13 +249,6 @@ public class PickupDragController extends AbstractDragController {
     return dragProxyEnabled;
   }
 
-  /**
-   * @deprecated Use {@link #getBehaviorDragProxy()} instead.
-   */
-  public boolean isDragProxyEnabled() {
-    return getBehaviorDragProxy();
-  }
-
   public void previewDragEnd() throws VetoDragException {
     assert context.finalDropController == null;
     assert context.vetoException == null;
@@ -326,13 +304,6 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * @deprecated Use {@link #setBehaviorDragProxy(boolean)} instead.
-   */
-  public void setDragProxyEnabled(boolean dragProxyEnabled) {
-    setBehaviorDragProxy(dragProxyEnabled);
-  }
-
-  /**
    * Unregister a DropController from this drag controller.
    * 
    * @see #registerDropController(DropController)
@@ -341,13 +312,6 @@ public class PickupDragController extends AbstractDragController {
    */
   public void unregisterDropController(DropController dropController) {
     dropControllerList.remove(dropController);
-  }
-
-  /**
-   * @deprecated Use {@link #newDragProxy(DragContext)} and {@link #setBehaviorDragProxy(boolean)} instead.
-   */
-  protected final Widget maybeNewDraggableProxy(Widget draggable) {
-    throw new UnsupportedOperationException();
   }
 
   /**

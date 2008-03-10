@@ -16,7 +16,6 @@
 package com.allen_sauer.gwt.dnd.client.drop;
 
 import com.google.gwt.user.client.ui.Panel;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * A {@link DropController} which allows a draggable widget to be placed at
@@ -31,19 +30,5 @@ public abstract class AbstractPositioningDropController extends AbstractDropCont
 
   public AbstractPositioningDropController(Panel dropTarget) {
     super(dropTarget);
-  }
-
-  /**
-   * @deprecated No longer a part of the API.
-   */
-  public final Widget getPositioner() {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @deprecated No longer a part of the API.
-   */
-  protected final Widget newPositioner(Widget reference) {
-    throw new UnsupportedOperationException();
   }
 }

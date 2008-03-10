@@ -24,7 +24,6 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-import com.allen_sauer.gwt.dnd.client.util.Location;
 import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 
 import java.util.ArrayList;
@@ -150,13 +149,6 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
           - draggable.offsetHeight));
       dropTarget.add(draggable.positioner, draggable.desiredX, draggable.desiredY);
     }
-  }
-
-  /**
-   * @deprecated No longer a part of the API.
-   */
-  protected final Location getConstrainedLocation(Widget reference, Widget draggable, Widget widget) {
-    throw new UnsupportedOperationException();
   }
 
   Widget makePositioner(Widget reference) {

@@ -18,9 +18,6 @@ package com.allen_sauer.gwt.dnd.client;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
-import com.allen_sauer.gwt.dnd.client.drop.DropController;
-
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -37,21 +34,6 @@ import java.util.Iterator;
  */
 public abstract class AbstractDragController implements DragController {
 
-  /**
-   * @deprecated Instead selectively use your own CSS classes.
-   */
-  protected static final String CSS_DRAGGABLE;
-
-  /**
-   * @deprecated Instead selectively use your own CSS classes.
-   */
-  protected static final String CSS_DRAGGING;
-
-  /**
-   * @deprecated Instead selectively use your own CSS classes.
-   */
-  protected static final String CSS_HANDLE;
-
   private static final String CSS_SELECTED = "dragdrop-selected";
 
   private static HashMap<Widget, Widget> dragHandles = new HashMap<Widget, Widget>();
@@ -64,12 +46,6 @@ public abstract class AbstractDragController implements DragController {
 
   static {
     setVersion();
-  }
-
-  static {
-    CSS_DRAGGABLE = PRIVATE_CSS_DRAGGABLE;
-    CSS_DRAGGING = PRIVATE_CSS_DRAGGING;
-    CSS_HANDLE = PRIVATE_CSS_HANDLE;
   }
 
   private static native void setVersion()
@@ -162,10 +138,6 @@ public abstract class AbstractDragController implements DragController {
     assert dragEndEvent == null;
   }
 
-  public final void dragEnd(Widget draggable, Widget dropTarget) {
-    throw new UnsupportedOperationException();
-  }
-
   public void dragStart() {
     resetCache();
     if (dragHandlers != null) {
@@ -174,10 +146,6 @@ public abstract class AbstractDragController implements DragController {
     }
     context.draggable.addStyleName(PRIVATE_CSS_DRAGGING);
     assert dragStartEvent == null;
-  }
-
-  public final void dragStart(Widget draggable) {
-    throw new UnsupportedOperationException();
   }
 
   public boolean getBehaviorConstrainedToBoundaryPanel() {
@@ -194,22 +162,6 @@ public abstract class AbstractDragController implements DragController {
 
   public final AbsolutePanel getBoundaryPanel() {
     return boundaryPanel;
-  }
-
-  public final DropControllerCollection getDropControllerCollection() {
-    throw new UnsupportedOperationException();
-  }
-
-  public final DropController getIntersectDropController(Widget widget) {
-    throw new UnsupportedOperationException();
-  }
-
-  public final DropController getIntersectDropController(Widget widget, int x, int y) {
-    throw new UnsupportedOperationException();
-  }
-
-  public final Widget getMovableWidget() {
-    throw new UnsupportedOperationException();
   }
 
   /**
@@ -259,10 +211,6 @@ public abstract class AbstractDragController implements DragController {
     dragHandle.removeStyleName(PRIVATE_CSS_HANDLE);
   }
 
-  public final void notifyDragEnd(DragEndEvent dragEndEvent) {
-    throw new UnsupportedOperationException();
-  }
-
   public void previewDragEnd() throws VetoDragException {
     assert dragEndEvent == null;
     if (dragHandlers != null) {
@@ -271,20 +219,12 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
-  public final void previewDragEnd(Widget draggable, Widget dropTarget) throws VetoDragException {
-    throw new UnsupportedOperationException();
-  }
-
   public void previewDragStart() throws VetoDragException {
     assert dragStartEvent == null;
     if (dragHandlers != null) {
       dragStartEvent = new DragStartEvent(context);
       dragHandlers.firePreviewDragStart(dragStartEvent);
     }
-  }
-
-  public final void previewDragStart(Widget draggable) throws VetoDragException {
-    throw new UnsupportedOperationException();
   }
 
   public final void removeDragHandler(DragHandler handler) {
@@ -329,41 +269,5 @@ public abstract class AbstractDragController implements DragController {
       context.selectedWidgets.clear();
       context.selectedWidgets.add(draggable);
     }
-  }
-
-  /**
-   * @deprecated Use {@link PickupDragController#newBoundaryDropController(AbsolutePanel, boolean)} instead.
-   */
-  protected final BoundaryDropController newBoundaryDropController() {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @deprecated Use {@link PickupDragController#newBoundaryDropController(AbsolutePanel, boolean)} instead.
-   */
-  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
-      boolean allowDropping) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-  * @deprecated Use {@link PickupDragController#restoreSelectedWidgetsLocation()} instead.
-  */
-  protected final void restoreDraggableLocation(Widget draggable) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @deprecated Use {@link PickupDragController#restoreSelectedWidgetsStyle()} instead.
-   */
-  protected final void restoreDraggableStyle(Widget draggable) {
-    throw new UnsupportedOperationException();
-  }
-
-  /**
-   * @deprecated Use {@link PickupDragController#saveSelectedWidgetsLocationAndStyle()} instead.
-   */
-  protected final void saveDraggableLocationAndStyle(Widget draggable) {
-    throw new UnsupportedOperationException();
   }
 }
