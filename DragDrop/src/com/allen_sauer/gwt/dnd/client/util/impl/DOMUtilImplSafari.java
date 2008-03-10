@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client.util.impl;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 
 /**
@@ -73,11 +72,4 @@ public class DOMUtilImplSafari extends DOMUtilImplStandard {
   /*-{
     return elem.clientWidth || 0;
   }-*/;
-
-  public boolean isOrContains(Element parent, Element child) {
-    // While Safari 1.3.2 / Safari 2.0.4 support the 'contains' method on DOM
-    // elements, the method does not appear to return valid results in all cases.
-    // Revert to a DOM walk from DOM.isOrHasChild instead.
-    return DOM.isOrHasChild(parent, child);
-  }
 }

@@ -15,8 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client.util.impl;
 
-import com.google.gwt.user.client.Element;
-
 /**
  * {@link com.allen_sauer.gwt.dnd.client.util.DOMUtil} implementation for
  * Mozilla.
@@ -24,9 +22,4 @@ import com.google.gwt.user.client.Element;
 public class DOMUtilImplMozilla extends DOMUtilImplStandard {
 
   // CHECKSTYLE_JAVADOC_OFF
-
-  public native boolean isOrContains(Element parent, Element child)
-  /*-{
-    return parent.isSameNode(child) || !!(parent.compareDocumentPosition(child) & 16);
-  }-*/;
 }

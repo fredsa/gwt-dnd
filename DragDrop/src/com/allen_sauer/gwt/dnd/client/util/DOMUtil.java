@@ -200,19 +200,6 @@ public class DOMUtil {
   }
 
   /**
-   * Determine if <code>parent</code> is an ancestor of <code>child</code>.
-   * 
-   * TODO replace with DOM.isOrHasChild after GWT Issue 1218 is addressed
-   * 
-   * @param parent the element to consider as the ancestor of <code>child</code>
-   * @param child the element to consider as the descendant of <code>parent</code>
-   * @return <code>true</code> if relationship holds
-   */
-  public static boolean isOrContains(Element parent, Element child) {
-    return impl.isOrContains(parent, child);
-  }
-
-  /**
    * Set the browser's status bar text, if supported and enabled in the client browser.
    * 
    * @param text the message to use as the window status

@@ -128,8 +128,7 @@ class DropControllerCollection {
       for (Iterator<DropController> iterator = dropControllerList.iterator(); iterator.hasNext();) {
         DropController dropController = iterator.next();
         Candidate candidate = new Candidate(dropController);
-        if (DOMUtil.isOrContains(context.draggable.getElement(),
-            candidate.getDropTarget().getElement())) {
+        if (DOM.isOrHasChild(context.draggable.getElement(), candidate.getDropTarget().getElement())) {
           continue;
         }
         if (candidate.getTargetArea().intersects(boundaryArea)) {
