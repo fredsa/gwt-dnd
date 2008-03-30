@@ -102,7 +102,7 @@ public class MultiRowTabPanel extends Composite {
         whenTabSelected(row, tabIndex);
       }
     });
-    tabBarIndexOffsetMap.put(tabBar, new Integer(tabCount));
+    tabBarIndexOffsetMap.put(tabBar, Integer.valueOf(tabCount));
 
     rows++;
     setTabBarFirstLastStyleNames();

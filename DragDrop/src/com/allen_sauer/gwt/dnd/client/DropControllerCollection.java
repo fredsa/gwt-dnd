@@ -65,6 +65,16 @@ class DropControllerCollection {
       }
     }
 
+    @Override
+    public boolean equals(Object other) {
+      throw new RuntimeException("hash code not implemented");
+    }
+
+    @Override
+    public int hashCode() {
+      throw new RuntimeException("hash code not implemented");
+    }
+
     DropController getDropController() {
       return dropController;
     }
