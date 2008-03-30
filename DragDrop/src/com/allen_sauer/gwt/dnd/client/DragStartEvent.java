@@ -18,6 +18,7 @@ package com.allen_sauer.gwt.dnd.client;
 /**
  * {@link java.util.EventObject} containing information about the start of a drag.
  */
+@SuppressWarnings("serial")
 public class DragStartEvent extends DragEvent {
 
   public DragStartEvent(DragContext context) {
@@ -29,6 +30,8 @@ public class DragStartEvent extends DragEvent {
 
   /**
    * Return a string representation of this event.
+   * 
+   * @return string representation of this event
    */
   @Override
   public String toString() {
