@@ -23,6 +23,7 @@ import java.util.ArrayList;
  * subclass of ArrayList assumes that all items added to it will be of type
  * {@link com.allen_sauer.gwt.dnd.client.DragHandler}.
  */
+@SuppressWarnings("serial")
 public class DragHandlerCollection extends ArrayList<DragHandler> {
 
   /**
