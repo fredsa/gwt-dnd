@@ -1,12 +1,12 @@
 /*
  * Copyright 2008 Fred Sauer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 import com.allen_sauer.gwt.dnd.demo.client.ui.MultiRowTabPanel;
@@ -38,7 +39,7 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
    * Describe an example in a consistent way by including a description and the
    * name of the {@link com.allen_sauer.gwt.dnd.client.drop.DropController}
    * used in the example.
-   * 
+   *
    * @param classes the primary DropController used in this example
    * @param description a brief description of the example
    * @return HTML widget describing the example
@@ -71,7 +72,8 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
     verticalPanel.add(example);
     Label tabLabel = new Label("Demo " + (getTabCount() + 1));
     tabLabel.setWordWrap(false);
-    tabLabel.setTitle(StringUtil.getShortTypeName(example) + "\n" + example.getDescription());
+    String title = DOMUtil.adjustTitleForBrowser(StringUtil.getShortTypeName(example) + "\n" + example.getDescription());
+    tabLabel.setTitle(title);
     add(verticalPanel, tabLabel);
   }
 }
