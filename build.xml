@@ -41,10 +41,10 @@
 
 
 		<!-- gwt.location property -->
-		<condition property="gwt.location.default" value="${env.GWT14_HOME}" else="">
-			<isset property="env.GWT14_HOME" />
+		<condition property="gwt.location.default" value="${env.GWT15_HOME}" else="">
+			<isset property="env.GWT15_HOME" />
 		</condition>
-		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT 1.4 install directory" />
+		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT 1.5 install directory" />
 
 		<!-- gwt.tools property -->
 		<condition property="gwt.tools" value="${env.GWT_TOOLS}" else="${gwt.root}/../tools">
@@ -61,8 +61,8 @@
 		<property name="javac.debuglevel" value="lines,vars,source" />
 		<property name="javac.encoding" value="utf-8" />
 		<property name="javac.nowarn" value="true" />
-		<property name="javac.source" value="1.4" />
-		<property name="javac.target" value="1.4" />
+		<property name="javac.source" value="1.5" />
+		<property name="javac.target" value="1.5" />
 
 		<!-- gwt jars -->
 		<property name="gwt.user.jar" location="${gwt.location}/gwt-user.jar" />
@@ -141,13 +141,13 @@
 		<mkdir dir="build/out/src" />
 		<mkdir dir="build/out/demo" />
 
-		<javac compiler="javac1.4" listfiles="true" destdir="build/out/src" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
+		<javac compiler="javac1.5" listfiles="true" destdir="build/out/src" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
 			<src path="build/src" />
 			<classpath location="${gwt.location}/gwt-user.jar" />
 			<classpath location="${gwt.location}/gwt-dev-${build.host.platform}.jar" />
 		</javac>
 
-		<javac compiler="javac1.4" listfiles="true" destdir="build/out/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
+		<javac compiler="javac1.5" listfiles="true" destdir="build/out/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
 			<src path="build/demo" />
 			<classpath location="${gwt.location}/gwt-user.jar" />
 			<classpath location="${gwt.location}/gwt-dev-${build.host.platform}.jar" />
@@ -202,7 +202,7 @@
 	</target>
 
 	<target name="javadoc">
-		<javadoc access="protected" classpath="${gwt.user.jar}:{gwt.dev.jar}" destdir="build/javadoc" doctitle="gwt-dnd - Drag-and-drop for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.4" sourcepath="build/demo" />
+		<javadoc access="protected" classpath="${gwt.user.jar}:{gwt.dev.jar}" destdir="build/javadoc" doctitle="gwt-dnd - Drag-and-drop for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.5" sourcepath="build/demo" />
 	</target>
 
 	<target name="tag">
