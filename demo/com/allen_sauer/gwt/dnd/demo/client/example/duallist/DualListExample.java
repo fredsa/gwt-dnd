@@ -1,12 +1,12 @@
 /*
  * Copyright 2008 Fred Sauer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -46,7 +46,7 @@ public final class DualListExample extends Example {
 
   @Override
   public String getDescription() {
-    return "Allow drag and drop between two lists. Use <code>CTRL</code>/<code>META</code>-click to toggle selection of items.";
+    return "Allow drag and drop between two lists. Use CTRL/META-click to toggle selection of items.";
   }
 
   @Override
