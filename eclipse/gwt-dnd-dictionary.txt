@@ -25,3 +25,7 @@ stylesheet
 dragdrop
 int
 Allendnd
+throwable
+downloaded
+plugins
+plugin
