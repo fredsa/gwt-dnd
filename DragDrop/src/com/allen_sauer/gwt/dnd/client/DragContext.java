@@ -65,6 +65,8 @@ public class DragContext {
    * The drop controller which participated in the final drop, or <code>null</code>
    * before the final drop has occurred, or when the drag controller does not utilize
    * drop controllers.
+   * 
+   * TODO use setter methods to handle the finalDropController/vetoException dependencies
    */
   public DropController finalDropController;
 
