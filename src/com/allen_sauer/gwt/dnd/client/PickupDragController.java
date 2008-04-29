@@ -82,7 +82,7 @@ public class PickupDragController extends AbstractDragController {
   /**
    * The implicit boundary drop controller.
    */
-  private BoundaryDropController boundaryDropController;
+  private final BoundaryDropController boundaryDropController;
 
   private int boundaryOffsetX;
 
@@ -90,9 +90,9 @@ public class PickupDragController extends AbstractDragController {
 
   private boolean dragProxyEnabled = false;
 
-  private DropControllerCollection dropControllerCollection;
+  private final DropControllerCollection dropControllerCollection;
 
-  private ArrayList<DropController> dropControllerList = new ArrayList<DropController>();
+  private final ArrayList<DropController> dropControllerList = new ArrayList<DropController>();
 
   private int dropTargetClientHeight;
 
@@ -252,15 +252,18 @@ public class PickupDragController extends AbstractDragController {
   public void previewDragEnd() throws VetoDragException {
     assert context.finalDropController == null;
     assert context.vetoException == null;
-    // Does the DropController allow the drop?
     try {
-      context.dropController.onPreviewDrop(context);
-      context.finalDropController = context.dropController;
+      try {
+        // may throw VetoDragException
+        context.dropController.onPreviewDrop(context);
+        context.finalDropController = context.dropController;
+      } finally {
+        // may throw VetoDragException
+        super.previewDragEnd();
+      }
     } catch (VetoDragException ex) {
       context.finalDropController = null;
       throw ex;
-    } finally {
-      super.previewDragEnd();
     }
   }
 
