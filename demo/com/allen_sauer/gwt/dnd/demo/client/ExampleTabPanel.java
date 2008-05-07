@@ -72,7 +72,8 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
     verticalPanel.add(example);
     Label tabLabel = new Label("Demo " + (getTabCount() + 1));
     tabLabel.setWordWrap(false);
-    String title = DOMUtil.adjustTitleForBrowser(StringUtil.getShortTypeName(example) + "\n" + example.getDescription());
+    String title = DOMUtil.adjustTitleForBrowser(StringUtil.getShortTypeName(example) + "\n"
+        + example.getDescription());
     tabLabel.setTitle(title);
     add(verticalPanel, tabLabel);
   }

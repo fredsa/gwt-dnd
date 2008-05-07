@@ -187,7 +187,7 @@ public class PickupDragController extends AbstractDragController {
     } else {
       saveSelectedWidgetsLocationAndStyle();
       AbsolutePanel container = new AbsolutePanel();
-      DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
+      container.getElement().getStyle().setProperty("overflow", "visible");
 
       container.setPixelSize(context.draggable.getOffsetWidth(),
           context.draggable.getOffsetHeight());
@@ -341,7 +341,7 @@ public class PickupDragController extends AbstractDragController {
    */
   protected Widget newDragProxy(DragContext context) {
     AbsolutePanel container = new AbsolutePanel();
-    DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
+    container.getElement().getStyle().setProperty("overflow", "visible");
 
     WidgetArea draggableArea = new WidgetArea(context.draggable, null);
     for (Widget widget : context.selectedWidgets) {
@@ -394,7 +394,7 @@ public class PickupDragController extends AbstractDragController {
   protected void restoreSelectedWidgetsStyle() {
     for (Widget widget : context.selectedWidgets) {
       SavedWidgetInfo info = savedWidgetInfoMap.get(widget);
-      DOM.setStyleAttribute(widget.getElement(), "margin", info.initialDraggableMargin);
+      widget.getElement().getStyle().setProperty("margin", info.initialDraggableMargin);
     }
   }
 
@@ -430,7 +430,7 @@ public class PickupDragController extends AbstractDragController {
       }
 
       info.initialDraggableMargin = DOM.getStyleAttribute(widget.getElement(), "margin");
-      DOM.setStyleAttribute(widget.getElement(), "margin", "0px");
+      widget.getElement().getStyle().setProperty("margin", "0px");
       savedWidgetInfoMap.put(widget, info);
     }
   }

@@ -42,17 +42,7 @@ public abstract class DOMUtilImpl {
     return widget.getOffsetWidth() - getClientWidth(widget.getElement());
   }
 
-  public final native String getNodeName(Element elem)
-  /*-{
-    return elem.nodeName;
-  }-*/;
-
   public final int getVerticalBorders(Widget widget) {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
   }
-
-  public final native void setStatus(String text)
-  /*-{
-     $wnd.status = text;
-  }-*/;
 }

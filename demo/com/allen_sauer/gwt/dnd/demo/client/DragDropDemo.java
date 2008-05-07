@@ -78,7 +78,7 @@ public final class DragDropDemo implements EntryPoint {
           }
         }
         DialogBox dialogBox = new DialogBox(true);
-        DOM.setStyleAttribute(dialogBox.getElement(), "backgroundColor", "#ABCDEF");
+        dialogBox.getElement().getStyle().setProperty("backgroundColor", "#ABCDEF");
         System.err.print(text);
         text = text.replaceAll(" ", "&nbsp;");
         dialogBox.setHTML("<pre>" + text + "</pre>");
