@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.example.matryoshka;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.FocusPanel;
 
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
@@ -36,8 +35,8 @@ public class RGBFocusPanel extends FocusPanel {
       int green, int blue) {
     this.dragController = dragController;
     addStyleName(CSS_DEMO_RGB_FOCUS_PANEL);
-    DOM.setStyleAttribute(getElement(), "backgroundColor", "rgb(" + red + ", " + green + ", "
-        + blue + ")");
+    getElement().getStyle().setProperty("backgroundColor",
+        "rgb(" + red + ", " + green + ", " + blue + ")");
   }
 
   @Override

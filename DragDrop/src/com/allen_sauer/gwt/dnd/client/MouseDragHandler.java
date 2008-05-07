@@ -251,9 +251,9 @@ class MouseDragHandler implements MouseListener {
     capturingWidget.setPixelSize(0, 0);
     RootPanel.get().add(capturingWidget, 0, 0);
     capturingWidget.addMouseListener(this);
-    DOM.setStyleAttribute(capturingWidget.getElement(), "visibility", "hidden");
-    DOM.setStyleAttribute(capturingWidget.getElement(), "margin", "0px");
-    DOM.setStyleAttribute(capturingWidget.getElement(), "border", "none");
+    capturingWidget.getElement().getStyle().setProperty("visibility", "hidden");
+    capturingWidget.getElement().getStyle().setProperty("margin", "0px");
+    capturingWidget.getElement().getStyle().setProperty("border", "none");
   }
 
   private void startDragging() {

@@ -100,8 +100,8 @@ public final class WindowExample extends Example {
       protected void onLoad() {
         super.onLoad();
         // IE work around for disappearing IFRAME when parent is re-attached
-        DOM.setStyleAttribute(getElement(), "display", "none");
-        DOM.setStyleAttribute(getElement(), "display", "");
+        getElement().getStyle().setProperty("display", "none");
+        getElement().getStyle().setProperty("display", "");
       }
     };
     DOM.setElementAttribute(iframe.getElement(), "frameBorder", "no");

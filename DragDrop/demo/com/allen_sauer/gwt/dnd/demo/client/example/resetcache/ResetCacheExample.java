@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.example.resetcache;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -59,12 +58,12 @@ public final class ResetCacheExample extends Example {
       // create a simple panel for the tab content
       AbsolutePanel contentPanel = new AbsolutePanel();
       contentPanel.setHeight("200px");
-      DOM.setStyleAttribute(contentPanel.getElement(), "backgroundColor", colors[i]);
+      contentPanel.getElement().getStyle().setProperty("backgroundColor", colors[i]);
 
       // create a tab widget
       HTML tabWidget = new HTML("Tab #" + (i + 1));
       tabWidget.setWordWrap(false);
-      DOM.setStyleAttribute(tabWidget.getElement(), "backgroundColor", colors[i]);
+      tabWidget.getElement().getStyle().setProperty("backgroundColor", colors[i]);
       tabPanel.add(contentPanel, tabWidget);
 
       // add drop controller to allow automatic tab selection and dropping on tab
@@ -74,7 +73,7 @@ public final class ResetCacheExample extends Example {
 
       // create a sample draggable
       Widget draggableLabel = new Label("Drag me to another tab");
-      DOM.setStyleAttribute(draggableLabel.getElement(), "backgroundColor", colors[i]);
+      draggableLabel.getElement().getStyle().setProperty("backgroundColor", colors[i]);
       draggableLabel.addStyleName(CSS_DEMO_CACHE_EXAMPLE_DRAGGABLE);
 
       // make label draggable

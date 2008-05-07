@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.example.resetcache;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.TabPanel;
@@ -45,7 +44,7 @@ public class TabSelectingDropController extends AbstractDropController {
 
     for (Widget widget : context.selectedWidgets) {
       // temporarily (invisibly) add draggable to get its dimensions
-      DOM.setStyleAttribute(widget.getElement(), "visibility", "hidden");
+      widget.getElement().getStyle().setProperty("visibility", "hidden");
       absolutePanel.add(widget, 0, 0);
 
       // move widget to random location, and restore visibility
@@ -54,7 +53,7 @@ public class TabSelectingDropController extends AbstractDropController {
       int top = Random.nextInt(DOMUtil.getClientHeight(absolutePanel.getElement())
           - widget.getOffsetHeight());
       absolutePanel.add(widget, left, top);
-      DOM.setStyleAttribute(widget.getElement(), "visibility", "");
+      widget.getElement().getStyle().setProperty("visibility", "");
     }
     super.onDrop(context);
   }
