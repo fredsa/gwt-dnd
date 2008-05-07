@@ -15,6 +15,7 @@
  */
 package com.allen_sauer.gwt.dnd.client.util;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -44,20 +45,32 @@ public class WidgetArea extends AbstractArea {
    *            assumed
    */
   public WidgetArea(Widget widget, Widget reference) {
-    int left = widget.getAbsoluteLeft();
-    int top = widget.getAbsoluteTop();
+    setLeft(widget.getAbsoluteLeft());
+    setTop(widget.getAbsoluteTop());
 
     if (reference != null) {
-      left -= reference.getAbsoluteLeft();
-      left -= DOMUtil.getBorderLeft(reference.getElement());
-      top -= reference.getAbsoluteTop();
-      top -= DOMUtil.getBorderTop(reference.getElement());
+      setLeft(getLeft() - reference.getAbsoluteLeft()
+          - DOMUtil.getBorderLeft(reference.getElement()));
+      setTop(getTop() - reference.getAbsoluteTop() - DOMUtil.getBorderTop(reference.getElement()));
     }
-    int right = left + widget.getOffsetWidth();
-    int bottom = top + widget.getOffsetHeight();
-    setLeft(left);
-    setTop(top);
-    setRight(right);
-    setBottom(bottom);
+    setRight(getLeft() + widget.getOffsetWidth());
+    setBottom(getTop() + widget.getOffsetHeight());
+
+    Element elem = widget.getElement().getOffsetParent();
+    Element p;
+    while (elem != null && (p = elem.getOffsetParent()) != null) {
+      int temp;
+      if ((temp = getWidth() - DOMUtil.getClientWidth(elem)) > 0) {
+        setRight(getRight() - temp);
+      }
+      if ((temp = getHeight() - DOMUtil.getClientHeight(elem)) > 0) {
+        setBottom(getBottom() - temp);
+      }
+      setLeft(getLeft() + elem.getScrollLeft());
+      setRight(getRight() + elem.getScrollLeft());
+      setTop(getTop() + elem.getScrollTop());
+      setBottom(getBottom() + elem.getScrollTop());
+      elem = p;
+    }
   }
 }

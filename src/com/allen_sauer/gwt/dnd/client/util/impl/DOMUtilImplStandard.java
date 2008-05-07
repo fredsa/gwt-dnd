@@ -15,7 +15,7 @@
  */
 package com.allen_sauer.gwt.dnd.client.util.impl;
 
-import com.google.gwt.user.client.Element;
+import com.google.gwt.dom.client.Element;
 
 /**
  * {@link com.allen_sauer.gwt.dnd.client.util.DOMUtil} implementation for
