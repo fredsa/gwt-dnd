@@ -21,5 +21,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.GWTShell"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-out www/getting-started com.mycompany.MyApplication/MyApplication.html -style PRETTY -port auto"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="DragDrop"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-enableassertions -Dgwt.shell.endquick="/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms1024m -Xmx1024m -enableassertions -Dgwt.shell.endquick="/>
 </launchConfiguration>
