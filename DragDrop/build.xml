@@ -65,8 +65,8 @@
 		<property name="javac.target" value="1.5" />
 
 		<!-- gwt jars -->
-		<property name="gwt.user.jar" location="${gwt.location}/gwt-user.jar" />
-		<property name="gwt.dev.jar" location="${gwt.location}/gwt-dev-${build.host.platform}.jar" />
+		<property name="gwt-user.jar" location="${gwt.location}/gwt-user.jar" />
+		<property name="gwt-dev.jar" location="${gwt.location}/gwt-dev-${build.host.platform}.jar" />
 
 		<!-- Pulls in tasks defined in ant-contrib, i.e. foreach -->
 		<taskdef resource="net/sf/antcontrib/antlib.xml">
@@ -143,14 +143,14 @@
 
 		<javac compiler="javac1.5" listfiles="true" destdir="build/out/src" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
 			<src path="build/src" />
-			<classpath location="${gwt.user.jar}" />
-			<classpath location="${gwt.dev.jar}" />
+			<classpath location="${gwt-user.jar}" />
+			<classpath location="${gwt-dev.jar}" />
 		</javac>
 
 		<javac compiler="javac1.5" listfiles="true" destdir="build/out/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
 			<src path="build/demo" />
-			<classpath location="${gwt.user.jar}" />
-			<classpath location="${gwt.dev.jar}" />
+			<classpath location="${gwt-user.jar}" />
+			<classpath location="${gwt-dev.jar}" />
 		</javac>
 
 		<copy todir="build/out/src">
@@ -181,14 +181,14 @@
 			<sourcefiles>
 				<fileset dir="build/src" />
 				<fileset dir="build/demo" />
-				<fileset file="${gwt.user.jar}" />
-				<fileset file="${gwt.dev.jar}" />
+				<fileset file="${gwt-user.jar}" />
+				<fileset file="${gwt-dev.jar}" />
 			</sourcefiles>
 
 			<targetfiles path="build/www/com.allen_sauer.gwt.dnd.demo.DragDropDemo/DragDrop.nocache.html" />
 			<sequential>
 				<mkdir dir="build/www" />
-				<java dir="build" classname="com.google.gwt.dev.GWTCompiler" classpath="build/src:build/demo:${gwt.user.jar}:${gwt.dev.jar}" fork="yes" failonerror="true">
+				<java dir="build" classname="com.google.gwt.dev.GWTCompiler" classpath="build/src:build/demo:${gwt-user.jar}:${gwt-dev.jar}" fork="yes" failonerror="true">
 					<arg value="-out" />
 					<arg path="build/www" />
 
@@ -202,7 +202,7 @@
 	</target>
 
 	<target name="javadoc">
-		<javadoc access="protected" classpath="${gwt.user.jar}:{gwt.dev.jar}" destdir="build/javadoc" doctitle="gwt-dnd - Drag-and-drop for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.5" sourcepath="build/demo" />
+		<javadoc access="protected" classpath="${gwt-user.jar}:{gwt-dev.jar}" destdir="build/javadoc" doctitle="gwt-dnd - Drag-and-drop for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.5" sourcepath="build/demo" />
 	</target>
 
 	<target name="tag">
