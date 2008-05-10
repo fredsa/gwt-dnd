@@ -85,7 +85,7 @@ public interface DropController {
   /**
    * Called just prior to {@link #onDrop(DragContext)} to
    * allow the drop operation to be cancelled by throwing a
-   * {@link VetoDropException}.
+   * {@link VetoDragException}.
    * 
    * @param context the current drag context
    * @throws VetoDragException if the proposed operation is unacceptable
