@@ -239,8 +239,7 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Determine whether or not this controller automatically creates a drag proxy
-   * for each drag operation. Whether or not a drag proxy is used is ultimately
-   * determined by the return value of {@link #maybeNewDraggableProxy(Widget)}
+   * for each drag operation.
    * 
    * @return <code>true</code> if drag proxy behavior is enabled
    */
@@ -298,8 +297,7 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Set whether or not this controller should automatically create a drag proxy
-   * for each drag operation. Whether or not a drag proxy is used is ultimately
-   * determined by the return value of {@link #maybeNewDraggableProxy(Widget)}.
+   * for each drag operation.
    * 
    * @param dragProxyEnabled <code>true</code> to enable drag proxy behavior
    */
@@ -333,7 +331,7 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Called by {@link PickupDragController#dragStart(Widget)} to allow subclasses to
+   * Called by {@link PickupDragController#dragStart()} to allow subclasses to
    * provide their own drag proxies.
    * 
    * @param context the current drag context
