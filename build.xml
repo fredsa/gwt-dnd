@@ -143,14 +143,14 @@
 
 		<javac compiler="javac1.5" listfiles="true" destdir="build/out/src" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
 			<src path="build/src" />
-			<classpath location="${gwt.location}/gwt-user.jar" />
-			<classpath location="${gwt.location}/gwt-dev-${build.host.platform}.jar" />
+			<classpath location="${gwt.user.jar}" />
+			<classpath location="${gwt.dev.jar}" />
 		</javac>
 
 		<javac compiler="javac1.5" listfiles="true" destdir="build/out/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
 			<src path="build/demo" />
-			<classpath location="${gwt.location}/gwt-user.jar" />
-			<classpath location="${gwt.location}/gwt-dev-${build.host.platform}.jar" />
+			<classpath location="${gwt.user.jar}" />
+			<classpath location="${gwt.dev.jar}" />
 		</javac>
 
 		<copy todir="build/out/src">
