@@ -39,7 +39,7 @@ class DropControllerCollection {
 
     private final DropController dropController;
 
-    private Area targetArea;
+    private final Area targetArea;
 
     Candidate(DropController dropController) {
       this.dropController = dropController;
