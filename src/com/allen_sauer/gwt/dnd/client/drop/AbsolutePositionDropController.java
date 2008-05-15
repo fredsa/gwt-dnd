@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -155,7 +154,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     // excluding positioner border in quirks and strict modes
     SimplePanel outer = new SimplePanel();
     outer.addStyleName(CSS_DRAGDROP_POSITIONER);
-    DOM.setStyleAttribute(outer.getElement(), "margin", "0px");
+    outer.getElement().getStyle().setProperty("margin", "0px");
 
     // place off screen for border calculation
     RootPanel.get().add(outer, -500, -500);
@@ -165,8 +164,8 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
 
     SimplePanel inner = new SimplePanel();
-    DOM.setStyleAttribute(inner.getElement(), "margin", "0px");
-    DOM.setStyleAttribute(inner.getElement(), "border", "none");
+    inner.getElement().getStyle().setProperty("margin", "0px");
+    inner.getElement().getStyle().setProperty("border", "none");
     int offsetWidth = reference.getOffsetWidth() - DOMUtil.getHorizontalBorders(outer);
     int offsetHeight = reference.getOffsetHeight() - DOMUtil.getVerticalBorders(outer);
     inner.setPixelSize(offsetWidth, offsetHeight);

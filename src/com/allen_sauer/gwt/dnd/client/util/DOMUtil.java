@@ -1,12 +1,12 @@
 /*
  * Copyright 2008 Fred Sauer
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -17,7 +17,7 @@ package com.allen_sauer.gwt.dnd.client.util;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
-import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -63,11 +63,10 @@ public class DOMUtil {
    * @param left the left pixel offset
    * @param top the top pixel offset
    */
-  public static native void fastSetElementPosition(Element elem, int left, int top)
-  /*-{
-    elem.style.left = left + "px";
-    elem.style.top = top + "px";
-  }-*/;
+  public static void fastSetElementPosition(Element elem, int left, int top) {
+    elem.getStyle().setPropertyPx("left", left);
+    elem.getStyle().setPropertyPx("top", top);
+  }
 
   /**
    * TODO Handle LTR case once Bidi support is part of GWT.
@@ -198,7 +197,7 @@ public class DOMUtil {
    * @return the element's node name
    */
   public static String getNodeName(Element elem) {
-    return impl.getNodeName(elem);
+    return elem.getNodeName();
   }
 
   /**
@@ -217,12 +216,12 @@ public class DOMUtil {
    * @param text the message to use as the window status
    */
   public static void setStatus(String text) {
-    impl.setStatus(text);
+    Window.setStatus(text);
   }
 
   private static void debugWidgetWithColor(IndexedPanel parent, int index, String color) {
     if (DEBUG) {
-      DOM.setStyleAttribute(parent.getWidget(index).getElement(), "border", "2px solid " + color);
+      parent.getWidget(index).getElement().getStyle().setProperty("border", "2px solid " + color);
     }
   }
 }

@@ -128,9 +128,10 @@ public interface DragController extends FiresDragEvents {
   void removeDragHandler(DragHandler handler);
 
   /**
-   * Reset the internal drop controller (drop target) cache which is initialized by
-   * {{@link #dragStart(Widget)}. This method should be called when a drop target's
-   * size and/or location changes, or when drop target eligibility changes.
+   * Reset the internal drop controller (drop target) cache which is initialized
+   * primarily by {@link AbstractDragController#dragStart()}. This method should
+   * be called when a drop target's size and/or location changes, or when drop
+   * target eligibility changes.
    */
   void resetCache();
 

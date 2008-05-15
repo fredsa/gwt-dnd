@@ -187,7 +187,7 @@ public class PickupDragController extends AbstractDragController {
     } else {
       saveSelectedWidgetsLocationAndStyle();
       AbsolutePanel container = new AbsolutePanel();
-      DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
+      container.getElement().getStyle().setProperty("overflow", "visible");
 
       container.setPixelSize(context.draggable.getOffsetWidth(),
           context.draggable.getOffsetHeight());
@@ -239,8 +239,7 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Determine whether or not this controller automatically creates a drag proxy
-   * for each drag operation. Whether or not a drag proxy is used is ultimately
-   * determined by the return value of {@link #maybeNewDraggableProxy(Widget)}
+   * for each drag operation.
    * 
    * @return <code>true</code> if drag proxy behavior is enabled
    */
@@ -298,8 +297,7 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Set whether or not this controller should automatically create a drag proxy
-   * for each drag operation. Whether or not a drag proxy is used is ultimately
-   * determined by the return value of {@link #maybeNewDraggableProxy(Widget)}.
+   * for each drag operation.
    * 
    * @param dragProxyEnabled <code>true</code> to enable drag proxy behavior
    */
@@ -333,7 +331,7 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Called by {@link PickupDragController#dragStart(Widget)} to allow subclasses to
+   * Called by {@link PickupDragController#dragStart()} to allow subclasses to
    * provide their own drag proxies.
    * 
    * @param context the current drag context
@@ -341,7 +339,7 @@ public class PickupDragController extends AbstractDragController {
    */
   protected Widget newDragProxy(DragContext context) {
     AbsolutePanel container = new AbsolutePanel();
-    DOM.setStyleAttribute(container.getElement(), "overflow", "visible");
+    container.getElement().getStyle().setProperty("overflow", "visible");
 
     WidgetArea draggableArea = new WidgetArea(context.draggable, null);
     for (Widget widget : context.selectedWidgets) {
@@ -394,7 +392,7 @@ public class PickupDragController extends AbstractDragController {
   protected void restoreSelectedWidgetsStyle() {
     for (Widget widget : context.selectedWidgets) {
       SavedWidgetInfo info = savedWidgetInfoMap.get(widget);
-      DOM.setStyleAttribute(widget.getElement(), "margin", info.initialDraggableMargin);
+      widget.getElement().getStyle().setProperty("margin", info.initialDraggableMargin);
     }
   }
 
@@ -430,7 +428,7 @@ public class PickupDragController extends AbstractDragController {
       }
 
       info.initialDraggableMargin = DOM.getStyleAttribute(widget.getElement(), "margin");
-      DOM.setStyleAttribute(widget.getElement(), "margin", "0px");
+      widget.getElement().getStyle().setProperty("margin", "0px");
       savedWidgetInfoMap.put(widget, info);
     }
   }
