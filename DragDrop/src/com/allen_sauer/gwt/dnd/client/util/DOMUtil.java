@@ -95,7 +95,7 @@ public class DOMUtil {
       assert mid >= low;
       assert mid < high;
       Widget widget = parent.getWidget(mid);
-      WidgetArea midArea = new WidgetArea(widget, null);
+      WidgetArea midArea = new WidgetArea(widget, null, false);
       if (mid == low) {
         if (mid == 0) {
           if (comparator.locationIndicatesIndexFollowingWidget(midArea, location)) {
@@ -221,7 +221,12 @@ public class DOMUtil {
 
   private static void debugWidgetWithColor(IndexedPanel parent, int index, String color) {
     if (DEBUG) {
-      parent.getWidget(index).getElement().getStyle().setProperty("border", "2px solid " + color);
+      if (index >= parent.getWidgetCount()) {
+        parent.getWidget(parent.getWidgetCount() - 1).getElement().getStyle().setProperty("border",
+            "2px dashed " + color);
+      } else {
+        parent.getWidget(index).getElement().getStyle().setProperty("border", "2px solid " + color);
+      }
     }
   }
 }
