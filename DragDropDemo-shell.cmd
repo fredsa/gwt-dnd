@@ -1,1 +1,1 @@
-@java -cp "%~dp0\src;%~dp0\demo;%~dp0\bin;%GWT15_TRUNK%/user/src;%GWT15_HOME%/gwt-user.jar;%GWT15_HOME%/gwt-dev-windows.jar" com.google.gwt.dev.GWTShell -out "%~dp0\www" %* com.allen_sauer.gwt.dnd.demo.DragDropDemo/DragDropDemo.html -style PRETTY -whitelist ^http[:][/][/]google[.]com/*
+@java -cp "%~dp0\src;%~dp0\demo;%~dp0\bin;%GWT15_HOME%/gwt-user.jar;%GWT15_HOME%/gwt-dev-windows.jar" com.google.gwt.dev.GWTShell -out "%~dp0\www" %* com.allen_sauer.gwt.dnd.demo.DragDropDemo/DragDropDemo.html -style PRETTY -whitelist ^http[:][/][/]google[.]com/*

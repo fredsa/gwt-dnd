@@ -77,7 +77,7 @@
 
 
 		<!-- gwt-dnd.libdir property -->
-		<input addproperty="gwt-dnd.libdir" defaultvalue="/fred/java/lib/gwt-dnd" message="gwt-dnd library directory" />
+		<input addproperty="gwt-dnd.libdir" defaultvalue="/fred/lib/gwt-dnd" message="gwt-dnd library directory" />
 
 		<for param="file">
 			<fileset dir="${gwt-dnd.libdir}">
@@ -115,21 +115,45 @@
 
 	<!-- Replace @GWT_DND_VERION@ with actual version of build -->
 	<target name="filter" description="Filters distro files for versioning">
-		<mkdir dir="build/src" />
+		<mkdir dir="build/out" />
 		<mkdir dir="build/demo" />
 
-		<copy todir="build/src">
-			<fileset file="LICENSE" />
-			<fileset file="NOTICE" />
-			<fileset dir="src" />
+		<copy todir="build/out">
+			<fileset dir="src">
+				<include name="**/public/**" />
+			</fileset>
+		</copy>
+
+		<copy todir="build/out">
+			<fileset dir="src">
+				<include name="**/*.java" />
+				<include name="**/*.gwt.xml" />
+			</fileset>
+			<fileset dir=".">
+				<include name="**/LICENSE" />
+				<include name="**/NOTICE" />
+			</fileset>
 			<filterset>
 				<filter token="GWT_DND_VERSION" value="${gwt-dnd.version}" />
 			</filterset>
 		</copy>
 
 		<copy todir="build/demo">
-			<fileset dir="build/src" />
-			<fileset dir="demo" />
+			<fileset dir="build/out" />
+			<fileset dir="demo">
+				<include name="**/public/**" />
+			</fileset>
+		</copy>
+
+		<copy todir="build/demo">
+			<fileset dir="demo">
+				<include name="**/*.java" />
+				<include name="**/*.gwt.xml" />
+			</fileset>
+			<fileset dir=".">
+				<include name="**/LICENSE" />
+				<include name="**/NOTICE" />
+			</fileset>
 			<filterset>
 				<filter token="GWT_DND_VERSION" value="${gwt-dnd.version}" />
 			</filterset>
@@ -137,49 +161,29 @@
 
 	</target>
 
-	<target name="build" depends="init,clean,filter">
-		<mkdir dir="build/out/src" />
-		<mkdir dir="build/out/demo" />
+	<target name="build" depends="init, clean, filter, javac, gwtc">
+	</target>
 
-		<javac compiler="javac1.5" listfiles="true" destdir="build/out/src" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
-			<src path="build/src" />
+	<target name="javac" depends="filter">
+
+		<javac compiler="javac1.5" listfiles="true" destdir="build/out" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
+			<src path="build/out" />
 			<classpath location="${gwt-user.jar}" />
 			<classpath location="${gwt-dev.jar}" />
 		</javac>
 
-		<javac compiler="javac1.5" listfiles="true" destdir="build/out/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
+		<javac compiler="javac1.5" listfiles="true" destdir="build/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
 			<src path="build/demo" />
 			<classpath location="${gwt-user.jar}" />
 			<classpath location="${gwt-dev.jar}" />
 		</javac>
 
-		<copy todir="build/out/src">
-			<fileset dir="build/src">
-				<include name="**/LICENSE" />
-				<include name="**/NOTICE" />
-				<include name="**/*.java" />
-				<include name="**/*.gwt.xml" />
-				<include name="**/public/**" />
-			</fileset>
-		</copy>
-
-		<copy todir="build/out/demo">
-			<fileset dir="build/demo">
-				<include name="**/LICENSE" />
-				<include name="**/NOTICE" />
-				<include name="**/*.java" />
-				<include name="**/*.gwt.xml" />
-				<include name="**/public/**" />
-			</fileset>
-		</copy>
-
-		<antcall target="gwtc" />
 	</target>
 
-	<target name="gwtc" description="Compile to JavaScript">
+	<target name="gwtc" description="Compile to JavaScript" depends="filter">
 		<outofdate>
 			<sourcefiles>
-				<fileset dir="build/src" />
+				<fileset dir="build/out" />
 				<fileset dir="build/demo" />
 				<fileset file="${gwt-user.jar}" />
 				<fileset file="${gwt-dev.jar}" />
@@ -188,7 +192,7 @@
 			<targetfiles path="build/www/com.allen_sauer.gwt.dnd.demo.DragDropDemo/DragDrop.nocache.html" />
 			<sequential>
 				<mkdir dir="build/www" />
-				<java dir="build" classname="com.google.gwt.dev.GWTCompiler" classpath="build/src:build/demo:${gwt-user.jar}:${gwt-dev.jar}" fork="yes" failonerror="true">
+				<java dir="build" classname="com.google.gwt.dev.GWTCompiler" classpath="build/out:build/demo:${gwt-user.jar}:${gwt-dev.jar}" fork="yes" failonerror="true">
 					<arg value="-out" />
 					<arg path="build/www" />
 
@@ -225,7 +229,7 @@
 		<mkdir dir="build/dist" />
 
 		<jar destfile="build/dist/${gwt-dnd.jar}">
-			<fileset dir="build/out/src" />
+			<fileset dir="build/out" />
 		</jar>
 		<jar basedir="build/javadoc" destfile="build/dist/${gwt-dnd.javadoc-jar}" />
 
