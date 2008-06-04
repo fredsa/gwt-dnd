@@ -15,11 +15,11 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.example.indexedpanel;
 
-import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
@@ -45,7 +45,7 @@ public final class IndexedPanelExample extends Example {
 
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET = "demo-IndexedPanelExample-widget";
 
-  private static final int ROWS = 4;
+  private static final int ROWS = 10;
 
   private static final int SPACING = 0;
 
@@ -95,11 +95,13 @@ public final class IndexedPanelExample extends Example {
           verticalPanel);
       widgetDragController.registerDropController(widgetDropController);
 
+      ScrollPanel scroll = new ScrollPanel(verticalPanel);
+      scroll.setHeight("150px");
       // Put together the column pieces
       Label heading = new Label("Column " + col);
       heading.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_HEADING);
       columnCompositePanel.add(heading);
-      columnCompositePanel.add(verticalPanel);
+      columnCompositePanel.add(scroll);
 
       // make the column draggable by its heading
       columnDragController.makeDraggable(columnCompositePanel, heading);
@@ -108,7 +110,7 @@ public final class IndexedPanelExample extends Example {
         // initialize a widget
         HTML widget = new HTML("Draggable&nbsp;#" + ++count);
         widget.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET);
-        widget.setHeight(Random.nextInt(4) + 2 + "em");
+
         verticalPanel.add(widget);
 
         // make the widget draggable
