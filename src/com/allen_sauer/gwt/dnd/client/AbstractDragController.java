@@ -223,7 +223,12 @@ public abstract class AbstractDragController implements DragController {
     assert dragStartEvent == null;
     if (dragHandlers != null) {
       dragStartEvent = new DragStartEvent(context);
-      dragHandlers.firePreviewDragStart(dragStartEvent);
+      try {
+        dragHandlers.firePreviewDragStart(dragStartEvent);
+      } catch (VetoDragException ex) {
+        dragStartEvent = null;
+        throw ex;
+      }
     }
   }
 
