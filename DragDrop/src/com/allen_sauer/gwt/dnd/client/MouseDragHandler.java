@@ -110,6 +110,9 @@ class MouseDragHandler implements MouseListener {
       context.mouseX = x + loc1.getLeft();
       context.mouseY = y + loc1.getTop();
       startDragging();
+      if (dragging == NOT_DRAGGING) {
+        return;
+      }
       actualMove(context.mouseX, context.mouseY);
     }
   }
@@ -262,6 +265,7 @@ class MouseDragHandler implements MouseListener {
       context.dragController.previewDragStart();
     } catch (VetoDragException ex) {
       context.vetoException = ex;
+      mouseDown = false;
       return;
     }
     context.dragController.dragStart();
