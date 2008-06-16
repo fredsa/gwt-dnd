@@ -4,9 +4,8 @@
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="demo"/>
 	<classpathentry kind="src" path="getting-started"/>
-	<classpathentry kind="src" path="user-src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/_Google Web Toolkit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/_gwt-1.4.61"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
