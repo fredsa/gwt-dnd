@@ -20,6 +20,11 @@ package com.allen_sauer.gwt.dnd.client.util;
  */
 public class StringUtil {
 
+  public static String getShortTypeName(Class clazz) {
+    String typeName = clazz.getName();
+    return typeName.substring(typeName.lastIndexOf('.') + 1);
+  }
+
   /**
    * Return short classname of <code>obj</code>.
    * 

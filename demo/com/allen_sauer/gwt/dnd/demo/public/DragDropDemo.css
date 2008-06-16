@@ -428,9 +428,9 @@ DIV.demo-main-boundary-panel {
   padding: 2px 6px;
 }
 
-.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-last .gwt-TabBarItem,
-.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-last .gwt-TabBarFirst,
-.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-last .gwt-TabBarRest {
+.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-row .gwt-TabBarItem,
+.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-row .gwt-TabBarFirst,
+.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-row .gwt-TabBarRest {
   border-bottom: 1px solid #87B3FF;
 }
 

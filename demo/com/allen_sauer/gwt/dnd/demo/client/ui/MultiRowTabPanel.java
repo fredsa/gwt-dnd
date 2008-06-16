@@ -15,6 +15,8 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.ui;
 
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -30,9 +32,9 @@ public class MultiRowTabPanel extends Composite {
 
   private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_BOTTOM = "demo-MultiRowTabPanel-bottom";
 
-  private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_FIRST = "demo-MultiRowTabPanel-first";
+  private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_ROW = "demo-MultiRowTabPanel-row";
 
-  private static final String CSS_DEMO_MULTI_ROW_TAB_PANEL_LAST = "demo-MultiRowTabPanel-last";
+  private MultiRowTabHistoryTokens historyTokenMap = new MultiRowTabHistoryTokens();
 
   private DeckPanel masterDeckPanel;
 
@@ -59,9 +61,17 @@ public class MultiRowTabPanel extends Composite {
     masterDeckPanel.addStyleName(CSS_DEMO_MULTI_ROW_TAB_PANEL_BOTTOM);
     containerPanel.add(tabBarsVerticalPanel);
     containerPanel.add(masterDeckPanel);
+    History.addHistoryListener(new HistoryListener() {
+      public void onHistoryChanged(String historyToken) {
+        Integer tabIndex = historyTokenMap.getIndex(historyToken);
+        if (tabIndex != null) {
+          selectTab(tabIndex);
+        }
+      }
+    });
   }
 
-  public void add(Widget widget, Label tabLabel) {
+  public void add(Widget widget, Label tabLabel, String historyToken) {
     int row = tabCount / tabsPerRow;
     while (row >= rows) {
       addRow();
@@ -70,6 +80,7 @@ public class MultiRowTabPanel extends Composite {
     masterDeckPanel.add(widget);
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);
     tabBar.addTab(tabLabel);
+    historyTokenMap.add(historyToken);
   }
 
   public void addTabBarStyleName(String style) {
@@ -81,7 +92,6 @@ public class MultiRowTabPanel extends Composite {
   }
 
   public void selectTab(int index) {
-    // TODO Account for tab bars having been rotated out of their original position
     int row = index / tabsPerRow;
     int tabIndex = index % tabsPerRow;
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);
@@ -103,27 +113,9 @@ public class MultiRowTabPanel extends Composite {
       }
     });
     tabBarIndexOffsetMap.put(tabBar, Integer.valueOf(tabCount));
+    tabBarsVerticalPanel.setCellStyleName(tabBar, CSS_DEMO_MULTI_ROW_TAB_PANEL_ROW);
 
     rows++;
-    setTabBarFirstLastStyleNames();
-  }
-
-  private void rotateSelectedRowToBottom() {
-    for (int i = 0; i <= selectedRow; i++) {
-      tabBarsVerticalPanel.add(tabBarsVerticalPanel.getWidget(0));
-    }
-    setTabBarFirstLastStyleNames();
-    selectedRow = rows - 1;
-  }
-
-  private void setTabBarFirstLastStyleNames() {
-    tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(0),
-        CSS_DEMO_MULTI_ROW_TAB_PANEL_FIRST);
-    for (int i = 1; i < rows - 1; i++) {
-      tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(i), "");
-    }
-    tabBarsVerticalPanel.setCellStyleName(tabBarsVerticalPanel.getWidget(rows - 1),
-        CSS_DEMO_MULTI_ROW_TAB_PANEL_LAST);
   }
 
   private void whenTabSelected(int row, int tabIndex) {
@@ -138,10 +130,11 @@ public class MultiRowTabPanel extends Composite {
           tabBar.selectTab(-1);
         }
       }
-      rotateSelectedRowToBottom();
     }
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(selectedRow);
     Integer widgetOffset = tabBarIndexOffsetMap.get(tabBar);
-    masterDeckPanel.showWidget(widgetOffset.intValue() + tabIndex);
+    int index = widgetOffset.intValue() + tabIndex;
+    masterDeckPanel.showWidget(index);
+    History.newItem(historyTokenMap.getHistoryToken(index));
   }
 }
