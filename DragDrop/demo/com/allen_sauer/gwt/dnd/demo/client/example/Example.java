@@ -19,6 +19,7 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.DragController;
+import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 
 /**
  * Class representing a single drag-and-drop example.
@@ -62,6 +63,10 @@ public abstract class Example extends SimplePanel {
    */
   public DragController getDragController() {
     return dragController;
+  }
+
+  public String getHistoryToken() {
+    return StringUtil.getShortTypeName(getInvolvedClasses()[0]);
   }
 
   /**

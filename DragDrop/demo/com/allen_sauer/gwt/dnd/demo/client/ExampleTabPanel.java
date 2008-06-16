@@ -1,12 +1,12 @@
 /*
  * Copyright 2008 Fred Sauer
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -30,7 +30,6 @@ import com.allen_sauer.gwt.dnd.demo.client.util.GWTUtil;
  * for each example.
  */
 public final class ExampleTabPanel extends MultiRowTabPanel {
-
   private static final String CSS_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
 
   private static final String CSS_DEMO_EXAMPLE_TAB_PANEL_TAB_BAR = "demo-ExampleTabPanel-tab-bar";
@@ -75,6 +74,6 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
     String title = DOMUtil.adjustTitleForBrowser(StringUtil.getShortTypeName(example) + "\n"
         + example.getDescription());
     tabLabel.setTitle(title);
-    add(verticalPanel, tabLabel);
+    add(verticalPanel, tabLabel, example.getHistoryToken());
   }
 }
