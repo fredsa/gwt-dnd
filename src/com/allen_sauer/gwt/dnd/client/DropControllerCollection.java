@@ -48,7 +48,7 @@ class DropControllerCollection {
         throw new IllegalStateException(
             "Unattached drop target. You must call DragController#unregisterDropController for all drop targets not attached to the DOM.");
       }
-      targetArea = new WidgetArea(target, null, true);
+      targetArea = new WidgetArea(target, null, false);
     }
 
     public int compareTo(Candidate other) {
