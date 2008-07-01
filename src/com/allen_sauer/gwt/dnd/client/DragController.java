@@ -54,6 +54,14 @@ public interface DragController extends FiresDragEvents {
   void dragStart();
 
   /**
+   * Whether or not any selected regions should be unselected
+   * by dragging.
+   * 
+   * @return <code>true</code> if cancel selections behavior in on
+   */
+  boolean getBehaviorCancelDocumentSelections();
+
+  /**
    * Determine whether or not drag operations are constrained to the boundary panel.
    * 
   * @return <code>true</code> if drags are constrained to the boundary panel
@@ -134,6 +142,14 @@ public interface DragController extends FiresDragEvents {
    * target eligibility changes.
    */
   void resetCache();
+
+  /**
+   * Set whether or not document selections should be canceled by dragging.
+   * The default is <code>true</code>.
+   * 
+   * @param cancelDocumentSelections <code>true</code> if dragging should cancel document selections
+   */
+  void setBehaviorCancelDocumentSelections(boolean cancelDocumentSelections);
 
   /**
    * Set whether or not movable widget is to be constrained to the boundary panel

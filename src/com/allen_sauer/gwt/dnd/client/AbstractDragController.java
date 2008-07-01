@@ -63,6 +63,8 @@ public abstract class AbstractDragController implements DragController {
    */
   AbsolutePanel boundaryPanel;
 
+  private boolean cancelDocumentSelections = true;
+
   /**
    * Whether or not widgets are physically constrained to the boundary panel.
    */
@@ -146,6 +148,10 @@ public abstract class AbstractDragController implements DragController {
     }
     context.draggable.addStyleName(PRIVATE_CSS_DRAGGING);
     assert dragStartEvent == null;
+  }
+
+  public boolean getBehaviorCancelDocumentSelections() {
+    return cancelDocumentSelections;
   }
 
   public boolean getBehaviorConstrainedToBoundaryPanel() {
@@ -239,6 +245,10 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void resetCache() {
+  }
+
+  public void setBehaviorCancelDocumentSelections(boolean cancelDocumentSelections) {
+    this.cancelDocumentSelections = cancelDocumentSelections;
   }
 
   public void setBehaviorConstrainedToBoundaryPanel(boolean constrainedToBoundaryPanel) {

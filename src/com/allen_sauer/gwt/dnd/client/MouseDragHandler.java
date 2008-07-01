@@ -87,12 +87,13 @@ class MouseDragHandler implements MouseListener {
       context.dragController.clearSelection();
       context.dragController.toggleSelection(context.draggable);
     }
-    DeferredCommand.addCommand(new Command() {
-
-      public void execute() {
-        DOMUtil.cancelAllDocumentSelections();
-      }
-    });
+    if (context.dragController.getBehaviorCancelDocumentSelections()) {
+      DeferredCommand.addCommand(new Command() {
+        public void execute() {
+          DOMUtil.cancelAllDocumentSelections();
+        }
+      });
+    }
 
     mouseDown = true;
     DOM.eventPreventDefault(event);
@@ -138,7 +139,9 @@ class MouseDragHandler implements MouseListener {
     } else {
       if (mouseDown) {
         if (Math.max(Math.abs(x - mouseDownOffsetX), Math.abs(y - mouseDownOffsetY)) >= context.dragController.getBehaviorDragStartSensitivity()) {
-          DOMUtil.cancelAllDocumentSelections();
+          if (context.dragController.getBehaviorCancelDocumentSelections()) {
+            DOMUtil.cancelAllDocumentSelections();
+          }
           if (!context.selectedWidgets.contains(context.draggable)) {
             context.dragController.toggleSelection(context.draggable);
           }
@@ -172,7 +175,9 @@ class MouseDragHandler implements MouseListener {
       return;
     }
 
-    DOMUtil.cancelAllDocumentSelections();
+    if (context.dragController.getBehaviorCancelDocumentSelections()) {
+      DOMUtil.cancelAllDocumentSelections();
+    }
     if (dragging == NOT_DRAGGING) {
       doSelectionToggle(event);
       return;
