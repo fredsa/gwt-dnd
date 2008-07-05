@@ -89,6 +89,10 @@
 			</sequential>
 		</for>
 
+	</target>
+
+	<target name="lib-locations">
+
 		<!-- gwt-dnd.version property -->
 		<input addproperty="gwt-dnd.version" defaultvalue="0.0.0" message="gwt-dnd library version" />
 
@@ -161,7 +165,7 @@
 
 	</target>
 
-	<target name="build" depends="init, clean, filter, javac, gwtc">
+	<target name="build" depends="init, lib-locations, clean, filter, javac, gwtc">
 	</target>
 
 	<target name="javac" depends="filter">
@@ -242,6 +246,21 @@
 
 	<target name="clean">
 		<delete dir="build" />
+		<delete dir=".gwt-cache" />
+		<delete dir="www" />
+		<delete dir="tomcat" />
+	</target>
+
+	<target name="deploy" depends="clean, init, gwtc">
+
+		<scp todir="sauer@allen-sauer.com:" knownhosts="c:\fred\.ssh\known_hosts" keyfile="c:\fred\.ssh\id_dsa" passphrase="" verbose="true">
+			<fileset dir="build/www">
+				<include name="com.allen_sauer.gwt.dnd.demo.DragDropDemo/**" />
+			</fileset>
+		</scp>
+
+		<sshexec command="./deploy.sh com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="c:\fred\.ssh\known_hosts" keyfile="c:\fred\.ssh\id_dsa" passphrase="" />
+
 	</target>
 
 </project>
