@@ -20,6 +20,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -175,7 +176,15 @@ public final class DragDropDemo implements EntryPoint {
 
     examples.add(new PaletteExample(demoDragHandler));
 
-    // select the first example
-    examples.selectTab(Random.nextInt(examples.getTabCount() - 1));
+    if (History.getToken().length() == 0) {
+      // select a random example
+      examples.selectTab(Random.nextInt(examples.getTabCount() - 1));
+    } else {
+      DeferredCommand.addCommand(new Command() {
+        public void execute() {
+          History.onHistoryChanged(History.getToken());
+        }
+      });
+    }
   }
 }
