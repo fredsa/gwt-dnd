@@ -102,11 +102,20 @@ DIV.demo-main-boundary-panel {
 
 /* ------------ IndexedPanelExample ------------ */
 .demo-IndexedPanelExample .demo-IndexedPanelExample-widget ,
-.demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
-  border: 1px solid blue;
+.demo-IndexedPanelExample .demo-IndexedPanelExample-heading ,
+.demo-IndexedPanelExample .demo-IndexedPanelExample-spacer {
   padding: 0.1em;
   margin: 0.1em;
   width: 120px;
+}
+
+.demo-IndexedPanelExample .demo-IndexedPanelExample-widget ,
+.demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
+  border: 1px solid blue;
+}
+
+.demo-IndexedPanelExample .demo-IndexedPanelExample-spacer {
+  height: 50px;
 }
 
 .demo-IndexedPanelExample .demo-IndexedPanelExample-widget {

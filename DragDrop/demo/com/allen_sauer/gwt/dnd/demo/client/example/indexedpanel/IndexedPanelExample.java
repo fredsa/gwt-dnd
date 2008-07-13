@@ -43,6 +43,7 @@ public final class IndexedPanelExample extends Example {
 
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_HEADING = "demo-IndexedPanelExample-heading";
 
+  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_SPACER = "demo-IndexedPanelExample-spacer";
   private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET = "demo-IndexedPanelExample-widget";
 
   private static final int ROWS = 4;
@@ -118,7 +119,7 @@ public final class IndexedPanelExample extends Example {
       // prevent vertical panel from collapsing to zero when last widget is
       // removed
       Label spacerLabel = new Label("");
-      spacerLabel.setPixelSize(10, 50);
+      spacerLabel.setStylePrimaryName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_SPACER);
       verticalPanel.add(spacerLabel);
     }
   }
