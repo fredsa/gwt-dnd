@@ -61,7 +61,6 @@ public class MultiRowTabPanel extends Composite {
     masterDeckPanel.addStyleName(CSS_DEMO_MULTI_ROW_TAB_PANEL_BOTTOM);
     containerPanel.add(tabBarsVerticalPanel);
     containerPanel.add(masterDeckPanel);
-    System.out.println("History.addHistoryListener");
     History.addHistoryListener(new HistoryListener() {
       public void onHistoryChanged(String historyToken) {
         Integer tabIndex = historyTokenMap.getIndex(historyToken);
