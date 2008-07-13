@@ -3,7 +3,6 @@
 	<name>DragDrop</name>
 	<comment>gwt-dnd - Drag-and-Drop support for your Google Web Toolkit applications</comment>
 	<projects>
-		<project>gwt-lang</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
