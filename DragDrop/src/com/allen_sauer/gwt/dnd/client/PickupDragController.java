@@ -217,7 +217,8 @@ public class PickupDragController extends AbstractDragController {
     }
     movablePanel.addStyleName(PRIVATE_CSS_MOVABLE_PANEL);
 
-    // one time calculation of boundary panel location for efficiency during dragging
+    // one time calculation of boundary panel location for efficiency during
+    // dragging
     Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
     boundaryOffsetX = widgetLocation.getLeft()
         + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
@@ -363,7 +364,8 @@ public class PickupDragController extends AbstractDragController {
     for (Widget widget : context.selectedWidgets) {
       SavedWidgetInfo info = savedWidgetInfoMap.get(widget);
 
-      // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
+      // TODO simplify after enhancement for issue 1112 provides InsertPanel
+      // interface
       // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
       if (info.initialDraggableParent instanceof AbsolutePanel) {
         ((AbsolutePanel) info.initialDraggableParent).add(widget,
@@ -407,7 +409,8 @@ public class PickupDragController extends AbstractDragController {
       SavedWidgetInfo info = new SavedWidgetInfo();
       info.initialDraggableParent = widget.getParent();
 
-      // TODO simplify after enhancement for issue 1112 provides InsertPanel interface
+      // TODO simplify after enhancement for issue 1112 provides InsertPanel
+      // interface
       // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
       if (info.initialDraggableParent instanceof AbsolutePanel) {
         info.initialDraggableParentLocation = new WidgetLocation(widget,
@@ -424,7 +427,9 @@ public class PickupDragController extends AbstractDragController {
         throw new RuntimeException(
             "Unable to handle 'initialDraggableParent instanceof "
                 + info.initialDraggableParent.getClass().getName()
-                + "'; Please create your own DragController and override saveDraggableLocationAndStyle() and restoreDraggableLocation()");
+                + "'; Please create your own "
+                + PickupDragController.class.getSimpleName()
+                + " and override saveSelectedWidgetsLocationAndStyle(), restoreSelectedWidgetsLocation() and restoreSelectedWidgetsStyle()");
       }
 
       info.initialDraggableMargin = DOM.getStyleAttribute(widget.getElement(), "margin");
