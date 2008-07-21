@@ -428,7 +428,7 @@ public class PickupDragController extends AbstractDragController {
             "Unable to handle 'initialDraggableParent instanceof "
                 + info.initialDraggableParent.getClass().getName()
                 + "'; Please create your own "
-                + PickupDragController.class.getSimpleName()
+                + PickupDragController.class.getName()
                 + " and override saveSelectedWidgetsLocationAndStyle(), restoreSelectedWidgetsLocation() and restoreSelectedWidgetsStyle()");
       }
 
