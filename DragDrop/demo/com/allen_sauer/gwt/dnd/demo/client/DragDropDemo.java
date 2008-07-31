@@ -143,7 +143,7 @@ public final class DragDropDemo implements EntryPoint {
     boundaryPanel.add(createDraggable(), 60, 510);
 
     // TabPanel to hold our examples
-    ExampleTabPanel examples = new ExampleTabPanel(7);
+    final ExampleTabPanel examples = new ExampleTabPanel(7);
     examples.setWidth("650px");
     boundaryPanel.add(examples, 220, 10);
 
@@ -176,13 +176,14 @@ public final class DragDropDemo implements EntryPoint {
 
     examples.add(new PaletteExample(demoDragHandler));
 
-    if (History.getToken().length() == 0) {
+    final String initToken = History.getToken();
+    if (initToken.length() == 0) {
       // select a random example
       examples.selectTab(Random.nextInt(examples.getTabCount() - 1));
     } else {
       DeferredCommand.addCommand(new Command() {
         public void execute() {
-          History.onHistoryChanged(History.getToken());
+          examples.selectTabByHistoryToken(initToken);
         }
       });
     }
