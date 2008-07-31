@@ -63,10 +63,7 @@ public class MultiRowTabPanel extends Composite {
     containerPanel.add(masterDeckPanel);
     History.addHistoryListener(new HistoryListener() {
       public void onHistoryChanged(String historyToken) {
-        Integer tabIndex = historyTokenMap.getIndex(historyToken);
-        if (tabIndex != null) {
-          selectTab(tabIndex);
-        }
+        selectTabByHistoryToken(historyToken);
       }
     });
   }
@@ -96,6 +93,13 @@ public class MultiRowTabPanel extends Composite {
     int tabIndex = index % tabsPerRow;
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);
     tabBar.selectTab(tabIndex);
+  }
+
+  public void selectTabByHistoryToken(String historyToken) {
+    Integer tabIndex = historyTokenMap.getIndex(historyToken);
+    if (tabIndex != null) {
+      selectTab(tabIndex);
+    }
   }
 
   private void addRow() {
