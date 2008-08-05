@@ -63,6 +63,7 @@
 		<property name="javac.nowarn" value="true" />
 		<property name="javac.source" value="1.5" />
 		<property name="javac.target" value="1.5" />
+		<property name="javac.memoryMaximumSize" value="1g" />
 
 		<!-- gwt jars -->
 		<property name="gwt-user.jar" location="${gwt.location}/gwt-user.jar" />
@@ -196,7 +197,7 @@
 			<targetfiles path="build/www/com.allen_sauer.gwt.dnd.demo.DragDropDemo/DragDrop.nocache.html" />
 			<sequential>
 				<mkdir dir="build/www" />
-				<java dir="build" classname="com.google.gwt.dev.GWTCompiler" classpath="build/out:build/demo:${gwt-user.jar}:${gwt-dev.jar}" fork="yes" failonerror="true">
+				<java maxmemory="1g" dir="build" classname="com.google.gwt.dev.GWTCompiler" classpath="build/out:build/demo:${gwt-user.jar}:${gwt-dev.jar}" fork="yes" failonerror="true">
 					<arg value="-out" />
 					<arg path="build/www" />
 
