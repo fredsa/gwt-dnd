@@ -151,6 +151,9 @@ class MouseDragHandler implements MouseListener {
           Location location = new WidgetLocation(mouseDownWidget, null);
           x += location.getLeft();
           y += location.getTop();
+        } else {
+          // prevent IE image drag when drag sensitivity > 5
+          DOM.eventPreventDefault(DOM.eventGetCurrentEvent());
         }
       }
       if (dragging == NOT_DRAGGING) {
