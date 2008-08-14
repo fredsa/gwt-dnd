@@ -214,6 +214,12 @@
 		<javadoc access="protected" classpath="${gwt-user.jar}:{gwt-dev.jar}" destdir="build/javadoc" doctitle="gwt-dnd - Drag-and-drop for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.5" sourcepath="build/demo" />
 	</target>
 
+  <target name="stat">
+    <exec executable="svn">
+      <arg value="stat" />
+    </exec>
+  </target>
+
 	<target name="tag">
 		<exec executable="svn">
 			<arg value="ls" />
@@ -243,6 +249,8 @@
 		</copy>
 
 		<antcall target="tag" />
+
+		<antcall target="stat" />
 	</target>
 
 	<target name="clean">
