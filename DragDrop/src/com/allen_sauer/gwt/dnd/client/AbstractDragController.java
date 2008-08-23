@@ -15,8 +15,12 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -141,6 +145,16 @@ public abstract class AbstractDragController implements DragController {
   }
 
   public void dragStart() {
+    if (!GWT.isScript()) {
+      if (DOMUtil.getClientHeight(boundaryPanel.getElement()) == 0) {
+        if (boundaryPanel.getElement().equals(RootPanel.getBodyElement())) {
+          throw new RuntimeException("boundary panel (= the BODY element) has zero height; "
+              + "you may want to add the following CSS to your (standards rendering mode) application: BODY, HTML { height: 100%; }");
+        } else {
+          throw new RuntimeException("boundary panel has zero height");
+        }
+      }
+    }
     resetCache();
     if (dragHandlers != null) {
       dragHandlers.fireDragStart(dragStartEvent);
