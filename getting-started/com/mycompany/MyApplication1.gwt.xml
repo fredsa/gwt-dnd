@@ -23,8 +23,6 @@
 	<inherits name='com.allen_sauer.gwt.dnd.gwt-dnd'/>
 		
 	<!-- Specify the app entry point class.                   -->
-	<entry-point class='com.mycompany.client.MyApplication'/>
-  
-  <stylesheet src='MyApplication.css'/>
+	<entry-point class='com.mycompany.client.MyApplication1'/>
   
 </module>

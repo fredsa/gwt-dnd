@@ -34,7 +34,7 @@ import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 /**
  * Illustrative example.
  */
-public class MyApplication implements EntryPoint {
+public class MyApplication2 implements EntryPoint {
 
   /**
    * Main entry point method.
