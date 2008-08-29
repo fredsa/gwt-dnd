@@ -134,6 +134,7 @@ public class PickupDragController extends AbstractDragController {
             + " is often caused by using the result of RootPanel.get(\"some-unique-id\") as your boundary"
             + " panel, as described in GWT issue 1813"
             + " (http://code.google.com/p/google-web-toolkit/issues/detail?id=1813)."
+            + " Please star / vote for this issue if it has just affected your application."
             + " You can often remedy this problem by adding one line of code to your application:"
             + " boundaryPanel.getElement().getStyle().setProperty(\"position\", \"relative\");";
         DOMUtil.reportFatal(msg);
