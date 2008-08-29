@@ -128,7 +128,7 @@ public class PickupDragController extends AbstractDragController {
   private void checkGWTIssue1813(Widget child, AbsolutePanel parent) {
     if (!GWT.isScript()) {
       if (child.getElement().getOffsetParent() != parent.getElement()) {
-        String msg = "gwt-dnd warning: The boundary panel for this drag controller does not appear to have"
+        DOMUtil.reportFatalAndThrowRuntimeException("The boundary panel for this drag controller does not appear to have"
             + " 'position: relative' CSS applied to it."
             + " This may be due to custom CSS in your application, although this"
             + " is often caused by using the result of RootPanel.get(\"some-unique-id\") as your boundary"
@@ -136,8 +136,7 @@ public class PickupDragController extends AbstractDragController {
             + " (http://code.google.com/p/google-web-toolkit/issues/detail?id=1813)."
             + " Please star / vote for this issue if it has just affected your application."
             + " You can often remedy this problem by adding one line of code to your application:"
-            + " boundaryPanel.getElement().getStyle().setProperty(\"position\", \"relative\");";
-        DOMUtil.reportFatal(msg);
+            + " boundaryPanel.getElement().getStyle().setProperty(\"position\", \"relative\");");
       }
     }
   }

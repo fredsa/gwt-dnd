@@ -220,7 +220,8 @@ public class DOMUtil {
     return impl.getVerticalBorders(widget);
   }
 
-  public static void reportFatal(String msg) {
+  public static void reportFatalAndThrowRuntimeException(String msg) throws RuntimeException {
+    msg = "gwt-dnd warning: " + msg;
     Window.alert(msg);
     throw new RuntimeException(msg);
   }
