@@ -15,26 +15,23 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
+import java.util.HashMap;
+import java.util.Iterator;
+
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-
-import java.util.HashMap;
-import java.util.Iterator;
-
-/**
+/*
  * {@link DragController} which performs the bare essentials such as
  * adding/removing styles, maintaining collections, adding mouse listeners, etc.
  * 
- * <p>
- * Extend this class to implement specialized drag capabilities such table
+ * <p> Extend this class to implement specialized drag capabilities such table
  * column or panel resizing. For classic drag-and-drop functionality, i.e. the
- * ability to pickup, move around and drop widgets, use
- * {@link PickupDragController}.
- * </p>
+ * ability to pickup, move around and drop widgets, use {@link
+ * PickupDragController}. </p>
  */
 public abstract class AbstractDragController implements DragController {
 
@@ -58,11 +55,6 @@ public abstract class AbstractDragController implements DragController {
   }-*/;
 
   /**
-   * The drag controller's drag context.
-   */
-  protected final DragContext context;
-
-  /**
    * The boundary panel to which all drag operations are constrained.
    */
   AbsolutePanel boundaryPanel;
@@ -73,6 +65,11 @@ public abstract class AbstractDragController implements DragController {
    * Whether or not widgets are physically constrained to the boundary panel.
    */
   private boolean constrainedToBoundaryPanel;
+
+  /**
+   * The drag controller's drag context.
+   */
+  protected final DragContext context;
 
   /**
    * The current drag end event, created in {@link #previewDragEnd()}
@@ -148,10 +145,13 @@ public abstract class AbstractDragController implements DragController {
     if (!GWT.isScript()) {
       if (DOMUtil.getClientHeight(boundaryPanel.getElement()) == 0) {
         if (boundaryPanel.getElement().equals(RootPanel.getBodyElement())) {
-          throw new RuntimeException("boundary panel (= the BODY element) has zero height; "
-              + "you may want to add the following CSS to your (standards rendering mode) application: BODY, HTML { height: 100%; }");
+          DOMUtil.reportFatalAndThrowRuntimeException("boundary panel (= the BODY element) has zero height;"
+              + " dragging cannot occur inside an AbsolutePanel that has a height of zero pixels;"
+              + " you can often remedy this quite easily by adding the following line of"
+              + " CSS to your application's stylesheet:" + " BODY, HTML { height: 100%; }");
         } else {
-          throw new RuntimeException("boundary panel has zero height");
+          DOMUtil.reportFatalAndThrowRuntimeException("boundary panel has zero height;"
+              + " dragging cannot occur inside an AbsolutePanel that has a height of zero pixels");
         }
       }
     }
