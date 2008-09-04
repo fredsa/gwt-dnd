@@ -48,7 +48,7 @@ class DropControllerCollection {
         throw new IllegalStateException(
             "Unattached drop target. You must call DragController#unregisterDropController for all drop targets not attached to the DOM.");
       }
-      targetArea = new WidgetArea(target, null, false);
+      targetArea = new WidgetArea(target, null);
     }
 
     public int compareTo(Candidate other) {
@@ -132,7 +132,7 @@ class DropControllerCollection {
     ArrayList<Candidate> list = new ArrayList<Candidate>();
 
     if (context.draggable != null) {
-      WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null, true);
+      WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
       for (DropController dropController : dropControllerList) {
         Candidate candidate = new Candidate(dropController);
         if (DOM.isOrHasChild(context.draggable.getElement(), candidate.getDropTarget().getElement())) {
