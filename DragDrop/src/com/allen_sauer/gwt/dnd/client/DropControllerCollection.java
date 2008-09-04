@@ -132,7 +132,7 @@ class DropControllerCollection {
     ArrayList<Candidate> list = new ArrayList<Candidate>();
 
     if (context.draggable != null) {
-      WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null, true);
+      WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null, false);
       for (DropController dropController : dropControllerList) {
         Candidate candidate = new Candidate(dropController);
         if (DOM.isOrHasChild(context.draggable.getElement(), candidate.getDropTarget().getElement())) {
