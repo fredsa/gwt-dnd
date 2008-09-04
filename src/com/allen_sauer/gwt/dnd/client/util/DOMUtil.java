@@ -105,7 +105,7 @@ public class DOMUtil {
       assert mid >= low;
       assert mid < high;
       Widget widget = parent.getWidget(mid);
-      WidgetArea midArea = new WidgetArea(widget, null, false);
+      WidgetArea midArea = new WidgetArea(widget, null);
       if (mid == low) {
         if (mid == 0) {
           if (comparator.locationIndicatesIndexFollowingWidget(midArea, location)) {

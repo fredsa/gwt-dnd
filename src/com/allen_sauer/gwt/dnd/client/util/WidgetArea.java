@@ -15,7 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client.util;
 
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -43,9 +42,8 @@ public class WidgetArea extends AbstractArea {
    * @param reference the widget relative to which we seek our area. If
    *            <code>null</code>, then <code>RootPanel().get()</code> is
    *            assumed
-   * @param adjustForOffsetParentViewPorts whether or not to account for offset parent view ports
    */
-  public WidgetArea(Widget widget, Widget reference, boolean adjustForOffsetParentViewPorts) {
+  public WidgetArea(Widget widget, Widget reference) {
     setLeft(widget.getAbsoluteLeft());
     setTop(widget.getAbsoluteTop());
 
@@ -56,24 +54,5 @@ public class WidgetArea extends AbstractArea {
     }
     setRight(getLeft() + widget.getOffsetWidth());
     setBottom(getTop() + widget.getOffsetHeight());
-
-    if (adjustForOffsetParentViewPorts) {
-      Element elem = widget.getElement().getOffsetParent();
-      Element p;
-      while (elem != null && (p = elem.getOffsetParent()) != null) {
-        int temp;
-        if ((temp = getWidth() - DOMUtil.getClientWidth(elem)) > 0) {
-          setRight(getRight() - temp);
-        }
-        if ((temp = getHeight() - DOMUtil.getClientHeight(elem)) > 0) {
-          setBottom(getBottom() - temp);
-        }
-        setLeft(getLeft() + elem.getScrollLeft());
-        setRight(getRight() + elem.getScrollLeft());
-        setTop(getTop() + elem.getScrollTop());
-        setBottom(getBottom() + elem.getScrollTop());
-        elem = p;
-      }
-    }
   }
 }
