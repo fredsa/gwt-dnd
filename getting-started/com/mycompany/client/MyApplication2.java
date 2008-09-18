@@ -16,88 +16,120 @@
 package com.mycompany.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
-import com.allen_sauer.gwt.dnd.client.drop.SimpleDropController;
+import com.allen_sauer.gwt.dnd.client.drop.AbsolutePositionDropController;
+import com.allen_sauer.gwt.dnd.client.drop.DropController;
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 
 /**
  * Illustrative example.
  */
 public class MyApplication2 implements EntryPoint {
 
-  public class IconDropController extends SimpleDropController {
+  /**
+   * Main entry point method.
+   */
+  public void onModuleLoad() {
+    // set uncaught exception handler
+    GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 
-    public IconDropController(Panel panel) {
-      super(panel);
-    }
+      public void onUncaughtException(Throwable throwable) {
+        String text = "Uncaught exception: ";
+        while (throwable != null) {
+          StackTraceElement[] stackTraceElements = throwable.getStackTrace();
+          text += throwable.toString() + "\n";
+          for (StackTraceElement element : stackTraceElements) {
+            text += "    at " + element + "\n";
+          }
+          throwable = throwable.getCause();
+          if (throwable != null) {
+            text += "Caused by: ";
+          }
+        }
+        DialogBox dialogBox = new DialogBox(true);
+        DOM.setStyleAttribute(dialogBox.getElement(), "backgroundColor", "#ABCDEF");
+        System.err.print(text);
+        text = text.replaceAll(" ", "&nbsp;");
+        dialogBox.setHTML("<pre>" + text + "</pre>");
+        dialogBox.center();
+      }
+    });
 
-    @Override
-    public void onDrop(DragContext context) {
-      super.onDrop(context);
-      Widget draggable = context.draggable;
-      int top = context.desiredDraggableY - context.boundaryPanel.getAbsoluteTop();
-      int left = context.desiredDraggableX - context.boundaryPanel.getAbsoluteLeft();
-      draggable.getElement().getStyle().setProperty("top", top + "px");
-      draggable.getElement().getStyle().setProperty("left", left + "px");
-    }
+    // use a deferred command so that the handler catches onModuleLoad2() exceptions
+    DeferredCommand.addCommand(new Command() {
+
+      public void execute() {
+        onModuleLoad2();
+      }
+    });
   }
 
-  public void onModuleLoad() {
-    ScrollPanel scrP = new ScrollPanel();
-    scrP.setSize("400px", "500px");
-    RootPanel.get().add(scrP);
-    VerticalPanel vp = new VerticalPanel();
-    scrP.add(vp);
-    AbsolutePanel fp1 = new AbsolutePanel();
-    fp1.setSize("350px", "500px");
-    fp1.getElement().getStyle().setProperty("border", "solid 2px black");
-    AbsolutePanel fp2 = new AbsolutePanel();
-    fp2.setSize("350px", "500px");
-    fp2.getElement().getStyle().setProperty("border", "solid 2px black");
-    AbsolutePanel fp3 = new AbsolutePanel();
-    fp3.setSize("350px", "500px");
-    fp3.getElement().getStyle().setProperty("border", "solid 2px black");
-    AbsolutePanel fp4 = new AbsolutePanel();
-    fp4.setSize("350px", "500px");
-    fp4.getElement().getStyle().setProperty("border", "solid 2px black");
-    vp.add(fp1);
-    vp.add(fp2);
-    vp.add(fp3);
-    vp.add(fp4);
-    Image l1 = new Image();
-    l1.setSize("40px", "40px");
-    l1.getElement().getStyle().setProperty("position", "absolute");
-    l1.getElement().getStyle().setProperty("background", "red");
-    Image l2 = new Image();
-    l2.setSize("40px", "40px");
-    l2.getElement().getStyle().setProperty("position", "absolute");
-    l2.getElement().getStyle().setProperty("background", "lime");
-    fp1.add(l2);
-    fp4.add(l1);
+  /**
+   * Deferred initialization method, called from {@link #onModuleLoad()}.
+   */
+  private void onModuleLoad2() {
+    // Create a boundary panel to constrain all drag operations
+    AbsolutePanel boundaryPanel = new AbsolutePanel();
+    boundaryPanel.setPixelSize(400, 300);
+    boundaryPanel.addStyleName("getting-started-blue");
 
-    // setup dragging
-    PickupDragController dragController = new PickupDragController(fp1, false);
-    dragController.setBehaviorDragProxy(true);
-    dragController.setBehaviorMultipleSelection(false);
-    dragController.setBehaviorConstrainedToBoundaryPanel(true);
-    dragController.makeDraggable(l2);
-    IconDropController dropController = new IconDropController(fp1);
+    // Create a drop target on which we can drop labels
+    AbsolutePanel targetPanel = new AbsolutePanel();
+    targetPanel.setPixelSize(300, 200);
+    targetPanel.addStyleName("getting-started-blue");
+
+    // Add both panels to the root panel
+    RootPanel.get().add(boundaryPanel);
+    boundaryPanel.add(targetPanel, 40, 40);
+
+    // Create a DragController for each logical area where a set of draggable
+    // widgets and drop targets will be allowed to interact with one another.
+    PickupDragController dragController = new PickupDragController(boundaryPanel, true);
+
+    // Positioner is always constrained to the boundary panel
+    // Use 'true' to also constrain the draggable or drag proxy to the boundary panel
+    dragController.setBehaviorConstrainedToBoundaryPanel(false);
+
+    // Allow multiple widgets to be selected at once using CTRL-click
+    dragController.setBehaviorMultipleSelection(true);
+
+    // create a DropController for each drop target on which draggable widgets
+    // can be dropped
+    DropController dropController = new AbsolutePositionDropController(targetPanel);
+
+    // Don't forget to register each DropController with a DragController
     dragController.registerDropController(dropController);
 
-    PickupDragController dragController2 = new PickupDragController(fp4, false);
-    dragController2.setBehaviorDragProxy(true);
-    dragController2.setBehaviorMultipleSelection(false);
-    dragController2.setBehaviorConstrainedToBoundaryPanel(true);
-    dragController2.makeDraggable(l1);
-    IconDropController dropController2 = new IconDropController(fp4);
-    dragController2.registerDropController(dropController2);
+    // create a few randomly placed draggable labels
+    for (int i = 1; i <= 5; i++) {
+      // create a label and give it style
+      Label label = new Label("Label #" + i, false);
+      label.addStyleName("getting-started-label");
+
+      // add it to the DOM so that offset width/height becomes available
+      targetPanel.add(label, 0, 0);
+
+      // determine random label location within target panel
+      int left = Random.nextInt(DOMUtil.getClientWidth(targetPanel.getElement())
+          - label.getOffsetWidth());
+      int top = Random.nextInt(DOMUtil.getClientHeight(targetPanel.getElement())
+          - label.getOffsetHeight());
+
+      // move the label
+      targetPanel.setWidgetPosition(label, left, top);
+
+      // make the label draggable
+      dragController.makeDraggable(label);
+    }
   }
 }
