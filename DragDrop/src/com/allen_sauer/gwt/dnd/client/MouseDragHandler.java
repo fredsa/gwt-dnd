@@ -260,7 +260,6 @@ class MouseDragHandler implements MouseListener {
   private void initCapturingWidget() {
     capturingWidget = new FocusPanel();
     capturingWidget.setPixelSize(0, 0);
-    RootPanel.get().add(capturingWidget, 0, 0);
     capturingWidget.addMouseListener(this);
     capturingWidget.getElement().getStyle().setProperty("visibility", "hidden");
     capturingWidget.getElement().getStyle().setProperty("margin", "0px");
@@ -278,6 +277,10 @@ class MouseDragHandler implements MouseListener {
     }
     context.dragController.dragStart();
 
+    // defend against issue 55
+    if (!capturingWidget.isAttached()) {
+      RootPanel.get().add(capturingWidget, 0, 0);
+    }
     DOM.setCapture(capturingWidget.getElement());
     dragging = DRAGGING_NO_MOVEMENT_YET;
   }
