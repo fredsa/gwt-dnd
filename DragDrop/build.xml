@@ -41,8 +41,8 @@
 
 
 		<!-- gwt.location property -->
-		<condition property="gwt.location.default" value="${env.GWT_HOME}" else="">
-			<isset property="env.GWT_HOME" />
+		<condition property="gwt.location.default" value="${env.GWTTRUNK_HOME}" else="">
+			<isset property="env.GWTTRUNK_HOME" />
 		</condition>
 		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT trunk install directory" />
 
