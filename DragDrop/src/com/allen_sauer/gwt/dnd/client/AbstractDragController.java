@@ -149,9 +149,6 @@ public abstract class AbstractDragController implements DragController {
               + " dragging cannot occur inside an AbsolutePanel that has a height of zero pixels;"
               + " you can often remedy this quite easily by adding the following line of"
               + " CSS to your application's stylesheet:" + " BODY, HTML { height: 100%; }");
-        } else {
-          DOMUtil.reportFatalAndThrowRuntimeException("boundary panel has zero height;"
-              + " dragging cannot occur inside an AbsolutePanel that has a height of zero pixels");
         }
       }
     }
