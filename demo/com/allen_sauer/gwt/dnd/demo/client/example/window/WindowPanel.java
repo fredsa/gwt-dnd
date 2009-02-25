@@ -15,8 +15,9 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.example.window;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -153,9 +154,8 @@ final class WindowPanel extends FocusPanel {
 
     windowController.getPickupDragController().makeDraggable(this, headerContainer);
 
-    addClickListener(new ClickListener() {
-
-      public void onClick(Widget sender) {
+    addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
         // force our panel to the top of our z-index context
         AbsolutePanel boundaryPanel = windowController.getBoundaryPanel();
         WidgetLocation location = new WidgetLocation(WindowPanel.this, boundaryPanel);

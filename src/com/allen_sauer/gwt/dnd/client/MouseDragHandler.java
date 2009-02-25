@@ -15,14 +15,26 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
+import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.event.dom.client.HasMouseOutHandlers;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseEvent;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.MouseListener;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SourcesMouseEvents;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
@@ -31,11 +43,37 @@ import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 
 import java.util.HashMap;
 
-/**
- * Implementation helper class which handles mouse events for all
- * draggable widgets for a given {@link DragController}.
+/*
+ * Implementation helper class which handles mouse events for all draggable
+ * widgets for a given {@link DragController}.
  */
-class MouseDragHandler implements MouseListener {
+class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHandler,
+    MouseOutHandler {
+
+  private static class RegisteredDraggable {
+    private final Widget dragable;
+    private final HandlerRegistration mouseDownHandlerRegistration;
+    private final HandlerRegistration mouseOutHandlerRegistration;
+
+    RegisteredDraggable(Widget dragable, HandlerRegistration mouseDownHandlerRegistration,
+        HandlerRegistration mouseOutHandlerRegistration) {
+      this.dragable = dragable;
+      this.mouseDownHandlerRegistration = mouseDownHandlerRegistration;
+      this.mouseOutHandlerRegistration = mouseOutHandlerRegistration;
+    }
+
+    Widget getDragable() {
+      return dragable;
+    }
+
+    HandlerRegistration getMouseDownHandlerRegistration() {
+      return mouseDownHandlerRegistration;
+    }
+
+    HandlerRegistration getMouseOutHandlerRegistration() {
+      return mouseOutHandlerRegistration;
+    }
+  }
 
   private static final int ACTIVELY_DRAGGING = 3;
 
@@ -51,7 +89,7 @@ class MouseDragHandler implements MouseListener {
 
   private int dragging = NOT_DRAGGING;
 
-  private HashMap<Widget, Widget> dragHandleMap = new HashMap<Widget, Widget>();
+  private HashMap<Widget, RegisteredDraggable> dragHandleMap = new HashMap<Widget, RegisteredDraggable>();
 
   private boolean mouseDown;
 
@@ -66,21 +104,27 @@ class MouseDragHandler implements MouseListener {
     initCapturingWidget();
   }
 
-  public void onMouseDown(Widget sender, int x, int y) {
+  public void onMouseDown(MouseDownEvent event) {
+    Widget sender = (Widget) event.getSource();
+    Element elem = sender.getElement();
+    NativeEvent nativeEvent = event.getNativeEvent();
+    int x = Event.getRelativeX(nativeEvent, elem);
+    int y = Event.getRelativeY(nativeEvent, elem);
+
+    int button = event.getNativeButton();
+
     if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
       // Ignore additional mouse buttons depressed while still dragging
       return;
     }
 
-    Event event = DOM.eventGetCurrentEvent();
-    int button = DOM.eventGetButton(event);
-    if (button != Event.BUTTON_LEFT) {
+    if (button != NativeEvent.BUTTON_LEFT) {
       return;
     }
 
     // mouse down (not first mouse move) determines draggable widget
     mouseDownWidget = sender;
-    context.draggable = dragHandleMap.get(mouseDownWidget);
+    context.draggable = dragHandleMap.get(mouseDownWidget).getDragable();
     assert context.draggable != null;
 
     if (!toggleKey(event) && !context.selectedWidgets.contains(mouseDownWidget)) {
@@ -96,7 +140,7 @@ class MouseDragHandler implements MouseListener {
     }
 
     mouseDown = true;
-    DOM.eventPreventDefault(event);
+    event.preventDefault();
 
     mouseDownOffsetX = x;
     mouseDownOffsetY = y;
@@ -118,17 +162,13 @@ class MouseDragHandler implements MouseListener {
     }
   }
 
-  public void onMouseEnter(Widget sender) {
-  }
+  public void onMouseMove(MouseMoveEvent event) {
+    Widget sender = (Widget) event.getSource();
+    Element elem = sender.getElement();
+    NativeEvent nativeEvent = event.getNativeEvent();
+    int x = Event.getRelativeX(nativeEvent, elem);
+    int y = Event.getRelativeY(nativeEvent, elem);
 
-  public void onMouseLeave(Widget sender) {
-    if (mouseDown && dragging == NOT_DRAGGING) {
-      // TODO DOMUtil.cancelAllDocumentSelections(); ?
-      startDragging();
-    }
-  }
-
-  public void onMouseMove(Widget sender, int x, int y) {
     if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
       // TODO remove Safari workaround after GWT issue 1807 fixed
       if (sender != capturingWidget) {
@@ -165,10 +205,22 @@ class MouseDragHandler implements MouseListener {
     deferredMoveCommand.scheduleOrExecute(x, y);
   }
 
-  public void onMouseUp(Widget sender, int x, int y) {
-    Event event = DOM.eventGetCurrentEvent();
-    int button = DOM.eventGetButton(event);
-    if (button != Event.BUTTON_LEFT) {
+  public void onMouseOut(MouseOutEvent event) {
+    if (mouseDown && dragging == NOT_DRAGGING) {
+      // TODO DOMUtil.cancelAllDocumentSelections(); ?
+      startDragging();
+    }
+  }
+
+  public void onMouseUp(MouseUpEvent event) {
+    Widget sender = (Widget) event.getSource();
+    Element elem = sender.getElement();
+    NativeEvent nativeEvent = event.getNativeEvent();
+    int x = Event.getRelativeX(nativeEvent, elem);
+    int y = Event.getRelativeY(nativeEvent, elem);
+
+    int button = event.getNativeButton();
+    if (button != NativeEvent.BUTTON_LEFT) {
       return;
     }
     mouseDown = false;
@@ -214,23 +266,29 @@ class MouseDragHandler implements MouseListener {
   }
 
   void makeDraggable(Widget draggable, Widget dragHandle) {
-    if (dragHandle instanceof SourcesMouseEvents) {
-      ((SourcesMouseEvents) dragHandle).addMouseListener(this);
-      dragHandleMap.put(dragHandle, draggable);
-    } else {
-      throw new RuntimeException("dragHandle must implement SourcesMouseEvents to be draggable");
+    try {
+      RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable,
+          ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this),
+          ((HasMouseOutHandlers) dragHandle).addMouseOutHandler(this));
+      dragHandleMap.put(dragHandle, registeredDraggable);
+    } catch (Exception ex) {
+      throw new RuntimeException(
+          "dragHandle must implement HasMouseDownHandlers and HasMouseOutHandlers to be draggable",
+          ex);
     }
   }
 
   void makeNotDraggable(Widget dragHandle) {
-    if (dragHandleMap.remove(dragHandle) == null) {
+    RegisteredDraggable registeredDraggable = dragHandleMap.remove(dragHandle);
+    if (registeredDraggable == null) {
       throw new RuntimeException("dragHandle was not draggable");
     }
-    ((SourcesMouseEvents) dragHandle).removeMouseListener(this);
+    registeredDraggable.getMouseDownHandlerRegistration().removeHandler();
+    registeredDraggable.getMouseOutHandlerRegistration().removeHandler();
   }
 
-  private void doSelectionToggle(Event event) {
-    Widget widget = dragHandleMap.get(mouseDownWidget);
+  private void doSelectionToggle(MouseEvent<?> event) {
+    Widget widget = dragHandleMap.get(mouseDownWidget).getDragable();
     assert widget != null;
     if (!toggleKey(event)) {
       context.dragController.clearSelection();
@@ -260,7 +318,8 @@ class MouseDragHandler implements MouseListener {
   private void initCapturingWidget() {
     capturingWidget = new FocusPanel();
     capturingWidget.setPixelSize(0, 0);
-    capturingWidget.addMouseListener(this);
+    capturingWidget.addMouseMoveHandler(this);
+    capturingWidget.addMouseUpHandler(this);
     capturingWidget.getElement().getStyle().setProperty("visibility", "hidden");
     capturingWidget.getElement().getStyle().setProperty("margin", "0px");
     capturingWidget.getElement().getStyle().setProperty("border", "none");
@@ -285,7 +344,7 @@ class MouseDragHandler implements MouseListener {
     dragging = DRAGGING_NO_MOVEMENT_YET;
   }
 
-  private boolean toggleKey(Event event) {
-    return DOM.eventGetCtrlKey(event) || DOM.eventGetMetaKey(event);
+  private boolean toggleKey(MouseEvent<?> event) {
+    return event.isControlKeyDown() || event.isMetaKeyDown();
   }
 }

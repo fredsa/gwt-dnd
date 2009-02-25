@@ -15,14 +15,15 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.ui;
 
+import com.google.gwt.event.logical.shared.SelectionEvent;
+import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.HistoryListener;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.SourcesTabEvents;
 import com.google.gwt.user.client.ui.TabBar;
-import com.google.gwt.user.client.ui.TabListener;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -61,9 +62,9 @@ public class MultiRowTabPanel extends Composite {
     masterDeckPanel.addStyleName(CSS_DEMO_MULTI_ROW_TAB_PANEL_BOTTOM);
     containerPanel.add(tabBarsVerticalPanel);
     containerPanel.add(masterDeckPanel);
-    History.addHistoryListener(new HistoryListener() {
-      public void onHistoryChanged(String historyToken) {
-        selectTabByHistoryToken(historyToken);
+    History.addValueChangeHandler(new ValueChangeHandler<String>() {
+      public void onValueChange(ValueChangeEvent<String> event) {
+        selectTabByHistoryToken(event.getValue());
       }
     });
   }
@@ -105,15 +106,10 @@ public class MultiRowTabPanel extends Composite {
   private void addRow() {
     TabBar tabBar = new TabBar();
     tabBarsVerticalPanel.add(tabBar);
-    tabBar.addTabListener(new TabListener() {
-
-      public boolean onBeforeTabSelected(SourcesTabEvents sender, int tabIndex) {
-        return true;
-      }
-
-      public void onTabSelected(SourcesTabEvents sender, int tabIndex) {
-        int row = tabBarsVerticalPanel.getWidgetIndex((TabBar) sender);
-        whenTabSelected(row, tabIndex);
+    tabBar.addSelectionHandler(new SelectionHandler<Integer>() {
+      public void onSelection(SelectionEvent<Integer> event) {
+        int row = tabBarsVerticalPanel.getWidgetIndex((TabBar) event.getSource());
+        whenTabSelected(row, event.getSelectedItem());
       }
     });
     tabBarIndexOffsetMap.put(tabBar, Integer.valueOf(tabCount));
