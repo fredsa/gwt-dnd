@@ -15,9 +15,10 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.example.duallist;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
@@ -82,30 +83,26 @@ public class DualListBox extends AbsolutePanel {
     verticalPanel.add(allRight);
     verticalPanel.add(allLeft);
 
-    allRight.addClickListener(new ClickListener() {
-
-      public void onClick(Widget sender) {
+    allRight.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
         moveItems(left, right, false);
       }
     });
 
-    allLeft.addClickListener(new ClickListener() {
-
-      public void onClick(Widget sender) {
+    allLeft.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
         moveItems(right, left, false);
       }
     });
 
-    oneRight.addClickListener(new ClickListener() {
-
-      public void onClick(Widget sender) {
+    oneRight.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
         moveItems(left, right, true);
       }
     });
 
-    oneLeft.addClickListener(new ClickListener() {
-
-      public void onClick(Widget sender) {
+    oneLeft.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
         moveItems(right, left, true);
       }
     });

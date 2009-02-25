@@ -15,9 +15,9 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client;
 
-import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 
@@ -35,19 +35,18 @@ class DragProxyBehaviorPanel extends BehaviorPanel {
     add(proxyButton);
 
     if (dragController.getBehaviorDragProxy()) {
-      proxyButton.setChecked(true);
+      proxyButton.setValue(true);
     } else {
-      classicButton.setChecked(true);
+      classicButton.setValue(true);
     }
 
-    ClickListener listener = new ClickListener() {
-
-      public void onClick(Widget sender) {
-        dragController.setBehaviorDragProxy(proxyButton.isChecked());
+    ClickHandler handler = new ClickHandler() {
+      public void onClick(ClickEvent event) {
+        dragController.setBehaviorDragProxy(proxyButton.getValue());
       }
     };
 
-    classicButton.addClickListener(listener);
-    proxyButton.addClickListener(listener);
+    classicButton.addClickHandler(handler);
+    proxyButton.addClickHandler(handler);
   }
 }

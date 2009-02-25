@@ -15,14 +15,14 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.example.draghandle;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.allen_sauer.gwt.dnd.client.drop.AbsolutePositionDropController;
@@ -70,9 +70,8 @@ public class DragHandleExample extends Example {
 
     // add a clickable button
     Button button = new Button("Click me");
-    button.addClickListener(new ClickListener() {
-
-      public void onClick(Widget sender) {
+    button.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
         textArea.setText(textArea.getText() + " Click!");
       }
     });

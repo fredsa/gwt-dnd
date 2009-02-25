@@ -15,9 +15,9 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client;
 
-import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.RadioButton;
-import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 
@@ -37,19 +37,18 @@ class MultipleSelectionBehaviorPanel extends BehaviorPanel {
     add(unconstrainedButton);
 
     if (dragController.getBehaviorMultipleSelection()) {
-      constrainedButton.setChecked(true);
+      constrainedButton.setValue(true);
     } else {
-      unconstrainedButton.setChecked(true);
+      unconstrainedButton.setValue(true);
     }
 
-    ClickListener listener = new ClickListener() {
-
-      public void onClick(Widget sender) {
-        dragController.setBehaviorMultipleSelection(constrainedButton.isChecked());
+    ClickHandler listener = new ClickHandler() {
+      public void onClick(ClickEvent event) {
+        dragController.setBehaviorMultipleSelection(constrainedButton.getValue());
       }
     };
 
-    constrainedButton.addClickListener(listener);
-    unconstrainedButton.addClickListener(listener);
+    constrainedButton.addClickHandler(listener);
+    unconstrainedButton.addClickHandler(listener);
   }
 }

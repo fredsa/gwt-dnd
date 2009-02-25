@@ -15,13 +15,15 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client;
 
-import com.google.gwt.user.client.ui.ChangeListener;
-import com.google.gwt.user.client.ui.ClickListener;
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyUpEvent;
+import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.KeyboardListenerAdapter;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.DragController;
 
@@ -48,23 +50,19 @@ class DragStartSensitivityBehaviorPanel extends BehaviorPanel {
 
     textBox.setText("" + dragController.getBehaviorDragStartSensitivity());
 
-    textBox.addKeyboardListener(new KeyboardListenerAdapter() {
-
-      @Override
-      public void onKeyUp(Widget sender, char keyCode, int modifiers) {
+    textBox.addKeyUpHandler(new KeyUpHandler() {
+      public void onKeyUp(KeyUpEvent event) {
         fix();
       }
     });
-    textBox.addClickListener(new ClickListener() {
-
-      public void onClick(Widget sender) {
+    textBox.addClickHandler(new ClickHandler() {
+      public void onClick(ClickEvent event) {
         fix();
         textBox.selectAll();
       }
     });
-    textBox.addChangeListener(new ChangeListener() {
-
-      public void onChange(Widget sender) {
+    textBox.addChangeHandler(new ChangeHandler() {
+      public void onChange(ChangeEvent event) {
         fix();
       }
     });
