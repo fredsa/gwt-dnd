@@ -32,7 +32,6 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Event;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -106,10 +105,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   public void onMouseDown(MouseDownEvent event) {
     Widget sender = (Widget) event.getSource();
-    Element elem = sender.getElement();
-    NativeEvent nativeEvent = event.getNativeEvent();
-    int x = Event.getRelativeX(nativeEvent, elem);
-    int y = Event.getRelativeY(nativeEvent, elem);
+    int x = event.getTargetX();
+    int y = event.getTargetY();
 
     int button = event.getNativeButton();
 
@@ -165,9 +162,9 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   public void onMouseMove(MouseMoveEvent event) {
     Widget sender = (Widget) event.getSource();
     Element elem = sender.getElement();
-    NativeEvent nativeEvent = event.getNativeEvent();
-    int x = Event.getRelativeX(nativeEvent, elem);
-    int y = Event.getRelativeY(nativeEvent, elem);
+    // TODO optimize for the fact that elem is at (0,0)
+    int x = event.getRelativeX(elem);
+    int y = event.getRelativeY(elem);
 
     if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
       // TODO remove Safari workaround after GWT issue 1807 fixed
@@ -215,9 +212,9 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   public void onMouseUp(MouseUpEvent event) {
     Widget sender = (Widget) event.getSource();
     Element elem = sender.getElement();
-    NativeEvent nativeEvent = event.getNativeEvent();
-    int x = Event.getRelativeX(nativeEvent, elem);
-    int y = Event.getRelativeY(nativeEvent, elem);
+    // TODO optimize for the fact that elem is at (0,0)
+    int x = event.getRelativeX(elem);
+    int y = event.getRelativeY(elem);
 
     int button = event.getNativeButton();
     if (button != NativeEvent.BUTTON_LEFT) {
