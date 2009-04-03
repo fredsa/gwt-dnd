@@ -22,6 +22,4 @@
   
   <public path="public"/>
 
-  <stylesheet src="DragDropTest.css"/>
-  
 </module>
