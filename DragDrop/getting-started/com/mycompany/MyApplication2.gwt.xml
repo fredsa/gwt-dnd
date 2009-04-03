@@ -25,6 +25,4 @@
 	<!-- Specify the app entry point class.                   -->
 	<entry-point class='com.mycompany.client.MyApplication2'/>
   
-  <stylesheet src='MyApplication2.css'/>
-  
 </module>
