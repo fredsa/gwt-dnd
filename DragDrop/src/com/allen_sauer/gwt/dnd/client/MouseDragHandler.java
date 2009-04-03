@@ -105,8 +105,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   public void onMouseDown(MouseDownEvent event) {
     Widget sender = (Widget) event.getSource();
-    int x = event.getTargetX();
-    int y = event.getTargetY();
+    int x = event.getX();
+    int y = event.getY();
 
     int button = event.getNativeButton();
 
