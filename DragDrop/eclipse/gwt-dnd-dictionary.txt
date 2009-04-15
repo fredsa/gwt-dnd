@@ -31,3 +31,7 @@ plugins
 plugin
 mozilla
 firefox
+booksru
+fredsa
+servlets
+html
