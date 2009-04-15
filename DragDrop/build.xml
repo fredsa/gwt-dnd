@@ -1,6 +1,6 @@
 <project name="gwt-dnd" default="dist">
 
-	<target name="init">
+	<target name="init" description="Initialization of ant properties">
 		<!-- Global Properties -->
 		<property environment="env" />
 
@@ -44,7 +44,7 @@
 		<condition property="gwt.location.default" value="${env.GWTTRUNK_HOME}" else="">
 			<isset property="env.GWTTRUNK_HOME" />
 		</condition>
-		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT trunk install directory" />
+		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT trunk installation directory" />
 
 		<!-- gwt.tools property -->
 		<condition property="gwt.tools" value="${env.GWT_TOOLS}" else="${gwt.root}/../tools">
@@ -76,7 +76,6 @@
 			</classpath>
 		</taskdef>
 
-
 		<!-- gwt-dnd.libdir property -->
 		<input addproperty="gwt-dnd.libdir" defaultvalue="/fred/lib/gwt-dnd" message="gwt-dnd library directory" />
 
@@ -92,10 +91,9 @@
 
 	</target>
 
-	<target name="lib-locations">
-
+	<target name="lib-locations" description="Determine library locations">
 		<!-- gwt-dnd.version property -->
-		<input addproperty="gwt-dnd.version" defaultvalue="0.0.0" message="gwt-dnd library version" />
+		<input addproperty="gwt-dnd.version" defaultvalue="0.0.0" message="gwt-dnd release version" />
 
 		<!-- gwt-dnd.jar property -->
 		<property name="gwt-dnd.jar" value="gwt-dnd-${gwt-dnd.version}.jar" />
@@ -119,24 +117,24 @@
 
 
 	<!-- Replace @GWT_DND_VERION@ with actual version of build -->
-	<target name="filter" description="Filters distro files for versioning">
+	<target name="filter" description="Filters distro files for versioning" depends="init">
 		<mkdir dir="build/out" />
 		<mkdir dir="build/demo" />
 
-		<copy todir="build/out">
+		<copy todir="build/src">
 			<fileset dir="src">
 				<include name="**/public/**" />
 			</fileset>
 		</copy>
 
-		<copy todir="build/out">
+		<copy todir="build/src">
 			<fileset dir="src">
 				<include name="**/*.java" />
 				<include name="**/*.gwt.xml" />
 			</fileset>
 			<fileset dir=".">
-				<include name="**/LICENSE" />
-				<include name="**/NOTICE" />
+				<include name="LICENSE" />
+				<include name="NOTICE" />
 			</fileset>
 			<filterset>
 				<filter token="GWT_DND_VERSION" value="${gwt-dnd.version}" />
@@ -144,7 +142,6 @@
 		</copy>
 
 		<copy todir="build/demo">
-			<fileset dir="build/out" />
 			<fileset dir="demo">
 				<include name="**/public/**" />
 			</fileset>
@@ -156,8 +153,8 @@
 				<include name="**/*.gwt.xml" />
 			</fileset>
 			<fileset dir=".">
-				<include name="**/LICENSE" />
-				<include name="**/NOTICE" />
+				<include name="LICENSE" />
+				<include name="NOTICE" />
 			</fileset>
 			<filterset>
 				<filter token="GWT_DND_VERSION" value="${gwt-dnd.version}" />
@@ -169,15 +166,37 @@
 	<target name="build" depends="init, lib-locations, clean, filter, javac, gwtc">
 	</target>
 
-	<target name="javac" depends="filter">
+	<target name="javac" description="Java compile" depends="filter">
+
+		<echo message="Compiling build/src ..." />
 
 		<javac compiler="javac1.5" listfiles="true" destdir="build/out" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
-			<src path="build/out" />
+			<src path="build/src" />
 			<classpath location="${gwt-user.jar}" />
 			<classpath location="${gwt-dev.jar}" />
 		</javac>
 
-		<javac compiler="javac1.5" listfiles="true" destdir="build/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
+		<echo message="Copying src files build/out ..." />
+
+		<copy todir="build/out">
+			<fileset dir="build/src">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+		<!-- build demo files as a sanity check -->
+
+		<echo message="Copying src files (for reference purposes) and NOTICE/LICENSE files to build/demo ..." />
+
+		<copy todir="build/demo">
+			<fileset dir="build/src">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+		<echo message="Compiling build/demo ..." />
+
+		<javac compiler="javac1.5" listfiles="false" destdir="build/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
 			<src path="build/demo" />
 			<classpath location="${gwt-user.jar}" />
 			<classpath location="${gwt-dev.jar}" />
@@ -185,7 +204,7 @@
 
 	</target>
 
-	<target name="gwtc" description="Compile to JavaScript" depends="filter">
+	<target name="gwtc" description="Compile to JavaScript" depends="javac">
 		<outofdate>
 			<sourcefiles>
 				<fileset dir="build/out" />
@@ -194,31 +213,38 @@
 				<fileset file="${gwt-dev.jar}" />
 			</sourcefiles>
 
-			<targetfiles path="build/www/com.allen_sauer.gwt.dnd.demo.DragDropDemo/DragDrop.nocache.html" />
+			<targetfiles path="build/www/com.allen_sauer.gwt.dnd.demo.dndDemo/com.allen_sauer.gwt.dnd.demo.dndDemo.nocache.js" />
+
 			<sequential>
 				<mkdir dir="build/www" />
+
 				<java maxmemory="1g" dir="build" classname="com.google.gwt.dev.GWTCompiler" classpath="build/out:build/demo:${gwt-user.jar}:${gwt-dev.jar}" fork="yes" failonerror="true">
 					<arg value="-out" />
 					<arg path="build/www" />
-
 					<arg value="com.allen_sauer.gwt.dnd.demo.DragDropDemo" />
-
 					<arg value="-style" />
 					<arg value="PRETTY" />
 				</java>
+
+				<copy todir="build/www">
+					<fileset file="war/dndDemo.html" />
+					<fileset file="war/dndDemo.css" />
+				</copy>
+
+				<copydir dest="build/www/images" src="war/images" />
 			</sequential>
 		</outofdate>
 	</target>
 
-	<target name="javadoc">
-		<javadoc access="protected" classpath="${gwt-user.jar}:{gwt-dev.jar}" destdir="build/javadoc" doctitle="gwt-dnd - Drag-and-drop for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.5" sourcepath="build/demo" />
+	<target name="javadoc" description="Generate Javadoc" depends="javac">
+		<javadoc access="protected" classpath="${gwt-user.jar}:${dnd4j.location}" destdir="build/javadoc" doctitle="gwt-dnd - dndging for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.5" sourcepath="build/demo" excludepackagenames="com.allen_sauer.gwt.dnd.rebind" />
 	</target>
 
-  <target name="stat">
-    <exec executable="svn">
-      <arg value="stat" />
-    </exec>
-  </target>
+	<target name="stat">
+		<exec executable="svn">
+			<arg value="stat" />
+		</exec>
+	</target>
 
 	<target name="tag">
 		<exec executable="svn">
@@ -236,13 +262,15 @@
 		<echo message="" />
 	</target>
 
-	<target name="dist" depends="build,javadoc">
+	<target name="dist" description="Create distribution jar" depends="build,javadoc">
 		<mkdir dir="build/dist" />
 
 		<jar destfile="build/dist/${gwt-dnd.jar}">
 			<fileset dir="build/out" />
 		</jar>
+		<!--
 		<jar basedir="build/javadoc" destfile="build/dist/${gwt-dnd.javadoc-jar}" />
+	    -->
 
 		<copy todir="${gwt-dnd.libdir}">
 			<fileset dir="build/dist" />
@@ -255,17 +283,14 @@
 
 	<target name="clean">
 		<delete dir="build" />
-		<delete dir=".gwt-cache" />
-		<delete dir="www" />
-		<delete dir="tomcat" />
 	</target>
 
-	<target name="deploy" depends="clean, init, gwtc">
+	<target name="deploy" description="Build and deploy to demo site" depends="clean, init, javac, gwtc">
 
-		<scp todir="sauer@allen-sauer.com:" knownhosts="c:\fred\.ssh\known_hosts" keyfile="c:\fred\.ssh\id_dsa" passphrase="" verbose="true">
-			<fileset dir="build/www">
-				<include name="com.allen_sauer.gwt.dnd.demo.DragDropDemo/**" />
-			</fileset>
+		<sshexec command="mkdir com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="c:\fred\.ssh\known_hosts" keyfile="c:\fred\.ssh\id_dsa" passphrase="" />
+
+		<scp todir="sauer@allen-sauer.com:com.allen_sauer.gwt.dnd.demo.DragDropDemo/" knownhosts="c:\fred\.ssh\known_hosts" keyfile="c:\fred\.ssh\id_dsa" passphrase="" verbose="true">
+			<fileset dir="build/www" />
 		</scp>
 
 		<sshexec command="./deploy.sh com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="c:\fred\.ssh\known_hosts" keyfile="c:\fred\.ssh\id_dsa" passphrase="" />
