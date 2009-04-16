@@ -268,9 +268,8 @@
 		<jar destfile="build/dist/${gwt-dnd.jar}">
 			<fileset dir="build/out" />
 		</jar>
-		<!--
+
 		<jar basedir="build/javadoc" destfile="build/dist/${gwt-dnd.javadoc-jar}" />
-	    -->
 
 		<copy todir="${gwt-dnd.libdir}">
 			<fileset dir="build/dist" />
