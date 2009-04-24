@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+BODY {
+  -moz-user-select: element;
+  -khtml-user-select: element;
+  user-select: element;
+}
+
+.dragdrop-handle {
+  cursor: move;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+
+.dragdrop-dropTarget-engage {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+
+.dragdrop-draggable {
+  z-index: 2;
+  zoom: 1; /* IE gain hasLayout */
+}
+
+.dragdrop-dragging {
+  filter: alpha(opacity = 30);
+  opacity: 0.3;
+  -moz-opacity: 0.3;
+  z-index: 3;
+}
+
+.dragdrop-hidden {
+  visibility: hidden;
+}
+
+.dragdrop-positioner {
+  border: 1px dashed #1E90FF; /* blue */
+  z-index: 1;
+  zoom: 1; /* IE gain hasLayout */
+}
+
+.dragdrop-flow-panel-positioner {
+  color: #1E90FF; /* blue */
+  display: inline;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.dragdrop-proxy {
+  background-color: #77AAFF; /* light blue */
+  z-index: 1;
+  filter: alpha(opacity = 30);
+  opacity: 0.3;
+  -moz-opacity: 0.3;
+}

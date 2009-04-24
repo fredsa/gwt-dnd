@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jardesc>
+<jar path="C:/fred/java/lib/gwt-dnd/gwt1.3.3-dragdrop.jar"/>
+<options buildIfNeeded="true" compress="false" descriptionLocation="/DragDropGWT133/GWT1.3.3-DRAGDROP.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="true" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+<storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+<selectedProjects/>
+<selectedElements exportClassFiles="true" exportJavaFiles="true" exportOutputFolder="false">
+        <file path="/DragDropGWT133/LICENSE"/>
+        <javaElement handleIdentifier="=DragDropGWT133/src"/>
+</selectedElements>
+</jardesc>

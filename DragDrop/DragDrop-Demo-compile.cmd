@@ -1,0 +1,1 @@
+@java -cp "%~dp0\src;%~dp0\demo;%~dp0\bin;C:/fred/java/lib/gwt-log-2007-03-31.jar;C:/fred/java/lib/gwt-windows1.3.3/gwt-user.jar;C:/fred/java/lib/gwt-windows1.3.3/gwt-dev-windows.jar" com.google.gwt.dev.GWTCompiler -out "%~dp0\www\demo" %* com.allen_sauer.gwt.dragdrop.demo.DragDropDemo

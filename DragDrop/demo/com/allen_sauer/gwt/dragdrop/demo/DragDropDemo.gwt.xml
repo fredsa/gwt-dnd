@@ -1,0 +1,11 @@
+<module>
+
+	<inherits name='com.allen_sauer.gwt.dragdrop.DragAndDrop'/>
+
+	<entry-point class='com.allen_sauer.gwt.dragdrop.demo.client.DragDropDemo'/>
+  
+  <public path="public"/>
+
+  <!-- stylesheet src='DragDropDemo.css'/ -->
+  
+</module>
