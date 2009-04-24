@@ -1,0 +1,446 @@
+@CHARSET "UTF-8";
+
+/* ------------ global ------------ */
+BODY {
+  margin: 10px; /* leave for testing of positions */
+}
+
+CODE {
+  font-style: normal;
+}
+
+/* ------------ Example ------------ */
+.demo-example-panel {
+  margin: 1em 1em;
+}
+
+DIV.dragdrop-dropTarget {
+  background-color: #CCCCCC; /* gray */
+  border: 1px solid black;
+}
+
+DIV.dragdrop-dropTarget-engage {
+  background: #BCDEFF; /* lighter blue */
+}
+
+/* ------------ Main Boundary Panel ------------ */
+DIV.demo-main-boundary-panel {
+  background: #F8F8F8; /* light gray */
+  border: 1px solid blue;
+}
+
+/* ------------ RedBoxDraggableWidget ------------ */
+.demo-red-box-draggable-widget {
+  background-color: #EE0000; /* red */
+  border: 2px solid #AA0000; /* dark red */
+  text-align: center;
+  color: #FFCCCC;
+  font-size: 0.9em;
+}
+
+/* ------------ BinExample ------------ */
+.demo-BinExample DIV.dragdrop-dropTarget {
+  background-color: #CCCCCC; /* gray */
+}
+
+.demo-BinExample DIV.demo-bin {
+  text-align: center;
+  border: 1px solid black;
+  border-top: 4px solid black;
+  background-color: #87B3FF; /* blue */
+}
+
+.demo-BinExample DIV.demo-bin-engage {
+  background-color: #A7E3FF; /* bright blue */
+}
+
+.demo-BinExample DIV.demo-trashbin {
+  background-color: #FF7743; /* orange */
+}
+
+.demo-BinExample DIV.demo-trashbin-engage {
+  background-color: #FFA773; /* bright orange */
+}
+
+.demo-BinExample-draggable-engage {
+  filter: alpha(opacity = 10);
+  opacity: 0.1;
+  -moz-opacity: 0.1;
+}
+
+/* ------------ AbsolutePositionExample ------------ */
+.demo-AbsolutePositionExample {
+  
+}
+
+/* ------------ GridConstrainedExample ------------ */
+.demo-GridConstrainedExample {
+  
+}
+
+/* ------------ FlowPanelExample ------------ */
+.demo-FlowPanelExample-draggable {
+  padding: 0.1em;
+  margin: 0.1em;
+  border: 1px solid blue;
+  background-color: #B3FF87; /* bright green */
+}
+
+.demo-FlowPanelExample-draggable ,
+.demo-FlowPanelExample-draggable DIV {
+  display: inline;
+}
+
+.demo-FlowPanelExample-label {
+  font-size: 1.2em;
+  line-height: 1.3em;
+}
+
+.dragdrop-flow-panel-positioner {
+  color: blue;
+}
+
+/* ------------ IndexedPanelExample ------------ */
+.demo-IndexedPanelExample .demo-IndexedPanelExample-widget ,
+.demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
+  border: 1px solid blue;
+  padding: 0.1em;
+  margin: 0.1em;
+  width: 120px;
+}
+
+.demo-IndexedPanelExample .demo-IndexedPanelExample-widget {
+  background-color: #B3FF87; /* bright green */
+}
+
+.demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
+  background-color: #87B3FF; /* bright blue */
+}
+
+.demo-IndexedPanelExample .demo-IndexedPanelExample-column-composite {
+  padding: 1px;
+}
+
+/* ------------ FlexTableRowExample ------------ */
+.demo-FlexTableRowExample .dragdrop-boundary {
+  background-color: #F8F8F8; /* light gray */
+  border: 1px solid black;
+}
+
+.demo-FlexTableRowExample .demo-FlexTableRowExample-table-proxy {
+  border: 1px solid blue;
+  filter: alpha(opacity = 50);
+  opacity: 0.5;
+}
+
+.demo-FlexTableRowExample .demo-flextable .dragdrop-handle {
+  background: url("images/row-dragger-8.gif") no-repeat;
+  padding-left: 10px;
+}
+
+.demo-FlexTableRowExample TABLE {
+  background-color: #CCCCCC; /* gray */
+  border: 1px solid black;
+}
+
+.demo-FlexTableRowExample .demo-table-positioner {
+  z-index: 1;
+  border-top: 1px solid green;
+  margin-top: 1px;
+}
+
+.demo-FlexTableRowExample .dragdrop-selected ,
+.demo-FlexTableRowExample .dragdrop-dragging ,
+.demo-FlexTableRowExample .dragdrop-proxy {
+  filter: alpha(enabled = false);
+  opacity: 1.0;
+}
+
+/* ------------ WindowExample ------------ */
+.demo-WindowExample .demo-WindowPanel {
+  background-color: #FFFFFF; /* prevent transparency */
+}
+
+.demo-WindowExample .demo-WindowPanel .demo-WindowPanel-header {
+  background-color: #666666;
+  color: #FFFFFF;
+  overflow: hidden;
+}
+
+.demo-WindowExample .demo-WindowPanel .demo-WindowPanel-iframe {
+  border: none;
+  display: block;
+}
+
+.demo-WindowExample .dragdrop-boundary {
+  background-color: #F8F8F8; /* light gray */
+  border: 1px solid black;
+}
+
+.demo-WindowExample .demo-resize-html {
+  background-color: #DDEEDD; /* light green */
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0px;
+}
+
+.demo-WindowExample .demo-resize-edge {
+  background-image: url("images/dragger-4x4.gif");
+  background-repeat: repeat;
+  line-height: 1px;
+  font-size: 1px;
+}
+
+.demo-WindowExample .demo-resize-nw .dragdrop-handle {
+  cursor: nw-resize;
+}
+
+.demo-WindowExample .demo-resize-n .dragdrop-handle {
+  cursor: n-resize;
+}
+
+.demo-WindowExample .demo-resize-ne .dragdrop-handle {
+  cursor: ne-resize;
+}
+
+.demo-WindowExample .demo-resize-w .dragdrop-handle {
+  cursor: w-resize;
+}
+
+.demo-WindowExample .demo-resize-e .dragdrop-handle {
+  cursor: e-resize;
+}
+
+.demo-WindowExample .demo-resize-sw .dragdrop-handle {
+  cursor: sw-resize;
+}
+
+.demo-WindowExample .demo-resize-s .dragdrop-handle {
+  cursor: s-resize;
+}
+
+.demo-WindowExample .demo-resize-se .dragdrop-handle {
+  cursor: se-resize;
+}
+
+/* ------------ DragHandleExample ------------ */
+.demo-DragHandleExample .demo-DragHandleExample-panel {
+  background-color: white;
+  border: 1px solid green;
+  width: 400px;
+}
+
+.demo-DragHandleExample .demo-DragHandleExample-textarea {
+  width: 95%;
+  height: 4em;
+}
+
+.demo-DragHandleExample .demo-DragHandleExample-header {
+  background-color: #DDEEDD; /* light green */
+}
+
+/* ------------ DualListExample ------------ */
+.demo-DualListExample .dragdrop-selected ,
+.demo-DualListExample .dragdrop-dragging ,
+.demo-DualListExample .dragdrop-proxy {
+  filter: alpha(enabled = false);
+  opacity: 1.0;
+}
+
+.demo-DualListExample .dragdrop-boundary {
+  border: none;
+  background-color: transparent;
+}
+
+.demo-DualListExample .demo-MouseListBox {
+  border: 1px solid gray;
+  background-color: white;
+}
+
+.demo-DualListExample .dragdrop-movable-panel {
+  border: none;
+}
+
+.demo-DualListExample-center {
+  margin: 0.4em;
+}
+
+.demo-DualListExample-center TD {
+  padding: 0.2em 0.4em;
+}
+
+.demo-DualListExample-center BUTTON {
+  width: 4em;
+}
+
+.demo-DualListExample-item-has-content {
+  cursor: pointer;
+}
+
+.demo-DualListExample .dragdrop-selected ,
+.demo-DualListExample .dragdrop-movable-panel .demo-DualListExample-item-has-content {
+  background-color: blue;
+}
+
+/* ------------ PuzzleExample ------------ */
+.demo-PuzzleExample .dragdrop-boundary {
+  background-color: #F8F8F8; /* light gray */
+  border: 1px solid black;
+}
+
+.demo-PuzzleExample-table {
+  border: 1px solid red;
+}
+
+.demo-PuzzleExample-cell {
+  border: 1px solid black;
+}
+
+/* ------------ MatryoshkaExample ------------ */
+.demo-MatryoshkaExample .dragdrop-boundary {
+  background-color: #F8F8F8; /* light gray */
+  border: 1px solid black;
+}
+
+.demo-MatryoshkaExample .demo-rgb-focus-panel .demo-rgb-focus-panel {
+  margin: 10px;
+}
+
+.demo-MatryoshkaExample .demo-rgb-focus-panel {
+  border: 1px solid white;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.demo-MatryoshkaExample .demo-MatryoshkaExample-dropTarget-engage {
+  border: 1px solid black;
+}
+
+/* ------------ ResetCacheExample ------------ */
+.demo-ResetCacheExample .demo-ResetCacheExample-TabPanel .gwt-TabPanelBottom {
+  height: 100%;
+}
+
+.demo-ResetCacheExample DIV.dragdrop-dropTarget {
+  border: none;
+}
+
+.demo-ResetCacheExample .gwt-TabBar DIV.dragdrop-dropTarget {
+  padding: 2px 6px;
+}
+
+.demo-ResetCacheExample-draggable {
+  border: 1px solid black;
+  width: 5em;
+  text-align: center;
+}
+
+/* ------------ PaletteWidget ------------ */
+.demo-PaletteExample .dragdrop-dragging {
+  filter: alpha(enabled = false);
+  opacity: 1.0;
+}
+
+.demo-PaletteWidget {
+  display: inline;
+  margin: auto;
+}
+
+.demo-PaletteWidget-widget {
+  display: inline;
+  margin: auto;
+  padding: 2px;
+}
+
+.demo-PaletteWidget-shim {
+  opacity: 0.1;
+  filter: alpha(opacity = 10);
+  background-color: #0000FF; /* blue */
+}
+
+.demo-PalettePanel {
+  padding: 4px;
+  background-color: white;
+  border: 1px solid #0000FF; /* blue */
+}
+
+.demo-PalettePanel-header {
+  font-weight: bold;
+}
+
+/* ------------ General Demo CSS ------------ */
+.demo-main-boundary-panel .demo-example-description {
+  border-bottom: 1px solid #87B3FF;
+  padding: 0.5em 0.3em;
+}
+
+.demo-behavior-panel {
+  width: 100%;
+  background-color: #E8EEF7;
+  border: 1px solid #87B3FF;
+  margin-top: 1em;
+  margin-bottom: 0.2em;
+  padding: 0.2em 0.1em;
+}
+
+.demo-behavior-panel .demo-behavior-heading {
+  font-weight: bold;
+  color: blue;
+  cursor: help;
+}
+
+.demo-behavior-panel .gwt-RadioButton {
+  cursor: pointer;
+}
+
+.demo-event-text-area {
+  border: 1px solid green;
+}
+
+.gwt-TabBar .gwt-TabBarItem {
+  cursor: pointer;
+}
+
+/* ------------ ExampleTabPanel ------------ */
+.demo-MultiRowTabPanel-bottom {
+  border-left: 1px solid #87B3FF;
+  border-right: 1px solid #87B3FF;
+  border-bottom: 1px solid #87B3FF;
+  background-color: #E8EEF7;
+}
+
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar {
+  background-color: #C3D9FF;
+}
+
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar .gwt-TabBarFirst {
+  height: 100%;
+  padding-left: 3px;
+}
+
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar .gwt-TabBarRest {
+  padding-right: 3px;
+}
+
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar .gwt-TabBarItem {
+  border-top: 1px solid #C3D9FF;
+  padding: 2px 6px;
+}
+
+.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-last .gwt-TabBarItem,
+.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-last .gwt-TabBarFirst,
+.demo-ExampleTabPanel-tab-bar .demo-MultiRowTabPanel-last .gwt-TabBarRest {
+  border-bottom: 1px solid #87B3FF;
+}
+
+.demo-ExampleTabPanel-tab-bar .gwt-TabBar .gwt-TabBarItem-selected {
+  font-weight: bold;
+  background-color: #E8EEF7;
+  border-top: 1px solid #87B3FF;
+  border-left: 1px solid #87B3FF;
+  border-right: 1px solid #87B3FF;
+  border-bottom: 1px solid #E8EEF7;
+  padding: 2px;
+  cursor: default;
+}
