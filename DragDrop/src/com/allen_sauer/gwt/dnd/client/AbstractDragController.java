@@ -19,7 +19,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -47,6 +49,7 @@ public abstract class AbstractDragController implements DragController {
 
   static {
     setVersion();
+    StyleInjector.injectStylesheetAtStart(DragClientBundle.INSTANCE.css().getText());
   }
 
   private static native void setVersion()

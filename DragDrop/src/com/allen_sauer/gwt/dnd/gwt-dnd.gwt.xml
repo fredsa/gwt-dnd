@@ -14,8 +14,8 @@
 <module>
 
 	<inherits name="com.google.gwt.user.User" />
-
-	<stylesheet src="gwt-dnd.css" />
+	<inherits name="com.google.gwt.dom.DOM" />
+    <inherits name="com.google.gwt.resources.Resources" />
 
 	<replace-with
 		class="com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImplOpera">
