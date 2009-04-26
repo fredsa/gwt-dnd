@@ -15,14 +15,22 @@
  */
 package com.allen_sauer.gwt.dnd.client.util;
 
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.resources.client.ClientBundle;
-import com.google.gwt.resources.client.CssResource;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.dom.client.StyleInjector;
 
-interface DragClientBundle extends ClientBundle {
+/**
+ * Global initilization for gwt-dnd.
+ */
+class DragEntryPoint implements EntryPoint {
 
-  static final DragClientBundle INSTANCE = GWT.create(DragClientBundle.class);
+  private static native void setVersion()
+  /*-{
+    $wnd.$GWT_DND_VERSION = "@GWT_DND_VERSION@";
+  }-*/;
 
-  @Source("gwt-dnd.css")
-  CssResource css();
+  public void onModuleLoad() {
+    setVersion();
+    StyleInjector.injectStylesheetAtStart(DragClientBundle.INSTANCE.css().getText());
+  }
+
 }
