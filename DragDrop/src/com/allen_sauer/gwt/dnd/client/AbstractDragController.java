@@ -19,9 +19,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.StyleInjector;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -46,16 +44,6 @@ public abstract class AbstractDragController implements DragController {
   private static final String PRIVATE_CSS_DRAGGING = "dragdrop-dragging";
 
   private static final String PRIVATE_CSS_HANDLE = "dragdrop-handle";
-
-  static {
-    setVersion();
-    StyleInjector.injectStylesheetAtStart(DragClientBundle.INSTANCE.css().getText());
-  }
-
-  private static native void setVersion()
-  /*-{
-    $wnd.$GWT_DND_VERSION = "@GWT_DND_VERSION@";
-  }-*/;
 
   /**
    * The boundary panel to which all drag operations are constrained.

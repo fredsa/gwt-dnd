@@ -15,20 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client;
 
-import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.DeferredCommand;
-import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Random;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
-
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dnd.demo.client.example.DraggableFactory;
@@ -45,6 +31,19 @@ import com.allen_sauer.gwt.dnd.demo.client.example.palette.PaletteExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.puzzle.PuzzleExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.resetcache.ResetCacheExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.window.WindowExample;
+import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Command;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Random;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * EntryPoint class for demonstrating and testing gwt-dnd.
@@ -60,6 +59,10 @@ public final class DragDropDemo implements EntryPoint {
   private static final String DEMO_MAIN_PANEL = "demo-main-panel";
 
   private PickupDragController dragController;
+
+  private Widget createDraggable() {
+    return DraggableFactory.createDraggableRedBox(dragController);
+  }
 
   public void onModuleLoad() {
     // set uncaught exception handler
@@ -94,10 +97,6 @@ public final class DragDropDemo implements EntryPoint {
         onModuleLoad2();
       }
     });
-  }
-
-  private Widget createDraggable() {
-    return DraggableFactory.createDraggableRedBox(dragController);
   }
 
   private void onModuleLoad2() {
