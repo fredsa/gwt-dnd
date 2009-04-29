@@ -15,12 +15,13 @@
  */
 package com.allen_sauer.gwt.dnd.client.util;
 
-import com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImpl;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImpl;
 
 /*
  * Provides DOM utility methods.
@@ -52,17 +53,6 @@ public class DOMUtil {
    */
   public static void cancelAllDocumentSelections() {
     impl.cancelAllDocumentSelections();
-  }
-
-  private static void debugWidgetWithColor(IndexedPanel parent, int index, String color) {
-    if (DEBUG) {
-      if (index >= parent.getWidgetCount()) {
-        parent.getWidget(parent.getWidgetCount() - 1).getElement().getStyle().setProperty("border",
-            "2px dashed " + color);
-      } else {
-        parent.getWidget(index).getElement().getStyle().setProperty("border", "2px solid " + color);
-      }
-    }
   }
 
   /**
@@ -233,6 +223,17 @@ public class DOMUtil {
    */
   public static void setStatus(String text) {
     Window.setStatus(text);
+  }
+
+  private static void debugWidgetWithColor(IndexedPanel parent, int index, String color) {
+    if (DEBUG) {
+      if (index >= parent.getWidgetCount()) {
+        parent.getWidget(parent.getWidgetCount() - 1).getElement().getStyle().setProperty("border",
+            "2px dashed " + color);
+      } else {
+        parent.getWidget(index).getElement().getStyle().setProperty("border", "2px solid " + color);
+      }
+    }
   }
 
 }
