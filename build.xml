@@ -123,14 +123,7 @@
 
 		<copy todir="build/src">
 			<fileset dir="src">
-				<include name="**/public/**" />
-			</fileset>
-		</copy>
-
-		<copy todir="build/src">
-			<fileset dir="src">
-				<include name="**/*.java" />
-				<include name="**/*.gwt.xml" />
+				<exclude name="**/package.html" />
 			</fileset>
 			<fileset dir=".">
 				<include name="LICENSE" />
