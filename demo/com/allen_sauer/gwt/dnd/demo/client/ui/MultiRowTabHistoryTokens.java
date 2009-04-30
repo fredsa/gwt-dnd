@@ -22,9 +22,11 @@ import java.util.List;
 class MultiRowTabHistoryTokens {
   private List<String> list = new ArrayList<String>();
   private HashMap<String, Integer> map = new HashMap<String, Integer>();
+  private HashMap<String, String> titleMap = new HashMap<String, String>();
 
-  public void add(String historyToken) {
+  public void add(String historyToken, String pageTitle) {
     map.put(historyToken, list.size());
+    titleMap.put(historyToken, pageTitle);
     list.add(historyToken);
   }
 
@@ -34,5 +36,9 @@ class MultiRowTabHistoryTokens {
 
   public Integer getIndex(String historyToken) {
     return map.get(historyToken);
+  }
+
+  public String getPageTitle(String historyToken) {
+    return titleMap.get(historyToken);
   }
 }

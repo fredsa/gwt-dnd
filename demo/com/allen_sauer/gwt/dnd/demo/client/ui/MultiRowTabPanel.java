@@ -15,19 +15,20 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.ui;
 
+import java.util.HashMap;
+
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabBar;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-
-import java.util.HashMap;
 
 public class MultiRowTabPanel extends Composite {
 
@@ -69,7 +70,7 @@ public class MultiRowTabPanel extends Composite {
     });
   }
 
-  public void add(Widget widget, Label tabLabel, String historyToken) {
+  public void add(Widget widget, Label tabLabel, String historyToken, String pageTitle) {
     int row = tabCount / tabsPerRow;
     while (row >= rows) {
       addRow();
@@ -78,7 +79,22 @@ public class MultiRowTabPanel extends Composite {
     masterDeckPanel.add(widget);
     TabBar tabBar = (TabBar) tabBarsVerticalPanel.getWidget(row);
     tabBar.addTab(tabLabel);
-    historyTokenMap.add(historyToken);
+    historyTokenMap.add(historyToken, pageTitle);
+  }
+
+  private void addRow() {
+    TabBar tabBar = new TabBar();
+    tabBarsVerticalPanel.add(tabBar);
+    tabBar.addSelectionHandler(new SelectionHandler<Integer>() {
+      public void onSelection(SelectionEvent<Integer> event) {
+        int row = tabBarsVerticalPanel.getWidgetIndex((TabBar) event.getSource());
+        whenTabSelected(row, event.getSelectedItem());
+      }
+    });
+    tabBarIndexOffsetMap.put(tabBar, Integer.valueOf(tabCount));
+    tabBarsVerticalPanel.setCellStyleName(tabBar, CSS_DEMO_MULTI_ROW_TAB_PANEL_ROW);
+
+    rows++;
   }
 
   public void addTabBarStyleName(String style) {
@@ -103,21 +119,6 @@ public class MultiRowTabPanel extends Composite {
     }
   }
 
-  private void addRow() {
-    TabBar tabBar = new TabBar();
-    tabBarsVerticalPanel.add(tabBar);
-    tabBar.addSelectionHandler(new SelectionHandler<Integer>() {
-      public void onSelection(SelectionEvent<Integer> event) {
-        int row = tabBarsVerticalPanel.getWidgetIndex((TabBar) event.getSource());
-        whenTabSelected(row, event.getSelectedItem());
-      }
-    });
-    tabBarIndexOffsetMap.put(tabBar, Integer.valueOf(tabCount));
-    tabBarsVerticalPanel.setCellStyleName(tabBar, CSS_DEMO_MULTI_ROW_TAB_PANEL_ROW);
-
-    rows++;
-  }
-
   private void whenTabSelected(int row, int tabIndex) {
     if (tabIndex == -1) {
       return;
@@ -136,5 +137,6 @@ public class MultiRowTabPanel extends Composite {
     int index = widgetOffset.intValue() + tabIndex;
     masterDeckPanel.showWidget(index);
     History.newItem(historyTokenMap.getHistoryToken(index));
+    Window.setTitle(historyTokenMap.getPageTitle(historyTokenMap.getHistoryToken(index)));
   }
 }
