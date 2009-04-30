@@ -15,19 +15,19 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client;
 
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
-
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 import com.allen_sauer.gwt.dnd.demo.client.ui.MultiRowTabPanel;
 import com.allen_sauer.gwt.dnd.demo.client.util.GWTUtil;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
-/**
- * {@link MultiRowTabPanel} which uses a {@link VerticalPanel} to provide a description
- * for each example.
+/*
+ * * {@link MultiRowTabPanel} which uses a {@link VerticalPanel} to provide a
+ * description for each example.
  */
 public final class ExampleTabPanel extends MultiRowTabPanel {
   private static final String CSS_DEMO_EXAMPLE_DESCRIPTION = "demo-example-description";
@@ -74,6 +74,7 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
     String title = DOMUtil.adjustTitleForBrowser(StringUtil.getShortTypeName(example) + "\n"
         + example.getDescription());
     tabLabel.setTitle(title);
-    add(verticalPanel, tabLabel, example.getHistoryToken());
+    add(verticalPanel, tabLabel, example.getHistoryToken(), Window.getTitle() + " - "
+        + example.getHistoryToken());
   }
 }
