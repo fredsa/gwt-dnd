@@ -171,8 +171,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
           ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this),
           ((HasMouseUpHandlers) dragHandle).addMouseUpHandler(this),
           ((HasMouseMoveHandlers) dragHandle).addMouseMoveHandler(this),
-          ((HasMouseOutHandlers) dragHandle).addMouseOutHandler(this)
-          );
+          ((HasMouseOutHandlers) dragHandle).addMouseOutHandler(this));
       dragHandleMap.put(dragHandle, registeredDraggable);
     } catch (Exception ex) {
       throw new RuntimeException(
@@ -204,6 +203,11 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
 
     if (button != NativeEvent.BUTTON_LEFT) {
+      return;
+    }
+
+    if (mouseDownWidget != null) {
+      // For multiple overlapping draggable widgets, ignore all but first onMouseDown
       return;
     }
 
@@ -298,46 +302,50 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   }
 
   public void onMouseUp(MouseUpEvent event) {
-    Widget sender = (Widget) event.getSource();
-    Element elem = sender.getElement();
-    // TODO optimize for the fact that elem is at (0,0)
-    int x = event.getRelativeX(elem);
-    int y = event.getRelativeY(elem);
-
-    int button = event.getNativeButton();
-    if (button != NativeEvent.BUTTON_LEFT) {
-      return;
-    }
-    mouseDown = false;
-
-    // in case mouse down occurred elsewhere
-    if (mouseDownWidget == null) {
-      return;
-    }
-
-    if (context.dragController.getBehaviorCancelDocumentSelections()) {
-      DOMUtil.cancelAllDocumentSelections();
-    }
-    if (dragging == NOT_DRAGGING) {
-      doSelectionToggle(event);
-      return;
-    }
-
-    // TODO Remove Safari workaround after GWT issue 1807 fixed
-    if (sender != capturingWidget) {
-      // In Safari 1.3.2 MAC does not honor capturing widget for mouse up
-      Location location = new WidgetLocation(sender, null);
-      x += location.getLeft();
-      y += location.getTop();
-    }
-    // Proceed with the drop
     try {
-      drop(x, y);
-      if (dragging != ACTIVELY_DRAGGING) {
+      Widget sender = (Widget) event.getSource();
+      Element elem = sender.getElement();
+      // TODO optimize for the fact that elem is at (0,0)
+      int x = event.getRelativeX(elem);
+      int y = event.getRelativeY(elem);
+
+      int button = event.getNativeButton();
+      if (button != NativeEvent.BUTTON_LEFT) {
+        return;
+      }
+      mouseDown = false;
+
+      // in case mouse down occurred elsewhere
+      if (mouseDownWidget == null) {
+        return;
+      }
+
+      if (context.dragController.getBehaviorCancelDocumentSelections()) {
+        DOMUtil.cancelAllDocumentSelections();
+      }
+      if (dragging == NOT_DRAGGING) {
         doSelectionToggle(event);
+        return;
+      }
+
+      // TODO Remove Safari workaround after GWT issue 1807 fixed
+      if (sender != capturingWidget) {
+        // In Safari 1.3.2 MAC does not honor capturing widget for mouse up
+        Location location = new WidgetLocation(sender, null);
+        x += location.getLeft();
+        y += location.getTop();
+      }
+      // Proceed with the drop
+      try {
+        drop(x, y);
+        if (dragging != ACTIVELY_DRAGGING) {
+          doSelectionToggle(event);
+        }
+      } finally {
+        dragEndCleanup();
       }
     } finally {
-      dragEndCleanup();
+      mouseDownWidget = null;
     }
   }
 
