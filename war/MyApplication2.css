@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+
+.dragdrop-dropTarget-engage {
+  background-color: #E0E8FF;
+}
+
+.getting-started-label {
+  border: 1px solid #99AACC;
+  background-color: #AACCFF;
+  padding: 0.1em;
+}
+
+.getting-started-blue {
+  border: 1px solid blue;
+}
