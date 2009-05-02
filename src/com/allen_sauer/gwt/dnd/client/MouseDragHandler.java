@@ -274,12 +274,13 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
           if (!context.selectedWidgets.contains(context.draggable)) {
             context.dragController.toggleSelection(context.draggable);
           }
-          startDragging();
 
-          // adjust (x,y) to be relative to capturingWidget at (0,0)
+          // set context.mouseX/Y before startDragging() is called
           Location location = new WidgetLocation(mouseDownWidget, null);
-          x += location.getLeft();
-          y += location.getTop();
+          context.mouseX = mouseDownOffsetX + location.getLeft();
+          context.mouseY = mouseDownOffsetY + location.getTop();
+
+          startDragging();
         } else {
           // prevent IE image drag when drag sensitivity > 5
           DOM.eventPreventDefault(DOM.eventGetCurrentEvent());
@@ -297,6 +298,12 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   public void onMouseOut(MouseOutEvent event) {
     if (mouseDown && dragging == NOT_DRAGGING) {
       // TODO DOMUtil.cancelAllDocumentSelections(); ?
+
+      // set context.mouseX/Y before startDragging() is called
+      Location location = new WidgetLocation(mouseDownWidget, null);
+      context.mouseX = mouseDownOffsetX + location.getLeft();
+      context.mouseY = mouseDownOffsetY + location.getTop();
+
       startDragging();
     }
   }
