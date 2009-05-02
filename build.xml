@@ -136,14 +136,7 @@
 
 		<copy todir="build/demo">
 			<fileset dir="demo">
-				<include name="**/public/**" />
-			</fileset>
-		</copy>
-
-		<copy todir="build/demo">
-			<fileset dir="demo">
-				<include name="**/*.java" />
-				<include name="**/*.gwt.xml" />
+				<exclude name="**/package.html" />
 			</fileset>
 			<fileset dir=".">
 				<include name="LICENSE" />
