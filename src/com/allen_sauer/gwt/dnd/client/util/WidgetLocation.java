@@ -18,8 +18,8 @@ package com.allen_sauer.gwt.dnd.client.util;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-/**
- * Class representing the location of one widget relative to another.
+/*
+ * * Class representing the location of one widget relative to another.
  */
 public class WidgetLocation extends AbstractLocation {
 
@@ -117,8 +117,8 @@ public class WidgetLocation extends AbstractLocation {
       widgetLeft = 0;
       widgetTop = 0;
     } else {
-      widgetLeft = widget.getAbsoluteLeft();
-      widgetTop = widget.getAbsoluteTop();
+      widgetLeft = widget.getAbsoluteLeft() - widget.getElement().getScrollLeft();
+      widgetTop = widget.getAbsoluteTop() - widget.getElement().getScrollTop();
     }
   }
 
