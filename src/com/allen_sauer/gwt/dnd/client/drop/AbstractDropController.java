@@ -15,10 +15,9 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
-import com.google.gwt.user.client.ui.Widget;
-
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.VetoDragException;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Base class for typical drop controllers. Contains some basic functionality
