@@ -270,15 +270,21 @@
 		<delete dir="build" />
 	</target>
 
+	<target name="sshls" description="SSH ls (test)" >
+
+		<sshexec command="ls" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
+
+	</target>
+
 	<target name="deploy" description="Build and deploy to demo site" depends="clean, init, javac, gwtc">
 
-		<sshexec command="mkdir com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="c:\fred\.ssh\known_hosts" keyfile="c:\fred\.ssh\id_dsa" passphrase="" />
+		<sshexec command="mkdir com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
 
-		<scp todir="sauer@allen-sauer.com:com.allen_sauer.gwt.dnd.demo.DragDropDemo/" knownhosts="c:\fred\.ssh\known_hosts" keyfile="c:\fred\.ssh\id_dsa" passphrase="" verbose="true">
+		<scp todir="sauer@allen-sauer.com:com.allen_sauer.gwt.dnd.demo.DragDropDemo/" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" verbose="true">
 			<fileset dir="build/www" />
 		</scp>
 
-		<sshexec command="./deploy.sh com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="c:\fred\.ssh\known_hosts" keyfile="c:\fred\.ssh\id_dsa" passphrase="" />
+		<sshexec command="./deploy.sh com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
 
 	</target>
 
