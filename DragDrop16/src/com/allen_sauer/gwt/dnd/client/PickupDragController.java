@@ -125,6 +125,14 @@ public class PickupDragController extends AbstractDragController {
     dropControllerCollection = new DropControllerCollection(dropControllerList);
   }
 
+  private void calcBoundaryOffset() {
+	Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
+	boundaryOffsetX = widgetLocation.getLeft()
+	    + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
+	boundaryOffsetY = widgetLocation.getTop()
+	    + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
+}
+
   private void checkGWTIssue1813(Widget child, AbsolutePanel parent) {
     if (!GWT.isScript()) {
       if (child.getElement().getOffsetParent() != parent.getElement()) {
@@ -163,6 +171,9 @@ public class PickupDragController extends AbstractDragController {
   }
 
   public void dragMove() {
+	// may have changed due to scrollIntoView() or developer driven changes
+	calcBoundaryOffset();
+
     int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
     int desiredTop = context.desiredDraggableY - boundaryOffsetY;
     if (getBehaviorConstrainedToBoundaryPanel()) {
@@ -234,15 +245,7 @@ public class PickupDragController extends AbstractDragController {
       movablePanel = container;
     }
     movablePanel.addStyleName(PRIVATE_CSS_MOVABLE_PANEL);
-
-    // one time calculation of boundary panel location for efficiency during
-    // dragging
-    Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
-    boundaryOffsetX = widgetLocation.getLeft()
-        + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
-    boundaryOffsetY = widgetLocation.getTop()
-        + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
-
+    calcBoundaryOffset();
     dropTargetClientWidth = DOMUtil.getClientWidth(boundaryPanel.getElement());
     dropTargetClientHeight = DOMUtil.getClientHeight(boundaryPanel.getElement());
   }

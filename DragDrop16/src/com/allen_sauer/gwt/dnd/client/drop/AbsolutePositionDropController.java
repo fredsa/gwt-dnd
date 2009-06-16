@@ -15,17 +15,16 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
+import java.util.ArrayList;
+
+import com.allen_sauer.gwt.dnd.client.DragContext;
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dnd.client.DragContext;
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
-
-import java.util.ArrayList;
 
 /**
  * A {@link DropController} which allows a draggable widget to be placed at
@@ -40,15 +39,15 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
     public int desiredY;
 
-    public int relativeX;
-
-    public int relativeY;
-
     final int offsetHeight;
 
     final int offsetWidth;
 
     Widget positioner = null;
+
+    public int relativeX;
+
+    public int relativeY;
 
     final Widget widget;
 
@@ -78,6 +77,14 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     this.dropTarget = dropTarget;
   }
 
+  private void calcDropTargetOffset() {
+	WidgetLocation dropTargetLocation = new WidgetLocation(dropTarget, null);
+    dropTargetOffsetX = dropTargetLocation.getLeft()
+        + DOMUtil.getBorderLeft(dropTarget.getElement());
+    dropTargetOffsetY = dropTargetLocation.getTop() + DOMUtil.getBorderTop(dropTarget.getElement());
+//    System.out.println(dropTargetOffsetX + ", " + dropTargetOffsetY);
+}
+
   /**
    * Programmatically drop a widget on our drop target while obeying the
    * constraints of this controller.
@@ -94,6 +101,32 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     dropTarget.add(widget, left, top);
   }
 
+  Widget makePositioner(Widget reference) {
+    // Use two widgets so that setPixelSize() consistently affects dimensions
+    // excluding positioner border in quirks and strict modes
+    SimplePanel outer = new SimplePanel();
+    outer.addStyleName(CSS_DRAGDROP_POSITIONER);
+    outer.getElement().getStyle().setProperty("margin", "0px");
+
+    // place off screen for border calculation
+    RootPanel.get().add(outer, -500, -500);
+
+    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid
+    // DOMUtil.getVerticalBorders(outer)
+    outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
+
+    SimplePanel inner = new SimplePanel();
+    inner.getElement().getStyle().setProperty("margin", "0px");
+    inner.getElement().getStyle().setProperty("border", "none");
+    int offsetWidth = reference.getOffsetWidth() - DOMUtil.getHorizontalBorders(outer);
+    int offsetHeight = reference.getOffsetHeight() - DOMUtil.getVerticalBorders(outer);
+    inner.setPixelSize(offsetWidth, offsetHeight);
+
+    outer.setWidget(inner);
+
+    return outer;
+  }
+
   @Override
   public void onDrop(DragContext context) {
     for (Draggable draggable : draggableList) {
@@ -103,17 +136,14 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     super.onDrop(context);
   }
 
-  @Override
+@Override
   public void onEnter(DragContext context) {
     super.onEnter(context);
     assert draggableList.size() == 0;
 
     dropTargetClientWidth = DOMUtil.getClientWidth(dropTarget.getElement());
     dropTargetClientHeight = DOMUtil.getClientHeight(dropTarget.getElement());
-    WidgetLocation dropTargetLocation = new WidgetLocation(dropTarget, null);
-    dropTargetOffsetX = dropTargetLocation.getLeft()
-        + DOMUtil.getBorderLeft(dropTarget.getElement());
-    dropTargetOffsetY = dropTargetLocation.getTop() + DOMUtil.getBorderTop(dropTarget.getElement());
+    calcDropTargetOffset();
 
     int draggableAbsoluteLeft = context.draggable.getAbsoluteLeft();
     int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
@@ -147,31 +177,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
           - draggable.offsetHeight));
       dropTarget.add(draggable.positioner, draggable.desiredX, draggable.desiredY);
     }
-  }
-
-  Widget makePositioner(Widget reference) {
-    // Use two widgets so that setPixelSize() consistently affects dimensions
-    // excluding positioner border in quirks and strict modes
-    SimplePanel outer = new SimplePanel();
-    outer.addStyleName(CSS_DRAGDROP_POSITIONER);
-    outer.getElement().getStyle().setProperty("margin", "0px");
-
-    // place off screen for border calculation
-    RootPanel.get().add(outer, -500, -500);
-
-    // Ensure IE quirks mode returns valid outer.offsetHeight, and thus valid
-    // DOMUtil.getVerticalBorders(outer)
-    outer.setWidget(DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT);
-
-    SimplePanel inner = new SimplePanel();
-    inner.getElement().getStyle().setProperty("margin", "0px");
-    inner.getElement().getStyle().setProperty("border", "none");
-    int offsetWidth = reference.getOffsetWidth() - DOMUtil.getHorizontalBorders(outer);
-    int offsetHeight = reference.getOffsetHeight() - DOMUtil.getVerticalBorders(outer);
-    inner.setPixelSize(offsetWidth, offsetHeight);
-
-    outer.setWidget(inner);
-
-    return outer;
+    draggableList.get(0).positioner.getElement().scrollIntoView();
+    
+    // may have changed due to scrollIntoView()
+    calcDropTargetOffset();
   }
 }

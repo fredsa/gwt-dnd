@@ -15,14 +15,46 @@
  */
 package com.allen_sauer.gwt.dnd.client.util;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
-/**
- * Class to represent a rectangular region of a widget relative to another
+/*
+ * * Class to represent a rectangular region of a widget relative to another
  * widget. Also keeps track of the size of the widget borders and its inner
  * width and height.
  */
 public class WidgetArea extends AbstractArea {
+
+  public WidgetArea(Widget widget, Widget reference) {
+    setLeft(widget.getAbsoluteLeft());
+    setTop(widget.getAbsoluteTop());
+
+    if (reference != null) {
+      setLeft(getLeft() - reference.getAbsoluteLeft()
+          - DOMUtil.getBorderLeft(reference.getElement()));
+      setTop(getTop() - reference.getAbsoluteTop() - DOMUtil.getBorderTop(reference.getElement()));
+    }
+    setRight(getLeft() + widget.getOffsetWidth());
+    setBottom(getTop() + widget.getOffsetHeight());
+
+    Element elem = widget.getElement().getOffsetParent();
+    Element p;
+
+    while (elem != null && (p = elem.getOffsetParent()) != null) {
+      setLeft(getLeft() + elem.getScrollLeft());
+      setTop(getTop() + elem.getScrollTop());
+
+      int temp;
+      if ((temp = getWidth() - DOMUtil.getClientWidth(elem)) > 0) {
+        setRight(getRight() - temp);
+      }
+      if ((temp = getHeight() - DOMUtil.getClientHeight(elem)) > 0) {
+        setBottom(getBottom() - temp);
+      }
+
+      elem = p;
+    }
+  }
 
   /**
    * Determine the area of a widget relative to a panel. The area returned is
@@ -43,16 +75,16 @@ public class WidgetArea extends AbstractArea {
    *            <code>null</code>, then <code>RootPanel().get()</code> is
    *            assumed
    */
-  public WidgetArea(Widget widget, Widget reference) {
-    setLeft(widget.getAbsoluteLeft());
-    setTop(widget.getAbsoluteTop());
-
-    if (reference != null) {
-      setLeft(getLeft() - reference.getAbsoluteLeft()
-          - DOMUtil.getBorderLeft(reference.getElement()));
-      setTop(getTop() - reference.getAbsoluteTop() - DOMUtil.getBorderTop(reference.getElement()));
-    }
-    setRight(getLeft() + widget.getOffsetWidth());
-    setBottom(getTop() + widget.getOffsetHeight());
-  }
+  //  public WidgetArea(Widget widget, Widget reference) {
+  //    setLeft(widget.getAbsoluteLeft());
+  //    setTop(widget.getAbsoluteTop());
+  //
+  //    if (reference != null) {
+  //      setLeft(getLeft() - reference.getAbsoluteLeft()
+  //          - DOMUtil.getBorderLeft(reference.getElement()));
+  //      setTop(getTop() - reference.getAbsoluteTop() - DOMUtil.getBorderTop(reference.getElement()));
+  //    }
+  //    setRight(getLeft() + widget.getOffsetWidth());
+  //    setBottom(getTop() + widget.getOffsetHeight());
+  //  }
 }
