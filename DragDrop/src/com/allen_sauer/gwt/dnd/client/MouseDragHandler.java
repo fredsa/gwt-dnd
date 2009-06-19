@@ -15,11 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import java.util.HashMap;
-
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-import com.allen_sauer.gwt.dnd.client.util.Location;
-import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
@@ -42,6 +37,12 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.Location;
+import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
+
+import java.util.HashMap;
 
 /*
  * Implementation helper class which handles mouse events for all draggable
@@ -68,6 +69,14 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       this.mouseUpHandlerRegistration = mouseUpHandlerRegistration;
     }
 
+    public HandlerRegistration getMouseMoveHandlerRegistration() {
+      return mouseMoveHandlerRegistration;
+    }
+
+    public HandlerRegistration getMouseUpHandlerRegistration() {
+      return mouseUpHandlerRegistration;
+    }
+
     Widget getDragable() {
       return dragable;
     }
@@ -76,16 +85,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       return mouseDownHandlerRegistration;
     }
 
-    public HandlerRegistration getMouseMoveHandlerRegistration() {
-      return mouseMoveHandlerRegistration;
-    }
-
     HandlerRegistration getMouseOutHandlerRegistration() {
       return mouseOutHandlerRegistration;
-    }
-
-    public HandlerRegistration getMouseUpHandlerRegistration() {
-      return mouseUpHandlerRegistration;
     }
   }
 
@@ -98,8 +99,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   private FocusPanel capturingWidget;
 
   private final DragContext context;
-
-  private DeferredMoveCommand deferredMoveCommand = new DeferredMoveCommand(this);
 
   private int dragging = NOT_DRAGGING;
 
@@ -116,78 +115,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   MouseDragHandler(DragContext context) {
     this.context = context;
     initCapturingWidget();
-  }
-
-  void actualMove(int x, int y) {
-    context.mouseX = x;
-    context.mouseY = y;
-    context.desiredDraggableX = x - mouseDownOffsetX;
-    context.desiredDraggableY = y - mouseDownOffsetY;
-
-    context.dragController.dragMove();
-  }
-
-  private void doSelectionToggle(MouseEvent<?> event) {
-    Widget widget = dragHandleMap.get(mouseDownWidget).getDragable();
-    assert widget != null;
-    if (!toggleKey(event)) {
-      context.dragController.clearSelection();
-    }
-    context.dragController.toggleSelection(widget);
-  }
-
-  private void dragEndCleanup() {
-    DOM.releaseCapture(capturingWidget.getElement());
-    dragging = NOT_DRAGGING;
-    context.dragEndCleanup();
-  }
-
-  private void drop(int x, int y) {
-    actualMove(x, y);
-
-    // Does the DragController allow the drop?
-    try {
-      context.dragController.previewDragEnd();
-    } catch (VetoDragException ex) {
-      context.vetoException = ex;
-    }
-
-    context.dragController.dragEnd();
-  }
-
-  private void initCapturingWidget() {
-    capturingWidget = new FocusPanel();
-    capturingWidget.setPixelSize(0, 0);
-    capturingWidget.addMouseMoveHandler(this);
-    capturingWidget.addMouseUpHandler(this);
-    capturingWidget.getElement().getStyle().setProperty("visibility", "hidden");
-    capturingWidget.getElement().getStyle().setProperty("margin", "0px");
-    capturingWidget.getElement().getStyle().setProperty("border", "none");
-  }
-
-  void makeDraggable(Widget draggable, Widget dragHandle) {
-    try {
-      RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable,
-          ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this),
-          ((HasMouseUpHandlers) dragHandle).addMouseUpHandler(this),
-          ((HasMouseMoveHandlers) dragHandle).addMouseMoveHandler(this),
-          ((HasMouseOutHandlers) dragHandle).addMouseOutHandler(this));
-      dragHandleMap.put(dragHandle, registeredDraggable);
-    } catch (Exception ex) {
-      throw new RuntimeException(
-          "dragHandle must implement HasMouseDownHandlers, HasMouseUpHandlers, HasMouseMoveHandlers and HasMouseOutHandlers to be draggable",
-          ex);
-    }
-  }
-
-  void makeNotDraggable(Widget dragHandle) {
-    RegisteredDraggable registeredDraggable = dragHandleMap.remove(dragHandle);
-    if (registeredDraggable == null) {
-      throw new RuntimeException("dragHandle was not draggable");
-    }
-    registeredDraggable.getMouseDownHandlerRegistration().removeHandler();
-    registeredDraggable.getMouseUpHandlerRegistration().removeHandler();
-    registeredDraggable.getMouseOutHandlerRegistration().removeHandler();
   }
 
   public void onMouseDown(MouseDownEvent event) {
@@ -292,7 +219,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
     // proceed with the actual drag
     DOM.eventPreventDefault(DOM.eventGetCurrentEvent());
-    deferredMoveCommand.scheduleOrExecute(x, y);
+    actualMove(x, y);
   }
 
   public void onMouseOut(MouseOutEvent event) {
@@ -354,6 +281,78 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     } finally {
       mouseDownWidget = null;
     }
+  }
+
+  void actualMove(int x, int y) {
+    context.mouseX = x;
+    context.mouseY = y;
+    context.desiredDraggableX = x - mouseDownOffsetX;
+    context.desiredDraggableY = y - mouseDownOffsetY;
+
+    context.dragController.dragMove();
+  }
+
+  void makeDraggable(Widget draggable, Widget dragHandle) {
+    try {
+      RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable,
+          ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this),
+          ((HasMouseUpHandlers) dragHandle).addMouseUpHandler(this),
+          ((HasMouseMoveHandlers) dragHandle).addMouseMoveHandler(this),
+          ((HasMouseOutHandlers) dragHandle).addMouseOutHandler(this));
+      dragHandleMap.put(dragHandle, registeredDraggable);
+    } catch (Exception ex) {
+      throw new RuntimeException(
+          "dragHandle must implement HasMouseDownHandlers, HasMouseUpHandlers, HasMouseMoveHandlers and HasMouseOutHandlers to be draggable",
+          ex);
+    }
+  }
+
+  void makeNotDraggable(Widget dragHandle) {
+    RegisteredDraggable registeredDraggable = dragHandleMap.remove(dragHandle);
+    if (registeredDraggable == null) {
+      throw new RuntimeException("dragHandle was not draggable");
+    }
+    registeredDraggable.getMouseDownHandlerRegistration().removeHandler();
+    registeredDraggable.getMouseUpHandlerRegistration().removeHandler();
+    registeredDraggable.getMouseOutHandlerRegistration().removeHandler();
+  }
+
+  private void doSelectionToggle(MouseEvent<?> event) {
+    Widget widget = dragHandleMap.get(mouseDownWidget).getDragable();
+    assert widget != null;
+    if (!toggleKey(event)) {
+      context.dragController.clearSelection();
+    }
+    context.dragController.toggleSelection(widget);
+  }
+
+  private void dragEndCleanup() {
+    DOM.releaseCapture(capturingWidget.getElement());
+    dragging = NOT_DRAGGING;
+    context.dragEndCleanup();
+  }
+
+  private void drop(int x, int y) {
+    actualMove(x, y);
+
+    // Does the DragController allow the drop?
+    try {
+      context.dragController.previewDragEnd();
+    } catch (VetoDragException ex) {
+      context.vetoException = ex;
+    }
+
+    context.dragController.dragEnd();
+  }
+
+  private void initCapturingWidget() {
+    capturingWidget = new FocusPanel();
+    capturingWidget.setPixelSize(0, 0);
+    capturingWidget.addMouseMoveHandler(this);
+    capturingWidget.addMouseUpHandler(this);
+    capturingWidget.getElement().getStyle().setProperty("visibility", "hidden");
+    capturingWidget.getElement().getStyle().setProperty("margin", "0px");
+    capturingWidget.getElement().getStyle().setProperty("border", "none");
   }
 
   private void startDragging() {
