@@ -87,11 +87,6 @@ public class PuzzleExample extends Example {
   }
 
   @Override
-  protected Widget createDraggable() {
-    return DraggableFactory.createDraggablePumpkinImage(dragController);
-  }
-
-  @Override
   public String getDescription() {
     return "Demonstrate image dragging and target selection when there are multiple intersecting drop targets.";
   }
@@ -100,5 +95,10 @@ public class PuzzleExample extends Example {
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {
         PuzzleExample.class, SetWidgetDropController.class, PickupDragController.class,};
+  }
+
+  @Override
+  protected Widget createDraggable() {
+    return DraggableFactory.createDraggablePumpkinImage(dragController);
   }
 }

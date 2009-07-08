@@ -52,16 +52,6 @@ public final class DemoDragHandler implements DragHandler {
     eventTextArea = dragHandlerHTML;
   }
 
-  private void clear() {
-    eventTextArea.setHTML("");
-  }
-
-  private void log(String text, String color) {
-    eventTextArea.setHTML(eventTextArea.getHTML()
-        + (eventTextArea.getHTML().length() == 0 ? "" : "<br>") + "<span style='color: " + color
-        + "'>" + text + "</span>");
-  }
-
   /**
    * Log the drag end event.
    * 
@@ -99,5 +89,15 @@ public final class DemoDragHandler implements DragHandler {
   public void onPreviewDragStart(DragStartEvent event) throws VetoDragException {
     clear();
     log("onPreviewDragStart: " + event, BLUE);
+  }
+
+  private void clear() {
+    eventTextArea.setHTML("");
+  }
+
+  private void log(String text, String color) {
+    eventTextArea.setHTML(eventTextArea.getHTML()
+        + (eventTextArea.getHTML().length() == 0 ? "" : "<br>") + "<span style='color: " + color
+        + "'>" + text + "</span>");
   }
 }

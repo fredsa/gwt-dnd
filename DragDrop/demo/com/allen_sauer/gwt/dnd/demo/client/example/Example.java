@@ -50,17 +50,6 @@ public abstract class Example extends SimplePanel {
   }
 
   /**
-   * Convenience method to create a default draggable widget. The widget is
-   * automatically made draggable by calling
-   * {@link DragController#makeDraggable(Widget)}.
-   * 
-   * @return a new draggable widget
-   */
-  protected Widget createDraggable() {
-    return DraggableFactory.createDraggableRedBox(dragController);
-  }
-
-  /**
    * Get a brief description of this example.
    * 
    * @return the description
@@ -86,6 +75,17 @@ public abstract class Example extends SimplePanel {
    * @return an array of involved classes
    */
   public abstract Class<?>[] getInvolvedClasses();
+
+  /**
+   * Convenience method to create a default draggable widget. The widget is
+   * automatically made draggable by calling
+   * {@link DragController#makeDraggable(Widget)}.
+   * 
+   * @return a new draggable widget
+   */
+  protected Widget createDraggable() {
+    return DraggableFactory.createDraggableRedBox(dragController);
+  }
 
   /**
    * Called when {@link #onLoad()} is called for the first time.

@@ -40,6 +40,11 @@ public abstract class AbstractDragController implements DragController {
   private static HashMap<Widget, Widget> dragHandles = new HashMap<Widget, Widget>();
 
   /**
+   * The drag controller's drag context.
+   */
+  protected final DragContext context;
+
+  /**
    * The boundary panel to which all drag operations are constrained.
    */
   AbsolutePanel boundaryPanel;
@@ -50,11 +55,6 @@ public abstract class AbstractDragController implements DragController {
    * Whether or not widgets are physically constrained to the boundary panel.
    */
   private boolean constrainedToBoundaryPanel;
-
-  /**
-   * The drag controller's drag context.
-   */
-  protected final DragContext context;
 
   /**
    * The current drag end event, created in {@link #previewDragEnd()} and

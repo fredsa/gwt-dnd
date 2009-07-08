@@ -87,6 +87,12 @@ public final class WindowExample extends Example {
     return "Resize an embedded Widget using a composite of Grid and ScrollPanel.";
   }
 
+  @Override
+  public Class<?>[] getInvolvedClasses() {
+    return new Class[] {
+        WindowExample.class, WindowController.class, WindowPanel.class, ResizeDragController.class,};
+  }
+
   private Frame getIframe(String url) {
     Frame iframe = new Frame() {
 
@@ -102,12 +108,6 @@ public final class WindowExample extends Example {
     iframe.setUrl(url);
     iframe.addStyleName("demo-WindowPanel-iframe");
     return iframe;
-  }
-
-  @Override
-  public Class<?>[] getInvolvedClasses() {
-    return new Class[] {
-        WindowExample.class, WindowController.class, WindowPanel.class, ResizeDragController.class,};
   }
 
   private String makeText() {

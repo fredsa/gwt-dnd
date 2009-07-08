@@ -47,15 +47,6 @@ public class BoundaryDropController extends AbsolutePositionDropController {
   }
 
   @Override
-  Widget makePositioner(Widget reference) {
-    if (allowDroppingOnBoundaryPanel) {
-      return super.makePositioner(reference);
-    } else {
-      return new SimplePanel();
-    }
-  }
-
-  @Override
   public void onPreviewDrop(DragContext context) throws VetoDragException {
     if (!allowDroppingOnBoundaryPanel) {
       throw new VetoDragException();
@@ -72,5 +63,14 @@ public class BoundaryDropController extends AbsolutePositionDropController {
    */
   public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
     this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
+  }
+
+  @Override
+  Widget makePositioner(Widget reference) {
+    if (allowDroppingOnBoundaryPanel) {
+      return super.makePositioner(reference);
+    } else {
+      return new SimplePanel();
+    }
   }
 }

@@ -80,10 +80,6 @@ final class ResizeDragController extends AbstractDragController {
     windowPanel = (WindowPanel) context.draggable.getParent().getParent();
   }
 
-  private DirectionConstant getDirection(Widget draggable) {
-    return directionMap.get(draggable);
-  }
-
   public void makeDraggable(Widget widget, WindowPanel.DirectionConstant direction) {
     super.makeDraggable(widget);
     directionMap.put(widget, direction);
@@ -95,5 +91,9 @@ final class ResizeDragController extends AbstractDragController {
       throw new IllegalArgumentException();
     }
     return new BoundaryDropController(boundaryPanel, false);
+  }
+
+  private DirectionConstant getDirection(Widget draggable) {
+    return directionMap.get(draggable);
   }
 }

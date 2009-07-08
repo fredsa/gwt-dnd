@@ -61,10 +61,6 @@ public final class DragDropDemo implements EntryPoint {
 
   private PickupDragController dragController;
 
-  private Widget createDraggable() {
-    return DraggableFactory.createDraggableRedBox(dragController);
-  }
-
   public void onModuleLoad() {
     // set uncaught exception handler
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
@@ -98,6 +94,10 @@ public final class DragDropDemo implements EntryPoint {
         onModuleLoad2();
       }
     });
+  }
+
+  private Widget createDraggable() {
+    return DraggableFactory.createDraggableRedBox(dragController);
   }
 
   private void onModuleLoad2() {

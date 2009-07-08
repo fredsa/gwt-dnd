@@ -46,35 +46,6 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     this.dropTarget = dropTarget;
   }
 
-  protected abstract LocationWidgetComparator getLocationWidgetComparator();
-
-  /**
-   * Insert the provided widget using an appropriate drop target specific
-   * method.
-   * 
-   * TODO remove after enhancement for issue 1112 provides InsertPanel interface
-   * 
-   * @param widget the widget to be inserted
-   * @param beforeIndex the widget index before which <code>widget</code> should
-   *          be inserted
-   */
-  protected abstract void insert(Widget widget, int beforeIndex);
-
-  /**
-   * Called by {@link AbstractIndexedDropController#onEnter(DragContext)} to
-   * create a new positioner widget for this indexed drop target. Override this
-   * method to customize the look and feel of your positioner. The positioner
-   * widget may not have any CSS borders or margins, although there are no such
-   * restrictions on the children of the positioner widget. If borders and/or
-   * margins are desired, wrap that widget in a
-   * {@link com.google.gwt.user.client.ui.SimplePanel} with a <code>0px</code>
-   * border and margin.
-   * 
-   * @param context The current drag context.
-   * @return a new positioner widget
-   */
-  protected abstract Widget newPositioner(DragContext context);
-
   @Override
   public void onDrop(DragContext context) {
     assert dropIndex != -1 : "Should not happen after onPreviewDrop did not veto";
@@ -129,4 +100,33 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     }
     super.onPreviewDrop(context);
   }
+
+  protected abstract LocationWidgetComparator getLocationWidgetComparator();
+
+  /**
+   * Insert the provided widget using an appropriate drop target specific
+   * method.
+   * 
+   * TODO remove after enhancement for issue 1112 provides InsertPanel interface
+   * 
+   * @param widget the widget to be inserted
+   * @param beforeIndex the widget index before which <code>widget</code> should
+   *          be inserted
+   */
+  protected abstract void insert(Widget widget, int beforeIndex);
+
+  /**
+   * Called by {@link AbstractIndexedDropController#onEnter(DragContext)} to
+   * create a new positioner widget for this indexed drop target. Override this
+   * method to customize the look and feel of your positioner. The positioner
+   * widget may not have any CSS borders or margins, although there are no such
+   * restrictions on the children of the positioner widget. If borders and/or
+   * margins are desired, wrap that widget in a
+   * {@link com.google.gwt.user.client.ui.SimplePanel} with a <code>0px</code>
+   * border and margin.
+   * 
+   * @param context The current drag context.
+   * @return a new positioner widget
+   */
+  protected abstract Widget newPositioner(DragContext context);
 }

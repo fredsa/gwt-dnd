@@ -82,21 +82,6 @@ public class MultiRowTabPanel extends Composite {
     historyTokenMap.add(historyToken, pageTitle);
   }
 
-  private void addRow() {
-    TabBar tabBar = new TabBar();
-    tabBarsVerticalPanel.add(tabBar);
-    tabBar.addSelectionHandler(new SelectionHandler<Integer>() {
-      public void onSelection(SelectionEvent<Integer> event) {
-        int row = tabBarsVerticalPanel.getWidgetIndex((TabBar) event.getSource());
-        whenTabSelected(row, event.getSelectedItem());
-      }
-    });
-    tabBarIndexOffsetMap.put(tabBar, Integer.valueOf(tabCount));
-    tabBarsVerticalPanel.setCellStyleName(tabBar, CSS_DEMO_MULTI_ROW_TAB_PANEL_ROW);
-
-    rows++;
-  }
-
   public void addTabBarStyleName(String style) {
     tabBarsVerticalPanel.addStyleName(style);
   }
@@ -117,6 +102,21 @@ public class MultiRowTabPanel extends Composite {
     if (tabIndex != null) {
       selectTab(tabIndex);
     }
+  }
+
+  private void addRow() {
+    TabBar tabBar = new TabBar();
+    tabBarsVerticalPanel.add(tabBar);
+    tabBar.addSelectionHandler(new SelectionHandler<Integer>() {
+      public void onSelection(SelectionEvent<Integer> event) {
+        int row = tabBarsVerticalPanel.getWidgetIndex((TabBar) event.getSource());
+        whenTabSelected(row, event.getSelectedItem());
+      }
+    });
+    tabBarIndexOffsetMap.put(tabBar, Integer.valueOf(tabCount));
+    tabBarsVerticalPanel.setCellStyleName(tabBar, CSS_DEMO_MULTI_ROW_TAB_PANEL_ROW);
+
+    rows++;
   }
 
   private void whenTabSelected(int row, int tabIndex) {

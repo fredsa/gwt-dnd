@@ -45,20 +45,6 @@ public class FlexTableUtil {
   }
 
   /**
-   * Copies the CSS style of a source row to a target row.
-   * 
-   * @param sourceTable
-   * @param targetTable
-   * @param sourceRow
-   * @param targetRow
-   */
-  private static void copyRowStyle(FlexTable sourceTable, FlexTable targetTable, int sourceRow,
-      int targetRow) {
-    String rowStyle = sourceTable.getRowFormatter().getStyleName(sourceRow);
-    targetTable.getRowFormatter().setStyleName(targetRow, rowStyle);
-  }
-
-  /**
    * Move an entire FlexTable from one FlexTable to another. Elements are moved
    * by attempting to call {@link FlexTable#getWidget(int, int)} on the source
    * table. If no widget is found (because <code>null</code> is returned), a new
@@ -87,6 +73,20 @@ public class FlexTableUtil {
     }
     copyRowStyle(sourceTable, targetTable, sourceRow, targetRow);
     sourceTable.removeRow(sourceRow);
+  }
+
+  /**
+   * Copies the CSS style of a source row to a target row.
+   * 
+   * @param sourceTable
+   * @param targetTable
+   * @param sourceRow
+   * @param targetRow
+   */
+  private static void copyRowStyle(FlexTable sourceTable, FlexTable targetTable, int sourceRow,
+      int targetRow) {
+    String rowStyle = sourceTable.getRowFormatter().getStyleName(sourceRow);
+    targetTable.getRowFormatter().setStyleName(targetRow, rowStyle);
   }
 
 }

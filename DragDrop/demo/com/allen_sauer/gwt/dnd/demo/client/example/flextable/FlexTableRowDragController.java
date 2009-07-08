@@ -48,24 +48,13 @@ public final class FlexTableRowDragController extends PickupDragController {
     draggableTable = null;
   }
 
-  FlexTable getDraggableTable() {
-    return draggableTable;
-  }
-
-  int getDragRow() {
-    return dragRow;
-  }
-
-  private int getWidgetRow(Widget widget, FlexTable table) {
-    for (int row = 0; row < table.getRowCount(); row++) {
-      for (int col = 0; col < table.getCellCount(row); col++) {
-        Widget w = table.getWidget(row, col);
-        if (w == widget) {
-          return row;
-        }
-      }
+  @Override
+  public void setBehaviorDragProxy(boolean dragProxyEnabled) {
+    if (!dragProxyEnabled) {
+      // TODO implement drag proxy behavior
+      throw new IllegalArgumentException();
     }
-    throw new RuntimeException("Unable to determine widget row");
+    super.setBehaviorDragProxy(dragProxyEnabled);
   }
 
   @Override
@@ -88,12 +77,23 @@ public final class FlexTableRowDragController extends PickupDragController {
     return proxy;
   }
 
-  @Override
-  public void setBehaviorDragProxy(boolean dragProxyEnabled) {
-    if (!dragProxyEnabled) {
-      // TODO implement drag proxy behavior
-      throw new IllegalArgumentException();
+  FlexTable getDraggableTable() {
+    return draggableTable;
+  }
+
+  int getDragRow() {
+    return dragRow;
+  }
+
+  private int getWidgetRow(Widget widget, FlexTable table) {
+    for (int row = 0; row < table.getRowCount(); row++) {
+      for (int col = 0; col < table.getCellCount(row); col++) {
+        Widget w = table.getWidget(row, col);
+        if (w == widget) {
+          return row;
+        }
+      }
     }
-    super.setBehaviorDragProxy(dragProxyEnabled);
+    throw new RuntimeException("Unable to determine widget row");
   }
 }
