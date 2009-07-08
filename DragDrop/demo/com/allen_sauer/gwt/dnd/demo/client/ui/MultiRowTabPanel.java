@@ -15,8 +15,6 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client.ui;
 
-import java.util.HashMap;
-
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -29,6 +27,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabBar;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import java.util.HashMap;
 
 public class MultiRowTabPanel extends Composite {
 

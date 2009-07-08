@@ -16,7 +16,8 @@
 package com.allen_sauer.gwt.dnd.client;
 
 /**
- * {@link java.util.EventObject} containing information about the start of a drag.
+ * {@link java.util.EventObject} containing information about the start of a
+ * drag.
  */
 @SuppressWarnings("serial")
 public class DragStartEvent extends DragEvent {

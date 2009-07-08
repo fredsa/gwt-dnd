@@ -31,9 +31,8 @@ import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 /**
  * A {@link DropController} for instances of {@link IndexedPanel}.
  * 
- * @see FlowPanelDropController
- * 
- * TODO VerticalPanel performance is slow because of positioner DOM manipulation
+ * @see FlowPanelDropController TODO VerticalPanel performance is slow because
+ *      of positioner DOM manipulation
  */
 public class IndexedDropController extends AbstractIndexedDropController {
 

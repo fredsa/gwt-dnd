@@ -23,7 +23,8 @@ import com.allen_sauer.gwt.dnd.demo.client.DragDropDemo;
 public class GWTUtil {
 
   /**
-   * Base java package for demo client code, used by {@link #getClassAnchorHTML(Class)}.
+   * Base java package for demo client code, used by
+   * {@link #getClassAnchorHTML(Class)}.
    */
   public static final String DEMO_CLIENT_PACKAGE = GWTUtil.getPackageName(DragDropDemo.class);
 
@@ -33,7 +34,8 @@ public class GWTUtil {
   private static final String SUBVERSION_BROWSE_TRUNK = "http://code.google.com/p/gwt-dnd/source/browse/trunk/DragDrop/";
 
   /**
-   * Determine Subversion URL for provided class literal, to be used in HTML anchors.
+   * Determine Subversion URL for provided class literal, to be used in HTML
+   * anchors.
    * 
    * @param clazz a class literal
    * @return the Subversion URL
@@ -51,6 +53,12 @@ public class GWTUtil {
     return "<code><a target='_blank' href='" + url + "'>" + baseName + ".java</a></code>";
   }
 
+  private static String getClassName(Class<?> clazz) {
+    String className = clazz.toString();
+    className = className.replaceFirst(".* ", "");
+    return className;
+  }
+
   /**
    * Determine the java package name for the provided class literal.
    * 
@@ -60,11 +68,5 @@ public class GWTUtil {
   public static String getPackageName(Class<?> clazz) {
     String className = getClassName(clazz);
     return className.substring(0, className.lastIndexOf('.'));
-  }
-
-  private static String getClassName(Class<?> clazz) {
-    String className = clazz.toString();
-    className = className.replaceFirst(".* ", "");
-    return className;
   }
 }

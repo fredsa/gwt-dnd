@@ -30,8 +30,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Package private helper implementation class for {@link AbstractDragController}
- * to track all relevant {@link DropController DropControllers}.
+ * Package private helper implementation class for
+ * {@link AbstractDragController} to track all relevant {@link DropController
+ * DropControllers}.
  */
 class DropControllerCollection {
 
@@ -70,11 +71,6 @@ class DropControllerCollection {
       throw new RuntimeException("hash code not implemented");
     }
 
-    @Override
-    public int hashCode() {
-      throw new RuntimeException("hash code not implemented");
-    }
-
     DropController getDropController() {
       return dropController;
     }
@@ -85,6 +81,11 @@ class DropControllerCollection {
 
     Area getTargetArea() {
       return targetArea;
+    }
+
+    @Override
+    public int hashCode() {
+      throw new RuntimeException("hash code not implemented");
     }
   }
 
@@ -100,13 +101,13 @@ class DropControllerCollection {
   }
 
   /**
-   * Determines which DropController represents the deepest DOM descendant
-   * drop target located at the provided location <code>(x, y)</code>.
+   * Determines which DropController represents the deepest DOM descendant drop
+   * target located at the provided location <code>(x, y)</code>.
    * 
    * @param x offset left relative to document body
    * @param y offset top relative to document body
-   * @return a drop controller for the intersecting drop target or <code>null</code> if none
-   *         are applicable
+   * @return a drop controller for the intersecting drop target or
+   *         <code>null</code> if none are applicable
    */
   DropController getIntersectDropController(int x, int y) {
     Location location = new CoordinateLocation(x, y);
@@ -122,10 +123,11 @@ class DropControllerCollection {
 
   /**
    * Cache a list of eligible drop controllers, sorted by relative DOM positions
-   * of their respective drop targets. Called at the beginning of each drag operation,
-   * or whenever drop target eligibility has changed while dragging.
+   * of their respective drop targets. Called at the beginning of each drag
+   * operation, or whenever drop target eligibility has changed while dragging.
    * 
-   * @param boundaryPanel boundary area for drop target eligibility considerations
+   * @param boundaryPanel boundary area for drop target eligibility
+   *          considerations
    * @param context the current drag context
    */
   void resetCache(Panel boundaryPanel, DragContext context) {

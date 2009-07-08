@@ -79,8 +79,21 @@ class MouseListBox extends Composite {
     setWidget(widgetCount++, widget);
   }
 
+  private Widget getWidget(int index) {
+    return grid.getWidget(index, 0);
+  }
+
   int getWidgetCount() {
     return widgetCount;
+  }
+
+  private int getWidgetIndex(Widget widget) {
+    for (int i = 0; i < getWidgetCount(); i++) {
+      if (getWidget(i) == widget) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   boolean remove(Widget widget) {
@@ -95,27 +108,6 @@ class MouseListBox extends Composite {
     setWidget(widgetCount - 1, null);
     widgetCount--;
     return true;
-  }
-
-  ArrayList<Widget> widgetList() {
-    ArrayList<Widget> widgetList = new ArrayList<Widget>();
-    for (int i = 0; i < getWidgetCount(); i++) {
-      widgetList.add(getWidget(i));
-    }
-    return widgetList;
-  }
-
-  private Widget getWidget(int index) {
-    return grid.getWidget(index, 0);
-  }
-
-  private int getWidgetIndex(Widget widget) {
-    for (int i = 0; i < getWidgetCount(); i++) {
-      if (getWidget(i) == widget) {
-        return i;
-      }
-    }
-    return -1;
   }
 
   private Widget removeWidget(int index) {
@@ -139,5 +131,13 @@ class MouseListBox extends Composite {
       }
     }
     grid.setWidget(index, 0, widget);
+  }
+
+  ArrayList<Widget> widgetList() {
+    ArrayList<Widget> widgetList = new ArrayList<Widget>();
+    for (int i = 0; i < getWidgetCount(); i++) {
+      widgetList.add(getWidget(i));
+    }
+    return widgetList;
   }
 }

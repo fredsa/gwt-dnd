@@ -15,15 +15,16 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client;
 
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.VerticalPanel;
+
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 import com.allen_sauer.gwt.dnd.demo.client.ui.MultiRowTabPanel;
 import com.allen_sauer.gwt.dnd.demo.client.util.GWTUtil;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.VerticalPanel;
 
 /*
  * * {@link MultiRowTabPanel} which uses a {@link VerticalPanel} to provide a
@@ -36,9 +37,9 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
 
   /**
    * Describe an example in a consistent way by including a description and the
-   * name of the {@link com.allen_sauer.gwt.dnd.client.drop.DropController}
-   * used in the example.
-   *
+   * name of the {@link com.allen_sauer.gwt.dnd.client.drop.DropController} used
+   * in the example.
+   * 
    * @param classes the primary DropController used in this example
    * @param description a brief description of the example
    * @return HTML widget describing the example
@@ -63,6 +64,7 @@ public final class ExampleTabPanel extends MultiRowTabPanel {
 
   /**
    * Add another example to demonstrate.
+   * 
    * @param example the example panel to add
    */
   public void add(Example example) {

@@ -30,7 +30,7 @@ final class DemoFlexTable extends FlexTable {
    * @param rows desired number of table rows
    * @param cols desired number of table columns
    * @param tableRowDragController the drag controller to enable dragging of
-   *            table rows
+   *          table rows
    */
   public DemoFlexTable(int rows, int cols, FlexTableRowDragController tableRowDragController) {
     addStyleName("demo-flextable");

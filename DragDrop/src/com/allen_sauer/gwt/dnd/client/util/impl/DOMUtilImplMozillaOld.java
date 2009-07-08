@@ -16,8 +16,8 @@
 package com.allen_sauer.gwt.dnd.client.util.impl;
 
 /**
- * {@link com.allen_sauer.gwt.dnd.client.util.DOMUtil} implementation for
- * older Mozillae.
+ * {@link com.allen_sauer.gwt.dnd.client.util.DOMUtil} implementation for older
+ * Mozillae.
  */
 public class DOMUtilImplMozillaOld extends DOMUtilImplMozilla {
   // CHECKSTYLE_JAVADOC_OFF

@@ -27,16 +27,16 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 
 /**
  * Demonstrate the ability to capture
- * {@link com.allen_sauer.gwt.dnd.client.DragStartEvent DragStartEvents}
- * and {@link com.allen_sauer.gwt.dnd.client.DragEndEvent DragEndEvents}.
+ * {@link com.allen_sauer.gwt.dnd.client.DragStartEvent DragStartEvents} and
+ * {@link com.allen_sauer.gwt.dnd.client.DragEndEvent DragEndEvents}.
  */
 public final class WindowExample extends Example {
 
   private static final String CSS_DEMO_RESIZE_EXAMPLE = "demo-WindowExample";
 
   /**
-   * IFRAME URL.
-   * Note: don't use Google Code Project Hosting or other urchin enabled site.
+   * IFRAME URL. Note: don't use Google Code Project Hosting or other urchin
+   * enabled site.
    */
   private static final String IFRAME_URL = "http://allen-sauer.com/gwt/";
 
@@ -87,12 +87,6 @@ public final class WindowExample extends Example {
     return "Resize an embedded Widget using a composite of Grid and ScrollPanel.";
   }
 
-  @Override
-  public Class<?>[] getInvolvedClasses() {
-    return new Class[] {
-        WindowExample.class, WindowController.class, WindowPanel.class, ResizeDragController.class,};
-  }
-
   private Frame getIframe(String url) {
     Frame iframe = new Frame() {
 
@@ -108,6 +102,12 @@ public final class WindowExample extends Example {
     iframe.setUrl(url);
     iframe.addStyleName("demo-WindowPanel-iframe");
     return iframe;
+  }
+
+  @Override
+  public Class<?>[] getInvolvedClasses() {
+    return new Class[] {
+        WindowExample.class, WindowController.class, WindowPanel.class, ResizeDragController.class,};
   }
 
   private String makeText() {

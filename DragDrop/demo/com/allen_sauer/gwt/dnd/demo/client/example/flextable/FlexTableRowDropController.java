@@ -65,6 +65,13 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     this.flexTable = flexTable;
   }
 
+  Widget newPositioner(DragContext context) {
+    Widget p = new SimplePanel();
+    p.addStyleName(CSS_DEMO_TABLE_POSITIONER);
+    p.setPixelSize(flexTable.getOffsetWidth(), 1);
+    return p;
+  }
+
   @Override
   public void onDrop(DragContext context) {
     FlexTableRowDragController trDragController = (FlexTableRowDragController) context.dragController;
@@ -97,12 +104,5 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     Location tableLocation = new WidgetLocation(flexTable, context.boundaryPanel);
     context.boundaryPanel.add(positioner, tableLocation.getLeft(), widgetLocation.getTop()
         + (targetRow == -1 ? 0 : w.getOffsetHeight()));
-  }
-
-  Widget newPositioner(DragContext context) {
-    Widget p = new SimplePanel();
-    p.addStyleName(CSS_DEMO_TABLE_POSITIONER);
-    p.setPixelSize(flexTable.getOffsetWidth(), 1);
-    return p;
   }
 }

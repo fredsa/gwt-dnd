@@ -16,8 +16,7 @@
 package com.allen_sauer.gwt.dnd.client.util.impl;
 
 /**
- * {@link com.allen_sauer.gwt.dnd.client.util.DOMUtil} implementation for
- * Opera.
+ * {@link com.allen_sauer.gwt.dnd.client.util.DOMUtil} implementation for Opera.
  */
 public class DOMUtilImplOpera extends DOMUtilImplStandard {
   // CHECKSTYLE_JAVADOC_OFF

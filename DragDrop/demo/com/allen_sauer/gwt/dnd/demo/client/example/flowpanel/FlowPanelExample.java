@@ -24,8 +24,7 @@ import com.allen_sauer.gwt.dnd.client.drop.FlowPanelDropController;
 import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dnd.client.drop.FlowPanelDropController}
- * example.
+ * {@link com.allen_sauer.gwt.dnd.client.drop.FlowPanelDropController} example.
  */
 public final class FlowPanelExample extends Example {
 

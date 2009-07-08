@@ -61,8 +61,8 @@ public interface DropController {
 
   /**
    * Called when the reference widget stops engaging our drop target by leaving
-   * the area of the page occupied by our drop target, or after {@link #onDrop(DragContext)}
-   * to allow for any cleanup.
+   * the area of the page occupied by our drop target, or after
+   * {@link #onDrop(DragContext)} to allow for any cleanup.
    * 
    * @see #onEnter(DragContext)
    * 
@@ -72,8 +72,8 @@ public interface DropController {
 
   /**
    * Called with each mouse movement while the reference widget is engaging our
-   * drop target. {@link #onEnter(DragContext)} is called
-   * before this method is called.
+   * drop target. {@link #onEnter(DragContext)} is called before this method is
+   * called.
    * 
    * @see #onEnter(DragContext)
    * @see #onLeave(DragContext)
@@ -83,9 +83,8 @@ public interface DropController {
   void onMove(DragContext context);
 
   /**
-   * Called just prior to {@link #onDrop(DragContext)} to
-   * allow the drop operation to be cancelled by throwing a
-   * {@link VetoDragException}.
+   * Called just prior to {@link #onDrop(DragContext)} to allow the drop
+   * operation to be cancelled by throwing a {@link VetoDragException}.
    * 
    * @param context the current drag context
    * @throws VetoDragException if the proposed operation is unacceptable

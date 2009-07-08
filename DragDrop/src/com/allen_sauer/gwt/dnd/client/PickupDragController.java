@@ -15,8 +15,14 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
 import com.allen_sauer.gwt.dnd.client.drop.DropController;
@@ -26,14 +32,9 @@ import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.allen_sauer.gwt.dnd.client.util.Location;
 import com.allen_sauer.gwt.dnd.client.util.WidgetArea;
 import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /*
  * DragController used for drag-and-drop operations where a draggable widget or
@@ -103,10 +104,11 @@ public class PickupDragController extends AbstractDragController {
    * automatically.
    * </p>
    * 
-   * @param boundaryPanel the desired boundary panel or <code>RootPanel.get()</code>
-   *                      if entire document body is to be the boundary
+   * @param boundaryPanel the desired boundary panel or
+   *          <code>RootPanel.get()</code> if entire document body is to be the
+   *          boundary
    * @param allowDroppingOnBoundaryPanel whether or not boundary panel should
-   *            allow dropping
+   *          allow dropping
    */
   public PickupDragController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
     super(boundaryPanel);
@@ -117,12 +119,12 @@ public class PickupDragController extends AbstractDragController {
   }
 
   private void calcBoundaryOffset() {
-	Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
-	boundaryOffsetX = widgetLocation.getLeft()
-	    + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
-	boundaryOffsetY = widgetLocation.getTop()
-	    + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
-}
+    Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
+    boundaryOffsetX = widgetLocation.getLeft()
+        + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
+    boundaryOffsetY = widgetLocation.getTop()
+        + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
+  }
 
   private void checkGWTIssue1813(Widget child, AbsolutePanel parent) {
     if (!GWT.isScript()) {
@@ -162,8 +164,8 @@ public class PickupDragController extends AbstractDragController {
   }
 
   public void dragMove() {
-	// may have changed due to scrollIntoView() or developer driven changes
-	calcBoundaryOffset();
+    // may have changed due to scrollIntoView() or developer driven changes
+    calcBoundaryOffset();
 
     int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
     int desiredTop = context.desiredDraggableY - boundaryOffsetY;
@@ -268,10 +270,13 @@ public class PickupDragController extends AbstractDragController {
   /**
    * Create a new BoundaryDropController to manage our boundary panel as a drop
    * target. To ensure that draggable widgets can only be dropped on registered
-   * drop targets, set <code>allowDroppingOnBoundaryPanel</code> to <code>false</code>.
-   *
-   * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
-   * @param allowDroppingOnBoundaryPanel whether or not dropping is allowed on the boundary panel
+   * drop targets, set <code>allowDroppingOnBoundaryPanel</code> to
+   * <code>false</code>.
+   * 
+   * @param boundaryPanel the panel to which our drag-and-drop operations are
+   *          constrained
+   * @param allowDroppingOnBoundaryPanel whether or not dropping is allowed on
+   *          the boundary panel
    * @return the new BoundaryDropController
    */
   protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
@@ -342,6 +347,7 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Restore the selected widgets to their original location.
+   * 
    * @see #saveSelectedWidgetsLocationAndStyle()
    * @see #restoreSelectedWidgetsStyle()
    */
@@ -373,6 +379,7 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Restore the selected widgets with their original style.
+   * 
    * @see #saveSelectedWidgetsLocationAndStyle()
    * @see #restoreSelectedWidgetsLocation()
    */
@@ -384,8 +391,9 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Save the selected widgets' current location in case they much
-   * be restored due to a cancelled drop.
+   * Save the selected widgets' current location in case they much be restored
+   * due to a cancelled drop.
+   * 
    * @see #restoreSelectedWidgetsLocation()
    */
   protected void saveSelectedWidgetsLocationAndStyle() {

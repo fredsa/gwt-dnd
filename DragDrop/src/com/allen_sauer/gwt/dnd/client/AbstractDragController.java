@@ -15,15 +15,16 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
+
+import java.util.HashMap;
+import java.util.Iterator;
 
 /*
  * {@link DragController} which performs the bare essentials such as
@@ -56,8 +57,8 @@ public abstract class AbstractDragController implements DragController {
   protected final DragContext context;
 
   /**
-   * The current drag end event, created in {@link #previewDragEnd()}
-   * and returned a second time in {@link #dragEnd()}.
+   * The current drag end event, created in {@link #previewDragEnd()} and
+   * returned a second time in {@link #dragEnd()}.
    */
   private DragEndEvent dragEndEvent;
 
@@ -67,8 +68,8 @@ public abstract class AbstractDragController implements DragController {
   private DragHandlerCollection dragHandlers;
 
   /**
-   * The current drag start event, created in {@link #previewDragStart()}
-   * and returned a second time in {@link #dragStart()}.
+   * The current drag start event, created in {@link #previewDragStart()} and
+   * returned a second time in {@link #dragStart()}.
    */
   private DragStartEvent dragStartEvent;
 
@@ -91,8 +92,9 @@ public abstract class AbstractDragController implements DragController {
    * Create a new drag-and-drop controller. Drag operations will be limited to
    * the specified boundary panel.
    * 
-   * @param boundaryPanel the desired boundary panel or <code>RootPanel.get()</code>
-   *                      if entire document body is to be the boundary
+   * @param boundaryPanel the desired boundary panel or
+   *          <code>RootPanel.get()</code> if entire document body is to be the
+   *          boundary
    */
   public AbstractDragController(AbsolutePanel boundaryPanel) {
     assert boundaryPanel != null : "Use 'RootPanel.get()' instead of 'null'.";
@@ -167,8 +169,8 @@ public abstract class AbstractDragController implements DragController {
 
   /**
    * Attaches a {@link MouseDragHandler} (which is a
-   * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget,
-   * applies the {@link #PRIVATE_CSS_DRAGGABLE} style to the draggable, applies the
+   * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget, applies
+   * the {@link #PRIVATE_CSS_DRAGGABLE} style to the draggable, applies the
    * {@link #PRIVATE_CSS_HANDLE} style to the handle.
    * 
    * @see #makeDraggable(Widget, Widget)

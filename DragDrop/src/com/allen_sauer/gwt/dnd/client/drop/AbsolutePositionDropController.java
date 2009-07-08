@@ -15,17 +15,18 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
-import java.util.ArrayList;
-
-import com.allen_sauer.gwt.dnd.client.DragContext;
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
-import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dnd.client.DragContext;
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
+import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
+
+import java.util.ArrayList;
 
 /**
  * A {@link DropController} which allows a draggable widget to be placed at
@@ -79,12 +80,12 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
   }
 
   private void calcDropTargetOffset() {
-	WidgetLocation dropTargetLocation = new WidgetLocation(dropTarget, null);
+    WidgetLocation dropTargetLocation = new WidgetLocation(dropTarget, null);
     dropTargetOffsetX = dropTargetLocation.getLeft()
         + DOMUtil.getBorderLeft(dropTarget.getElement());
     dropTargetOffsetY = dropTargetLocation.getTop() + DOMUtil.getBorderTop(dropTarget.getElement());
-//    System.out.println(dropTargetOffsetX + ", " + dropTargetOffsetY);
-}
+    //    System.out.println(dropTargetOffsetX + ", " + dropTargetOffsetY);
+  }
 
   /**
    * Programmatically drop a widget on our drop target while obeying the
@@ -92,9 +93,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
    * 
    * @param widget the widget to be dropped
    * @param left the desired absolute horizontal location relative to our drop
-   *            target
+   *          target
    * @param top the desired absolute vertical location relative to our drop
-   *            target
+   *          target
    */
   public void drop(Widget widget, int left, int top) {
     left = Math.max(0, Math.min(left, dropTarget.getOffsetWidth() - widget.getOffsetWidth()));
@@ -137,7 +138,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     super.onDrop(context);
   }
 
-@Override
+  @Override
   public void onEnter(DragContext context) {
     super.onEnter(context);
     assert draggableList.size() == 0;
@@ -179,7 +180,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
       dropTarget.add(draggable.positioner, draggable.desiredX, draggable.desiredY);
     }
     draggableList.get(0).positioner.getElement().scrollIntoView();
-    
+
     // may have changed due to scrollIntoView()
     calcDropTargetOffset();
   }

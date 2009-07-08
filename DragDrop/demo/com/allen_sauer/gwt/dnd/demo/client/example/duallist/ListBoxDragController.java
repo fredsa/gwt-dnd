@@ -53,6 +53,28 @@ class ListBoxDragController extends PickupDragController {
     }
   }
 
+  ArrayList<Widget> getSelectedWidgets(MouseListBox mouseListBox) {
+    ArrayList<Widget> widgetList = new ArrayList<Widget>();
+    for (Widget widget : context.selectedWidgets) {
+      if (widget.getParent().getParent() == mouseListBox) {
+        widgetList.add(widget);
+      }
+    }
+    return widgetList;
+  }
+
+  @Override
+  protected Widget newDragProxy(DragContext context) {
+    MouseListBox currentMouseListBox = (MouseListBox) context.draggable.getParent().getParent();
+    MouseListBox proxyMouseListBox = new MouseListBox(context.selectedWidgets.size());
+    proxyMouseListBox.setWidth(DOMUtil.getClientWidth(currentMouseListBox.getElement()) + "px");
+    for (Widget widget : context.selectedWidgets) {
+      HTML htmlClone = new HTML(DOM.getInnerHTML(widget.getElement()));
+      proxyMouseListBox.add(htmlClone);
+    }
+    return proxyMouseListBox;
+  }
+
   @Override
   public void previewDragStart() throws VetoDragException {
     super.previewDragStart();
@@ -82,27 +104,5 @@ class ListBoxDragController extends PickupDragController {
     for (Widget widget : otherWidgets) {
       super.toggleSelection(widget);
     }
-  }
-
-  @Override
-  protected Widget newDragProxy(DragContext context) {
-    MouseListBox currentMouseListBox = (MouseListBox) context.draggable.getParent().getParent();
-    MouseListBox proxyMouseListBox = new MouseListBox(context.selectedWidgets.size());
-    proxyMouseListBox.setWidth(DOMUtil.getClientWidth(currentMouseListBox.getElement()) + "px");
-    for (Widget widget : context.selectedWidgets) {
-      HTML htmlClone = new HTML(DOM.getInnerHTML(widget.getElement()));
-      proxyMouseListBox.add(htmlClone);
-    }
-    return proxyMouseListBox;
-  }
-
-  ArrayList<Widget> getSelectedWidgets(MouseListBox mouseListBox) {
-    ArrayList<Widget> widgetList = new ArrayList<Widget>();
-    for (Widget widget : context.selectedWidgets) {
-      if (widget.getParent().getParent() == mouseListBox) {
-        widgetList.add(widget);
-      }
-    }
-    return widgetList;
   }
 }

@@ -38,8 +38,9 @@ public class WidgetLocation extends AbstractLocation {
   private int widgetTop;
 
   /**
-   * Determine location of <code>widget</code> relative to <code>reference</code>,
-   * such that <code>referencePanel.add(widget, location.getLeft(), location.getTop())</code>
+   * Determine location of <code>widget</code> relative to
+   * <code>reference</code>, such that
+   * <code>referencePanel.add(widget, location.getLeft(), location.getTop())</code>
    * leaves the widget in the exact same location on the screen. Note that
    * <code>reference</code> need not be the parent node, or even an ancestor of
    * <code>widget</code>. Therefore coordinates returned may be negative or may
@@ -93,11 +94,6 @@ public class WidgetLocation extends AbstractLocation {
   //    recalculate();
   //  }
 
-  @Override
-  public String toString() {
-    return "(" + left + ", " + top + ")";
-  }
-
   private void internalSetReference(Widget reference) {
     //    this.reference = reference;
     if (reference == null || reference == RootPanel.get()) {
@@ -125,5 +121,10 @@ public class WidgetLocation extends AbstractLocation {
   private void recalculate() {
     left = widgetLeft - referenceAdjustLeft;
     top = widgetTop - referenceAdjustTop;
+  }
+
+  @Override
+  public String toString() {
+    return "(" + left + ", " + top + ")";
   }
 }

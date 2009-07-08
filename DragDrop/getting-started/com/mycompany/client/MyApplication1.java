@@ -35,12 +35,12 @@ public class MyApplication1 implements EntryPoint {
 
     // workaround for GWT issue 1813
     // http://code.google.com/p/google-web-toolkit/issues/detail?id=1813
-    RootPanel.get().getElement().getStyle().setProperty("position" , "relative");
+    RootPanel.get().getElement().getStyle().setProperty("position", "relative");
 
     // create a DragController to manage drag-n-drop actions
     // note: This creates an implicit DropController for the boundary panel
     PickupDragController dragController = new PickupDragController(RootPanel.get(), true);
-    
+
     // add a new image to the boundary panel and make it draggable
     Image img = new Image("http://code.google.com/webtoolkit/logo-185x175.png");
     RootPanel.get().add(img, 40, 30);

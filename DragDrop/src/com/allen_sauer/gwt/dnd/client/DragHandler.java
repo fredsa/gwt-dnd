@@ -26,7 +26,7 @@ public interface DragHandler extends EventListener {
    * Fired when drag operation terminates.
    * 
    * @param event an event object containing information about the drag
-   *            operation
+   *          operation
    */
   void onDragEnd(DragEndEvent event);
 
@@ -34,7 +34,7 @@ public interface DragHandler extends EventListener {
    * Fired when drag is initiated.
    * 
    * @param event an event object containing information about the drag
-   *            operation
+   *          operation
    */
   void onDragStart(DragStartEvent event);
 
@@ -44,7 +44,7 @@ public interface DragHandler extends EventListener {
    * {@link VetoDragException} to prevent the operation.
    * 
    * @param event an event object containing information about the drag
-   *            operation
+   *          operation
    * @throws VetoDragException when the drag operation is unacceptable
    */
   void onPreviewDragEnd(DragEndEvent event) throws VetoDragException;
@@ -55,7 +55,7 @@ public interface DragHandler extends EventListener {
    * {@link VetoDragException} to prevent the operation.
    * 
    * @param event an event object containing information about the drag
-   *            operation
+   *          operation
    * @throws VetoDragException when the drag operation is unacceptable
    */
   void onPreviewDragStart(DragStartEvent event) throws VetoDragException;

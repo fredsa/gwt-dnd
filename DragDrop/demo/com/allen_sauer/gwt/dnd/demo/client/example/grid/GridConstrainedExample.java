@@ -57,6 +57,14 @@ public final class GridConstrainedExample extends Example {
     gridConstrainedDropTarget.setPixelSize(draggableOffsetWidth * 5, draggableOffsetHeight * 2);
   }
 
+  private void determineRedBoxDimensions() {
+    RedBoxDraggableWidget redBox = new RedBoxDraggableWidget();
+    RootPanel.get().add(redBox, -500, -500);
+    draggableOffsetWidth = redBox.getOffsetWidth();
+    draggableOffsetHeight = redBox.getOffsetHeight();
+    redBox.removeFromParent();
+  }
+
   @Override
   public String getDescription() {
     return "Drops (moves) are constrained to a (" + draggableOffsetWidth + " x "
@@ -73,13 +81,5 @@ public final class GridConstrainedExample extends Example {
     gridConstrainedDropController.drop(createDraggable(), 0, 0);
     gridConstrainedDropController.drop(createDraggable(), draggableOffsetWidth,
         draggableOffsetHeight);
-  }
-
-  private void determineRedBoxDimensions() {
-    RedBoxDraggableWidget redBox = new RedBoxDraggableWidget();
-    RootPanel.get().add(redBox, -500, -500);
-    draggableOffsetWidth = redBox.getOffsetWidth();
-    draggableOffsetHeight = redBox.getOffsetHeight();
-    redBox.removeFromParent();
   }
 }

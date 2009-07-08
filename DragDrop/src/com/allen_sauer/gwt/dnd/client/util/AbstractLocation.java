@@ -28,6 +28,7 @@ public abstract class AbstractLocation implements Location {
 
   /**
    * Textual representation of this location formatted as <code>(x, y)</code>.
+   * 
    * @return a string representation of this location
    */
   @Override

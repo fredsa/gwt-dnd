@@ -20,7 +20,8 @@ import com.allen_sauer.gwt.dnd.client.util.StringUtil;
 import java.util.EventObject;
 
 /**
- * Common implementation class for {@link DragStartEvent} and {@link DragEndEvent}.
+ * Common implementation class for {@link DragStartEvent} and
+ * {@link DragEndEvent}.
  */
 @SuppressWarnings("serial")
 abstract class DragEvent extends EventObject {

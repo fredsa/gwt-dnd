@@ -24,9 +24,8 @@ import com.google.gwt.user.client.ui.Widget;
 public interface DragController extends FiresDragEvents {
 
   /**
-   * Register a drag handler which will listen for
-   * {@link DragStartEvent DragStartEvents} and
-   * and {@link DragEndEvent DragEndEvents}.
+   * Register a drag handler which will listen for {@link DragStartEvent
+   * DragStartEvents} and and {@link DragEndEvent DragEndEvents}.
    * 
    * @see #removeDragHandler(DragHandler)
    */
@@ -48,30 +47,32 @@ public interface DragController extends FiresDragEvents {
   void dragMove();
 
   /**
-  * Callback method for {@link MouseDragHandler} when a drag operation
-  * is initiated for this drag controller.
-  */
+   * Callback method for {@link MouseDragHandler} when a drag operation is
+   * initiated for this drag controller.
+   */
   void dragStart();
 
   /**
-   * Whether or not any selected regions should be unselected
-   * by dragging.
+   * Whether or not any selected regions should be unselected by dragging.
    * 
    * @return <code>true</code> if cancel selections behavior in on
    */
   boolean getBehaviorCancelDocumentSelections();
 
   /**
-   * Determine whether or not drag operations are constrained to the boundary panel.
+   * Determine whether or not drag operations are constrained to the boundary
+   * panel.
    * 
-  * @return <code>true</code> if drags are constrained to the boundary panel
-  */
+   * @return <code>true</code> if drags are constrained to the boundary panel
+   */
   boolean getBehaviorConstrainedToBoundaryPanel();
 
   /**
-   * Gets the number of pixels the mouse must be moved to initiate a drag operation.
+   * Gets the number of pixels the mouse must be moved to initiate a drag
+   * operation.
    * 
-   * @return number of pixels or <code>0</code> (zero) if mouse down starts the drag
+   * @return number of pixels or <code>0</code> (zero) if mouse down starts the
+   *         drag
    */
   int getBehaviorDragStartSensitivity();
 
@@ -90,16 +91,16 @@ public interface DragController extends FiresDragEvents {
   AbsolutePanel getBoundaryPanel();
 
   /**
-   * Enable dragging on widget. Call this method for each widget that
-   * you would like to make draggable under this drag controller.
+   * Enable dragging on widget. Call this method for each widget that you would
+   * like to make draggable under this drag controller.
    * 
    * @param draggable the widget to be made draggable
    */
   void makeDraggable(Widget draggable);
 
   /**
-   * Enable dragging on widget, specifying the child widget serving as a
-   * drag handle.
+   * Enable dragging on widget, specifying the child widget serving as a drag
+   * handle.
    * 
    * @param draggable the widget to be made draggable
    * @param dragHandle the widget by which widget can be dragged
@@ -144,28 +145,32 @@ public interface DragController extends FiresDragEvents {
   void resetCache();
 
   /**
-   * Set whether or not document selections should be canceled by dragging.
-   * The default is <code>true</code>.
+   * Set whether or not document selections should be canceled by dragging. The
+   * default is <code>true</code>.
    * 
-   * @param cancelDocumentSelections <code>true</code> if dragging should cancel document selections
+   * @param cancelDocumentSelections <code>true</code> if dragging should cancel
+   *          document selections
    */
   void setBehaviorCancelDocumentSelections(boolean cancelDocumentSelections);
 
   /**
-   * Set whether or not movable widget is to be constrained to the boundary panel
-   * during dragging. The default is not to constrain the draggable or drag proxy.
+   * Set whether or not movable widget is to be constrained to the boundary
+   * panel during dragging. The default is not to constrain the draggable or
+   * drag proxy.
    * 
-   * @param constrainedToBoundaryPanel whether or not to constrain to the boundary panel
+   * @param constrainedToBoundaryPanel whether or not to constrain to the
+   *          boundary panel
    */
   void setBehaviorConstrainedToBoundaryPanel(boolean constrainedToBoundaryPanel);
 
   /**
-   * Sets the number of pixels the mouse must be moved in either horizontal or vertical
-   * direction in order to initiate a drag operation. Defaults to <code>0</code> (zero).
-   * Use a value of at least <code>1</code> (one) in order to allow registered click
-   * listeners to receive click events.
+   * Sets the number of pixels the mouse must be moved in either horizontal or
+   * vertical direction in order to initiate a drag operation. Defaults to
+   * <code>0</code> (zero). Use a value of at least <code>1</code> (one) in
+   * order to allow registered click listeners to receive click events.
    * 
-   * @param pixels number of pixels or <code>0</code> (zero) to start dragging on mouse down
+   * @param pixels number of pixels or <code>0</code> (zero) to start dragging
+   *          on mouse down
    */
   void setBehaviorDragStartSensitivity(int pixels);
 

@@ -15,12 +15,13 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
-import com.allen_sauer.gwt.dnd.client.DragContext;
-import com.allen_sauer.gwt.dnd.client.VetoDragException;
-import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dnd.client.DragContext;
+import com.allen_sauer.gwt.dnd.client.VetoDragException;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 
 /**
  * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}

@@ -23,8 +23,7 @@ import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 
 /**
- * {@link com.allen_sauer.gwt.dnd.client.drop.SimpleDropController}
- * example.
+ * {@link com.allen_sauer.gwt.dnd.client.drop.SimpleDropController} example.
  */
 public final class BinExample extends Example {
 

@@ -100,15 +100,6 @@ public abstract class AbstractArea implements Area {
   }
 
   /**
-   * Textual representation of this area formatted as <code>[(left, top) - (right, bottom) ]</code>.
-   * @return a string representation of this area
-   */
-  @Override
-  public String toString() {
-    return "[ (" + getLeft() + ", " + getTop() + ") - (" + getRight() + ", " + getBottom() + ") ]";
-  }
-
-  /**
    * Set bottom coordinate.
    * 
    * @param bottom the bottom coordinate in pixels
@@ -142,5 +133,16 @@ public abstract class AbstractArea implements Area {
    */
   protected final void setTop(int top) {
     this.top = top;
+  }
+
+  /**
+   * Textual representation of this area formatted as
+   * <code>[(left, top) - (right, bottom) ]</code>.
+   * 
+   * @return a string representation of this area
+   */
+  @Override
+  public String toString() {
+    return "[ (" + getLeft() + ", " + getTop() + ") - (" + getRight() + ", " + getBottom() + ") ]";
   }
 }

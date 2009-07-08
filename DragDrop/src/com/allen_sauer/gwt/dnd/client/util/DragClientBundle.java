@@ -70,7 +70,7 @@ public interface DragClientBundle extends ClientBundle {
     @ClassName("dragdrop-selected")
     public String selected();
   }
-  
+
   static final DragClientBundle INSTANCE = GWT.create(DragClientBundle.class);
 
   @Strict

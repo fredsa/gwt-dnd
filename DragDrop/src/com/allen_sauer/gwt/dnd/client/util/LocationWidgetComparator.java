@@ -46,7 +46,8 @@ public abstract class LocationWidgetComparator {
    * following widgetArea.
    * 
    * @param location the location to consider
-   * @return true if the location is indicates an index position following the widget
+   * @return true if the location is indicates an index position following the
+   *         widget
    */
   abstract boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location);
 }

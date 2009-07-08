@@ -23,8 +23,8 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 
 /**
- * Example of a panel that immediately replaces any {@link PaletteWidget} children
- * that removed with widget copies of the original.
+ * Example of a panel that immediately replaces any {@link PaletteWidget}
+ * children that removed with widget copies of the original.
  */
 public class PalettePanel extends VerticalPanel {
 
@@ -52,8 +52,8 @@ public class PalettePanel extends VerticalPanel {
   }
 
   /**
-   * Removed widgets that are instances of {@link PaletteWidget}
-   * are immediately replaced with a cloned copy of the original.
+   * Removed widgets that are instances of {@link PaletteWidget} are immediately
+   * replaced with a cloned copy of the original.
    * 
    * @param w the widget to remove
    */

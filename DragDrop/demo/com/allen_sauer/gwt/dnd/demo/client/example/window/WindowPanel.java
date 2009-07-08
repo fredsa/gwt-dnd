@@ -31,7 +31,8 @@ final class WindowPanel extends FocusPanel {
 
   /**
    * WindowPanel direction constant, used in
-   * {@link ResizeDragController#makeDraggable(com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dnd.demo.client.example.resize.WindowPanel.DirectionConstant)}.
+   * {@link ResizeDragController#makeDraggable(com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dnd.demo.client.example.resize.WindowPanel.DirectionConstant)}
+   * .
    */
   public static class DirectionConstant {
 
@@ -44,6 +45,14 @@ final class WindowPanel extends FocusPanel {
       this.directionLetters = directionLetters;
     }
   }
+
+  private static final int BORDER_THICKNESS = 5;
+
+  private static final String CSS_DEMO_RESIZE_EDGE = "demo-resize-edge";
+
+  private static final String CSS_DEMO_RESIZE_PANEL = "demo-WindowPanel";
+
+  private static final String CSS_DEMO_RESIZE_PANEL_HEADER = "demo-WindowPanel-header";
 
   /**
    * Specifies that resizing occur at the east edge.
@@ -108,14 +117,6 @@ final class WindowPanel extends FocusPanel {
    * Specifies that resizing occur at the west edge.
    */
   public static final DirectionConstant WEST = new DirectionConstant(DIRECTION_WEST, "w");
-
-  private static final int BORDER_THICKNESS = 5;
-
-  private static final String CSS_DEMO_RESIZE_EDGE = "demo-resize-edge";
-
-  private static final String CSS_DEMO_RESIZE_PANEL = "demo-WindowPanel";
-
-  private static final String CSS_DEMO_RESIZE_PANEL_HEADER = "demo-WindowPanel-header";
 
   private int contentHeight;
 
@@ -200,6 +201,16 @@ final class WindowPanel extends FocusPanel {
     parent.setWidgetPosition(this, left, top);
   }
 
+  @Override
+  protected void onLoad() {
+    super.onLoad();
+    if (contentOrScrollPanelWidget.getOffsetHeight() != 0) {
+      headerWidget.setPixelSize(headerWidget.getOffsetWidth(), headerWidget.getOffsetHeight());
+      setContentSize(contentOrScrollPanelWidget.getOffsetWidth(),
+          contentOrScrollPanelWidget.getOffsetHeight());
+    }
+  }
+
   public void setContentSize(int width, int height) {
     if (width != contentWidth) {
       contentWidth = width;
@@ -214,16 +225,6 @@ final class WindowPanel extends FocusPanel {
       eastWidget.setPixelSize(BORDER_THICKNESS, contentHeight + headerHeight);
     }
     contentOrScrollPanelWidget.setPixelSize(contentWidth, contentHeight);
-  }
-
-  @Override
-  protected void onLoad() {
-    super.onLoad();
-    if (contentOrScrollPanelWidget.getOffsetHeight() != 0) {
-      headerWidget.setPixelSize(headerWidget.getOffsetWidth(), headerWidget.getOffsetHeight());
-      setContentSize(contentOrScrollPanelWidget.getOffsetWidth(),
-          contentOrScrollPanelWidget.getOffsetHeight());
-    }
   }
 
   private Widget setupCell(int row, int col, DirectionConstant direction) {
