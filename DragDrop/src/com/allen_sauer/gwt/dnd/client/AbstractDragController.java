@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -35,15 +36,7 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public abstract class AbstractDragController implements DragController {
 
-  private static final String CSS_SELECTED = "dragdrop-selected";
-
   private static HashMap<Widget, Widget> dragHandles = new HashMap<Widget, Widget>();
-
-  private static final String PRIVATE_CSS_DRAGGABLE = "dragdrop-draggable";
-
-  private static final String PRIVATE_CSS_DRAGGING = "dragdrop-dragging";
-
-  private static final String PRIVATE_CSS_HANDLE = "dragdrop-handle";
 
   /**
    * The boundary panel to which all drag operations are constrained.
@@ -118,13 +111,13 @@ public abstract class AbstractDragController implements DragController {
   public void clearSelection() {
     for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = iterator.next();
-      widget.removeStyleName(CSS_SELECTED);
+      widget.removeStyleName(DragClientBundle.INSTANCE.css().selected());
       iterator.remove();
     }
   }
 
   public void dragEnd() {
-    context.draggable.removeStyleName(PRIVATE_CSS_DRAGGING);
+    context.draggable.removeStyleName(DragClientBundle.INSTANCE.css().dragging());
     if (dragHandlers != null) {
       dragHandlers.fireDragEnd(dragEndEvent);
       dragEndEvent = null;
@@ -148,7 +141,7 @@ public abstract class AbstractDragController implements DragController {
       dragHandlers.fireDragStart(dragStartEvent);
       dragStartEvent = null;
     }
-    context.draggable.addStyleName(PRIVATE_CSS_DRAGGING);
+    context.draggable.addStyleName(DragClientBundle.INSTANCE.css().dragging());
     assert dragStartEvent == null;
   }
 
@@ -200,8 +193,8 @@ public abstract class AbstractDragController implements DragController {
    */
   public void makeDraggable(Widget draggable, Widget dragHandle) {
     mouseDragHandler.makeDraggable(draggable, dragHandle);
-    draggable.addStyleName(PRIVATE_CSS_DRAGGABLE);
-    dragHandle.addStyleName(PRIVATE_CSS_HANDLE);
+    draggable.addStyleName(DragClientBundle.INSTANCE.css().draggable());
+    dragHandle.addStyleName(DragClientBundle.INSTANCE.css().handle());
     dragHandles.put(draggable, dragHandle);
   }
 
@@ -215,8 +208,8 @@ public abstract class AbstractDragController implements DragController {
   public void makeNotDraggable(Widget draggable) {
     Widget dragHandle = dragHandles.remove(draggable);
     mouseDragHandler.makeNotDraggable(dragHandle);
-    draggable.removeStyleName(PRIVATE_CSS_DRAGGABLE);
-    dragHandle.removeStyleName(PRIVATE_CSS_HANDLE);
+    draggable.removeStyleName(DragClientBundle.INSTANCE.css().draggable());
+    dragHandle.removeStyleName(DragClientBundle.INSTANCE.css().handle());
   }
 
   public void previewDragEnd() throws VetoDragException {
@@ -266,7 +259,7 @@ public abstract class AbstractDragController implements DragController {
     this.multipleSelectionAllowed = multipleSelectionAllowed;
     for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = iterator.next();
-      widget.removeStyleName(CSS_SELECTED);
+      widget.removeStyleName(DragClientBundle.INSTANCE.css().selected());
       iterator.remove();
     }
   }
@@ -278,10 +271,10 @@ public abstract class AbstractDragController implements DragController {
   public void toggleSelection(Widget draggable) {
     assert draggable != null;
     if (context.selectedWidgets.remove(draggable)) {
-      draggable.removeStyleName(CSS_SELECTED);
+      draggable.removeStyleName(DragClientBundle.INSTANCE.css().selected());
     } else if (multipleSelectionAllowed) {
       context.selectedWidgets.add(draggable);
-      draggable.addStyleName(CSS_SELECTED);
+      draggable.addStyleName(DragClientBundle.INSTANCE.css().selected());
     } else {
       context.selectedWidgets.clear();
       context.selectedWidgets.add(draggable);

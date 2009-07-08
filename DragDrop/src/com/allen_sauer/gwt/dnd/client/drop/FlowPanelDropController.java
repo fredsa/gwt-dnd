@@ -15,12 +15,12 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
+import com.allen_sauer.gwt.dnd.client.DragContext;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
+import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dnd.client.DragContext;
-import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 
 /**
  * A {@link DropController} for instances of {@link FlowPanel}.
@@ -28,8 +28,6 @@ import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
  * @see IndexedDropController
  */
 public class FlowPanelDropController extends AbstractIndexedDropController {
-
-  private static final String CSS_DRAGDROP_FLOW_PANEL_POSITIONER = "dragdrop-flow-panel-positioner";
 
   private FlowPanel dropTarget;
 
@@ -58,7 +56,7 @@ public class FlowPanelDropController extends AbstractIndexedDropController {
   @Override
   protected Widget newPositioner(DragContext context) {
     HTML positioner = new HTML("&#x203B;");
-    positioner.addStyleName(CSS_DRAGDROP_FLOW_PANEL_POSITIONER);
+    positioner.addStyleName(DragClientBundle.INSTANCE.css().flowPanelPositioner());
     return positioner;
   }
 }

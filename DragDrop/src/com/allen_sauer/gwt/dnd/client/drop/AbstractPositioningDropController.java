@@ -26,8 +26,6 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public abstract class AbstractPositioningDropController extends AbstractDropController {
 
-  static final String CSS_DRAGDROP_POSITIONER = "dragdrop-positioner";
-
   public AbstractPositioningDropController(Panel dropTarget) {
     super(dropTarget);
   }

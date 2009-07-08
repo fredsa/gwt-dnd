@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dnd.client.drop;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.VetoDragException;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
@@ -26,24 +27,13 @@ import com.google.gwt.user.client.ui.Widget;
 public abstract class AbstractDropController implements DropController {
 
   /**
-   * CSS style name applied to drop targets.
-   */
-  private static final String CSS_DROP_TARGET = "dragdrop-dropTarget";
-
-  /**
-   * CSS style name which is applied to drop targets which are being actively
-   * engaged by the current drag operation.
-   */
-  private static final String PRIVATE_CSS_DROP_TARGET_ENGAGE = "dragdrop-dropTarget-engage";
-
-  /**
    * The drop target.
    */
   private Widget dropTarget;
 
   public AbstractDropController(Widget dropTarget) {
     this.dropTarget = dropTarget;
-    dropTarget.addStyleName(CSS_DROP_TARGET);
+    dropTarget.addStyleName(DragClientBundle.INSTANCE.css().dropTarget());
   }
 
   public Widget getDropTarget() {
@@ -54,11 +44,11 @@ public abstract class AbstractDropController implements DropController {
   }
 
   public void onEnter(DragContext context) {
-    dropTarget.addStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
+    dropTarget.addStyleName(DragClientBundle.INSTANCE.css().dropTargetEngage());
   }
 
   public void onLeave(DragContext context) {
-    dropTarget.removeStyleName(PRIVATE_CSS_DROP_TARGET_ENGAGE);
+    dropTarget.removeStyleName(DragClientBundle.INSTANCE.css().dropTargetEngage());
   }
 
   public void onMove(DragContext context) {

@@ -15,12 +15,12 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
+import com.allen_sauer.gwt.dnd.client.DragContext;
+import com.allen_sauer.gwt.dnd.client.VetoDragException;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dnd.client.DragContext;
-import com.allen_sauer.gwt.dnd.client.VetoDragException;
 
 /**
  * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}
@@ -32,7 +32,7 @@ public class BoundaryDropController extends AbsolutePositionDropController {
 
   public BoundaryDropController(AbsolutePanel dropTarget, boolean allowDroppingOnBoundaryPanel) {
     super(dropTarget);
-    dropTarget.addStyleName("dragdrop-boundary");
+    dropTarget.addStyleName(DragClientBundle.INSTANCE.css().boundary());
     this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
   }
 
@@ -43,6 +43,15 @@ public class BoundaryDropController extends AbsolutePositionDropController {
    */
   public boolean getBehaviorBoundaryPanelDrop() {
     return allowDroppingOnBoundaryPanel;
+  }
+
+  @Override
+  Widget makePositioner(Widget reference) {
+    if (allowDroppingOnBoundaryPanel) {
+      return super.makePositioner(reference);
+    } else {
+      return new SimplePanel();
+    }
   }
 
   @Override
@@ -62,14 +71,5 @@ public class BoundaryDropController extends AbsolutePositionDropController {
    */
   public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
     this.allowDroppingOnBoundaryPanel = allowDroppingOnBoundaryPanel;
-  }
-
-  @Override
-  Widget makePositioner(Widget reference) {
-    if (allowDroppingOnBoundaryPanel) {
-      return super.makePositioner(reference);
-    } else {
-      return new SimplePanel();
-    }
   }
 }

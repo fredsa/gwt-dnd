@@ -15,6 +15,17 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
+import com.allen_sauer.gwt.dnd.client.drop.DropController;
+import com.allen_sauer.gwt.dnd.client.util.CoordinateLocation;
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
+import com.allen_sauer.gwt.dnd.client.util.Location;
+import com.allen_sauer.gwt.dnd.client.util.WidgetArea;
+import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -23,17 +34,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-
-import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
-import com.allen_sauer.gwt.dnd.client.drop.DropController;
-import com.allen_sauer.gwt.dnd.client.util.CoordinateLocation;
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-import com.allen_sauer.gwt.dnd.client.util.Location;
-import com.allen_sauer.gwt.dnd.client.util.WidgetArea;
-import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /*
  * DragController used for drag-and-drop operations where a draggable widget or
@@ -69,16 +69,6 @@ public class PickupDragController extends AbstractDragController {
      */
     Location initialDraggableParentLocation;
   }
-
-  /**
-   * CSS style name applied to movable panels.
-   */
-  private static final String PRIVATE_CSS_MOVABLE_PANEL = "dragdrop-movable-panel";
-
-  /**
-   * CSS style name applied to drag proxies.
-   */
-  private static final String PRIVATE_CSS_PROXY = "dragdrop-proxy";
 
   /**
    * The implicit boundary drop controller.
@@ -126,6 +116,30 @@ public class PickupDragController extends AbstractDragController {
     dropControllerCollection = new DropControllerCollection(dropControllerList);
   }
 
+  private void calcBoundaryOffset() {
+	Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
+	boundaryOffsetX = widgetLocation.getLeft()
+	    + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
+	boundaryOffsetY = widgetLocation.getTop()
+	    + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
+}
+
+  private void checkGWTIssue1813(Widget child, AbsolutePanel parent) {
+    if (!GWT.isScript()) {
+      if (child.getElement().getOffsetParent() != parent.getElement()) {
+        DOMUtil.reportFatalAndThrowRuntimeException("The boundary panel for this drag controller does not appear to have"
+            + " 'position: relative' CSS applied to it."
+            + " This may be due to custom CSS in your application, although this"
+            + " is often caused by using the result of RootPanel.get(\"some-unique-id\") as your boundary"
+            + " panel, as described in GWT issue 1813"
+            + " (http://code.google.com/p/google-web-toolkit/issues/detail?id=1813)."
+            + " Please star / vote for this issue if it has just affected your application."
+            + " You can often remedy this problem by adding one line of code to your application:"
+            + " boundaryPanel.getElement().getStyle().setProperty(\"position\", \"relative\");");
+      }
+    }
+  }
+
   @Override
   public void dragEnd() {
     assert context.finalDropController == null == (context.vetoException != null);
@@ -148,8 +162,8 @@ public class PickupDragController extends AbstractDragController {
   }
 
   public void dragMove() {
-    // may have changed due to scrollIntoView() or developer driven changes
-    calcBoundaryOffset();
+	// may have changed due to scrollIntoView() or developer driven changes
+	calcBoundaryOffset();
 
     int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
     int desiredTop = context.desiredDraggableY - boundaryOffsetY;
@@ -221,7 +235,7 @@ public class PickupDragController extends AbstractDragController {
       }
       movablePanel = container;
     }
-    movablePanel.addStyleName(PRIVATE_CSS_MOVABLE_PANEL);
+    movablePanel.addStyleName(DragClientBundle.INSTANCE.css().movablePanel());
     calcBoundaryOffset();
     dropTargetClientWidth = DOMUtil.getClientWidth(boundaryPanel.getElement());
     dropTargetClientHeight = DOMUtil.getClientHeight(boundaryPanel.getElement());
@@ -244,6 +258,49 @@ public class PickupDragController extends AbstractDragController {
    */
   public boolean getBehaviorDragProxy() {
     return dragProxyEnabled;
+  }
+
+  private DropController getIntersectDropController(int x, int y) {
+    DropController dropController = dropControllerCollection.getIntersectDropController(x, y);
+    return dropController != null ? dropController : boundaryDropController;
+  }
+
+  /**
+   * Create a new BoundaryDropController to manage our boundary panel as a drop
+   * target. To ensure that draggable widgets can only be dropped on registered
+   * drop targets, set <code>allowDroppingOnBoundaryPanel</code> to <code>false</code>.
+   *
+   * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
+   * @param allowDroppingOnBoundaryPanel whether or not dropping is allowed on the boundary panel
+   * @return the new BoundaryDropController
+   */
+  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
+      boolean allowDroppingOnBoundaryPanel) {
+    return new BoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
+  }
+
+  /**
+   * Called by {@link PickupDragController#dragStart()} to allow subclasses to
+   * provide their own drag proxies.
+   * 
+   * @param context the current drag context
+   * @return a new drag proxy
+   */
+  protected Widget newDragProxy(DragContext context) {
+    AbsolutePanel container = new AbsolutePanel();
+    container.getElement().getStyle().setProperty("overflow", "visible");
+
+    WidgetArea draggableArea = new WidgetArea(context.draggable, null);
+    for (Widget widget : context.selectedWidgets) {
+      WidgetArea widgetArea = new WidgetArea(widget, null);
+      Widget proxy = new SimplePanel();
+      proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
+      proxy.addStyleName(DragClientBundle.INSTANCE.css().proxy());
+      container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(), widgetArea.getTop()
+          - draggableArea.getTop());
+    }
+
+    return container;
   }
 
   @Override
@@ -281,76 +338,6 @@ public class PickupDragController extends AbstractDragController {
   public void resetCache() {
     super.resetCache();
     dropControllerCollection.resetCache(boundaryPanel, context);
-  }
-
-  /**
-   * Set whether or not widgets may be dropped anywhere on the boundary panel.
-   * Set to <code>false</code> when you only want explicitly registered drop
-   * controllers to accept drops. Defaults to <code>true</code>.
-   * 
-   * @param allowDroppingOnBoundaryPanel <code>true</code> to allow dropping
-   */
-  public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
-    boundaryDropController.setBehaviorBoundaryPanelDrop(allowDroppingOnBoundaryPanel);
-  }
-
-  /**
-   * Set whether or not this controller should automatically create a drag proxy
-   * for each drag operation.
-   * 
-   * @param dragProxyEnabled <code>true</code> to enable drag proxy behavior
-   */
-  public void setBehaviorDragProxy(boolean dragProxyEnabled) {
-    this.dragProxyEnabled = dragProxyEnabled;
-  }
-
-  /**
-   * Unregister a DropController from this drag controller.
-   * 
-   * @see #registerDropController(DropController)
-   * 
-   * @param dropController the controller to register
-   */
-  public void unregisterDropController(DropController dropController) {
-    dropControllerList.remove(dropController);
-  }
-
-  /**
-   * Create a new BoundaryDropController to manage our boundary panel as a drop
-   * target. To ensure that draggable widgets can only be dropped on registered
-   * drop targets, set <code>allowDroppingOnBoundaryPanel</code> to <code>false</code>.
-   *
-   * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
-   * @param allowDroppingOnBoundaryPanel whether or not dropping is allowed on the boundary panel
-   * @return the new BoundaryDropController
-   */
-  protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
-      boolean allowDroppingOnBoundaryPanel) {
-    return new BoundaryDropController(boundaryPanel, allowDroppingOnBoundaryPanel);
-  }
-
-  /**
-   * Called by {@link PickupDragController#dragStart()} to allow subclasses to
-   * provide their own drag proxies.
-   * 
-   * @param context the current drag context
-   * @return a new drag proxy
-   */
-  protected Widget newDragProxy(DragContext context) {
-    AbsolutePanel container = new AbsolutePanel();
-    container.getElement().getStyle().setProperty("overflow", "visible");
-
-    WidgetArea draggableArea = new WidgetArea(context.draggable, null);
-    for (Widget widget : context.selectedWidgets) {
-      WidgetArea widgetArea = new WidgetArea(widget, null);
-      Widget proxy = new SimplePanel();
-      proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
-      proxy.addStyleName(PRIVATE_CSS_PROXY);
-      container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(), widgetArea.getTop()
-          - draggableArea.getTop());
-    }
-
-    return container;
   }
 
   /**
@@ -436,33 +423,35 @@ public class PickupDragController extends AbstractDragController {
     }
   }
 
-  private void calcBoundaryOffset() {
-    Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
-    boundaryOffsetX = widgetLocation.getLeft()
-        + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
-    boundaryOffsetY = widgetLocation.getTop()
-        + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
+  /**
+   * Set whether or not widgets may be dropped anywhere on the boundary panel.
+   * Set to <code>false</code> when you only want explicitly registered drop
+   * controllers to accept drops. Defaults to <code>true</code>.
+   * 
+   * @param allowDroppingOnBoundaryPanel <code>true</code> to allow dropping
+   */
+  public void setBehaviorBoundaryPanelDrop(boolean allowDroppingOnBoundaryPanel) {
+    boundaryDropController.setBehaviorBoundaryPanelDrop(allowDroppingOnBoundaryPanel);
   }
 
-  private void checkGWTIssue1813(Widget child, AbsolutePanel parent) {
-    if (!GWT.isScript()) {
-      if (!"BODY".equals(parent.getElement().getNodeName())
-          && child.getElement().getOffsetParent() != parent.getElement()) {
-        DOMUtil.reportFatalAndThrowRuntimeException("The boundary panel for this drag controller does not appear to have"
-            + " 'position: relative' CSS applied to it."
-            + " This may be due to custom CSS in your application, although this"
-            + " is often caused by using the result of RootPanel.get(\"some-unique-id\") as your boundary"
-            + " panel, as described in GWT issue 1813"
-            + " (http://code.google.com/p/google-web-toolkit/issues/detail?id=1813)."
-            + " Please star / vote for this issue if it has just affected your application."
-            + " You can often remedy this problem by adding one line of code to your application:"
-            + " boundaryPanel.getElement().getStyle().setProperty(\"position\", \"relative\");");
-      }
-    }
+  /**
+   * Set whether or not this controller should automatically create a drag proxy
+   * for each drag operation.
+   * 
+   * @param dragProxyEnabled <code>true</code> to enable drag proxy behavior
+   */
+  public void setBehaviorDragProxy(boolean dragProxyEnabled) {
+    this.dragProxyEnabled = dragProxyEnabled;
   }
 
-  private DropController getIntersectDropController(int x, int y) {
-    DropController dropController = dropControllerCollection.getIntersectDropController(x, y);
-    return dropController != null ? dropController : boundaryDropController;
+  /**
+   * Unregister a DropController from this drag controller.
+   * 
+   * @see #registerDropController(DropController)
+   * 
+   * @param dropController the controller to register
+   */
+  public void unregisterDropController(DropController dropController) {
+    dropControllerList.remove(dropController);
   }
 }

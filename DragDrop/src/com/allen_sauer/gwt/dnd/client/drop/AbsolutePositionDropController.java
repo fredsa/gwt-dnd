@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
 import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Label;
@@ -105,7 +106,7 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
     // Use two widgets so that setPixelSize() consistently affects dimensions
     // excluding positioner border in quirks and strict modes
     SimplePanel outer = new SimplePanel();
-    outer.addStyleName(CSS_DRAGDROP_POSITIONER);
+    outer.addStyleName(DragClientBundle.INSTANCE.css().positioner());
     outer.getElement().getStyle().setProperty("margin", "0px");
 
     // place off screen for border calculation

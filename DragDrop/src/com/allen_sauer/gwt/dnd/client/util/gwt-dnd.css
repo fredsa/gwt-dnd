@@ -1,8 +1,28 @@
 @CHARSET "UTF-8";
 
+@external .dragdrop-dropTarget;
+@external .dragdrop-dropTarget-engage;
+@external .dragdrop-flow-panel-positioner;
+@external .dragdrop-boundary;
+@external .dragdrop-handle;
+@external .dragdrop-selected;
+@external .dragdrop-dragging;
+@external .dragdrop-proxy;
+@external .dragdrop-selected 
+@external .dragdrop-movable-panel;
+	
 HTML { /* Workaround for GWT issue 1932 */
 	margin: 0px !important;
 	border: none !important;
+}
+
+.dragdrop-boundary {
+}
+
+.dragdrop-dropTarget-engage {
+}
+
+.dragdrop-dropTarget {
 }
 
 .dragdrop-handle {
