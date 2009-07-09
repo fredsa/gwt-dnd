@@ -1,16 +1,14 @@
 /*
  * Copyright 2009 Fred Sauer
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
 package com.allen_sauer.gwt.dnd.demo.client.example.matryoshka;
@@ -24,9 +22,9 @@ import com.allen_sauer.gwt.dnd.client.VetoDragException;
 import com.allen_sauer.gwt.dnd.client.drop.SimpleDropController;
 
 /**
- * DropController which allows a widget to be dropped on a SimplePanel drop
- * target when the drop target does not yet have a child widget. Also pops the
- * parent widget to the top of stack by re-attaching it to the grandparent.
+ * DropController which allows a widget to be dropped on a SimplePanel drop target when the drop
+ * target does not yet have a child widget. Also pops the parent widget to the top of stack by
+ * re-attaching it to the grandparent.
  */
 public class MatryoshkaSetWidgetDropController extends SimpleDropController {
 

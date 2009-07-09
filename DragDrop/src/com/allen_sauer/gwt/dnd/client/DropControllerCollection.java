@@ -1,16 +1,14 @@
 /*
  * Copyright 2009 Fred Sauer
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
 package com.allen_sauer.gwt.dnd.client;
@@ -30,9 +28,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Package private helper implementation class for
- * {@link AbstractDragController} to track all relevant {@link DropController
- * DropControllers}.
+ * Package private helper implementation class for {@link AbstractDragController} to track all
+ * relevant {@link DropController DropControllers}.
  */
 class DropControllerCollection {
 
@@ -101,13 +98,13 @@ class DropControllerCollection {
   }
 
   /**
-   * Determines which DropController represents the deepest DOM descendant drop
-   * target located at the provided location <code>(x, y)</code>.
+   * Determines which DropController represents the deepest DOM descendant drop target located at
+   * the provided location <code>(x, y)</code>.
    * 
    * @param x offset left relative to document body
    * @param y offset top relative to document body
-   * @return a drop controller for the intersecting drop target or
-   *         <code>null</code> if none are applicable
+   * @return a drop controller for the intersecting drop target or <code>null</code> if none are
+   *         applicable
    */
   DropController getIntersectDropController(int x, int y) {
     Location location = new CoordinateLocation(x, y);
@@ -122,12 +119,11 @@ class DropControllerCollection {
   }
 
   /**
-   * Cache a list of eligible drop controllers, sorted by relative DOM positions
-   * of their respective drop targets. Called at the beginning of each drag
-   * operation, or whenever drop target eligibility has changed while dragging.
+   * Cache a list of eligible drop controllers, sorted by relative DOM positions of their respective
+   * drop targets. Called at the beginning of each drag operation, or whenever drop target
+   * eligibility has changed while dragging.
    * 
-   * @param boundaryPanel boundary area for drop target eligibility
-   *          considerations
+   * @param boundaryPanel boundary area for drop target eligibility considerations
    * @param context the current drag context
    */
   void resetCache(Panel boundaryPanel, DragContext context) {

@@ -1,16 +1,14 @@
 /*
  * Copyright 2009 Fred Sauer
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
 package com.allen_sauer.gwt.dnd.client;
@@ -27,13 +25,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /*
- * {@link DragController} which performs the bare essentials such as
- * adding/removing styles, maintaining collections, adding mouse listeners, etc.
+ * {@link DragController} which performs the bare essentials such as adding/removing styles,
+ * maintaining collections, adding mouse listeners, etc.
  * 
- * <p> Extend this class to implement specialized drag capabilities such table
- * column or panel resizing. For classic drag-and-drop functionality, i.e. the
- * ability to pickup, move around and drop widgets, use {@link
- * PickupDragController}. </p>
+ * <p> Extend this class to implement specialized drag capabilities such table column or panel
+ * resizing. For classic drag-and-drop functionality, i.e. the ability to pickup, move around and
+ * drop widgets, use {@link PickupDragController}. </p>
  */
 public abstract class AbstractDragController implements DragController {
 
@@ -57,8 +54,8 @@ public abstract class AbstractDragController implements DragController {
   private boolean constrainedToBoundaryPanel;
 
   /**
-   * The current drag end event, created in {@link #previewDragEnd()} and
-   * returned a second time in {@link #dragEnd()}.
+   * The current drag end event, created in {@link #previewDragEnd()} and returned a second time in
+   * {@link #dragEnd()}.
    */
   private DragEndEvent dragEndEvent;
 
@@ -68,8 +65,8 @@ public abstract class AbstractDragController implements DragController {
   private DragHandlerCollection dragHandlers;
 
   /**
-   * The current drag start event, created in {@link #previewDragStart()} and
-   * returned a second time in {@link #dragStart()}.
+   * The current drag start event, created in {@link #previewDragStart()} and returned a second time
+   * in {@link #dragStart()}.
    */
   private DragStartEvent dragStartEvent;
 
@@ -89,12 +86,11 @@ public abstract class AbstractDragController implements DragController {
   private boolean multipleSelectionAllowed = false;
 
   /**
-   * Create a new drag-and-drop controller. Drag operations will be limited to
-   * the specified boundary panel.
+   * Create a new drag-and-drop controller. Drag operations will be limited to the specified
+   * boundary panel.
    * 
-   * @param boundaryPanel the desired boundary panel or
-   *          <code>RootPanel.get()</code> if entire document body is to be the
-   *          boundary
+   * @param boundaryPanel the desired boundary panel or <code>RootPanel.get()</code> if entire
+   *          document body is to be the boundary
    */
   public AbstractDragController(AbsolutePanel boundaryPanel) {
     assert boundaryPanel != null : "Use 'RootPanel.get()' instead of 'null'.";
@@ -169,9 +165,9 @@ public abstract class AbstractDragController implements DragController {
 
   /**
    * Attaches a {@link MouseDragHandler} (which is a
-   * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget, applies
-   * the {@link #PRIVATE_CSS_DRAGGABLE} style to the draggable, applies the
-   * {@link #PRIVATE_CSS_HANDLE} style to the handle.
+   * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget, applies the
+   * {@link #PRIVATE_CSS_DRAGGABLE} style to the draggable, applies the {@link #PRIVATE_CSS_HANDLE}
+   * style to the handle.
    * 
    * @see #makeDraggable(Widget, Widget)
    * @see HasDragHandle
@@ -187,8 +183,8 @@ public abstract class AbstractDragController implements DragController {
   }
 
   /**
-   * Similar to {@link #makeDraggable(Widget)}, but allow separate, child to be
-   * specified as the drag handle by which the first widget can be dragged.
+   * Similar to {@link #makeDraggable(Widget)}, but allow separate, child to be specified as the
+   * drag handle by which the first widget can be dragged.
    * 
    * @param draggable the widget to be made draggable
    * @param dragHandle the widget by which widget can be dragged
@@ -201,9 +197,8 @@ public abstract class AbstractDragController implements DragController {
   }
 
   /**
-   * Performs the reverse of {@link #makeDraggable(Widget)}, detaching the
-   * {@link MouseDragHandler} from the widget and removing any styling which was
-   * applied when making the widget draggable.
+   * Performs the reverse of {@link #makeDraggable(Widget)}, detaching the {@link MouseDragHandler}
+   * from the widget and removing any styling which was applied when making the widget draggable.
    * 
    * @param draggable the widget to no longer be draggable
    */

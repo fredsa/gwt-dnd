@@ -1,16 +1,14 @@
 /*
  * Copyright 2009 Fred Sauer
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
 package com.allen_sauer.gwt.dnd.client.drop;
@@ -24,8 +22,8 @@ import com.allen_sauer.gwt.dnd.client.VetoDragException;
 import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 
 /**
- * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel}
- * which contains a given draggable widget.
+ * A {@link DropController} for the {@link com.google.gwt.user.client.ui.Panel} which contains a
+ * given draggable widget.
  */
 public class BoundaryDropController extends AbsolutePositionDropController {
 
@@ -55,9 +53,9 @@ public class BoundaryDropController extends AbsolutePositionDropController {
   }
 
   /**
-   * Set whether or not widgets may be dropped anywhere on the boundary panel.
-   * Set to <code>false</code> when you only want explicitly registered drop
-   * controllers to accept drops. Defaults to <code>true</code>.
+   * Set whether or not widgets may be dropped anywhere on the boundary panel. Set to
+   * <code>false</code> when you only want explicitly registered drop controllers to accept drops.
+   * Defaults to <code>true</code>.
    * 
    * @param allowDroppingOnBoundaryPanel <code>true</code> to allow dropping
    */

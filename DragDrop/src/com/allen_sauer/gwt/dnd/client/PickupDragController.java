@@ -1,16 +1,14 @@
 /*
  * Copyright 2009 Fred Sauer
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
 package com.allen_sauer.gwt.dnd.client;
@@ -37,9 +35,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /*
- * DragController used for drag-and-drop operations where a draggable widget or
- * drag proxy is temporarily picked up and dragged around the boundary panel. Be
- * sure to register a {@link DropController} for each drop target.
+ * DragController used for drag-and-drop operations where a draggable widget or drag proxy is
+ * temporarily picked up and dragged around the boundary panel. Be sure to register a {@link
+ * DropController} for each drop target.
  * 
  * @see #registerDropController(DropController)
  */
@@ -95,20 +93,16 @@ public class PickupDragController extends AbstractDragController {
   private HashMap<Widget, SavedWidgetInfo> savedWidgetInfoMap;
 
   /**
-   * Create a new pickup-and-move style drag controller. Allows widgets or a
-   * suitable proxy to be temporarily picked up and moved around the specified
-   * boundary panel.
+   * Create a new pickup-and-move style drag controller. Allows widgets or a suitable proxy to be
+   * temporarily picked up and moved around the specified boundary panel.
    * 
    * <p>
-   * Note: An implicit {@link BoundaryDropController} is created and registered
-   * automatically.
+   * Note: An implicit {@link BoundaryDropController} is created and registered automatically.
    * </p>
    * 
-   * @param boundaryPanel the desired boundary panel or
-   *          <code>RootPanel.get()</code> if entire document body is to be the
-   *          boundary
-   * @param allowDroppingOnBoundaryPanel whether or not boundary panel should
-   *          allow dropping
+   * @param boundaryPanel the desired boundary panel or <code>RootPanel.get()</code> if entire
+   *          document body is to be the boundary
+   * @param allowDroppingOnBoundaryPanel whether or not boundary panel should allow dropping
    */
   public PickupDragController(AbsolutePanel boundaryPanel, boolean allowDroppingOnBoundaryPanel) {
     super(boundaryPanel);
@@ -229,8 +223,8 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Determine whether or not this controller automatically creates a drag proxy
-   * for each drag operation.
+   * Determine whether or not this controller automatically creates a drag proxy for each drag
+   * operation.
    * 
    * @return <code>true</code> if drag proxy behavior is enabled
    */
@@ -258,8 +252,7 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Register a new DropController, representing a new drop target, with this
-   * drag controller.
+   * Register a new DropController, representing a new drop target, with this drag controller.
    * 
    * @see #unregisterDropController(DropController)
    * 
@@ -276,9 +269,9 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Set whether or not widgets may be dropped anywhere on the boundary panel.
-   * Set to <code>false</code> when you only want explicitly registered drop
-   * controllers to accept drops. Defaults to <code>true</code>.
+   * Set whether or not widgets may be dropped anywhere on the boundary panel. Set to
+   * <code>false</code> when you only want explicitly registered drop controllers to accept drops.
+   * Defaults to <code>true</code>.
    * 
    * @param allowDroppingOnBoundaryPanel <code>true</code> to allow dropping
    */
@@ -287,8 +280,8 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Set whether or not this controller should automatically create a drag proxy
-   * for each drag operation.
+   * Set whether or not this controller should automatically create a drag proxy for each drag
+   * operation.
    * 
    * @param dragProxyEnabled <code>true</code> to enable drag proxy behavior
    */
@@ -308,15 +301,12 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Create a new BoundaryDropController to manage our boundary panel as a drop
-   * target. To ensure that draggable widgets can only be dropped on registered
-   * drop targets, set <code>allowDroppingOnBoundaryPanel</code> to
-   * <code>false</code>.
+   * Create a new BoundaryDropController to manage our boundary panel as a drop target. To ensure
+   * that draggable widgets can only be dropped on registered drop targets, set
+   * <code>allowDroppingOnBoundaryPanel</code> to <code>false</code>.
    * 
-   * @param boundaryPanel the panel to which our drag-and-drop operations are
-   *          constrained
-   * @param allowDroppingOnBoundaryPanel whether or not dropping is allowed on
-   *          the boundary panel
+   * @param boundaryPanel the panel to which our drag-and-drop operations are constrained
+   * @param allowDroppingOnBoundaryPanel whether or not dropping is allowed on the boundary panel
    * @return the new BoundaryDropController
    */
   protected BoundaryDropController newBoundaryDropController(AbsolutePanel boundaryPanel,
@@ -325,8 +315,8 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Called by {@link PickupDragController#dragStart()} to allow subclasses to
-   * provide their own drag proxies.
+   * Called by {@link PickupDragController#dragStart()} to allow subclasses to provide their own
+   * drag proxies.
    * 
    * @param context the current drag context
    * @return a new drag proxy
@@ -394,8 +384,8 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
-   * Save the selected widgets' current location in case they much be restored
-   * due to a cancelled drop.
+   * Save the selected widgets' current location in case they much be restored due to a cancelled
+   * drop.
    * 
    * @see #restoreSelectedWidgetsLocation()
    */
