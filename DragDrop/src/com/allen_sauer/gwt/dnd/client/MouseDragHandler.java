@@ -280,6 +280,11 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
           context.mouseX = mouseDownOffsetX + location.getLeft();
           context.mouseY = mouseDownOffsetY + location.getTop();
 
+          // adjust (x,y) to be relative to capturingWidget at (0,0)
+          // so that context.desiredDraggableX/Y is valid
+          x += location.getLeft();
+          y += location.getTop();
+
           startDragging();
         } else {
           // prevent IE image drag when drag sensitivity > 5
