@@ -90,11 +90,13 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     targetRow = DOMUtil.findIntersect(flexTableRowsAsIndexPanel, new CoordinateLocation(
         context.mouseX, context.mouseY), LocationWidgetComparator.BOTTOM_HALF_COMPARATOR) - 1;
 
-    Widget w = flexTable.getWidget(targetRow == -1 ? 0 : targetRow, 0);
-    Location widgetLocation = new WidgetLocation(w, context.boundaryPanel);
-    Location tableLocation = new WidgetLocation(flexTable, context.boundaryPanel);
-    context.boundaryPanel.add(positioner, tableLocation.getLeft(), widgetLocation.getTop()
-        + (targetRow == -1 ? 0 : w.getOffsetHeight()));
+    if (flexTable.getRowCount() > 0) {
+      Widget w = flexTable.getWidget(targetRow == -1 ? 0 : targetRow, 0);
+      Location widgetLocation = new WidgetLocation(w, context.boundaryPanel);
+      Location tableLocation = new WidgetLocation(flexTable, context.boundaryPanel);
+      context.boundaryPanel.add(positioner, tableLocation.getLeft(), widgetLocation.getTop()
+          + (targetRow == -1 ? 0 : w.getOffsetHeight()));
+    }
   }
 
   Widget newPositioner(DragContext context) {
