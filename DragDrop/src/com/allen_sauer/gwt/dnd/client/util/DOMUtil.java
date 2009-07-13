@@ -52,6 +52,12 @@ public class DOMUtil {
     impl.cancelAllDocumentSelections();
   }
 
+  public static void debugWidgetWithColor(Widget widget, String color) {
+    if (DEBUG) {
+      widget.getElement().getStyle().setProperty("border", "2px solid " + color);
+    }
+  }
+
   /**
    * Set an element's location as fast as possible, avoiding some of the overhead in
    * {@link com.google.gwt.user.client.ui.AbsolutePanel#setWidgetPosition(Widget, int, int)} .
@@ -220,13 +226,17 @@ public class DOMUtil {
     Window.setStatus(text);
   }
 
+  public static void warn(String msg) {
+    System.err.println("WARNING: " + msg);
+    GWT.log(msg, null);
+  }
+
   private static void debugWidgetWithColor(IndexedPanel parent, int index, String color) {
     if (DEBUG) {
       if (index >= parent.getWidgetCount()) {
-        parent.getWidget(parent.getWidgetCount() - 1).getElement().getStyle().setProperty("border",
-            "2px dashed " + color);
+        debugWidgetWithColor(parent.getWidget(parent.getWidgetCount() - 1), color);
       } else {
-        parent.getWidget(index).getElement().getStyle().setProperty("border", "2px solid " + color);
+        debugWidgetWithColor(parent.getWidget(index), color);
       }
     }
   }

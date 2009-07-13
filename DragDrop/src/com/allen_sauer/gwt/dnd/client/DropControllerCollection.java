@@ -13,6 +13,7 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Panel;
@@ -21,6 +22,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.allen_sauer.gwt.dnd.client.drop.DropController;
 import com.allen_sauer.gwt.dnd.client.util.Area;
 import com.allen_sauer.gwt.dnd.client.util.CoordinateLocation;
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.Location;
 import com.allen_sauer.gwt.dnd.client.util.WidgetArea;
 
@@ -110,9 +112,21 @@ class DropControllerCollection {
     Location location = new CoordinateLocation(x, y);
     for (int i = sortedCandidates.length - 1; i >= 0; i--) {
       Candidate candidate = sortedCandidates[i];
+      if (DOMUtil.DEBUG) {
+        DOMUtil.debugWidgetWithColor(candidate.getDropTarget(), "blue");
+      }
+    }
+    for (int i = sortedCandidates.length - 1; i >= 0; i--) {
+      Candidate candidate = sortedCandidates[i];
       Area targetArea = candidate.getTargetArea();
       if (targetArea.intersects(location)) {
+        if (DOMUtil.DEBUG) {
+          DOMUtil.debugWidgetWithColor(candidate.getDropTarget(), "green");
+        }
         return candidate.getDropController();
+      }
+      if (DOMUtil.DEBUG) {
+        DOMUtil.debugWidgetWithColor(candidate.getDropTarget(), "red");
       }
     }
     return null;
@@ -133,8 +147,13 @@ class DropControllerCollection {
       WidgetArea boundaryArea = new WidgetArea(boundaryPanel, null);
       for (DropController dropController : dropControllerList) {
         Candidate candidate = new Candidate(dropController);
-        if (DOM.isOrHasChild(context.draggable.getElement(), candidate.getDropTarget().getElement())) {
+        Widget dropTarget = candidate.getDropTarget();
+        if (DOM.isOrHasChild(context.draggable.getElement(), dropTarget.getElement())) {
           continue;
+        }
+        if (!GWT.isScript() && candidate.getTargetArea().getHeight() == 0) {
+          DOMUtil.warn("Warning: gwt-dnd detecting a zero height drop target "
+              + dropTarget.getClass().getName());
         }
         if (candidate.getTargetArea().intersects(boundaryArea)) {
           list.add(candidate);
