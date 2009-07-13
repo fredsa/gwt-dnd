@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fileset-config file-format-version="1.2.0" simple-config="false">
+    <fileset name="GWT" enabled="false" check-config-name="GWT Checks" local="false">
+        <file-match-pattern match-pattern="^user\\src\\.*java$" include-pattern="true"/>
+    </fileset>
+    <fileset name="gwt-dnd" enabled="true" check-config-name="gwt-dnd" local="false">
+        <file-match-pattern match-pattern="^src\\.*java$" include-pattern="true"/>
+        <file-match-pattern match-pattern="^test\\.*java$" include-pattern="true"/>
+        <file-match-pattern match-pattern="^demo\\.*java$" include-pattern="true"/>
+        <file-match-pattern match-pattern="^getting-started\\.*java$" include-pattern="true"/>
+    </fileset>
+    <filter name="FilesInSync2" enabled="true"/>
+</fileset-config>
