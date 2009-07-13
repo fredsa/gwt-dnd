@@ -41,10 +41,10 @@
 
 
 		<!-- gwt.location property -->
-		<condition property="gwt.location.default" value="${env.GWT16_HOME}" else="">
-			<isset property="env.GWT16_HOME" />
+		<condition property="gwt.location.default" value="${env.GWT17_HOME}" else="">
+			<isset property="env.GWT17_HOME" />
 		</condition>
-		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT 1.6 installation directory" />
+		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT 1.7 installation directory" />
 
 		<!-- gwt.tools property -->
 		<condition property="gwt.tools" value="${env.GWT_TOOLS}" else="${gwt.root}/../tools">
