@@ -35,6 +35,15 @@ public abstract class DOMUtilImpl {
 
   public abstract int getClientWidth(Element elem);
 
+  /**
+   * From http://code.google.com/p/doctype/wiki/ArticleComputedStyle
+   */
+  public native String getEffectiveStyle(Element elem, String style) /*-{
+    return this.@com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImpl::getComputedStyle(Lcom/google/gwt/dom/client/Element;Ljava/lang/String;)(elem,style)
+        || (elem.currentStyle ? elem.currentStyle[style] : null)
+        || elem.style[style];
+  }-*/;
+
   public final int getHorizontalBorders(Widget widget) {
     return widget.getOffsetWidth() - getClientWidth(widget.getElement());
   }
@@ -42,4 +51,17 @@ public abstract class DOMUtilImpl {
   public final int getVerticalBorders(Widget widget) {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
   }
+
+  @SuppressWarnings("unused")
+  private native String getComputedStyle(Element elem, String style) /*-{
+    if ($doc.defaultView && $doc.defaultView.getComputedStyle) {
+      var styles = $doc.defaultView.getComputedStyle(elem, "");
+      if (styles) {
+        return styles[style];
+      }
+    }
+
+    return null;
+  }-*/;
+
 }

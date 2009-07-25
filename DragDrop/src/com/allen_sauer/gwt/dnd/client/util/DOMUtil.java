@@ -181,6 +181,10 @@ public class DOMUtil {
     return impl.getClientWidth(elem);
   }
 
+  public static String getEffectiveStyle(Element elem, String styleName) {
+    return impl.getEffectiveStyle(elem, styleName);
+  }
+
   /**
    * Gets the sum of an element's left and right CSS borders in pixels.
    * 
