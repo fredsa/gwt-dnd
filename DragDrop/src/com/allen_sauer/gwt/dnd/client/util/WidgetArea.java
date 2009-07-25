@@ -38,25 +38,27 @@ public class WidgetArea extends AbstractArea {
     Element p;
 
     while (elem != null && (p = elem.getOffsetParent()) != null) {
-      int left = elem.getAbsoluteLeft();
+      if (!DOMUtil.getEffectiveStyle(elem, "overflow").equals("visible")) {
+        int left = elem.getAbsoluteLeft();
 
-      if (getLeft() < left) {
-        setLeft(left);
-      }
+        if (getLeft() < left) {
+          setLeft(left);
+        }
 
-      int top = elem.getAbsoluteTop();
-      if (getTop() < top) {
-        setTop(top);
-      }
+        int top = elem.getAbsoluteTop();
+        if (getTop() < top) {
+          setTop(top);
+        }
 
-      int bottom = elem.getAbsoluteBottom();
-      if (getBottom() > bottom) {
-        setBottom(bottom);
-      }
+        int bottom = top + elem.getOffsetHeight();
+        if (getBottom() > bottom) {
+          setBottom(Math.max(getTop(), bottom));
+        }
 
-      int right = elem.getAbsoluteRight();
-      if (getRight() > right) {
-        setRight(right);
+        int right = left + elem.getOffsetWidth();
+        if (getRight() > right) {
+          setRight(Math.max(getLeft(), right));
+        }
       }
 
       elem = p;
