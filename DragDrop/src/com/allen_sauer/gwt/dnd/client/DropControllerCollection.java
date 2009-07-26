@@ -151,8 +151,8 @@ class DropControllerCollection {
         if (DOM.isOrHasChild(context.draggable.getElement(), dropTarget.getElement())) {
           continue;
         }
-        if (!GWT.isScript() && candidate.getTargetArea().getHeight() == 0) {
-          DOMUtil.warn("Warning: gwt-dnd detecting a zero height drop target "
+        if (!GWT.isScript() && dropTarget.getOffsetHeight() == 0) {
+          DOMUtil.warn("Warning: gwt-dnd detecting a zero offset height drop target "
               + dropTarget.getClass().getName());
         }
         if (candidate.getTargetArea().intersects(boundaryArea)) {
