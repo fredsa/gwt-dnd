@@ -130,6 +130,8 @@ final class WindowPanel extends FocusPanel {
 
   private final Widget headerWidget;
 
+  private boolean initialLoad = false;
+
   private Widget northWidget;
 
   private Widget southWidget;
@@ -218,7 +220,8 @@ final class WindowPanel extends FocusPanel {
   @Override
   protected void onLoad() {
     super.onLoad();
-    if (contentOrScrollPanelWidget.getOffsetHeight() != 0) {
+    if (!initialLoad && contentOrScrollPanelWidget.getOffsetHeight() != 0) {
+      initialLoad = true;
       headerWidget.setPixelSize(headerWidget.getOffsetWidth(), headerWidget.getOffsetHeight());
       setContentSize(contentOrScrollPanelWidget.getOffsetWidth(),
           contentOrScrollPanelWidget.getOffsetHeight());
