@@ -157,10 +157,12 @@ final class WindowPanel extends FocusPanel {
 
     addClickHandler(new ClickHandler() {
       public void onClick(ClickEvent event) {
-        // force our panel to the top of our z-index context
         AbsolutePanel boundaryPanel = windowController.getBoundaryPanel();
-        WidgetLocation location = new WidgetLocation(WindowPanel.this, boundaryPanel);
-        boundaryPanel.add(WindowPanel.this, location.getLeft(), location.getTop());
+        if (boundaryPanel.getWidgetIndex(WindowPanel.this) < boundaryPanel.getWidgetCount() - 1) {
+          // force our panel to the top of our z-index context
+          WidgetLocation location = new WidgetLocation(WindowPanel.this, boundaryPanel);
+          boundaryPanel.add(WindowPanel.this, location.getLeft(), location.getTop());
+        }
       }
     });
 
