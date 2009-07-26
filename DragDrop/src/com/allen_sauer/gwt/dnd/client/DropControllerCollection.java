@@ -54,15 +54,7 @@ class DropControllerCollection {
     public int compareTo(Candidate other) {
       Element myElement = getDropTarget().getElement();
       Element otherElement = other.getDropTarget().getElement();
-      if (myElement == otherElement) {
-        return 0;
-      } else if (DOM.isOrHasChild(myElement, otherElement)) {
-        return -1;
-      } else if (DOM.isOrHasChild(otherElement, myElement)) {
-        return 1;
-      } else {
-        return 0;
-      }
+      return compareElement(myElement, otherElement);
     }
 
     @Override
@@ -86,6 +78,25 @@ class DropControllerCollection {
     Area getTargetArea() {
       return targetArea;
     }
+
+    private int compareElement(Element myElement, Element otherElement) {
+      if (myElement == otherElement) {
+        return 0;
+      } else if (DOM.isOrHasChild(myElement, otherElement)) {
+        return -1;
+      } else if (DOM.isOrHasChild(otherElement, myElement)) {
+        return 1;
+      } else {
+        // check parent ensuring global candidate sorting is correct
+        Element myParentElement = myElement.getParentElement().cast();
+        Element otherParentElement = otherElement.getParentElement().cast();
+        if (myParentElement != null && otherParentElement != null) {
+          return compareElement(myParentElement, otherParentElement);
+        }
+        return 0;
+      }
+    }
+
   }
 
   private final ArrayList<DropController> dropControllerList;
