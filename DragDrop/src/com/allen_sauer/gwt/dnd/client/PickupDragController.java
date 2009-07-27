@@ -70,6 +70,11 @@ public class PickupDragController extends AbstractDragController {
   }
 
   /**
+   * TODO Decide if 100ms is a good number
+   */
+  private final static int CACHE_TIME_MILLIS = 100;
+
+  /**
    * The implicit boundary drop controller.
    */
   private final BoundaryDropController boundaryDropController;
@@ -87,6 +92,8 @@ public class PickupDragController extends AbstractDragController {
   private int dropTargetClientHeight;
 
   private int dropTargetClientWidth;
+
+  private long lastResetCacheTimeMillis;
 
   private Widget movablePanel;
 
@@ -134,8 +141,14 @@ public class PickupDragController extends AbstractDragController {
   }
 
   public void dragMove() {
-    // may have changed due to scrollIntoView() or developer driven changes
-    calcBoundaryOffset();
+    // may have changed due to scrollIntoView(), developer driven changes
+    // or manual user scrolling
+    long timeMillis = System.currentTimeMillis();
+    if (timeMillis - lastResetCacheTimeMillis >= CACHE_TIME_MILLIS) {
+      lastResetCacheTimeMillis = timeMillis;
+      resetCache();
+      calcBoundaryOffset();
+    }
 
     int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
     int desiredTop = context.desiredDraggableY - boundaryOffsetY;
@@ -168,6 +181,7 @@ public class PickupDragController extends AbstractDragController {
   public void dragStart() {
     super.dragStart();
 
+    lastResetCacheTimeMillis = System.currentTimeMillis();
     WidgetLocation currentDraggableLocation = new WidgetLocation(context.draggable,
         context.boundaryPanel);
     if (getBehaviorDragProxy()) {
