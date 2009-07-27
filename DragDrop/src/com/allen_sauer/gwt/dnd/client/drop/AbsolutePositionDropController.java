@@ -140,9 +140,9 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
           - draggable.offsetHeight));
       dropTarget.add(draggable.positioner, draggable.desiredX, draggable.desiredY);
     }
-    draggableList.get(0).positioner.getElement().scrollIntoView();
+    draggableList.get(draggableList.size() - 1).positioner.getElement().scrollIntoView();
 
-    // may have changed due to scrollIntoView()
+    // may have changed due to scrollIntoView() or user driven scrolling
     calcDropTargetOffset();
   }
 
