@@ -307,11 +307,22 @@ public class PickupDragController extends AbstractDragController {
    * Unregister a DropController from this drag controller.
    * 
    * @see #registerDropController(DropController)
+   * @see #unregisterDropControllers()
    * 
    * @param dropController the controller to register
    */
   public void unregisterDropController(DropController dropController) {
     dropControllerList.remove(dropController);
+  }
+
+  /**
+   * Unregister all DropControllers from this drag controller.
+   * 
+   * @see #registerDropController(DropController)
+   * @see #unregisterDropController(DropController)
+   */
+  public void unregisterDropControllers() {
+    dropControllerList.clear();
   }
 
   /**
