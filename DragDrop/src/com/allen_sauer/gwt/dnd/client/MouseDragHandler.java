@@ -92,6 +92,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   private static final int DRAGGING_NO_MOVEMENT_YET = 2;
 
+  private static Widget mouseDownWidget;
+
   private static final int NOT_DRAGGING = 1;
 
   private FocusPanel capturingWidget;
@@ -107,8 +109,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   private int mouseDownOffsetX;
 
   private int mouseDownOffsetY;
-
-  private Widget mouseDownWidget;
 
   MouseDragHandler(DragContext context) {
     this.context = context;
