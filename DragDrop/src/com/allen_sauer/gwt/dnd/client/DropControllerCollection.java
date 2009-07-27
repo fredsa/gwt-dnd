@@ -13,7 +13,6 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.Panel;
@@ -161,10 +160,6 @@ class DropControllerCollection {
         Widget dropTarget = candidate.getDropTarget();
         if (DOM.isOrHasChild(context.draggable.getElement(), dropTarget.getElement())) {
           continue;
-        }
-        if (!GWT.isScript() && dropTarget.getOffsetHeight() == 0) {
-          DOMUtil.warn("Warning: gwt-dnd detecting a zero offset height drop target "
-              + dropTarget.getClass().getName());
         }
         if (candidate.getTargetArea().intersects(boundaryArea)) {
           list.add(candidate);
