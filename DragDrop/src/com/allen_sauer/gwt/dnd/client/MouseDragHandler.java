@@ -14,6 +14,8 @@
 package com.allen_sauer.gwt.dnd.client;
 
 import com.google.gwt.dom.client.NativeEvent;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
 import com.google.gwt.event.dom.client.HasMouseOutHandlers;
@@ -32,6 +34,7 @@ import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -331,6 +334,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   private void dragEndCleanup() {
     DOM.releaseCapture(capturingWidget.getElement());
+    capturingWidget.removeFromParent();
     dragging = NOT_DRAGGING;
     context.dragEndCleanup();
   }
@@ -350,12 +354,15 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   private void initCapturingWidget() {
     capturingWidget = new FocusPanel();
-    capturingWidget.setPixelSize(0, 0);
+    capturingWidget.setPixelSize(Window.getClientWidth(), Window.getClientHeight());
     capturingWidget.addMouseMoveHandler(this);
     capturingWidget.addMouseUpHandler(this);
-    capturingWidget.getElement().getStyle().setProperty("visibility", "hidden");
-    capturingWidget.getElement().getStyle().setProperty("margin", "0px");
-    capturingWidget.getElement().getStyle().setProperty("border", "none");
+    Style style = capturingWidget.getElement().getStyle();
+    style.setProperty("filter", "alpha(opacity=0)");
+    style.setOpacity(0);
+    style.setMargin(0, Style.Unit.PX);
+    style.setBorderStyle(BorderStyle.NONE);
+    style.setBackgroundColor("blue");
   }
 
   private void startDragging() {
@@ -369,10 +376,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
     context.dragController.dragStart();
 
-    // defend against issue 55
-    if (!capturingWidget.isAttached()) {
-      RootPanel.get().add(capturingWidget, 0, 0);
-    }
+    RootPanel.get().add(capturingWidget, 0, 0);
     DOM.setCapture(capturingWidget.getElement());
     dragging = DRAGGING_NO_MOVEMENT_YET;
   }
