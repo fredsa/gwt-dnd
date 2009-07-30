@@ -82,6 +82,11 @@ public final class ResetCacheExample extends Example {
       int top = Random.nextInt(150);
       contentPanel.add(draggableLabel, left, top);
 
+      // create a drop controller for the content panel
+      AbsolutePositionDropController contentPanelDropController = new AbsolutePositionDropController(
+          contentPanel);
+      dragController.registerDropController(contentPanelDropController);
+
       // create a drop controller for the containing panel
       containerDropController = new AbsolutePositionDropController(containingPanel);
       dragController.registerDropController(containerDropController);
