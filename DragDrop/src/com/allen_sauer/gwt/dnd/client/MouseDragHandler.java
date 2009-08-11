@@ -144,7 +144,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     context.draggable = dragHandleMap.get(mouseDownWidget).getDragable();
     assert context.draggable != null;
 
-    if (!toggleKey(event) && !context.selectedWidgets.contains(mouseDownWidget)) {
+    if (!toggleKey(event) && !context.selectedWidgets.contains(context.draggable)) {
       context.dragController.clearSelection();
       context.dragController.toggleSelection(context.draggable);
     }
