@@ -55,7 +55,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   private static class RegisteredDraggable {
     private final Widget dragable;
     private final HandlerRegistration mouseDownHandlerRegistration;
-    private final HandlerRegistration mouseMoveHandlerRegistration;
     private final HandlerRegistration mouseOutHandlerRegistration;
     private final HandlerRegistration mouseUpHandlerRegistration;
 
@@ -65,13 +64,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
         HandlerRegistration mouseOutHandlerRegistration) {
       this.dragable = dragable;
       this.mouseDownHandlerRegistration = mouseDownHandlerRegistration;
-      this.mouseMoveHandlerRegistration = mouseMoveHandlerRegistration;
       this.mouseOutHandlerRegistration = mouseOutHandlerRegistration;
       this.mouseUpHandlerRegistration = mouseUpHandlerRegistration;
-    }
-
-    public HandlerRegistration getMouseMoveHandlerRegistration() {
-      return mouseMoveHandlerRegistration;
     }
 
     public HandlerRegistration getMouseUpHandlerRegistration() {
