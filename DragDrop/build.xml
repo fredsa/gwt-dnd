@@ -209,7 +209,7 @@
 					<arg path="build/www" />
 					<arg value="com.allen_sauer.gwt.dnd.demo.DragDropDemo" />
 					<arg value="-style" />
-					<arg value="PRETTY" />
+					<arg value="OBF" />
 				</java>
 
 				<copy todir="build/www">
@@ -268,8 +268,19 @@
 
 	<target name="clean">
 		<delete dir="build" />
-		<!-- Put the directory back so Eclipse doesn't loose the 'derived' attribute -->
+		<delete dir="war/WEB-INF/classes" />
+		<delete dir="war/demo" />
+		<delete dir="war/gettingstarted1" />
+		<delete dir="war/gettingstarted2" />
+		<delete dir="war/test" />
+
+		<!-- Put the directories back so Eclipse doesn't loose the 'derived' attribute -->
 		<mkdir dir="build" />
+		<mkdir dir="war/WEB-INF/classes" />
+		<mkdir dir="war/demo" />
+		<mkdir dir="war/gettingstarted1" />
+		<mkdir dir="war/gettingstarted2" />
+		<mkdir dir="war/test" />
 	</target>
 
 	<target name="sshls" description="SSH ls (test)">
