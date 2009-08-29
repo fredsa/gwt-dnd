@@ -199,25 +199,25 @@
 				<fileset file="${gwt-dev.jar}" />
 			</sourcefiles>
 
-			<targetfiles path="build/www/com.allen_sauer.gwt.dnd.demo.dndDemo/com.allen_sauer.gwt.dnd.demo.dndDemo.nocache.js" />
+			<targetfiles path="build/war/demo/demo.nocache.js" />
 
 			<sequential>
-				<mkdir dir="build/www" />
+				<mkdir dir="build/war" />
 
-				<java maxmemory="1g" dir="build" classname="com.google.gwt.dev.GWTCompiler" classpath="build/out:build/demo:${gwt-user.jar}:${gwt-dev.jar}" fork="yes" failonerror="true">
-					<arg value="-out" />
-					<arg path="build/www" />
+				<java maxmemory="1g" dir="build" classname="com.google.gwt.dev.Compiler" classpath="build/out:build/demo:${gwt-user.jar}:${gwt-dev.jar}" fork="yes" failonerror="true">
+					<arg value="-war" />
+					<arg path="build/war" />
 					<arg value="com.allen_sauer.gwt.dnd.demo.DragDropDemo" />
 					<arg value="-style" />
 					<arg value="OBF" />
 				</java>
 
-				<copy todir="build/www">
+				<copy todir="build/war">
 					<fileset file="war/DragDropDemo.html" />
 					<fileset file="war/DragDropDemo.css" />
 				</copy>
 
-				<copydir dest="build/www/images" src="war/images" />
+				<copydir dest="build/war/images" src="war/images" />
 			</sequential>
 		</outofdate>
 	</target>
@@ -294,7 +294,7 @@
 		<sshexec command="mkdir com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
 
 		<scp todir="sauer@allen-sauer.com:com.allen_sauer.gwt.dnd.demo.DragDropDemo/" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" verbose="true">
-			<fileset dir="build/www" />
+			<fileset dir="build/war" />
 		</scp>
 
 		<sshexec command="./deploy.sh com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
