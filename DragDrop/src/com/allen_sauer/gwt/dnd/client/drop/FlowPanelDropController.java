@@ -24,32 +24,22 @@ import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 /**
  * A {@link DropController} for instances of {@link FlowPanel}.
  * 
- * @see IndexedDropController
+ * @see InsertPanelDropController
  */
-public class FlowPanelDropController extends AbstractIndexedDropController {
-
-  private FlowPanel dropTarget;
+public class FlowPanelDropController extends AbstractInsertPanelDropController {
 
   /**
-   * @see IndexedDropController#IndexedDropController(com.google.gwt.user.client.ui.IndexedPanel)
+   * @see InsertPanelDropController#InsertPanelDropController(com.google.gwt.user.client.ui.InsertPanel)
    * 
    * @param dropTarget
    */
   public FlowPanelDropController(FlowPanel dropTarget) {
     super(dropTarget);
-    this.dropTarget = dropTarget;
   }
 
   @Override
   protected LocationWidgetComparator getLocationWidgetComparator() {
     return LocationWidgetComparator.BOTTOM_RIGHT_COMPARATOR;
-  }
-
-  // TODO remove after enhancement for issue 1112 provides InsertPanel interface
-  // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
-  @Override
-  protected void insert(Widget widget, int beforeIndex) {
-    dropTarget.insert(widget, beforeIndex);
   }
 
   @Override

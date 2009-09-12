@@ -11,24 +11,21 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dnd.demo.client.example.indexedpanel;
+package com.allen_sauer.gwt.dnd.demo.client.example.insertpanel;
 
-import com.google.gwt.user.client.ui.IndexedPanel;
+import com.google.gwt.user.client.ui.InsertPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-import com.allen_sauer.gwt.dnd.client.drop.IndexedDropController;
+import com.allen_sauer.gwt.dnd.client.drop.InsertPanelDropController;
 
 /**
- * IndexedDropController that disallows dropping after the last child, which is assumed to be dummy
- * spacer widget preventing parent collapse.
+ * {@link InsertPanelDropController} that disallows dropping after the last child, which is assumed
+ * to be dummy spacer widget preventing parent CSS collapse.
  */
-public class NoInsertAtEndIndexedDropController extends IndexedDropController {
+public class NoInsertAtEndInsertPanelDropController extends InsertPanelDropController {
 
-  private IndexedPanel dropTarget;
-
-  public NoInsertAtEndIndexedDropController(IndexedPanel dropTarget) {
+  public NoInsertAtEndInsertPanelDropController(InsertPanel dropTarget) {
     super(dropTarget);
-    this.dropTarget = dropTarget;
   }
 
   @Override

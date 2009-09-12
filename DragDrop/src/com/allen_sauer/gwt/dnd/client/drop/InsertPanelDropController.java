@@ -14,7 +14,7 @@
 package com.allen_sauer.gwt.dnd.client.drop;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.IndexedPanel;
+import com.google.gwt.user.client.ui.InsertPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
@@ -27,12 +27,13 @@ import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 
 /**
- * A {@link DropController} for instances of {@link IndexedPanel}.
+ * A {@link DropController} for instances of {@link InsertPanel}.
  * 
- * @see FlowPanelDropController TODO VerticalPanel performance is slow because of positioner DOM
- *      manipulation
+ * TODO VerticalPanel performance is slow because of positioner DOM manipulation
+ * 
+ * @see FlowPanelDropController
  */
-public class IndexedDropController extends AbstractIndexedDropController {
+public class InsertPanelDropController extends AbstractInsertPanelDropController {
 
   /**
    * Label for IE quirks mode workaround.
@@ -40,16 +41,16 @@ public class IndexedDropController extends AbstractIndexedDropController {
   private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
 
   /**
-   * The indexed panel drop target.
+   * The insert panel drop target.
    */
-  private IndexedPanel dropTarget;
+  protected final InsertPanel dropTarget;
 
   /**
-   * Construct an indexed panel drop controller.
+   * Construct an {@link InsertPanelDropController}.
    * 
-   * @param dropTarget the indexed panel drop target
+   * @param dropTarget the {@link InsertPanel} drop target
    */
-  public IndexedDropController(IndexedPanel dropTarget) {
+  public InsertPanelDropController(InsertPanel dropTarget) {
     super(dropTarget);
     if (!(dropTarget instanceof HorizontalPanel) && !(dropTarget instanceof VerticalPanel)) {
       throw new IllegalArgumentException(dropTarget.getClass().getName()
@@ -64,17 +65,6 @@ public class IndexedDropController extends AbstractIndexedDropController {
       return LocationWidgetComparator.RIGHT_HALF_COMPARATOR;
     } else {
       return LocationWidgetComparator.BOTTOM_HALF_COMPARATOR;
-    }
-  }
-
-  // TODO remove after enhancement for issue 1112 provides InsertPanel interface
-  // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
-  @Override
-  protected void insert(Widget widget, int beforeIndex) {
-    if (dropTarget instanceof HorizontalPanel) {
-      ((HorizontalPanel) dropTarget).insert(widget, beforeIndex);
-    } else {
-      ((VerticalPanel) dropTarget).insert(widget, beforeIndex);
     }
   }
 

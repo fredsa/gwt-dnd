@@ -14,7 +14,7 @@
 package com.allen_sauer.gwt.dnd.demo.client.example.flextable;
 
 import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.IndexedPanel;
+import com.google.gwt.user.client.ui.InsertPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -35,7 +35,11 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
 
   private FlexTable flexTable;
 
-  private IndexedPanel flexTableRowsAsIndexPanel = new IndexedPanel() {
+  private InsertPanel flexTableRowsAsIndexPanel = new InsertPanel() {
+
+    public void add(Widget w) {
+      throw new UnsupportedOperationException();
+    }
 
     public Widget getWidget(int index) {
       return flexTable.getWidget(index, 0);
@@ -46,6 +50,10 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
     }
 
     public int getWidgetIndex(Widget child) {
+      throw new UnsupportedOperationException();
+    }
+
+    public void insert(Widget w, int beforeIndex) {
       throw new UnsupportedOperationException();
     }
 

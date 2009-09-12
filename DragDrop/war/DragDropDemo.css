@@ -100,33 +100,33 @@ DIV.demo-main-boundary-panel {
   color: blue;
 }
 
-/* ------------ IndexedPanelExample ------------ */
-.demo-IndexedPanelExample .demo-IndexedPanelExample-widget ,
-.demo-IndexedPanelExample .demo-IndexedPanelExample-heading ,
-.demo-IndexedPanelExample .demo-IndexedPanelExample-spacer {
+/* ------------ InsertPanelExample ------------ */
+.demo-InsertPanelExample .demo-InsertPanelExample-widget ,
+.demo-InsertPanelExample .demo-InsertPanelExample-heading ,
+.demo-InsertPanelExample .demo-InsertPanelExample-spacer {
   padding: 0.1em;
   margin: 0.1em;
   width: 120px;
 }
 
-.demo-IndexedPanelExample .demo-IndexedPanelExample-widget ,
-.demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
+.demo-InsertPanelExample .demo-InsertPanelExample-widget ,
+.demo-InsertPanelExample .demo-InsertPanelExample-heading {
   border: 1px solid blue;
 }
 
-.demo-IndexedPanelExample .demo-IndexedPanelExample-spacer {
+.demo-InsertPanelExample .demo-InsertPanelExample-spacer {
   height: 50px;
 }
 
-.demo-IndexedPanelExample .demo-IndexedPanelExample-widget {
+.demo-InsertPanelExample .demo-InsertPanelExample-widget {
   background-color: #B3FF87; /* bright green */
 }
 
-.demo-IndexedPanelExample .demo-IndexedPanelExample-heading {
+.demo-InsertPanelExample .demo-InsertPanelExample-heading {
   background-color: #87B3FF; /* bright blue */
 }
 
-.demo-IndexedPanelExample .demo-IndexedPanelExample-column-composite {
+.demo-InsertPanelExample .demo-InsertPanelExample-column-composite {
   padding: 1px;
 }
 

@@ -37,7 +37,7 @@ import com.allen_sauer.gwt.dnd.demo.client.example.duallist.DualListExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.flextable.FlexTableRowExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.flowpanel.FlowPanelExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.grid.GridConstrainedExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.indexedpanel.IndexedPanelExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.insertpanel.InsertPanelExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.matryoshka.MatryoshkaExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.palette.PaletteExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.puzzle.PuzzleExample;
@@ -120,7 +120,7 @@ public final class DragDropDemo implements EntryPoint {
     HTML boundaryDescription = ExampleTabPanel.describe(new Class[] {
         DragDropDemo.class, PickupDragController.class, BoundaryDropController.class,},
         "Most of the example drag operations are constrained to the panel below."
-            + " Try to drag one of the widgets outside the area below.");
+        + " Try to drag one of the widgets outside the area below.");
     boundaryDescription.addStyleName(CSS_DEMO_BOUNDARY);
     mainPanel.add(boundaryDescription);
     mainPanel.add(boundaryPanel);
@@ -162,7 +162,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new GridConstrainedExample(dragController));
     examples.add(new FlowPanelExample(dragController));
 
-    examples.add(new IndexedPanelExample(demoDragHandler));
+    examples.add(new InsertPanelExample(demoDragHandler));
     examples.add(new FlexTableRowExample(demoDragHandler));
     examples.add(new WindowExample(demoDragHandler));
     examples.add(new DragHandleExample(demoDragHandler));

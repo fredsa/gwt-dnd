@@ -18,6 +18,7 @@ import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.InsertPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -42,14 +43,13 @@ import java.util.HashMap;
  * @see #registerDropController(DropController)
  */
 public class PickupDragController extends AbstractDragController {
-
   /**
    * Private implementation class to store widget information while dragging.
    */
   private static class SavedWidgetInfo {
 
     /**
-     * The initial draggable index for indexed panel parents.
+     * The initial draggable index for {@link InsertPanel} parents.
      */
     int initialDraggableIndex;
 
@@ -358,8 +358,8 @@ public class PickupDragController extends AbstractDragController {
       Widget proxy = new SimplePanel();
       proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
       proxy.addStyleName(DragClientBundle.INSTANCE.css().proxy());
-      container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(), widgetArea.getTop()
-          - draggableArea.getTop());
+      container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(),
+          widgetArea.getTop() - draggableArea.getTop());
     }
 
     return container;

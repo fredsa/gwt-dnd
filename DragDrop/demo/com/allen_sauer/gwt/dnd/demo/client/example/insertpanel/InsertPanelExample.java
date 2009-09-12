@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.allen_sauer.gwt.dnd.demo.client.example.indexedpanel;
+package com.allen_sauer.gwt.dnd.demo.client.example.insertpanel;
 
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
@@ -21,7 +21,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
-import com.allen_sauer.gwt.dnd.client.drop.IndexedDropController;
+import com.allen_sauer.gwt.dnd.client.drop.InsertPanelDropController;
 import com.allen_sauer.gwt.dnd.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 
@@ -29,27 +29,28 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  * Example of columns that can be rearranged, with widget that can be moved within a column or
  * between columns.
  */
-public final class IndexedPanelExample extends Example {
+public final class InsertPanelExample extends Example {
 
   private static final int COLUMNS = 3;
 
-  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE = "demo-IndexedPanelExample";
+  private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE = "demo-InsertPanelExample";
 
-  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_COLUMN_COMPOSITE = "demo-IndexedPanelExample-column-composite";
+  private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE_COLUMN_COMPOSITE = "demo-InsertPanelExample-column-composite";
 
-  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER = "demo-IndexedPanelExample-container";
+  private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE_CONTAINER = "demo-InsertPanelExample-container";
 
-  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_HEADING = "demo-IndexedPanelExample-heading";
+  private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE_HEADING = "demo-InsertPanelExample-heading";
 
-  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_SPACER = "demo-IndexedPanelExample-spacer";
-  private static final String CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET = "demo-IndexedPanelExample-widget";
+  private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE_SPACER = "demo-InsertPanelExample-spacer";
+
+  private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE_WIDGET = "demo-InsertPanelExample-widget";
 
   private static final int ROWS = 4;
 
   private static final int SPACING = 0;
 
-  public IndexedPanelExample(DemoDragHandler demoDragHandler) {
-    addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE);
+  public InsertPanelExample(DemoDragHandler demoDragHandler) {
+    addStyleName(CSS_DEMO_INSERT_PANEL_EXAMPLE);
     int count = 0;
 
     // use the boundary panel as this composite's widget
@@ -69,34 +70,34 @@ public final class IndexedPanelExample extends Example {
 
     // initialize horizontal panel to hold our columns
     HorizontalPanel horizontalPanel = new HorizontalPanel();
-    horizontalPanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER);
+    horizontalPanel.addStyleName(CSS_DEMO_INSERT_PANEL_EXAMPLE_CONTAINER);
     horizontalPanel.setSpacing(SPACING);
     boundaryPanel.add(horizontalPanel);
 
     // initialize our column drop controller
-    IndexedDropController columnDropController = new IndexedDropController(horizontalPanel);
+    InsertPanelDropController columnDropController = new InsertPanelDropController(horizontalPanel);
     columnDragController.registerDropController(columnDropController);
 
     for (int col = 1; col <= COLUMNS; col++) {
       // initialize a vertical panel to hold the heading and a second vertical
       // panel
       VerticalPanel columnCompositePanel = new VerticalPanel();
-      columnCompositePanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_COLUMN_COMPOSITE);
+      columnCompositePanel.addStyleName(CSS_DEMO_INSERT_PANEL_EXAMPLE_COLUMN_COMPOSITE);
 
       // initialize inner vertical panel to hold individual widgets
       VerticalPanel verticalPanel = new VerticalPanel();
-      verticalPanel.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_CONTAINER);
+      verticalPanel.addStyleName(CSS_DEMO_INSERT_PANEL_EXAMPLE_CONTAINER);
       verticalPanel.setSpacing(SPACING);
       horizontalPanel.add(columnCompositePanel);
 
       // initialize a widget drop controller for the current column
-      NoInsertAtEndIndexedDropController widgetDropController = new NoInsertAtEndIndexedDropController(
+      NoInsertAtEndInsertPanelDropController widgetDropController = new NoInsertAtEndInsertPanelDropController(
           verticalPanel);
       widgetDragController.registerDropController(widgetDropController);
 
       // Put together the column pieces
       Label heading = new Label("Column " + col);
-      heading.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_HEADING);
+      heading.addStyleName(CSS_DEMO_INSERT_PANEL_EXAMPLE_HEADING);
       columnCompositePanel.add(heading);
       columnCompositePanel.add(verticalPanel);
 
@@ -106,7 +107,7 @@ public final class IndexedPanelExample extends Example {
       for (int row = 1; row <= ROWS; row++) {
         // initialize a widget
         HTML widget = new HTML("Draggable&nbsp;#" + ++count);
-        widget.addStyleName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_WIDGET);
+        widget.addStyleName(CSS_DEMO_INSERT_PANEL_EXAMPLE_WIDGET);
         widget.setHeight(Random.nextInt(4) + 2 + "em");
         verticalPanel.add(widget);
 
@@ -117,20 +118,20 @@ public final class IndexedPanelExample extends Example {
       // prevent vertical panel from collapsing to zero when last widget is
       // removed
       Label spacerLabel = new Label("");
-      spacerLabel.setStylePrimaryName(CSS_DEMO_INDEXED_PANEL_EXAMPLE_SPACER);
+      spacerLabel.setStylePrimaryName(CSS_DEMO_INSERT_PANEL_EXAMPLE_SPACER);
       verticalPanel.add(spacerLabel);
     }
   }
 
   @Override
   public String getDescription() {
-    return "Allows drop to occur anywhere among the children of a supported <code>IndexedPanel</code>.";
+    return "Allows drop to occur anywhere among the children of a supported <code>InsertPanel</code>.";
   }
 
   @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {
-        IndexedPanelExample.class, NoInsertAtEndIndexedDropController.class,
+        InsertPanelExample.class, NoInsertAtEndInsertPanelDropController.class,
         PickupDragController.class,};
   }
 }

@@ -47,7 +47,7 @@ public final class FlowPanelExample extends Example {
 
   @Override
   public String getDescription() {
-    return "Allows drop to occur anywhere in a <code>IndexedFlowPanel</code>.";
+    return "Allows drop to occur anywhere in a <code>FlowPanel</code>.";
   }
 
   @Override

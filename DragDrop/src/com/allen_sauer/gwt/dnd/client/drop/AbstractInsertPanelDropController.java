@@ -13,7 +13,7 @@
  */
 package com.allen_sauer.gwt.dnd.client.drop;
 
-import com.google.gwt.user.client.ui.IndexedPanel;
+import com.google.gwt.user.client.ui.InsertPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -24,13 +24,13 @@ import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
 import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 
 /**
- * A {@link DropController} for {@link IndexedPanel} drop targets.
+ * A {@link DropController} for {@link InsertPanel} drop targets.
  */
-public abstract class AbstractIndexedDropController extends AbstractPositioningDropController {
+public abstract class AbstractInsertPanelDropController extends AbstractPositioningDropController {
+
+  final protected InsertPanel dropTarget;
 
   private int dropIndex;
-
-  private IndexedPanel dropTarget;
 
   private Widget positioner = null;
 
@@ -39,7 +39,7 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
    * 
    * @param dropTarget
    */
-  public AbstractIndexedDropController(IndexedPanel dropTarget) {
+  public AbstractInsertPanelDropController(InsertPanel dropTarget) {
     super((Panel) dropTarget);
     this.dropTarget = dropTarget;
   }
@@ -104,16 +104,17 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
   /**
    * Insert the provided widget using an appropriate drop target specific method.
    * 
-   * TODO remove after enhancement for issue 1112 provides InsertPanel interface
-   * 
    * @param widget the widget to be inserted
    * @param beforeIndex the widget index before which <code>widget</code> should be inserted
    */
-  protected abstract void insert(Widget widget, int beforeIndex);
+  protected void insert(Widget widget, int beforeIndex) {
+    dropTarget.insert(widget, beforeIndex);
+  }
 
   /**
-   * Called by {@link AbstractIndexedDropController#onEnter(DragContext)} to create a new positioner
-   * widget for this indexed drop target. Override this method to customize the look and feel of
+   * Called by {@link AbstractInsertPanelDropController#onEnter(DragContext)} to create a new
+   * positioner widget for this {@link InsertPanel} drop target. Override this method to customize
+   * the look and feel of
    * your positioner. The positioner widget may not have any CSS borders or margins, although there
    * are no such restrictions on the children of the positioner widget. If borders and/or margins
    * are desired, wrap that widget in a {@link com.google.gwt.user.client.ui.SimplePanel} with a
