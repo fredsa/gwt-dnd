@@ -13,11 +13,10 @@
  */
 package com.allen_sauer.gwt.dnd.client.util;
 
-public abstract class LocationWidgetComparator {
+public interface LocationWidgetComparator {
 
   public static final LocationWidgetComparator BOTTOM_HALF_COMPARATOR = new LocationWidgetComparator() {
 
-    @Override
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return location.getTop() > widgetArea.getTop() + widgetArea.getHeight() / 2;
     }
@@ -25,7 +24,6 @@ public abstract class LocationWidgetComparator {
 
   public static final LocationWidgetComparator BOTTOM_RIGHT_COMPARATOR = new LocationWidgetComparator() {
 
-    @Override
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return widgetArea.inBottomRight(location);
     }
@@ -33,7 +31,6 @@ public abstract class LocationWidgetComparator {
 
   public static final LocationWidgetComparator RIGHT_HALF_COMPARATOR = new LocationWidgetComparator() {
 
-    @Override
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return location.getLeft() > widgetArea.getLeft() + widgetArea.getWidth() / 2;
     }
@@ -45,5 +42,5 @@ public abstract class LocationWidgetComparator {
    * @param location the location to consider
    * @return true if the location is indicates an index position following the widget
    */
-  abstract boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location);
+  boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location);
 }
