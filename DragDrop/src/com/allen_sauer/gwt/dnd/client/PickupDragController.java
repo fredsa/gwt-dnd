@@ -16,11 +16,8 @@ package com.allen_sauer.gwt.dnd.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.InsertPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
@@ -375,19 +372,12 @@ public class PickupDragController extends AbstractDragController {
     for (Widget widget : context.selectedWidgets) {
       SavedWidgetInfo info = savedWidgetInfoMap.get(widget);
 
-      // TODO simplify after enhancement for issue 1112 provides InsertPanel
-      // interface
-      // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
       if (info.initialDraggableParent instanceof AbsolutePanel) {
         ((AbsolutePanel) info.initialDraggableParent).add(widget,
             info.initialDraggableParentLocation.getLeft(),
             info.initialDraggableParentLocation.getTop());
-      } else if (info.initialDraggableParent instanceof HorizontalPanel) {
-        ((HorizontalPanel) info.initialDraggableParent).insert(widget, info.initialDraggableIndex);
-      } else if (info.initialDraggableParent instanceof VerticalPanel) {
-        ((VerticalPanel) info.initialDraggableParent).insert(widget, info.initialDraggableIndex);
-      } else if (info.initialDraggableParent instanceof FlowPanel) {
-        ((FlowPanel) info.initialDraggableParent).insert(widget, info.initialDraggableIndex);
+      } else if (info.initialDraggableParent instanceof InsertPanel) {
+        ((InsertPanel) info.initialDraggableParent).insert(widget, info.initialDraggableIndex);
       } else if (info.initialDraggableParent instanceof SimplePanel) {
         ((SimplePanel) info.initialDraggableParent).setWidget(widget);
       } else {
@@ -422,18 +412,11 @@ public class PickupDragController extends AbstractDragController {
       SavedWidgetInfo info = new SavedWidgetInfo();
       info.initialDraggableParent = widget.getParent();
 
-      // TODO simplify after enhancement for issue 1112 provides InsertPanel
-      // interface
-      // http://code.google.com/p/google-web-toolkit/issues/detail?id=1112
       if (info.initialDraggableParent instanceof AbsolutePanel) {
         info.initialDraggableParentLocation = new WidgetLocation(widget,
             info.initialDraggableParent);
-      } else if (info.initialDraggableParent instanceof HorizontalPanel) {
-        info.initialDraggableIndex = ((HorizontalPanel) info.initialDraggableParent).getWidgetIndex(widget);
-      } else if (info.initialDraggableParent instanceof VerticalPanel) {
-        info.initialDraggableIndex = ((VerticalPanel) info.initialDraggableParent).getWidgetIndex(widget);
-      } else if (info.initialDraggableParent instanceof FlowPanel) {
-        info.initialDraggableIndex = ((FlowPanel) info.initialDraggableParent).getWidgetIndex(widget);
+      } else if (info.initialDraggableParent instanceof InsertPanel) {
+        info.initialDraggableIndex = ((InsertPanel) info.initialDraggableParent).getWidgetIndex(widget);
       } else if (info.initialDraggableParent instanceof SimplePanel) {
         // save nothing
       } else {
