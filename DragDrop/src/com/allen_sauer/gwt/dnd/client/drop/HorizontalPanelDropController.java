@@ -14,11 +14,9 @@
 package com.allen_sauer.gwt.dnd.client.drop;
 
 import com.google.gwt.user.client.ui.HorizontalPanel;
-import com.google.gwt.user.client.ui.InsertPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.DragContext;
@@ -27,13 +25,9 @@ import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 
 /**
- * A {@link DropController} for instances of {@link InsertPanel}.
- * 
- * TODO VerticalPanel performance is slow because of positioner DOM manipulation
- * 
- * @see FlowPanelDropController
+ * A {@link DropController} for instances of {@link HorizontalPanel}.
  */
-public class InsertPanelDropController extends AbstractInsertPanelDropController {
+public class HorizontalPanelDropController extends AbstractInsertPanelDropController {
 
   /**
    * Label for IE quirks mode workaround.
@@ -41,31 +35,17 @@ public class InsertPanelDropController extends AbstractInsertPanelDropController
   private static final Label DUMMY_LABEL_IE_QUIRKS_MODE_OFFSET_HEIGHT = new Label("x");
 
   /**
-   * The insert panel drop target.
-   */
-  protected final InsertPanel dropTarget;
-
-  /**
-   * Construct an {@link InsertPanelDropController}.
+   * Construct an {@link HorizontalPanelDropController}.
    * 
-   * @param dropTarget the {@link InsertPanel} drop target
+   * @param dropTarget the {@link HorizontalPanel} drop target
    */
-  public InsertPanelDropController(InsertPanel dropTarget) {
+  public HorizontalPanelDropController(HorizontalPanel dropTarget) {
     super(dropTarget);
-    if (!(dropTarget instanceof HorizontalPanel) && !(dropTarget instanceof VerticalPanel)) {
-      throw new IllegalArgumentException(dropTarget.getClass().getName()
-          + " is not currently supported by this controller");
-    }
-    this.dropTarget = dropTarget;
   }
 
   @Override
   protected LocationWidgetComparator getLocationWidgetComparator() {
-    if (dropTarget instanceof HorizontalPanel) {
-      return LocationWidgetComparator.RIGHT_HALF_COMPARATOR;
-    } else {
-      return LocationWidgetComparator.BOTTOM_HALF_COMPARATOR;
-    }
+    return LocationWidgetComparator.RIGHT_HALF_COMPARATOR;
   }
 
   @Override
@@ -84,16 +64,9 @@ public class InsertPanelDropController extends AbstractInsertPanelDropController
 
     int width = 0;
     int height = 0;
-    if (dropTarget instanceof HorizontalPanel) {
-      for (Widget widget : context.selectedWidgets) {
-        width += widget.getOffsetWidth();
-        height = Math.max(height, widget.getOffsetHeight());
-      }
-    } else {
-      for (Widget widget : context.selectedWidgets) {
-        width = Math.max(width, widget.getOffsetWidth());
-        height += widget.getOffsetHeight();
-      }
+    for (Widget widget : context.selectedWidgets) {
+      width += widget.getOffsetWidth();
+      height = Math.max(height, widget.getOffsetHeight());
     }
 
     SimplePanel inner = new SimplePanel();

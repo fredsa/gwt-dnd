@@ -23,14 +23,10 @@ import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 
 /**
  * A {@link DropController} for instances of {@link FlowPanel}.
- * 
- * @see InsertPanelDropController
  */
 public class FlowPanelDropController extends AbstractInsertPanelDropController {
 
   /**
-   * @see InsertPanelDropController#InsertPanelDropController(com.google.gwt.user.client.ui.InsertPanel)
-   * 
    * @param dropTarget
    */
   public FlowPanelDropController(FlowPanel dropTarget) {
