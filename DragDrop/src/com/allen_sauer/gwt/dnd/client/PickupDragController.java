@@ -245,6 +245,15 @@ public class PickupDragController extends AbstractDragController {
     return dragProxyEnabled;
   }
 
+  /**
+   * Retrieve currently selected widgets.
+   * 
+   * @return iterator of currently selected widgets
+   */
+  public Iterable<Widget> getSelectedWidgets() {
+    return context.selectedWidgets;
+  }
+
   @Override
   public void previewDragEnd() throws VetoDragException {
     assert context.finalDropController == null;
