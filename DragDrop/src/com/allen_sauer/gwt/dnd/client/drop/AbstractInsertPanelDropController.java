@@ -48,7 +48,7 @@ public abstract class AbstractInsertPanelDropController extends AbstractPosition
   public void onDrop(DragContext context) {
     assert dropIndex != -1 : "Should not happen after onPreviewDrop did not veto";
     for (Widget widget : context.selectedWidgets) {
-      insert(widget, dropIndex++);
+      dropTarget.insert(widget, dropIndex++);
     }
     super.onDrop(context);
   }
@@ -59,7 +59,7 @@ public abstract class AbstractInsertPanelDropController extends AbstractPosition
     positioner = newPositioner(context);
     int targetIndex = DOMUtil.findIntersect(dropTarget, new CoordinateLocation(context.mouseX,
         context.mouseY), getLocationWidgetComparator());
-    insert(positioner, targetIndex);
+    dropTarget.insert(positioner, targetIndex);
   }
 
   @Override
@@ -85,7 +85,7 @@ public abstract class AbstractInsertPanelDropController extends AbstractPosition
         // outside drop target, so remove positioner to indicate a drop will not happen
         positioner.removeFromParent();
       } else {
-        insert(positioner, targetIndex);
+        dropTarget.insert(positioner, targetIndex);
       }
     }
   }
@@ -100,16 +100,6 @@ public abstract class AbstractInsertPanelDropController extends AbstractPosition
   }
 
   protected abstract LocationWidgetComparator getLocationWidgetComparator();
-
-  /**
-   * Insert the provided widget using an appropriate drop target specific method.
-   * 
-   * @param widget the widget to be inserted
-   * @param beforeIndex the widget index before which <code>widget</code> should be inserted
-   */
-  protected void insert(Widget widget, int beforeIndex) {
-    dropTarget.insert(widget, beforeIndex);
-  }
 
   /**
    * Called by {@link AbstractInsertPanelDropController#onEnter(DragContext)} to create a new

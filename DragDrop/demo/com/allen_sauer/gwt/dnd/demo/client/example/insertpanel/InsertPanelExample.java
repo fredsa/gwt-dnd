@@ -21,7 +21,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
-import com.allen_sauer.gwt.dnd.client.drop.InsertPanelDropController;
+import com.allen_sauer.gwt.dnd.client.drop.HorizontalPanelDropController;
+import com.allen_sauer.gwt.dnd.client.drop.VerticalPanelDropController;
 import com.allen_sauer.gwt.dnd.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 
@@ -40,8 +41,6 @@ public final class InsertPanelExample extends Example {
   private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE_CONTAINER = "demo-InsertPanelExample-container";
 
   private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE_HEADING = "demo-InsertPanelExample-heading";
-
-  private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE_SPACER = "demo-InsertPanelExample-spacer";
 
   private static final String CSS_DEMO_INSERT_PANEL_EXAMPLE_WIDGET = "demo-InsertPanelExample-widget";
 
@@ -75,7 +74,8 @@ public final class InsertPanelExample extends Example {
     boundaryPanel.add(horizontalPanel);
 
     // initialize our column drop controller
-    InsertPanelDropController columnDropController = new InsertPanelDropController(horizontalPanel);
+    HorizontalPanelDropController columnDropController = new HorizontalPanelDropController(
+        horizontalPanel);
     columnDragController.registerDropController(columnDropController);
 
     for (int col = 1; col <= COLUMNS; col++) {
@@ -85,13 +85,13 @@ public final class InsertPanelExample extends Example {
       columnCompositePanel.addStyleName(CSS_DEMO_INSERT_PANEL_EXAMPLE_COLUMN_COMPOSITE);
 
       // initialize inner vertical panel to hold individual widgets
-      VerticalPanel verticalPanel = new VerticalPanel();
+      VerticalPanel verticalPanel = new VerticalPanelWithSpacer();
       verticalPanel.addStyleName(CSS_DEMO_INSERT_PANEL_EXAMPLE_CONTAINER);
       verticalPanel.setSpacing(SPACING);
       horizontalPanel.add(columnCompositePanel);
 
       // initialize a widget drop controller for the current column
-      NoInsertAtEndInsertPanelDropController widgetDropController = new NoInsertAtEndInsertPanelDropController(
+      VerticalPanelDropController widgetDropController = new VerticalPanelDropController(
           verticalPanel);
       widgetDragController.registerDropController(widgetDropController);
 
@@ -114,12 +114,6 @@ public final class InsertPanelExample extends Example {
         // make the widget draggable
         widgetDragController.makeDraggable(widget);
       }
-
-      // prevent vertical panel from collapsing to zero when last widget is
-      // removed
-      Label spacerLabel = new Label("");
-      spacerLabel.setStylePrimaryName(CSS_DEMO_INSERT_PANEL_EXAMPLE_SPACER);
-      verticalPanel.add(spacerLabel);
     }
   }
 
@@ -131,7 +125,8 @@ public final class InsertPanelExample extends Example {
   @Override
   public Class<?>[] getInvolvedClasses() {
     return new Class[] {
-        InsertPanelExample.class, NoInsertAtEndInsertPanelDropController.class,
+        InsertPanelExample.class, VerticalPanelDropController.class, VerticalPanelWithSpacer.class,
+        HorizontalPanelDropController.class,
         PickupDragController.class,};
   }
 }
