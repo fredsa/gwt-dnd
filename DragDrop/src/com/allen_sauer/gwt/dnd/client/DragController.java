@@ -79,6 +79,15 @@ public interface DragController extends FiresDragEvents {
   boolean getBehaviorMultipleSelection();
 
   /**
+   * Determines whether containing panels and the browser window should be scrolled during dragging
+   * in order to keep draggable widgets visible.
+   * 
+   * @return <code>true</code> if containing panels and the browser window are to be scrolled during
+   *         dragging to keep draggable widgets visible
+   */
+  boolean getBehaviorScrollIntoView();
+
+  /**
    * Get the boundary panel provided in the constructor.
    * 
    * @return the AbsolutePanel provided in the constructor
@@ -169,6 +178,15 @@ public interface DragController extends FiresDragEvents {
    * @param multipleSelectionAllowed whether multiple selections are enabled
    */
   void setBehaviorMultipleSelection(boolean multipleSelectionAllowed);
+
+  /**
+   * Set whether or not to scroll containing panels and the browser window during drag operations in
+   * order to keep the draggable widgets visisble. The default is <code>true</code>.
+   * 
+   * @param scrollIntoView whether or not to scroll panels and browser window to keep draggable
+   *          widgets visible
+   */
+  void setBehaviorScrollIntoView(boolean scrollIntoView);
 
   /**
    * Toggle the selection of the specified widget.

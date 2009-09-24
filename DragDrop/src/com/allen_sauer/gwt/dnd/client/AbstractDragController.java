@@ -86,6 +86,11 @@ public abstract class AbstractDragController implements DragController {
   private boolean multipleSelectionAllowed = false;
 
   /**
+   * Whether scrollIntoView() or it's equivalent is to be called during dragging.
+   */
+  private boolean scrollIntoView = true;
+
+  /**
    * Create a new drag-and-drop controller. Drag operations will be limited to the specified
    * boundary panel.
    * 
@@ -157,6 +162,10 @@ public abstract class AbstractDragController implements DragController {
 
   public boolean getBehaviorMultipleSelection() {
     return multipleSelectionAllowed;
+  }
+
+  public boolean getBehaviorScrollIntoView() {
+    return scrollIntoView;
   }
 
   public final AbsolutePanel getBoundaryPanel() {
@@ -259,6 +268,10 @@ public abstract class AbstractDragController implements DragController {
       widget.removeStyleName(DragClientBundle.INSTANCE.css().selected());
       iterator.remove();
     }
+  }
+
+  public void setBehaviorScrollIntoView(boolean scrollIntoView) {
+    this.scrollIntoView = scrollIntoView;
   }
 
   public void setConstrainWidgetToBoundaryPanel(boolean constrainWidgetToBoundaryPanel) {
