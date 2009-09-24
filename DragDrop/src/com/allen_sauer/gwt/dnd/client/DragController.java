@@ -181,7 +181,7 @@ public interface DragController extends FiresDragEvents {
 
   /**
    * Set whether or not to scroll containing panels and the browser window during drag operations in
-   * order to keep the draggable widgets visisble. The default is <code>true</code>.
+   * order to keep the draggable widgets visible. The default is <code>true</code>.
    * 
    * @param scrollIntoView whether or not to scroll panels and browser window to keep draggable
    *          widgets visible
