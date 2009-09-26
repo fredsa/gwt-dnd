@@ -16,7 +16,7 @@ package com.allen_sauer.gwt.dnd.client.util;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.InsertPanel;
+import com.google.gwt.user.client.ui.IndexedPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImpl;
@@ -72,9 +72,10 @@ public class DOMUtil {
   }
 
   /**
-   * TODO Handle LTR case once Bidi support is part of GWT.
+   * TODO Handle LTR case for Bidi
+   * TODO Change IndexedPanel -> InsertPanel
    */
-  public static int findIntersect(InsertPanel parent, Location location,
+  public static int findIntersect(IndexedPanel parent, Location location,
       LocationWidgetComparator comparator) {
     int widgetCount = parent.getWidgetCount();
 
@@ -235,7 +236,10 @@ public class DOMUtil {
     GWT.log(msg, null);
   }
 
-  private static void debugWidgetWithColor(InsertPanel parent, int index, String color) {
+  /**
+   * TODO Change IndexedPanel -> InsertPanel
+   */
+  private static void debugWidgetWithColor(IndexedPanel parent, int index, String color) {
     if (DEBUG) {
       if (index >= parent.getWidgetCount()) {
         debugWidgetWithColor(parent.getWidget(parent.getWidgetCount() - 1), color);
