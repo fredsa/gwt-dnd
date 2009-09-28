@@ -86,10 +86,6 @@ public final class ResetCacheExample extends Example {
       AbsolutePositionDropController contentPanelDropController = new AbsolutePositionDropController(
           contentPanel);
       dragController.registerDropController(contentPanelDropController);
-
-      // create a drop controller for the containing panel
-      containerDropController = new AbsolutePositionDropController(containingPanel);
-      dragController.registerDropController(containerDropController);
     }
     tabPanel.selectTab(0);
 
