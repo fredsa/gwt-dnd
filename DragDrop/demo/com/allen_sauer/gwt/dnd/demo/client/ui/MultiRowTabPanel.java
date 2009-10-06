@@ -96,6 +96,9 @@ public class MultiRowTabPanel extends Composite {
   }
 
   public void selectTabByHistoryToken(String historyToken) {
+    if ("IndexedPanelExample".equals(historyToken)) {
+      historyToken = "InsertPanelExample";
+    }
     Integer tabIndex = historyTokenMap.getIndex(historyToken);
     if (tabIndex != null) {
       selectTab(tabIndex);
