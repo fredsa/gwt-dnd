@@ -55,7 +55,7 @@
 
 	</target>
 
-	<target name="lib-locations" description="Determine library locations">
+	<target name="lib-locations" description="Determine library locations" depends="init">
 		<!-- gwt-dnd.version property -->
 		<input addproperty="gwt-dnd.version" defaultvalue="0.0.0" message="gwt-dnd release version" />
 
@@ -81,10 +81,10 @@
 
 
 	<!-- Replace @GWT_DND_VERION@ with actual version of build -->
-	<target name="filter" description="Filters distro files for versioning" depends="init">
+	<target name="filter" description="Filters distro files for versioning" depends="lib-locations">
 		<mkdir dir="build/out" />
 		<mkdir dir="build/demo" />
-
+<echo message="version to use ${gwt-dnd.version}" />
 		<copy todir="build/src">
 			<fileset dir="src">
 				<exclude name="**/package.html" />
@@ -113,7 +113,7 @@
 
 	</target>
 
-	<target name="build" depends="init, lib-locations, clean, filter, javac, gwtc">
+	<target name="build" depends="lib-locations, clean, javac, gwtc">
 	</target>
 
 	<target name="javac" description="Java compile" depends="filter">
@@ -253,7 +253,7 @@
 
 	</target>
 
-	<target name="deploy" description="Build and deploy to demo site" depends="clean, init, javac, gwtc">
+	<target name="deploy" description="Build and deploy to demo site" depends="clean, javac, gwtc">
 
 		<sshexec command="mkdir com.allen_sauer.gwt.dnd.demo.DragDropDemo" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
 
