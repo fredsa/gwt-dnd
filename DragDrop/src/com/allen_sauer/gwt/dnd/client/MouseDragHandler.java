@@ -236,24 +236,24 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   }
 
   public void onMouseUp(MouseUpEvent event) {
+    Widget sender = (Widget) event.getSource();
+    Element elem = sender.getElement();
+    // TODO optimize for the fact that elem is at (0,0)
+    int x = event.getRelativeX(elem);
+    int y = event.getRelativeY(elem);
+
+    int button = event.getNativeButton();
+    if (button != NativeEvent.BUTTON_LEFT) {
+      return;
+    }
+    mouseDown = false;
+
+    // in case mouse down occurred elsewhere
+    if (mouseDownWidget == null) {
+      return;
+    }
+
     try {
-      Widget sender = (Widget) event.getSource();
-      Element elem = sender.getElement();
-      // TODO optimize for the fact that elem is at (0,0)
-      int x = event.getRelativeX(elem);
-      int y = event.getRelativeY(elem);
-
-      int button = event.getNativeButton();
-      if (button != NativeEvent.BUTTON_LEFT) {
-        return;
-      }
-      mouseDown = false;
-
-      // in case mouse down occurred elsewhere
-      if (mouseDownWidget == null) {
-        return;
-      }
-
       if (context.dragController.getBehaviorCancelDocumentSelections()) {
         DOMUtil.cancelAllDocumentSelections();
       }
