@@ -174,6 +174,11 @@ public final class DragDropDemo implements EntryPoint {
 
     examples.add(new PaletteExample(demoDragHandler));
 
+    mainPanel.add(new HTML(
+        "<div style='color: gray; margin-top: 1em;'>Demo created with gwt-dnd @GWT_DND_VERSION@ and GWT "
+            + GWT.getVersion()
+            + "</div>"));
+
     final String initToken = History.getToken();
     if (initToken.length() == 0) {
       // select a random example
