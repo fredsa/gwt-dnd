@@ -4,42 +4,6 @@
 		<!-- Global Properties -->
 		<property environment="env" />
 
-		<!-- build.host.platform property -->
-		<condition property="build.host.islinux">
-			<and>
-				<os family="unix" />
-				<not>
-					<contains string="${os.name}" substring="mac" casesensitive="false" />
-				</not>
-			</and>
-		</condition>
-		<condition property="build.host.platform" value="linux">
-			<isset property="build.host.islinux" />
-		</condition>
-
-		<condition property="build.host.ismac">
-			<and>
-				<os family="unix" />
-				<contains string="${os.name}" substring="mac" casesensitive="false" />
-			</and>
-		</condition>
-		<condition property="build.host.platform" value="mac">
-			<isset property="build.host.ismac" />
-		</condition>
-
-		<condition property="build.host.iswindows">
-			<os family="windows" />
-		</condition>
-		<condition property="build.host.platform" value="windows">
-			<isset property="build.host.iswindows" />
-		</condition>
-		<fail unless="build.host.platform" message="Building on ${os.name} is not supported" />
-
-		<condition property="junit.platform.args" value="-XstartOnFirstThread" else="">
-			<equals arg1="${build.host.platform}" arg2="mac" casesensitive="false" />
-		</condition>
-
-
 		<!-- gwt.location property -->
 		<condition property="gwt.location.default" value="${env.GWTTRUNK_HOME}" else="">
 			<isset property="env.GWTTRUNK_HOME" />
@@ -67,7 +31,7 @@
 
 		<!-- gwt jars -->
 		<property name="gwt-user.jar" location="${gwt.location}/gwt-user.jar" />
-		<property name="gwt-dev.jar" location="${gwt.location}/gwt-dev-${build.host.platform}.jar" />
+		<property name="gwt-dev.jar" location="${gwt.location}/gwt-dev.jar" />
 
 		<!-- Pulls in tasks defined in ant-contrib, i.e. foreach -->
 		<taskdef resource="net/sf/antcontrib/antlib.xml">
