@@ -36,6 +36,7 @@ import com.google.gwt.user.client.DeferredCommand;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FocusPanel;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -293,6 +294,9 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   }
 
   void makeDraggable(Widget draggable, Widget dragHandle) {
+    if (draggable instanceof PopupPanel) {
+      DOMUtil.reportFatalAndThrowRuntimeException("PopupPanel (and its subclasses) cannot be made draggable; See http://code.google.com/p/gwt-dnd/issues/detail?id=43");
+    }
     try {
       RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable,
           ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this),
