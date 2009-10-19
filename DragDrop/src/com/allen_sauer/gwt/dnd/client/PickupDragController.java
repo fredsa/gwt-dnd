@@ -453,7 +453,8 @@ public class PickupDragController extends AbstractDragController {
 
   private void checkGWTIssue1813(Widget child, AbsolutePanel parent) {
     if (!GWT.isScript()) {
-      if (child.getElement().getOffsetParent() != parent.getElement()) {
+      if (child.getElement().getOffsetParent() != parent.getElement()
+          && !"HTML".equals(child.getElement().getOffsetParent().getNodeName())) {
         DOMUtil.reportFatalAndThrowRuntimeException("The boundary panel for this drag controller does not appear to have"
             + " 'position: relative' CSS applied to it."
             + " This may be due to custom CSS in your application, although this"
