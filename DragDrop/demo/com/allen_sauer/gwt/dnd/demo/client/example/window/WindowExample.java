@@ -90,18 +90,8 @@ public final class WindowExample extends Example {
   }
 
   private Frame getIframe(String url) {
-    Frame iframe = new Frame() {
-
-      @Override
-      protected void onLoad() {
-        super.onLoad();
-        // IE work around for disappearing IFRAME when parent is re-attached
-        getElement().getStyle().setProperty("display", "none");
-        getElement().getStyle().setProperty("display", "");
-      }
-    };
+    Frame iframe = new Frame(url);
     DOM.setElementAttribute(iframe.getElement(), "frameBorder", "no");
-    iframe.setUrl(url);
     iframe.addStyleName("demo-WindowPanel-iframe");
     return iframe;
   }
