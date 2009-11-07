@@ -16,7 +16,6 @@ package com.allen_sauer.gwt.dnd.client.util;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.CssResource;
-import com.google.gwt.resources.client.CssResource.Strict;
 
 public interface DragClientBundle extends ClientBundle {
 
@@ -71,7 +70,6 @@ public interface DragClientBundle extends ClientBundle {
 
   static final DragClientBundle INSTANCE = GWT.create(DragClientBundle.class);
 
-  @Strict
   @Source("gwt-dnd.css")
   DragCssResource css();
 }

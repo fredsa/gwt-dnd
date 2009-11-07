@@ -17,7 +17,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.dom.client.StyleInjector;
 
 /**
- * Global initilization for gwt-dnd.
+ * Global initialization for gwt-dnd.
  */
 class DragEntryPoint implements EntryPoint {
 
@@ -28,7 +28,7 @@ class DragEntryPoint implements EntryPoint {
 
   public void onModuleLoad() {
     setVersion();
-    StyleInjector.injectStylesheetAtStart(DragClientBundle.INSTANCE.css().getText());
+    StyleInjector.injectAtStart(DragClientBundle.INSTANCE.css().getText());
   }
 
 }
