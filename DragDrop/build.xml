@@ -8,13 +8,13 @@
 		<condition property="gwt.location.default" value="${env.GWTTRUNK_HOME}" else="">
 			<isset property="env.GWTTRUNK_HOME" />
 		</condition>
-		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT trunk installation directory" />
+		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT installation, i.e. directory where gwt-user.jar / gwt-servlet.jar / gwt-dev.jar can be found" />
 
 		<!-- gwt.tools property -->
-		<condition property="gwt.tools" value="${env.GWT_TOOLS}" else="${gwt.root}/../tools">
+		<condition property="gwt.tools.default" value="${env.GWT_TOOLS}" else="">
 			<isset property="env.GWT_TOOLS" />
 		</condition>
-		<fail message="can't find gwt tools, please set gwt.tools property" unless="gwt.tools" />
+		<input addproperty="gwt.tools" defaultvalue="${gwt.tools.default}" message="GWT tools directory, i.e. directory where http://google-web-toolkit.googlecode.com/svn/tools/ is checked out" />
 
 		<!-- gwt tools stuff -->
 		<property name="gwt.tools.lib" location="${gwt.tools}/lib" />
@@ -41,7 +41,7 @@
 		</taskdef>
 
 		<!-- gwt-dnd.libdir property -->
-		<input addproperty="gwt-dnd.libdir" defaultvalue="/fred/lib/gwt-dnd" message="gwt-dnd library directory" />
+		<input addproperty="gwt-dnd.libdir" defaultvalue="/fred/lib/gwt-dnd" message="gwt-dnd library, i.e. directory where you keep your gwt-dnd jar file(s)" />
 
 		<for param="file">
 			<fileset dir="${gwt-dnd.libdir}">
@@ -84,7 +84,7 @@
 	<target name="filter" description="Filters distro files for versioning" depends="lib-locations">
 		<mkdir dir="build/out" />
 		<mkdir dir="build/demo" />
-<echo message="version to use ${gwt-dnd.version}" />
+
 		<copy todir="build/src">
 			<fileset dir="src">
 				<exclude name="**/package.html" />
@@ -187,7 +187,7 @@
 	</target>
 
 	<target name="javadoc" description="Generate Javadoc" depends="javac">
-		<javadoc access="protected" classpath="${gwt-user.jar}:${dnd4j.location}" destdir="build/javadoc" doctitle="gwt-dnd - dndging for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.5" sourcepath="build/demo" excludepackagenames="com.allen_sauer.gwt.dnd.rebind" />
+		<javadoc access="protected" classpath="${gwt-user.jar}" destdir="build/javadoc" doctitle="gwt-dnd - Dragging and dropping for your Google-Web-Toolkit Projects" encoding="UTF-8" failonerror="true" source="1.5" sourcepath="build/demo" />
 	</target>
 
 	<target name="stat">
