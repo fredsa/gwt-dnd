@@ -36,16 +36,6 @@ public abstract class AbstractDragController implements DragController {
 
   private static HashMap<Widget, Widget> dragHandles = new HashMap<Widget, Widget>();
 
-  /**
-   * The drag controller's drag context.
-   */
-  protected final DragContext context;
-
-  /**
-   * The boundary panel to which all drag operations are constrained.
-   */
-  AbsolutePanel boundaryPanel;
-
   private boolean cancelDocumentSelections = true;
 
   /**
@@ -89,6 +79,16 @@ public abstract class AbstractDragController implements DragController {
    * Whether scrollIntoView() or it's equivalent is to be called during dragging.
    */
   private boolean scrollIntoView = true;
+
+  /**
+   * The drag controller's drag context.
+   */
+  protected final DragContext context;
+
+  /**
+   * The boundary panel to which all drag operations are constrained.
+   */
+  AbsolutePanel boundaryPanel;
 
   /**
    * Create a new drag-and-drop controller. Drag operations will be limited to the specified
@@ -173,10 +173,8 @@ public abstract class AbstractDragController implements DragController {
   }
 
   /**
-   * Attaches a {@link MouseDragHandler} (which is a
-   * {@link com.google.gwt.user.client.ui.MouseListener}) to the widget, applies the
-   * {@link #PRIVATE_CSS_DRAGGABLE} style to the draggable, applies the {@link #PRIVATE_CSS_HANDLE}
-   * style to the handle.
+   * Attaches a {@link MouseDragHandler} to the widget, applies styles to the draggable and the
+   * handle.
    * 
    * @see #makeDraggable(Widget, Widget)
    * @see HasDragHandle

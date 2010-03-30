@@ -29,8 +29,7 @@ final class WindowPanel extends FocusPanel {
 
   /**
    * WindowPanel direction constant, used in
-   * {@link ResizeDragController#makeDraggable(com.google.gwt.user.client.ui.Widget, com.allen_sauer.gwt.dnd.demo.client.example.resize.WindowPanel.DirectionConstant)}
-   * .
+   * {@link ResizeDragController#makeDraggable(Widget, DirectionConstant)}.
    */
   public static class DirectionConstant {
 
@@ -219,6 +218,16 @@ final class WindowPanel extends FocusPanel {
     contentOrScrollPanelWidget.setPixelSize(contentWidth, contentHeight);
   }
 
+  private Widget setupCell(int row, int col, DirectionConstant direction) {
+    final FocusPanel widget = new FocusPanel();
+    widget.setPixelSize(BORDER_THICKNESS, BORDER_THICKNESS);
+    grid.setWidget(row, col, widget);
+    windowController.getResizeDragController().makeDraggable(widget, direction);
+    grid.getCellFormatter().addStyleName(row, col,
+        CSS_DEMO_RESIZE_EDGE + " demo-resize-" + direction.directionLetters);
+    return widget;
+  }
+
   @Override
   protected void onLoad() {
     super.onLoad();
@@ -228,15 +237,5 @@ final class WindowPanel extends FocusPanel {
       setContentSize(contentOrScrollPanelWidget.getOffsetWidth(),
           contentOrScrollPanelWidget.getOffsetHeight());
     }
-  }
-
-  private Widget setupCell(int row, int col, DirectionConstant direction) {
-    final FocusPanel widget = new FocusPanel();
-    widget.setPixelSize(BORDER_THICKNESS, BORDER_THICKNESS);
-    grid.setWidget(row, col, widget);
-    windowController.getResizeDragController().makeDraggable(widget, direction);
-    grid.getCellFormatter().addStyleName(row, col,
-        CSS_DEMO_RESIZE_EDGE + " demo-resize-" + direction.directionLetters);
-    return widget;
   }
 }
