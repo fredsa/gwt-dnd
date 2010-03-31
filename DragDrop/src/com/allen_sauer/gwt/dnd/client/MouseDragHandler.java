@@ -17,8 +17,6 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
-import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
-import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseEvent;
@@ -52,18 +50,10 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   private static class RegisteredDraggable {
     private final Widget dragable;
     private final HandlerRegistration mouseDownHandlerRegistration;
-    private final HandlerRegistration mouseUpHandlerRegistration;
 
-    RegisteredDraggable(Widget dragable, HandlerRegistration mouseDownHandlerRegistration,
-        HandlerRegistration mouseUpHandlerRegistration,
-        HandlerRegistration mouseMoveHandlerRegistration) {
+    RegisteredDraggable(Widget dragable, HandlerRegistration mouseDownHandlerRegistration) {
       this.dragable = dragable;
       this.mouseDownHandlerRegistration = mouseDownHandlerRegistration;
-      this.mouseUpHandlerRegistration = mouseUpHandlerRegistration;
-    }
-
-    public HandlerRegistration getMouseUpHandlerRegistration() {
-      return mouseUpHandlerRegistration;
     }
 
     Widget getDragable() {
@@ -275,13 +265,11 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
     try {
       RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable,
-          ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this),
-          ((HasMouseUpHandlers) dragHandle).addMouseUpHandler(this),
-          ((HasMouseMoveHandlers) dragHandle).addMouseMoveHandler(this));
+          ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this));
       dragHandleMap.put(dragHandle, registeredDraggable);
     } catch (Exception ex) {
       throw new RuntimeException(
-          "dragHandle must implement HasMouseDownHandlers, HasMouseUpHandlers and HasMouseMoveHandlers to be draggable",
+          "dragHandle must implement HasMouseDownHandlers to be draggable",
           ex);
     }
   }
@@ -292,7 +280,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       throw new RuntimeException("dragHandle was not draggable");
     }
     registeredDraggable.getMouseDownHandlerRegistration().removeHandler();
-    registeredDraggable.getMouseUpHandlerRegistration().removeHandler();
   }
 
   private void doSelectionToggle(MouseEvent<?> event) {
