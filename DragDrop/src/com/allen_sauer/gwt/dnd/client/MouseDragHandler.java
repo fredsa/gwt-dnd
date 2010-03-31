@@ -18,15 +18,12 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
-import com.google.gwt.event.dom.client.HasMouseOutHandlers;
 import com.google.gwt.event.dom.client.HasMouseUpHandlers;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
-import com.google.gwt.event.dom.client.MouseOutEvent;
-import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -50,23 +47,23 @@ import java.util.HashMap;
  * Implementation helper class which handles mouse events for all draggable widgets for a given
  * {@link DragController}.
  */
-class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHandler,
-    MouseOutHandler {
+class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHandler {
 
   private static class RegisteredDraggable {
     private final Widget dragable;
     private final HandlerRegistration mouseDownHandlerRegistration;
-    private final HandlerRegistration mouseOutHandlerRegistration;
     private final HandlerRegistration mouseUpHandlerRegistration;
 
     RegisteredDraggable(Widget dragable, HandlerRegistration mouseDownHandlerRegistration,
         HandlerRegistration mouseUpHandlerRegistration,
-        HandlerRegistration mouseMoveHandlerRegistration,
-        HandlerRegistration mouseOutHandlerRegistration) {
+        HandlerRegistration mouseMoveHandlerRegistration) {
       this.dragable = dragable;
       this.mouseDownHandlerRegistration = mouseDownHandlerRegistration;
-      this.mouseOutHandlerRegistration = mouseOutHandlerRegistration;
       this.mouseUpHandlerRegistration = mouseUpHandlerRegistration;
+    }
+
+    public HandlerRegistration getMouseUpHandlerRegistration() {
+      return mouseUpHandlerRegistration;
     }
 
     Widget getDragable() {
@@ -75,14 +72,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
     HandlerRegistration getMouseDownHandlerRegistration() {
       return mouseDownHandlerRegistration;
-    }
-
-    HandlerRegistration getMouseOutHandlerRegistration() {
-      return mouseOutHandlerRegistration;
-    }
-
-    public HandlerRegistration getMouseUpHandlerRegistration() {
-      return mouseUpHandlerRegistration;
     }
   }
 
@@ -111,85 +100,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   MouseDragHandler(DragContext context) {
     this.context = context;
     initCapturingWidget();
-  }
-
-  void actualMove(int x, int y) {
-    context.mouseX = x;
-    context.mouseY = y;
-    context.desiredDraggableX = x - mouseDownOffsetX;
-    context.desiredDraggableY = y - mouseDownOffsetY;
-
-    context.dragController.dragMove();
-  }
-
-  private void doSelectionToggle(MouseEvent<?> event) {
-    Widget widget = dragHandleMap.get(mouseDownWidget).getDragable();
-    assert widget != null;
-    if (!toggleKey(event)) {
-      context.dragController.clearSelection();
-    }
-    context.dragController.toggleSelection(widget);
-  }
-
-  private void dragEndCleanup() {
-    DOM.releaseCapture(capturingWidget.getElement());
-    capturingWidget.removeFromParent();
-    dragging = NOT_DRAGGING;
-    context.dragEndCleanup();
-  }
-
-  private void drop(int x, int y) {
-    actualMove(x, y);
-
-    // Does the DragController allow the drop?
-    try {
-      context.dragController.previewDragEnd();
-    } catch (VetoDragException ex) {
-      context.vetoException = ex;
-    }
-
-    context.dragController.dragEnd();
-  }
-
-  private void initCapturingWidget() {
-    capturingWidget = new FocusPanel();
-    capturingWidget.setPixelSize(Window.getClientWidth(), Window.getClientHeight());
-    capturingWidget.addMouseMoveHandler(this);
-    capturingWidget.addMouseUpHandler(this);
-    Style style = capturingWidget.getElement().getStyle();
-    style.setProperty("filter", "alpha(opacity=0)");
-    style.setOpacity(0);
-    style.setMargin(0, Style.Unit.PX);
-    style.setBorderStyle(BorderStyle.NONE);
-    style.setBackgroundColor("blue");
-  }
-
-  void makeDraggable(Widget draggable, Widget dragHandle) {
-    if (draggable instanceof PopupPanel) {
-      DOMUtil.reportFatalAndThrowRuntimeException("PopupPanel (and its subclasses) cannot be made draggable; See http://code.google.com/p/gwt-dnd/issues/detail?id=43");
-    }
-    try {
-      RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable,
-          ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this),
-          ((HasMouseUpHandlers) dragHandle).addMouseUpHandler(this),
-          ((HasMouseMoveHandlers) dragHandle).addMouseMoveHandler(this),
-          ((HasMouseOutHandlers) dragHandle).addMouseOutHandler(this));
-      dragHandleMap.put(dragHandle, registeredDraggable);
-    } catch (Exception ex) {
-      throw new RuntimeException(
-          "dragHandle must implement HasMouseDownHandlers, HasMouseUpHandlers, HasMouseMoveHandlers and HasMouseOutHandlers to be draggable",
-          ex);
-    }
-  }
-
-  void makeNotDraggable(Widget dragHandle) {
-    RegisteredDraggable registeredDraggable = dragHandleMap.remove(dragHandle);
-    if (registeredDraggable == null) {
-      throw new RuntimeException("dragHandle was not draggable");
-    }
-    registeredDraggable.getMouseDownHandlerRegistration().removeHandler();
-    registeredDraggable.getMouseUpHandlerRegistration().removeHandler();
-    registeredDraggable.getMouseOutHandlerRegistration().removeHandler();
   }
 
   public void onMouseDown(MouseDownEvent event) {
@@ -302,19 +212,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     actualMove(x, y);
   }
 
-  public void onMouseOut(MouseOutEvent event) {
-    if (mouseDown && dragging == NOT_DRAGGING) {
-      // TODO DOMUtil.cancelAllDocumentSelections(); ?
-
-      // set context.mouseX/Y before startDragging() is called
-      Location location = new WidgetLocation(mouseDownWidget, null);
-      context.mouseX = mouseDownOffsetX + location.getLeft();
-      context.mouseY = mouseDownOffsetY + location.getTop();
-
-      startDragging();
-    }
-  }
-
   public void onMouseUp(MouseUpEvent event) {
     Widget sender = (Widget) event.getSource();
     Element elem = sender.getElement();
@@ -361,6 +258,83 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     } finally {
       mouseDownWidget = null;
     }
+  }
+
+  void actualMove(int x, int y) {
+    context.mouseX = x;
+    context.mouseY = y;
+    context.desiredDraggableX = x - mouseDownOffsetX;
+    context.desiredDraggableY = y - mouseDownOffsetY;
+
+    context.dragController.dragMove();
+  }
+
+  void makeDraggable(Widget draggable, Widget dragHandle) {
+    if (draggable instanceof PopupPanel) {
+      DOMUtil.reportFatalAndThrowRuntimeException("PopupPanel (and its subclasses) cannot be made draggable; See http://code.google.com/p/gwt-dnd/issues/detail?id=43");
+    }
+    try {
+      RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable,
+          ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this),
+          ((HasMouseUpHandlers) dragHandle).addMouseUpHandler(this),
+          ((HasMouseMoveHandlers) dragHandle).addMouseMoveHandler(this));
+      dragHandleMap.put(dragHandle, registeredDraggable);
+    } catch (Exception ex) {
+      throw new RuntimeException(
+          "dragHandle must implement HasMouseDownHandlers, HasMouseUpHandlers and HasMouseMoveHandlers to be draggable",
+          ex);
+    }
+  }
+
+  void makeNotDraggable(Widget dragHandle) {
+    RegisteredDraggable registeredDraggable = dragHandleMap.remove(dragHandle);
+    if (registeredDraggable == null) {
+      throw new RuntimeException("dragHandle was not draggable");
+    }
+    registeredDraggable.getMouseDownHandlerRegistration().removeHandler();
+    registeredDraggable.getMouseUpHandlerRegistration().removeHandler();
+  }
+
+  private void doSelectionToggle(MouseEvent<?> event) {
+    Widget widget = dragHandleMap.get(mouseDownWidget).getDragable();
+    assert widget != null;
+    if (!toggleKey(event)) {
+      context.dragController.clearSelection();
+    }
+    context.dragController.toggleSelection(widget);
+  }
+
+  private void dragEndCleanup() {
+    DOM.releaseCapture(capturingWidget.getElement());
+    capturingWidget.removeFromParent();
+    dragging = NOT_DRAGGING;
+    context.dragEndCleanup();
+  }
+
+  private void drop(int x, int y) {
+    actualMove(x, y);
+
+    // Does the DragController allow the drop?
+    try {
+      context.dragController.previewDragEnd();
+    } catch (VetoDragException ex) {
+      context.vetoException = ex;
+    }
+
+    context.dragController.dragEnd();
+  }
+
+  private void initCapturingWidget() {
+    capturingWidget = new FocusPanel();
+    capturingWidget.setPixelSize(Window.getClientWidth(), Window.getClientHeight());
+    capturingWidget.addMouseMoveHandler(this);
+    capturingWidget.addMouseUpHandler(this);
+    Style style = capturingWidget.getElement().getStyle();
+    style.setProperty("filter", "alpha(opacity=0)");
+    style.setOpacity(0);
+    style.setMargin(0, Style.Unit.PX);
+    style.setBorderStyle(BorderStyle.NONE);
+    style.setBackgroundColor("blue");
   }
 
   private void startDragging() {
