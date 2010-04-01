@@ -25,11 +25,9 @@ public class DragHandlerAdapter implements DragHandler {
   public void onDragStart(DragStartEvent event) {
   }
 
-  @SuppressWarnings("unused")
   public void onPreviewDragEnd(DragEndEvent event) throws VetoDragException {
   }
 
-  @SuppressWarnings("unused")
   public void onPreviewDragStart(DragStartEvent event) throws VetoDragException {
   }
 
