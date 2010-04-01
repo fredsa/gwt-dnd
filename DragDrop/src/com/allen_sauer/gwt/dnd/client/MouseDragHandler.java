@@ -150,6 +150,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
         return;
       }
       actualMove(context.mouseX, context.mouseY);
+    } else {
+      startCapturing();
     }
   }
 
@@ -247,6 +249,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       }
     } finally {
       mouseDownWidget = null;
+      dragEndCleanup();
     }
   }
 
@@ -324,6 +327,12 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     style.setBackgroundColor("blue");
   }
 
+  private void startCapturing() {
+    capturingWidget.setPixelSize(Window.getClientWidth(), Window.getClientHeight());
+    RootPanel.get().add(capturingWidget, 0, 0);
+    DOM.setCapture(capturingWidget.getElement());
+  }
+
   private void startDragging() {
     context.dragStartCleanup();
     try {
@@ -335,9 +344,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
     context.dragController.dragStart();
 
-    capturingWidget.setPixelSize(Window.getClientWidth(), Window.getClientHeight());
-    RootPanel.get().add(capturingWidget, 0, 0);
-    DOM.setCapture(capturingWidget.getElement());
+    startCapturing();
     dragging = DRAGGING_NO_MOVEMENT_YET;
   }
 
