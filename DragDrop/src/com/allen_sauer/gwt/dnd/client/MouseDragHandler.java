@@ -81,8 +81,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   private HashMap<Widget, RegisteredDraggable> dragHandleMap = new HashMap<Widget, RegisteredDraggable>();
 
-  private boolean mouseDown;
-
   private int mouseDownOffsetX;
 
   private int mouseDownOffsetY;
@@ -130,7 +128,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       });
     }
 
-    mouseDown = true;
     event.preventDefault();
 
     mouseDownOffsetX = x;
@@ -170,7 +167,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       }
       dragging = ACTIVELY_DRAGGING;
     } else {
-      if (mouseDown) {
+      if (mouseDownWidget != null) {
         if (Math.max(Math.abs(x - mouseDownOffsetX), Math.abs(y - mouseDownOffsetY)) >= context.dragController.getBehaviorDragStartSensitivity()) {
           if (context.dragController.getBehaviorCancelDocumentSelections()) {
             DOMUtil.cancelAllDocumentSelections();
@@ -215,7 +212,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     if (button != NativeEvent.BUTTON_LEFT) {
       return;
     }
-    mouseDown = false;
 
     // in case mouse down occurred elsewhere
     if (mouseDownWidget == null) {
@@ -339,7 +335,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       context.dragController.previewDragStart();
     } catch (VetoDragException ex) {
       context.vetoException = ex;
-      mouseDown = false;
+      mouseDownWidget = null;
+      dragEndCleanup();
       return;
     }
     context.dragController.dragStart();
