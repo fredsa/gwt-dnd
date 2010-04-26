@@ -318,6 +318,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     Style style = capturingWidget.getElement().getStyle();
     style.setProperty("filter", "alpha(opacity=0)");
     style.setOpacity(0);
+    style.setZIndex(1000);
     style.setMargin(0, Style.Unit.PX);
     style.setBorderStyle(BorderStyle.NONE);
     style.setBackgroundColor("blue");
