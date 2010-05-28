@@ -4,6 +4,10 @@
 		<!-- Project Properties -->
 		<property name="packagename" value="com.allen_sauer.gwt.dnd.demo.DragDropDemo" />
 		<property name="projectdescription" value="Dragging and dropping for your Google-Web-Toolkit Projects" />
+		<property name="googlecode-libsummary" value="Drag-and-Drop Library for Google-Web-Toolkit (GWT)" />
+		<property name="googlecode-javadocsummary" value="Javadoc for ${ant.project.name} source and demos (examples)" />
+		<property name="googlecode-liblabels" value="Type-Library, OpSys-All, GWT-GWT_2.0.0, Java-1.5, ReleaseCandidate" />
+		<property name="googlecode-javadoclabels" value="Type-Docs, OpSys-All, GWT-GWT_2.0.0, Java-1.5, ReleaseCandidate" />
 		<property name="filtertoken" value="GWT_DND_VERSION" />
 
 		<!-- Global Properties -->
@@ -261,8 +265,12 @@
 		</condition>
 		<fail if="libfail-upload" message="Cannot upload version 0.0.0" />
 
-		<input addproperty="summary" message="Description summary" defaultvalue="Logging capabilities for Google-Web-Toolkit (GWT)" />
-		<input addproperty="labels" message="Description summary" defaultvalue="Type-Library, OpSys-All, GWT-GWT_2.0.0, Java-1.5, ReleaseCandidate" />
+		<input addproperty="libsummary" message="Library summary" defaultvalue="${googlecode-libsummary}" />
+		<input addproperty="liblabels" message="Library labels" defaultvalue="${googlecode-liblabels}" />
+
+		<input addproperty="javadocsummary" message="Javadoc summary" defaultvalue="${googlecode-javadocsummary}" />
+		<input addproperty="javadoclabels" message="Javadoc labels" defaultvalue="${googlecode-javadoclabels}" />
+
 		<input addproperty="username" message="Google Code username" defaultvalue="fredsa@gmail.com" />
 		<input addproperty="password" message="Google Code password" defaultvalue="" />
 
@@ -284,7 +292,8 @@
 		<fail if="file-exists" message="${libjar} already exists" />
 
 		<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode-0.0.2.jar" name="gcupload" />
-		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${libjar}" targetfilename="${libjar}" summary="${summary}" labels="${labels}" />
+		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${libjar}" targetfilename="${libjar}" summary="${libsummary}" labels="${liblabels}" />
+		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${javadocjar}" targetfilename="${javadocjar}" summary="${javadocsummary}" labels="${javadoclabels}" />
 	</target>
 
 	<!-- Test SSH functionality -->
