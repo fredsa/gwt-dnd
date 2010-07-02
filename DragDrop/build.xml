@@ -237,8 +237,13 @@
 		</copy>
 
 		<antcall target="tag" />
-
 		<antcall target="stat" />
+		<antcall target="showlib" />
+
+	</target>
+
+	<target name="showlib">
+		<echo message="${libdir}/${libjar}" />
 	</target>
 
 	<target name="clean">
