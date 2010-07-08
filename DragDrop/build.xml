@@ -14,8 +14,8 @@
 		<property environment="env" />
 
 		<!-- gwt.location property -->
-		<condition property="gwt.location.default" value="${env.GWTTRUNK_HOME}" else="">
-			<isset property="env.GWTTRUNK_HOME" />
+		<condition property="gwt.location.default" value="${env.GWT_HOME}" else="">
+			<isset property="env.GWT_HOME" />
 		</condition>
 		<input addproperty="gwt.location" defaultvalue="${gwt.location.default}" message="GWT installation, i.e. directory where gwt-user.jar / gwt-servlet.jar / gwt-dev.jar can be found" />
 
