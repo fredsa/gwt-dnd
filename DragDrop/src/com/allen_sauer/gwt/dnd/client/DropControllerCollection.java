@@ -95,7 +95,6 @@ class DropControllerCollection {
         return 0;
       }
     }
-
   }
 
   private final ArrayList<DropController> dropControllerList;
