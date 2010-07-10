@@ -28,7 +28,7 @@ import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
  */
 public abstract class AbstractInsertPanelDropController extends AbstractPositioningDropController {
 
-  final protected InsertPanel dropTarget;
+  protected final InsertPanel dropTarget;
 
   private int dropIndex;
 

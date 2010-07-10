@@ -69,7 +69,7 @@ public class PickupDragController extends AbstractDragController {
   /**
    * TODO Decide if 100ms is a good number
    */
-  private final static int CACHE_TIME_MILLIS = 100;
+  private static final int CACHE_TIME_MILLIS = 100;
 
   /**
    * The implicit boundary drop controller.
@@ -334,36 +334,6 @@ public class PickupDragController extends AbstractDragController {
     dropControllerList.clear();
   }
 
-  private void calcBoundaryOffset() {
-    Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
-    boundaryOffsetX = widgetLocation.getLeft()
-        + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
-    boundaryOffsetY = widgetLocation.getTop()
-        + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
-  }
-
-  private void checkGWTIssue1813(Widget child, AbsolutePanel parent) {
-    if (!GWT.isScript()) {
-      if (child.getElement().getOffsetParent() != parent.getElement()
-          && !"HTML".equals(child.getElement().getOffsetParent().getNodeName())) {
-        DOMUtil.reportFatalAndThrowRuntimeException("The boundary panel for this drag controller does not appear to have"
-            + " 'position: relative' CSS applied to it."
-            + " This may be due to custom CSS in your application, although this"
-            + " is often caused by using the result of RootPanel.get(\"some-unique-id\") as your boundary"
-            + " panel, as described in GWT issue 1813"
-            + " (http://code.google.com/p/google-web-toolkit/issues/detail?id=1813)."
-            + " Please star / vote for this issue if it has just affected your application."
-            + " You can often remedy this problem by adding one line of code to your application:"
-            + " boundaryPanel.getElement().getStyle().setProperty(\"position\", \"relative\");");
-      }
-    }
-  }
-
-  private DropController getIntersectDropController(int x, int y) {
-    DropController dropController = dropControllerCollection.getIntersectDropController(x, y);
-    return dropController != null ? dropController : boundaryDropController;
-  }
-
   /**
    * Create a new BoundaryDropController to manage our boundary panel as a drop target. To ensure
    * that draggable widgets can only be dropped on registered drop targets, set
@@ -472,5 +442,35 @@ public class PickupDragController extends AbstractDragController {
       widget.getElement().getStyle().setProperty("margin", "0px");
       savedWidgetInfoMap.put(widget, info);
     }
+  }
+
+  private void calcBoundaryOffset() {
+    Location widgetLocation = new WidgetLocation(context.boundaryPanel, null);
+    boundaryOffsetX = widgetLocation.getLeft()
+        + DOMUtil.getBorderLeft(context.boundaryPanel.getElement());
+    boundaryOffsetY = widgetLocation.getTop()
+        + DOMUtil.getBorderTop(context.boundaryPanel.getElement());
+  }
+
+  private void checkGWTIssue1813(Widget child, AbsolutePanel parent) {
+    if (!GWT.isScript()) {
+      if (child.getElement().getOffsetParent() != parent.getElement()
+          && !"HTML".equals(child.getElement().getOffsetParent().getNodeName())) {
+        DOMUtil.reportFatalAndThrowRuntimeException("The boundary panel for this drag controller does not appear to have"
+            + " 'position: relative' CSS applied to it."
+            + " This may be due to custom CSS in your application, although this"
+            + " is often caused by using the result of RootPanel.get(\"some-unique-id\") as your boundary"
+            + " panel, as described in GWT issue 1813"
+            + " (http://code.google.com/p/google-web-toolkit/issues/detail?id=1813)."
+            + " Please star / vote for this issue if it has just affected your application."
+            + " You can often remedy this problem by adding one line of code to your application:"
+            + " boundaryPanel.getElement().getStyle().setProperty(\"position\", \"relative\");");
+      }
+    }
+  }
+
+  private DropController getIntersectDropController(int x, int y) {
+    DropController dropController = dropControllerCollection.getIntersectDropController(x, y);
+    return dropController != null ? dropController : boundaryDropController;
   }
 }
