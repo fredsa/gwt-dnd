@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dnd.client.util;
  * Provides implementations for common {@link Area} calculations.
  */
 public abstract class AbstractArea implements Area {
+  //CHECKSTYLE_JAVADOC_OFF
 
   private int bottom;
 

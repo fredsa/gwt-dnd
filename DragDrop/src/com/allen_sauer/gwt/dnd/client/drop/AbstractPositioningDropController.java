@@ -25,6 +25,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public abstract class AbstractPositioningDropController extends AbstractDropController {
 
+  /**
+   * Constructor.
+   * @param dropTarget the drop target to use
+   */
   public AbstractPositioningDropController(Panel dropTarget) {
     super(dropTarget);
   }

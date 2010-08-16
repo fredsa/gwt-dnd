@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dnd.client.util;
  * Class representing a numerically specified rectangular region.
  */
 public class CoordinateArea extends AbstractArea {
+  //CHECKSTYLE_JAVADOC_OFF
 
   public CoordinateArea(int left, int top, int right, int bottom) {
     setLeft(left);

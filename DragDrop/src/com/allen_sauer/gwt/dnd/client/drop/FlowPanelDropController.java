@@ -27,7 +27,7 @@ import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
 public class FlowPanelDropController extends AbstractInsertPanelDropController {
 
   /**
-   * @param dropTarget
+   * @param dropTarget the flow panel drop target
    */
   public FlowPanelDropController(FlowPanel dropTarget) {
     super(dropTarget);

@@ -18,6 +18,11 @@ package com.allen_sauer.gwt.dnd.client.util;
  */
 public class StringUtil {
 
+  /**
+   * Determined a short name from a class.
+   * @param clazz the Java class
+   * @return a short name for the class
+   */
   public static String getShortTypeName(Class<?> clazz) {
     String typeName = clazz.getName();
     return typeName.substring(typeName.lastIndexOf('.') + 1);

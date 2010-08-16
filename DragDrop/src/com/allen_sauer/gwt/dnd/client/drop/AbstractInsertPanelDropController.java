@@ -28,6 +28,9 @@ import com.allen_sauer.gwt.dnd.client.util.LocationWidgetComparator;
  */
 public abstract class AbstractInsertPanelDropController extends AbstractPositioningDropController {
 
+  /**
+   * Our drop target.
+   */
   protected final InsertPanel dropTarget;
 
   private int dropIndex;
@@ -37,7 +40,7 @@ public abstract class AbstractInsertPanelDropController extends AbstractPosition
   /**
    * @see FlowPanelDropController#FlowPanelDropController(com.google.gwt.user.client.ui.FlowPanel)
    * 
-   * @param dropTarget
+   * @param dropTarget the insert panel drop target
    */
   public AbstractInsertPanelDropController(InsertPanel dropTarget) {
     super((Panel) dropTarget);
@@ -99,6 +102,10 @@ public abstract class AbstractInsertPanelDropController extends AbstractPosition
     super.onPreviewDrop(context);
   }
 
+  /**
+   * Required implementation method which provides the desired comparator strategy.
+   * @return the comparator strategy to be used
+   */
   protected abstract LocationWidgetComparator getLocationWidgetComparator();
 
   /**

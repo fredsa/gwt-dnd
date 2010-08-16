@@ -38,7 +38,7 @@ public interface LocationWidgetComparator {
 
   /**
    * Determine whether or not <code>location</code> indicates insertion following widgetArea.
-   * 
+   * @param widgetArea the widget area to consider
    * @param location the location to consider
    * @return true if the location is indicates an index position following the widget
    */

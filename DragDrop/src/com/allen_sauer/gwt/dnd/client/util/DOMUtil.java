@@ -21,11 +21,14 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImpl;
 
-/*
+/**
  * Provides DOM utility methods.
  */
 public class DOMUtil {
 
+  /**
+   * Whether or not debugging is enabled.
+   */
   public static final boolean DEBUG = false;
 
   private static DOMUtilImpl impl;
@@ -52,6 +55,11 @@ public class DOMUtil {
     impl.cancelAllDocumentSelections();
   }
 
+  /**
+   * Set a widget's border style for debugging purposes.
+   * @param widget the widget to color
+   * @param color the desired border color
+   */
   public static void debugWidgetWithColor(Widget widget, String color) {
     if (DEBUG) {
       widget.getElement().getStyle().setProperty("border", "2px solid " + color);
@@ -72,8 +80,14 @@ public class DOMUtil {
   }
 
   /**
+   * Find child widget intersection at the provided location using the provided comparator strategy.
    * TODO Handle LTR case for Bidi
    * TODO Change IndexedPanel -> InsertPanel
+   * 
+   * @param parent the parent widget which contains the children to be compared
+   * @param location the location of the intersection
+   * @param comparator the comparator strategy
+   * @return the index of the matching child
    */
   public static int findIntersect(IndexedPanel parent, Location location,
       LocationWidgetComparator comparator) {
@@ -216,6 +230,11 @@ public class DOMUtil {
     return impl.getVerticalBorders(widget);
   }
 
+  /**
+   * Report a fatal exception via <code>Window.alert()</code> than throw a <code>RuntimeException</code>.
+   * @param msg the message to report
+   * @throws RuntimeException a new exception based on the provided message
+   */
   public static void reportFatalAndThrowRuntimeException(String msg) throws RuntimeException {
     msg = "gwt-dnd warning: " + msg;
     Window.alert(msg);
@@ -229,11 +248,6 @@ public class DOMUtil {
    */
   public static void setStatus(String text) {
     Window.setStatus(text);
-  }
-
-  public static void warn(String msg) {
-    System.err.println("WARNING: " + msg);
-    GWT.log(msg, null);
   }
 
   /**

@@ -28,6 +28,11 @@ public final class AbsolutePositionExample extends Example {
 
   private AbsolutePositionDropController absolutePositionDropController;
 
+  /**
+   * Basic constructor.
+   * 
+   * @param dragController the drag controller to use
+   */
   public AbsolutePositionExample(PickupDragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_ABSOLUTE_POSITION_EXAMPLE);

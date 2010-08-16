@@ -17,6 +17,7 @@ package com.allen_sauer.gwt.dnd.client.util;
  * A position represented by a left (x) and top (y) coordinate.
  */
 public class CoordinateLocation extends AbstractLocation {
+  //CHECKSTYLE_JAVADOC_OFF
 
   private int left;
 
@@ -27,20 +28,10 @@ public class CoordinateLocation extends AbstractLocation {
     this.top = top;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.allen_sauer.gwt.dnd.client.util.Location#getLeft()
-   */
   public int getLeft() {
     return left;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.allen_sauer.gwt.dnd.client.util.Location#getTop()
-   */
   public int getTop() {
     return top;
   }

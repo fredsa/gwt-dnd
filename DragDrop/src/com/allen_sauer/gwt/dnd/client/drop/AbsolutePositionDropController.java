@@ -71,6 +71,11 @@ public class AbsolutePositionDropController extends AbstractPositioningDropContr
 
   int dropTargetOffsetY;
 
+  /**
+   * Basic constructor.
+   * 
+   * @param dropTarget the absolute panel drop target
+   */
   public AbsolutePositionDropController(AbsolutePanel dropTarget) {
     super(dropTarget);
     this.dropTarget = dropTarget;

@@ -24,6 +24,7 @@ import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
  * styles.
  */
 public abstract class AbstractDropController implements DropController {
+  // CHECKSTYLE_JAVADOC_OFF
 
   /**
    * The drop target.

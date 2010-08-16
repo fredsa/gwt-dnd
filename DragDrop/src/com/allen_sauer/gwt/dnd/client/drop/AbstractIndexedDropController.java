@@ -40,7 +40,7 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
   /**
    * @see FlowPanelDropController#FlowPanelDropController(com.google.gwt.user.client.ui.FlowPanel)
    * 
-   * @param dropTarget
+   * @param dropTarget the indexed panel drop target
    */
   public AbstractIndexedDropController(IndexedPanel dropTarget) {
     super((Panel) dropTarget);
@@ -102,6 +102,10 @@ public abstract class AbstractIndexedDropController extends AbstractPositioningD
     super.onPreviewDrop(context);
   }
 
+  /**
+   * Required implementation method which provides the desired comparator strategy.
+   * @return the comparator strategy to be used
+   */
   protected abstract LocationWidgetComparator getLocationWidgetComparator();
 
   /**

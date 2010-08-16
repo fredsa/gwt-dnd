@@ -24,6 +24,7 @@ public interface DragController extends FiresDragEvents {
   /**
    * Register a drag handler which will listen for {@link DragStartEvent DragStartEvents} and and
    * {@link DragEndEvent DragEndEvents}.
+   * @param handler the drag handler to register
    * 
    * @see #removeDragHandler(DragHandler)
    */
@@ -135,6 +136,7 @@ public interface DragController extends FiresDragEvents {
   /**
    * Unregister drag handler.
    * 
+   * @param handler the drag handler to remove
    * @see #addDragHandler(DragHandler)
    */
   void removeDragHandler(DragHandler handler);

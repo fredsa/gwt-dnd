@@ -29,6 +29,10 @@ public final class BinExample extends Example {
 
   private AbsolutePositionDropController dropController;
 
+  /**
+   * Constructor.
+   * @param dragController the drag controller to use
+   */
   public BinExample(PickupDragController dragController) {
     super(dragController);
     addStyleName(CSS_DEMO_BIN_EXAMPLE);

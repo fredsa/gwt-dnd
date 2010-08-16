@@ -24,7 +24,7 @@ import com.allen_sauer.gwt.dnd.client.util.DragClientBundle;
 import java.util.HashMap;
 import java.util.Iterator;
 
-/*
+/**
  * {@link DragController} which performs the bare essentials such as adding/removing styles,
  * maintaining collections, adding mouse listeners, etc.
  * 
@@ -33,8 +33,19 @@ import java.util.Iterator;
  * drop widgets, use {@link PickupDragController}. </p>
  */
 public abstract class AbstractDragController implements DragController {
+  // CHECKSTYLE_JAVADOC_OFF
 
   private static HashMap<Widget, Widget> dragHandles = new HashMap<Widget, Widget>();
+
+  /**
+   * The drag controller's drag context.
+   */
+  protected final DragContext context;
+
+  /**
+   * The boundary panel to which all drag operations are constrained.
+   */
+  AbsolutePanel boundaryPanel;
 
   private boolean cancelDocumentSelections = true;
 
@@ -79,16 +90,6 @@ public abstract class AbstractDragController implements DragController {
    * Whether scrollIntoView() or it's equivalent is to be called during dragging.
    */
   private boolean scrollIntoView = true;
-
-  /**
-   * The drag controller's drag context.
-   */
-  protected final DragContext context;
-
-  /**
-   * The boundary panel to which all drag operations are constrained.
-   */
-  AbsolutePanel boundaryPanel;
 
   /**
    * Create a new drag-and-drop controller. Drag operations will be limited to the specified

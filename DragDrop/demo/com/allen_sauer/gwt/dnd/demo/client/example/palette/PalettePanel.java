@@ -54,6 +54,7 @@ public class PalettePanel extends VerticalPanel {
    * cloned copy of the original.
    * 
    * @param w the widget to remove
+   * @return true if a widget was removed
    */
   @Override
   public boolean remove(Widget w) {
