@@ -76,7 +76,7 @@ public final class DragDropDemo implements EntryPoint {
             text += "Caused by: ";
           }
         }
-        DialogBox dialogBox = new DialogBox(true);
+        DialogBox dialogBox = new DialogBox(true, false);
         dialogBox.getElement().getStyle().setProperty("backgroundColor", "#ABCDEF");
         System.err.print(text);
         text = text.replaceAll(" ", "&nbsp;");
@@ -120,7 +120,7 @@ public final class DragDropDemo implements EntryPoint {
     HTML boundaryDescription = ExampleTabPanel.describe(new Class[] {
         DragDropDemo.class, PickupDragController.class, BoundaryDropController.class,},
         "Most of the example drag operations are constrained to the panel below."
-        + " Try to drag one of the widgets outside the area below.");
+            + " Try to drag one of the widgets outside the area below.");
     boundaryDescription.addStyleName(CSS_DEMO_BOUNDARY);
     mainPanel.add(boundaryDescription);
     mainPanel.add(boundaryPanel);
@@ -176,8 +176,7 @@ public final class DragDropDemo implements EntryPoint {
 
     mainPanel.add(new HTML(
         "<div style='color: gray; margin-top: 1em;'>Demo created with gwt-dnd @GWT_DND_VERSION@ and GWT "
-            + GWT.getVersion()
-            + "</div>"));
+            + GWT.getVersion() + "</div>"));
 
     final String initToken = History.getToken();
     if (initToken.length() == 0) {
