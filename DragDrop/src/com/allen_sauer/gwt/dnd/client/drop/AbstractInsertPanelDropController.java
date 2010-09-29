@@ -51,7 +51,9 @@ public abstract class AbstractInsertPanelDropController extends AbstractPosition
   public void onDrop(DragContext context) {
     assert dropIndex != -1 : "Should not happen after onPreviewDrop did not veto";
     for (Widget widget : context.selectedWidgets) {
-      dropTarget.insert(widget, dropIndex++);
+      dropTarget.insert(widget, dropIndex);
+      // Works with and without drag proxy
+      dropIndex = dropTarget.getWidgetIndex(widget) + 1;
     }
     super.onDrop(context);
   }
