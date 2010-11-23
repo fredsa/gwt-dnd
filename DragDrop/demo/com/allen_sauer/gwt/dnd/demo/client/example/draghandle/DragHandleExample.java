@@ -1,11 +1,11 @@
 /*
  * Copyright 2009 Fred Sauer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -18,7 +18,6 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
@@ -39,7 +38,8 @@ public class DragHandleExample extends Example {
 
   private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_PANEL = "demo-DragHandleExample-panel";
 
-  private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA = "demo-DragHandleExample-textarea";
+  private static final String CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA =
+      "demo-DragHandleExample-textarea";
 
   private PickupDragController dragController;
 
@@ -52,7 +52,8 @@ public class DragHandleExample extends Example {
     setWidget(boundaryPanel);
 
     // create the title bar
-    Label header = new Label("Title/Header (Drag Handle)");
+    HTML header = new HTML(
+        "Title/Header (Drag Handle) with <a href='http://google.com/' target='_blank'>link</a>");
     header.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_HEADER);
 
     // add some text
@@ -64,7 +65,8 @@ public class DragHandleExample extends Example {
     final TextArea textArea = new TextArea();
     textArea.addStyleName(CSS_DEMO_DRAG_HANDLE_EXAMPLE_TEXTAREA);
     // textArea.setSize("20em", "5em");
-    textArea.setText("You can click in this TextArea to get focus without causing the panel to be dragged.");
+    textArea.setText(
+        "You can click in this TextArea to get focus without causing the panel to be dragged.");
 
     // add a clickable button
     Button button = new Button("Click me");
@@ -89,6 +91,7 @@ public class DragHandleExample extends Example {
     dragController.addDragHandler(demoDragHandler);
     dragController.setBehaviorConstrainedToBoundaryPanel(true);
     dragController.setBehaviorMultipleSelection(false);
+    dragController.setBehaviorDragStartSensitivity(5);
 
     // instantiate our drop controller
     AbsolutePositionDropController dropController = new AbsolutePositionDropController(
