@@ -1,11 +1,11 @@
 /*
  * Copyright 2009 Fred Sauer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -78,11 +78,16 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   private int dragging = NOT_DRAGGING;
 
-  private HashMap<Widget, RegisteredDraggable> dragHandleMap = new HashMap<Widget, RegisteredDraggable>();
+  private HashMap<Widget, RegisteredDraggable> dragHandleMap = new HashMap<
+      Widget, RegisteredDraggable>();
 
   private int mouseDownOffsetX;
 
   private int mouseDownOffsetY;
+
+  private int mouseDownPageOffsetX;
+
+  private int mouseDownPageOffsetY;
 
   MouseDragHandler(DragContext context) {
     this.context = context;
@@ -147,6 +152,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       }
       actualMove(context.mouseX, context.mouseY);
     } else {
+      mouseDownPageOffsetX = mouseDownOffsetX + loc1.getLeft();
+      mouseDownPageOffsetY = mouseDownOffsetY + loc1.getTop();
       startCapturing();
     }
   }
@@ -167,7 +174,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       dragging = ACTIVELY_DRAGGING;
     } else {
       if (mouseDownWidget != null) {
-        if (Math.max(Math.abs(x - mouseDownOffsetX), Math.abs(y - mouseDownOffsetY)) >= context.dragController.getBehaviorDragStartSensitivity()) {
+        if (Math.max(Math.abs(x - mouseDownPageOffsetX), Math.abs(y - mouseDownPageOffsetY))
+            >= context.dragController.getBehaviorDragStartSensitivity()) {
           if (context.dragController.getBehaviorCancelDocumentSelections()) {
             DOMUtil.cancelAllDocumentSelections();
           }
@@ -179,11 +187,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
           Location location = new WidgetLocation(mouseDownWidget, null);
           context.mouseX = mouseDownOffsetX + location.getLeft();
           context.mouseY = mouseDownOffsetY + location.getTop();
-
-          // adjust (x,y) to be relative to capturingWidget at (0,0)
-          // so that context.desiredDraggableX/Y is valid
-          x += location.getLeft();
-          y += location.getTop();
 
           startDragging();
         } else {
@@ -259,15 +262,16 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   void makeDraggable(Widget draggable, Widget dragHandle) {
     if (draggable instanceof PopupPanel) {
-      DOMUtil.reportFatalAndThrowRuntimeException("PopupPanel (and its subclasses) cannot be made draggable; See http://code.google.com/p/gwt-dnd/issues/detail?id=43");
+      DOMUtil.reportFatalAndThrowRuntimeException(
+          "PopupPanel (and its subclasses) cannot be made draggable; See http://code.google.com/p/gwt-dnd/issues/detail?id=43");
     }
     try {
-      RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable,
-          ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this));
+      RegisteredDraggable registeredDraggable = new RegisteredDraggable(
+          draggable, ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this));
       dragHandleMap.put(dragHandle, registeredDraggable);
     } catch (Exception ex) {
-      throw new RuntimeException("dragHandle must implement HasMouseDownHandlers to be draggable",
-          ex);
+      throw new RuntimeException(
+          "dragHandle must implement HasMouseDownHandlers to be draggable", ex);
     }
   }
 
@@ -313,9 +317,9 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     capturingWidget.addMouseMoveHandler(this);
     capturingWidget.addMouseUpHandler(this);
     Style style = capturingWidget.getElement().getStyle();
-    style.setProperty("filter", "alpha(opacity=0)");
-    // workaround for IE8 opacity http://code.google.com/p/google-web-toolkit/issues/detail?id=5538
     style.setOpacity(0);
+    // workaround for IE8 opacity http://code.google.com/p/google-web-toolkit/issues/detail?id=5538
+    style.setProperty("filter", "alpha(opacity=0)");
     style.setZIndex(1000);
     style.setMargin(0, Style.Unit.PX);
     style.setBorderStyle(BorderStyle.NONE);
@@ -323,8 +327,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   }
 
   private void startCapturing() {
-    capturingWidget.setPixelSize(RootPanel.get().getOffsetWidth(),
-        RootPanel.get().getOffsetHeight());
+    capturingWidget.setPixelSize(0, 0);
     RootPanel.get().add(capturingWidget, 0, 0);
     DOM.setCapture(capturingWidget.getElement());
   }
@@ -342,6 +345,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     context.dragController.dragStart();
 
     startCapturing();
+    capturingWidget.setPixelSize(
+        RootPanel.get().getOffsetWidth(), RootPanel.get().getOffsetHeight());
     dragging = DRAGGING_NO_MOVEMENT_YET;
   }
 
