@@ -13,22 +13,32 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.BorderStyle;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.event.dom.client.HasTouchStartHandlers;
+import com.google.gwt.event.dom.client.HumanInputEvent;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
-import com.google.gwt.event.dom.client.MouseEvent;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.TouchCancelEvent;
+import com.google.gwt.event.dom.client.TouchCancelHandler;
+import com.google.gwt.event.dom.client.TouchEndEvent;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchEvent;
+import com.google.gwt.event.dom.client.TouchMoveEvent;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.DeferredCommand;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -40,19 +50,28 @@ import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 
 import java.util.HashMap;
 
-/*
- * Implementation helper class which handles mouse events for all draggable widgets for a given
- * {@link DragController}.
+/**
+ * Implementation helper class which handles mouse events for all draggable
+ * widgets for a given {@link DragController}.
  */
-class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHandler {
+class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHandler,
+    TouchStartHandler, TouchMoveHandler, TouchEndHandler, TouchCancelHandler {
 
-  private static class RegisteredDraggable {
+  private class RegisteredDraggable {
     private final Widget dragable;
-    private final HandlerRegistration mouseDownHandlerRegistration;
+    private HandlerRegistration mouseDownHandlerRegistration;
+    private HandlerRegistration touchStartHandlerRegistration;
 
-    RegisteredDraggable(Widget dragable, HandlerRegistration mouseDownHandlerRegistration) {
+    RegisteredDraggable(Widget dragable, Widget dragHandle) {
       this.dragable = dragable;
-      this.mouseDownHandlerRegistration = mouseDownHandlerRegistration;
+      if (dragHandle instanceof HasTouchStartHandlers) {
+        touchStartHandlerRegistration = ((HasTouchStartHandlers) dragHandle).addTouchStartHandler(
+            MouseDragHandler.this);
+      }
+      if (dragHandle instanceof HasMouseDownHandlers) {
+        mouseDownHandlerRegistration = ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(
+            MouseDragHandler.this);
+      }
     }
 
     Widget getDragable() {
@@ -61,6 +80,10 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
     HandlerRegistration getMouseDownHandlerRegistration() {
       return mouseDownHandlerRegistration;
+    }
+
+    HandlerRegistration getTouchStartHandlerRegistration() {
+      return touchStartHandlerRegistration;
     }
   }
 
@@ -71,6 +94,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   private static Widget mouseDownWidget;
 
   private static final int NOT_DRAGGING = 1;
+
+  private static boolean supportsTouchEvents;
 
   private FocusPanel capturingWidget;
 
@@ -95,6 +120,9 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   }
 
   public void onMouseDown(MouseDownEvent event) {
+    if (supportsTouchEvents) {
+      return;
+    }
     Widget sender = (Widget) event.getSource();
     int x = event.getX();
     int y = event.getY();
@@ -125,7 +153,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       context.dragController.toggleSelection(context.draggable);
     }
     if (context.dragController.getBehaviorCancelDocumentSelections()) {
-      DeferredCommand.addCommand(new Command() {
+      Scheduler.get().scheduleDeferred(new ScheduledCommand() {
         public void execute() {
           DOMUtil.cancelAllDocumentSelections();
         }
@@ -159,6 +187,9 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
   }
 
   public void onMouseMove(MouseMoveEvent event) {
+    if (supportsTouchEvents) {
+      return;
+    }
     Widget sender = (Widget) event.getSource();
     Element elem = sender.getElement();
     // TODO optimize for the fact that elem is at (0,0)
@@ -191,7 +222,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
           startDragging();
         } else {
           // prevent IE image drag when drag sensitivity > 5
-          DOM.eventPreventDefault(DOM.eventGetCurrentEvent());
+          event.preventDefault();
         }
       }
       if (dragging == NOT_DRAGGING) {
@@ -199,11 +230,14 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       }
     }
     // proceed with the actual drag
-    DOM.eventPreventDefault(DOM.eventGetCurrentEvent());
+    event.preventDefault();
     actualMove(x, y);
   }
 
   public void onMouseUp(MouseUpEvent event) {
+    if (supportsTouchEvents) {
+      return;
+    }
     Widget sender = (Widget) event.getSource();
     Element elem = sender.getElement();
     // TODO optimize for the fact that elem is at (0,0)
@@ -251,6 +285,109 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
   }
 
+  public void onTouchCancel(TouchCancelEvent event) {
+    onTouchEndorCancel(event);
+  }
+
+  public void onTouchEnd(TouchEndEvent event) {
+    onTouchEndorCancel(event);
+  }
+
+  public void onTouchMove(TouchMoveEvent event) {
+    if (event.getTouches().length() != 1) {
+      // ignore multiple fingers for now
+      return;
+    }
+    event.preventDefault();
+    Widget sender = (Widget) event.getSource();
+    Element elem = sender.getElement();
+    // TODO optimize for the fact that elem is at (0,0)
+    int x = event.getTouches().get(0).getRelativeX(elem);
+    int y = event.getTouches().get(0).getRelativeY(elem);
+
+    if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
+      dragging = ACTIVELY_DRAGGING;
+    } else {
+      if (mouseDownWidget != null) {
+        if (Math.max(Math.abs(x - mouseDownOffsetX), Math.abs(y - mouseDownOffsetY))
+            >= context.dragController.getBehaviorDragStartSensitivity()) {
+          if (!context.selectedWidgets.contains(context.draggable)) {
+            context.dragController.toggleSelection(context.draggable);
+          }
+
+          // set context.mouseX/Y before startDragging() is called
+          Location location = new WidgetLocation(mouseDownWidget, null);
+          context.mouseX = mouseDownOffsetX + location.getLeft();
+          context.mouseY = mouseDownOffsetY + location.getTop();
+
+          // adjust (x,y) to be relative to capturingWidget at (0,0)
+          // so that context.desiredDraggableX/Y is valid
+          x += location.getLeft();
+          y += location.getTop();
+
+          startDragging();
+        } else {
+          // prevent IE image drag when drag sensitivity > 5
+          event.preventDefault();
+        }
+      }
+      if (dragging == NOT_DRAGGING) {
+        return;
+      }
+    }
+    // proceed with the actual drag
+    event.preventDefault();
+    actualMove(x, y);
+  }
+
+  public void onTouchStart(TouchStartEvent event) {
+    supportsTouchEvents = true;
+    if (event.getTouches().length() != 1) {
+      // ignore multiple fingers for now
+      return;
+    }
+    event.preventDefault();
+    Widget sender = (Widget) event.getSource();
+    int x = event.getTouches().get(0).getRelativeX(event.getRelativeElement());
+    int y = event.getTouches().get(0).getRelativeY(event.getRelativeElement());
+
+    if (mouseDownWidget != null) {
+      // For multiple overlapping draggable widgets, ignore all but first onMouseDown
+      return;
+    }
+
+    // mouse down (not first mouse move) determines draggable widget
+    mouseDownWidget = sender;
+    context.draggable = dragHandleMap.get(mouseDownWidget).getDragable();
+    assert context.draggable != null;
+
+    context.dragController.clearSelection();
+    context.dragController.toggleSelection(context.draggable);
+
+    event.preventDefault();
+
+    mouseDownOffsetX = x;
+    mouseDownOffsetY = y;
+    WidgetLocation loc1 = new WidgetLocation(mouseDownWidget, null);
+    if (mouseDownWidget != context.draggable) {
+      WidgetLocation loc2 = new WidgetLocation(context.draggable, null);
+      mouseDownOffsetX += loc1.getLeft() - loc2.getLeft();
+      mouseDownOffsetY += loc1.getTop() - loc2.getTop();
+    }
+    if (context.dragController.getBehaviorDragStartSensitivity() == 0 && !toggleKey(event)) {
+      // set context.mouseX/Y before startDragging() is called
+      context.mouseX = x + loc1.getLeft();
+      context.mouseY = y + loc1.getTop();
+      startDragging();
+      if (dragging == NOT_DRAGGING) {
+        return;
+      }
+      actualMove(context.mouseX, context.mouseY);
+    } else {
+      startCapturing();
+    }
+  }
+
   void actualMove(int x, int y) {
     context.mouseX = x;
     context.mouseY = y;
@@ -266,8 +403,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
           "PopupPanel (and its subclasses) cannot be made draggable; See http://code.google.com/p/gwt-dnd/issues/detail?id=43");
     }
     try {
-      RegisteredDraggable registeredDraggable = new RegisteredDraggable(
-          draggable, ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(this));
+      RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable, dragHandle);
       dragHandleMap.put(dragHandle, registeredDraggable);
     } catch (Exception ex) {
       throw new RuntimeException(
@@ -281,9 +417,10 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       throw new RuntimeException("dragHandle was not draggable");
     }
     registeredDraggable.getMouseDownHandlerRegistration().removeHandler();
+    registeredDraggable.getTouchStartHandlerRegistration().removeHandler();
   }
 
-  private void doSelectionToggle(MouseEvent<?> event) {
+  private void doSelectionToggle(HumanInputEvent<?> event) {
     Widget widget = dragHandleMap.get(mouseDownWidget).getDragable();
     assert widget != null;
     if (!toggleKey(event)) {
@@ -316,14 +453,55 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     capturingWidget = new FocusPanel();
     capturingWidget.addMouseMoveHandler(this);
     capturingWidget.addMouseUpHandler(this);
+    capturingWidget.addTouchMoveHandler(this);
+    capturingWidget.addTouchEndHandler(this);
+    capturingWidget.addTouchCancelHandler(this);
     Style style = capturingWidget.getElement().getStyle();
-    style.setOpacity(0);
     // workaround for IE8 opacity http://code.google.com/p/google-web-toolkit/issues/detail?id=5538
     style.setProperty("filter", "alpha(opacity=0)");
+    style.setOpacity(0);
     style.setZIndex(1000);
     style.setMargin(0, Style.Unit.PX);
     style.setBorderStyle(BorderStyle.NONE);
     style.setBackgroundColor("blue");
+  }
+
+  @SuppressWarnings("unchecked")
+  private void onTouchEndorCancel(TouchEvent event) {
+    if (event.getTouches().length() != 0) {
+      // ignore multiple fingers for now
+      return;
+    }
+    Widget sender = (Widget) event.getSource();
+    Element elem = sender.getElement();
+    // TODO optimize for the fact that elem is at (0,0)
+    //    int x = event.getRelativeX(elem);
+    //    int y = event.getRelativeY(elem);
+
+    // in case mouse down occurred elsewhere
+    if (mouseDownWidget == null) {
+      return;
+    }
+
+    try {
+      if (dragging == NOT_DRAGGING) {
+        doSelectionToggle(event);
+        return;
+      }
+
+      // Proceed with the drop
+      try {
+        drop(context.mouseX, context.mouseY);
+        if (dragging != ACTIVELY_DRAGGING) {
+          doSelectionToggle(event);
+        }
+      } finally {
+        dragEndCleanup();
+      }
+    } finally {
+      mouseDownWidget = null;
+      dragEndCleanup();
+    }
   }
 
   private void startCapturing() {
@@ -350,7 +528,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     dragging = DRAGGING_NO_MOVEMENT_YET;
   }
 
-  private boolean toggleKey(MouseEvent<?> event) {
+  private boolean toggleKey(HumanInputEvent<?> event) {
     return event.isControlKeyDown() || event.isMetaKeyDown();
   }
 }
