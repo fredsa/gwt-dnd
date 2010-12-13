@@ -22,7 +22,7 @@
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gwt.eclipse.core.moduleClasspathProvider"/>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.DevMode"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -startupUrl DragDropDemo.html -logLevel INFO -port 8888 -war /fred/workspace/DragDrop/war -whitelist ^http[:][/][/]allen-sauer[.]com com.allen_sauer.gwt.dnd.demo.DragDropDemo"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-codeServerPort 9997 -remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -startupUrl DragDropDemo.html -logLevel INFO -port 8888 -war /fred/workspace/DragDrop/war -whitelist ^http[:][/][/]allen-sauer[.]com com.allen_sauer.gwt.dnd.demo.DragDropDemo"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="DragDrop"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx512m -ea"/>
 </launchConfiguration>
