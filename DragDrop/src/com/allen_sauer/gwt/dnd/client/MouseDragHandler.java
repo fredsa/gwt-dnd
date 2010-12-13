@@ -1,11 +1,11 @@
 /*
  * Copyright 2009 Fred Sauer
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -65,12 +65,10 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     RegisteredDraggable(Widget dragable, Widget dragHandle) {
       this.dragable = dragable;
       if (dragHandle instanceof HasTouchStartHandlers) {
-        touchStartHandlerRegistration = ((HasTouchStartHandlers) dragHandle).addTouchStartHandler(
-            MouseDragHandler.this);
+        touchStartHandlerRegistration = ((HasTouchStartHandlers) dragHandle).addTouchStartHandler(MouseDragHandler.this);
       }
       if (dragHandle instanceof HasMouseDownHandlers) {
-        mouseDownHandlerRegistration = ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(
-            MouseDragHandler.this);
+        mouseDownHandlerRegistration = ((HasMouseDownHandlers) dragHandle).addMouseDownHandler(MouseDragHandler.this);
       }
     }
 
@@ -103,8 +101,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   private int dragging = NOT_DRAGGING;
 
-  private HashMap<Widget, RegisteredDraggable> dragHandleMap = new HashMap<
-      Widget, RegisteredDraggable>();
+  private HashMap<Widget, RegisteredDraggable> dragHandleMap = new HashMap<Widget, RegisteredDraggable>();
 
   private int mouseDownOffsetX;
 
@@ -205,8 +202,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       dragging = ACTIVELY_DRAGGING;
     } else {
       if (mouseDownWidget != null) {
-        if (Math.max(Math.abs(x - mouseDownPageOffsetX), Math.abs(y - mouseDownPageOffsetY))
-            >= context.dragController.getBehaviorDragStartSensitivity()) {
+        if (Math.max(Math.abs(x - mouseDownPageOffsetX), Math.abs(y - mouseDownPageOffsetY)) >= context.dragController.getBehaviorDragStartSensitivity()) {
           if (context.dragController.getBehaviorCancelDocumentSelections()) {
             DOMUtil.cancelAllDocumentSelections();
           }
@@ -309,8 +305,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       dragging = ACTIVELY_DRAGGING;
     } else {
       if (mouseDownWidget != null) {
-        if (Math.max(Math.abs(x - mouseDownOffsetX), Math.abs(y - mouseDownOffsetY))
-            >= context.dragController.getBehaviorDragStartSensitivity()) {
+        if (Math.max(Math.abs(x - mouseDownOffsetX), Math.abs(y - mouseDownOffsetY)) >= context.dragController.getBehaviorDragStartSensitivity()) {
           if (!context.selectedWidgets.contains(context.draggable)) {
             context.dragController.toggleSelection(context.draggable);
           }
@@ -399,15 +394,14 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   void makeDraggable(Widget draggable, Widget dragHandle) {
     if (draggable instanceof PopupPanel) {
-      DOMUtil.reportFatalAndThrowRuntimeException(
-          "PopupPanel (and its subclasses) cannot be made draggable; See http://code.google.com/p/gwt-dnd/issues/detail?id=43");
+      DOMUtil.reportFatalAndThrowRuntimeException("PopupPanel (and its subclasses) cannot be made draggable; See http://code.google.com/p/gwt-dnd/issues/detail?id=43");
     }
     try {
       RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable, dragHandle);
       dragHandleMap.put(dragHandle, registeredDraggable);
     } catch (Exception ex) {
-      throw new RuntimeException(
-          "dragHandle must implement HasMouseDownHandlers to be draggable", ex);
+      throw new RuntimeException("dragHandle must implement HasMouseDownHandlers to be draggable",
+          ex);
     }
   }
 
@@ -466,17 +460,11 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     style.setBackgroundColor("blue");
   }
 
-  @SuppressWarnings("unchecked")
-  private void onTouchEndorCancel(TouchEvent event) {
+  private void onTouchEndorCancel(TouchEvent<?> event) {
     if (event.getTouches().length() != 0) {
       // ignore multiple fingers for now
       return;
     }
-    Widget sender = (Widget) event.getSource();
-    Element elem = sender.getElement();
-    // TODO optimize for the fact that elem is at (0,0)
-    //    int x = event.getRelativeX(elem);
-    //    int y = event.getRelativeY(elem);
 
     // in case mouse down occurred elsewhere
     if (mouseDownWidget == null) {
@@ -523,8 +511,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     context.dragController.dragStart();
 
     startCapturing();
-    capturingWidget.setPixelSize(
-        RootPanel.get().getOffsetWidth(), RootPanel.get().getOffsetHeight());
+    capturingWidget.setPixelSize(RootPanel.get().getOffsetWidth(),
+        RootPanel.get().getOffsetHeight());
     dragging = DRAGGING_NO_MOVEMENT_YET;
   }
 
