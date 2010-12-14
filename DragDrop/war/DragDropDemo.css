@@ -319,8 +319,6 @@ DIV.demo-main-boundary-panel {
 .demo-MatryoshkaExample .demo-rgb-focus-panel {
   /* refer to DragDropDemo.html for IE specific version */
   border: 1px solid white;
-  min-width: 50px;
-  min-height: 50px;
 }
  
 .demo-MatryoshkaExample .demo-MatryoshkaExample-dropTarget-engage {

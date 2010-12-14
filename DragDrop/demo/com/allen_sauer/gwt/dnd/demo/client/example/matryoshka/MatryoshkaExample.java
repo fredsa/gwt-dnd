@@ -25,15 +25,15 @@ import com.allen_sauer.gwt.dnd.demo.client.example.Example;
  */
 public final class MatryoshkaExample extends Example {
 
-  private static final int CELL_HEIGHT = 50;
+  private static final int CELL_HEIGHT = 35;
 
-  private static final int CELL_SPACER = 4;
+  private static final int CELL_SPACER = 1;
 
-  private static final int CELL_WIDTH = 50;
+  private static final int CELL_WIDTH = 35;
 
   private static final String CSS_DEMO_MATRYOSHKA_EXAMPLE = "demo-MatryoshkaExample";
 
-  private static final int NUMBER_COLS = 5;
+  private static final int NUMBER_COLS = 10;
 
   private static final int NUMBER_ROWS = 5;
 
@@ -45,8 +45,8 @@ public final class MatryoshkaExample extends Example {
     boundaryPanel.setPixelSize(500, 300);
     setWidget(boundaryPanel);
 
-    boundaryPanel.setPixelSize((NUMBER_COLS + 3) * (CELL_WIDTH + CELL_SPACER) + 2 * CELL_SPACER,
-        NUMBER_ROWS * (CELL_HEIGHT + CELL_SPACER) + 2 * CELL_SPACER);
+    boundaryPanel.setPixelSize(NUMBER_COLS * (CELL_WIDTH + CELL_SPACER) + 3 * CELL_SPACER,
+        NUMBER_ROWS * (CELL_HEIGHT + CELL_SPACER) + 3 * CELL_SPACER);
 
     // initialize our drag controller
     PickupDragController dragController = new PickupDragController(boundaryPanel, true);

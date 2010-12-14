@@ -29,12 +29,14 @@ public class RGBFocusPanel extends FocusPanel {
 
   private DropController dropController = new MatryoshkaSetWidgetDropController(this);
 
-  public RGBFocusPanel(PickupDragController dragController, int width, int height, int red,
+  public RGBFocusPanel(PickupDragController dragController, int minWidth, int minHeight, int red,
       int green, int blue) {
     this.dragController = dragController;
     addStyleName(CSS_DEMO_RGB_FOCUS_PANEL);
     getElement().getStyle().setProperty("backgroundColor",
         "rgb(" + red + ", " + green + ", " + blue + ")");
+    getElement().getStyle().setPropertyPx("minWidth", minWidth);
+    getElement().getStyle().setPropertyPx("minHeight", minHeight);
   }
 
   @Override
