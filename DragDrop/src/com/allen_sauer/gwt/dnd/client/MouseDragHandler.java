@@ -120,16 +120,16 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     if (supportsTouchEvents) {
       return;
     }
+    if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
+      // Ignore additional mouse buttons depressed while still dragging
+      return;
+    }
+
     Widget sender = (Widget) event.getSource();
     int x = event.getX();
     int y = event.getY();
 
     int button = event.getNativeButton();
-
-    if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
-      // Ignore additional mouse buttons depressed while still dragging
-      return;
-    }
 
     if (button != NativeEvent.BUTTON_LEFT) {
       return;
@@ -341,15 +341,17 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       // ignore multiple fingers for now
       return;
     }
+
+    // TODO verify that multiple onTocuhStart events are fired for overlapping draggables
+    if (mouseDownWidget != null) {
+      // For multiple overlapping draggable widgets, ignore all but first onTouchStart
+      return;
+    }
+
     event.preventDefault();
     Widget sender = (Widget) event.getSource();
     int x = event.getTouches().get(0).getRelativeX(event.getRelativeElement());
     int y = event.getTouches().get(0).getRelativeY(event.getRelativeElement());
-
-    if (mouseDownWidget != null) {
-      // For multiple overlapping draggable widgets, ignore all but first onMouseDown
-      return;
-    }
 
     // mouse down (not first mouse move) determines draggable widget
     mouseDownWidget = sender;
