@@ -15,8 +15,8 @@ package com.allen_sauer.gwt.dnd.test.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Command;
-import com.google.gwt.user.client.DeferredCommand;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -58,8 +58,7 @@ public final class DragDropTest implements EntryPoint {
     });
 
     // use a deferred command so that the handler catches onModuleLoad2() exceptions
-    DeferredCommand.addCommand(new Command() {
-
+    Scheduler.get().scheduleDeferred(new ScheduledCommand() {
       public void execute() {
         onModuleLoad2();
       }

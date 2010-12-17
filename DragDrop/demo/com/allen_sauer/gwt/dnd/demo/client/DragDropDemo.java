@@ -15,6 +15,8 @@ package com.allen_sauer.gwt.dnd.demo.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.DeferredCommand;
@@ -86,8 +88,7 @@ public final class DragDropDemo implements EntryPoint {
     });
 
     // use a deferred command so that the handler catches onModuleLoad2() exceptions
-    DeferredCommand.addCommand(new Command() {
-
+    Scheduler.get().scheduleDeferred(new ScheduledCommand() {
       public void execute() {
         onModuleLoad2();
       }
@@ -174,9 +175,9 @@ public final class DragDropDemo implements EntryPoint {
 
     examples.add(new PaletteExample(demoDragHandler));
 
-    mainPanel.add(new HTML(
-        "<div style='color: gray; margin-top: 1em;'>Demo created with gwt-dnd @GWT_DND_VERSION@ and GWT "
-            + GWT.getVersion() + "</div>"));
+    mainPanel.add(
+        new HTML(
+                "<div style='color: gray; margin-top: 1em;'>Demo created with gwt-dnd @GWT_DND_VERSION@ and GWT " + GWT.getVersion() + "</div>"));
 
     final String initToken = History.getToken();
     if (initToken.length() == 0) {
