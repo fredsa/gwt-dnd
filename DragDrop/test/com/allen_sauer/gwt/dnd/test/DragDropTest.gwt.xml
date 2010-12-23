@@ -14,10 +14,15 @@
 	-->
 <module rename-to="test">
 
-	<inherits name="com.allen_sauer.gwt.dnd.gwt-dnd" />
+  <inherits name="com.allen_sauer.gwt.dnd.gwt-dnd" />
+  <inherits name="com.google.gwt.junit.JUnit" />
 
-	<entry-point class="com.allen_sauer.gwt.dnd.test.client.DragDropTest" />
+  <entry-point class="com.allen_sauer.gwt.dnd.test.client.DragDropTest" />
 
-	<public path="public" />
+  <public path="public" />
+  <source path="client" />
 
+  <inherits name="com.google.gwt.user.Debug" />
+  <set-property name="gwt.enableDebugId" value="true"/> 
+  
 </module>
