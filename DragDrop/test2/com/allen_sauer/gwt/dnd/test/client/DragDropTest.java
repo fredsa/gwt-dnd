@@ -48,7 +48,7 @@ public final class DragDropTest implements EntryPoint {
             text += "Caused by: ";
           }
         }
-        DialogBox dialogBox = new DialogBox(true);
+        DialogBox dialogBox = new DialogBox(true, false);
         dialogBox.getElement().getStyle().setProperty("backgroundColor", "#ABCDEF");
         System.err.print(text);
         text = text.replaceAll(" ", "&nbsp;");
