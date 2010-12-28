@@ -19,6 +19,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.junit.client.GWTTestCase;
+import com.google.gwt.junit.rebind.JUnitTestCaseStubGenerator;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -54,6 +55,13 @@ public class MouseDragHandlerTest extends GWTTestCase {
   }-*/;
 
   private int stepDelayMillis;
+
+  /**
+   * Temporary hack until we create a generator after {@link JUnitTestCaseStubGenerator}.
+   */
+  public void allTestsHack() {
+    testMouseDown();
+  }
 
   @Override
   public String getModuleName() {

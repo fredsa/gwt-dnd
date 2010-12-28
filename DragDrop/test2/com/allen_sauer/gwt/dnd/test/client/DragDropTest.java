@@ -70,7 +70,7 @@ public final class DragDropTest implements EntryPoint {
     try {
       MouseDragHandlerTest mouseDragHandlerTest = new MouseDragHandlerTest();
       mouseDragHandlerTest.gwtSetUp();
-      mouseDragHandlerTest.testMouseDown();
+      mouseDragHandlerTest.allTestsHack();
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
