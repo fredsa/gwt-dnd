@@ -100,6 +100,12 @@ public class MouseDragHandlerTest extends GWTTestCase {
       }
     };
 
+    new Step() {
+      @Override
+      void run() {
+        finishTest();
+      }
+    };
   }
 
   @Override
