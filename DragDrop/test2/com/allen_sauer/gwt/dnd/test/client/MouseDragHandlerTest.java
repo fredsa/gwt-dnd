@@ -19,6 +19,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.junit.client.GWTTestCase;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
@@ -27,12 +28,32 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 
 public class MouseDragHandlerTest extends GWTTestCase {
+  private abstract class Step {
+
+    Step() {
+      new Timer() {
+
+        @Override
+        public void run() {
+          try {
+            Step.this.run();
+          } catch (Throwable e) {
+            fail("#" + e.toString() + "#");
+          }
+        }
+      }.schedule(getDelayMillis());
+    }
+
+    abstract void run();
+  }
 
   private static final String id = "gwt-debug-box1";
 
   private static native String getCompatMode() /*-{
     return $doc.compatMode;
   }-*/;
+
+  private int stepDelayMillis;
 
   @Override
   public String getModuleName() {
@@ -41,13 +62,13 @@ public class MouseDragHandlerTest extends GWTTestCase {
 
   public void testMouseDown() {
     delayTestFinish(5000);
-    Element elem = Document.get().getElementById(id);
+    final Element elem = Document.get().getElementById(id);
     Document.get().createClickEvent(0, 10, 10, 10, 10, false, false, false, false);
 
     NativeEvent evt;
 
-    int oldX = elem.getAbsoluteLeft();
-    int oldY = elem.getAbsoluteTop();
+    final int oldX = elem.getAbsoluteLeft();
+    final int oldY = elem.getAbsoluteTop();
 
     evt = Document.get().createMouseDownEvent(0, 10, 10, 10, 10, false, false, false, false, 1);
     elem.dispatchEvent(evt);
@@ -55,21 +76,35 @@ public class MouseDragHandlerTest extends GWTTestCase {
     assertEquals("draggable x after mouse down", oldX, elem.getAbsoluteLeft());
     assertEquals("draggabel y after mouse down", oldY, elem.getAbsoluteTop());
 
-    evt = Document.get().createMouseMoveEvent(0, 20, 20, 200, 200, false, false, false, false, 1);
-    elem.dispatchEvent(evt);
+    new Step() {
+      @Override
+      void run() {
+        NativeEvent evt = Document.get().createMouseMoveEvent(
+            0, 20, 20, 200, 200, false, false, false, false, 1);
+        elem.dispatchEvent(evt);
 
-    assertEquals("draggable x after mouse move", oldX + 190, elem.getAbsoluteLeft());
-    assertEquals("draggabel y after mouse move", oldY + 190, elem.getAbsoluteTop());
+        assertEquals("draggable x after mouse move", oldX + 190, elem.getAbsoluteLeft());
+        assertEquals("draggabel y after mouse move", oldY + 190, elem.getAbsoluteTop());
+      }
+    };
 
-    evt = Document.get().createMouseUpEvent(0, 20, 20, 100, 100, false, false, false, false, 1);
-    elem.dispatchEvent(evt);
+    new Step() {
+      @Override
+      void run() {
+        NativeEvent evt = Document.get().createMouseUpEvent(
+            0, 20, 20, 100, 100, false, false, false, false, 1);
+        elem.dispatchEvent(evt);
 
-    assertEquals("draggable x after mouse up", oldX + 90, elem.getAbsoluteLeft());
-    assertEquals("draggable y after mouse up", oldY + 90, elem.getAbsoluteTop());
+        assertEquals("draggable x after mouse up", oldX + 90, elem.getAbsoluteLeft());
+        assertEquals("draggable y after mouse up", oldY + 90, elem.getAbsoluteTop());
+      }
+    };
+
   }
 
   @Override
   protected void gwtSetUp() throws Exception {
+    stepDelayMillis = 0;
     RootPanel rootPanel = RootPanel.get();
     rootPanel.add(new HTML("DragDropTest is in <b>" + getCompatMode() + "</b> mode."));
     rootPanel.getElement().getStyle().setHeight(800, Unit.PX);
@@ -84,5 +119,10 @@ public class MouseDragHandlerTest extends GWTTestCase {
       rootPanel.add(panel, i * 125, 0);
       dragController.makeDraggable(panel);
     }
+  }
+
+  private int getDelayMillis() {
+    stepDelayMillis += 200;
+    return stepDelayMillis;
   }
 }
