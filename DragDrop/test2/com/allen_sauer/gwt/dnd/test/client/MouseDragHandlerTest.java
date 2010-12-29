@@ -22,7 +22,6 @@ import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.junit.rebind.JUnitTestCaseStubGenerator;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.FocusPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -61,6 +60,7 @@ public class MouseDragHandlerTest extends GWTTestCase {
    */
   public void allTestsHack() {
     testMouseDown();
+    testSimpleDrag();
   }
 
   @Override
@@ -69,6 +69,31 @@ public class MouseDragHandlerTest extends GWTTestCase {
   }
 
   public void testMouseDown() {
+    delayTestFinish(5000);
+    final Element elem = Document.get().getElementById(id);
+    Document.get().createClickEvent(0, 10, 10, 10, 10, false, false, false, false);
+
+    NativeEvent evt;
+
+    evt = Document.get().createMouseDownEvent(0, 10, 10, 10, 10, false, false, false, false, 1);
+
+    assertEquals(
+        "<input style=\"opacity: 0; height: 1px; width: 1px; z-index: -1; overflow: hidden; position: absolute;\" tabindex=\"-1\" type=\"text\"><div class=\"gwt-Label\">box1</div>", elem.getInnerHTML());
+    assertEquals(
+        "background-color: red; width: 100px; height: 100px; position: absolute; left: 125px; top: 0px;", elem.getAttribute("style"));
+    assertEquals("dragdrop-draggable dragdrop-handle", elem.getAttribute("class"));
+
+    elem.dispatchEvent(evt);
+
+    assertEquals(
+        "<input style=\"opacity: 0; height: 1px; width: 1px; z-index: -1; overflow: hidden; position: absolute;\" tabindex=\"-1\" type=\"text\"><div class=\"gwt-Label\">box1</div>", elem.getInnerHTML());
+    assertEquals(
+        "background-color: red; width: 100px; height: 100px; margin: 0px; position: absolute; left: 0px; top: 0px;", elem.getAttribute("style"));
+    assertEquals(
+        "dragdrop-draggable dragdrop-handle dragdrop-dragging", elem.getAttribute("class"));
+  }
+
+  public void testSimpleDrag() {
     delayTestFinish(5000);
     final Element elem = Document.get().getElementById(id);
     Document.get().createClickEvent(0, 10, 10, 10, 10, false, false, false, false);
@@ -120,16 +145,10 @@ public class MouseDragHandlerTest extends GWTTestCase {
   protected void gwtSetUp() throws Exception {
     stepDelayMillis = 0;
     RootPanel rootPanel = RootPanel.get();
-    rootPanel.add(new HTML("DragDropTest is in <b>" + getCompatMode() + "</b> mode."));
     rootPanel.getElement().getStyle().setHeight(800, Unit.PX);
     PickupDragController dragController = new PickupDragController(rootPanel, true);
     for (int i = 0; i < 8; i++) {
-      FocusPanel panel = new FocusPanel();
-      panel.getElement().getStyle().setBackgroundColor("red");
-      String id = "box" + i;
-      panel.ensureDebugId(id);
-      panel.add(new Label(id));
-      panel.setPixelSize(100, 100);
+      FocusPanel panel = newRedFocusPanel(i);
       rootPanel.add(panel, i * 125, 0);
       dragController.makeDraggable(panel);
     }
@@ -138,5 +157,15 @@ public class MouseDragHandlerTest extends GWTTestCase {
   private int getDelayMillis() {
     stepDelayMillis += 200;
     return stepDelayMillis;
+  }
+
+  private FocusPanel newRedFocusPanel(int i) {
+    FocusPanel panel = new FocusPanel();
+    panel.getElement().getStyle().setBackgroundColor("red");
+    String id = "box" + i;
+    panel.ensureDebugId(id);
+    panel.add(new Label(id));
+    panel.setPixelSize(100, 100);
+    return panel;
   }
 }
