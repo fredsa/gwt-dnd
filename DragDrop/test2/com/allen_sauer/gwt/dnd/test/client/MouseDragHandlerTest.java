@@ -30,15 +30,17 @@ import com.allen_sauer.gwt.dnd.client.PickupDragController;
 public class MouseDragHandlerTest extends GWTTestCase {
   private abstract class Step {
 
-    Step() {
-      new Timer() {
+    private Exception invoked;
 
+    Step() {
+      invoked = new Exception();
+      new Timer() {
         @Override
         public void run() {
           try {
             Step.this.run();
           } catch (Throwable e) {
-            fail("#" + e.toString() + "#");
+            fail("#" + e.toString() + "#\n    at " + invoked.getStackTrace()[1]);
           }
         }
       }.schedule(getDelayMillis());
