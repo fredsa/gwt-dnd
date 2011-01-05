@@ -30,18 +30,12 @@ import com.allen_sauer.gwt.dnd.client.PickupDragController;
 public class MouseDragHandlerTest extends GWTTestCase {
   private abstract class Step {
 
-    private Exception invoked;
-
     Step() {
-      invoked = new Exception();
       new Timer() {
         @Override
         public void run() {
-          try {
-            Step.this.run();
-          } catch (Throwable e) {
-            fail("#" + e.toString() + "#\n    at " + invoked.getStackTrace()[1]);
-          }
+          // any exceptions will fail the test
+          Step.this.run();
         }
       }.schedule(getDelayMillis());
     }
@@ -118,7 +112,7 @@ public class MouseDragHandlerTest extends GWTTestCase {
             0, 20, 20, 200, 200, false, false, false, false, 1);
         elem.dispatchEvent(evt);
 
-        assertEquals("draggable x after mouse move", oldX + 190, elem.getAbsoluteLeft());
+        assertEquals("draggable x after mouse move", oldX + 2190, elem.getAbsoluteLeft());
         assertEquals("draggabel y after mouse move", oldY + 190, elem.getAbsoluteTop());
       }
     };
