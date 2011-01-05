@@ -112,7 +112,7 @@ public class MouseDragHandlerTest extends GWTTestCase {
             0, 20, 20, 200, 200, false, false, false, false, 1);
         elem.dispatchEvent(evt);
 
-        assertEquals("draggable x after mouse move", oldX + 2190, elem.getAbsoluteLeft());
+        assertEquals("draggable x after mouse move", oldX + 190, elem.getAbsoluteLeft());
         assertEquals("draggabel y after mouse move", oldY + 190, elem.getAbsoluteTop());
       }
     };
