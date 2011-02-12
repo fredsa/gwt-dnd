@@ -6,8 +6,8 @@
 		<property name="projectdescription" value="Dragging and dropping for your Google-Web-Toolkit Projects" />
 		<property name="googlecode-libsummary" value="Drag-and-Drop Library for Google-Web-Toolkit (GWT)" />
 		<property name="googlecode-javadocsummary" value="Javadoc for ${ant.project.name} source and demos (examples)" />
-		<property name="googlecode-liblabels" value="Type-Library, OpSys-All, GWT-GWT_2.2, Java-1.5, ReleaseCandidate, API-2.x" />
-		<property name="googlecode-javadoclabels" value="Type-Docs, OpSys-All, GWT-GWT_2.2, Java-1.5, ReleaseCandidate, API-2.x" />
+		<property name="googlecode-liblabels" value="Type-Library, OpSys-All, GWT-GWT_2.2.0, Java-1.5, ReleaseCandidate, API-2.x" />
+		<property name="googlecode-javadoclabels" value="Type-Docs, OpSys-All, GWT-GWT_2.2.0, Java-1.5, ReleaseCandidate, API-2.x" />
 		<property name="filtertoken" value="GWT_DND_VERSION" />
 
 		<!-- Global Properties -->
