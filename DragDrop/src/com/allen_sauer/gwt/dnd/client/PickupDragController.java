@@ -153,10 +153,10 @@ public class PickupDragController extends AbstractDragController {
     int desiredLeft = context.desiredDraggableX - boundaryOffsetX;
     int desiredTop = context.desiredDraggableY - boundaryOffsetY;
     if (getBehaviorConstrainedToBoundaryPanel()) {
-      desiredLeft = Math.max(0, Math.min(desiredLeft, dropTargetClientWidth
-          - context.draggable.getOffsetWidth()));
-      desiredTop = Math.max(0, Math.min(desiredTop, dropTargetClientHeight
-          - context.draggable.getOffsetHeight()));
+      desiredLeft = Math.max(0,
+          Math.min(desiredLeft, dropTargetClientWidth - context.draggable.getOffsetWidth()));
+      desiredTop = Math.max(0,
+          Math.min(desiredTop, dropTargetClientHeight - context.draggable.getOffsetHeight()));
     }
 
     DOMUtil.fastSetElementPosition(movablePanel.getElement(), desiredLeft, desiredTop);
@@ -204,8 +204,8 @@ public class PickupDragController extends AbstractDragController {
       int draggableAbsoluteTop = context.draggable.getAbsoluteTop();
       HashMap<Widget, CoordinateLocation> widgetLocation = new HashMap<Widget, CoordinateLocation>();
       for (Widget widget : context.selectedWidgets) {
-        widgetLocation.put(widget, new CoordinateLocation(widget.getAbsoluteLeft(),
-            widget.getAbsoluteTop()));
+        widgetLocation.put(widget,
+            new CoordinateLocation(widget.getAbsoluteLeft(), widget.getAbsoluteTop()));
       }
 
       context.dropController = getIntersectDropController(context.mouseX, context.mouseY);
@@ -365,8 +365,8 @@ public class PickupDragController extends AbstractDragController {
       Widget proxy = new SimplePanel();
       proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
       proxy.addStyleName(DragClientBundle.INSTANCE.css().proxy());
-      container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(),
-          widgetArea.getTop() - draggableArea.getTop());
+      container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(), widgetArea.getTop()
+          - draggableArea.getTop());
     }
 
     return container;
@@ -462,7 +462,6 @@ public class PickupDragController extends AbstractDragController {
             + " is often caused by using the result of RootPanel.get(\"some-unique-id\") as your boundary"
             + " panel, as described in GWT issue 1813"
             + " (http://code.google.com/p/google-web-toolkit/issues/detail?id=1813)."
-            + " Please star / vote for this issue if it has just affected your application."
             + " You can often remedy this problem by adding one line of code to your application:"
             + " boundaryPanel.getElement().getStyle().setProperty(\"position\", \"relative\");");
       }
