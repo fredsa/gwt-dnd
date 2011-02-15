@@ -46,10 +46,4 @@
 		<when-property-is name="user.agent" value="gecko1_8" />
 	</replace-with>
 
-	<replace-with
-		class="com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImplMozillaOld">
-		<when-type-is class="com.allen_sauer.gwt.dnd.client.util.impl.DOMUtilImpl" />
-		<when-property-is name="user.agent" value="gecko" />
-	</replace-with>
-
 </module>
