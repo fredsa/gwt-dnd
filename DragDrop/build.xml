@@ -187,12 +187,19 @@
 					<arg value="2" />
 				</java>
 
-				<copy todir="build/war">
-					<fileset file="war/DragDropDemo.html" />
-					<fileset file="war/DragDropDemo.css" />
-				</copy>
+        <copy todir="build/war">
+          <fileset file="war/DragDropDemo.html" />
+          <fileset file="war/DragDropDemo.css" />
+        </copy>
 
-				<copydir dest="build/war/images" src="war/images" />
+        <copy todir="build/war/WEB-INF">
+          <fileset file="war/WEB-INF/appengine-web.xml" />
+          <fileset file="war/WEB-INF/web.xml" />
+          <fileset file="war/WEB-INF/logging.properties" />
+        </copy>
+
+        <copydir dest="build/war/images" src="war/images" />
+
 			</sequential>
 		</outofdate>
 	</target>
@@ -315,6 +322,24 @@
 		</scp>
 
 		<sshexec command="./deploy.sh ${packagename}" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
+	</target>
+
+	<!-- Deploy demo to gwt-dnd.appspot.com -->
+
+	<target name="gae-appcfg" description="Detemrine appcfg.sh location" depends="unique-lib-locations">
+		<!-- gae.appcfg property -->
+		<condition property="gae.appcfg.default" value="${env.APPCFG}" else="">
+			<isset property="env.APPCFG" />
+		</condition>
+		<input addproperty="gae.appcfg" defaultvalue="${gae.appcfg.default}" message="App Engine SDK appcfg.sh location" />
+	</target>
+
+	<target name="gae" description="Build and deploy to gwt-dnd.appspot.com" depends="gae-appcfg, clean, javac, gwtc">
+		<exec executable="${gae.appcfg}">
+      <arg value="update" />
+      <arg value="build/war" />
+		</exec>
+		<echo message="" />
 	</target>
 
 </project>
