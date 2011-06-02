@@ -5,4 +5,9 @@
 
 <web-app>
 
+  <welcome-file-list>
+    <welcome-file>
+      DragDropDemo.html
+    </welcome-file>
+  </welcome-file-list>
 </web-app>
