@@ -15,21 +15,21 @@ package com.allen_sauer.gwt.dnd.client.util;
 
 public interface LocationWidgetComparator {
 
-  public static final LocationWidgetComparator BOTTOM_HALF_COMPARATOR = new LocationWidgetComparator() {
+  LocationWidgetComparator BOTTOM_HALF_COMPARATOR = new LocationWidgetComparator() {
 
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return location.getTop() > widgetArea.getTop() + widgetArea.getHeight() / 2;
     }
   };
 
-  public static final LocationWidgetComparator BOTTOM_RIGHT_COMPARATOR = new LocationWidgetComparator() {
+  LocationWidgetComparator BOTTOM_RIGHT_COMPARATOR = new LocationWidgetComparator() {
 
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return widgetArea.inBottomRight(location);
     }
   };
 
-  public static final LocationWidgetComparator RIGHT_HALF_COMPARATOR = new LocationWidgetComparator() {
+  LocationWidgetComparator RIGHT_HALF_COMPARATOR = new LocationWidgetComparator() {
 
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return location.getLeft() > widgetArea.getLeft() + widgetArea.getWidth() / 2;
