@@ -21,19 +21,18 @@ import com.allen_sauer.gwt.dnd.demo.client.DragDropDemo;
 public class GWTUtil {
 
   /**
-   * Base java package ({@value}) for demo client code, used by {@link #getClassAnchorHTML(Class)}.
+   * Base java package for demos (from {@link DragDropDemo}) for demo client code, used by {@link #getClassAnchorHTML(Class)}.
    */
   public static final String DEMO_CLIENT_PACKAGE = GWTUtil.getPackageName(DragDropDemo.class);
 
   /**
    * Base Subversion URL ({@value}) for DragDrop project.
    */
-  private static final String SUBVERSION_BROWSE_TRUNK =
-      "http://code.google.com/p/gwt-dnd/source/browse/trunk/DragDrop/";
+  private static final String SUBVERSION_BROWSE_TRUNK = "http://code.google.com/p/gwt-dnd/source/browse/trunk/DragDrop/";
 
   /**
    * Determine Subversion URL for provided class literal, to be used in HTML anchors.
-   * 
+   *
    * @param clazz a class literal
    * @return the Subversion URL
    */
@@ -52,7 +51,7 @@ public class GWTUtil {
 
   /**
    * Determine the java package name for the provided class literal.
-   * 
+   *
    * @param clazz the class literal
    * @return the java package name
    */
