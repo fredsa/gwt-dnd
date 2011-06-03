@@ -52,7 +52,6 @@ public abstract class DOMUtilImpl {
     return widget.getOffsetHeight() - getClientHeight(widget.getElement());
   }
 
-  @SuppressWarnings("unused")
   private native String getComputedStyle(Element elem, String style) /*-{
     if ($doc.defaultView && $doc.defaultView.getComputedStyle) {
       var styles = $doc.defaultView.getComputedStyle(elem, "");
