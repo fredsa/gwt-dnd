@@ -41,6 +41,8 @@
 		<!-- gwt jars -->
 		<property name="gwt-user.jar" location="${gwt.location}/gwt-user.jar" />
 		<property name="gwt-dev.jar" location="${gwt.location}/gwt-dev.jar" />
+    <property name="validation-api-1.0.0.GA.jar" location="${gwt.location}/validation-api-1.0.0.GA.jar" />
+    <property name="validation-api-1.0.0.GA-sources.jar" location="${gwt.location}/validation-api-1.0.0.GA-sources.jar" />
 
 		<!-- Pulls in tasks defined in ant-contrib, i.e. foreach -->
 		<taskdef resource="net/sf/antcontrib/antlib.xml">
@@ -170,6 +172,8 @@
 				<fileset dir="build/demo" />
 				<fileset file="${gwt-user.jar}" />
 				<fileset file="${gwt-dev.jar}" />
+        <fileset file="${validation-api-1.0.0.GA.jar}" />
+        <fileset file="${validation-api-1.0.0.GA-sources.jar}" />
 			</sourcefiles>
 
 			<targetfiles path="build/war/demo/demo.nocache.js" />
@@ -177,7 +181,7 @@
 			<sequential>
 				<mkdir dir="build/war" />
 
-				<java maxmemory="1g" dir="build" classname="com.google.gwt.dev.Compiler" classpath="build/out:build/demo:${gwt-user.jar}:${gwt-dev.jar}" fork="yes" failonerror="true">
+				<java maxmemory="1g" dir="build" classname="com.google.gwt.dev.Compiler" classpath="build/out:build/demo:${gwt-user.jar}:${gwt-dev.jar}:${validation-api-1.0.0.GA.jar}:${validation-api-1.0.0.GA-sources.jar}" fork="yes" failonerror="true">
 					<arg value="-war" />
 					<arg path="build/war" />
 					<arg value="${packagename}" />
