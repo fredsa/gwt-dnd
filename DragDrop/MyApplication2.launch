@@ -2,7 +2,7 @@
 <launchConfiguration type="com.google.gdt.eclipse.suite.webapp">
 <booleanAttribute key="com.google.gdt.eclipse.core.AUTO_PORT_SELECTION" value="true"/>
 <stringAttribute key="com.google.gdt.eclipse.suiteMainTypeProcessor.PREVIOUSLY_SET_MAIN_TYPE_NAME" value="com.google.gwt.dev.DevMode"/>
-<booleanAttribute key="com.google.gdt.eclipse.suiteWarArgumentProcessor.IS_WAR_FROM_PROJECT_PROPERTIES" value="false"/>
+<booleanAttribute key="com.google.gdt.eclipse.suiteWarArgumentProcessor.IS_WAR_FROM_PROJECT_PROPERTIES" value="true"/>
 <listAttribute key="com.google.gwt.eclipse.core.ENTRY_POINT_MODULES">
 <listEntry value="com.mycompany.MyApplication2"/>
 </listAttribute>
@@ -25,7 +25,7 @@
 <stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gwt.eclipse.core.moduleClasspathProvider"/>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.DevMode"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-codeServerPort 9997 -remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -logLevel INFO -port auto -war /fred/workspace/DragDrop/war com.mycompany.MyApplication2"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-server com.google.appengine.tools.development.gwt.AppEngineLauncher -codeServerPort 9997 -remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -logLevel INFO -port auto -war /fred/workspace/DragDrop/war com.mycompany.MyApplication2"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="DragDrop"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx512m -ea"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-javaagent:/Applications/eclipse3.6/plugins/com.google.appengine.eclipse.sdkbundle_1.5.0.r36v201105191508/appengine-java-sdk-1.5.0.1/lib/agent/appengine-agent.jar -XstartOnFirstThread -Xmx512m -ea -Xbootclasspath/p:/Applications/eclipse3.6/plugins/com.google.appengine.eclipse.sdkbundle_1.5.0.r36v201105191508/appengine-java-sdk-1.5.0.1/lib/override/appengine-dev-jdk-overrides.jar"/>
 </launchConfiguration>
