@@ -54,6 +54,7 @@ public final class DemoDragHandler implements DragHandler {
    * 
    * @param event the event to log
    */
+  @Override
   public void onDragEnd(DragEndEvent event) {
     log("onDragEnd: " + event, RED);
   }
@@ -63,6 +64,7 @@ public final class DemoDragHandler implements DragHandler {
    * 
    * @param event the event to log
    */
+  @Override
   public void onDragStart(DragStartEvent event) {
     log("onDragStart: " + event, GREEN);
   }
@@ -73,6 +75,7 @@ public final class DemoDragHandler implements DragHandler {
    * @param event the event to log
    * @throws VetoDragException exception which may be thrown by any drag handler
    */
+  @Override
   public void onPreviewDragEnd(DragEndEvent event) throws VetoDragException {
     log("<br>onPreviewDragEnd: " + event, BLUE);
   }
@@ -83,6 +86,7 @@ public final class DemoDragHandler implements DragHandler {
    * @param event the event to log
    * @throws VetoDragException exception which may be thrown by any drag handler
    */
+  @Override
   public void onPreviewDragStart(DragStartEvent event) throws VetoDragException {
     clear();
     log("onPreviewDragStart: " + event, BLUE);

@@ -62,6 +62,7 @@ public class MultiRowTabPanel extends Composite {
     containerPanel.add(tabBarsVerticalPanel);
     containerPanel.add(masterDeckPanel);
     History.addValueChangeHandler(new ValueChangeHandler<String>() {
+      @Override
       public void onValueChange(ValueChangeEvent<String> event) {
         selectTabByHistoryToken(event.getValue());
       }
@@ -109,6 +110,7 @@ public class MultiRowTabPanel extends Composite {
     TabBar tabBar = new TabBar();
     tabBarsVerticalPanel.add(tabBar);
     tabBar.addSelectionHandler(new SelectionHandler<Integer>() {
+      @Override
       public void onSelection(SelectionEvent<Integer> event) {
         int row = tabBarsVerticalPanel.getWidgetIndex((TabBar) event.getSource());
         whenTabSelected(row, event.getSelectedItem());

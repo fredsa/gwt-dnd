@@ -116,6 +116,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     initCapturingWidget();
   }
 
+  @Override
   public void onMouseDown(MouseDownEvent event) {
     if (supportsTouchEvents) {
       return;
@@ -151,6 +152,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
     if (context.dragController.getBehaviorCancelDocumentSelections()) {
       Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+        @Override
         public void execute() {
           DOMUtil.cancelAllDocumentSelections();
         }
@@ -183,6 +185,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
   }
 
+  @Override
   public void onMouseMove(MouseMoveEvent event) {
     if (supportsTouchEvents) {
       return;
@@ -230,6 +233,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     actualMove(x, y);
   }
 
+  @Override
   public void onMouseUp(MouseUpEvent event) {
     if (supportsTouchEvents) {
       return;
@@ -281,14 +285,17 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
   }
 
+  @Override
   public void onTouchCancel(TouchCancelEvent event) {
     onTouchEndorCancel(event);
   }
 
+  @Override
   public void onTouchEnd(TouchEndEvent event) {
     onTouchEndorCancel(event);
   }
 
+  @Override
   public void onTouchMove(TouchMoveEvent event) {
     if (event.getTouches().length() != 1) {
       // ignore multiple fingers for now
@@ -335,6 +342,7 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     actualMove(x, y);
   }
 
+  @Override
   public void onTouchStart(TouchStartEvent event) {
     supportsTouchEvents = true;
     if (event.getTouches().length() != 1) {

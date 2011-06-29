@@ -59,10 +59,12 @@ public final class DragDropDemo implements EntryPoint {
 
   private PickupDragController dragController;
 
+  @Override
   public void onModuleLoad() {
     // set uncaught exception handler
     GWT.setUncaughtExceptionHandler(new GWT.UncaughtExceptionHandler() {
 
+      @Override
       public void onUncaughtException(Throwable throwable) {
         String text = "Uncaught exception: ";
         while (throwable != null) {
@@ -87,6 +89,7 @@ public final class DragDropDemo implements EntryPoint {
 
     // use a deferred command so that the handler catches onModuleLoad2() exceptions
     Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+      @Override
       public void execute() {
         onModuleLoad2();
       }

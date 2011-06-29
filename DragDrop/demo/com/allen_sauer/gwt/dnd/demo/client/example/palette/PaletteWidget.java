@@ -71,6 +71,7 @@ public class PaletteWidget extends AbsolutePanel implements HasDragHandle {
     return new PaletteWidget(clone);
   }
 
+  @Override
   public Widget getDragHandle() {
     return shim;
   }

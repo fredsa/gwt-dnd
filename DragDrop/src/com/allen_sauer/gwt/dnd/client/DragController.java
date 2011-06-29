@@ -28,6 +28,7 @@ public interface DragController extends FiresDragEvents {
    * 
    * @see #removeDragHandler(DragHandler)
    */
+  @Override
   void addDragHandler(DragHandler handler);
 
   /**
@@ -139,6 +140,7 @@ public interface DragController extends FiresDragEvents {
    * @param handler the drag handler to remove
    * @see #addDragHandler(DragHandler)
    */
+  @Override
   void removeDragHandler(DragHandler handler);
 
   /**

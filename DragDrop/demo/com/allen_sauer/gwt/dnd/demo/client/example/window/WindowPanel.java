@@ -155,6 +155,7 @@ final class WindowPanel extends FocusPanel {
     windowController.getPickupDragController().makeDraggable(this, headerContainer);
 
     addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         AbsolutePanel boundaryPanel = windowController.getBoundaryPanel();
         if (boundaryPanel.getWidgetIndex(WindowPanel.this) < boundaryPanel.getWidgetCount() - 1) {

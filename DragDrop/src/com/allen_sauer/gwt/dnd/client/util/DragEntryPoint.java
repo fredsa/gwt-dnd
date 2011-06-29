@@ -26,6 +26,7 @@ class DragEntryPoint implements EntryPoint {
     $wnd.$GWT_DND_VERSION = "@GWT_DND_VERSION@";
   }-*/;
 
+  @Override
   public void onModuleLoad() {
     setVersion();
     StyleInjector.injectAtStart(DragClientBundle.INSTANCE.css().getText());

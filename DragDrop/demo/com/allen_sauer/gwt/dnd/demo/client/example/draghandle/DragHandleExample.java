@@ -71,6 +71,7 @@ public class DragHandleExample extends Example {
     // add a clickable button
     Button button = new Button("Click me");
     button.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         textArea.setText(textArea.getText() + " Click!");
       }

@@ -27,6 +27,7 @@ public class MyApplication1 implements EntryPoint {
   /**
    * Main entry point method.
    */
+  @Override
   public void onModuleLoad() {
     // ensure the document BODY has dimensions in standards mode
     RootPanel.get().setPixelSize(600, 600);

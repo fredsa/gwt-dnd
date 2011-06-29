@@ -49,17 +49,20 @@ class DragStartSensitivityBehaviorPanel extends BehaviorPanel {
     textBox.setText("" + dragController.getBehaviorDragStartSensitivity());
 
     textBox.addKeyUpHandler(new KeyUpHandler() {
+      @Override
       public void onKeyUp(KeyUpEvent event) {
         fix();
       }
     });
     textBox.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         fix();
         textBox.selectAll();
       }
     });
     textBox.addChangeHandler(new ChangeHandler() {
+      @Override
       public void onChange(ChangeEvent event) {
         fix();
       }

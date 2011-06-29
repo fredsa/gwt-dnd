@@ -39,6 +39,7 @@ class DragProxyBehaviorPanel extends BehaviorPanel {
     }
 
     ClickHandler handler = new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         dragController.setBehaviorDragProxy(proxyButton.getValue());
       }

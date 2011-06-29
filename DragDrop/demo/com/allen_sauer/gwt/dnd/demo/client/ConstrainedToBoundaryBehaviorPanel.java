@@ -40,6 +40,7 @@ class ConstrainedToBoundaryBehaviorPanel extends BehaviorPanel {
     }
 
     ClickHandler handler = new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         dragController.setBehaviorConstrainedToBoundaryPanel(constrainedButton.getValue());
       }

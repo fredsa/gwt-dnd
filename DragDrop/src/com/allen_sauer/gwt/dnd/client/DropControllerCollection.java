@@ -50,6 +50,7 @@ class DropControllerCollection {
       targetArea = new WidgetArea(target, null);
     }
 
+    @Override
     public int compareTo(Candidate other) {
       Element myElement = getDropTarget().getElement();
       Element otherElement = other.getDropTarget().getElement();

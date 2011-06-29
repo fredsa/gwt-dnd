@@ -17,6 +17,7 @@ public interface LocationWidgetComparator {
 
   LocationWidgetComparator BOTTOM_HALF_COMPARATOR = new LocationWidgetComparator() {
 
+    @Override
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return location.getTop() > widgetArea.getTop() + widgetArea.getHeight() / 2;
     }
@@ -24,6 +25,7 @@ public interface LocationWidgetComparator {
 
   LocationWidgetComparator BOTTOM_RIGHT_COMPARATOR = new LocationWidgetComparator() {
 
+    @Override
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return widgetArea.inBottomRight(location);
     }
@@ -31,6 +33,7 @@ public interface LocationWidgetComparator {
 
   LocationWidgetComparator RIGHT_HALF_COMPARATOR = new LocationWidgetComparator() {
 
+    @Override
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return location.getLeft() > widgetArea.getLeft() + widgetArea.getWidth() / 2;
     }

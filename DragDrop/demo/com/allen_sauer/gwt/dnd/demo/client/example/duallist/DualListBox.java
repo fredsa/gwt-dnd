@@ -82,24 +82,28 @@ public class DualListBox extends AbsolutePanel {
     verticalPanel.add(allLeft);
 
     allRight.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         moveItems(left, right, false);
       }
     });
 
     allLeft.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         moveItems(right, left, false);
       }
     });
 
     oneRight.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         moveItems(left, right, true);
       }
     });
 
     oneLeft.addClickHandler(new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         moveItems(right, left, true);
       }

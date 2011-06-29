@@ -19,16 +19,20 @@ package com.allen_sauer.gwt.dnd.client;
  */
 public class DragHandlerAdapter implements DragHandler {
 
+  @Override
   public void onDragEnd(DragEndEvent event) {
   }
 
+  @Override
   public void onDragStart(DragStartEvent event) {
   }
 
-  public void onPreviewDragEnd(DragEndEvent event) throws VetoDragException {
+  @Override
+  public void onPreviewDragEnd(DragEndEvent event) {
   }
 
-  public void onPreviewDragStart(DragStartEvent event) throws VetoDragException {
+  @Override
+  public void onPreviewDragStart(DragStartEvent event) {
   }
 
 }

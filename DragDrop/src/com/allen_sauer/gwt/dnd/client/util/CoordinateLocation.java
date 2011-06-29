@@ -28,10 +28,12 @@ public class CoordinateLocation extends AbstractLocation {
     this.top = top;
   }
 
+  @Override
   public int getLeft() {
     return left;
   }
 
+  @Override
   public int getTop() {
     return top;
   }

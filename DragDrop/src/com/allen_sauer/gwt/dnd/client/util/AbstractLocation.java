@@ -18,6 +18,7 @@ package com.allen_sauer.gwt.dnd.client.util;
  */
 public abstract class AbstractLocation implements Location {
 
+  @Override
   public Location newLocationSnappedToGrid(int gridX, int gridY) {
     int left = Math.round((float) getLeft() / gridX) * gridX;
     int top = Math.round((float) getTop() / gridY) * gridY;

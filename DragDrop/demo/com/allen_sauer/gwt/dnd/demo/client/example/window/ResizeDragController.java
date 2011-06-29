@@ -34,6 +34,7 @@ final class ResizeDragController extends AbstractDragController {
     super(boundaryPanel);
   }
 
+  @Override
   public void dragMove() {
     int direction = ((ResizeDragController) context.dragController).getDirection(context.draggable).directionBits;
     if ((direction & WindowPanel.DIRECTION_NORTH) != 0) {

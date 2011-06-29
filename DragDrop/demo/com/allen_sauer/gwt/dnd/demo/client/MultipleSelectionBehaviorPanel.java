@@ -41,6 +41,7 @@ class MultipleSelectionBehaviorPanel extends BehaviorPanel {
     }
 
     ClickHandler listener = new ClickHandler() {
+      @Override
       public void onClick(ClickEvent event) {
         dragController.setBehaviorMultipleSelection(constrainedButton.getValue());
       }

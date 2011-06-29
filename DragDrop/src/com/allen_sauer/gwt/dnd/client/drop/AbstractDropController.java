@@ -36,24 +36,30 @@ public abstract class AbstractDropController implements DropController {
     dropTarget.addStyleName(DragClientBundle.INSTANCE.css().dropTarget());
   }
 
+  @Override
   public Widget getDropTarget() {
     return dropTarget;
   }
 
+  @Override
   public void onDrop(DragContext context) {
   }
 
+  @Override
   public void onEnter(DragContext context) {
     dropTarget.addStyleName(DragClientBundle.INSTANCE.css().dropTargetEngage());
   }
 
+  @Override
   public void onLeave(DragContext context) {
     dropTarget.removeStyleName(DragClientBundle.INSTANCE.css().dropTargetEngage());
   }
 
+  @Override
   public void onMove(DragContext context) {
   }
 
+  @Override
   public void onPreviewDrop(DragContext context) throws VetoDragException {
   }
 }

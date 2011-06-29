@@ -105,6 +105,7 @@ public abstract class AbstractDragController implements DragController {
     mouseDragHandler = new MouseDragHandler(context);
   }
 
+  @Override
   public final void addDragHandler(DragHandler handler) {
     if (dragHandlers == null) {
       dragHandlers = new DragHandlerCollection();
@@ -112,6 +113,7 @@ public abstract class AbstractDragController implements DragController {
     dragHandlers.add(handler);
   }
 
+  @Override
   public void clearSelection() {
     for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
       Widget widget = iterator.next();
@@ -120,6 +122,7 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
+  @Override
   public void dragEnd() {
     context.draggable.removeStyleName(DragClientBundle.INSTANCE.css().dragging());
     if (dragHandlers != null) {
@@ -129,6 +132,7 @@ public abstract class AbstractDragController implements DragController {
     assert dragEndEvent == null;
   }
 
+  @Override
   public void dragStart() {
     if (!GWT.isScript()) {
       if (DOMUtil.getClientHeight(boundaryPanel.getElement()) == 0) {
@@ -149,26 +153,32 @@ public abstract class AbstractDragController implements DragController {
     assert dragStartEvent == null;
   }
 
+  @Override
   public boolean getBehaviorCancelDocumentSelections() {
     return cancelDocumentSelections;
   }
 
+  @Override
   public boolean getBehaviorConstrainedToBoundaryPanel() {
     return constrainedToBoundaryPanel;
   }
 
+  @Override
   public int getBehaviorDragStartSensitivity() {
     return dragStartSensitivityPixels;
   }
 
+  @Override
   public boolean getBehaviorMultipleSelection() {
     return multipleSelectionAllowed;
   }
 
+  @Override
   public boolean getBehaviorScrollIntoView() {
     return scrollIntoView;
   }
 
+  @Override
   public final AbsolutePanel getBoundaryPanel() {
     return boundaryPanel;
   }
@@ -182,6 +192,7 @@ public abstract class AbstractDragController implements DragController {
    * 
    * @param draggable the widget to be made draggable
    */
+  @Override
   public void makeDraggable(Widget draggable) {
     if (draggable instanceof HasDragHandle) {
       makeDraggable(draggable, ((HasDragHandle) draggable).getDragHandle());
@@ -197,6 +208,7 @@ public abstract class AbstractDragController implements DragController {
    * @param draggable the widget to be made draggable
    * @param dragHandle the widget by which widget can be dragged
    */
+  @Override
   public void makeDraggable(Widget draggable, Widget dragHandle) {
     mouseDragHandler.makeDraggable(draggable, dragHandle);
     draggable.addStyleName(DragClientBundle.INSTANCE.css().draggable());
@@ -210,6 +222,7 @@ public abstract class AbstractDragController implements DragController {
    * 
    * @param draggable the widget to no longer be draggable
    */
+  @Override
   public void makeNotDraggable(Widget draggable) {
     Widget dragHandle = dragHandles.remove(draggable);
     mouseDragHandler.makeNotDraggable(dragHandle);
@@ -217,6 +230,7 @@ public abstract class AbstractDragController implements DragController {
     dragHandle.removeStyleName(DragClientBundle.INSTANCE.css().handle());
   }
 
+  @Override
   public void previewDragEnd() throws VetoDragException {
     assert dragEndEvent == null;
     if (dragHandlers != null) {
@@ -225,6 +239,7 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
+  @Override
   public void previewDragStart() throws VetoDragException {
     assert dragStartEvent == null;
     if (dragHandlers != null) {
@@ -238,28 +253,34 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
+  @Override
   public final void removeDragHandler(DragHandler handler) {
     if (dragHandlers != null) {
       dragHandlers.remove(handler);
     }
   }
 
+  @Override
   public void resetCache() {
   }
 
+  @Override
   public void setBehaviorCancelDocumentSelections(boolean cancelDocumentSelections) {
     this.cancelDocumentSelections = cancelDocumentSelections;
   }
 
+  @Override
   public void setBehaviorConstrainedToBoundaryPanel(boolean constrainedToBoundaryPanel) {
     this.constrainedToBoundaryPanel = constrainedToBoundaryPanel;
   }
 
+  @Override
   public void setBehaviorDragStartSensitivity(int pixels) {
     assert pixels >= 0;
     dragStartSensitivityPixels = pixels;
   }
 
+  @Override
   public void setBehaviorMultipleSelection(boolean multipleSelectionAllowed) {
     this.multipleSelectionAllowed = multipleSelectionAllowed;
     for (Iterator<Widget> iterator = context.selectedWidgets.iterator(); iterator.hasNext();) {
@@ -269,6 +290,7 @@ public abstract class AbstractDragController implements DragController {
     }
   }
 
+  @Override
   public void setBehaviorScrollIntoView(boolean scrollIntoView) {
     this.scrollIntoView = scrollIntoView;
   }
@@ -277,6 +299,7 @@ public abstract class AbstractDragController implements DragController {
     setBehaviorConstrainedToBoundaryPanel(constrainWidgetToBoundaryPanel);
   }
 
+  @Override
   public void toggleSelection(Widget draggable) {
     assert draggable != null;
     if (context.selectedWidgets.remove(draggable)) {

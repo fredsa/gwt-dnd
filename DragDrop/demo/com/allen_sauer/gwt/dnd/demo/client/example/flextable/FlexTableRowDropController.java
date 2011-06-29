@@ -37,26 +37,32 @@ public final class FlexTableRowDropController extends AbstractPositioningDropCon
 
   private InsertPanel flexTableRowsAsIndexPanel = new InsertPanel() {
 
+    @Override
     public void add(Widget w) {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Widget getWidget(int index) {
       return flexTable.getWidget(index, 0);
     }
 
+    @Override
     public int getWidgetCount() {
       return flexTable.getRowCount();
     }
 
+    @Override
     public int getWidgetIndex(Widget child) {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public void insert(Widget w, int beforeIndex) {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean remove(int index) {
       throw new UnsupportedOperationException();
     }

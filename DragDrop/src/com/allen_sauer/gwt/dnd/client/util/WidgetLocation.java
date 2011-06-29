@@ -64,6 +64,7 @@ public class WidgetLocation extends AbstractLocation {
     top = Math.max(minTop, Math.min(top, maxTop));
   }
 
+  @Override
   public int getLeft() {
     return left;
   }
@@ -72,6 +73,7 @@ public class WidgetLocation extends AbstractLocation {
   // return reference;
   // }
 
+  @Override
   public int getTop() {
     return top;
   }

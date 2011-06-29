@@ -140,6 +140,7 @@ public class PickupDragController extends AbstractDragController {
     super.dragEnd();
   }
 
+  @Override
   public void dragMove() {
     // may have changed due to scrollIntoView(), developer driven changes
     // or manual user scrolling
