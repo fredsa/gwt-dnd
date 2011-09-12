@@ -41,8 +41,8 @@
 		<!-- gwt jars -->
 		<property name="gwt-user.jar" location="${gwt.location}/gwt-user.jar" />
 		<property name="gwt-dev.jar" location="${gwt.location}/gwt-dev.jar" />
-    <property name="validation-api-1.0.0.GA.jar" location="${gwt.location}/validation-api-1.0.0.GA.jar" />
-    <property name="validation-api-1.0.0.GA-sources.jar" location="${gwt.location}/validation-api-1.0.0.GA-sources.jar" />
+		<property name="validation-api-1.0.0.GA.jar" location="${gwt.location}/validation-api-1.0.0.GA.jar" />
+		<property name="validation-api-1.0.0.GA-sources.jar" location="${gwt.location}/validation-api-1.0.0.GA-sources.jar" />
 
 		<!-- Pulls in tasks defined in ant-contrib, i.e. foreach -->
 		<taskdef resource="net/sf/antcontrib/antlib.xml">
@@ -172,8 +172,8 @@
 				<fileset dir="build/demo" />
 				<fileset file="${gwt-user.jar}" />
 				<fileset file="${gwt-dev.jar}" />
-        <fileset file="${validation-api-1.0.0.GA.jar}" />
-        <fileset file="${validation-api-1.0.0.GA-sources.jar}" />
+				<fileset file="${validation-api-1.0.0.GA.jar}" />
+				<fileset file="${validation-api-1.0.0.GA-sources.jar}" />
 			</sourcefiles>
 
 			<targetfiles path="build/war/demo/demo.nocache.js" />
@@ -191,18 +191,18 @@
 					<arg value="2" />
 				</java>
 
-        <copy todir="build/war">
-          <fileset file="war/DragDropDemo.html" />
-          <fileset file="war/DragDropDemo.css" />
-        </copy>
+				<copy todir="build/war">
+					<fileset file="war/DragDropDemo.html" />
+					<fileset file="war/DragDropDemo.css" />
+				</copy>
 
-        <copy todir="build/war/WEB-INF">
-          <fileset file="war/WEB-INF/appengine-web.xml" />
-          <fileset file="war/WEB-INF/web.xml" />
-          <fileset file="war/WEB-INF/logging.properties" />
-        </copy>
+				<copy todir="build/war/WEB-INF">
+					<fileset file="war/WEB-INF/appengine-web.xml" />
+					<fileset file="war/WEB-INF/web.xml" />
+					<fileset file="war/WEB-INF/logging.properties" />
+				</copy>
 
-        <copydir dest="build/war/images" src="war/images" />
+				<copydir dest="build/war/images" src="war/images" />
 
 			</sequential>
 		</outofdate>
@@ -340,8 +340,8 @@
 
 	<target name="gae" description="Build and deploy to gwt-dnd.appspot.com" depends="gae-appcfg, clean, javac, gwtc">
 		<exec executable="${gae.appcfg}">
-      <arg value="update" />
-      <arg value="build/war" />
+			<arg value="update" />
+			<arg value="build/war" />
 		</exec>
 		<echo message="" />
 	</target>
