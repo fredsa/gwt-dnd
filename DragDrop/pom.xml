@@ -21,6 +21,22 @@
     <url>http://gwt-dnd.googlecode.com/svn/</url>
   </scm>
 
+  <developers>
+    <developer>
+      <id>fredsa</id>
+      <name>Fred Sauer</name>
+      <email>fred@allen-sauer.com</email>
+      <url>google.com/profiles/fredsa</url>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>-7</timezone>
+      <properties>
+        <picUrl>https://lh5.googleusercontent.com/-71i1rz1ATl8/AAAAAAAAAAI/AAAAAAABhHU/tyyCD9lBnig/photo.jpg</picUrl>
+      </properties>
+    </developer>
+  </developers>
+
   <dependencies>
     <dependency>
       <groupId>com.google.gwt</groupId>
