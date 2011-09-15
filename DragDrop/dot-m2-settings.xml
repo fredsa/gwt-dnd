@@ -1,0 +1,18 @@
+<!-- ~/.m2/settings.xml -->
+<settings>
+  <servers>
+
+    <server>
+      <id>sonatype-nexus-snapshots</id>
+      <username>fredsa</username>
+      <password>***</password>
+    </server>
+
+    <server>
+      <id>sonatype-nexus-staging</id>
+      <username>fredsa</username>
+      <password>***</password>
+    </server>
+
+  </servers>
+</settings>

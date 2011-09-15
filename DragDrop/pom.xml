@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.allen-sauer.gwt.dnd</groupId>
+  <artifactId>gwt-dnd</artifactId>
+  <version>@GWT_DND_VERSION@</version>
+  <packaging>jar</packaging>
+
+  <name>GWT Drag and Drop Library</name>
+  <description>Library providing easy to use drag-and-drop capabilities to Google Web Toolkit (GWT) projects.</description>
+  <url>http://code.google.com/p/gwt-dnd/</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:svn:http://gwt-dnd.googlecode.com/svn/</connection>
+    <url>http://gwt-dnd.googlecode.com/svn/</url>
+  </scm>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.gwt</groupId>
+      <artifactId>gwt-user</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+  </dependencies>
+</project>

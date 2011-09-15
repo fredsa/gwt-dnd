@@ -1,4 +1,4 @@
-<project name="gwt-dnd" default="dist">
+<project name="gwt-dnd" default="dist" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
 	<target name="init" description="Initialization of ant properties">
 		<!-- Project Properties -->
@@ -6,9 +6,23 @@
 		<property name="projectdescription" value="Dragging and dropping for your Google-Web-Toolkit Projects" />
 		<property name="googlecode-libsummary" value="Drag-and-Drop Library for Google-Web-Toolkit (GWT)" />
 		<property name="googlecode-javadocsummary" value="Javadoc for ${ant.project.name} source and demos (examples)" />
+		<!--
+		<property name="googlecode-sourcessummary" value="Sources for ${ant.project.name}" />
+		-->
 		<property name="googlecode-liblabels" value="Type-Library, OpSys-All, GWT-GWT_2.3.0, Java-1.6, ReleaseCandidate, API-2.x" />
 		<property name="googlecode-javadoclabels" value="Type-Docs, OpSys-All, GWT-GWT_2.3.0, Java-1.6, ReleaseCandidate, API-2.x" />
+		<!--
+		<property name="googlecode-sourceslabels" value="Type-Sources, OpSys-All, GWT-GWT_2.3.0, Java-1.6, ReleaseCandidate, API-2.x" />
+		-->
 		<property name="filtertoken" value="GWT_DND_VERSION" />
+
+		<!-- define Maven coordinates -->
+		<property name="groupId" value="com.allen-sauer.gwt.dnd" />
+		<property name="artifactId" value="gwt-dnd" />
+
+		<!-- define Maven staging repository id and url -->
+		<property name="maven-staging-repository-id" value="sonatype-nexus-staging" />
+		<property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2/" />
 
 		<!-- Global Properties -->
 		<property environment="env" />
@@ -56,6 +70,16 @@
 
 		<for param="file">
 			<fileset dir="${libdir}">
+				<include name="${ant.project.name}-r*.jar" />
+				<exclude name="${ant.project.name}-r*-*.jar" />
+			</fileset>
+			<sequential>
+				<echo message="@{file}" />
+			</sequential>
+		</for>
+
+		<for param="file">
+			<fileset dir="${libdir}">
 				<include name="${ant.project.name}-*.*.*.jar" />
 				<exclude name="${ant.project.name}-*.*.*-*.jar" />
 			</fileset>
@@ -75,6 +99,14 @@
 
 		<!-- javadocjar property -->
 		<property name="javadocjar" value="${ant.project.name}-${libversion}-javadoc.jar" />
+
+		<!-- sourcesjar property -->
+		<!--
+		<property name="sourcesjar" value="${ant.project.name}-${libversion}-sources.jar" />
+		-->
+
+		<!-- pomfile property -->
+		<property name="pomfile" value="${ant.project.name}-${libversion}.pom" />
 	</target>
 
 	<target name="unique-lib-locations" description="Determine library locations" depends="lib-locations">
@@ -101,10 +133,6 @@
 			<fileset dir="src">
 				<exclude name="**/package.html" />
 			</fileset>
-			<fileset dir=".">
-				<include name="LICENSE" />
-				<include name="NOTICE" />
-			</fileset>
 			<filterset>
 				<filter token="${filtertoken}" value="${libversion}" />
 			</filterset>
@@ -118,6 +146,12 @@
 				<include name="LICENSE" />
 				<include name="NOTICE" />
 			</fileset>
+			<filterset>
+				<filter token="${filtertoken}" value="${libversion}" />
+			</filterset>
+		</copy>
+
+		<copy todir="build" file="pom.xml">
 			<filterset>
 				<filter token="${filtertoken}" value="${libversion}" />
 			</filterset>
@@ -136,14 +170,6 @@
 			<classpath location="${gwt-user.jar}" />
 			<classpath location="${gwt-dev.jar}" />
 		</javac>
-
-		<echo message="Copying src files build/out ..." />
-
-		<copy todir="build/out">
-			<fileset dir="build/src">
-				<include name="**/*" />
-			</fileset>
-		</copy>
 
 		<!-- build demo files as a sanity check -->
 
@@ -202,7 +228,9 @@
 					<fileset file="war/WEB-INF/logging.properties" />
 				</copy>
 
-				<copydir dest="build/war/images" src="war/images" />
+				<copy todir="build/war/images">
+					<fileset dir="war/images" />
+				</copy>
 
 			</sequential>
 		</outofdate>
@@ -237,11 +265,31 @@
 	<target name="dist" description="Create distribution jar" depends="build,javadoc">
 		<mkdir dir="build/dist" />
 
+		<!-- build the artifact -->
 		<jar destfile="build/dist/${libjar}">
 			<fileset dir="build/out" />
+			<fileset file="LICENSE" />
+			<fileset file="NOTICE" />
 		</jar>
 
-		<jar basedir="build/javadoc" destfile="build/dist/${javadocjar}" />
+		<!-- build the javadoc artifact -->
+		<jar destfile="build/dist/${javadocjar}">
+			<fileset dir="build/javadoc" />
+			<fileset file="LICENSE" />
+			<fileset file="NOTICE" />
+		</jar>
+
+		<!-- build the sources artifact -->
+		<!--
+		<jar destfile="build/dist/${sourcesjar}">
+			<fileset dir="build/src" />
+			<fileset file="LICENSE" />
+			<fileset file="NOTICE" />
+		</jar>
+	    -->
+
+		<!-- copy the pom file -->
+		<copy tofile="build/dist/${pomfile}" file="build/pom.xml" />
 
 		<copy todir="${libdir}">
 			<fileset dir="build/dist" />
@@ -274,8 +322,7 @@
 		<mkdir dir="war/test" />
 	</target>
 
-	<!-- Upload files to Google Code project hosting -->
-	<target name="upload" description="Upload file to Google Code" depends="lib-locations">
+	<target name="upload-info" depends="lib-locations">
 		<condition property="libfail-upload">
 			<contains string="${libjar}" substring="0.0.0" />
 		</condition>
@@ -287,6 +334,14 @@
 		<input addproperty="javadocsummary" message="Javadoc summary" defaultvalue="${googlecode-javadocsummary}" />
 		<input addproperty="javadoclabels" message="Javadoc labels" defaultvalue="${googlecode-javadoclabels}" />
 
+		<!--
+		<input addproperty="sourcessummary" message="Sources summary" defaultvalue="${googlecode-sourcessummary}" />
+		<input addproperty="sourceslabels" message="Sources labels" defaultvalue="${googlecode-sourceslabels}" />
+	    -->
+	</target>
+
+	<!-- Upload files to Google Code project hosting -->
+	<target name="upload" description="Upload file to Google Code" depends="upload-info">
 		<input addproperty="username" message="Google Code username" defaultvalue="fredsa@google.com" />
 		<input addproperty="password" message="Google Code password" defaultvalue="" />
 
@@ -310,6 +365,57 @@
 		<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode-0.0.2.jar" name="gcupload" />
 		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${libjar}" targetfilename="${libjar}" summary="${libsummary}" labels="${liblabels}" />
 		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${javadocjar}" targetfilename="${javadocjar}" summary="${javadocsummary}" labels="${javadoclabels}" />
+		<!--
+		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${sourcesjar}" targetfilename="${sourcesjar}" summary="${sourcessummary}" labels="${sourceslabels}" />
+    	-->
+	</target>
+
+	<!-- Upload files to Google Code project hosting -->
+	<target name="upload-mvn" description="Upload file to Sonatype OSS Maven repository" depends="upload-info">
+		<input addproperty="passphrase" message="GPG Passphrase" defaultvalue="" />
+
+		<condition property="passphrase-missing">
+			<equals arg1="${passphrase}" arg2="" />
+		</condition>
+
+        <!-- See http://maven.apache.org/plugins/maven-gpg-plugin/sign-and-deploy-file-mojo.html -->
+        
+		<!-- sign and deploy the main artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${maven-staging-repository-url}" />
+			<arg value="-DrepositoryId=${maven-staging-repository-id}" />
+			<arg value="-DpomFile=${libdir}/${pomfile}" />
+			<arg value="-Dfile=${libdir}/${libjar}" />
+			<arg value="-Pgpg" />
+			<arg value="-Dgpg.passphrase=${passphrase}" />
+		</artifact:mvn>
+
+		<!-- sign and deploy the javadoc artifact -->
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${maven-staging-repository-url}" />
+			<arg value="-DrepositoryId=${maven-staging-repository-id}" />
+			<arg value="-DpomFile=${libdir}/${pomfile}" />
+			<arg value="-Dfile=${libdir}/${javadocjar}" />
+			<arg value="-Dclassifier=javadoc" />
+			<arg value="-Pgpg" />
+			<arg value="-Dgpg.passphrase=${passphrase}" />
+		</artifact:mvn>
+
+		<!-- sign and deploy the sources artifact -->
+		<!--
+		<artifact:mvn>
+			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
+			<arg value="-Durl=${maven-staging-repository-url}" />
+			<arg value="-DrepositoryId=${maven-staging-repository-id}" />
+			<arg value="-DpomFile=${libdir}/${pomfile}" />
+			<arg value="-Dfile=${libdir}/${sourcesjar}" />
+			<arg value="-Dclassifier=sources" />
+			<arg value="-Pgpg" />
+			<arg value="-Dgpg.passphrase=${passphrase}" />
+		</artifact:mvn>
+	    -->
 	</target>
 
 	<!-- Test SSH functionality -->
