@@ -6,14 +6,10 @@
 		<property name="projectdescription" value="Dragging and dropping for your Google-Web-Toolkit Projects" />
 		<property name="googlecode-libsummary" value="Drag-and-Drop Library for Google-Web-Toolkit (GWT)" />
 		<property name="googlecode-javadocsummary" value="Javadoc for ${ant.project.name} source and demos (examples)" />
-		<!--
 		<property name="googlecode-sourcessummary" value="Sources for ${ant.project.name}" />
-		-->
 		<property name="googlecode-liblabels" value="Type-Library, OpSys-All, GWT-GWT_2.3.0, Java-1.6, ReleaseCandidate, API-2.x" />
 		<property name="googlecode-javadoclabels" value="Type-Docs, OpSys-All, GWT-GWT_2.3.0, Java-1.6, ReleaseCandidate, API-2.x" />
-		<!--
-		<property name="googlecode-sourceslabels" value="Type-Sources, OpSys-All, GWT-GWT_2.3.0, Java-1.6, ReleaseCandidate, API-2.x" />
-		-->
+		<property name="googlecode-sourceslabels" value="Type-Sources, OpSys-All, GWT-GWT_2.3.0, Java-1.6, Deprecated, API-2.x" />
 		<property name="filtertoken" value="GWT_DND_VERSION" />
 
 		<!-- define Maven coordinates -->
@@ -101,9 +97,7 @@
 		<property name="javadocjar" value="${ant.project.name}-${libversion}-javadoc.jar" />
 
 		<!-- sourcesjar property -->
-		<!--
 		<property name="sourcesjar" value="${ant.project.name}-${libversion}-sources.jar" />
-		-->
 
 		<!-- pomfile property -->
 		<property name="pomfile" value="${ant.project.name}-${libversion}.pom" />
@@ -280,13 +274,11 @@
 		</jar>
 
 		<!-- build the sources artifact -->
-		<!--
 		<jar destfile="build/dist/${sourcesjar}">
 			<fileset dir="build/src" />
 			<fileset file="LICENSE" />
 			<fileset file="NOTICE" />
 		</jar>
-	    -->
 
 		<!-- copy the pom file -->
 		<copy tofile="build/dist/${pomfile}" file="build/pom.xml" />
@@ -322,26 +314,15 @@
 		<mkdir dir="war/test" />
 	</target>
 
-	<target name="upload-info" depends="lib-locations">
+	<target name="prepare-to-upload" depends="lib-locations">
 		<condition property="libfail-upload">
 			<contains string="${libjar}" substring="0.0.0" />
 		</condition>
 		<fail if="libfail-upload" message="Cannot upload version 0.0.0" />
-
-		<input addproperty="libsummary" message="Library summary" defaultvalue="${googlecode-libsummary}" />
-		<input addproperty="liblabels" message="Library labels" defaultvalue="${googlecode-liblabels}" />
-
-		<input addproperty="javadocsummary" message="Javadoc summary" defaultvalue="${googlecode-javadocsummary}" />
-		<input addproperty="javadoclabels" message="Javadoc labels" defaultvalue="${googlecode-javadoclabels}" />
-
-		<!--
-		<input addproperty="sourcessummary" message="Sources summary" defaultvalue="${googlecode-sourcessummary}" />
-		<input addproperty="sourceslabels" message="Sources labels" defaultvalue="${googlecode-sourceslabels}" />
-	    -->
 	</target>
 
 	<!-- Upload files to Google Code project hosting -->
-	<target name="upload" description="Upload file to Google Code" depends="upload-info">
+	<target name="upload" description="Upload file to Google Code" depends="prepare-to-upload">
 		<input addproperty="username" message="Google Code username" defaultvalue="fredsa@google.com" />
 		<input addproperty="password" message="Google Code password" defaultvalue="" />
 
@@ -349,6 +330,15 @@
 			<equals arg1="${password}" arg2="" />
 		</condition>
 		<fail if="password-missing" message="Password is required" />
+
+    <input addproperty="libsummary" message="Library summary" defaultvalue="${googlecode-libsummary}" />
+    <input addproperty="liblabels" message="Library labels" defaultvalue="${googlecode-liblabels}" />
+
+    <input addproperty="javadocsummary" message="Javadoc summary" defaultvalue="${googlecode-javadocsummary}" />
+    <input addproperty="javadoclabels" message="Javadoc labels" defaultvalue="${googlecode-javadoclabels}" />
+
+    <input addproperty="sourcessummary" message="Sources summary" defaultvalue="${googlecode-sourcessummary}" />
+    <input addproperty="sourceslabels" message="Sources labels" defaultvalue="${googlecode-sourceslabels}" />
 
 		<tempfile property="tempfile" />
 		<get src="http://${ant.project.name}.googlecode.com/files/${libjar}" dest="${tempfile}" ignoreerrors="true" />
@@ -362,24 +352,18 @@
 		</condition>
 		<fail if="file-exists" message="${libjar} already exists" />
 
-		<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode-0.0.2.jar" name="gcupload" />
-		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${libjar}" targetfilename="${libjar}" summary="${libsummary}" labels="${liblabels}" />
-		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${javadocjar}" targetfilename="${javadocjar}" summary="${javadocsummary}" labels="${javadoclabels}" />
-		<!--
-		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${sourcesjar}" targetfilename="${sourcesjar}" summary="${sourcessummary}" labels="${sourceslabels}" />
-    	-->
+    <taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode-0.0.2.jar" name="gcupload" />
+    <gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${libjar}" targetfilename="${libjar}" summary="${libsummary}" labels="${liblabels}" />
+    <gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${javadocjar}" targetfilename="${javadocjar}" summary="${javadocsummary}" labels="${javadoclabels}" />
+    <gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${sourcesjar}" targetfilename="${sourcesjar}" summary="${sourcessummary}" labels="${sourceslabels}" />
 	</target>
 
 	<!-- Upload files to Google Code project hosting -->
-	<target name="upload-mvn" description="Upload file to Sonatype OSS Maven repository" depends="upload-info">
+	<target name="upload-mvn" description="Upload file to Sonatype OSS Maven repository" depends="prepare-to-upload">
 		<input addproperty="passphrase" message="GPG Passphrase" defaultvalue="" />
 
-		<condition property="passphrase-missing">
-			<equals arg1="${passphrase}" arg2="" />
-		</condition>
+		<!-- See http://maven.apache.org/plugins/maven-gpg-plugin/sign-and-deploy-file-mojo.html -->
 
-        <!-- See http://maven.apache.org/plugins/maven-gpg-plugin/sign-and-deploy-file-mojo.html -->
-        
 		<!-- sign and deploy the main artifact -->
 		<artifact:mvn>
 			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
@@ -404,7 +388,6 @@
 		</artifact:mvn>
 
 		<!-- sign and deploy the sources artifact -->
-		<!--
 		<artifact:mvn>
 			<arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
 			<arg value="-Durl=${maven-staging-repository-url}" />
@@ -415,7 +398,9 @@
 			<arg value="-Pgpg" />
 			<arg value="-Dgpg.passphrase=${passphrase}" />
 		</artifact:mvn>
-	    -->
+
+		<echo />
+		<echo message="Complete the process here: https://oss.sonatype.org/index.html#stagingRepositories" />
 	</target>
 
 	<!-- Test SSH functionality -->
