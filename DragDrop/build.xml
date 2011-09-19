@@ -175,6 +175,14 @@
 			</fileset>
 		</copy>
 
+    <echo message="Copying src files build/out ..." />
+
+    <copy todir="build/out">
+      <fileset dir="build/src">
+        <include name="**/*" />
+      </fileset>
+    </copy>
+
 		<echo message="Compiling build/demo ..." />
 
 		<javac compiler="javac1.6" listfiles="false" destdir="build/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
@@ -331,14 +339,14 @@
 		</condition>
 		<fail if="password-missing" message="Password is required" />
 
-    <input addproperty="libsummary" message="Library summary" defaultvalue="${googlecode-libsummary}" />
-    <input addproperty="liblabels" message="Library labels" defaultvalue="${googlecode-liblabels}" />
+		<input addproperty="libsummary" message="Library summary" defaultvalue="${googlecode-libsummary}" />
+		<input addproperty="liblabels" message="Library labels" defaultvalue="${googlecode-liblabels}" />
 
-    <input addproperty="javadocsummary" message="Javadoc summary" defaultvalue="${googlecode-javadocsummary}" />
-    <input addproperty="javadoclabels" message="Javadoc labels" defaultvalue="${googlecode-javadoclabels}" />
+		<input addproperty="javadocsummary" message="Javadoc summary" defaultvalue="${googlecode-javadocsummary}" />
+		<input addproperty="javadoclabels" message="Javadoc labels" defaultvalue="${googlecode-javadoclabels}" />
 
-    <input addproperty="sourcessummary" message="Sources summary" defaultvalue="${googlecode-sourcessummary}" />
-    <input addproperty="sourceslabels" message="Sources labels" defaultvalue="${googlecode-sourceslabels}" />
+		<input addproperty="sourcessummary" message="Sources summary" defaultvalue="${googlecode-sourcessummary}" />
+		<input addproperty="sourceslabels" message="Sources labels" defaultvalue="${googlecode-sourceslabels}" />
 
 		<tempfile property="tempfile" />
 		<get src="http://${ant.project.name}.googlecode.com/files/${libjar}" dest="${tempfile}" ignoreerrors="true" />
@@ -352,10 +360,10 @@
 		</condition>
 		<fail if="file-exists" message="${libjar} already exists" />
 
-    <taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode-0.0.2.jar" name="gcupload" />
-    <gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${libjar}" targetfilename="${libjar}" summary="${libsummary}" labels="${liblabels}" />
-    <gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${javadocjar}" targetfilename="${javadocjar}" summary="${javadocsummary}" labels="${javadoclabels}" />
-    <gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${sourcesjar}" targetfilename="${sourcesjar}" summary="${sourcessummary}" labels="${sourceslabels}" />
+		<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode-0.0.2.jar" name="gcupload" />
+		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${libjar}" targetfilename="${libjar}" summary="${libsummary}" labels="${liblabels}" />
+		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${javadocjar}" targetfilename="${javadocjar}" summary="${javadocsummary}" labels="${javadoclabels}" />
+		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${sourcesjar}" targetfilename="${sourcesjar}" summary="${sourcessummary}" labels="${sourceslabels}" />
 	</target>
 
 	<!-- Upload files to Google Code project hosting -->
