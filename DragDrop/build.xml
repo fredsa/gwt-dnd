@@ -7,9 +7,9 @@
 		<property name="googlecode-libsummary" value="Drag-and-Drop Library for Google-Web-Toolkit (GWT)" />
 		<property name="googlecode-javadocsummary" value="Javadoc for ${ant.project.name} source and demos (examples)" />
 		<property name="googlecode-sourcessummary" value="Sources for ${ant.project.name}" />
-		<property name="googlecode-liblabels" value="Type-Library, OpSys-All, GWT-GWT_2.3.0, Java-1.6, ReleaseCandidate, API-2.x" />
-		<property name="googlecode-javadoclabels" value="Type-Docs, OpSys-All, GWT-GWT_2.3.0, Java-1.6, ReleaseCandidate, API-2.x" />
-		<property name="googlecode-sourceslabels" value="Type-Sources, OpSys-All, GWT-GWT_2.3.0, Java-1.6, Deprecated, API-2.x" />
+		<property name="googlecode-liblabels" value="Type-Library, OpSys-All, GWT-GWT_2.4.0, Java-1.6, ReleaseCandidate, API-2.x" />
+		<property name="googlecode-javadoclabels" value="Type-Docs, OpSys-All, GWT-GWT_2.4.0, Java-1.6, ReleaseCandidate, API-2.x" />
+		<property name="googlecode-sourceslabels" value="Type-Sources, OpSys-All, GWT-GWT_2.4.0, Java-1.6, Deprecated, API-2.x" />
 		<property name="filtertoken" value="GWT_DND_VERSION" />
 
 		<!-- define Maven coordinates -->
