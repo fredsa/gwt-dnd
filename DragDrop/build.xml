@@ -1,3 +1,4 @@
+
 <project name="gwt-dnd" default="dist" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
 	<target name="init" description="Initialization of ant properties">
@@ -185,7 +186,7 @@
 
 		<echo message="Compiling build/demo ..." />
 
-		<javac compiler="javac1.6" listfiles="false" destdir="build/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}">
+		<javac compiler="javac1.6" listfiles="false" destdir="build/demo" debug="${javac.debug}" debuglevel="${javac.debuglevel}" source="${javac.source}" target="${javac.target}" nowarn="${javac.nowarn}" encoding="${javac.encoding}" includeantruntime="false">
 			<src path="build/demo" />
 			<classpath location="${gwt-user.jar}" />
 			<classpath location="${gwt-dev.jar}" />
