@@ -59,7 +59,6 @@ public abstract class AbstractDropController implements DropController {
   public void onMove(DragContext context) {
   }
 
-  @SuppressWarnings("unused")
   @Override
   public void onPreviewDrop(DragContext context) throws VetoDragException {
   }
