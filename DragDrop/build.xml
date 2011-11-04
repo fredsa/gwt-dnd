@@ -19,7 +19,7 @@
 
 		<!-- define Maven staging repository id and url -->
 		<property name="maven-staging-repository-id" value="sonatype-nexus-staging" />
-		<property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2/" />
+		<property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2" />
 
 		<!-- Global Properties -->
 		<property environment="env" />
