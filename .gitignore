@@ -1,0 +1,25 @@
+
+# /DragDrop/
+/DragDrop/.gwt
+/DragDrop/tomcat
+/DragDrop/war
+/DragDrop/bin
+/DragDrop/.gwt-cache
+/DragDrop/javadoc
+/DragDrop/javadoc-demo
+/DragDrop/build
+
+# /DragDrop/war/
+/DragDrop/war/com.allen_sauer.gwt.dnd.demo.DragDropDemo
+/DragDrop/war/com.allen_sauer.gwt.dnd.test.DragDropTest
+/DragDrop/war/com.mycompany.MyApplication1
+/DragDrop/war/com.mycompany.MyApplication2
+/DragDrop/war/demo
+/DragDrop/war/gettingstarted1
+/DragDrop/war/gettingstarted2
+/DragDrop/war/test
+
+# /DragDrop/war/WEB-INF/
+/DragDrop/war/WEB-INF/classes
+/DragDrop/war/WEB-INF/deploy
+/DragDrop/war/WEB-INF/lib
