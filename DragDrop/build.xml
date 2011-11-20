@@ -74,6 +74,7 @@
 				<echo message="@{file}" />
 			</sequential>
 		</for>
+		<antcall target="tag" />
 
 		<for param="file">
 			<fileset dir="${libdir}">
@@ -84,6 +85,9 @@
 				<echo message="@{file}" />
 			</sequential>
 		</for>
+
+		<antcall target="stat" />
+		<antcall target="heads" />
 
 	</target>
 
@@ -244,25 +248,24 @@
 	</target>
 
 	<target name="stat">
-		<exec executable="svn">
-			<arg value="stat" />
+		<exec executable="git">
+			<arg value="status" />
+		</exec>
+	</target>
+
+	<target name="heads">
+		<exec executable="git">
+			<arg value="show-ref" />
+			<arg value="--heads" />
 		</exec>
 	</target>
 
 	<target name="tag">
-		<exec executable="svn">
-			<arg value="ls" />
-			<arg value="http://${ant.project.name}.googlecode.com/svn/tags/" />
+		<exec executable="git">
+			<arg value="tag" />
+			<arg value="-l" />
+			<arg value="gwt-dnd-3*" />
 		</exec>
-		<exec executable="svn">
-			<arg value="info" />
-			<arg value="http://${ant.project.name}.googlecode.com/svn/" />
-		</exec>
-		<echo message="" />
-		<echo message="********************************************************************************************************************************************" />
-		<echo message="svn -m 'for prosterity' cp https://${ant.project.name}.googlecode.com/svn/trunk https://${ant.project.name}.googlecode.com/svn/tags/${ant.project.name}-${libversion}-r" />
-		<echo message="********************************************************************************************************************************************" />
-		<echo message="" />
 	</target>
 
 	<target name="dist" description="Create distribution jar" depends="build,javadoc">
@@ -296,8 +299,15 @@
 			<fileset dir="build/dist" />
 		</copy>
 
-		<antcall target="tag" />
 		<antcall target="stat" />
+		<antcall target="heads" />
+		<exec executable="git">
+			<arg value="tag" />
+			<arg value="-a" />
+			<arg value="-m" />
+			<arg value="for prosterity" />
+			<arg value="${ant.project.name}-${libversion}" />
+		</exec>
 		<antcall target="showlib" />
 
 	</target>
