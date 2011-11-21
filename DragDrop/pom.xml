@@ -17,8 +17,8 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:svn:http://gwt-dnd.googlecode.com/svn/</connection>
-    <url>http://gwt-dnd.googlecode.com/svn/</url>
+    <connection>scm:git:http://code.google.com/p/gwt-dnd/</connection>
+    <url>http://code.google.com/p/gwt-dnd/</url>
   </scm>
 
   <developers>
