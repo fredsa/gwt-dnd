@@ -13,10 +13,6 @@
 		<property name="googlecode-sourceslabels" value="Type-Sources, OpSys-All, GWT-GWT_2.4.0, Java-1.6, Deprecated, API-2.x" />
 		<property name="filtertoken" value="GWT_DND_VERSION" />
 
-		<!-- define Maven coordinates -->
-		<property name="groupId" value="com.allen-sauer.gwt.dnd" />
-		<property name="artifactId" value="gwt-dnd" />
-
 		<!-- define Maven staging repository id and url -->
 		<property name="maven-staging-repository-id" value="sonatype-nexus-staging" />
 		<property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2" />
