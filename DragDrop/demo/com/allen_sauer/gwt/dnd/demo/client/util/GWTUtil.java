@@ -28,7 +28,7 @@ public class GWTUtil {
   /**
    * Base Subversion URL ({@value}) for DragDrop project.
    */
-  private static final String SUBVERSION_BROWSE_TRUNK = "http://code.google.com/p/gwt-dnd/source/browse/trunk/DragDrop/";
+  private static final String GIT_BROWSE_HEAD = "http://code.google.com/p/gwt-dnd/source/browse/DragDrop/";
 
   /**
    * Determine Subversion URL for provided class literal, to be used in HTML anchors.
@@ -38,7 +38,7 @@ public class GWTUtil {
    */
   public static String getClassAnchorHTML(Class<?> clazz) {
     String className = getClassName(clazz);
-    String url = SUBVERSION_BROWSE_TRUNK;
+    String url = GIT_BROWSE_HEAD;
     if (className.startsWith(DEMO_CLIENT_PACKAGE)) {
       url += "demo/";
     } else {
