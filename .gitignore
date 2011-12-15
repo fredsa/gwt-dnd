@@ -1,5 +1,5 @@
 # GWT Cache
-/gwt-unitCache/
+gwt-unitCache/
 
 # App Engine SDK
 appengine-api-1.0-sdk-*.jar
