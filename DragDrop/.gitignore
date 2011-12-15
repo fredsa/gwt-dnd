@@ -1,0 +1,12 @@
+# Ant build
+/build/
+
+# App Engine
+/war/WEB-INF/appengine-generated/
+/war/WEB-INF/deploy/
+
+# Compiled output
+/war/demo/
+/war/test/
+/war/gettingstarted1/
+/war/gettingstarted2/
