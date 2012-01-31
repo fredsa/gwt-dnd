@@ -35,7 +35,7 @@ import java.util.Iterator;
 public abstract class AbstractDragController implements DragController {
   // CHECKSTYLE_JAVADOC_OFF
 
-  private static HashMap<Widget, Widget> dragHandles = new HashMap<Widget, Widget>();
+  private HashMap<Widget, Widget> dragHandles = new HashMap<Widget, Widget>();
 
   /**
    * The drag controller's drag context.
