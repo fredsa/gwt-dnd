@@ -120,9 +120,9 @@ class DropControllerCollection {
    */
   DropController getIntersectDropController(int x, int y) {
     Location location = new CoordinateLocation(x, y);
-    for (int i = sortedCandidates.length - 1; i >= 0; i--) {
-      Candidate candidate = sortedCandidates[i];
-      if (DOMUtil.DEBUG) {
+    if (DOMUtil.DEBUG) {
+      for (int i = sortedCandidates.length - 1; i >= 0; i--) {
+        Candidate candidate = sortedCandidates[i];
         DOMUtil.debugWidgetWithColor(candidate.getDropTarget(), "blue");
       }
     }
