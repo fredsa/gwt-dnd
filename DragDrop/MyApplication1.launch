@@ -22,10 +22,10 @@
 <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry internalArchive=&quot;/DragDrop/getting-started&quot; path=&quot;3&quot; type=&quot;2&quot;/&gt;&#13;&#10;"/>
 <listEntry value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;&#13;&#10;&lt;runtimeClasspathEntry id=&quot;org.eclipse.jdt.launching.classpathentry.defaultClasspath&quot;&gt;&#13;&#10;&lt;memento exportedEntriesOnly=&quot;false&quot; project=&quot;DragDrop&quot;/&gt;&#13;&#10;&lt;/runtimeClasspathEntry&gt;&#13;&#10;"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gwt.eclipse.core.moduleClasspathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.CLASSPATH_PROVIDER" value="com.google.gdt.eclipse.suite.appengineClasspathProvider"/>
 <booleanAttribute key="org.eclipse.jdt.launching.DEFAULT_CLASSPATH" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="com.google.gwt.dev.DevMode"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-server com.google.appengine.tools.development.gwt.AppEngineLauncher -codeServerPort 9997 -remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -logLevel INFO -port auto -war /fred/workspace/gwt-dnd/DragDrop/war com.mycompany.MyApplication1"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-server com.google.appengine.tools.development.gwt.AppEngineLauncher -codeServerPort 9997 -remoteUI &quot;${gwt_remote_ui_server_port}:${unique_id}&quot; -logLevel INFO -port auto -war /usr/local/google/home/fredsa/src/gwt-dnd/DragDrop/war com.mycompany.MyApplication1"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="DragDrop"/>
-<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-XstartOnFirstThread -javaagent:/Applications/eclipse3.7/plugins/com.google.appengine.eclipse.sdkbundle_1.5.5.r37v201110112027/appengine-java-sdk-1.5.5/lib/agent/appengine-agent.jar -Xmx512m -ea -Xbootclasspath/p:/Applications/eclipse3.6/plugins/com.google.appengine.eclipse.sdkbundle_1.5.0.r36v201105191508/appengine-java-sdk-1.5.0.1/lib/override/appengine-dev-jdk-overrides.jar"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-javaagent:/usr/local/google/users/fredsa/eclipse37/stable/plugins/com.google.appengine.eclipse.sdkbundle_1.6.6/appengine-java-sdk-1.6.6/lib/agent/appengine-agent.jar -Xmx512m -ea -Xbootclasspath/p:/Applications/eclipse3.6/plugins/com.google.appengine.eclipse.sdkbundle_1.5.0.r36v201105191508/appengine-java-sdk-1.5.0.1/lib/override/appengine-dev-jdk-overrides.jar"/>
 </launchConfiguration>
