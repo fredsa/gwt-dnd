@@ -28,11 +28,11 @@ public class DragHandlerAdapter implements DragHandler {
   }
 
   @Override
-  public void onPreviewDragEnd(DragEndEvent event) {
+  public void onPreviewDragEnd(DragEndEvent event) throws VetoDragException {
   }
 
   @Override
-  public void onPreviewDragStart(DragStartEvent event) {
+  public void onPreviewDragStart(DragStartEvent event) throws VetoDragException {
   }
 
 }
