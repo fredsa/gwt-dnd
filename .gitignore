@@ -3,16 +3,11 @@ gwt-unitCache/
 
 # App Engine SDK
 appengine-api-1.0-sdk-*.jar
-appengine-api-labs-*.jar
+appengine-api-labs.jar
+appengine-endpoints.jar
 appengine-jsr107cache-*.jar
-datanucleus-appengine-*.final.jar
-datanucleus-core-1.1.5.jar
-datanucleus-jpa-1.1.5.jar
-geronimo-jpa_3.0_spec-1.1.1.jar
-geronimo-jta_1.1_spec-1.1.1.jar
-jdo2-api-2.3-eb.jar
+gwt-servlet.jar
 jsr107cache-1.1.jar
-google_sql.jar
 
 # GWT SDK
 gwt-servlet.jar
