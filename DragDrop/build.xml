@@ -90,6 +90,11 @@
 	<target name="lib-locations" description="Determine library locations" depends="init">
 		<!-- libversion property -->
 		<input addproperty="libversion" defaultvalue="0.0.0" message="${ant.project.name} release version" />
+		<condition property="is-numbered-release">
+			<not>
+				<equals arg1="${libversion}" arg2="0.0.0" />
+			</not>
+		</condition>
 
 		<!-- libjar property -->
 		<property name="libjar" value="${ant.project.name}-${libversion}.jar" />
@@ -109,10 +114,8 @@
 		<available file="${libdir}/${libjar}" property="libjar-exists" />
 		<condition property="libfail-overwrite">
 			<and>
-				<not>
-					<equals arg1="${libversion}" arg2="0.0.0" />
-				</not>
-				<isset property="libjar-exists" />
+				<istrue value="is-numbered-release" />
+				<istrue value="libjar-exists" />
 			</and>
 		</condition>
 		<fail if="libfail-overwrite" message="Cannot overwrite existing jar file ${libdir}/${libjar}" />
@@ -297,14 +300,8 @@
 
 		<antcall target="stat" />
 		<antcall target="heads" />
+                <antcall target="tag-for-posterity" />
 
-		<exec executable="git">
-			<arg value="tag" />
-			<arg value="-a" />
-			<arg value="-m" />
-			<arg value="for prosterity" />
-			<arg value="${ant.project.name}-${libversion}" />
-		</exec>
 		<exec executable="git">
 			<arg value="push" />
 			<arg value="--tags" />
@@ -312,6 +309,16 @@
 
 		<antcall target="showlib" />
 
+	</target>
+
+	<target name="tag-for-posterity" if="is-numbered-release">
+		<exec executable="git">
+			<arg value="tag" />
+			<arg value="-a" />
+			<arg value="-m" />
+			<arg value="for prosterity" />
+			<arg value="${ant.project.name}-${libversion}" />
+		</exec>
 	</target>
 
 	<target name="showlib">
@@ -336,10 +343,7 @@
 	</target>
 
 	<target name="prepare-to-upload" depends="lib-locations">
-		<condition property="libfail-upload">
-			<contains string="${libjar}" substring="0.0.0" />
-		</condition>
-		<fail if="libfail-upload" message="Cannot upload version 0.0.0" />
+		<fail unless="is-numbered-release" message="Cannot upload version 0.0.0" />
 	</target>
 
 	<!-- Upload files to Google Code project hosting -->
