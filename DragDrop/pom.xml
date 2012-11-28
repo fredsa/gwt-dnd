@@ -25,7 +25,7 @@
     <developer>
       <id>fredsa</id>
       <name>Fred Sauer</name>
-      <email>fred@allen-sauer.com</email>
+      <email>fredsa@gmail.com</email>
       <url>google.com/profiles/fredsa</url>
       <roles>
         <role>developer</role>
@@ -41,7 +41,7 @@
     <dependency>
       <groupId>com.google.gwt</groupId>
       <artifactId>gwt-user</artifactId>
-      <version>2.4.0</version>
+      <version>2.5.0</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
