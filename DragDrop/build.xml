@@ -114,8 +114,8 @@
 		<available file="${libdir}/${libjar}" property="libjar-exists" />
 		<condition property="libfail-overwrite">
 			<and>
-				<istrue value="is-numbered-release" />
-				<istrue value="libjar-exists" />
+				<istrue value="${is-numbered-release}" />
+				<istrue value="${libjar-exists}" />
 			</and>
 		</condition>
 		<fail if="libfail-overwrite" message="Cannot overwrite existing jar file ${libdir}/${libjar}" />
