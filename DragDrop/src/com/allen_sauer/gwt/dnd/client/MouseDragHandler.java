@@ -223,8 +223,10 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
           startDragging();
         } else {
-          // prevent IE image drag when drag sensitivity > 5
-          event.preventDefault();
+          if (mouseDownWidget instanceof Image) {
+            // prevent IE image drag when drag sensitivity > 5
+            event.preventDefault();
+          }
         }
       }
       if (dragging == NOT_DRAGGING) {
