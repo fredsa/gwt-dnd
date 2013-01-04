@@ -6,13 +6,16 @@ import com.google.gwt.user.client.ui.Widget;
 
 import com.allen_sauer.gwt.dnd.client.PickupDragController;
 import com.allen_sauer.gwt.dnd.client.drop.AbsolutePositionDropController;
+import com.allen_sauer.gwt.dnd.demo.client.DemoDragHandler;
 import com.allen_sauer.gwt.dnd.demo.client.example.Example;
 
 public class ClickTouchExample extends Example {
   private AbsolutePositionDropController absolutePositionDropController;
+  private DemoDragHandler demoDragHandler;
 
-  public ClickTouchExample(PickupDragController dragController) {
+  public ClickTouchExample(PickupDragController dragController, DemoDragHandler demoDragHandler) {
     super(dragController);
+    this.demoDragHandler = demoDragHandler;
 
     // use the drop target as this composite's widget
     AbsolutePanel positioningDropTarget = new AbsolutePanel();
@@ -24,7 +27,6 @@ public class ClickTouchExample extends Example {
     // instantiate our drop controller
     absolutePositionDropController = new AbsolutePositionDropController(positioningDropTarget);
     dragController.registerDropController(absolutePositionDropController);
-
   }
 
   @Override
@@ -38,7 +40,7 @@ public class ClickTouchExample extends Example {
   }
 
   private Widget createDraggableButton() {
-    ClickTouchButton button = new ClickTouchButton();
+    ClickTouchButton button = new ClickTouchButton(demoDragHandler);
     getDragController().makeDraggable(button);
     return button;
   }

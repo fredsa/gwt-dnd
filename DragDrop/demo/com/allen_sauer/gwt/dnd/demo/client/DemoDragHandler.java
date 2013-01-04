@@ -28,17 +28,17 @@ public final class DemoDragHandler implements DragHandler {
   /**
    * CSS blue.
    */
-  private static final String BLUE = "#4444BB";
+  public static final String BLUE = "#4444BB";
 
   /**
    * CSS green.
    */
-  private static final String GREEN = "#44BB44";
+  public static final String GREEN = "#44BB44";
 
   /**
    * CSS red.
    */
-  private static final String RED = "#BB4444";
+  public static final String RED = "#BB4444";
 
   /**
    * Text area where event messages are shown.
@@ -96,7 +96,7 @@ public final class DemoDragHandler implements DragHandler {
     eventTextArea.setHTML("");
   }
 
-  private void log(String text, String color) {
+  public void log(String text, String color) {
     eventTextArea.setHTML(eventTextArea.getHTML()
         + (eventTextArea.getHTML().length() == 0 ? "" : "<br>") + "<span style='color: " + color
         + "'>" + text + "</span>");

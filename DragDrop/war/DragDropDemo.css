@@ -404,6 +404,7 @@ DIV.demo-main-boundary-panel {
 
 .demo-event-text-area {
   border: 1px solid green;
+  overflow: auto;
 }
 
 .gwt-TabBar .gwt-TabBarItem {

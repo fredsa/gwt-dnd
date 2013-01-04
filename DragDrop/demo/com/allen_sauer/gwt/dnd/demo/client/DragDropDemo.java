@@ -176,7 +176,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new ResetCacheExample(dragController));
 
     examples.add(new PaletteExample(demoDragHandler));
-    examples.add(new ClickTouchExample(dragController));
+    examples.add(new ClickTouchExample(dragController, demoDragHandler));
 
     mainPanel.add(
         new HTML(

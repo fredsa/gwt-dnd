@@ -15,15 +15,19 @@ import com.google.gwt.event.dom.client.TouchStartEvent;
 import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.user.client.ui.Button;
 
+import com.allen_sauer.gwt.dnd.demo.client.DemoDragHandler;
+
 public class ClickTouchButton extends Button {
 
   private int leftClickCount = 0;
   private int middleClickCount = 0;
   private int rightClickCount = 0;
   private int doubleClickCount = 0;
+  private DemoDragHandler demoDragHandler;
 
-  public ClickTouchButton() {
+  public ClickTouchButton(DemoDragHandler demoDragHandler) {
     super("Draggable button");
+    this.demoDragHandler = demoDragHandler;
 
     addDoubleClickHandler(new DoubleClickHandler() {
       @Override
@@ -83,5 +87,11 @@ public class ClickTouchButton extends Button {
         setText("onTouchCancel()");
       }
     });
+  }
+
+  @Override
+  public void setText(String text) {
+    demoDragHandler.log(text, DemoDragHandler.BLUE);
+    super.setText(text);
   }
 }
