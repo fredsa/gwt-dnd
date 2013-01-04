@@ -13,23 +13,6 @@
  */
 package com.allen_sauer.gwt.dnd.demo.client;
 
-import com.allen_sauer.gwt.dnd.client.PickupDragController;
-import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
-import com.allen_sauer.gwt.dnd.demo.client.example.DraggableFactory;
-import com.allen_sauer.gwt.dnd.demo.client.example.absolute.AbsolutePositionExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.bin.BinExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.draghandle.DragHandleExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.duallist.DualListExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.flextable.FlexTableRowExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.flowpanel.FlowPanelExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.grid.GridConstrainedExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.insertpanel.InsertPanelExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.matryoshka.MatryoshkaExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.palette.PaletteExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.puzzle.PuzzleExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.resetcache.ResetCacheExample;
-import com.allen_sauer.gwt.dnd.demo.client.example.window.WindowExample;
-
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
@@ -43,6 +26,24 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dnd.client.PickupDragController;
+import com.allen_sauer.gwt.dnd.client.drop.BoundaryDropController;
+import com.allen_sauer.gwt.dnd.demo.client.example.DraggableFactory;
+import com.allen_sauer.gwt.dnd.demo.client.example.absolute.AbsolutePositionExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.bin.BinExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.clicktouch.ClickTouchExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.draghandle.DragHandleExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.duallist.DualListExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.flextable.FlexTableRowExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.flowpanel.FlowPanelExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.grid.GridConstrainedExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.insertpanel.InsertPanelExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.matryoshka.MatryoshkaExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.palette.PaletteExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.puzzle.PuzzleExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.resetcache.ResetCacheExample;
+import com.allen_sauer.gwt.dnd.demo.client.example.window.WindowExample;
 
 /**
  * EntryPoint class for demonstrating and testing gwt-dnd.
@@ -175,6 +176,7 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new ResetCacheExample(dragController));
 
     examples.add(new PaletteExample(demoDragHandler));
+    examples.add(new ClickTouchExample(dragController));
 
     mainPanel.add(
         new HTML(

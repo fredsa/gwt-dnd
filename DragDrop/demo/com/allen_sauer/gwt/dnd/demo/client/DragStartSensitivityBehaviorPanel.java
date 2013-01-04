@@ -32,7 +32,7 @@ class DragStartSensitivityBehaviorPanel extends BehaviorPanel {
   private TextBox textBox;
 
   public DragStartSensitivityBehaviorPanel(final DragController dragController) {
-    super("Drag Start Sensitivity",
+    super("Drag Sensitivity",
         "getBehaviorDragStartSensitivity() / setBehaviorDragStartSensitivity(int)");
     this.dragController = dragController;
 
