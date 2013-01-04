@@ -5,6 +5,14 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickEvent;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.TouchCancelEvent;
 import com.google.gwt.event.dom.client.TouchCancelHandler;
 import com.google.gwt.event.dom.client.TouchEndEvent;
@@ -57,6 +65,34 @@ public class ClickTouchButton extends Button {
           default:
             setText("Unknown button clicked");
         }
+      }
+    });
+
+    addMouseDownHandler(new MouseDownHandler() {
+      @Override
+      public void onMouseDown(MouseDownEvent event) {
+        setText("onMouseDown()");
+      }
+    });
+
+    addMouseUpHandler(new MouseUpHandler() {
+      @Override
+      public void onMouseUp(MouseUpEvent event) {
+        setText("onMouseUp()");
+      }
+    });
+
+    addMouseOverHandler(new MouseOverHandler() {
+      @Override
+      public void onMouseOver(MouseOverEvent event) {
+        setText("onMouseOver()");
+      }
+    });
+
+    addMouseOutHandler(new MouseOutHandler() {
+      @Override
+      public void onMouseOut(MouseOutEvent event) {
+        setText("onMouseOut()");
       }
     });
 
