@@ -48,8 +48,8 @@ public class ClickTouchExample extends Example {
 
   @Override
   protected void onInitialLoad() {
-    absolutePositionDropController.drop(createDraggableButton(), 60, 10);
-    absolutePositionDropController.drop(createDraggableButton(), 10, 90);
-    absolutePositionDropController.drop(createDraggableButton(), 160, 160);
+    absolutePositionDropController.drop(createDraggableButton(), 110, 90);
+    absolutePositionDropController.drop(createDraggableButton(), 60, 160);
+    absolutePositionDropController.drop(createDraggableButton(), 260, 210);
   }
 }
