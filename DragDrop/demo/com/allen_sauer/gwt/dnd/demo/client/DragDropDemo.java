@@ -21,7 +21,6 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -191,17 +190,11 @@ public final class DragDropDemo implements EntryPoint {
     mainPanel.add(new HTML(
         "<div style='color: gray; margin-top: 1em;'>Demo created with gwt-dnd @GWT_DND_VERSION@ and GWT " + GWT.getVersion() + "</div>"));
 
-    final String initToken = History.getToken();
-    if (initToken.length() == 0) {
-      // select a random example
-      examples.selectTab(Random.nextInt(examples.getTabCount() - 1));
-    } else {
-      Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-        @Override
-        public void execute() {
-          examples.selectTabByHistoryToken(initToken);
-        }
-      });
-    }
+    Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+      @Override
+      public void execute() {
+        examples.selectTabByHistoryToken(History.getToken());
+      }
+    });
   }
 }
