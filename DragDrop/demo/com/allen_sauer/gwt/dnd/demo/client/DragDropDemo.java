@@ -17,10 +17,13 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Random;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -115,15 +118,13 @@ public final class DragDropDemo implements EntryPoint {
     dragController.setBehaviorMultipleSelection(false);
 
     mainPanel.add(new HTML(
-        "<div style='font-weight: bold; font-size: 1.2em;'><a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a>"
-            + " - Drag-and-Drop for your Google Web Toolkit projects.</div>"
-            + "<div style='font-style: italic; margin-bottom: 1em;'>by Fred Sauer</div>"));
+        "<div style='font-weight: bold; font-size: 1.2em;'><a href='http://code.google.com/p/gwt-dnd/'>gwt-dnd</a>" + " - Drag-and-Drop for your Google Web Toolkit projects.</div>" + "<div style='font-style: italic; margin-bottom: 1em;'>by Fred Sauer</div>"));
 
     // Umbrella example illustrating basic drag and drop behavior
     HTML boundaryDescription = ExampleTabPanel.describe(new Class[] {
         DragDropDemo.class, PickupDragController.class, BoundaryDropController.class,},
         "Most of the example drag operations are constrained to the panel below."
-            + " Try to drag one of the widgets outside the area below.");
+        + " Try to drag one of the widgets outside the area below.");
     boundaryDescription.addStyleName(CSS_DEMO_BOUNDARY);
     mainPanel.add(boundaryDescription);
     mainPanel.add(boundaryPanel);
@@ -152,12 +153,21 @@ public final class DragDropDemo implements EntryPoint {
     final HTML eventTextArea = new HTML();
     eventTextArea.addStyleName(CSS_DEMO_EVENT_TEXT_AREA);
     eventTextArea.setSize(boundaryPanel.getOffsetWidth() + "px", "10em");
-    mainPanel.add(new HTML("<br>Events received by registered <code>DragHandler</code>s"));
-    mainPanel.add(eventTextArea);
 
     // instantiate shared drag handler to listen for events
-    DemoDragHandler demoDragHandler = new DemoDragHandler(eventTextArea);
+    final DemoDragHandler demoDragHandler = new DemoDragHandler(eventTextArea);
     dragController.addDragHandler(demoDragHandler);
+
+    Button clearButton = new Button("clear");
+    clearButton.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent event) {
+        demoDragHandler.clear();
+      }
+    });
+    mainPanel.add(new HTML("<br>Events received by registered <code>DragHandler</code>s"));
+    mainPanel.add(clearButton);
+    mainPanel.add(eventTextArea);
 
     // add our individual examples
     examples.add(new BinExample(dragController));
@@ -178,9 +188,8 @@ public final class DragDropDemo implements EntryPoint {
     examples.add(new PaletteExample(demoDragHandler));
     examples.add(new ClickTouchExample(dragController, demoDragHandler));
 
-    mainPanel.add(
-        new HTML(
-                "<div style='color: gray; margin-top: 1em;'>Demo created with gwt-dnd @GWT_DND_VERSION@ and GWT " + GWT.getVersion() + "</div>"));
+    mainPanel.add(new HTML(
+        "<div style='color: gray; margin-top: 1em;'>Demo created with gwt-dnd @GWT_DND_VERSION@ and GWT " + GWT.getVersion() + "</div>"));
 
     final String initToken = History.getToken();
     if (initToken.length() == 0) {

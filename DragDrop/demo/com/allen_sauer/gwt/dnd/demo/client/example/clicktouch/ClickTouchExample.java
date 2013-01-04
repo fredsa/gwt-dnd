@@ -22,7 +22,8 @@ public class ClickTouchExample extends Example {
     positioningDropTarget.setPixelSize(500, 300);
     setWidget(positioningDropTarget);
 
-    positioningDropTarget.add(new HTML("Note: you must set <b>Drag Sentitivity &gt; 0</b>"), 5, 5);
+    positioningDropTarget.add(
+        new HTML("\u21fd Note, you must first set <b>Drag Sentitivity &gt; 0</b>"), 5, 5);
 
     // instantiate our drop controller
     absolutePositionDropController = new AbsolutePositionDropController(positioningDropTarget);

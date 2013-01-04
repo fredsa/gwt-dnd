@@ -88,11 +88,10 @@ public final class DemoDragHandler implements DragHandler {
    */
   @Override
   public void onPreviewDragStart(DragStartEvent event) throws VetoDragException {
-    clear();
     log("onPreviewDragStart: " + event, BLUE);
   }
 
-  private void clear() {
+  public void clear() {
     eventTextArea.setHTML("");
   }
 
