@@ -230,11 +230,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
           context.mouseY = mouseDownOffsetY + location.getTop();
 
           startDragging();
-        } else {
-          if (mouseDownWidget instanceof Image) {
-            // prevent IE image drag when drag sensitivity > 5
-            event.preventDefault();
-          }
         }
       }
       if (dragging == NOT_DRAGGING) {
@@ -242,7 +237,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       }
     }
     // proceed with the actual drag
-    event.preventDefault();
     actualMove(x, y);
   }
 
@@ -330,7 +324,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       // ignore multiple fingers for now
       return;
     }
-    event.preventDefault();
     Widget sender = (Widget) event.getSource();
     Element elem = sender.getElement();
     // TODO optimize for the fact that elem is at (0,0)
@@ -357,17 +350,15 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
           y += location.getTop();
 
           startDragging();
-        } else {
-          // prevent IE image drag when drag sensitivity > 5
-          event.preventDefault();
         }
       }
       if (dragging == NOT_DRAGGING) {
         return;
       }
     }
-    // proceed with the actual drag
+    // prevent default page content drag
     event.preventDefault();
+    // proceed with the actual drag
     actualMove(x, y);
   }
 
@@ -389,7 +380,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       return;
     }
 
-    event.preventDefault();
     Widget sender = (Widget) event.getSource();
     int x = event.getTouches().get(0).getRelativeX(event.getRelativeElement());
     int y = event.getTouches().get(0).getRelativeY(event.getRelativeElement());
@@ -401,8 +391,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
     context.dragController.clearSelection();
     context.dragController.toggleSelection(context.draggable);
-
-    event.preventDefault();
 
     mouseDownOffsetX = x;
     mouseDownOffsetY = y;
