@@ -118,6 +118,10 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   @Override
   public void onMouseDown(MouseDownEvent event) {
+    // *******************************************************************
+    // Note: the draggable (or its draghandle) receives mouse down events,
+    // but the capturing widget will receive mouse move/up events.
+    // *******************************************************************
     if (supportsTouchEvents) {
       return;
     }
@@ -190,6 +194,10 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   @Override
   public void onMouseMove(MouseMoveEvent event) {
+    // *******************************************************************
+    // Note: the draggable (or its draghandle) receives mouse down events,
+    // but the capturing widget will receive mouse move/up events.
+    // *******************************************************************
     if (supportsTouchEvents) {
       return;
     }
@@ -240,6 +248,10 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   @Override
   public void onMouseUp(MouseUpEvent event) {
+    // *******************************************************************
+    // Note: the draggable (or its draghandle) receives mouse down events,
+    // but the capturing widget will receive mouse move/up events.
+    // *******************************************************************
     if (supportsTouchEvents) {
       return;
     }
@@ -292,16 +304,28 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   @Override
   public void onTouchCancel(TouchCancelEvent event) {
+    // ********************************************************************
+    // Note: the draggable (or its draghandle) receives touch start events,
+    // but the capturing widget will receive touch move/end/cancel events.
+    // ********************************************************************
     onTouchEndorCancel(event);
   }
 
   @Override
   public void onTouchEnd(TouchEndEvent event) {
+    // ********************************************************************
+    // Note: the draggable (or its draghandle) receives touch start events,
+    // but the capturing widget will receive touch move/end/cancel events.
+    // ********************************************************************
     onTouchEndorCancel(event);
   }
 
   @Override
   public void onTouchMove(TouchMoveEvent event) {
+    // ********************************************************************
+    // Note: the draggable (or its draghandle) receives touch start events,
+    // but the capturing widget will receive touch move/end/cancel events.
+    // ********************************************************************
     if (event.getTouches().length() != 1) {
       // ignore multiple fingers for now
       return;
@@ -349,6 +373,10 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
 
   @Override
   public void onTouchStart(TouchStartEvent event) {
+    // ********************************************************************
+    // Note: the draggable (or its draghandle) receives touch start events,
+    // but the capturing widget will receive touch move/end/cancel events.
+    // ********************************************************************
     supportsTouchEvents = true;
     if (event.getTouches().length() != 1) {
       // ignore multiple fingers for now
