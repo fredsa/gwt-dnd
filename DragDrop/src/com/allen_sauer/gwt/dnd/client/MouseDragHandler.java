@@ -15,6 +15,7 @@ package com.allen_sauer.gwt.dnd.client;
 
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style;
@@ -281,6 +282,7 @@ class MouseDragHandler
 
       // Proceed with the drop
       try {
+        synthesizeAsyncMouseUp(event);
         drop(x, y);
         if (dragging != ACTIVELY_DRAGGING) {
           doSelectionToggle(event);
@@ -292,6 +294,39 @@ class MouseDragHandler
       mouseDownWidget = null;
       dragEndCleanup();
     }
+  }
+
+  private void synthesizeAsyncMouseUp(MouseUpEvent event) {
+    final Element elem = mouseDownWidget.getElement();
+    NativeEvent n = event.getNativeEvent();
+    // One click, see https://developer.mozilla.org/en-US/docs/DOM/event.detail
+    final int detail = 1;
+    final int screenX = n.getScreenX();
+    final int screenY = n.getScreenY();
+    final int clientX = n.getClientX();
+    final int clientY = n.getClientY();
+    final boolean ctrlKey = n.getCtrlKey();
+    final boolean altKey = n.getAltKey();
+    final boolean shiftKey = n.getShiftKey();
+    final boolean metaKey = n.getMetaKey();
+    final int button = n.getButton();
+
+    Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+      @Override
+      public void execute() {
+        // TODO determine if we need to set additional event properties
+        elem.dispatchEvent(Document.get().createMouseUpEvent(detail,
+            screenX,
+            screenY,
+            clientX,
+            clientY,
+            ctrlKey,
+            altKey,
+            shiftKey,
+            metaKey,
+            button));
+      }
+    });
   }
 
   @Override
