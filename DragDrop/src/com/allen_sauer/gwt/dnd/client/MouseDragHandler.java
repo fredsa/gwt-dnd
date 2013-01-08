@@ -13,11 +13,6 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
-import java.util.HashMap;
-
-import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
-import com.allen_sauer.gwt.dnd.client.util.Location;
-import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Element;
@@ -49,6 +44,12 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
+
+import com.allen_sauer.gwt.dnd.client.util.DOMUtil;
+import com.allen_sauer.gwt.dnd.client.util.Location;
+import com.allen_sauer.gwt.dnd.client.util.WidgetLocation;
+
+import java.util.HashMap;
 
 /**
  * Implementation helper class which handles mouse events for all draggable
