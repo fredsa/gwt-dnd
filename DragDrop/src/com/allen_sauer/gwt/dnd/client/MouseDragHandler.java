@@ -374,12 +374,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       return;
     }
 
-    // TODO verify that multiple onTocuhStart events are fired for overlapping draggables
-    if (mouseDownWidget != null) {
-      // For multiple overlapping draggable widgets, ignore all but first onTouchStart
-      return;
-    }
-
     Widget sender = (Widget) event.getSource();
     int x = event.getTouches().get(0).getRelativeX(event.getRelativeElement());
     int y = event.getTouches().get(0).getRelativeY(event.getRelativeElement());
