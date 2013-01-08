@@ -13,6 +13,7 @@
  */
 package com.allen_sauer.gwt.dnd.client;
 
+import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.dom.client.Document;
@@ -20,6 +21,7 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.dom.client.Style.BorderStyle;
+import com.google.gwt.dom.client.Touch;
 import com.google.gwt.event.dom.client.HasMouseDownHandlers;
 import com.google.gwt.event.dom.client.HasTouchStartHandlers;
 import com.google.gwt.event.dom.client.HumanInputEvent;
@@ -40,6 +42,7 @@ import com.google.gwt.event.dom.client.TouchStartEvent;
 import com.google.gwt.event.dom.client.TouchStartHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.PopupPanel;
@@ -296,6 +299,35 @@ class MouseDragHandler
     }
   }
 
+  private void synthesizeAsyncTouchEnd(TouchEndEvent event) {
+    final Element elem = mouseDownWidget.getElement();
+    NativeEvent n = event.getNativeEvent();
+    // TODO extract these properties from the original event
+    final boolean bubbles = true;
+    final boolean cancelable = true;
+    final int detail = 0;
+
+    final boolean ctrlKey = n.getCtrlKey();
+    final boolean altKey = n.getAltKey();
+    final boolean shiftKey = n.getShiftKey();
+    final boolean metaKey = n.getMetaKey();
+    final JsArray<Touch> changedTouches = n.getChangedTouches();
+    Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+      @Override
+      public void execute() {
+        // TODO determine if we need to set additional event properties
+        elem.dispatchEvent(DOMUtil.createTouchEndEvent(bubbles,
+            cancelable,
+            detail,
+            ctrlKey,
+            altKey,
+            shiftKey,
+            metaKey,
+            changedTouches));
+      }
+    });
+  }
+
   private void synthesizeAsyncMouseUp(MouseUpEvent event) {
     final Element elem = mouseDownWidget.getElement();
     NativeEvent n = event.getNativeEvent();
@@ -344,6 +376,7 @@ class MouseDragHandler
     // Note: the draggable (or its draghandle) receives touch start events,
     // but the capturing widget will receive touch move/end/cancel events.
     // ********************************************************************
+    synthesizeAsyncTouchEnd(event);
     onTouchEndorCancel(event);
   }
 
