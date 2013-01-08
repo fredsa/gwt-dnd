@@ -34,7 +34,7 @@ public final class WindowExample extends Example {
   /**
    * IFRAME URL. Note: don't use Google Code Project Hosting or other urchin enabled site.
    */
-  private static final String IFRAME_URL = "http://allen-sauer.com/gwt/";
+  private static final String IFRAME_URL = "https://gwt-log.appspot.com/";
 
   public WindowExample(DemoDragHandler demoDragHandler) {
     addStyleName(CSS_DEMO_RESIZE_EXAMPLE);
