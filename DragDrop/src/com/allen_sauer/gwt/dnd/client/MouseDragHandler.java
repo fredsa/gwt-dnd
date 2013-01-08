@@ -208,11 +208,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     int y = event.getRelativeY(elem);
 
     if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
-      // TODO remove Safari workaround after GWT issue 1807 fixed
-      if (sender != capturingWidget) {
-        // In Safari 1.3.2 MAC, other mouse events continue to arrive even when capturing
-        return;
-      }
       dragging = ACTIVELY_DRAGGING;
     } else {
       if (mouseDownWidget != null) {
@@ -274,13 +269,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
         return;
       }
 
-      // TODO Remove Safari workaround after GWT issue 1807 fixed
-      if (sender != capturingWidget) {
-        // In Safari 1.3.2 MAC does not honor capturing widget for mouse up
-        Location location = new WidgetLocation(sender, null);
-        x += location.getLeft();
-        y += location.getTop();
-      }
       // Proceed with the drop
       try {
         drop(x, y);
