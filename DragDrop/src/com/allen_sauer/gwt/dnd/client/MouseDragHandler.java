@@ -155,14 +155,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
       context.dragController.clearSelection();
       context.dragController.toggleSelection(context.draggable);
     }
-    if (context.dragController.getBehaviorCancelDocumentSelections()) {
-      Scheduler.get().scheduleDeferred(new ScheduledCommand() {
-        @Override
-        public void execute() {
-          DOMUtil.cancelAllDocumentSelections();
-        }
-      });
-    }
 
     // prevent browser image dragging in Firefox et al.
     if (mouseDownWidget instanceof Image) {
@@ -213,9 +205,8 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     } else {
       if (mouseDownWidget != null) {
         if (Math.max(Math.abs(x - mouseDownPageOffsetX), Math.abs(y - mouseDownPageOffsetY)) >= context.dragController.getBehaviorDragStartSensitivity()) {
-          if (context.dragController.getBehaviorCancelDocumentSelections()) {
-            DOMUtil.cancelAllDocumentSelections();
-          }
+          // cancel selection when drag sensitivity >= 2 on webkit
+          maybeCancelDocumentSelections();
           if (!context.selectedWidgets.contains(context.draggable)) {
             context.dragController.toggleSelection(context.draggable);
           }
@@ -234,6 +225,17 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
     // proceed with the actual drag
     actualMove(x, y);
+  }
+
+  private void maybeCancelDocumentSelections() {
+    if (context.dragController.getBehaviorCancelDocumentSelections()) {
+      Scheduler.get().scheduleDeferred(new ScheduledCommand() {
+        @Override
+        public void execute() {
+          DOMUtil.cancelAllDocumentSelections();
+        }
+      });
+    }
   }
 
   @Override
@@ -262,9 +264,6 @@ class MouseDragHandler implements MouseMoveHandler, MouseDownHandler, MouseUpHan
     }
 
     try {
-      if (context.dragController.getBehaviorCancelDocumentSelections()) {
-        DOMUtil.cancelAllDocumentSelections();
-      }
       if (dragging == NOT_DRAGGING) {
         doSelectionToggle(event);
         return;
