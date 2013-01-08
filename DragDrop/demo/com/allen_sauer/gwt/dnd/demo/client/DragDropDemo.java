@@ -47,6 +47,8 @@ import com.allen_sauer.gwt.dnd.demo.client.example.puzzle.PuzzleExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.resetcache.ResetCacheExample;
 import com.allen_sauer.gwt.dnd.demo.client.example.window.WindowExample;
 
+import java.util.logging.Logger;
+
 /**
  * EntryPoint class for demonstrating and testing gwt-dnd.
  */
@@ -81,6 +83,7 @@ public final class DragDropDemo implements EntryPoint {
             text += "Caused by: ";
           }
         }
+        Logger.getLogger(DragDropDemo.class.getName()).severe(text);
         DialogBox dialogBox = new DialogBox(true, false);
         dialogBox.getElement().getStyle().setProperty("backgroundColor", "#ABCDEF");
         System.err.print(text);

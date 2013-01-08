@@ -18,6 +18,9 @@
 
 	<entry-point class="com.allen_sauer.gwt.dnd.demo.client.DragDropDemo" />
 
+  <inherits name="com.google.gwt.logging.Logging"/>
+  <set-property name="gwt.logging.popupHandler" value="DISABLED" />
+
 	<public path="public" />
 
 </module>
