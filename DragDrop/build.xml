@@ -433,17 +433,6 @@
 		<sshexec command="ls" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
 	</target>
 
-	<!-- Deploy demo to allen-sauer.com -->
-	<target name="deploy" description="Build and deploy to demo site" depends="clean, javac, gwtc">
-		<sshexec command="mkdir ${packagename}" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
-
-		<scp todir="sauer@allen-sauer.com:${packagename}/" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" verbose="true">
-			<fileset dir="build/war" />
-		</scp>
-
-		<sshexec command="./deploy.sh ${packagename}" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
-	</target>
-
 	<!-- Deploy demo to gwt-dnd.appspot.com -->
 
 	<target name="gae-appcfg" description="Detemrine appcfg.sh location" depends="unique-lib-locations">
