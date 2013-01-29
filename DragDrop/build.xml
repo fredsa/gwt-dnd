@@ -435,7 +435,7 @@
 
 	<!-- Deploy demo to gwt-dnd.appspot.com -->
 
-	<target name="gae-appcfg" description="Detemrine appcfg.sh location" depends="unique-lib-locations">
+	<target name="gae-appcfg" description="Determine appcfg.sh location" depends="unique-lib-locations">
 		<!-- gae.appcfg property -->
 		<condition property="gae.appcfg.default" value="${env.APPCFG}" else="">
 			<isset property="env.APPCFG" />
