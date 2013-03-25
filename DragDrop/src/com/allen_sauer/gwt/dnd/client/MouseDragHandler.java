@@ -105,8 +105,6 @@ class MouseDragHandler
 
   private static final int NOT_DRAGGING = 1;
 
-  private static boolean supportsTouchEvents;
-
   private FocusPanel capturingWidget;
 
   private final DragContext context;
@@ -135,9 +133,6 @@ class MouseDragHandler
     // Note: the draggable (or its draghandle) receives mouse down events,
     // but the capturing widget will receive mouse move/up events.
     // *******************************************************************
-    if (supportsTouchEvents) {
-      return;
-    }
     if (dragging == ACTIVELY_DRAGGING || dragging == DRAGGING_NO_MOVEMENT_YET) {
       // Ignore additional mouse buttons depressed while still dragging
       return;
@@ -203,9 +198,6 @@ class MouseDragHandler
     // Note: the draggable (or its draghandle) receives mouse down events,
     // but the capturing widget will receive mouse move/up events.
     // *******************************************************************
-    if (supportsTouchEvents) {
-      return;
-    }
     Widget sender = (Widget) event.getSource();
     Element elem = sender.getElement();
     // TODO optimize for the fact that elem is at (0,0)
@@ -257,9 +249,6 @@ class MouseDragHandler
     // Note: the draggable (or its draghandle) receives mouse down events,
     // but the capturing widget will receive mouse move/up events.
     // *******************************************************************
-    if (supportsTouchEvents) {
-      return;
-    }
     Widget sender = (Widget) event.getSource();
     Element elem = sender.getElement();
     // TODO optimize for the fact that elem is at (0,0)
@@ -434,7 +423,6 @@ class MouseDragHandler
     // Note: the draggable (or its draghandle) receives touch start events,
     // but the capturing widget will receive touch move/end/cancel events.
     // ********************************************************************
-    supportsTouchEvents = true;
     if (event.getTouches().length() != 1) {
       // ignore multiple fingers for now
       return;
