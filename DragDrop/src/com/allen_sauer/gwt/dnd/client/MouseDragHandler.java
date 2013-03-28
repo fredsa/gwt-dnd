@@ -490,8 +490,14 @@ class MouseDragHandler
     if (registeredDraggable == null) {
       throw new RuntimeException("dragHandle was not draggable");
     }
-    registeredDraggable.getMouseDownHandlerRegistration().removeHandler();
-    registeredDraggable.getTouchStartHandlerRegistration().removeHandler();
+    HandlerRegistration mouseDownHandlerRegistration = registeredDraggable.getMouseDownHandlerRegistration();
+    if (mouseDownHandlerRegistration != null) {
+      mouseDownHandlerRegistration.removeHandler();
+    }
+    HandlerRegistration touchStartHandlerRegistration = registeredDraggable.getTouchStartHandlerRegistration();
+    if (touchStartHandlerRegistration != null) {
+      touchStartHandlerRegistration.removeHandler();
+    }
   }
 
   private void doSelectionToggle(HumanInputEvent<?> event) {
