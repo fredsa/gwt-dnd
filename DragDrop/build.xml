@@ -428,11 +428,6 @@
 		<echo message="Complete the process here: https://oss.sonatype.org/index.html#stagingRepositories" />
 	</target>
 
-	<!-- Test SSH functionality -->
-	<target name="sshls" description="SSH ls (for testing 'sshexec' task)">
-		<sshexec command="ls" username="sauer" host="allen-sauer.com" knownhosts="/fred/.ssh/known_hosts" keyfile="/fred/.ssh/id_dsa" passphrase="" />
-	</target>
-
 	<!-- Deploy demo to gwt-dnd.appspot.com -->
 
 	<target name="gae-appcfg" description="Determine appcfg.sh location" depends="unique-lib-locations">
