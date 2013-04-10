@@ -11,3 +11,6 @@ jsr107cache-1.1.jar
 
 # GWT SDK
 gwt-servlet.jar
+
+# OS-X
+.DS_Store
