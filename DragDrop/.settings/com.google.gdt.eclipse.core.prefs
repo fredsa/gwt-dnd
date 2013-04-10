@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
 jarsExcludedFromWebInfLib=
-lastWarOutDir=/usr/local/google/home/fredsa/src/gwt-dnd/DragDrop/war
+lastWarOutDir=/fred/src/gwt-dnd/DragDrop/war
 launchConfigExternalUrlPrefix=
 warSrcDir=war
-warSrcDirIsOutput=false
+warSrcDirIsOutput=true
