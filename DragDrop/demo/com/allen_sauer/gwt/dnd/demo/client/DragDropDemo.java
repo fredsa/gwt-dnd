@@ -138,6 +138,7 @@ public final class DragDropDemo implements EntryPoint {
     configurationPanel.add(new DragStartSensitivityBehaviorPanel(dragController));
     configurationPanel.add(new DragProxyBehaviorPanel(dragController));
     configurationPanel.add(new ConstrainedToBoundaryBehaviorPanel(dragController));
+    configurationPanel.add(new BidiBehaviorPanel(dragController));
     boundaryPanel.add(configurationPanel, 10, 0);
 
     // Create some draggable widgets to play with

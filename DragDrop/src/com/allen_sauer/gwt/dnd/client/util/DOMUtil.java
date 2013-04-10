@@ -102,6 +102,9 @@ public class DOMUtil {
       return 0;
     }
 
+    // use the first widget as a proxy for parent's direction
+    boolean rtl = isRtl(parent.getWidget(0));
+
     if (DEBUG) {
       for (int i = 0; i < widgetCount; i++) {
         debugWidgetWithColor(parent, i, "white");
@@ -140,10 +143,18 @@ public class DOMUtil {
         high = mid;
       } else if (midArea.getRight() < location.getLeft()) {
         debugWidgetWithColor(parent, mid, "blue");
-        low = mid;
+        if (rtl) {
+          high = mid;
+        } else {
+          low = mid;
+        }
       } else if (midArea.getLeft() > location.getLeft()) {
         debugWidgetWithColor(parent, mid, "red");
-        high = mid;
+        if (rtl) {
+          low = mid;
+        } else {
+          high = mid;
+        }
       } else {
         if (comparator.locationIndicatesIndexFollowingWidget(midArea, location)) {
           debugWidgetWithColor(parent, mid + 1, "green");
@@ -154,6 +165,11 @@ public class DOMUtil {
         }
       }
     }
+  }
+
+  private static boolean isRtl(Widget widget) {
+    Element elem = widget.getElement();
+    return "rtl".equals(getEffectiveStyle(elem, "direction"));
   }
 
   /**

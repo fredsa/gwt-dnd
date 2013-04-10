@@ -5,6 +5,14 @@ BODY {
   margin: 10px; /* leave for testing of positions */
 }
 
+.rtl {
+    direction: rtl;
+}
+
+.ltr {
+    direction: ltr;
+}
+
 CODE {
   font-style: normal;
 }
