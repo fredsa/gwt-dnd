@@ -142,10 +142,10 @@ public final class DragDropDemo implements EntryPoint {
     boundaryPanel.add(configurationPanel, 10, 0);
 
     // Create some draggable widgets to play with
-    boundaryPanel.add(createDraggable(), 100, 430);
-    boundaryPanel.add(createDraggable(), 20, 450);
-    boundaryPanel.add(createDraggable(), 40, 480);
+    boundaryPanel.add(createDraggable(), 20, 530);
     boundaryPanel.add(createDraggable(), 60, 510);
+    boundaryPanel.add(createDraggable(), 100, 520);
+    boundaryPanel.add(createDraggable(), 140, 530);
 
     // TabPanel to hold our examples
     final ExampleTabPanel examples = new ExampleTabPanel(7);
