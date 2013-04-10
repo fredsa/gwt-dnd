@@ -65,7 +65,11 @@ public class IndexedDropController extends AbstractIndexedDropController {
   @Override
   protected LocationWidgetComparator getLocationWidgetComparator() {
     if (dropTarget instanceof HorizontalPanel) {
-      return LocationWidgetComparator.RIGHT_HALF_COMPARATOR;
+      if (isRtl()) {
+        return LocationWidgetComparator.LEFT_HALF_COMPARATOR;
+      } else {
+        return LocationWidgetComparator.RIGHT_HALF_COMPARATOR;
+      }
     } else {
       return LocationWidgetComparator.BOTTOM_HALF_COMPARATOR;
     }

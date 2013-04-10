@@ -91,22 +91,64 @@ public interface Area {
   int getWidth();
 
   /**
-   * Determine if location is to the bottom-right of the following 45 degree line.
+   * Determine if location is to the bottom-right of the area diagonal.
    * 
    * <pre>
-   *             y  45
-   *             | /
-   *             |/   
-   *        -----+----- x
-   *            /|
-   *           / |
-   * 
+   *                          |                       /
+   *                                               /
+   *        +-----------------+-----------------+
+   *        | area                           /  |
+   *        |                 |           /     |
+   *        |                          /        |
+   *        |                 |     /           |
+   *        |                    /              |
+   *  - - - + - - - - - - - - + - - - - - - - - + - - - x-axis
+   *        |              /                    |
+   *        |           /     |                 |
+   *        |        /                          |
+   *        |     /           |                 |
+   *        |  /                                |
+   *        +-----------------+-----------------+
+   *     /  
+   *  /                       |
+   *                          
+   *                       y-axis
    * </pre>
    * 
    * @param location the location to consider
-   * @return true if the location is to below the 45 degree line
+   * @return true if the location is to below the diagonal
    */
   boolean inBottomRight(Location location);
+
+  /**
+   * Determine if location is to the bottom-left of the area diagonal.
+   * 
+   * <pre>
+   *  \                       |
+   *     \
+   *        +-----------------+-----------------+
+   *        |  \                           area |
+   *        |     \           |                 |
+   *        |        \                          |
+   *        |           \     |                 |
+   *        |              \                    |
+   *  - - - + - - - - - - - - + - - - - - - - - + - - - x-axis
+   *        |                    \              |
+   *        |                 |     \           |
+   *        |                          \        |
+   *        |                 |           \     |
+   *        |                                \  |
+   *        +-----------------+-----------------+
+   *                                               \
+   *                          |                       \
+   * 
+   *                       y-axis
+   * </pre>
+   * 
+   * @param location the location to consider
+   * @return true if the location is to below the diagonal
+   */
+  boolean inBottomLeft(Location location);
 
   /**
    * Determine if the target area intersects our area.

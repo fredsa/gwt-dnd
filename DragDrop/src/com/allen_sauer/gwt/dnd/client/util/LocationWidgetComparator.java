@@ -31,11 +31,27 @@ public interface LocationWidgetComparator {
     }
   };
 
+  LocationWidgetComparator BOTTOM_LEFT_COMPARATOR = new LocationWidgetComparator() {
+
+    @Override
+    public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
+      return widgetArea.inBottomLeft(location);
+    }
+  };
+
   LocationWidgetComparator RIGHT_HALF_COMPARATOR = new LocationWidgetComparator() {
 
     @Override
     public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
       return location.getLeft() > widgetArea.getLeft() + widgetArea.getWidth() / 2;
+    }
+  };
+
+  LocationWidgetComparator LEFT_HALF_COMPARATOR = new LocationWidgetComparator() {
+
+    @Override
+    public boolean locationIndicatesIndexFollowingWidget(Area widgetArea, Location location) {
+      return location.getLeft() < widgetArea.getLeft() + widgetArea.getWidth() / 2;
     }
   };
 

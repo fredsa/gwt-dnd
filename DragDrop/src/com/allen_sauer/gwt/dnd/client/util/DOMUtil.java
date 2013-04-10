@@ -84,7 +84,6 @@ public class DOMUtil {
 
   /**
    * Find child widget intersection at the provided location using the provided comparator strategy.
-   * TODO Handle LTR case for Bidi
    * 
    * TODO Change IndexedPanel -> InsertPanel
    * 
@@ -167,7 +166,7 @@ public class DOMUtil {
     }
   }
 
-  private static boolean isRtl(Widget widget) {
+  public static boolean isRtl(Widget widget) {
     Element elem = widget.getElement();
     return "rtl".equals(getEffectiveStyle(elem, "direction"));
   }

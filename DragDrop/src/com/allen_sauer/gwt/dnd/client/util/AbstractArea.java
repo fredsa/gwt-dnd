@@ -88,6 +88,14 @@ public abstract class AbstractArea implements Area {
   }
 
   @Override
+  public boolean inBottomLeft(Location location) {
+    Location center = getCenter();
+    float distanceX = (float) (location.getLeft() - center.getLeft()) / getWidth();
+    float distanceY = (float) (location.getTop() - center.getTop()) / getHeight();
+    return distanceX - distanceY < 0;
+  }
+
+  @Override
   public boolean intersects(Area targetArea) {
     if (getRight() < targetArea.getLeft() || getLeft() > targetArea.getRight()
         || getBottom() < targetArea.getTop() || getTop() > targetArea.getBottom()) {
