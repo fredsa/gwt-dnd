@@ -8,9 +8,9 @@
 		<property name="googlecode-libsummary" value="Drag-and-Drop Library for Google-Web-Toolkit (GWT)" />
 		<property name="googlecode-javadocsummary" value="Javadoc for ${ant.project.name} source and demos (examples)" />
 		<property name="googlecode-sourcessummary" value="Sources for ${ant.project.name}" />
-		<property name="googlecode-liblabels" value="Type-Library, OpSys-All, GWT-GWT_2.5.1, Java-1.6, ReleaseCandidate, API-2.x" />
-		<property name="googlecode-javadoclabels" value="Type-Docs, OpSys-All, GWT-GWT_2.5.1, Java-1.6, ReleaseCandidate, API-2.x" />
-		<property name="googlecode-sourceslabels" value="Type-Sources, OpSys-All, GWT-GWT_2.5.1, Java-1.6, Deprecated, API-2.x" />
+		<property name="googlecode-liblabels" value="Type-Library, OpSys-All, GWT-GWT_2.6.0, Java-1.6, ReleaseCandidate, API-2.x" />
+		<property name="googlecode-javadoclabels" value="Type-Docs, OpSys-All, GWT-GWT_2.6.0, Java-1.6, ReleaseCandidate, API-2.x" />
+		<property name="googlecode-sourceslabels" value="Type-Sources, OpSys-All, GWT-GWT_2.6.0, Java-1.6, Deprecated, API-2.x" />
 		<property name="filtertoken" value="GWT_DND_VERSION" />
 
 		<!-- define Maven staging repository id and url -->
@@ -51,7 +51,7 @@
 		<property name="validation-api-1.0.0.GA.jar" location="${gwt.location}/validation-api-1.0.0.GA.jar" />
 		<property name="validation-api-1.0.0.GA-sources.jar" location="${gwt.location}/validation-api-1.0.0.GA-sources.jar" />
 
-		<!-- Pulls in tasks defined in ant-contrib, i.e. foreach -->
+		<!-- Pulls in tasks defined in ant-contrib (i.e. 'for'), see http://ant-contrib.sourceforge.net/tasks/tasks/index.html -->
 		<taskdef resource="net/sf/antcontrib/antlib.xml">
 			<classpath>
 				<pathelement location="${gwt.tools.antlib}/ant-contrib-1.0b3.jar" />
