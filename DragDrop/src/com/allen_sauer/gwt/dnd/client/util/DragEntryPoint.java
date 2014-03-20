@@ -19,7 +19,7 @@ import com.google.gwt.dom.client.StyleInjector;
 /**
  * Global initialization for gwt-dnd.
  */
-class DragEntryPoint implements EntryPoint {
+public class DragEntryPoint implements EntryPoint {
 
   private static native void setVersion()
   /*-{
