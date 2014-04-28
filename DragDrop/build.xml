@@ -346,41 +346,22 @@
 		<fail unless="is-numbered-release" message="Cannot upload version 0.0.0" />
 	</target>
 
-	<!-- Upload files to Google Code project hosting -->
+	<!-- Upload files to Google Cloud Storage -->
 	<target name="upload" description="Upload file to Google Code" depends="prepare-to-upload">
-		<input addproperty="username" message="Google Code username" defaultvalue="fredsa@google.com" />
-		<input addproperty="password" message="Google Code password" defaultvalue="" />
-
-		<condition property="password-missing">
-			<equals arg1="${password}" arg2="" />
-		</condition>
-		<fail if="password-missing" message="Password is required" />
-
-		<input addproperty="libsummary" message="Library summary" defaultvalue="${googlecode-libsummary}" />
-		<input addproperty="liblabels" message="Library labels" defaultvalue="${googlecode-liblabels}" />
-
-		<input addproperty="javadocsummary" message="Javadoc summary" defaultvalue="${googlecode-javadocsummary}" />
-		<input addproperty="javadoclabels" message="Javadoc labels" defaultvalue="${googlecode-javadoclabels}" />
-
-		<input addproperty="sourcessummary" message="Sources summary" defaultvalue="${googlecode-sourcessummary}" />
-		<input addproperty="sourceslabels" message="Sources labels" defaultvalue="${googlecode-sourceslabels}" />
-
-		<tempfile property="tempfile" />
-		<get src="http://${ant.project.name}.googlecode.com/files/${libjar}" dest="${tempfile}" ignoreerrors="true" />
-		<length file="${tempfile}" property="len" />
-		<delete file="${tempfile}" />
-
-		<condition property="file-exists">
-			<not>
-				<equals arg1="${len}" arg2="0" />
-			</not>
-		</condition>
-		<fail if="file-exists" message="${libjar} already exists" />
-
-		<taskdef classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode-0.0.2.jar" name="gcupload" />
-		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${libjar}" targetfilename="${libjar}" summary="${libsummary}" labels="${liblabels}" />
-		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${javadocjar}" targetfilename="${javadocjar}" summary="${javadocsummary}" labels="${javadoclabels}" />
-		<gcupload username="${username}" password="${password}" projectname="${ant.project.name}" filename="${libdir}/${sourcesjar}" targetfilename="${sourcesjar}" summary="${sourcessummary}" labels="${sourceslabels}" />
+		<!--
+			Initial setup:
+			gsutil makebucket gs://gwt-dnd/
+		  gsutil acl ch -g AllUsers:R gs://gwt-dnd
+		  gsutil defacl ch -g AllUsers:R gs://gwt-dnd
+		-->
+		<exec executable="gsutil">
+			<arg value="cp" />
+			<arg value="-n" />
+			<arg value="${libdir}/${libjar}" />
+			<arg value="${libdir}/${javadocjar}" />
+			<arg value="${libdir}/${sourcesjar}" />
+			<arg value="gs://${ant.project.name}/" />
+		</exec>
 	</target>
 
 	<!-- Upload files to Google Code project hosting -->
