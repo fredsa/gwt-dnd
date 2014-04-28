@@ -1,0 +1,27 @@
+{
+  "folders":
+  [
+    {
+      "follow_symlinks": true,
+      "path": "/fred/src/gwt-dnd",
+      "folder_exclude_patterns": [
+          "Voices",
+          "VoicesCrowd"
+        ]
+    },
+    {
+      "follow_symlinks": true,
+      "path": "/fred/src/gwt-dnd/DragDrop",
+      "folder_exclude_patterns": [
+          "build",
+          "gwt-unitCache",
+          "war/demo",
+          "war/test",
+          "war/gettingstarted1",
+          "war/gettingstarted2",
+          "war/WEB-INF/classes",
+          "war/WEB-INF/deploy"
+        ]
+    }
+  ]
+}
