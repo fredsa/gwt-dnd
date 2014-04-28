@@ -3,4 +3,4 @@ jarsExcludedFromWebInfLib=
 lastWarOutDir=/fred/src/gwt-dnd/DragDrop/war
 launchConfigExternalUrlPrefix=
 warSrcDir=war
-warSrcDirIsOutput=true
+warSrcDirIsOutput=false
