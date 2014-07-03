@@ -347,7 +347,7 @@
 	</target>
 
 	<!-- Upload files to Google Cloud Storage -->
-	<target name="upload" description="Upload file to Google Code" depends="prepare-to-upload">
+	<target name="upload" description="Upload file to Google Cloud Storage" depends="prepare-to-upload">
 		<!--
 			Initial setup:
 			gsutil makebucket gs://gwt-dnd/
