@@ -10,7 +10,6 @@
 @external .dragdrop-selected;
 @external .dragdrop-dragging;
 @external .dragdrop-proxy;
-@external .dragdrop-selected 
 @external .dragdrop-movable-panel;
 	
 HTML { /* Workaround for GWT issue 1932 */
