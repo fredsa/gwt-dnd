@@ -29,8 +29,8 @@ HTML { /* Workaround for GWT issue 1932 */
 .dragdrop-handle {
 	cursor: move;
 	user-select: none;
-	\-khtml-user-select: none;
-	\-moz-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
 }
 
 .dragdrop-draggable {
@@ -60,7 +60,7 @@ HTML { /* Workaround for GWT issue 1932 */
 }
 
 .dragdrop-selected,.dragdrop-dragging,.dragdrop-proxy {
-	filter: alpha(opacity \= 30);
+	filter: alpha(opacity = 30);
 	opacity: 0.3;
 }
 
