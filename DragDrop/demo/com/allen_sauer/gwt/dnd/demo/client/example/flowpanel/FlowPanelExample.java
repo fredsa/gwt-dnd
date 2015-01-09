@@ -52,7 +52,7 @@ public final class FlowPanelExample extends Example {
 
   @Override
   public Class<?>[] getInvolvedClasses() {
-    return new Class[] {FlowPanelExample.class, FlowPanelDropController.class, FlowPanel.class,};
+    return new Class[] {FlowPanelExample.class, FlowPanelDropController.class,};
   }
 
   @Override
