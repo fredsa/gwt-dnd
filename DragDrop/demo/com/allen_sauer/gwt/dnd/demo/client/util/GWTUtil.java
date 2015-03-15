@@ -28,7 +28,7 @@ public class GWTUtil {
   /**
    * Base Subversion URL ({@value}) for DragDrop project.
    */
-  private static final String GIT_BROWSE_HEAD = "http://code.google.com/p/gwt-dnd/source/browse/DragDrop/";
+  private static final String GIT_BROWSE_HEAD = "https://github.com/fredsa/gwt-dnd/tree/master/DragDrop/src";
 
   /**
    * Determine Subversion URL for provided class literal, to be used in HTML anchors.

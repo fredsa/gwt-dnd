@@ -8,7 +8,7 @@
 
   <name>gwt-dnd</name>
   <description>Library providing easy to use drag-and-drop capabilities to Google Web Toolkit (GWT) projects.</description>
-  <url>http://code.google.com/p/gwt-dnd/</url>
+  <url>https://github.com/fredsa/gwt-dnd</url>
 
   <licenses>
     <license>
@@ -17,8 +17,8 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:http://code.google.com/p/gwt-dnd/</connection>
-    <url>http://code.google.com/p/gwt-dnd/</url>
+    <connection>scm:git:https://github.com/fredsa/gwt-dnd</connection>
+    <url>https://github.com/fredsa/gwt-dnd</url>
   </scm>
 
   <developers>

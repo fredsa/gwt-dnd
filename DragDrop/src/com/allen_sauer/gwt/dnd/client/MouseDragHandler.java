@@ -474,7 +474,7 @@ class MouseDragHandler
   void makeDraggable(Widget draggable, Widget dragHandle) {
     if (draggable instanceof PopupPanel) {
       DOMUtil.reportFatalAndThrowRuntimeException(
-          "PopupPanel (and its subclasses) cannot be made draggable; See http://code.google.com/p/gwt-dnd/issues/detail?id=43");
+          "PopupPanel (and its subclasses) cannot be made draggable; See https://github.com/fredsa/gwt-dnd/issues/43");
     }
     try {
       RegisteredDraggable registeredDraggable = new RegisteredDraggable(draggable, dragHandle);
