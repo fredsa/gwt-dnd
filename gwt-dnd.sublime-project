@@ -3,7 +3,7 @@
   [
     {
       "follow_symlinks": true,
-      "path": "/fred/src/gwt-dnd",
+      "path": ".",
       "folder_exclude_patterns": [
           "DragDrop",
           "Voices",
@@ -12,7 +12,7 @@
     },
     {
       "follow_symlinks": true,
-      "path": "/fred/src/gwt-dnd/DragDrop",
+      "path": "DragDrop",
       "folder_exclude_patterns": [
           "build",
           "gwt-unitCache",
