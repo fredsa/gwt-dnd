@@ -8,7 +8,7 @@ If you have questions, please post them on http://groups.google.com/group/gwt-dn
 I'd like to know if you're using gwt-dnd on your project, and how useful (or not) this library is to you. You can send me an email at [fredsa@gmail.com](mailto:fredsa@gmail.com?subject=gwt-dnd).
 
 # Getting started with your own drag-and-drop projects #
-Read the wiki here: https://github.com/fredsa/gwt-dnd/blob/wiki/GettingStarted.md
+Read the wiki here: https://github.com/fredsa/gwt-dnd/wiki/GettingStarted
 
 
 # Working examples #

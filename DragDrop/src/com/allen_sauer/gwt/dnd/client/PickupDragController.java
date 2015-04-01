@@ -105,7 +105,7 @@ public class PickupDragController extends AbstractDragController {
    * </p>
    *
    * @param boundaryPanel the desired boundary panel or <code>RootPanel.get()</code> (read
-   *          https://github.com/fredsa/gwt-dnd/blob/wiki/GettingStarted.md) if entire document body is to be
+   *          https://github.com/fredsa/gwt-dnd/wiki/GettingStarted) if entire document body is to be
    *          the boundary
    * @param allowDroppingOnBoundaryPanel whether or not boundary panel should allow dropping
    */
