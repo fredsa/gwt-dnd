@@ -421,6 +421,7 @@
 
 	<target name="gae" description="Build and deploy to gwt-dnd.appspot.com" depends="gae-appcfg, clean, javac, gwtc">
 		<exec executable="${gae.appcfg}">
+			<arg value="--oauth2" />
 			<arg value="update" />
 			<arg value="build/war" />
 		</exec>
