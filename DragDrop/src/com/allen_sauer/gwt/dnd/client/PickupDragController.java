@@ -308,6 +308,7 @@ public class PickupDragController extends AbstractDragController {
    * operation.
    *
    * @param dragProxyEnabled <code>true</code> to enable drag proxy behavior
+   * @see HasDragProxy
    */
   public void setBehaviorDragProxy(boolean dragProxyEnabled) {
     this.dragProxyEnabled = dragProxyEnabled;
@@ -351,7 +352,7 @@ public class PickupDragController extends AbstractDragController {
 
   /**
    * Called by {@link PickupDragController#dragStart()} to allow subclasses to provide their own
-   * drag proxies.
+   * drag proxies. Widgets that implement {@link HasDragProxy} are evaluated here as well.
    *
    * @param context the current drag context
    * @return a new drag proxy
@@ -363,9 +364,17 @@ public class PickupDragController extends AbstractDragController {
     WidgetArea draggableArea = new WidgetArea(context.draggable, null);
     for (Widget widget : context.selectedWidgets) {
       WidgetArea widgetArea = new WidgetArea(widget, null);
-      Widget proxy = new SimplePanel();
-      proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
-      proxy.addStyleName(DragClientBundle.INSTANCE.css().proxy());
+      Widget proxy;
+      
+      if (widget instanceof HasDragProxy){
+    	  proxy = ((HasDragProxy) widget).getDragProxy();
+      }
+      else {
+    	  proxy = new SimplePanel();    	  
+    	  proxy.setPixelSize(widget.getOffsetWidth(), widget.getOffsetHeight());
+    	  proxy.addStyleName(DragClientBundle.INSTANCE.css().proxy());
+      }
+      
       container.add(proxy, widgetArea.getLeft() - draggableArea.getLeft(), widgetArea.getTop()
           - draggableArea.getTop());
     }
