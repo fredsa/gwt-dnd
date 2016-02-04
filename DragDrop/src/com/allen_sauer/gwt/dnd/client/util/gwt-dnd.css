@@ -60,7 +60,10 @@ HTML { /* Workaround for GWT issue 1932 */
 }
 
 .dragdrop-selected,.dragdrop-dragging,.dragdrop-proxy {
-	filter: alpha(opacity = 30);
+	-webkit-filter: opacity(.3);
+	-moz-opacity: 0.3;
+	-khtml-opacity: 0.3;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
 	opacity: 0.3;
 }
 
