@@ -501,7 +501,11 @@ class MouseDragHandler
   }
 
   private void doSelectionToggle(HumanInputEvent<?> event) {
-    Widget widget = dragHandleMap.get(mouseDownWidget).getDragable();
+    RegisteredDraggable registeredDraggable = dragHandleMap.get(mouseDownWidget);
+    if (registeredDraggable == null) {
+      return;
+    }
+    Widget widget = registeredDraggable.getDragable();
     assert widget != null;
     if (!toggleKey(event)) {
       context.dragController.clearSelection();
