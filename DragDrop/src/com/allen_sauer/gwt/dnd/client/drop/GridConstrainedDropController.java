@@ -36,8 +36,12 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
 
   @Override
   public void drop(Widget widget, int left, int top) {
-    left = Math.max(0, Math.min(left, dropTarget.getOffsetWidth() - widget.getOffsetWidth()));
-    top = Math.max(0, Math.min(top, dropTarget.getOffsetHeight() - widget.getOffsetHeight()));
+    int scrollLeft = Math.round(elementBox.getParent().getElement().getScrollLeft());
+		int scrollTop = Math.round(elementBox.getParent().getElement().getScrollTop());
+    left = left + scrollLeft;
+    top = top + scrollTop;
+    left = Math.max(0, Math.min(left, dropTarget.getOffsetWidth() - widget.getOffsetWidth() + scrollLeft));
+    top = Math.max(0, Math.min(top, dropTarget.getOffsetHeight() - widget.getOffsetHeight() + scrollTop));
     left = Math.round((float) left / gridX) * gridX;
     top = Math.round((float) top / gridY) * gridY;
     dropTarget.add(widget, left, top);
@@ -46,13 +50,15 @@ public class GridConstrainedDropController extends AbsolutePositionDropControlle
   @Override
   public void onMove(DragContext context) {
     super.onMove(context);
+    int scrollLeft = Math.round(elementBox.getParent().getElement().getScrollLeft());
+		int scrollTop = Math.round(elementBox.getParent().getElement().getScrollTop());
     for (Draggable draggable : draggableList) {
       draggable.desiredX = context.desiredDraggableX - dropTargetOffsetX + draggable.relativeX;
       draggable.desiredY = context.desiredDraggableY - dropTargetOffsetY + draggable.relativeY;
       draggable.desiredX = Math.max(0, Math.min(draggable.desiredX, dropTargetClientWidth
-          - draggable.offsetWidth));
+          - draggable.offsetWidth + scrollLeft));
       draggable.desiredY = Math.max(0, Math.min(draggable.desiredY, dropTargetClientHeight
-          - draggable.offsetHeight));
+          - draggable.offsetHeight + scrollLeft));
       draggable.desiredX = Math.round((float) draggable.desiredX / gridX) * gridX;
       draggable.desiredY = Math.round((float) draggable.desiredY / gridY) * gridY;
       dropTarget.add(draggable.positioner, draggable.desiredX, draggable.desiredY);
