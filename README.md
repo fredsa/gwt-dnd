@@ -1,3 +1,6 @@
+![status: inactive](https://img.shields.io/badge/status-inactive-red.svg)
+
+This project is no longer actively developed or maintained.
 # Summary #
 Library providing easy to use mouse or touch (for mobile devices) based drag-and-drop capabilities to [Google Web Toolkit](http://www.gwtproject.org/) (GWT) projects.
 
